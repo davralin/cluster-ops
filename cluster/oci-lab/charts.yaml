@@ -1,0 +1,20 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: stakater-charts
+  namespace: flux-system
+spec:
+  interval: 15m
+  url: https://stakater.github.io/stakater-charts
+  timeout: 3m
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: weaveworks-charts
+  namespace: flux-system
+spec:
+  interval: 15m
+  url: https://weaveworks.github.io/kured
+  timeout: 3m
