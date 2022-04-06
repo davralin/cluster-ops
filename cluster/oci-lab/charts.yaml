@@ -18,3 +18,23 @@ spec:
   interval: 15m
   url: https://weaveworks.github.io/kured
   timeout: 3m
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: HelmRepository
+metadata:
+  name: rook-ceph-charts
+  namespace: flux-system
+spec:
+  interval: 30m
+  url: https://charts.rook.io/release
+  timeout: 3m
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: HelmRepository
+metadata:
+  name: calico-tigera-charts
+  namespace: flux-system
+spec:
+  interval: 30m
+  url: https://docs.projectcalico.org/charts/
+  timeout: 3m
