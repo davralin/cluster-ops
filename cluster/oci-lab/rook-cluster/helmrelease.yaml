@@ -1,0 +1,56 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: rook-ceph-cluster
+  namespace: rook-ceph
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: rook-ceph-cluster
+      version: v1.8.8
+      sourceRef:
+        kind: HelmRepository
+        name: rook-ceph-charts
+        namespace: flux-system
+  values:
+    toolbox:
+      enabled: true
+    monitoring:
+      enabled: false
+      storage:
+        useAllNodes: false
+        useAllDevices: false
+        config:
+          osdsPerDevice: "1"
+        nodes:
+          - name: "amd1"
+            devices:
+              - name: "/dev/sda2"
+          - name: "amd2"
+            devices:
+              - name: "/dev/sda2"
+          - name: "arm1"
+            devices:
+              - name: "/dev/sda4"
+          - name: "arm2"
+            devices:
+              - name: "/dev/sda4"
+          - name: "arm3"
+            devices:
+              - name: "/dev/sda4"
+    cephBlockPools:
+      - name: ceph-blockpool
+        spec:
+          failureDomain: host
+          replicated:
+            size: 3
+        storageClass:
+          enabled: true
+          name: ceph-block
+          isDefault: true
+          reclaimPolicy: Delete
+          allowVolumeExpansion: true
+    cephFileSystems: []
+    cephObjectStores: []
