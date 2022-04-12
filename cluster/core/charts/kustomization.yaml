@@ -15,4 +15,3 @@ resources:
   - prometheus.yaml
   - rook-ceph.yaml
   - stakater.yaml
-  - weaveworks.yaml

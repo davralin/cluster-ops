@@ -5,9 +5,7 @@ resources:
   - airconnect
   - descheduler
   - haproxy-ingress
-  - kured
   - metallb
   - node-feature-discovery
   - reloader
-  #- system-upgrade-controller
-  - warrior
+  #- warrior

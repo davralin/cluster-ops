@@ -8,7 +8,7 @@ spec:
   interval: 10m0s
   dependsOn:
     - name: core
-  path: ./cluster/storage/home-k3s
+  path: ./cluster/storage/home-k8s
   prune: true
   sourceRef:
     kind: GitRepository
