@@ -1,0 +1,76 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nitter
+  namespace: frontend
+spec:
+  selector:
+    matchLabels:
+      app: nitter
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        configmap.reloader.stakater.com/reload: nitter-config
+      labels:
+        app: nitter
+    spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: "app"
+                    operator: In
+                    values:
+                      - nitter
+              topologyKey: "kubernetes.io/hostname"
+      restartPolicy: Always
+      containers:
+        - name: redis
+          image: redis:6.2.6-alpine
+          livenessProbe:
+            tcpSocket:
+              port: 6379
+            initialDelaySeconds: 300
+            periodSeconds: 30
+          ports:
+            - containerPort: 6379
+              protocol: TCP
+              name: redis
+          resources:
+            requests:
+              cpu: 10m
+              memory: 32Mi
+            limits:
+              cpu: 50m
+              memory: 128Mi
+        - name: nitter
+          image: zedeus/nitter
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+              name: web
+          resources:
+            requests:
+              cpu: 50m
+              memory: 100Mi
+            limits:
+              cpu: 200m
+              memory: 200Mi
+          livenessProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 300
+            periodSeconds: 30
+          volumeMounts:
+            - name: nitter-config
+              mountPath: /src/nitter.conf
+              subPath: nitter.conf
+      volumes:
+        - name: nitter-config
+          configMap:
+            name: nitter-config

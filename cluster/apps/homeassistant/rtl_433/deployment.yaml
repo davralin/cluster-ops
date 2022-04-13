@@ -1,0 +1,43 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rtl433
+  namespace: homeassistant
+spec:
+  selector:
+    matchLabels:
+      app: rtl433
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: rtl433
+    spec:
+      restartPolicy: Always
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: "feature.node.kubernetes.io/custom-rtl-sdr-433mhz"
+                    operator: In
+                    values:
+                     - "true"
+      containers:
+        - name: rtl433
+          image: ghcr.io/hertzg/rtl_433_docker
+          securityContext:
+            privileged: true
+          args:
+           - "-Fkv"
+           - "-Fmqtt://mosquitto.homeassistant.svc.cluster.local:1883,retain=1"
+          volumeMounts:
+            - name: dev
+              mountPath: /dev
+      volumes:
+        - name: dev
+          hostPath:
+            path: /dev

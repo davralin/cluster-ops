@@ -1,0 +1,19 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: wildcard-public-domain
+  namespace: cert-manager
+spec:
+  secretName: "${SECRET_PUBLIC_DOMAIN_CERT}"
+  secretTemplate:
+    annotations:
+      kubed.appscode.com/sync: ""
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  privateKey:
+    rotationPolicy: Always
+  dnsNames:
+    - "*.${SECRET_PUBLIC_DOMAIN}"
+    - "${SECRET_PUBLIC_DOMAIN}"

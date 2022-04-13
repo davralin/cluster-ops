@@ -1,0 +1,11 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: bibliogram-config
+  namespace: frontend
+data:
+  config.js: |
+    module.exports = {
+        website_origin: "https://bibliogram.${SECRET_PUBLIC_DOMAIN}"
+    }

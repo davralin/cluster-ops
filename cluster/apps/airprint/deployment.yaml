@@ -1,0 +1,39 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: airprint
+  namespace: airprint
+spec:
+  selector:
+    matchLabels:
+      app: airprint
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: airprint
+    spec:
+      hostNetwork: true
+      containers:
+        - name: airprint
+          image: chuckcharlie/cups-avahi-airprint:1.0.5
+          env:
+            - name: CUPSADMIN
+              value: "${SECRET_CUPSADMIN}"
+            - name: CUPSPASSWORD
+              value: "${SECRET_CUPSPASSWORD}"
+          volumeMounts:
+            - mountPath: /services
+              subPath: services
+              name: airprint
+            - mountPath: /config
+              subPath: config
+              name: airprint
+      restartPolicy: Always
+      volumes:
+        - name: airprint
+          persistentVolumeClaim:
+            claimName: airprint
