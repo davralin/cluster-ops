@@ -1,0 +1,45 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apt-cacher-ng
+  namespace: repository
+  labels:
+    app: apt-cacher-ng
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: apt-cacher-ng
+  template:
+    metadata:
+      labels:
+        app: apt-cacher-ng
+    spec:
+      containers:
+        - name: apt-cacher-ng
+          image: danchal/aptproxy:latest
+          ports:
+            - name: apt-cacher-ng
+              containerPort: 3142
+          livenessProbe:
+            tcpSocket:
+              port: 3142
+            initialDelaySeconds: 120
+            periodSeconds: 30
+          resources:
+            requests:
+              cpu: 25m
+              memory: 32Mi
+            limits:
+              cpu: 100m
+              memory: 128Mi
+          volumeMounts:
+            - name: apt-cacher-ng
+              mountPath: /data/cache
+      volumes:
+        - name: apt-cacher-ng
+          persistentVolumeClaim:
+            claimName: apt-cacher-ng

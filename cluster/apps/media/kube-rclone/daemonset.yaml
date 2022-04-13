@@ -1,0 +1,70 @@
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: kube-rclone
+  namespace: media
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: kube-rclone
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: kube-rclone
+    spec:
+      initContainers:
+      - name: kube-rclone-config
+        image: busybox:1.35.0
+        command:
+          - cp
+        args:
+          - -v
+          - /in/rclone.conf
+          - /out/rclone.conf
+        volumeMounts:
+        - name: config-data
+          mountPath: /in
+        - name: config
+          mountPath: /out
+      terminationGracePeriodSeconds: 120
+      containers:
+      - name: kube-rclone-rclone
+        image: rclone/rclone:1.58
+        args:
+          - mount
+          - "gcrypt:"
+          - /var/media/gcrypt
+          - --config=/etc/rclone/rclone.conf
+          - --allow-non-empty
+          - --allow-other
+          - --read-only
+        lifecycle:
+          preStop:
+            exec:
+              command: ["/bin/sh","-c","fusermount -uz /var/media/gcrypt"]
+        securityContext:
+          privileged: true
+          capabilities:
+            add:
+              - SYS_ADMIN
+        volumeMounts:
+        - name: config
+          mountPath: /etc/rclone
+        - name: data
+          mountPath: /var/lib/rclone
+        - name: media
+          mountPath: /var/media/gcrypt
+          mountPropagation: Bidirectional
+      volumes:
+      - name: config
+        emptyDir: {}
+      - name: config-data
+        secret:
+          secretName: rclone-config
+      - name: media
+        hostPath:
+          path: /var/media/gcrypt
+      - name: data
+        hostPath:
+          path: /var/lib/rclone/

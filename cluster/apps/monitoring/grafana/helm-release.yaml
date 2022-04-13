@@ -1,0 +1,159 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: grafana
+  namespace: flux-system
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: grafana
+      version: 6.26.1
+      sourceRef:
+        kind: HelmRepository
+        name: grafana-charts
+        namespace: flux-system
+      interval: 5m
+  targetNamespace: monitoring
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  values:
+    image:
+      repository: grafana/grafana
+      tag: 8.4.6
+    replicas: 1
+    env:
+      GF_EXPLORE_ENABLED: true
+      GF_PANELS_DISABLE_SANITIZE_HTML: true
+      GF_LOG_FILTERS: rendering:debug
+      GF_DATE_FORMATS_FULL_DATE: "MMM Do, YYYY hh:mm:ss a"
+    adminPassword: "${SECRET_GRAFANA_PASSWORD}"
+    grafana.ini:
+      server:
+        root_url: "https://grafana.${SECRET_PRIVATE_DOMAIN}"
+      paths:
+        data: /var/lib/grafana/data
+        logs: /var/log/grafana
+        plugins: /var/lib/grafana/plugins
+        provisioning: /etc/grafana/provisioning
+      analytics:
+        check_for_updates: false
+      log:
+        mode: console
+      grafana_net:
+        url: https://grafana.net
+      auth.basic:
+        disable_login_form: false
+    dashboardProviders:
+      dashboardproviders.yaml:
+        apiVersion: 1
+        providers:
+          - name: "default"
+            orgId: 1
+            folder: ""
+            type: file
+            disableDeletion: false
+            editable: true
+            options:
+              path: /var/lib/grafana/dashboards/default
+    datasources:
+      datasources.yaml:
+        apiVersion: 1
+        # list of datasources that should be deleted from the database
+        deleteDatasources:
+          - name: Loki
+            orgId: 1
+        datasources:
+          - name: Prometheus
+            type: prometheus
+            access: proxy
+            url: http://prometheus-service:9090
+            isDefault: true
+          - name: Loki
+            type: loki
+            access: proxy
+            url: http://loki:3100
+    dashboards:
+      default:
+        # Ref: https://grafana.com/grafana/dashboards/13168
+        #adbs:
+          #gnetId: 13168
+          #revision: 4
+          #datasource: InfluxDB-readsb
+        # Ref: https://grafana.com/grafana/dashboards/5342
+        ceph-pools:
+          gnetId: 5342
+          revision: 5
+          datasource: Prometheus
+        # Ref: https://grafana.com/grafana/dashboards/2842
+        ceph-overview:
+          gnetId: 2842
+          revision: 14
+          datasource: Prometheus
+        # Ref: https://grafana.com/grafana/dashboards/5336
+        ceph-osd:
+          gnetId: 5336
+          revision: 5
+          datasource: Prometheus
+        # Ref: https://grafana.com/grafana/dashboards/6739
+        k8s-pvc:
+          gnetId: 6739
+          revision: 1
+          datasource: Prometheus
+        # Ref: https://grafana.com/grafana/dashboards/12006
+        k8s-api:
+          gnetId: 12006
+          revision: 1
+          datasource: Prometheus
+        # Ref: https://grafana.com/grafana/dashboards/1860
+        node-exporter-full:
+          gnetId: 1860
+          revision: 26
+          datasource: Prometheus
+    sidecar:
+      image:
+        repository: quay.io/kiwigrid/k8s-sidecar
+        tag: 1.15.9
+      dashboards:
+        enabled: true
+        searchNamespace: ALL
+        folderAnnotation: grafana_folder
+        provider:
+          foldersFromFilesStructure: true
+      datasources:
+        enabled: true
+        searchNamespace: ALL
+    plugins:
+      - snuids-radar-panel
+    serviceMonitor:
+      enabled: false
+    ingress:
+      enabled: true
+      annotations:
+        haproxy.org/whitelist: "${HAPROXY_WHITELIST}"
+        haproxy.org/response-set-header: |
+          Strict-Transport-Security "max-age=31536000"
+          X-Frame-Options "DENY"
+          X-Content-Type-Options "nosniff"
+          Referrer-Policy "no-referrer-when-downgrade"
+      hosts:
+        - "grafana.${SECRET_PRIVATE_DOMAIN}"
+      tls:
+        - secretName: "${SECRET_PRIVATE_DOMAIN_CERT}"
+          hosts:
+            - "grafana.${SECRET_PRIVATE_DOMAIN}"
+    serviceAccount:
+      create: true
+      autoMount: true
+    persistence:
+      enabled: false
+    initChownData:
+      image:
+        repository: busybox
+        tag: 1.35.0

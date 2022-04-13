@@ -1,0 +1,18 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: readsb-protobuf
+  name: readsb-protobuf
+  namespace: adsb
+spec:
+  ports:
+    - name: sbs_basestation_protocol_output
+      port: 30003
+      targetPort: 30003
+    - name: beast_protocol_output
+      port: 30005
+      targetPort: 30005
+  selector:
+    app: readsb-protobuf

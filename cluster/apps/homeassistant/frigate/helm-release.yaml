@@ -1,0 +1,142 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: frigate
+  namespace: homeassistant
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: frigate
+      version: 8.0.0
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home-charts
+        namespace: flux-system
+      interval: 5m
+  targetNamespace: homeassistant
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  values:
+    image:
+      repository: docker.io/blakeblackshear/frigate
+      tag: 0.10.1-amd64
+    podAnnotations:
+      configmap.reloader.stakater.com/reload: "frigate-config"
+    env:
+      TZ: "${TIMEZONE}"
+    ingress:
+      main:
+        enabled: true
+        annotations:
+          haproxy.org/whitelist: "${HAPROXY_WHITELIST}"
+          haproxy.org/response-set-header: |
+            Strict-Transport-Security "max-age=31536000"
+            X-Frame-Options "DENY"
+            X-Content-Type-Options "nosniff"
+            Referrer-Policy "no-referrer-when-downgrade"
+        hosts:
+          - host: "frigate.${SECRET_PRIVATE_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - secretName: "${SECRET_PRIVATE_DOMAIN_CERT}"
+    persistence:
+      data:
+        enabled: true
+        existingClaim: frigate
+    resources:
+      requests:
+        gpu.intel.com/i915: 1
+        memory: 100Mi
+        cpu: 500m
+      limits:
+        gpu.intel.com/i915: 1
+        memory: 3000Mi
+    config: |
+      mqtt:
+        # Required: host name
+        host: homeassistant-mosquitto
+        # Optional: port (default: shown below)
+        port: 1883
+        # Optional: topic prefix (default: shown below)
+        # WARNING: must be unique if you are running multiple instances
+        topic_prefix: frigate
+        # Optional: client id (default: shown below)
+        # WARNING: must be unique if you are running multiple instances
+        client_id: frigate
+        # Optional: user
+        # user: mqtt_user
+        # Optional: password
+        # NOTE: Environment variables that begin with 'FRIGATE_' may be referenced in {}.
+        #       eg. password: '{FRIGATE_MQTT_PASSWORD}'
+        # password: password
+        # Optional: interval in seconds for publishing stats (default: shown below)
+        stats_interval: 60
+
+      ffmpeg:
+        # Optional: global ffmpeg args (default: shown below)
+        global_args: -hide_banner -loglevel warning
+        # Optional: global hwaccel args (default: shown below)
+        # NOTE: See hardware acceleration docs for your specific device
+        hwaccel_args:
+          - -hwaccel
+          - vaapi
+          - -hwaccel_device
+          - /dev/dri/renderD128
+          - -hwaccel_output_format
+          - yuv420p
+
+      detectors:
+        # coral:
+        #   type: edgetpu
+        #   device: usb
+        cpu1:
+          type: cpu
+
+      cameras:
+        # Name of your camera
+        dor:
+          ffmpeg:
+            inputs:
+              - path: rtsp://10.0.1.24:8554/dor
+                roles:
+                  - detect
+                  - record
+                  - rtmp
+          detect:
+            width: 1280
+            height: 720
+          objects:
+            track:
+              - person
+              - cat
+        hage:
+          ffmpeg:
+            inputs:
+              - path: rtsp://10.0.1.23:8554/hage
+                roles:
+                  - detect
+                  - record
+                  - rtmp
+          detect:
+            width: 1280
+            height: 720
+          objects:
+            track:
+              - person
+              - cat
+      timestamp_style:
+        # Optional: Format specifier conform to the Python package "datetime" (default: shown below)
+        #           Additional Examples:
+        #             german: "%d.%m.%Y %H:%M:%S"
+        format: "%d/%m/%y %H:%M:%S"
+        # Optional: Line thickness of font (default: shown below)
+        thickness: 1

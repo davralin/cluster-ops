@@ -1,0 +1,16 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: apt-cacher-ng
+  name: apt-cacher-ng
+  namespace: repository
+spec:
+  ports:
+    - name: apt-cacher-ng
+      port: 3142
+      targetPort: 3142
+  selector:
+    app: apt-cacher-ng
+  type: LoadBalancer
