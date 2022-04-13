@@ -1,0 +1,125 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: homeassistant
+  namespace: homeassistant
+spec:
+  selector:
+    matchLabels:
+      app: homeassistant
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: homeassistant
+    spec:
+      restartPolicy: Always
+      initContainers:
+        - name: init-chown-config
+          image: busybox:1.35.0
+          command:
+            - /bin/chown
+            - -R
+            - "1000:1000"
+            - /config
+          volumeMounts:
+            - name: homeassistant
+              mountPath: /config
+              subPath: homeassistant
+        - name: init-chown-database
+          image: busybox:1.35.0
+          command:
+            - /bin/chown
+            - -R
+            - "70:70"
+            - /postgresql
+          volumeMounts:
+            - name: homeassistant
+              mountPath: /postgresql
+              subPath: homeassistant
+      containers:
+        - name: database
+          image: postgres:14-alpine
+          securityContext:
+            privileged: false
+            runAsUser: 70
+          ports:
+            - containerPort: 5432
+              protocol: TCP
+              name: postgresql
+          resources:
+            requests:
+              cpu: 20m
+              memory: 200Mi
+            limits:
+              cpu: 200m
+              memory: 400Mi
+          livenessProbe:
+            tcpSocket:
+              port: 5432
+            initialDelaySeconds: 300
+            periodSeconds: 30
+          env:
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: homeassistant-postgresql
+                  key: POSTGRES_PASSWORD
+            - name: POSTGRES_DB
+              value: "homeassistantdb"
+            - name: POSTGRES_USER
+              value: "homeassistant"
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              subPath: postgresql
+              name: homeassistant
+        - name: homeassistant
+          image: ghcr.io/home-assistant/home-assistant:2022.4.3
+          ports:
+            - name: web
+              containerPort: 8123
+          env:
+            - name: TZ
+              value: "${TIMEZONE}"
+          livenessProbe:
+            httpGet:
+              path: /
+              port: web
+            initialDelaySeconds: 300
+            periodSeconds: 30
+          volumeMounts:
+            - name: homeassistant
+              mountPath: /config
+              subPath: homeassistant
+        - name: vscode
+          image: lscr.io/linuxserver/code-server:4.2.0
+          ports:
+            - name: code
+              containerPort: 8443
+          env:
+            - name: TZ
+              value: "${TIMEZONE}"
+            - name: PUID
+              value: "1000"
+            - name: PGID
+              value: "1000"
+          livenessProbe:
+            httpGet:
+              path: /
+              port: code
+            initialDelaySeconds: 300
+            periodSeconds: 30
+          volumeMounts:
+            - name: homeassistant
+              mountPath: /config
+              subPath: vscode
+            - name: homeassistant
+              mountPath: /config/workspace
+              subPath: homeassistant
+      volumes:
+        - name: homeassistant
+          persistentVolumeClaim:
+            claimName: homeassistant

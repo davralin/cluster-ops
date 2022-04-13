@@ -1,0 +1,28 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: homeassistant
+  namespace: homeassistant
+spec:
+  ports:
+    - name: homeassistant
+      port: 8123
+      targetPort: 8123
+  selector:
+    app: homeassistant
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: homeassistant
+  name: vscode
+  namespace: homeassistant
+spec:
+  ports:
+    - name: vscode
+      port: 8443
+      targetPort: 8443
+  selector:
+    app: homeassistant

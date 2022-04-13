@@ -1,0 +1,29 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: warrior-ingress
+  namespace: warrior
+  annotations:
+    haproxy.org/whitelist: "${HAPROXY_WHITELIST}"
+    haproxy.org/response-set-header: |
+      Strict-Transport-Security "max-age=31536000"
+      X-Frame-Options "DENY"
+      X-Content-Type-Options "nosniff"
+      Referrer-Policy "no-referrer-when-downgrade"
+spec:
+  rules:
+    - host: "warrior.${SECRET_PUBLIC_DOMAIN}"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: warrior
+                port:
+                  number: 8000
+  tls:
+    - secretName: "${SECRET_PUBLIC_DOMAIN_CERT}"
+      hosts:
+        - "warrior.${SECRET_PUBLIC_DOMAIN}"

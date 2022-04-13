@@ -1,0 +1,17 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - appscode.yaml
+  - bitnami.yaml
+  - deliveryhero.yaml
+  - descheduler.yaml
+  - grafana.yaml
+  - haproxytech.yaml
+  - jetstack.yaml
+  - k8s-at-home.yaml
+  - metallb.yaml
+  - node-feature-discovery.yaml
+  - prometheus.yaml
+  - rook-ceph.yaml
+  - stakater.yaml

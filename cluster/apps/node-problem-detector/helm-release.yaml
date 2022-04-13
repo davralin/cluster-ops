@@ -1,0 +1,30 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: node-problem-detector
+  namespace: flux-system
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: node-problem-detector
+      version: 2.2.0
+      sourceRef:
+        kind: HelmRepository
+        name: deliveryhero-charts
+        namespace: flux-system
+      interval: 5m
+  targetNamespace: node-problem-detector
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  values:
+    metrics:
+      enabled: false
+      serviceMonitor:
+        enabled: false

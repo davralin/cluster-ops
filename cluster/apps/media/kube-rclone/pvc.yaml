@@ -1,0 +1,27 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: gcrypt-host-path
+  namespace: media
+spec:
+  storageClassName: ""
+  capacity:
+    storage: 1Gi
+  accessModes:
+  - ReadOnlyMany
+  hostPath:
+    path: /var/media/gcrypt
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: gcrypt-host-path
+  namespace: media
+spec:
+  storageClassName: ""
+  accessModes:
+    - ReadOnlyMany
+  resources:
+    requests:
+      storage: 1Gi

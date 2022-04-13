@@ -1,0 +1,58 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bibliogram
+  namespace: frontend
+spec:
+  selector:
+    matchLabels:
+      app: bibliogram
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        configmap.reloader.stakater.com/reload: bibliogram-config
+      labels:
+        app: bibliogram
+    spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: "app"
+                    operator: In
+                    values:
+                      - bibliogram
+              topologyKey: "kubernetes.io/hostname"
+      restartPolicy: Always
+      containers:
+        - name: bibliogram
+          image: cloudrac3r/bibliogram
+          ports:
+            - containerPort: 10407
+              protocol: TCP
+              name: web
+          resources:
+            requests:
+              cpu: 50m
+              memory: 100Mi
+            limits:
+              cpu: 200m
+              memory: 200Mi
+          livenessProbe:
+            tcpSocket:
+              port: 10407
+            initialDelaySeconds: 300
+            periodSeconds: 30
+          volumeMounts:
+            - name: bibliogram-config
+              mountPath: /app/config.js
+              subPath: config.js
+      volumes:
+        - name: bibliogram-config
+          configMap:
+            name: bibliogram-config

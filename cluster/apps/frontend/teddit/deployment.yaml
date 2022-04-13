@@ -1,0 +1,74 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: teddit
+  namespace: frontend
+spec:
+  selector:
+    matchLabels:
+      app: teddit
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: teddit
+    spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: "app"
+                    operator: In
+                    values:
+                      - teddit
+              topologyKey: "kubernetes.io/hostname"
+      containers:
+        - name: redis
+          image: redis:6.2.6-alpine
+          livenessProbe:
+            tcpSocket:
+              port: 6379
+            initialDelaySeconds: 300
+            periodSeconds: 30
+          ports:
+            - containerPort: 6379
+              protocol: TCP
+              name: redis
+          resources:
+            requests:
+              cpu: 20m
+              memory: 64Mi
+            limits:
+              cpu: 40m
+              memory: 256Mi
+          env:
+            - name: REDIS_REPLICATION_MODE
+              value: "master"
+        - name: teddit
+          image: teddit/teddit
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+              name: web
+          resources:
+            requests:
+              cpu: 50m
+              memory: 150Mi
+            limits:
+              cpu: 200m
+              memory: 300Mi
+          livenessProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 300
+            periodSeconds: 30
+          env:
+            - name: REDIS_HOST
+              value: "localhost"
+            - name: DOMAIN
+              value: "teddit.${SECRET_PUBLIC_DOMAIN}"
+      restartPolicy: Always

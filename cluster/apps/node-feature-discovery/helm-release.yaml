@@ -1,0 +1,74 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: node-feature-discovery
+  namespace: flux-system
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: node-feature-discovery
+      version: 0.11.0
+      sourceRef:
+        kind: HelmRepository
+        name: node-feature-discovery-charts
+        namespace: flux-system
+  targetNamespace: node-feature-discovery
+  install:
+    createNamespace: true
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace
+  values:
+    image:
+      repository: k8s.gcr.io/nfd/node-feature-discovery
+      tag: v0.11.0
+      imagePullPolicy: IfNotPresent
+    nodeFeatureRule:
+      createCRD: true
+    worker:
+      annotations:
+        configmap.reloader.stakater.com/reload: node-feature-discovery-worker-conf
+      config:
+        core:
+          sources:
+            - custom
+            - pci
+            - usb
+        sources:
+          usb:
+            deviceClassWhitelist:
+              - "02"
+              - "03"
+              - "0e"
+              - "ef"
+              - "fe"
+              - "ff"
+            deviceLabelFields:
+              - class
+              - vendor
+              - device
+              - serial
+          custom:
+            - name: intel-gpu
+              matchOn:
+                - pciId:
+                    class: ["0300"]
+                    vendor: ["8086"]
+            - name: logitech-webcam
+              matchOn:
+                - usbId:
+                    vendor: ["046d", "081d"]
+            - name: rtl-sdr-433mhz
+              matchOn:
+                - usbId:
+                    vendor: ["0bda", "2838"]
+            - name: zwave-conbee-ii
+              matchOn:
+                - usbId:
+                    vendor: ["1cf1", "0030"]
+            - name: usb-backupdrive
+              matchOn:
+                - usbId:
+                    vendor: ["0bc2", "ab30"]
