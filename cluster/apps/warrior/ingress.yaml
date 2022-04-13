@@ -22,7 +22,7 @@ spec:
               service:
                 name: warrior
                 port:
-                  number: 8000
+                  number: 8001
   tls:
     - secretName: "${SECRET_PUBLIC_DOMAIN_CERT}"
       hosts:
