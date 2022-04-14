@@ -15,6 +15,7 @@ resources:
   - intel-gpu
   - kubed
   - mailrelay
+  - matrix
   - media
   - metallb
   - monitoring
