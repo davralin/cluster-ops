@@ -4,4 +4,10 @@ kind: Kustomization
 resources:
   - deployment.yaml
   - namespace.yaml
-  - secret.yaml
+secretGenerator:
+- name: docker-cloudflare-config
+  namespace: ddns
+  files:
+  - config-yaml
+generatorOptions:
+  disableNameSuffixHash: true
