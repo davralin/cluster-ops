@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: apt-cacher-ng
-          image: danchal/aptproxy:latest
+          image: ghcr.io/sameersbn/apt-cacher-ng
           ports:
             - name: apt-cacher-ng
               containerPort: 3142
@@ -38,7 +38,7 @@ spec:
               memory: 128Mi
           volumeMounts:
             - name: apt-cacher-ng
-              mountPath: /data/cache
+              mountPath: /var/cache/apt-cacher-ng
       volumes:
         - name: apt-cacher-ng
           persistentVolumeClaim:
