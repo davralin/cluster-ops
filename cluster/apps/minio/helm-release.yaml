@@ -29,3 +29,5 @@ spec:
       tag: 2022.4.12-debian-10-r0
     persistence:
       existingClaim: minio
+    service:
+      type: LoadBalancer
