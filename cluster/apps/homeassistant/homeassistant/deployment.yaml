@@ -77,7 +77,7 @@ spec:
               subPath: postgresql
               name: homeassistant
         - name: homeassistant
-          image: ghcr.io/home-assistant/home-assistant:2022.4.4
+          image: ghcr.io/home-assistant/home-assistant:2022.4.5
           ports:
             - name: web
               containerPort: 8123
