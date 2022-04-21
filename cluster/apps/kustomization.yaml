@@ -15,7 +15,7 @@ resources:
   - intel-gpu
   - kubed
   - mailrelay
-  - matrix
+  #- matrix
   - media
   - metallb
   - minio
