@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
         - name: prometheus
-          image: quay.io/prometheus/prometheus:v2.34.0
+          image: quay.io/prometheus/prometheus:v2.35.0
           args:
             - "--storage.tsdb.retention.time=2d"
             - "--config.file=/etc/prometheus/prometheus.yml"
