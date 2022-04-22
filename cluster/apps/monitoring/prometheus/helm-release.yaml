@@ -1,0 +1,34 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: prometheus
+  namespace: flux-system
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: prometheus
+      version: 15.8.5
+      sourceRef:
+        kind: HelmRepository
+        name: prometheus-community
+        namespace: flux-system
+      interval: 5m
+  targetNamespace: monitoring
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  values:
+  alertmanagerFiles:
+    alertmanager.yml:
+      receivers:
+        - name: receiver1
+          webhook_configs:
+          - url: 'http://matrix-alertmanager.matrix:3000/alerts?secret=${SECRET_MATRIX_ALERTMANAGER_SECRET}'
+      route:
+        receiver: receiver1
