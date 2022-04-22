@@ -53,14 +53,6 @@ data:
         annotations:
           summary: Kubernetes pod crash looping (instance {{ $labels.instance }})
           description: "Pod {{ $labels.pod }} is crash looping\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
-      - alert: HostRequiresReboot
-        expr: node_reboot_required > 0
-        for: 4h
-        labels:
-          severity: info
-        annotations:
-          summary: Host requires reboot (instance {{ $labels.instance }})
-          description: "{{ $labels.instance }} requires a reboot.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
   prometheus.yml: |-
     global:
       evaluation_interval: 60s
