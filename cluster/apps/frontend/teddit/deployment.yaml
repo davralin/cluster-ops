@@ -70,5 +70,5 @@ spec:
             - name: REDIS_HOST
               value: "localhost"
             - name: DOMAIN
-              value: "teddit.${SECRET_PUBLIC_DOMAIN}"
+              value: "r.${SECRET_PUBLIC_DOMAIN}"
       restartPolicy: Always

@@ -7,5 +7,5 @@ metadata:
 data:
   config.js: |
     module.exports = {
-        website_origin: "https://bibliogram.${SECRET_PUBLIC_DOMAIN}"
+        website_origin: "https://i.${SECRET_PUBLIC_DOMAIN}"
     }
