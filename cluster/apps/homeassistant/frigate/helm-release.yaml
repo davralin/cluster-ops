@@ -24,11 +24,12 @@ spec:
     remediation:
       retries: 3
   values:
+    fullnameOverride: frigate
     image:
       repository: docker.io/blakeblackshear/frigate
       tag: 0.10.1-amd64
     podAnnotations:
-      configmap.reloader.stakater.com/reload: "homeassistant-frigate-config"
+      configmap.reloader.stakater.com/reload: "frigate-config"
     env:
       TZ: "${TIMEZONE}"
     ingress:

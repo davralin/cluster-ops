@@ -24,11 +24,12 @@ spec:
     remediation:
       retries: 3
   values:
+    fullnameOverride: mosquitto
     image:
       repository: eclipse-mosquitto
       tag: 2.0.14
     podAnnotations:
-      configmap.reloader.stakater.com/reload: "homeassistant-mosquitto-config"
+      configmap.reloader.stakater.com/reload: "mosquitto-config"
     env:
       TZ: "${TIMEZONE}"
     auth:

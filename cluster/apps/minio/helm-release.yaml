@@ -24,6 +24,7 @@ spec:
     remediation:
       retries: 3
   values:
+    fullnameOverride: minio
     image:
       repository: bitnami/minio
       tag: 2022.4.16-debian-10-r0

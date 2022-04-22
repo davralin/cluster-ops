@@ -24,6 +24,7 @@ spec:
     remediation:
       retries: 3
   values:
+    fullnameOverride: esphome
     image:
       repository: ghcr.io/esphome/esphome
       tag: 2022.4.0

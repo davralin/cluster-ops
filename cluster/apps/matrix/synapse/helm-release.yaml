@@ -24,6 +24,7 @@ spec:
     remediation:
       retries: 3
   values:
+    fullnameOverride: synapse
     serverName: "${SECRET_PUBLIC_DOMAIN}"
     publicServerName: "matrix.${SECRET_PUBLIC_DOMAIN}"
     wellknown:

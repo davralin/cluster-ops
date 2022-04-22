@@ -24,6 +24,7 @@ spec:
     remediation:
       retries: 3
   values:
+    fullnameOverride: intel-gpu-plugin
     image:
       repository: intel/intel-gpu-plugin
       tag: 0.23.0
