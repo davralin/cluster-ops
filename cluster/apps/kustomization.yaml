@@ -13,6 +13,7 @@ resources:
   - haproxy-ingress
   - homeassistant
   - intel-gpu
+  - jobs
   - kubed
   - mailrelay
   #- matrix
