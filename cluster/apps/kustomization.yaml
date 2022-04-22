@@ -16,10 +16,10 @@ resources:
   - jobs
   - kubed
   - mailrelay
-  #- matrix
+  - matrix
   - media
   - metallb
-  #- minio
+  - minio
   - monitoring
   - node-feature-discovery
   - node-problem-detector
