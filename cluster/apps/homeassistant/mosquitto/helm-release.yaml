@@ -27,6 +27,8 @@ spec:
     image:
       repository: eclipse-mosquitto
       tag: 2.0.14
+    podAnnotations:
+      configmap.reloader.stakater.com/reload: "homeassistant-mosquitto-config"
     env:
       TZ: "${TIMEZONE}"
     auth:
