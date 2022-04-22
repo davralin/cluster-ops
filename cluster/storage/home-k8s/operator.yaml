@@ -24,5 +24,6 @@ spec:
     remediation:
       retries: 3
   values:
+    fullnameOverride: rook-ceph
     crds:
       enabled: true
