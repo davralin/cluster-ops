@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: frigate
-      version: 8.0.0
+      version: 7.1.0
       sourceRef:
         kind: HelmRepository
         name: k8s-at-home-charts
@@ -63,7 +63,7 @@ spec:
     config: |
       mqtt:
         # Required: host name
-        host: homeassistant-mosquitto.homeassistant.svc.cluster.local
+        host: homeassistant-mosquitto
         # Optional: port (default: shown below)
         port: 1883
         # Optional: topic prefix (default: shown below)
