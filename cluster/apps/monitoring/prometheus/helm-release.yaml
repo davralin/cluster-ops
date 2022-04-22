@@ -24,11 +24,11 @@ spec:
     remediation:
       retries: 3
   values:
-  alertmanagerFiles:
-    alertmanager.yml:
-      receivers:
-        - name: receiver1
-          webhook_configs:
-          - url: 'http://matrix-alertmanager.matrix:3000/alerts?secret=${SECRET_MATRIX_ALERTMANAGER_SECRET}'
-      route:
-        receiver: receiver1
+    alertmanagerFiles:
+      alertmanager.yml:
+        receivers:
+          - name: receiver1
+            webhook_configs:
+            - url: 'http://matrix-alertmanager.matrix:3000/alerts?secret=${SECRET_MATRIX_ALERTMANAGER_SECRET}'
+        route:
+          receiver: receiver1
