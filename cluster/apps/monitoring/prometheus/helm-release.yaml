@@ -24,6 +24,8 @@ spec:
     remediation:
       retries: 3
   values:
+    pushgateway:
+      enabled: false
     alertmanagerFiles:
       alertmanager.yml:
         receivers:
@@ -32,3 +34,58 @@ spec:
             - url: 'http://matrix-alertmanager.matrix:3000/alerts?secret=${SECRET_MATRIX_ALERTMANAGER_SECRET}'
         route:
           receiver: receiver1
+    serverFiles:
+      alerting_rules.yml:
+        groups:
+          - name: node.alerts
+            rules:
+              - alert: InstanceDown
+                expr: up == 0
+                for: 5m
+                labels:
+                  severity: page
+                annotations:
+                  description: '{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 5 minutes.'
+                  summary: 'Instance {{ $labels.instance }} down'
+              - alert: KubernetesHostHighCPUUsage
+                expr: 100 - (avg by (instance) (irate(node_cpu_seconds_total{mode="idle"}[5m])) * 100) > 90
+                for: 15m
+                labels:
+                  severity: warning
+                  context: node
+                annotations:
+                  summary: High load on node
+                  description: "Node {{ $labels.instance }} has more than 90% CPU load"
+              - alert: KubernetesNodeDiskUsagePercentage
+                expr: (100 - 100 * sum(node_filesystem_avail_bytes{device!~"tmpfs|by-uuid",fstype=~"xfs|ext4"} / node_filesystem_size_bytes{device!~"tmpfs|by-uuid",fstype=~"xfs|ext4"}) BY (instance,device)) > 85
+                for: 5m
+                labels:
+                  severity: warning
+                  context: node
+                annotations:
+                  description: Node disk usage above 85%
+                  summary: Disk usage on target {{ $labels.instance }} at 85%
+              - alert: KubernetesVolumeOutOfDiskSpace
+                expr: kubelet_volume_stats_available_bytes / kubelet_volume_stats_capacity_bytes * 100 < 10
+                for: 2m
+                labels:
+                  severity: warning
+                annotations:
+                  summary: Kubernetes Volume out of disk space (instance {{ $labels.instance }})
+                  description: "Volume is almost full (< 10% left)\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+              - alert: KubernetesVolumeFullInFourDays
+                expr: predict_linear(kubelet_volume_stats_available_bytes[6h], 4 * 24 * 3600) < 0
+                for: 0m
+                labels:
+                  severity: critical
+                annotations:
+                  summary: Kubernetes Volume full in four days (instance {{ $labels.instance }})
+                  description: "{{ $labels.namespace }}/{{ $labels.persistentvolumeclaim }} is expected to fill up within four days. Currently {{ $value | humanize }}% is available.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+              - alert: KubernetesPodCrashLooping
+                expr: increase(kube_pod_container_status_restarts_total[1m]) > 3
+                for: 2m
+                labels:
+                  severity: warning
+                annotations:
+                  summary: Kubernetes pod crash looping (instance {{ $labels.instance }})
+                  description: "Pod {{ $labels.pod }} is crash looping\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
