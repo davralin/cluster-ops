@@ -73,7 +73,7 @@ spec:
           - name: Prometheus
             type: prometheus
             access: proxy
-            url: http://prometheus-service:9090
+            url: http://monitoring-prometheus-server
             isDefault: true
           - name: Loki
             type: loki
