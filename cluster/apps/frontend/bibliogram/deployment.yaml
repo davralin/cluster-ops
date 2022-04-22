@@ -31,7 +31,7 @@ spec:
       restartPolicy: Always
       containers:
         - name: bibliogram
-          image: cloudrac3r/bibliogram
+          image: ghcr.io/xnaas/bibliogram
           ports:
             - containerPort: 10407
               protocol: TCP
