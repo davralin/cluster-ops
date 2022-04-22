@@ -13,7 +13,7 @@ metadata:
       Referrer-Policy "no-referrer-when-downgrade"
 spec:
   rules:
-    - host: "teddit.${SECRET_PUBLIC_DOMAIN}"
+    - host: "r.${SECRET_PUBLIC_DOMAIN}"
       http:
         paths:
           - path: /
@@ -26,4 +26,4 @@ spec:
   tls:
     - secretName: ${SECRET_PUBLIC_DOMAIN_CERT}
       hosts:
-        - "teddit.${SECRET_PUBLIC_DOMAIN}"
+        - "r.${SECRET_PUBLIC_DOMAIN}"
