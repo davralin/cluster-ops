@@ -26,8 +26,8 @@ spec:
     toolbox:
       enabled: true
     monitoring:
-      enabled: true
-      createPrometheusRules: true
+      enabled: false
+      createPrometheusRules: false
     configOverride: |
       [global]
       bdev_enable_discard = true
