@@ -39,7 +39,7 @@ spec:
           volumeMounts:
             - name: homeassistant
               mountPath: /postgresql
-              subPath: homeassistant
+              subPath: postgresql
       containers:
         - name: database
           image: postgres:14-alpine
