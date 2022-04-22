@@ -9,6 +9,7 @@ resources:
   - opensky
   - piaware
   - planefinder
+  - secrets.yaml
   - radarbox
   - readsb-protobuf
   - tar1090
