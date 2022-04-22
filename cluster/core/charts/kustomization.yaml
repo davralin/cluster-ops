@@ -13,6 +13,7 @@ resources:
   - k8s-at-home.yaml
   - metallb.yaml
   - node-feature-discovery.yaml
+  - postgres-operator.yaml
   - prometheus.yaml
   - rook-ceph.yaml
   - stakater.yaml
