@@ -32,6 +32,7 @@ spec:
                 - sync
                 - --drive-stop-on-upload-limit
                 - --ignore-case
+                - --check-first
                 - --verbose
                 - --exclude
                 - /archive/**
