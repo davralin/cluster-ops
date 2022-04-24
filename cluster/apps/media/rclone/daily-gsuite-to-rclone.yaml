@@ -33,7 +33,7 @@ spec:
                 - --drive-stop-on-upload-limit
                 - --ignore-case
                 - --check-first
-                - --delete-first
+                - --delete-before
                 - --verbose
                 - --exclude
                 - /archive/**
