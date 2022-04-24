@@ -37,6 +37,8 @@ spec:
                 - --verbose
                 - --exclude
                 - /archive/**
+                - --exclude
+                - /downloads/**
                 - gcrypt:/
                 - /media/
               volumeMounts:
