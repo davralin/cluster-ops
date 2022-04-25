@@ -5,7 +5,7 @@ metadata:
   name: gcrypt-host-path
   namespace: media
 spec:
-  storageClassName: ""
+  storageClassName: manual
   capacity:
     storage: 1Gi
   accessModes:
@@ -19,7 +19,7 @@ metadata:
   name: gcrypt-host-path
   namespace: media
 spec:
-  storageClassName: ""
+  storageClassName: manual
   accessModes:
     - ReadOnlyMany
   resources:
