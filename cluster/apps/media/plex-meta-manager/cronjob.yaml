@@ -1,0 +1,46 @@
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: daily-plex-meta-manager
+  namespace: media
+spec:
+  schedule: "38 10 * * *"
+  concurrencyPolicy: Replace
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: Never
+          initContainers:
+            - name: init-mkdir-cp-pmm
+              image: busybox:1.35.0
+              command: ['sh', '-c', "/bin/cp -RLfv /tmp/* /config/"]
+              volumeMounts:
+                - name: plex-meta-manager
+                  mountPath: /tmp/config.yaml
+                  subPath: config
+                  readOnly: true
+                - name: plex-meta-manager
+                  mountPath: /tmp/movies.yaml
+                  subPath: movies
+                  readOnly: true
+                - name: pmmconfig
+                  mountPath: /config
+                  readOnly: false
+          containers:
+            - name: daily-plex-meta-manager
+              image: meisnate12/plex-meta-manager:v1.16.5
+              args: ["--config", "/config/config.yaml", "--run"]
+              volumeMounts:
+                - name: pmmconfig
+                  mountPath: /config
+          volumes:
+            - name: plex-meta-manager
+              secret:
+                secretName: plex-meta-manager
+            - name: pmmconfig
+              persistentVolumeClaim:
+                claimName: pmmconfig
