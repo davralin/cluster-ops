@@ -21,14 +21,8 @@ spec:
             - mountPath: /data
               name: media
               readOnly: false
-            - mountPath: /plex
-              name: plex
-              readOnly: false
       restartPolicy: Always
       volumes:
         - name: media
           persistentVolumeClaim:
             claimName: media
-        - name: plex
-          persistentVolumeClaim:
-            claimName: plex

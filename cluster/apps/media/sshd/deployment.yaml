@@ -55,6 +55,9 @@ spec:
               name: media
             - mountPath: /config/ssh_host_keys
               name: sshkeys
+            - mountPath: /plex
+              name: plex
+              readOnly: false
       restartPolicy: Always
       volumes:
         - name: media
@@ -63,3 +66,6 @@ spec:
         - name: sshkeys
           persistentVolumeClaim:
             claimName: sshkeys
+        - name: plex
+          persistentVolumeClaim:
+            claimName: plex
