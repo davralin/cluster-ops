@@ -9,10 +9,10 @@ spec:
   chart:
     spec:
       chart: plex
-      version: 6.2.2
+      version: 0.3.1
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home-charts
+        name: kube-plex
         namespace: flux-system
       interval: 5m
   values:
