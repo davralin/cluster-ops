@@ -20,3 +20,4 @@ resources:
   - prometheus.yaml
   - rook-ceph.yaml
   - stakater.yaml
+  - velero.yaml

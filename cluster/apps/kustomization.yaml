@@ -19,10 +19,11 @@ resources:
   - matrix
   - media
   - metallb
-    #  - minio
+  - minio
   - monitoring
   - node-feature-discovery
   - node-problem-detector
   - reloader
   - rssbridge
+  - velero
   - warrior

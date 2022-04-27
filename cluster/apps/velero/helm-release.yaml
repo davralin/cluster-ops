@@ -1,0 +1,91 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: velero
+  namespace: flux-system
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: velero
+      version: 2.29.4
+      sourceRef:
+        kind: HelmRepository
+        name: vmware-tanzu-charts
+        namespace: flux-system
+      interval: 5m
+  targetNamespace: velero
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  values:
+    fullnameOverride: velero
+    image:
+      repository: ghcr.io/k8s-at-home/velero
+    configuration:
+      extraEnvVars:
+        TZ: "${TIMEZONE}"
+      provider: aws
+      backupStorageLocation:
+        name: default
+        bucket: velero
+        config:
+          region: north-europe-1
+          s3ForcePathStyle: true
+          s3Url: http://10.0.2.9:9000
+          publicUrl: http://10.0.2.9:9000
+      volumeSnapshotLocation:
+        name: aws
+        config:
+          region: north-europe-1
+      resticTimeout: 6h
+      logLevel: debug
+    initContainers:
+      - name: velero-plugin-for-aws
+        image: ghcr.io/k8s-at-home/velero-plugin-for-aws:v1.4.1
+        imagePullPolicy: IfNotPresent
+        volumeMounts:
+          - mountPath: /target
+            name: plugins
+    credentials:
+      existingSecret: velero-s3-creds
+    schedules:
+      hourly-backup:
+        schedule: "20 * * * *"
+        template:
+          ttl: "2h"
+    metrics:
+      enabled: true
+      serviceMonitor:
+        enabled: true
+    snapshotsEnabled: true
+    upgradeCRDs: true
+    cleanUpCRDs: true
+    kubectl:
+      image:
+        repository: ghcr.io/k8s-at-home/kubectl
+        tag: v1.23.6
+    deployRestic: true
+    restic:
+      podVolumePath: /var/lib/kubelet/pods
+      privileged: false
+      tolerations:
+        - key: "node-role.kubernetes.io/master"
+          operator: "Exists"
+      resources:
+        requests:
+          memory: 200Mi
+          cpu: 15m
+        limits:
+          memory: 3000Mi
+    resources:
+      requests:
+        memory: 300Mi
+        cpu: 25m
+      limits:
+        memory: 1500Mi
