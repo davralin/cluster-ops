@@ -2,40 +2,60 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: kube-plex
-  namespace: flux-system
+  name: plex
+  namespace: media
 spec:
   interval: 5m
   chart:
     spec:
-      chart: kube-plex
-      version: 0.3.1
+      chart: plex
+      version: 6.2.2
       sourceRef:
         kind: HelmRepository
-        name: kube-plex
+        name: k8s-at-home-charts
         namespace: flux-system
       interval: 5m
   values:
+    podSecurityContext:
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+      fsGroupChangePolicy: "OnRootMismatch"
+      supplementalGroups:
+      - 44
+      - 107
     image:
-      repository: plexinc/pms-docker
-      tag: 1.26.0.5715-8cf78dab3
-    kubeplex:
-      image:
-        repository: ghcr.io/ressu/kube-plex
-        tag: main
-    timezone: "${TIMEZONE}"
-    service:
-      type: LoadBalancer
+      repository: ghcr.io/k8s-at-home/plex
+      tag: v1.26.0.5715-8cf78dab3
+    env:
+      TZ: "${TIMEZONE}"
     persistence:
-      data:
-        claimName: media
       config:
-        claimName: plex
-      extraData:
-        archive:
-          claimName: gcrypt-host-path
-          mountPath: /archive
-          readOnly: true
+        enabled: true
+        existingClaim: plex
+        mountPath: /config
+      media:
+        enabled: true
+        existingClaim: media
+        mountPath: /data
+        readOnly: true
+      archive:
+        enabled: true
+        existingClaim: gcrypt-host-path
+        mountPath: /archive
+        subPath: archive
+        readOnly: true
+    service:
+      plex:
+        enabled: true
+        type: LoadBalancer
+        ports:
+          plex:
+            enabled: true
+            port: 32400
+            protocol: TCP
+            targetPort: 32400
+        externalTrafficPolicy: Local
     resources:
       requests:
         gpu.intel.com/i915: 1
