@@ -7,5 +7,5 @@ resources:
   - frigate
   - homeassistant
   - namespace.yaml
-  - nodered
+    #  - nodered
   #- rtl_433

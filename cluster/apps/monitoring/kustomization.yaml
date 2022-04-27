@@ -4,6 +4,6 @@ kind: Kustomization
 resources:
   - grafana
 #  - loki
-  - metrics-server
+#  - metrics-server
   - prometheus
   - namespace.yaml
