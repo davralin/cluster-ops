@@ -29,6 +29,22 @@ spec:
       repository: bitnami/minio
       tag: 2022.4.26-debian-10-r0
     persistence:
-      existingClaim: minio
-    service:
-      type: LoadBalancer
+      existingClaim: minio-local
+    volumePermissions:
+      enabled: true
+    ingress:
+      enabled: true
+      annotations:
+        haproxy.org/whitelist: "${HAPROXY_WHITELIST}"
+        haproxy.org/response-set-header: |
+          Strict-Transport-Security "max-age=31536000"
+          X-Frame-Options "DENY"
+          X-Content-Type-Options "nosniff"
+          Referrer-Policy "no-referrer-when-downgrade"
+      hostname: "minio.${SECRET_PRIVATE_DOMAIN}"
+    podAnnotations:
+      prometheus.io/scrape: "true"
+      prometheus.io/path: "/minio/v2/metrics/cluster"
+      prometheus.io/port: "9000"
+    nodeSelector:
+      "feature.node.kubernetes.io/custom-usb-backupdrive": true

@@ -1,13 +1,27 @@
 ---
 apiVersion: v1
-kind: PersistentVolumeClaim
+kind: PersistentVolume
 metadata:
-  name: minio
+  name: minio-local
   namespace: minio
 spec:
-  storageClassName: ceph-block
+  storageClassName: manual
+  capacity:
+    storage: 4Ti
+  accessModes:
+  - ReadWriteOnce
+  hostPath:
+    path: /var/media/minio
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: minio-local
+  namespace: minio
+spec:
+  storageClassName: manual
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 50Gi
+      storage: 4Ti
