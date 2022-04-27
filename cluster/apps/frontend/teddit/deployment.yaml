@@ -28,7 +28,7 @@ spec:
               topologyKey: "kubernetes.io/hostname"
       containers:
         - name: redis
-          image: redis:6.2.6-alpine
+          image: redis:6.2.7-alpine
           livenessProbe:
             tcpSocket:
               port: 6379
