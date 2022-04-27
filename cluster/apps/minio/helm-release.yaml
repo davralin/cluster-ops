@@ -47,4 +47,4 @@ spec:
       prometheus.io/path: "/minio/v2/metrics/cluster"
       prometheus.io/port: "9000"
     nodeSelector:
-      "feature.node.kubernetes.io/custom-usb-backupdrive": true
+      feature.node.kubernetes.io/custom-usb-backupdrive: "true"
