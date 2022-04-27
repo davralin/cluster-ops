@@ -43,7 +43,6 @@ spec:
         enabled: true
         existingClaim: gcrypt-host-path
         mountPath: /archive
-        subPath: archive
         readOnly: true
     service:
       plex:
