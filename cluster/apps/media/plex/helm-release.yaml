@@ -8,7 +8,7 @@ spec:
   interval: 5m
   chart:
     spec:
-      chart: plex
+      chart: kube-plex
       version: 0.3.1
       sourceRef:
         kind: HelmRepository
