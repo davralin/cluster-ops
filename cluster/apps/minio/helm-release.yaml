@@ -46,5 +46,9 @@ spec:
       prometheus.io/scrape: "true"
       prometheus.io/path: "/minio/v2/metrics/cluster"
       prometheus.io/port: "9000"
+      secret.reloader.stakater.com/reload: "minio"
     nodeSelector:
       feature.node.kubernetes.io/custom-usb-backupdrive: "true"
+    auth:
+      rootUser: "${SECRET_MINIO_ADMIN}"
+      rootPassword: "${SECRET_MINIO_PASSWORD}"
