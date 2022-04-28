@@ -121,7 +121,7 @@ spec:
           revision: 4
           datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/13502
-        adbs:
+        minio:
           gnetId: 13502
           revision: 14
           datasource: Prometheus
