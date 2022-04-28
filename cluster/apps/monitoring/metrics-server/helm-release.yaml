@@ -25,3 +25,5 @@ spec:
       retries: 3
   values:
     fullnameOverride: metrics-server
+    args:
+      - --kubelet-insecure-tls
