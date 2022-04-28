@@ -33,12 +33,12 @@ spec:
       provider: aws
       backupStorageLocation:
         name: default
-        bucket: velero
+        bucket: velero-backup
         config:
           region: north-europe-1
           s3ForcePathStyle: true
-          s3Url: http://10.0.2.9:9000
-          publicUrl: http://10.0.2.9:9000
+          s3Url: http://minio.minio:9000
+          publicUrl: "https://minio.${SECRET_PRIVATE_DOMAIN}"
       volumeSnapshotLocation:
         name: aws
         config:
@@ -55,10 +55,10 @@ spec:
     credentials:
       existingSecret: velero-s3-creds
     schedules:
-      hourly-backup:
+      daily-backup:
         schedule: "20 * * * *"
         template:
-          ttl: "2h"
+          ttl: "720h"
     metrics:
       enabled: true
       serviceMonitor:
