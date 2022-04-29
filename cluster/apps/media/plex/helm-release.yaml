@@ -64,6 +64,8 @@ spec:
             protocol: TCP
             targetPort: 32400
         externalTrafficPolicy: Local
+    podAnnotations:
+      backup.velero.io/backup-volumes: config
     resources:
       requests:
         gpu.intel.com/i915: 1
