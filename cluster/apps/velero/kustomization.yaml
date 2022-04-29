@@ -4,10 +4,4 @@ kind: Kustomization
 resources:
   - helm-release.yaml
   - namespace.yaml
-secretGenerator:
-- name: velero-s3-creds
-  namespace: velero
-  files:
-  - velero-s3-creds
-generatorOptions:
-  disableNameSuffixHash: true
+  - secret.yaml
