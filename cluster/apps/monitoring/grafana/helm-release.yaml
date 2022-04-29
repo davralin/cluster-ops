@@ -81,7 +81,17 @@ spec:
             access: proxy
             url: http://loki:3100
     dashboards:
-      ceph:
+      default:
+        # Ref: https://grafana.com/grafana/dashboards/13168
+        adbs:
+          gnetId: 13168
+          revision: 4
+          datasource: Prometheus
+        # Ref: https://grafana.com/grafana/dashboards/13502
+        minio:
+          gnetId: 13502
+          revision: 14
+          datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/5342
         ceph-pools:
           gnetId: 5342
@@ -98,7 +108,6 @@ spec:
           revision: 5
           datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/6739
-      k8s:
         k8s-pvc:
           gnetId: 6739
           revision: 1
@@ -109,21 +118,9 @@ spec:
           revision: 1
           datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/1860
-      hardware:
         node-exporter-full:
           gnetId: 1860
           revision: 26
-          datasource: Prometheus
-      default:
-        # Ref: https://grafana.com/grafana/dashboards/13168
-        adbs:
-          gnetId: 13168
-          revision: 4
-          datasource: Prometheus
-        # Ref: https://grafana.com/grafana/dashboards/13502
-        minio:
-          gnetId: 13502
-          revision: 14
           datasource: Prometheus
     sidecar:
       image:
