@@ -34,6 +34,7 @@ spec:
       backupStorageLocation:
         name: default
         bucket: velero-backup
+        default: true
         config:
           region: north-europe-1
           s3ForcePathStyle: true
@@ -63,9 +64,10 @@ spec:
       enabled: true
       serviceMonitor:
         enabled: false
+    backupsEnabled: true
     snapshotsEnabled: true
-    upgradeCRDs: true
-    cleanUpCRDs: true
+    upgradeCRDs: false
+    cleanUpCRDs: false
     kubectl:
       image:
         repository: ghcr.io/k8s-at-home/kubectl
