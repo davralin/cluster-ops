@@ -1,0 +1,87 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: qbittorrent
+  namespace: media
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: qbittorrent
+      version: 13.4.1
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home-charts
+        namespace: flux-system
+      interval: 5m
+  targetNamespace: media
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  values:
+    fullnameOverride: qbittorrent
+    podSecurityContext:
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+      fsGroupChangePolicy: "OnRootMismatch"
+    image:
+      repository: ghcr.io/k8s-at-home/qbittorrent
+      tag: v4.4.2
+    env:
+      TZ: "${TIMEZONE}"
+    settings:
+      automaticPortSetup: false
+    ingress:
+      main:
+        enabled: true
+        annotations:
+          haproxy.org/whitelist: "${HAPROXY_WHITELIST}"
+          haproxy.org/response-set-header: |
+            Strict-Transport-Security "max-age=31536000"
+            X-Frame-Options "DENY"
+            X-Content-Type-Options "nosniff"
+            Referrer-Policy "no-referrer-when-downgrade"
+        hosts:
+          - host: "qbittorrent.${SECRET_INTERNAL_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - secretName: "${SECRET_INTERNAL_DOMAIN_CERT}"
+    service:
+      main:
+        ports:
+          http:
+            port: 8080
+      qbittorrent-service:
+        enabled: true
+        type: LoadBalancer
+        ports:
+          bittorrent:
+            enabled: true
+            port: 9500
+            protocol: TCP
+            targetPort: 9500
+        externalTrafficPolicy: Local
+    persistence:
+      config:
+        enabled: true
+        existingClaim: qbittorrent
+      media:
+        enabled: true
+        existingClaim: media
+        mountPath: /data
+    podAnnotations:
+      backup.velero.io/backup-volumes: config
+    resources:
+      requests:
+        memory: 600Mi
+        cpu: 200m
+      limits:
+        memory: 1200Mi

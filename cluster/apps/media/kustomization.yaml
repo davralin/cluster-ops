@@ -7,5 +7,6 @@ resources:
   - pvc.yaml
   - plex
   #- plex-meta-manager
+  - qbittorrent
   - rclone
   - sshd
