@@ -4,11 +4,15 @@ kind: Kustomization
 resources:
   - filebrowser
   - jellyfin
+  - lidarr
   - namespace.yaml
   - pvc.yaml
   - plex
   #- plex-meta-manager
   - prowlarr
   - qbittorrent
+  - radarr
   - rclone
+  - readarr
+  - sonarr
   - sshd
