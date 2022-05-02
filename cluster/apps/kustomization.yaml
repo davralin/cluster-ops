@@ -25,5 +25,5 @@ resources:
   - node-problem-detector
   - reloader
   - rssbridge
-#  - velero
+  - velero
   - warrior
