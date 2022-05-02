@@ -25,5 +25,6 @@ resources:
   - node-problem-detector
   - reloader
   - rssbridge
+  - syncthing
   - velero
   - warrior
