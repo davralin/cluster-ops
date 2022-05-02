@@ -28,10 +28,12 @@ spec:
     controller:
       replicaCount: 2
       logging:
-        level: info
+        level: debug
       service:
         type: LoadBalancer
       ingressClass: null
+      ingressClassResource:
+        default: true
     defaultBackend:
       replicaCount: 1
       image:
