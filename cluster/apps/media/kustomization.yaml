@@ -17,4 +17,5 @@ resources:
   - rclone
   - readarr
   - sonarr
+  - squeezebox
   - sshd
