@@ -31,8 +31,8 @@ spec:
       fsGroup: 1000
       fsGroupChangePolicy: "OnRootMismatch"
     image:
-      repository: ghcr.io/k8s-at-home/lidarr-nightly
-      tag: v1.0.0.2569
+      repository: ghcr.io/k8s-at-home/lidarr
+      tag: v1.0.0.2570
     env:
       TZ: "${TIMEZONE}"
     ingress:
