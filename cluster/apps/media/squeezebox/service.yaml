@@ -10,7 +10,6 @@ metadata:
     metallb.universe.tf/allow-shared-ip: squeezebox
   }
 spec:
-  loadBalancerIP: 10.0.1.14
   ports:
     - name: slimproto
       port: 3483
@@ -31,7 +30,6 @@ metadata:
     metallb.universe.tf/allow-shared-ip: squeezebox
   }
 spec:
-  loadBalancerIP: 10.0.1.14
   ports:
     - name: slimproto
       port: 3483
