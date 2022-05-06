@@ -7,4 +7,4 @@ metadata:
 data:
   TIMEZONE: "Europe/Oslo"
   BEASTHOST: "readsb-protobuf"
-  HAPROXY_WHITELIST: "0.0.0.0/0"
+  HAPROXY_WHITELIST: "10.0.0.0/8"
