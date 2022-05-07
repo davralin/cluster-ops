@@ -26,5 +26,6 @@ resources:
   - reloader
   - rssbridge
   - syncthing
+  - unifi
   - velero
   - warrior

@@ -1,0 +1,30 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: unifi-ingress
+  namespace: unifi
+  annotations:
+    haproxy.org/server-ssl: "true"
+    haproxy.org/whitelist: "${HAPROXY_WHITELIST}"
+    haproxy.org/response-set-header: |
+      Strict-Transport-Security "max-age=31536000"
+      X-Frame-Options "DENY"
+      X-Content-Type-Options "nosniff"
+      Referrer-Policy "no-referrer-when-downgrade"
+spec:
+  rules:
+    - host: "unifi.${SECRET_PRIVATE_DOMAIN}"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: unifi-controller-tcp
+                port:
+                  number: 8443
+  tls:
+    - secretName: "${SECRET_PRIVATE_DOMAIN_CERT}"
+      hosts:
+        - "unifi.${SECRET_PRIVATE_DOMAIN}"
