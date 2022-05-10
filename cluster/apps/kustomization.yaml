@@ -6,6 +6,7 @@ resources:
   - airconnect
   - airprint
   - apt-cacher-ng
+  - archivebox
   - cert-manager
   - ddns
   - descheduler
