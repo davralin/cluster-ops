@@ -2,7 +2,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: ha-ingress
+  name: homeassistant
   namespace: homeassistant
   annotations:
     haproxy.org/response-set-header: |
@@ -30,7 +30,7 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: vscode-ingress
+  name: homeassistant-codeserver
   namespace: homeassistant
   annotations:
     haproxy.org/whitelist: "${HAPROXY_WHITELIST}"

@@ -2,7 +2,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: tar1090-ingress
+  name: tar1090
   namespace: adsb
   annotations:
     haproxy.org/whitelist: "${HAPROXY_WHITELIST}"

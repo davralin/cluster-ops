@@ -2,7 +2,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: unifi-ingress
+  name: unifi
   namespace: unifi
   annotations:
     haproxy.org/server-ssl: "true"
