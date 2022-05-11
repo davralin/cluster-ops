@@ -16,6 +16,8 @@ spec:
       labels:
         app: teddit
     spec:
+      nodeSelector:
+        kubernetes.io/arch: amd64
       affinity:
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:

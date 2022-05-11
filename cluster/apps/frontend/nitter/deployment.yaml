@@ -18,6 +18,8 @@ spec:
       labels:
         app: nitter
     spec:
+      nodeSelector:
+        kubernetes.io/arch: amd64
       affinity:
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
