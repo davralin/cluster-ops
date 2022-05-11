@@ -16,8 +16,6 @@ spec:
       labels:
         app: teddit
     spec:
-      nodeSelector:
-        kubernetes.io/arch: amd64
       affinity:
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
@@ -51,7 +49,7 @@ spec:
             - name: REDIS_REPLICATION_MODE
               value: "master"
         - name: teddit
-          image: teddit/teddit
+          image: 1337kavin/teddit
           ports:
             - containerPort: 8080
               protocol: TCP
