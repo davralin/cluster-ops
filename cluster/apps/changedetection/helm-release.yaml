@@ -1,0 +1,66 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: changedetection
+  namespace: flux-system
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: changedetection-io
+      version: 1.4.2
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home-charts
+        namespace: flux-system
+      interval: 5m
+  targetNamespace: changedetection
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  values:
+    fullnameOverride: changedetection
+    podSecurityContext:
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+      fsGroupChangePolicy: "OnRootMismatch"
+    image:
+      repository: ghcr.io/dgtlmoon/changedetection.io
+      tag: 0.39.13
+    env:
+      TZ: "${TIMEZONE}"
+      USE_X_SETTINGS: "1"
+    ingress:
+      main:
+        enabled: true
+        annotations:
+          haproxy.org/whitelist: "${HAPROXY_WHITELIST}"
+          haproxy.org/response-set-header: |
+            Strict-Transport-Security "max-age=31536000"
+            X-Frame-Options "DENY"
+            X-Content-Type-Options "nosniff"
+            Referrer-Policy "no-referrer-when-downgrade"
+        hosts:
+          - host: "changedetection.${SECRET_INTERNAL_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - secretName: "${SECRET_INTERNAL_DOMAIN_CERT}"
+    persistence:
+      config:
+        enabled: true
+        existingClaim: changedetection
+        mountPath: /datastore
+    podAnnotations:
+      backup.velero.io/backup-volumes: config
+    resources:
+      requests:
+        cpu: 10m
+        memory: 30Mi

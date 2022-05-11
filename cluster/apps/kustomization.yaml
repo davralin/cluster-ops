@@ -8,6 +8,7 @@ resources:
   - apt-cacher-ng
   - archivebox
   - cert-manager
+  - changedetection
   - ddns
   - descheduler
   - freshrss
