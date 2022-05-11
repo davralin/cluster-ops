@@ -19,3 +19,4 @@ resources:
   - sonarr
   - squeezebox
   - sshd
+  - tautulli
