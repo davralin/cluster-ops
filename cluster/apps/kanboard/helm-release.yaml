@@ -27,7 +27,7 @@ spec:
     fullnameOverride: kanboard
     image:
       repository: kanboard/kanboard
-      tag: v1.2.20
+      tag: v1.2.22
     env:
       TZ: "${TIMEZONE}"
       DB_DRIVER: postgres
