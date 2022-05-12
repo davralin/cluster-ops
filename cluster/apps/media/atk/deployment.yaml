@@ -12,6 +12,8 @@ spec:
   strategy:
     type: Recreate
   template:
+      annotations:
+        backup.velero.io/backup-volumes: atk
     metadata:
       labels:
         app: atk
