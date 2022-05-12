@@ -18,6 +18,8 @@ spec:
       labels:
         app: nitter
     spec:
+      nodeSelector:
+        kubernetes.io/arch: amd64
       affinity:
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
@@ -49,7 +51,7 @@ spec:
               cpu: 50m
               memory: 128Mi
         - name: nitter
-          image: quay.io/unixfox/nitter
+          image: zedeus/nitter
           ports:
             - containerPort: 8080
               protocol: TCP
