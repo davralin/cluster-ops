@@ -1,0 +1,81 @@
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: yt-dlp
+  namespace: media
+spec:
+  schedule: "31 */12 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: Never
+          containers:
+            - name: yt-dlp
+              image: ghcr.io/davralin/youtube-dl
+              command: ["/bin/bash"]
+              args: ["-c", "/usr/local/bin/start.sh"]
+              env:
+                - name: TZ
+                  value: "${TIMEZONE}"
+                - name: PUID
+                  value: "1000"
+                - name: PGID
+                  value: "1000"
+              volumeMounts:
+                - mountPath: /workdir
+                  name: media
+                  readOnly: false
+                - mountPath: /scratch
+                  name: scratch-volume-video
+                  readOnly: false
+                - name: yt-dlp-config
+                  mountPath: /etc/yt-dlp.conf
+                  subPath: yt-dlp.conf
+                  readOnly: true
+                - name: media-run
+                  mountPath: /usr/local/bin/start.sh
+                  subPath: start.sh
+                  readOnly: true
+                - name: media-rip-cleanup
+                  mountPath: /usr/local/bin/cleanup.sh
+                  subPath: cleanup.sh
+                  readOnly: true
+                - name: media-sources
+                  mountPath: /batch
+                  readOnly: true
+          volumes:
+            - name: media
+              persistentVolumeClaim:
+                claimName: media
+            - name: scratch-volume-video
+              ephemeral:
+                volumeClaimTemplate:
+                  metadata:
+                    labels:
+                      type: scratch-volume-video
+                  spec:
+                    accessModes: ["ReadWriteOnce"]
+                    storageClassName: "rook-ceph-block"
+                    resources:
+                      requests:
+                        storage: 50Gi
+            - name: yt-dlp-config
+              configMap:
+                name: yt-dlp-config
+            - name: media-run
+              configMap:
+                defaultMode: 0755
+                name: media-run
+            - name: media-sources
+              configMap:
+                defaultMode: 0644
+                name: media-sources
+            - name: media-rip-cleanup
+              configMap:
+                defaultMode: 0755
+                name: media-rip-cleanup

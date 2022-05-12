@@ -1,0 +1,23 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: media-rip-cleanup
+  namespace: media
+data:
+  cleanup.sh: |
+    #!/bin/bash
+    DIR=$(dirname "$1")
+    FILE=$(echo $1 | /usr/bin/rev | /usr/bin/cut -f1 -d'/' | /usr/bin/rev)
+    OUTFILE=$(echo $1 | /usr/bin/rev | /usr/bin/cut -f1 -d'/' | /usr/bin/rev)
+    EXTENSION=$(echo $1 | /usr/bin/rev | /usr/bin/cut -f1 -d'.' | /usr/bin/rev)
+    NOEXTENSION=$(echo $1 | /usr/bin/rev | /usr/bin/cut -f2- -d'.' | /usr/bin/cut -f1 -d'/' | /usr/bin/rev)
+    RENAMED=$(echo $1 | /usr/bin/rev | /usr/bin/cut -f2- -d' ' | /usr/bin/cut -f1 -d'/' | /usr/bin/rev | sed 's/_/./g')
+    FILEID=$(echo $1 | /usr/bin/rev | /usr/bin/cut -f1 -d' ' | /usr/bin/cut -f1 -d'/' | /usr/bin/cut -f2- -d'.' | /usr/bin/rev)
+
+    # Tidy up the names and permissions, and remove deprecated files
+    /bin/chown -R $PUID:$PGID "$DIR/$FILE"
+    if [ ! $EXTENSION == "mka" ]; then
+      /bin/mv "$DIR/$FILE" "$DIR/$RENAMED $FILEID.$EXTENSION"
+    fi
+    /bin/rm -rf /scratch/*

@@ -1,0 +1,48 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: yt-dlp-config
+  namespace: media
+data:
+  yt-dlp.conf: |
+    # yt-dlp automatically picks bestvideo+bestaudio, we only have to adjust to skip av01 - plex doesn't support that.
+    --format "bestvideo[vcodec!*=av01]+bestaudio/best"
+    # Restricting filenames ensure we don't get completely silly names
+    --restrict-filenames
+    # Prefer free formats, ensure output is mkv, remux if necessary.
+    --prefer-free-formats
+    --merge-output-format mkv
+    --remux-video mkv
+    # Subs-management
+    --sub-langs all,-live_chat
+    --convert-subs srt
+    --sub-format srt/best
+    # Add sponsorblock-segments as chapters to the mediafile
+     --sponsorblock-mark all
+    # Embed as much metadata and extras as possible
+    --embed-metadata
+    --embed-info-json
+    # Cleanup included info-json, ensuring the content is somewhat more private
+    --clean-info-json
+    --embed-thumbnail
+    --embed-chapters
+    --embed-subs
+    # This handles setting the correct timestamp on the file
+    --xattrs
+    # Download 2 concurrent fragments from HLS/DASH-streams vs. regular 1
+    --concurrent-fragments 2
+    # Always continue forward
+    --ignore-errors
+    # Restart failed downloads, to avoid corruption
+    --no-continue
+    # Ensure there's no local cache involved
+    --no-cache-dir
+    # Set output-path and temp-path
+    --paths home:/workdir
+    --paths temp:/scratch
+    # Post-processing cleanup, mostly for renaming the final file.
+     --exec '/usr/local/bin/cleanup.sh {}'
+    # Set reasonable intervals to mitigate 429 request-too-fast bans
+    --sleep-interval 30
+    --max-sleep-interval 60
