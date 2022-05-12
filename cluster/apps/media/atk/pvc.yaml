@@ -7,9 +7,9 @@ metadata:
   name: atk
   namespace: media
 spec:
-  storageClassName: rook-ceph-block
+  storageClassName: ceph-block
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 2Gi
+      storage: 3Gi
