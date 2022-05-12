@@ -55,8 +55,17 @@ spec:
         enabled: false
     postgresql:
       enabled: true
-    podAnnotations:
-      backup.velero.io/backup-volumes: config
+      fullnameOverride: postgres
+      podAnnotations:
+        backup.velero.io/backup-volumes: data
+      image:
+        tag: 14.2.0-debian-10-r88
+      persistence:
+        enabled: true
+      primary:
+        persistence:
+          enabled: true
+          existingClaim: "kanboard"
     resources:
       requests:
         cpu: 10m
