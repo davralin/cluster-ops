@@ -17,6 +17,7 @@ resources:
   - homeassistant
   - intel-gpu
   - jobs
+  - kanboard
   - kubed
   - mailrelay
   - matrix
