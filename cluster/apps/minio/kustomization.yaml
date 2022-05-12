@@ -5,4 +5,5 @@ resources:
   - backup-ssh-key.yaml
   - helm-release.yaml
   - namespace.yaml
+  - offsite-sync.yaml
   - pvc.yaml
