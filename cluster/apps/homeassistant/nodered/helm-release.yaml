@@ -43,10 +43,12 @@ spec:
         tls:
           - secretName: "${SECRET_PRIVATE_DOMAIN_CERT}"
     image:
-      repository: davralin/sleep #ghcr.io/k8s-at-home/node-red
-      tag: latest #v2.2.2
+      repository: ghcr.io/k8s-at-home/node-red
+      tag: v2.2.2
     env:
       TZ: "${TIMEZONE}"
+    podAnnotations:
+      backup.velero.io/backup-volumes: config
     persistence:
       config:
         enabled: true
