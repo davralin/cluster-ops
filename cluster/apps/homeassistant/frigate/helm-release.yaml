@@ -107,7 +107,7 @@ spec:
         dor:
           ffmpeg:
             inputs:
-              - path: rtsp://10.0.1.16
+              - path: rtsp://10.0.1.16:8554
                 roles:
                   - detect
                   - record
