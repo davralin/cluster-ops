@@ -33,7 +33,7 @@ spec:
             privileged: true
           args:
            - "-Fkv"
-           - "-Fmqtt://homeassistant-mosquitto:1883,retain=1"
+           - "-Fmqtt://emqx:1883,retain=1"
           volumeMounts:
             - name: dev
               mountPath: /dev

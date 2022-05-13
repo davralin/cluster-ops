@@ -8,5 +8,5 @@ resources:
   - homeassistant
   - namespace.yaml
   #- nodered
-  #- rtl_433
+  - rtl_433
   - zigbee2mqtt
