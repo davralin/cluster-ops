@@ -5,7 +5,7 @@ metadata:
   name: daily-gsuite-to-rclone
   namespace: media
 spec:
-  schedule: "14 01 * * *"
+  schedule: "14 * * * *"
   concurrencyPolicy: Replace
   successfulJobsHistoryLimit: 1
   failedJobsHistoryLimit: 1
