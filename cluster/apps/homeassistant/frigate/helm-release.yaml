@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: frigate
-      version: 7.1.0
+      version: 8.1.2
       sourceRef:
         kind: HelmRepository
         name: k8s-at-home-charts
@@ -27,7 +27,7 @@ spec:
     fullnameOverride: frigate
     image:
       repository: docker.io/blakeblackshear/frigate
-      tag: 0.10.1-amd64
+      tag: 0.10.0-amd64
     podAnnotations:
       configmap.reloader.stakater.com/reload: "frigate-config"
     env:
@@ -49,6 +49,10 @@ spec:
                 pathType: Prefix
         tls:
           - secretName: "${SECRET_PRIVATE_DOMAIN_CERT}"
+    service:
+      main:
+        rtmp:
+          enabled: true
     persistence:
       data:
         enabled: true
@@ -115,6 +119,19 @@ spec:
           detect:
             width: 1280
             height: 720
+          objects:
+            track:
+              - person
+              - cat
+        # Name of your camera
+        hage:
+          ffmpeg:
+            inputs:
+              - path: rtsp://10.0.1.111
+                roles:
+                  - detect
+                  - record
+                  - rtmp
           objects:
             track:
               - person
