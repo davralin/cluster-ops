@@ -27,7 +27,7 @@ spec:
     fullnameOverride: frigate
     image:
       repository: docker.io/blakeblackshear/frigate
-      tag: 0.10.0-amd64
+      tag: 0.10.1-amd64
     podAnnotations:
       configmap.reloader.stakater.com/reload: "frigate-config"
     env:
