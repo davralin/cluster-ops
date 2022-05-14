@@ -27,6 +27,8 @@ spec:
     fullnameOverride: emqx
     persistence:
       enabled: true
+    service:
+      type: LoadBalancer
     ingress:
       dashboard:
         enabled: true
@@ -39,9 +41,6 @@ spec:
             Referrer-Policy "no-referrer-when-downgrade"
         hosts:
           - host: "emqx.${SECRET_PRIVATE_DOMAIN}"
-            paths:
-              - path: /
-                pathType: Prefix
         tls:
           - secretName: "${SECRET_PRIVATE_DOMAIN_CERT}"
       mgmt:
@@ -55,8 +54,5 @@ spec:
             Referrer-Policy "no-referrer-when-downgrade"
         hosts:
           - host: "emqxmgmt.${SECRET_PRIVATE_DOMAIN}"
-            paths:
-              - path: /
-                pathType: Prefix
         tls:
           - secretName: "${SECRET_PRIVATE_DOMAIN_CERT}"
