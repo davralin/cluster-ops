@@ -33,7 +33,7 @@ spec:
             privileged: true
           args:
            - "-Fkv"
-           - "-Fmqtt://emqx:1883,retain=1"
+           - "-Fmqtt://mosquitto:1883,retain=1"
           volumeMounts:
             - name: dev
               mountPath: /dev
