@@ -1,0 +1,28 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: writefreely-ingress
+  namespace: writefreely
+  annotations:
+    haproxy.org/response-set-header: |
+      Strict-Transport-Security "max-age=31536000"
+      X-Frame-Options "DENY"
+      X-Content-Type-Options "nosniff"
+      Referrer-Policy "no-referrer-when-downgrade"
+spec:
+  rules:
+    - host: "blog.${SECRET_PUBLIC_DOMAIN}"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: writefreely
+                port:
+                  number: 8080
+  tls:
+    - secretName: "${SECRET_PUBLIC_DOMAIN_CERT}"
+      hosts:
+        - "blog.${SECRET_PUBLIC_DOMAIN}"

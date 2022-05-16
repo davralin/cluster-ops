@@ -1,0 +1,58 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: writefreely
+  namespace: writefreely
+spec:
+  selector:
+    matchLabels:
+      app: writefreely
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: writefreely
+    spec:
+      containers:
+        - name: database
+          image: mariadb:10.8.2
+          ports:
+            - containerPort: 3306
+              protocol: TCP
+              name: mariadb
+          securityContext:
+            privileged: false
+            runAsUser: 999
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: writefreely-mysql
+                  key: root-password
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: writefreely-mysql
+                  key: password
+            - name: MYSQL_DATABASE
+              value: "writefreely"
+            - name: MARIADB_USER
+              value: "writefreely"
+          volumeMounts:
+            - mountPath: /var/lib/mysql
+              subPah: mariadb
+              name: writefreely
+      restartPolicy: Always
+      volumes:
+        - name: writefreely
+          persistentVolumeClaim:
+            claimName: writefreely
+        - name: writefreely-config
+          secret:
+            secretName: writefreely-config
+            items:
+            - key: config
+              path: config.ini
