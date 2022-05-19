@@ -2,11 +2,11 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: daily-gsuite-to-rclone
+  name: daily-to-gsuite
   namespace: media
 spec:
   schedule: "14 * * * *"
-  concurrencyPolicy: Replace
+  concurrencyPolicy: Forbid
   successfulJobsHistoryLimit: 1
   failedJobsHistoryLimit: 1
   jobTemplate:
@@ -26,7 +26,7 @@ spec:
                   name: rcloneconfig
                   readOnly: false
           containers:
-            - name: rclone-to-gsuite
+            - name: daily-to-gsuite
               image: rclone/rclone:1.58
               args:
                 - sync
@@ -39,12 +39,12 @@ spec:
                 - /archive/**
                 - --exclude
                 - /downloads/**
-                - gcrypt:/
                 - /media/
+                - gcrypt:/
               volumeMounts:
                 - mountPath: /media
                   name: media
-                  readOnly: false
+                  readOnly: true
                 - mountPath: /config
                   name: rcloneconfig
                   readOnly: false
