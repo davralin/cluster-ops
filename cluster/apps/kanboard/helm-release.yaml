@@ -54,7 +54,7 @@ spec:
       ssl:
         enabled: false
     postgresql:
-      enabled: true
+      enabled: false
       fullnameOverride: postgres
       podAnnotations:
         backup.velero.io/backup-volumes: data
