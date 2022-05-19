@@ -60,6 +60,7 @@ spec:
         tag: 14.2.0-debian-10-r88
       persistence:
         enabled: true
+        size: 1Gi
       primary:
         podAnnotations:
           backup.velero.io/backup-volumes: data
