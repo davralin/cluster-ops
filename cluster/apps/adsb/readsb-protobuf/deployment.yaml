@@ -85,4 +85,5 @@ spec:
           hostPath:
             path: /dev
         - name: readsb-protobuf
-          claimName: readsb-protobuf
+          persistentVolumeClaim:
+            claimName: readsb-protobuf
