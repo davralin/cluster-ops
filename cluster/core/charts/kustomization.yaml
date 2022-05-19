@@ -16,7 +16,6 @@ resources:
   - metallb.yaml
   - metrics-server.yaml
   - node-feature-discovery.yaml
-  - postgres-operator.yaml
   - prometheus.yaml
   - rook-ceph.yaml
   - stakater.yaml
