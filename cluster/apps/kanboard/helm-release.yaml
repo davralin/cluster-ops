@@ -53,6 +53,13 @@ spec:
         enabled: false
       ssl:
         enabled: false
+    resources:
+      requests:
+        cpu: 10m
+        memory: 30Mi
+      limits:
+        cpu: 120m
+        memory: 300Mi
     postgresql:
       enabled: true
       fullnameOverride: postgres
@@ -66,10 +73,3 @@ spec:
           backup.velero.io/backup-volumes: data
         persistence:
           enabled: true
-    resources:
-      requests:
-        cpu: 10m
-        memory: 30Mi
-      limits:
-        cpu: 120m
-        memory: 300Mi
