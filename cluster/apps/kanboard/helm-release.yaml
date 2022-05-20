@@ -69,7 +69,7 @@ spec:
         enabled: true
         size: 1Gi
       primary:
-        annotations:
+        podAnnotations:
           backup.velero.io/backup-volumes: data
         persistence:
           enabled: true
