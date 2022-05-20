@@ -72,7 +72,7 @@ spec:
           config.yml: |
             mqtt:
               # Required: host name
-              host: emqx
+              host: mosquitto.homeassistant.svc.cluster.local
               # Optional: port (default: shown below)
               port: 1883
               # Optional: topic prefix (default: shown below)
