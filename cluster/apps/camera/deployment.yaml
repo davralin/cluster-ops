@@ -1,0 +1,69 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: camera
+  namespace: camera
+spec:
+  selector:
+    matchLabels:
+      app: camera
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: camera
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: "feature.node.kubernetes.io/custom-logitech-webcam"
+                    operator: In
+                    values:
+                     - "true"
+      containers:
+        - name: rtsp
+          image: aler9/rtsp-simple-server:v0.18.4
+          ports:
+            - name: rtsp
+              containerPort: 8554
+          resources:
+            requests:
+              cpu: 20m
+              memory: 20Mi
+            limits:
+              cpu: 50m
+              memory: 40Mi
+          livenessProbe:
+            tcpSocket:
+              port: 8554
+            initialDelaySeconds: 300
+            periodSeconds: 30
+          env:
+            - name: RTSP_PROTOCOLS
+              value: "tcp"
+        - name: ffmpeg
+          image: jrottenberg/ffmpeg:4.1
+          command: ['/usr/local/bin/ffmpeg']
+          args: ["-f", "v4l2", "-i", "/dev/video0", "-r", "5", "-s", "1280x720", "-c:v", "libx264", "-preset", "ultrafast", "-tune", "zerolatency", "-b:v", "600k", "-f", "rtsp", "rtsp://localhost:8554/dor"]
+          resources:
+            requests:
+              cpu: 150m
+              memory: 30Mi
+            limits:
+              cpu: 200m
+              memory: 60Mi
+          securityContext:
+            privileged: true
+          volumeMounts:
+            - name: webcam
+              mountPath: /dev/video0
+      volumes:
+        - name: webcam
+          hostPath:
+            path: /dev/video0
+      restartPolicy: Always
