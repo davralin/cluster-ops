@@ -2,7 +2,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: writefreely-ingress
+  name: writefreely
   namespace: writefreely
   annotations:
     haproxy.org/response-set-header: |
