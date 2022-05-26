@@ -26,6 +26,7 @@ resources:
   - metallb
   - minio
   - monitoring
+  - nextcloud
   - node-feature-discovery
   - node-problem-detector
   - reloader
