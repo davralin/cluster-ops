@@ -40,12 +40,11 @@ spec:
         existingClaim: kanboard-mariadb
     volumePermissions:
       enabled: true
+      image:
+        repository: bitnami/bitnami-shell
+        tag: 10
     metrics:
       enabled: true
       image:
         repository: bitnami/mysqld-exporter
         tag: 0.14.0
-    volumePermissions:
-      image:
-        repository: bitnami/bitnami-shell
-        tag: 10
