@@ -30,7 +30,11 @@ spec:
       tag: v1.2.22
     env:
       TZ: "${TIMEZONE}"
-      DB_DRIVER: postgres
+      DATABASE_URL:
+        valueFrom:
+          secretKeyRef:
+            name: kanboard-mariadb
+            key: connection-string
     ingress:
       main:
         enabled: true
@@ -60,16 +64,3 @@ spec:
       limits:
         cpu: 120m
         memory: 300Mi
-    postgresql:
-      enabled: true
-      fullnameOverride: postgres
-      image:
-        tag: 14.2.0-debian-10-r88
-      persistence:
-        enabled: true
-        size: 1Gi
-      primary:
-        podAnnotations:
-          backup.velero.io/backup-volumes: data
-        persistence:
-          enabled: true

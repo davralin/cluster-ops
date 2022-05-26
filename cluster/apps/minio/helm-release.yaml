@@ -27,7 +27,7 @@ spec:
     fullnameOverride: minio
     image:
       repository: bitnami/minio
-      tag: 2022.5.23-debian-10-r0
+      tag: 2022.5.23
     persistence:
       existingClaim: minio-local
     volumePermissions:
