@@ -15,9 +15,16 @@ spec:
         name: k8s-at-home-charts
         namespace: flux-system
       interval: 5m
+  targetNamespace: homeassistant
   install:
     createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
   values:
+    fullnameOverride: mosquitto
     image:
       repository: eclipse-mosquitto
       tag: 2.0.14
