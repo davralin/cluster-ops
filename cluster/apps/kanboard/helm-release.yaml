@@ -30,11 +30,15 @@ spec:
       tag: v1.2.22
     env:
       TZ: "${TIMEZONE}"
-      DATABASE_URL:
+      DB_NAME: "kanboard"
+      DB_DRIVER: "mysql"
+      DB_HOSTNAME: "mariadb"
+      DB_USERNAME: "kanboard"
+      DB_PASSWORD:
         valueFrom:
           secretKeyRef:
             name: kanboard-mariadb
-            key: connection-string
+            key: mariadb-password
     ingress:
       main:
         enabled: true
