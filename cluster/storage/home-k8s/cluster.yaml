@@ -57,6 +57,12 @@ spec:
               timeoutSeconds: 5
       mgr:
         count: 2
+      resources:
+        prepareosd:
+          limits:
+            memory: "1Gi"
+          requests:
+            memory: "200Mi"
       storage:
         useAllNodes: true
         useAllDevices: true
