@@ -5,7 +5,7 @@ resources:
   - esphome
   - frigate
   - homeassistant
-#  - mosquitto
+  - mosquitto
   - namespace.yaml
   - nodered
   - rtl_433
