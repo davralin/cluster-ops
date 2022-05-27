@@ -82,7 +82,7 @@ spec:
               subPah: mariadb
               name: writefreely
         - name: writefreely
-          image: ghcr.io/davralin/writefreely:develop
+          image: ghcr.io/davralin/sleep #writefreely:develop
           ports:
             - containerPort: 8080
               protocol: TCP
@@ -91,16 +91,6 @@ spec:
             requests:
               cpu: 50m
               memory: 30Mi
-          readinessProbe:
-            tcpSocket:
-              port: 8080
-            initialDelaySeconds: 10
-            periodSeconds: 30
-          livenessProbe:
-            tcpSocket:
-              port: 8080
-            initialDelaySeconds: 300
-            periodSeconds: 30
           volumeMounts:
             - name: writefreely-config
               mountPath: /go/config.ini
