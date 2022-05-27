@@ -71,7 +71,7 @@ spec:
       permit_join: false
       mqtt:
         base_topic: zigbee2mqtt
-        server: "mqtt://emqx"
+        server: "mqtt://mqtt"
       serial:
         port: /dev/serial/by-id/usb-dresden_elektronik_ingenieurtechnik_GmbH_ConBee_II_DE2123105-if00
       advanced:
