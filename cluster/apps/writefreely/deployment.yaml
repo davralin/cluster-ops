@@ -13,6 +13,8 @@ spec:
     type: Recreate
   template:
     metadata:
+      annotations:
+        backup.velero.io/backup-volumes: writefreely
       labels:
         app: writefreely
     spec:
@@ -38,6 +40,28 @@ spec:
           securityContext:
             privileged: false
             runAsUser: 999
+          resources:
+            requests:
+              cpu: 10m
+              memory: 100Mi
+          readinessProbe:
+            exec:
+              command:
+              - bash
+              - "-c"
+              - |
+                /usr/bin/mysql -u$MYSQL_DATABASE -p$MYSQL_PASSWORD -h 127.0.0.1 -e 'SELECT 1'
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          livenessProbe:
+            exec:
+              command:
+              - bash
+              - "-c"
+              - |
+                /usr/bin/mysql -u$MYSQL_DATABASE -p$MYSQL_PASSWORD -h 127.0.0.1 -e 'SELECT 1'
+            initialDelaySeconds: 300
+            periodSeconds: 30
           env:
             - name: MYSQL_ROOT_PASSWORD
               valueFrom:
@@ -57,6 +81,30 @@ spec:
             - mountPath: /var/lib/mysql
               subPah: mariadb
               name: writefreely
+        - name: writefreely
+          image: ghcr.io/davralin/writefreely:develop
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+              name: web
+          resources:
+            requests:
+              cpu: 50m
+              memory: 30Mi
+          readinessProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 30
+          livenessProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 300
+            periodSeconds: 30
+          volumeMounts:
+            - name: writefreely-config
+              mountPath: /go/config.ini
+              subPath: config.ini
       restartPolicy: Always
       volumes:
         - name: writefreely
