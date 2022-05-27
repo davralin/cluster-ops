@@ -16,6 +16,18 @@ spec:
       labels:
         app: writefreely
     spec:
+      initContainers:
+        - name: init-chown-database
+          image: busybox:1.35.0
+          command:
+            - /bin/chown
+            - -R
+            - "999:999"
+            - /var/lib/mysql
+          volumeMounts:
+            - mountPath: /var/lib/mysql
+              subPah: mariadb
+              name: writefreely
       containers:
         - name: database
           image: mariadb:10.8.3
