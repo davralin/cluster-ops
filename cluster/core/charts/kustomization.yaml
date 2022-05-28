@@ -15,6 +15,7 @@ resources:
   - kube-plex.yaml
   - metallb.yaml
   - metrics-server.yaml
+  - nextcloud.yaml
   - node-feature-discovery.yaml
   - prometheus.yaml
   - rook-ceph.yaml

@@ -1,0 +1,43 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: nextcloud
+  namespace: nextcloud
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: nextcloud
+      version: 2.14.2
+      sourceRef:
+        kind: HelmRepository
+        name: nextcloud
+        namespace: flux-system
+      interval: 5m
+  targetNamespace: nextcloud
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  values:
+    fullnameOverride: nextcloud
+    image:
+      repository: nextcloud
+      tag: 24.0.1-apache
+    #persistence:
+      #existingClaim: nextcloud-local
+    ingress:
+      enabled: true
+      annotations:
+        haproxy.org/response-set-header: |
+          Strict-Transport-Security "max-age=31536000"
+          X-Frame-Options "DENY"
+          X-Content-Type-Options "nosniff"
+          Referrer-Policy "no-referrer-when-downgrade"
+      hostname: "cloud.${SECRET_PRIVATE_DOMAIN}"
+    podAnnotations:
+      backup.velero.io/backup-volumes: data
