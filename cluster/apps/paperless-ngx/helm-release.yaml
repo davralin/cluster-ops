@@ -30,6 +30,7 @@ spec:
       tag: 1.7.1
     env:
       PAPERLESS_TIME_ZONE: "${TIMEZONE}"
+      PAPERLESS_REDIS: "redis://redis-master"
       PAPERLESS_OCR_LANGUAGE: "nor+eng"
     redis:
       enabled: true
