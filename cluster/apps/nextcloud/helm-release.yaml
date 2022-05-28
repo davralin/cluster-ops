@@ -29,7 +29,7 @@ spec:
       repository: nextcloud
       tag: 24.0.1-apache
     #persistence:
-      #existingClaim: nextcloud-local
+      #existingClaim: nextcloud
     ingress:
       enabled: true
       annotations:
@@ -39,5 +39,11 @@ spec:
           X-Content-Type-Options "nosniff"
           Referrer-Policy "no-referrer-when-downgrade"
       hostname: "cloud.${SECRET_PRIVATE_DOMAIN}"
+    nextcloud:
+      host: "cloud.${SECRET_PRIVATE_DOMAIN}"
+    cronjob:
+      enabled: true
+    metrics:
+      enabled: false
     podAnnotations:
       backup.velero.io/backup-volumes: data
