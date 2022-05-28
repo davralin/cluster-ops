@@ -30,7 +30,7 @@ resources:
   - nextcloud
   - node-feature-discovery
   - node-problem-detector
-  - paperless-ngx
+#  - paperless-ngx
   - reloader
   - rssbridge
   - syncthing
