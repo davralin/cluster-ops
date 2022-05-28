@@ -14,6 +14,7 @@ resources:
   - descheduler
   - freshrss
   - frontend
+  - gitea
   - haproxy-ingress
   - homeassistant
   - intel-gpu

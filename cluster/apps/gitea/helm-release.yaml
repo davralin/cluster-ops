@@ -1,0 +1,111 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: gitea
+  namespace: gitea
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: gitea
+      version: 5.0.8
+      sourceRef:
+        kind: HelmRepository
+        name: gitea-charts
+        namespace: flux-system
+      interval: 15m
+  targetNamespace: gitea
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  values:
+    fullnameOverride: gitea
+    image:
+      rootless: true
+    containerSecurityContext:
+      capabilities:
+        add:
+          - SYS_CHROOT
+    ingress:
+      enabled: true
+      annotations:
+        haproxy.org/response-set-header: |
+          Strict-Transport-Security "max-age=31536000"
+          X-Frame-Options "DENY"
+          X-Content-Type-Options "nosniff"
+          Referrer-Policy "no-referrer-when-downgrade"
+      hosts:
+        - host: "gitea.${SECRET_PUBLIC_DOMAIN}"
+          paths:
+            - path: /
+              pathType: Prefix
+      tls:
+        - secretName: "${SECRET_PUBLIC_DOMAIN_CERT}"
+    service:
+      ssh:
+        type: LoadBalancer
+    podAnnotations:
+      backup.velero.io/backup-volumes: data
+    memcached:
+      enabled: false
+    postgresql:
+      enabled: false
+    persistence:
+      enabled: true
+      existingClaim: gitea
+    signing:
+      enabled: true
+      gpgHome: /data/git/.gnupg
+    gitea:
+      config:
+        server:
+          DISABLE_SSH: false
+          SSH_DOMAIN: "ssh.${SECRET_PUBLIC_DOMAIN}"
+          DOMAIN: "gitea.${SECRET_PUBLIC_DOMAIN}"
+          ROOT_URL: "https://gitea.${SECRET_PUBLIC_DOMAIN}"
+          ENABLE_GZIP: true
+          OFFLINE_MODE: true
+          LANDING_PAGE: explore
+          LFS_START_SERVER: true
+          ALLOW_GRACEFUL_RESTARTS: true
+        admin:
+          DISABLE_REGULAR_ORG_CREATION: true
+        ui:
+          DEFAULT_THEME: auto
+        repository:
+          DEFAULT_BRANCH: main
+          DEFAULT_PRIVATE: true
+        database:
+          DB_TYPE: sqlite3
+        service:
+          DISABLE_REGISTRATION: true
+          REQUIRE_SIGNIN_VIEW: true
+          DEFAULT_KEEP_EMAIL_PRIVATE: true
+          DEFAULT_ALLOW_CREATE_ORGANIZATION: false
+          DEFAULT_USER_IS_RESTRICTED: true
+        cron:
+          ENABLED: true
+        mailer:
+          enabled: false
+      metrics:
+        enabled: false
+        serviceMonitor:
+          enabled: false
+  valuesFrom:
+    - targetPath: gitea.admin.email
+      kind: Secret
+      name: gitea-config
+      valuesKey: email
+    - targetPath: gitea.admin.username
+      kind: Secret
+      name: gitea-config
+      valuesKey: username
+    - targetPath: gitea.admin.password
+      kind: Secret
+      name: gitea-config
+      valuesKey: password
