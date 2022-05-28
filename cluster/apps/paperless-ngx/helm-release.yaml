@@ -36,7 +36,7 @@ spec:
       fullnameOverride: redis
       image:
         repository: bitnami/redis
-        tag: 6.0.16
+        tag: 6.2.7
       auth:
         enabled: false
     ingress:
