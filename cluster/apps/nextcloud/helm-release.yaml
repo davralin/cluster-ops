@@ -73,6 +73,7 @@ spec:
           'default_phone_region' => 'NO',
           'overwrite.cli.url' => 'https://cloud.${SECRET_PRIVATE_DOMAIN}',
           'loglevel' => '2',
+          'forwarded_for_headers' => array('HTTP_X_FORWARDED_FOR'),
           'trusted_proxies'   => array (
             0 => '10.0.0.0/8',
             1 => '192.168.0.0/16',
