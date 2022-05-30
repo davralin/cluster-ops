@@ -1,0 +1,89 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: nextcloud
+  namespace: nextcloud
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: nextcloud
+      version: 2.14.3
+      sourceRef:
+        kind: HelmRepository
+        name: nextcloud
+        namespace: flux-system
+      interval: 5m
+  targetNamespace: nextcloud
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  values:
+    fullnameOverride: nextcloud
+    image:
+      repository: nextcloud
+      tag: 24.0.1-apache
+    persistence:
+      existingClaim: nextcloud
+    ingress:
+      enabled: true
+      annotations:
+        haproxy.org/backend-config-snippet: |
+          acl dav path /.well-known/carddav /.well-known/caldav
+          redirect location /remote.php/dav/ if dav
+        haproxy.org/response-set-header: |
+          Strict-Transport-Security "max-age=31536000"
+          X-Frame-Options "SAMEORIGIN"
+          X-Content-Type-Options "nosniff"
+          X-Download-Options "NoOpen"
+          Referrer-Policy "no-referrer-when-downgrade"
+          server "."
+          x-powered-by "."
+      hostname: "cloud.${SECRET_PRIVATE_DOMAIN}"
+    nextcloud:
+      host: "cloud.${SECRET_PRIVATE_DOMAIN}"
+      existingSecret:
+        enabled: true
+        secretName: nextcloud-secrets
+        usernameKey: nextcloud-username
+        passwordKey: nextcloud-password
+      mail:
+        enabled: true
+        fromAddress: "cloud"
+        domain: "${SECRET_PRIVATE_DOMAIN}"
+        smtp:
+          host: exim.mailrelay.svc.cluster.local
+          secure: "None"
+          port: 25
+          authtype: "None"
+    lifecycle:
+      postStartCommand:
+          - "sh"
+          - "-c"
+          - "apt-get update && apt-get install -y openrc && start-stop-daemon --start --background --pidfile /cron.pid --exec /cron.sh"
+    metrics:
+      enabled: true
+      image:
+        repository: xperimental/nextcloud-exporter
+        tag: 0.5.1
+    phpClientHttpsFix:
+      enabled: true
+    internalDatabase:
+      enabled: false
+    externalDatabase:
+      enabled: true
+      type: postgresql
+      host: postgresql
+      database: nextcloud
+      existingSecret:
+        enabled: true
+        secretName: nextcloud-secrets
+        usernameKey: db-username
+        passwordKey: db-password
+    podAnnotations:
+      backup.velero.io/backup-volumes: nextcloud-main
