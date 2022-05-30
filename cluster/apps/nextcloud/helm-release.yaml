@@ -100,5 +100,15 @@ spec:
         secretName: nextcloud-secrets
         usernameKey: db-username
         passwordKey: db-password
+    extraInitContainers: []
+      - name: postgresql-isready
+        image: bitnami/postgresql:14.3.0
+        command: ['sh', '-c', 'until pg_isready -h postgresql -U ${POSTGRES_USER} ; do sleep 2 ; done']
+        env:
+          - name: POSTGRES_USER
+            valueFrom:
+              secretKeyRef:
+                name: nextcloud-secrets
+                key: db-username
     podAnnotations:
       backup.velero.io/backup-volumes: nextcloud-main
