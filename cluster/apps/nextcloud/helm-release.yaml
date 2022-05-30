@@ -80,7 +80,7 @@ spec:
           ),
         );
     metrics:
-      enabled: false
+      enabled: true
       image:
         repository: xperimental/nextcloud-exporter
         tag: 0.5.1
@@ -100,7 +100,7 @@ spec:
         secretName: nextcloud-secrets
         usernameKey: db-username
         passwordKey: db-password
-    extraInitContainers: []
+    extraInitContainers:
       - name: postgresql-isready
         image: bitnami/postgresql:14.3.0
         command: ['sh', '-c', 'until pg_isready -h postgresql -U ${POSTGRES_USER} ; do sleep 2 ; done']
