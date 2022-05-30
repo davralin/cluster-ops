@@ -73,6 +73,8 @@ spec:
         tag: 0.5.1
     phpClientHttpsFix:
       enabled: true
+    startupProbe:
+      enabled: true
     internalDatabase:
       enabled: false
     externalDatabase:
