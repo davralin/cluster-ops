@@ -30,7 +30,7 @@ spec:
       tag: 24.0.1-apache
     persistence:
       enabled: true
-      existingClaim: nextcloud
+      existingClaim: nextcloud-temp
     ingress:
       enabled: true
       annotations:
@@ -108,7 +108,7 @@ spec:
     extraInitContainers:
       - name: postgresql-isready
         image: bitnami/postgresql:14.3.0
-        command: ['sh', '-c', 'until pg_isready -h postgresql -U ${POSTGRES_USER} ; do sleep 2 ; done']
+        command: ['sh', '-c', 'until pg_isready -h postgresql -U "${POSTGRES_USER}"; do sleep 2 ; done']
         env:
           - name: POSTGRES_USER
             valueFrom:
