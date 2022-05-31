@@ -53,8 +53,10 @@ spec:
         secretName: nextcloud-secrets
         usernameKey: nextcloud-username
         passwordKey: nextcloud-password
+      defaultConfigs:
+        smtp.config.php: true
       mail:
-        enabled: true
+        enabled: false
         fromAddress: "cloud"
         domain: "${SECRET_PRIVATE_DOMAIN}"
         smtp:
