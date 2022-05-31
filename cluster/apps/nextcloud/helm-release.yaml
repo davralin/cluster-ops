@@ -56,7 +56,7 @@ spec:
       extraInitContainers:
         - name: postgresql-isready
           image: bitnami/postgresql:14.3.0
-          command: ['sh', '-c', 'until pg_isready -h postgresql -U "${POSTGRES_USER}"; do sleep 2 ; done']
+          command: ['sh', '-c', 'until pg_isready -h postgresql -U nextcloud; do sleep 2 ; done']
           env:
             - name: POSTGRES_USER
               valueFrom:
