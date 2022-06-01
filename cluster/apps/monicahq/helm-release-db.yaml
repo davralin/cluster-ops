@@ -38,6 +38,8 @@ spec:
       persistence:
         enabled: true
         existingClaim: monicahq
+    readinessProbe:
+      initialDelaySeconds: 300
     volumePermissions:
       enabled: true
       image:

@@ -38,6 +38,8 @@ spec:
       persistence:
         enabled: true
         existingClaim: kanboard-mariadb
+      readinessProbe:
+        initialDelaySeconds: 300
     volumePermissions:
       enabled: true
       image:
