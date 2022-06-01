@@ -30,7 +30,7 @@ spec:
       tag: 24.0.1-apache
     persistence:
       enabled: true
-      existingClaim: nextcloud-temp
+      existingClaim: nextcloud
     ingress:
       enabled: true
       annotations:
