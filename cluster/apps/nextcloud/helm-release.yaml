@@ -58,6 +58,10 @@ spec:
           image: bitnami/postgresql:14.3.0
           command: ['sh', '-c', 'until pg_isready -h postgresql -U nextcloud; do sleep 2 ; done']
       defaultConfigs:
+        redis.config.php: true
+        apache-pretty-urls.config.php: true
+        apcu.config.php: true
+        apps.config.php: true
         smtp.config.php: true
       mail:
         enabled: false
@@ -73,19 +77,6 @@ spec:
           - "sh"
           - "-c"
           - "apt-get update && apt-get install -y openrc && start-stop-daemon --start --background --pidfile /cron.pid --exec /cron.sh"
-    configs:
-      custom.config.php: |-
-        <?php
-        $CONFIG = array (
-          'default_phone_region' => 'NO',
-          'overwrite.cli.url' => 'https://cloud.${SECRET_PRIVATE_DOMAIN}',
-          'loglevel' => '2',
-          'forwarded_for_headers' => array('HTTP_X_FORWARDED_FOR'),
-          'trusted_proxies'   => array (
-            0 => '10.0.0.0/8',
-            1 => '192.168.0.0/16',
-          ),
-        );
     metrics:
       enabled: true
       image:
