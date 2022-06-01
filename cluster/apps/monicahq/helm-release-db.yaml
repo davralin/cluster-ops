@@ -31,13 +31,13 @@ spec:
     auth:
       database: monicahq
       username: monicahq
-      existingSecret: monicahq-mariadb
+      existingSecret: monicahq
     primary:
       podAnnotations:
         backup.velero.io/backup-volumes: data
       persistence:
         enabled: true
-        existingClaim: monicahq-mariadb
+        existingClaim: monicahq
     volumePermissions:
       enabled: true
       image:

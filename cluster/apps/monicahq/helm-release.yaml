@@ -31,13 +31,18 @@ spec:
     env:
       TZ: "${TIMEZONE}"
       APP_URL: "monicahq.${SECRET_PUBLIC_DOMAIN}"
+      APP_KEY:
+        valueFrom:
+          secretKeyRef:
+            name: monicahq
+            key: app-key
       DB_HOST: "mariadb"
       DB_DATABASE: "monicahq"
       DB_USERNAME: "monicahq"
       DB_PASSWORD:
         valueFrom:
           secretKeyRef:
-            name: monicahq-mariadb
+            name: monicahq
             key: mariadb-password
     ingress:
       main:
