@@ -58,7 +58,7 @@ spec:
       usb:
         enabled: true
         type: hostPath
-        hostPath: /dev/serial/by-id/usb-dresden_elektronik_ingenieurtechnik_GmbH_ConBee_II_DE2123105-if00
+        hostPath: /dev/serial/by-path/pci-0000:00:14.0-usb-0:6:1.0
     nodeSelector:
       feature.node.kubernetes.io/custom-zwave-conbee-ii: "true"
     podAnnotations:
@@ -73,7 +73,7 @@ spec:
         base_topic: zigbee2mqtt
         server: "mqtt://mqtt"
       serial:
-        port: /dev/serial/by-id/usb-dresden_elektronik_ingenieurtechnik_GmbH_ConBee_II_DE2123105-if00
+        port: /dev/serial/by-path/pci-0000:00:14.0-usb-0:6:1.0
       advanced:
         log_output:
           - console
