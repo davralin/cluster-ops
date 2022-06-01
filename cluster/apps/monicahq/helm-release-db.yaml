@@ -3,7 +3,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: mariadb-monicahq
-  namespace: flux-system
+  namespace: monicahq
 spec:
   interval: 5m
   chart:
