@@ -15,19 +15,6 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: nextcloud-temp
-  namespace: nextcloud
-spec:
-  storageClassName: ceph-filesystem
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 2Gi
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
   name: nextcloud-postgresql
   namespace: nextcloud
 spec:

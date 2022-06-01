@@ -65,13 +65,6 @@ spec:
         smtp.config.php: true
       mail:
         enabled: false
-        fromAddress: "cloud"
-        domain: "${SECRET_PRIVATE_DOMAIN}"
-        smtp:
-          host: exim.mailrelay.svc.cluster.local
-          secure: "None"
-          port: 25
-          authtype: "None"
     lifecycle:
       postStartCommand:
           - "sh"
@@ -84,12 +77,10 @@ spec:
         tag: 0.5.1
     phpClientHttpsFix:
       enabled: true
-    startupProbe:
-      enabled: false
     readinessProbe:
-      enabled: false
+      enabled: true
     livenessProbe:
-      enabled: false
+      enabled: true
     internalDatabase:
       enabled: false
     externalDatabase:
