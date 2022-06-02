@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: synapse
-      version: 0.8.15
+      version: 0.8.16
       sourceRef:
         kind: HelmRepository
         name: halkeye-charts
