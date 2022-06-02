@@ -8,7 +8,7 @@ spec:
   interval: 5m
   chart:
     spec:
-      chart: matrix-synapse
+      chart: synapse
       version: 0.8.15
       sourceRef:
         kind: HelmRepository
