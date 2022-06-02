@@ -2,13 +2,13 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - ananace.yaml
   - appscode.yaml
   - bitnami.yaml
   - deliveryhero.yaml
   - descheduler.yaml
   - gitea.yaml
   - grafana.yaml
+  - halkeye.yaml
   - haproxytech.yaml
   - jetstack.yaml
   - k8s-at-home.yaml

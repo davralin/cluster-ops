@@ -9,10 +9,10 @@ spec:
   chart:
     spec:
       chart: matrix-synapse
-      version: 2.1.38
+      version: 0.8.16
       sourceRef:
         kind: HelmRepository
-        name: ananace-charts
+        name: halkeye-charts
         namespace: flux-system
       interval: 5m
   targetNamespace: matrix
@@ -25,7 +25,8 @@ spec:
       retries: 3
   values:
     fullnameOverride: synapse
-    serverName: "${SECRET_PUBLIC_DOMAIN}"
-    publicServerName: "matrix.${SECRET_PUBLIC_DOMAIN}"
-    wellknown:
+    homeserver:
+      server_name: "${SECRET_PUBLIC_DOMAIN}"
+    ingress:
       enabled: true
+      hosts: "matrix.${SECRET_PUBLIC_DOMAIN}"
