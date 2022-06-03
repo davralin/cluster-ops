@@ -33,7 +33,7 @@ spec:
               subPath: bridge
       containers:
         - name: bridge
-          image: davralin/sleep #dock.mau.dev/mautrix/signal:v0.3.0
+          image: dock.mau.dev/mautrix/signal:v0.3.0
           ports:
             - containerPort: 29328
               protocol: TCP
@@ -48,7 +48,7 @@ spec:
           livenessProbe:
             tcpSocket:
               port: 29328
-            initialDelaySeconds: 300000
+            initialDelaySeconds: 300
             periodSeconds: 30
           volumeMounts:
             - mountPath: /data
@@ -64,7 +64,7 @@ spec:
               name: mautrix-signal-bridge
               subPath: signald
         - name: signald
-          image: davralin/sleep #docker.io/signald/signald:0.19.1-non-root
+          image: docker.io/signald/signald:0.19.1-non-root
           resources:
             requests:
               cpu: 50m
