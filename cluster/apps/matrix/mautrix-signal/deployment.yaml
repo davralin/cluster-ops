@@ -66,12 +66,12 @@ spec:
           volumeMounts:
             - mountPath: /data
               name: mautrix-signal-bridge
-              subPath: bridge
+              subPath: signald
             - mountPath: /signald
               name: mautrix-signal-bridge
               subPath: signald
         - name: signald
-          image: docker.io/signald/signald:0.18.0
+          image: registry.gitlab.com/signald/signald:0.18.0
           resources:
             requests:
               cpu: 50m
