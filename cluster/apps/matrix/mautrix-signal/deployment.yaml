@@ -17,6 +17,19 @@ spec:
         app: mautrix-signal-bridge
     spec:
       initContainers:
+        - name: init-mkdir-cp-configs
+          image: busybox:1.35.0
+          command: ['sh', '-c', "cp --verbose --no-clobber /tmp/*.yaml /config/bridge/"]
+          volumeMounts:
+            - name: mautrix-signal-bridge
+              mountPath: /config/bridge
+              subPath: bridge
+            - name: appservice-signal
+              mountPath: /tmp/registration.yaml
+              subPath: appservice-signal.yaml
+            - name: appservice-signal
+              mountPath: /tmp/config.yaml
+              subPath: config-signal.yaml
         - name: init-chown-config
           image: busybox:1.35.0
           command:
@@ -31,15 +44,9 @@ spec:
             - name: mautrix-signal-bridge
               mountPath: /config/bridge
               subPath: bridge
-            - name: appservice-signal
-              mountPath: /config/bridge/registration.yaml
-              subPath: appservice-signal.yaml
-            - name: appservice-signal
-              mountPath: /config/bridge/config.yaml
-              subPath: config-signal.yaml
       containers:
         - name: bridge
-          image: davralin/sleep #dock.mau.dev/mautrix/signal:v0.3.0
+          image: dock.mau.dev/mautrix/signal:v0.3.0
           ports:
             - containerPort: 29328
               protocol: TCP
@@ -54,7 +61,7 @@ spec:
           livenessProbe:
             tcpSocket:
               port: 29328
-            initialDelaySeconds: 3000
+            initialDelaySeconds: 300
             periodSeconds: 30
           volumeMounts:
             - mountPath: /data
