@@ -65,7 +65,7 @@ spec:
             - mountPath: /var/lib/postgresql/data
               name: mautrix-telegram-database
         - name: bridge
-          image: dock.mau.dev/mautrix/telegram:v0.11.2
+          image: dock.mau.dev/mautrix/telegram:v0.11.3
           ports:
             - containerPort: 29317
               protocol: TCP
