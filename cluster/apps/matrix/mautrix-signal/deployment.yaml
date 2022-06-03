@@ -44,7 +44,7 @@ spec:
               subPath: postgresql
       containers:
         - name: bridge
-          image: dock.mau.dev/mautrix/signal:v0.2.3
+          image: dock.mau.dev/mautrix/signal:v0.3.0
           ports:
             - containerPort: 29328
               protocol: TCP
