@@ -1,0 +1,22 @@
+---
+apiVersion: notification.toolkit.fluxcd.io/v1beta1
+kind: Alert
+metadata:
+  name: notify-error-alertmanager
+  namespace: flux-system
+spec:
+  providerRef:
+    name: alertmanager
+  eventSeverity: info
+  eventSources:
+    - kind: Kustomization
+      name: apps
+    - kind: Kustomization
+      name: core
+    - kind: Kustomization
+      name: flux-system
+    - kind: Kustomization
+      name: storage
+    - kind: HelmRelease
+      name: '*'
+  suspend: false
