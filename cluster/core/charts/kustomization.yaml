@@ -6,6 +6,7 @@ resources:
   - bitnami.yaml
   - deliveryhero.yaml
   - descheduler.yaml
+  - drone.yaml
   - gitea.yaml
   - grafana.yaml
   - halkeye.yaml
