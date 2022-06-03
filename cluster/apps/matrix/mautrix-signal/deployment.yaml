@@ -31,9 +31,15 @@ spec:
             - name: mautrix-signal-bridge
               mountPath: /config/bridge
               subPath: bridge
+            - name: appservice-signal
+              mountPath: /config/bridge/registration.yaml
+              subPath: appservice-signal.yaml
+            - name: appservice-signal
+              mountPath: /config/bridge/config.yaml
+              subPath: config-signal.yaml
       containers:
         - name: bridge
-          image: dock.mau.dev/mautrix/signal:v0.3.0
+          image: davralin/sleep #dock.mau.dev/mautrix/signal:v0.3.0
           ports:
             - containerPort: 29328
               protocol: TCP
@@ -48,18 +54,12 @@ spec:
           livenessProbe:
             tcpSocket:
               port: 29328
-            initialDelaySeconds: 300
+            initialDelaySeconds: 3000
             periodSeconds: 30
           volumeMounts:
             - mountPath: /data
               name: mautrix-signal-bridge
-              subPath: signald
-            - name: appservice-signal
-              mountPath: /data/registration.yaml
-              subPath: appservice-signal.yaml
-            - name: appservice-signal
-              mountPath: /data/config.yaml
-              subPath: config-signal.yaml
+              subPath: bridge
             - mountPath: /signald
               name: mautrix-signal-bridge
               subPath: signald
