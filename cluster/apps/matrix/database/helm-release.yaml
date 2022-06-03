@@ -29,7 +29,6 @@ spec:
       repository: bitnami/postgresql
       tag: 14.3.0
     auth:
-      database: synapse
       username: synapse
       existingSecret: database-secrets
     primary:
