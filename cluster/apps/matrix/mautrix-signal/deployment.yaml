@@ -1,0 +1,143 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mautrix-signal-bridge
+  namespace: matrix
+spec:
+  selector:
+    matchLabels:
+      app: mautrix-signal-bridge
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: mautrix-signal-bridge
+    spec:
+      initContainers:
+        - name: init-chown-config
+          image: busybox:1.35.0
+          command:
+            - /bin/chown
+            - -R
+            - "1000:1000"
+            - /config
+          volumeMounts:
+            - name: mautrix-signal-bridge
+              mountPath: /config/signald
+              subPath: signald
+            - name: mautrix-signal-bridge
+              mountPath: /config/bridge
+              subPath: bridge
+        - name: init-chown-database
+          image: busybox:1.35.0
+          command:
+            - /bin/chown
+            - -R
+            - "70:70"
+            - /database
+          volumeMounts:
+            - name: mautrix-signal-bridge
+              mountPath: /database/
+              subPath: postgresql
+      containers:
+        - name: bridge
+          image: dock.mau.dev/mautrix/signal:v0.2.3
+          ports:
+            - containerPort: 29328
+              protocol: TCP
+              name: signalbridge
+          resources:
+            requests:
+              cpu: 50m
+              memory: 50Mi
+            limits:
+              cpu: 100m
+              memory: 100Mi
+          livenessProbe:
+            tcpSocket:
+              port: 29328
+            initialDelaySeconds: 300
+            periodSeconds: 30
+          volumeMounts:
+            - mountPath: /data
+              name: mautrix-signal-bridge
+              subPath: signald
+            - name: appservice-signal
+              mountPath: /data/registration.yaml
+              subPath: appservice-signal.yaml
+            - name: appservice-signal
+              mountPath: /data/config.yaml
+              subPath: config-signal.yaml
+            - mountPath: /signald
+              name: mautrix-signal-bridge
+              subPath: signald
+        - name: signald
+          image: docker.io/signald/signald:0.17.0
+          resources:
+            requests:
+              cpu: 50m
+              memory: 350Mi
+            limits:
+              cpu: 100m
+              memory: 500Mi
+          volumeMounts:
+            - mountPath: /signald
+              subPath: signald
+              name: mautrix-signal-bridge
+        - name: database
+          image: postgres:14-alpine
+          securityContext:
+            privileged: false
+            runAsUser: 70
+          ports:
+            - containerPort: 5432
+              protocol: TCP
+              name: postgresql
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+            limits:
+              cpu: 100m
+              memory: 100Mi
+          livenessProbe:
+            tcpSocket:
+              port: 5432
+            initialDelaySeconds: 300
+            periodSeconds: 30
+          env:
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  name: mautrix-signal-database-secrets
+                  key: database
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: mautrix-signal-database-secrets
+                  key: user
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mautrix-signal-database-secrets
+                  key: password
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: mautrix-signal-bridge
+              subPath: postgresql
+      restartPolicy: Always
+      volumes:
+        - name: mautrix-signal-bridge
+          persistentVolumeClaim:
+            claimName: mautrix-signal-bridge
+        - name: appservice-signal
+          secret:
+            secretName: appservice-signal
+            items:
+            - key: appservice-signal
+              path: appservice-signal.yaml
+            - key: config-signal
+              path: config-signal.yaml

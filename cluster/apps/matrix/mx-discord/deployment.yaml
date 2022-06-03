@@ -1,0 +1,109 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mx-discord-bridge
+  namespace: matrix
+spec:
+  selector:
+    matchLabels:
+      app: mx-discord-bridge
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: mx-discord-bridge
+    spec:
+      initContainers:
+        - name: rm-lost-and-found
+          image: busybox:1.35.0
+          command: ['/bin/rm', '-rf', '/var/lib/postgresql/data/lost+found']
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: mx-discord-database
+      containers:
+        - name: database
+          image: postgres:13-alpine
+          securityContext:
+            privileged: false
+            runAsUser: 70
+          ports:
+            - containerPort: 5432
+              protocol: TCP
+              name: postgresql
+          resources:
+            requests:
+              cpu: 25m
+              memory: 32Mi
+            limits:
+              cpu: 50m
+              memory: 100Mi
+          livenessProbe:
+            tcpSocket:
+              port: 5432
+            initialDelaySeconds: 300
+            periodSeconds: 30
+          env:
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  name: mx-discord-database-secrets
+                  key: database
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: mx-discord-database-secrets
+                  key: user
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mx-discord-database-secrets
+                  key: password
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: mx-discord-database
+        - name: bridge
+          image: sorunome/mx-puppet-discord
+          ports:
+            - containerPort: 8434
+              protocol: TCP
+              name: discordbridge
+          resources:
+            requests:
+              cpu: 50m
+              memory: 100Mi
+            limits:
+              cpu: 100m
+              memory: 200Mi
+          livenessProbe:
+            tcpSocket:
+              port: 8434
+            initialDelaySeconds: 300
+            periodSeconds: 30
+          volumeMounts:
+            - name: mx-discord-bridge
+              mountPath: /data
+            - name: appservice-discord
+              mountPath: /data/discord-registration.yaml
+              subPath: appservice-discord.yaml
+            - name: appservice-discord
+              mountPath: /data/config.yaml
+              subPath: config-discord.yaml
+      restartPolicy: Always
+      volumes:
+        - name: mx-discord-bridge
+          persistentVolumeClaim:
+            claimName: mx-discord-bridge
+        - name: mx-discord-database
+          persistentVolumeClaim:
+            claimName: mx-discord-database
+        - name: appservice-discord
+          secret:
+            secretName: appservice-discord
+            items:
+            - key: appservice-discord
+              path: appservice-discord.yaml
+            - key: config-discord
+              path: config-discord.yaml

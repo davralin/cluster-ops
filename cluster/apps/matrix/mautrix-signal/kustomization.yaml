@@ -3,15 +3,13 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - deployment.yaml
-  - ingress.yaml
   - pvc.yaml
   - service.yaml
 secretGenerator:
-- name: synapse-config
+- name: appservice-signal
   namespace: matrix
   files:
-  - homeserver-yaml
-  - log-config
-  - signing-key
+  - appservice-signal
+  - config-signal
 generatorOptions:
   disableNameSuffixHash: true
