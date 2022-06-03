@@ -16,56 +16,9 @@ spec:
       labels:
         app: mautrix-telegram-bridge
     spec:
-      initContainers:
-        - name: rm-lost-and-found
-          image: busybox:1.35.0
-          command: ['/bin/rm', '-rf', '/var/lib/postgresql/data/lost+found']
-          volumeMounts:
-            - mountPath: /var/lib/postgresql/data
-              name: mautrix-telegram-database
       containers:
-        - name: database
-          image: postgres:13-alpine
-          securityContext:
-            privileged: false
-            runAsUser: 70
-          ports:
-            - containerPort: 5432
-              protocol: TCP
-              name: postgresql
-          resources:
-            requests:
-              cpu: 20m
-              memory: 75Mi
-            limits:
-              cpu: 50m
-              memory: 150Mi
-          livenessProbe:
-            tcpSocket:
-              port: 5432
-            initialDelaySeconds: 300
-            periodSeconds: 30
-          env:
-            - name: POSTGRES_DB
-              valueFrom:
-                secretKeyRef:
-                  name: mautrix-telegram-database-secrets
-                  key: database
-            - name: POSTGRES_USER
-              valueFrom:
-                secretKeyRef:
-                  name: mautrix-telegram-database-secrets
-                  key: user
-            - name: POSTGRES_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: mautrix-telegram-database-secrets
-                  key: password
-          volumeMounts:
-            - mountPath: /var/lib/postgresql/data
-              name: mautrix-telegram-database
         - name: bridge
-          image: dock.mau.dev/mautrix/telegram:v0.11.2
+          image: dock.mau.dev/mautrix/telegram:v0.11.3
           ports:
             - containerPort: 29317
               protocol: TCP
@@ -91,9 +44,6 @@ spec:
               subPath: config-telegram.yaml
       restartPolicy: Always
       volumes:
-        - name: mautrix-telegram-database
-          persistentVolumeClaim:
-            claimName: mautrix-telegram-database
         - name: appservice-telegram
           secret:
             secretName: appservice-telegram
