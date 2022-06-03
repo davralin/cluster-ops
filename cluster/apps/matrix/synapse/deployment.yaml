@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: synapse
-          image: davralin/sleep #matrixdotorg/synapse:v1.60.0
+          image: matrixdotorg/synapse:v1.60.0
           ports:
             - containerPort: 8008
               protocol: TCP
@@ -34,7 +34,7 @@ spec:
             httpGet:
               path: /health
               port: 8008
-            initialDelaySeconds: 300000
+            initialDelaySeconds: 300
             periodSeconds: 30
           volumeMounts:
             - name: synapse-config

@@ -25,4 +25,4 @@ spec:
   tls:
     - secretName: "${SECRET_PUBLIC_DOMAIN_CERT}"
       hosts:
-        - "matrixtest.${SECRET_PUBLIC_DOMAIN}"
+        - "matrix.${SECRET_PUBLIC_DOMAIN}"
