@@ -16,6 +16,19 @@ spec:
       labels:
         app: mautrix-telegram-bridge
     spec:
+      initContainers:
+        - name: init-cp-configs
+          image: busybox:1.35.0
+          command: ['sh', '-c', "cp --verbose --no-clobber /tmp/*.yaml /data/"]
+          volumeMounts:
+            - name: mautrix-telegram-bridge
+              mountPath: /data
+            - name: appservice-telegram
+              mountPath: /tmp/registration.yaml
+              subPath: appservice-telegram.yaml
+            - name: appservice-telegram
+              mountPath: /tmp/config.yaml
+              subPath: config-telegram.yaml
       containers:
         - name: bridge
           image: dock.mau.dev/mautrix/telegram:v0.11.3
@@ -36,14 +49,13 @@ spec:
             initialDelaySeconds: 300
             periodSeconds: 30
           volumeMounts:
-            - name: appservice-telegram
-              mountPath: /data/registration.yaml
-              subPath: appservice-telegram.yaml
-            - name: appservice-telegram
-              mountPath: /data/config.yaml
-              subPath: config-telegram.yaml
+            - name: mautrix-telegram-bridge
+              mountPath: /data
       restartPolicy: Always
       volumes:
+        - name: mautrix-telegram-bridge
+          persistentVolumeClaim:
+            claimName: mautrix-telegram-bridge
         - name: appservice-telegram
           secret:
             secretName: appservice-telegram

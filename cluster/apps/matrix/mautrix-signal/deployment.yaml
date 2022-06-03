@@ -17,7 +17,7 @@ spec:
         app: mautrix-signal-bridge
     spec:
       initContainers:
-        - name: init-mkdir-cp-configs
+        - name: init-cp-configs
           image: busybox:1.35.0
           command: ['sh', '-c', "cp --verbose --no-clobber /tmp/*.yaml /config/bridge/"]
           volumeMounts:
