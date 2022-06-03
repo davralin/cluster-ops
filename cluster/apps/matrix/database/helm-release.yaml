@@ -29,7 +29,7 @@ spec:
       repository: bitnami/postgresql
       tag: 14.3.0
     auth:
-      database: dummy
+      database: synapse
       username: synapse
       existingSecret: database-secrets
     primary:
@@ -44,7 +44,7 @@ spec:
         repository: bitnami/bitnami-shell
         tag: 10
     metrics:
-      enabled: true
+      enabled: false
       image:
         repository: bitnami/postgres-exporter
         tag: 0.10.1
