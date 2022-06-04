@@ -28,7 +28,7 @@ resources:
   - media
   - metallb
   - minio
-#  - monicahq
+  - monicahq
   - monitoring
   - nextcloud
   - node-feature-discovery
