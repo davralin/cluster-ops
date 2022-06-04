@@ -31,7 +31,7 @@ spec:
     auth:
       database: paperless-ngx
       username: paperless-ngx
-      existingSecret: database-secrets
+      existingSecret: paperless-secrets
     primary:
       podAnnotations:
         backup.velero.io/backup-volumes: data

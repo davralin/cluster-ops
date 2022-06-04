@@ -36,6 +36,29 @@ spec:
       PAPERLESS_FILENAME_FORMAT: "{created_year}/{correspondent}/{title}"
       PAPERLESS_URL: "paperless-ngx.${SECRET_PRIVATE_DOMAIN}"
       PAPERLESS_CORS_ALLOWED_HOSTS: "paperless-ngx.${SECRET_PRIVATE_DOMAIN}"
+      PAPERLESS_DBHOST: "postgresql"
+      PAPERLESS_DBNAME: "paperless-ngx"
+      PAPERLESS_DBUSER: "paperless-ngx"
+      PAPERLESS_DBPASS:
+        valueFrom:
+          secretKeyRef:
+            name: paperless-secrets
+            key: password
+      PAPERLESS_ADMIN_USER:
+        valueFrom:
+          secretKeyRef:
+            name: paperless-secrets
+            key: paperless-admin-user
+      PAPERLESS_ADMIN_PASSWORD:
+        valueFrom:
+          secretKeyRef:
+            name: paperless-secrets
+            key: paperless-admin-pw
+      PAPERLESS_ADMIN_EMAIL:
+        valueFrom:
+          secretKeyRef:
+            name: paperless-secrets
+            key: paperless-admin-email
     ingress:
       main:
         enabled: true
