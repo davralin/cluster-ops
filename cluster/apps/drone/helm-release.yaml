@@ -34,22 +34,21 @@ spec:
     podAnnotations:
       backup.velero.io/backup-volumes: data
     ingress:
-      main:
-        enabled: true
-        annotations:
-          haproxy.org/whitelist: "${HAPROXY_WHITELIST}"
-          haproxy.org/response-set-header: |
-            Strict-Transport-Security "max-age=31536000"
-            X-Frame-Options "DENY"
-            X-Content-Type-Options "nosniff"
-            Referrer-Policy "no-referrer-when-downgrade"
-        hosts:
-          - host: "drone.${SECRET_PUBLIC_DOMAIN}"
-            paths:
-              - path: /
-                pathType: Prefix
-        tls:
-          - secretName: "${SECRET_PUBLIC_DOMAIN_CERT}"
+      enabled: true
+      annotations:
+        haproxy.org/whitelist: "${HAPROXY_WHITELIST}"
+        haproxy.org/response-set-header: |
+          Strict-Transport-Security "max-age=31536000"
+          X-Frame-Options "DENY"
+          X-Content-Type-Options "nosniff"
+          Referrer-Policy "no-referrer-when-downgrade"
+      hosts:
+        - host: "drone.${SECRET_PUBLIC_DOMAIN}"
+          paths:
+            - path: /
+              pathType: Prefix
+      tls:
+        - secretName: "${SECRET_PUBLIC_DOMAIN_CERT}"
     extraSecretNamesForEnvFrom:
       - drone-config
     env:
