@@ -36,6 +36,7 @@ spec:
       TZ: "${TIMEZONE}"
       DIUN_PROVIDERS_KUBERNETES: "true"
       LOG_LEVEL: "debug"
+      DIUN_PROVIDERS_KUBERNETES_WATCHBYDEFAULT: "true"
     envFrom:
       - secretRef:
         name: diun-telegram
