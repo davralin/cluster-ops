@@ -37,7 +37,7 @@ spec:
         backup.velero.io/backup-volumes: data
       persistence:
         enabled: true
-        existingClaim: paperless-ngx-postgresql
+        existingClaim: database
     volumePermissions:
       enabled: true
       image:
