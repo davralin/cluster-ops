@@ -24,7 +24,7 @@ spec:
     remediation:
       retries: 3
   values:
-    fullnameOverride: drone
+    fullnameOverride: drone-runner
     image:
       repository: drone/drone-runner-kube
       tag: 1.0.0-rc.3
