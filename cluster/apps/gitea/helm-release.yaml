@@ -92,6 +92,8 @@ spec:
           ENABLED: true
         mailer:
           enabled: false
+        webhook:
+          ALLOWED_HOST_LIST: "drone.${SECRET_PUBLIC_DOMAIN}"
       metrics:
         enabled: false
         serviceMonitor:
