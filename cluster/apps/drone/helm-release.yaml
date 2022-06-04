@@ -50,6 +50,10 @@ spec:
                 pathType: Prefix
         tls:
           - secretName: "${SECRET_PUBLIC_DOMAIN_CERT}"
+    extraSecretNamesForEnvFrom:
+      - drone-config
     env:
       DRONE_SERVER_PROTO: https
       DRONE_SERVER_HOST: "drone.${SECRET_PUBLIC_DOMAIN}"
+      DRONE_GIT_ALWAYS_AUTH: "false"
+      DRONE_GITEA_SERVER: "gitea.${SECRET_PUBLIC_DOMAIN}"
