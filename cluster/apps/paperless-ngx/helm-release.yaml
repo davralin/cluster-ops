@@ -31,7 +31,9 @@ spec:
     env:
       PAPERLESS_TIME_ZONE: "${TIMEZONE}"
       PAPERLESS_OCR_LANGUAGE: "nor+eng"
+      PAPERLESS_OCR_LANGUAGES: "nor"
       PAPERLESS_REDIS: "redis://redis-master"
+      PAPERLESS_FILENAME_FORMAT: "{created_year}/{correspondent}/{title}"
     ingress:
       main:
         enabled: true
