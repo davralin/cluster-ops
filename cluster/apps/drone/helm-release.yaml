@@ -54,5 +54,5 @@ spec:
     env:
       DRONE_SERVER_PROTO: https
       DRONE_SERVER_HOST: "drone.${SECRET_PUBLIC_DOMAIN}"
-      DRONE_GIT_ALWAYS_AUTH: "false"
+      DRONE_GIT_ALWAYS_AUTH: "true"
       DRONE_GITEA_SERVER: "https://gitea.${SECRET_PUBLIC_DOMAIN}"
