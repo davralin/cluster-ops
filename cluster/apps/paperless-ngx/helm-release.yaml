@@ -60,9 +60,7 @@ spec:
       consume:
         enabled: false
       export:
-        enabled: true
-        existingClaim: paperless-ngx
-        subPath: export
+        enabled: false
     podAnnotations:
       backup.velero.io/backup-volumes: data
     resources:
