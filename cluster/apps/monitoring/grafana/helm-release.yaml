@@ -122,6 +122,11 @@ spec:
           gnetId: 1860
           revision: 26
           datasource: Prometheus
+        # Ref: https://grafana.com/grafana/dashboards/9628
+        postgresql:
+          gnetId: 9628
+          revision: 7
+          datasource: Prometheus
     sidecar:
       image:
         repository: quay.io/kiwigrid/k8s-sidecar
