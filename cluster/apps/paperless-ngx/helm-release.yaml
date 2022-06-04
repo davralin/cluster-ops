@@ -50,11 +50,11 @@ spec:
           - secretName: "${SECRET_PRIVATE_DOMAIN_CERT}"
     persistence:
       data:
-        enabled: true
+        enabled: false
         existingClaim: paperless-ngx
         subPath: data
       media:
-        enabled: true
+        enabled: false
         existingClaim: paperless-ngx
         subPath: media
       consume:
