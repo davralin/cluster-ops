@@ -31,14 +31,6 @@ spec:
     env:
       PAPERLESS_TIME_ZONE: "${TIMEZONE}"
       PAPERLESS_OCR_LANGUAGE: "nor+eng"
-    redis:
-      enabled: true
-      fullnameOverride: redis
-      image:
-        repository: bitnami/redis
-        tag: 6.2.7
-      auth:
-        enabled: false
     ingress:
       main:
         enabled: true
