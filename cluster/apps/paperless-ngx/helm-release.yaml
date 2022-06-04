@@ -30,7 +30,6 @@ spec:
       tag: 1.7.1
     env:
       PAPERLESS_TIME_ZONE: "${TIMEZONE}"
-      PAPERLESS_REDIS: "redis://redis-master"
       PAPERLESS_OCR_LANGUAGE: "nor+eng"
     redis:
       enabled: true
@@ -61,6 +60,17 @@ spec:
       data:
         enabled: true
         existingClaim: paperless-ngx
+        subPath: data
+      media:
+        enabled: true
+        existingClaim: paperless-ngx
+        subPath: media
+      consume:
+        enabled: false
+      export:
+        enabled: true
+        existingClaim: paperless-ngx
+        subPath: export
     podAnnotations:
       backup.velero.io/backup-volumes: data
     resources:
