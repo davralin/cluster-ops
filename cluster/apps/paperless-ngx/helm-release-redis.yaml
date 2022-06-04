@@ -31,6 +31,9 @@ spec:
     architecture: standalone
     auth:
       enabled: false
+    master:
+      persistence:
+        enabled: false
     volumePermissions:
       enabled: true
       image:
