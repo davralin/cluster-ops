@@ -71,7 +71,7 @@ spec:
               name: mautrix-signal-bridge
               subPath: signald
         - name: signald
-          image: registry.gitlab.com/signald/signald:0.18.0
+          image: registry.gitlab.com/signald/signald:0.18.5
           resources:
             requests:
               cpu: 50m
