@@ -29,53 +29,7 @@ spec:
             - name: homeassistant
               mountPath: /config
               subPath: homeassistant
-        - name: init-chown-database
-          image: busybox:1.35.0
-          command:
-            - /bin/chown
-            - -R
-            - "70:70"
-            - /postgresql
-          volumeMounts:
-            - name: homeassistant
-              mountPath: /postgresql
-              subPath: postgresql
       containers:
-        - name: database
-          image: postgres:14-alpine
-          securityContext:
-            privileged: false
-            runAsUser: 70
-          ports:
-            - containerPort: 5432
-              protocol: TCP
-              name: postgresql
-          resources:
-            requests:
-              cpu: 20m
-              memory: 200Mi
-            limits:
-              cpu: 200m
-              memory: 400Mi
-          livenessProbe:
-            tcpSocket:
-              port: 5432
-            initialDelaySeconds: 300
-            periodSeconds: 30
-          env:
-            - name: POSTGRES_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: homeassistant-postgresql
-                  key: POSTGRES_PASSWORD
-            - name: POSTGRES_DB
-              value: "homeassistantdb"
-            - name: POSTGRES_USER
-              value: "homeassistant"
-          volumeMounts:
-            - mountPath: /var/lib/postgresql/data
-              subPath: postgresql
-              name: homeassistant
         - name: homeassistant
           image: ghcr.io/home-assistant/home-assistant:2022.6.1
           ports:
