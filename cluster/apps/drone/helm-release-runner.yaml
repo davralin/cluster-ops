@@ -33,5 +33,6 @@ spec:
       - drone-config
     env:
       DRONE_RPC_PROTO: https
+      DRONE_RPC_HOST: "drone.${SECRET_PUBLIC_DOMAIN}"
       DRONE_SERVER_HOST: "drone.${SECRET_PUBLIC_DOMAIN}"
       DRONE_NAMESPACE_DEFAULT: drone
