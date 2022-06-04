@@ -35,13 +35,6 @@ spec:
     env:
       TZ: "${TIMEZONE}"
       DIUN_PROVIDERS_KUBERNETES: "true"
-      DIUN_NOTIF_TELEGRAM_CHATIDS:
-        valueFrom:
-          secretKeyRef:
-            name: diun-telegram
-            key: DIUN_NOTIF_TELEGRAM_CHATIDS
-      DIUN_NOTIF_TELEGRAM_TOKEN:
-        valueFrom:
-          secretKeyRef:
-            name: diun-telegram
-            key: DIUN_NOTIF_TELEGRAM_TOKEN
+    envFrom:
+      - secretRef:
+        name: diun-telegram
