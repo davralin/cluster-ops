@@ -3,7 +3,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: paperless-ngx
-  namespace: flux-system
+  namespace: paperless-ngx
 spec:
   interval: 5m
   chart:
