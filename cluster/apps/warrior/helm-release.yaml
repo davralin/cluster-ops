@@ -1,0 +1,71 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: warrior
+  namespace: flux-system
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: warrior
+      version: 1.1.2
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home-charts
+        namespace: flux-system
+      interval: 5m
+  targetNamespace: warrior
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  values:
+    fullnameOverride: warrior
+    ingress:
+      main:
+        enabled: true
+        annotations:
+          haproxy.org/whitelist: "${HAPROXY_WHITELIST}"
+          haproxy.org/response-set-header: |
+            Strict-Transport-Security "max-age=31536000"
+            X-Frame-Options "DENY"
+            X-Content-Type-Options "nosniff"
+            Referrer-Policy "no-referrer-when-downgrade"
+        hosts:
+          - host: "warrior.${SECRET_PUBLIC_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - secretName: "${SECRET_PUBLIC_DOMAIN_CERT}"
+    env:
+      TZ: "${TIMEZONE}"
+      DOWNLOADER: "davralin"
+      SELECTED_PROJECT: "auto"
+    nodeSelector:
+      kubernetes.io/arch: amd64
+    ingress:
+      main:
+        enabled: true
+        annotations:
+          haproxy.org/whitelist: "${HAPROXY_WHITELIST}"
+          haproxy.org/response-set-header: |
+            Strict-Transport-Security "max-age=31536000"
+            X-Frame-Options "DENY"
+            X-Content-Type-Options "nosniff"
+            Referrer-Policy "no-referrer-when-downgrade"
+        hosts:
+          - host: "warrior.${SECRET_PUBLIC_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - secretName: "${SECRET_PUBLIC_DOMAIN_CERT}"
+    persistence:
+      config:
+        enabled: true
+        existingClaim: "warrior"
