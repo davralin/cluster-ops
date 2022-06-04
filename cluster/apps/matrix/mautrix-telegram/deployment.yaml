@@ -13,6 +13,8 @@ spec:
     type: Recreate
   template:
     metadata:
+      annotations:
+        backup.velero.io/backup-volumes: mautrix-telegram-bridge
       labels:
         app: mautrix-telegram-bridge
     spec:
