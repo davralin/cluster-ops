@@ -17,6 +17,7 @@ resources:
   - metallb.yaml
   - metrics-server.yaml
   - nextcloud.yaml
+  - nicholaswilde.yaml
   - node-feature-discovery.yaml
   - prometheus.yaml
   - rook-ceph.yaml

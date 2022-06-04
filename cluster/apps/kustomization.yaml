@@ -12,6 +12,7 @@ resources:
   - changedetection
   - ddns
   - descheduler
+  - diun
   - drone
   - freshrss
   - frontend
