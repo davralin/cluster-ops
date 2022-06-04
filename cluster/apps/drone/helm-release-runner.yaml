@@ -1,0 +1,37 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: drone-runner
+  namespace: drone
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: drone
+      version: 0.2.5
+      sourceRef:
+        kind: HelmRepository
+        name: drone-charts
+        namespace: flux-system
+      interval: 15m
+  targetNamespace: drone
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  values:
+    fullnameOverride: drone
+    image:
+      repository: drone/drone-runner-kube
+      tag: 1.0.0-rc.3
+    replicaCount: 2
+    extraSecretNamesForEnvFrom:
+      - drone-config
+    env:
+      DRONE_RPC_PROTO: https
+      DRONE_RPC_HOST: "drone.${SECRET_PUBLIC_DOMAIN}"
+      DRONE_NAMESPACE_DEFAULT: drone
