@@ -36,10 +36,10 @@ spec:
       podAnnotations:
         backup.velero.io/backup-volumes: data
       persistence:
-        enabled: false
+        enabled: true
         existingClaim: monicahq
-    readinessProbe:
-      initialDelaySeconds: 300
+      readinessProbe:
+        initialDelaySeconds: 300
     volumePermissions:
       enabled: true
       image:
