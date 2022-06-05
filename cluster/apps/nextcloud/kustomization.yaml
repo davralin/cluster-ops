@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - helm-release.yaml
   - helm-release-db.yaml
+  - helm-release-redis.yaml
   - namespace.yaml
   - pvc.yaml
   - secret.sops.yaml
