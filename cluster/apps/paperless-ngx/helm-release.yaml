@@ -91,10 +91,3 @@ spec:
         enabled: false
     podAnnotations:
       backup.velero.io/backup-volumes: data
-    resources:
-      requests:
-        cpu: 100m
-        memory: 75Mi
-      limits:
-        cpu: 500m
-        memory: 300Mi
