@@ -44,7 +44,7 @@ spec:
       enabled: true
       image:
         repository: bitnami/bitnami-shell
-        tag: 10
+        tag: 11
     metrics:
       enabled: true
       image:
