@@ -38,12 +38,6 @@ spec:
           env:
             - name: TZ
               value: "${TIMEZONE}"
-          livenessProbe:
-            httpGet:
-              path: /
-              port: web
-            initialDelaySeconds: 300
-            periodSeconds: 30
           volumeMounts:
             - name: homeassistant
               mountPath: /config
@@ -60,12 +54,6 @@ spec:
               value: "1000"
             - name: PGID
               value: "1000"
-          livenessProbe:
-            httpGet:
-              path: /
-              port: code
-            initialDelaySeconds: 300
-            periodSeconds: 30
           volumeMounts:
             - name: homeassistant
               mountPath: /config
