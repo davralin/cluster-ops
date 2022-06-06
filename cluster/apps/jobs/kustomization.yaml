@@ -4,8 +4,10 @@ kind: Kustomization
 resources:
   - backupbrowser.yaml
   - daily-calendar-sync.yaml
+  - daily-creative-backup.yaml
   - daily-imap-backup.yaml
   - daily-status-backup.yaml
+  - daily-survival-backup.yaml
   - mbsync.yaml
   - namespace.yaml
   - pvc.yaml
