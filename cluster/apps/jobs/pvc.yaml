@@ -15,12 +15,12 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: daily-imap-backup
+  name: remotebackup
   namespace: jobs
 spec:
-  storageClassName: ceph-block
+  storageClassName: ceph-filesystem
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   resources:
     requests:
-      storage: 15Gi
+      storage: 130Gi

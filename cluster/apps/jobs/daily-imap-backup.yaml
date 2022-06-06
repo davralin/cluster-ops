@@ -24,11 +24,12 @@ spec:
                   subPath: mbsync.rc
                   readOnly: true
                 - mountPath: /mail
-                  name: daily-imap-backup
+                  name: remotebackup
+                  subPath: mail
           volumes:
-            - name: daily-imap-backup
+            - name: remotebackup
               persistentVolumeClaim:
-                claimName: daily-imap-backup
+                claimName: remotebackup
             - name: mbsync
               secret:
                 secretName: mbsync

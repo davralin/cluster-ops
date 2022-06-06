@@ -1,0 +1,30 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backupbrowser
+  namespace: jobs
+spec:
+  selector:
+    matchLabels:
+      app: backupbrowser
+  replicas: 1
+  template:
+    metadata:
+      annotations:
+        backup.velero.io/backup-volumes: remotebackup
+      labels:
+        app: backupbrowser
+    spec:
+      containers:
+        - name: backupbrowser
+          image: ghcr.io/davralin/sleep
+          volumeMounts:
+            - mountPath: /data
+              name: remotebackup
+              readOnly: false
+      restartPolicy: Always
+      volumes:
+        - name: remotebackup
+          persistentVolumeClaim:
+            claimName: remotebackup
