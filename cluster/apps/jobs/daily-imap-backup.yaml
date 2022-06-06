@@ -15,7 +15,7 @@ spec:
         spec:
           restartPolicy: Never
           containers:
-            - name: daily-imap-backup
+            - name: mbsync
               image: jakewharton/mbsync:1.2.0
               command: ['/app/sync.sh']
               volumeMounts:
