@@ -4,10 +4,12 @@ kind: Kustomization
 resources:
   - backupbrowser.yaml
   - calendar-sync.yaml
-  - daily-imap-backup-secret.yaml
   - daily-imap-backup.yaml
+  - daily-status-backup.yaml
+  - mbsync.yaml
   - namespace.yaml
   - pvc.yaml
+  - sshkey.yaml
   - weekly-merge-dosage.yaml
 secretGenerator:
 - name: weekly-merge-dosage-secret
