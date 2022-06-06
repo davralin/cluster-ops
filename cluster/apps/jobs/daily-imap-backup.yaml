@@ -1,0 +1,38 @@
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: daily-imap-backup
+  namespace: jobs
+spec:
+  schedule: "14 04 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: Never
+          containers:
+            - name: daily-imap-backup
+              image: jakewharton/mbsync:1.2.0
+              command: ['/app/sync.sh']
+              volumeMounts:
+                - mountPath: /config/mbsync.rc
+                  name: mbsync
+                  subPath: mbsync.rc
+                  readOnly: true
+                - mountPath: /mail
+                  name: daily-imap-backup
+          volumes:
+            - name: daily-imap-backup
+              persistentVolumeClaim:
+                claimName: daily-imap-backup
+            - name: mbsync
+              secret:
+                secretName: mbsync
+                defaultMode: 0600
+                items:
+                  - key: mbsync.rc
+                    path: mbsync.rc
