@@ -23,8 +23,9 @@ metadata:
 subjects:
 - kind: ServiceAccount
   name: mc-router
-  namespace: default
+  namespace: minecraft
 roleRef:
   kind: ClusterRole
   name: services-watcher
+  namespace: minecraft
   apiGroup: rbac.authorization.k8s.io
