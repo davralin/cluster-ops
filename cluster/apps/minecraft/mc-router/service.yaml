@@ -10,10 +10,10 @@ spec:
   - targetPort: web
     name: web
     port: 8080
-    nodePort: 25580
+    nodePort: 30080
   - targetPort: proxy
     name: proxy
     port: 25565
-    nodePort: 25565
+    nodePort: 30065
   selector:
     run: mc-router
