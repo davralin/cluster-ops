@@ -1,0 +1,18 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mc-router
+spec:
+  type: NodePort
+  ports:
+  - targetPort: web
+    name: web
+    port: 8080
+    nodePort: 25580
+  - targetPort: proxy
+    name: proxy
+    port: 25565
+    nodePort: 25565
+  selector:
+    run: mc-router

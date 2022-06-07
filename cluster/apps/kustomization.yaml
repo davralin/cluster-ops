@@ -27,6 +27,7 @@ resources:
   - matrix
   - media
   - metallb
+  - minecraft
   - minio
   - monicahq
   - monitoring
