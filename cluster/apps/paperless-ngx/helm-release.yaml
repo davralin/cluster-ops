@@ -35,6 +35,7 @@ spec:
       PAPERLESS_REDIS: "redis://redis-master"
       PAPERLESS_FILENAME_FORMAT: "{created_year}/{correspondent}/{title}"
       PAPERLESS_URL: "paperless-ngx.${SECRET_PRIVATE_DOMAIN}"
+      PAPERLESS_CSRF_TRUSTED_ORIGINS: "https://paperless-ngx.${SECRET_PRIVATE_DOMAIN}"
       PAPERLESS_CORS_ALLOWED_HOSTS: "https://paperless-ngx.${SECRET_PRIVATE_DOMAIN}"
       PAPERLESS_DBHOST: "postgresql"
       PAPERLESS_DBNAME: "paperless-ngx"
