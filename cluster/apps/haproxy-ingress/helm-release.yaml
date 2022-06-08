@@ -34,6 +34,8 @@ spec:
       ingressClass: null
       ingressClassResource:
         default: true
+      defaultTLSSecret:
+        enabled: false
     defaultBackend:
       replicaCount: 1
       image:
