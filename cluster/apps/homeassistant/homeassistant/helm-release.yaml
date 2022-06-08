@@ -27,7 +27,7 @@ spec:
     fullnameOverride: homeassistant
     image:
       repository: ghcr.io/home-assistant/home-assistant
-      tag: 2022.6.3
+      tag: 2022.6.4
     env:
       TZ: "${TIMEZONE}"
     ingress:
