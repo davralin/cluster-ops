@@ -30,7 +30,7 @@ spec:
       logging:
         level: debug
       service:
-        type: LoadBalancer
+        type: "${HAPROXY_SERVICETYPE}"
       ingressClass: null
       ingressClassResource:
         default: true
