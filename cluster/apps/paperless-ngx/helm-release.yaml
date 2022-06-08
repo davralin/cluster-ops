@@ -79,15 +79,13 @@ spec:
     persistence:
       data:
         enabled: true
-        existingClaim: paperless-ngx
-        subPath: data
+        existingClaim: paperless-ngx-data
       media:
         enabled: true
-        existingClaim: paperless-ngx
-        subPath: media
+        existingClaim: paperless-ngx-media
       consume:
         enabled: false
       export:
         enabled: false
     podAnnotations:
-      backup.velero.io/backup-volumes: data
+      backup.velero.io/backup-volumes: data, media

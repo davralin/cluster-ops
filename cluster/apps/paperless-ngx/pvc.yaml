@@ -15,7 +15,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: paperless-ngx
+  name: paperless-ngx-data
   namespace: paperless-ngx
 spec:
   storageClassName: ceph-block
@@ -23,4 +23,17 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 6Gi
+      storage: 2Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: paperless-ngx-media
+  namespace: paperless-ngx
+spec:
+  storageClassName: ceph-block
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
