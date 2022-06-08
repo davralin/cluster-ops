@@ -5,7 +5,7 @@ metadata:
   name: mc-stable
   namespace: minecraft
   annotations:
-    "mc-router.itzg.me/externalServerName": "mc.your.domain"
+    "mc-router.itzg.me/externalServerName": "mc.${SECRET_PRIVATE_DOMAIN}"
 spec:
   ports:
   - port: 25565
