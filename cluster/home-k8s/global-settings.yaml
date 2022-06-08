@@ -8,4 +8,3 @@ data:
   TIMEZONE: "Europe/Oslo"
   BEASTHOST: "readsb-protobuf"
   HAPROXY_WHITELIST: "10.0.0.0/8"
-  HAPROXY_SERVICETYPE: "LoadBalancer"

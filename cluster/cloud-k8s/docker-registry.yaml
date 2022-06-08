@@ -2,14 +2,14 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: haproxy-ingress
+  name: docker-registry
   namespace: flux-system
 spec:
   interval: 10m0s
   dependsOn:
-    - name: core
-  path: ./cluster/apps/haproxy-ingress
-  prune: true
+    - name: haproxy-ingress-daemonset
+  path: ./cluster/apps/docker-registry
+  prune: false
   sourceRef:
     kind: GitRepository
     name: flux-system

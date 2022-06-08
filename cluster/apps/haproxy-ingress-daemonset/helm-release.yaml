@@ -26,18 +26,13 @@ spec:
   values:
     fullnameOverride: haproxy-controller
     controller:
-      replicaCount: 2
+      kind: DaemonSet
       logging:
         level: debug
-      service:
-        type: LoadBalancer
       ingressClass: null
       ingressClassResource:
         default: true
       defaultTLSSecret:
         enabled: false
     defaultBackend:
-      replicaCount: 1
-      image:
-        repository: ghcr.io/davralin/nginx-autoindex
-        tag: latest
+      replicaCount: 0
