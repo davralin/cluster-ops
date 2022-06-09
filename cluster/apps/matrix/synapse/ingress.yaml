@@ -5,7 +5,6 @@ metadata:
   name: synapse-ingress
   namespace: matrix
   annotations:
-    external-dns.alpha.kubernetes.io/target: "home.${SECRET_PUBLIC_DOMAIN}"
     haproxy.org/response-set-header: |
       Strict-Transport-Security "max-age=31536000"
       X-Frame-Options "DENY"

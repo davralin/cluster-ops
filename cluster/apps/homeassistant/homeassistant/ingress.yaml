@@ -6,6 +6,7 @@ metadata:
   namespace: homeassistant
   annotations:
     external-dns.alpha.kubernetes.io/target: "home.${SECRET_PRIVATE_DOMAIN}"
+    external-dns/is-public: "true"
     haproxy.org/response-set-header: |
       Strict-Transport-Security "max-age=31536000"
       X-Content-Type-Options "nosniff"

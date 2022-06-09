@@ -28,15 +28,20 @@ spec:
     interval: 15m
     logLevel: debug
     provider: cloudflare
+    extraArgs:
+      - --annotation-filter=external-dns/is-public in (true)
     env:
       - name: CF_API_EMAIL
         value: "${SECRET_CLOUDFLARE_EMAIL}"
-      - name: CF_API_KEY
+      - name: CF_API_TOKEN
         valueFrom:
           secretKeyRef:
             name: cloudflare-token
             key: api-token
     policy: sync
+    domainFilters:
+      - "${SECRET_PUBLIC_DOMAIN}"
+      - "${SECRET_PRIVATE_DOMAIN}"
     resources:
       requests:
         memory: 100Mi
