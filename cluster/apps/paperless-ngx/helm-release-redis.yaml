@@ -27,7 +27,7 @@ spec:
     fullnameOverride: redis
     image:
       repository: bitnami/redis
-      tag: 7.0.0
+      tag: 7.0.1
     architecture: standalone
     auth:
       enabled: false
