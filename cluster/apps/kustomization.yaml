@@ -10,10 +10,10 @@ resources:
   - camera
   - cert-manager
   - changedetection
-  - ddns
   - descheduler
   - diun
   - drone
+  - external-dns
   - freshrss
   - frontend
   - gitea
