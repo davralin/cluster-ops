@@ -25,9 +25,6 @@ spec:
       retries: 3
   values:
     fullnameOverride: kuma
-    image:
-      repository: davralin/sleep
-      tag: latest
     env:
       TZ: "${TIMEZONE}"
     ingress:
@@ -50,6 +47,7 @@ spec:
       data:
         enabled: true
         existingClaim: kuma
+        mountPath: /path
     startupProbe:
       enabled: false
     readinessProbe:
