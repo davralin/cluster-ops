@@ -8,7 +8,7 @@ spec:
   interval: 5m
   chart:
     spec:
-      chart: kuma
+      chart: uptime-kuma
       version: 1.3.3
       sourceRef:
         kind: HelmRepository
