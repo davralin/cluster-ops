@@ -9,5 +9,6 @@ resources:
   - ../kubed
   - ../kuma/oracle
   - ../monitoring/metrics-server
+  - ../minecraft
   - ../reloader
   - ../s3-rclone
