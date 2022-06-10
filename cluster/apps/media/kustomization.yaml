@@ -9,13 +9,13 @@ resources:
   - jellyfin
   - lidarr
   - namespace.yaml
+  - media-rclone
   - pvc.yaml
   - plex
   #- plex-meta-manager
   - prowlarr
   - qbittorrent
   - radarr
-  - rclone
   - readarr
   - sonarr
   - squeezebox

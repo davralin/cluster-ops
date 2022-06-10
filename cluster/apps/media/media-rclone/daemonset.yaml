@@ -2,19 +2,19 @@
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
-  name: kube-rclone
+  name: media-rclone
   namespace: media
 spec:
   selector:
     matchLabels:
-      app.kubernetes.io/name: kube-rclone
+      app.kubernetes.io/name: media-rclone
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: kube-rclone
+        app.kubernetes.io/name: media-rclone
     spec:
       initContainers:
-      - name: kube-rclone-config
+      - name: media-rclone-config
         image: busybox:1.35.0
         command:
           - cp
@@ -29,7 +29,7 @@ spec:
           mountPath: /out
       terminationGracePeriodSeconds: 120
       containers:
-      - name: kube-rclone-rclone
+      - name: media-rclone
         image: rclone/rclone:1.58
         args:
           - mount
