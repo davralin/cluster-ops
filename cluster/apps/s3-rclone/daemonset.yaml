@@ -1,0 +1,69 @@
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: s3-rclone
+  namespace: storage
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: s3-rclone
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: s3-rclone
+    spec:
+      initContainers:
+      - name: s3-rclone-config
+        image: busybox:1.35.0
+        command:
+          - cp
+        args:
+          - -v
+          - /in/rclone.conf
+          - /out/rclone.conf
+        volumeMounts:
+        - name: config-data
+          mountPath: /in
+        - name: config
+          mountPath: /out
+      terminationGracePeriodSeconds: 120
+      containers:
+      - name: s3-rclone
+        image: rclone/rclone:1.58
+        args:
+          - mount
+          - "oracle-s3-crypt:"
+          - /var/media/s3
+          - --config=/etc/rclone/rclone.conf
+          - --allow-non-empty
+          - --allow-other
+        lifecycle:
+          preStop:
+            exec:
+              command: ["/bin/sh","-c","fusermount -uz /var/media/s3"]
+        securityContext:
+          privileged: true
+          capabilities:
+            add:
+              - SYS_ADMIN
+        volumeMounts:
+        - name: config
+          mountPath: /etc/rclone
+        - name: data
+          mountPath: /var/lib/rclone
+        - name: media
+          mountPath: /var/media/s3
+          mountPropagation: Bidirectional
+      volumes:
+      - name: config
+        emptyDir: {}
+      - name: config-data
+        secret:
+          secretName: rclone-config
+      - name: media
+        hostPath:
+          path: /var/media/s3
+      - name: data
+        hostPath:
+          path: /var/lib/rclone/

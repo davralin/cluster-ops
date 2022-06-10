@@ -1,0 +1,27 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: s3-host-path
+  namespace: storage
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 1Gi
+  accessModes:
+  - ReadOnlyMany
+  hostPath:
+    path: /var/media/s3
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: s3-host-path
+  namespace: storage
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadOnlyMany
+  resources:
+    requests:
+      storage: 1Gi
