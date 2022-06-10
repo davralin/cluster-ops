@@ -50,5 +50,11 @@ spec:
       data:
         enabled: true
         existingClaim: kuma
+    startupProbe:
+      enabled: false
+    readinessProbe:
+      enabled: false
+    livenessProbe:
+      enabled: false
     podAnnotations:
       backup.velero.io/backup-volumes: data
