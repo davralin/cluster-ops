@@ -48,11 +48,5 @@ spec:
         enabled: true
         existingClaim: kuma
         mountPath: /path
-    startupProbe:
-      enabled: false
-    readinessProbe:
-      enabled: false
-    livenessProbe:
-      enabled: false
     podAnnotations:
       backup.velero.io/backup-volumes: data
