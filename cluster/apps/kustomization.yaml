@@ -10,6 +10,7 @@ resources:
   - camera
   - cert-manager
   - changedetection
+  - ddns
   - descheduler
   - diun
   - drone
