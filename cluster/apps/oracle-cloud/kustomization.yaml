@@ -2,7 +2,10 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - ../frontend/bibliogram/
-  - ../frontend/teddit/
-  - ../kuma/oracle/
-  - ../s3-rclone/
+  - ../frontend/bibliogram
+  - ../frontend/teddit
+  - ../kubed
+  - ../kuma/oracle
+  - ../monitoring/metrics-server
+  - ../reloader
+  - ../s3-rclone
