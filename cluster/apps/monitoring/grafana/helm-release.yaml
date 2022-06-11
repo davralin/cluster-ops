@@ -127,6 +127,11 @@ spec:
           gnetId: 9628
           revision: 7
           datasource: Prometheus
+        # Ref: https://grafana.com/grafana/dashboards/14847
+        uptime-kuma:
+          gnetId: 14847
+          revision: 2
+          datasource: Prometheus
     sidecar:
       image:
         repository: quay.io/kiwigrid/k8s-sidecar
