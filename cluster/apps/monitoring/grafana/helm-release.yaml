@@ -90,7 +90,7 @@ spec:
         # Ref: https://grafana.com/grafana/dashboards/13502
         minio:
           gnetId: 13502
-          revision: 14
+          revision: 17
           datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/5342
         ceph-pools:
@@ -120,7 +120,7 @@ spec:
         # Ref: https://grafana.com/grafana/dashboards/1860
         node-exporter-full:
           gnetId: 1860
-          revision: 26
+          revision: 27
           datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/9628
         postgresql:
