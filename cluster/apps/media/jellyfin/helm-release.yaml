@@ -32,7 +32,7 @@ spec:
       fsGroupChangePolicy: "OnRootMismatch"
     image:
       repository: jellyfin/jellyfin
-      tag: 10.7.7
+      tag: 10.8.0
     env:
       TZ: "${TIMEZONE}"
     ingress:
