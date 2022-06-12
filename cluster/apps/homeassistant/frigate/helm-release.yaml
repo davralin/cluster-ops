@@ -60,7 +60,9 @@ spec:
         existingClaim: frigate
       usb:
         enabled: true
-        hostPath: /dev/vide0
+        hostPath: /dev
+      cache:
+        enabled: false
     securityContext:
       privileged: true
     resources:
