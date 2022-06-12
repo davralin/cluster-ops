@@ -120,9 +120,6 @@ spec:
             cameras:
               # Name of your camera
               dor:
-                width: 640
-                height: 480
-                fps: 5
                 detect:
                   width: 1280
                   height: 720
