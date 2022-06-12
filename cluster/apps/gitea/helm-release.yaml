@@ -49,8 +49,6 @@ spec:
     service:
       ssh:
         type: LoadBalancer
-    podAnnotations:
-      backup.velero.io/backup-volumes: data
     memcached:
       enabled: false
     postgresql:
@@ -62,6 +60,8 @@ spec:
       enabled: true
       gpgHome: /data/git/.gnupg
     gitea:
+      podAnnotations:
+        backup.velero.io/backup-volumes: data
       config:
         server:
           DISABLE_SSH: false

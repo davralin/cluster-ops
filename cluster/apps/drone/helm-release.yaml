@@ -32,7 +32,7 @@ spec:
       enabled: true
       existingClaim: drone
     podAnnotations:
-      backup.velero.io/backup-volumes: data
+      backup.velero.io/backup-volumes: storage-volume
     ingress:
       enabled: true
       annotations:
