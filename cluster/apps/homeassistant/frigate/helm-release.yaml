@@ -65,6 +65,8 @@ spec:
       limits:
         gpu.intel.com/i915: 1
         memory: 3000Mi
+    nodeSelector:
+      feature.node.kubernetes.io/custom-logitech-webcam: "true"
     configmap:
       config:
         enabled: true
