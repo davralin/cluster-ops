@@ -62,8 +62,7 @@ spec:
         enabled: true
         hostPath: /dev
         subPath: video0
-      cache:
-        enabled: false
+        mountPath: /dev/video0
     securityContext:
       privileged: true
     resources:
