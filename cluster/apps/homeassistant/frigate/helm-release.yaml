@@ -61,6 +61,7 @@ spec:
       usb:
         enabled: true
         hostPath: /dev
+        subPath: video0
       cache:
         enabled: false
     securityContext:
