@@ -51,12 +51,20 @@ spec:
           - secretName: "${SECRET_PRIVATE_DOMAIN_CERT}"
     service:
       main:
-        rtmp:
-          enabled: true
+        ports:
+          rtmp:
+            enabled: true
     persistence:
       data:
         enabled: true
         existingClaim: frigate
+      usb:
+        enabled: true
+        hostPath: /dev
+        subPath: video0
+        mountPath: /dev/video0
+    securityContext:
+      privileged: true
     resources:
       requests:
         gpu.intel.com/i915: 1
@@ -115,16 +123,19 @@ spec:
             cameras:
               # Name of your camera
               dor:
-                ffmpeg:
-                  inputs:
-                    - path: rtsp://10.0.1.16:8554/dor
-                      roles:
-                        - detect
-                        - record
-                        - rtmp
                 detect:
                   width: 1280
                   height: 720
+                ffmpeg:
+                  inputs:
+                  - path: /dev/video0
+                    roles:
+                    - clips
+                    - detect
+                    - record
+                    - rtmp
+                  hwaccel_args: ''
+                  input_args: -f video4linux2 -avoid_negative_ts make_zero -fflags +genpts+discardcorrupt -use_wallclock_as_timestamps 1
                 objects:
                   track:
                     - person
