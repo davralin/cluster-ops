@@ -51,8 +51,9 @@ spec:
           - secretName: "${SECRET_PRIVATE_DOMAIN_CERT}"
     service:
       main:
-        rtmp:
-          enabled: true
+        ports:
+          rtmp:
+            enabled: true
     persistence:
       data:
         enabled: true
