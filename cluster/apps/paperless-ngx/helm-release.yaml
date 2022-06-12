@@ -87,4 +87,4 @@ spec:
       export:
         enabled: false
     podAnnotations:
-      backup.velero.io/backup-volumes: data, media
+      backup.velero.io/backup-volumes: data,media
