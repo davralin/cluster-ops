@@ -28,7 +28,7 @@ spec:
               topologyKey: "kubernetes.io/hostname"
       containers:
         - name: rssbridge
-          image: ghcr.io/rss-bridge/rss-bridge
+          image: ghcr.io/rss-bridge/rss-bridge:2022-06-14
           ports:
             - name: web
               containerPort: 80
