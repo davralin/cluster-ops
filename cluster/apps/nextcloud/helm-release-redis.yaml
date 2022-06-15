@@ -43,4 +43,4 @@ spec:
       enabled: true
       image:
         repository: bitnami/redis-exporter
-        tag: 1.40.0
+        tag: 1.41.0
