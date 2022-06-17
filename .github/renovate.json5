@@ -13,7 +13,7 @@
     "github>onedr0p/home-ops//.github/renovate/labels.json5",
     "github>onedr0p/home-ops//.github/renovate/semanticCommits.json5"
   ],
-  "dependencyDashboardTitle": "Renovate Dashboard 🤖",
+  "dependencyDashboardTitle": "Renovate Dashboard",
   "suppressNotifications": [
     "prIgnoreNotification"
   ],
