@@ -23,7 +23,7 @@ spec:
     remediation:
       retries: 5
   values:
-    fullnameOverride: prometheus
+    fullnameOverride: kube-prometheus
     alertmanager:
       config:
         global:
