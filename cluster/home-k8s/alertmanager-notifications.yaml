@@ -6,4 +6,4 @@ metadata:
   namespace: flux-system
 spec:
   type: alertmanager
-  address: http://monitoring-prometheus-alertmanager.monitoring/api/v2/alerts/
+  address: http://kube-prometheus-stack-alertmanager.monitoring:9093/api/v2/alerts/
