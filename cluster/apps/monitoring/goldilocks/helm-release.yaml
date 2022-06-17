@@ -23,6 +23,7 @@ spec:
     remediation:
       retries: 5
   values:
+    fullnameOverride: goldilocks
     controller:
       resources:
         requests:

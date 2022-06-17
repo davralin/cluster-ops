@@ -23,6 +23,7 @@ spec:
     remediation:
       retries: 5
   values:
+    fullnameOverride: vpa
     recommender:
       enabled: true
     updater:
