@@ -1,0 +1,153 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: kube-prometheus-stack
+  namespace: monitoring
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: kube-prometheus-stack
+      version: 36.0.2
+      sourceRef:
+        kind: HelmRepository
+        name: prometheus-community-charts
+        namespace: flux-system
+      interval: 15m
+  install:
+    createNamespace: true
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
+  values:
+    alertmanager:
+      config:
+        global:
+          resolve_timeout: 5m
+        receivers:
+          - name: matrix
+            webhook_configs:
+            - url: 'http://matrix-alertmanager.matrix:3000/alerts?secret=${SECRET_MATRIX_ALERTMANAGER_SECRET}'
+        route:
+          group_by: ["alertname", "job"]
+          group_wait: 30s
+          group_interval: 5m
+          repeat_interval: 6h
+          receiver: "matrix"
+      alertmanagerSpec:
+        replicas: 2
+        podAntiAffinity: hard
+        storage:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: "ceph-block"
+              resources:
+                requests:
+                  storage: 250Mi
+    kube-state-metrics:
+      metricLabelsAllowlist:
+        - "persistentvolumeclaims=[*]"
+      prometheus:
+        monitor:
+          enabled: true
+          relabelings:
+            - action: replace
+              regex: (.*)
+              replacement: $1
+              sourceLabels:
+                - __meta_kubernetes_pod_node_name
+              targetLabel: kubernetes_node
+    grafana:
+      enabled: false
+      forceDeployDashboards: true
+      sidecar:
+        dashboards:
+          multicluster:
+            etcd:
+              enabled: true
+    kubelet:
+      enabled: true
+      serviceMonitor:
+        metricRelabelings:
+          - action: replace
+            sourceLabels:
+              - node
+            targetLabel: instance
+    kubeApiServer:
+      enabled: true
+    kubeControllerManager:
+      enabled: true
+      endpoints:
+        - 10.0.1.67
+        - 10.0.1.68
+        - 10.0.1.69
+    kubeScheduler:
+      enabled: true
+      endpoints:
+        - 10.0.1.67
+        - 10.0.1.68
+        - 10.0.1.69
+    kubeProxy:
+      enabled: true
+      endpoints:
+        - 10.0.1.67
+        - 10.0.1.68
+        - 10.0.1.69
+    kubeEtcd:
+      enabled: true
+      endpoints:
+        - 10.0.1.67
+        - 10.0.1.68
+        - 10.0.1.69
+      service:
+        enabled: true
+        port: 2381
+        targetPort: 2381
+    prometheus:
+      thanosService:
+        enabled: true
+      thanosServiceMonitor:
+        enabled: true
+      prometheusSpec:
+        replicas: 3
+        replicaExternalLabelName: "replica"
+        podAntiAffinity: hard
+        retentionSize: "6GB"
+        ruleSelectorNilUsesHelmValues: false
+        serviceMonitorSelectorNilUsesHelmValues: false
+        podMonitorSelectorNilUsesHelmValues: false
+        probeSelectorNilUsesHelmValues: false
+        retention: 2d
+        enableAdminAPI: true
+        walCompression: true
+        storageSpec:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: "ceph-block"
+              resources:
+                requests:
+                  storage: 10Gi
+        thanos:
+          image: quay.io/thanos/thanos:v0.26.0
+          # renovate: datasource=docker depName=quay.io/thanos/thanos
+          version: "v0.26.0"
+          objectStorageConfig:
+            name: thanos-objstore-secret
+            key: objstore.yml
+        resources:
+          requests:
+            cpu: 500m
+            memory: 2000Mi
+          limits:
+            memory: 8000Mi
+        additionalScrapeConfigs:
+          - job_name: firewall
+            scrape_interval: 1m
+            scrape_timeout: 10s
+            honor_timestamps: true
+            static_configs:
+              - targets:
+                  - "firewall.${SECRET_PRIVATE_DOMAIN}:9153"

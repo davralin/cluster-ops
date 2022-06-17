@@ -37,7 +37,7 @@ spec:
             - name: "MATRIX_TOKEN"
               value: "${SECRET_MATRIX_NOTIFICATION_TOKEN}"
             - name: "MATRIX_ROOMS"
-              value: "receiver1/${SECRET_MATRIX_NOTIFICATION_ROOM}"
+              value: "matrix/${SECRET_MATRIX_NOTIFICATION_ROOM}"
           resources:
             requests:
               cpu: 10m
