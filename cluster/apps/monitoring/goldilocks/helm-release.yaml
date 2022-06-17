@@ -43,7 +43,7 @@ spec:
             X-Content-Type-Options "nosniff"
             Referrer-Policy "no-referrer-when-downgrade"
         hosts:
-          - "goldilocks.${SECRET_PRIVATE_DOMAIN}"
+          - host: "goldilocks.${SECRET_PRIVATE_DOMAIN}"
         tls:
           - secretName: "${SECRET_PRIVATE_DOMAIN_CERT}"
             hosts:
