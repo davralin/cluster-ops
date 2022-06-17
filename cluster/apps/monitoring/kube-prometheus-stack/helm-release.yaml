@@ -24,6 +24,7 @@ spec:
       retries: 5
   values:
     fullnameOverride: kube-prometheus
+    nameOverride: kube-prometheus
     alertmanager:
       config:
         global:
