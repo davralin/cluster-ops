@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - ../cert-manager
   - ../docker-registry
+  - ../external-dns
   - ../frontend/bibliogram
   - ../frontend/teddit
   - ../haproxy-ingress-daemonset
