@@ -26,6 +26,6 @@ spec:
   values:
     fullnameOverride: node-problem-detector
     metrics:
-      enabled: false
+      enabled: true
       serviceMonitor:
-        enabled: false
+        enabled: true

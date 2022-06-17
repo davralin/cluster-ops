@@ -148,7 +148,7 @@ spec:
     plugins:
       - snuids-radar-panel
     serviceMonitor:
-      enabled: false
+      enabled: true
     ingress:
       enabled: true
       annotations:

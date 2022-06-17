@@ -95,9 +95,9 @@ spec:
         webhook:
           ALLOWED_HOST_LIST: "drone.${SECRET_PUBLIC_DOMAIN}"
       metrics:
-        enabled: false
+        enabled: true
         serviceMonitor:
-          enabled: false
+          enabled: true
   valuesFrom:
     - targetPath: gitea.admin.email
       kind: Secret
