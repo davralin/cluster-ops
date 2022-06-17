@@ -7,4 +7,5 @@ resources:
   - kube-prometheus-stack
   - loki
   - metrics-server
+  - vpa
   - namespace.yaml

@@ -8,6 +8,7 @@ resources:
   - descheduler.yaml
   - drone.yaml
   - external-dns.yaml
+  - fairwinds.yaml
   - gitea.yaml
   - grafana.yaml
   - halkeye.yaml
