@@ -110,9 +110,9 @@ spec:
         targetPort: 2381
     prometheus:
       thanosService:
-        enabled: true
+        enabled: false
       thanosServiceMonitor:
-        enabled: true
+        enabled: false
       prometheusSpec:
         replicas: 1
         replicaExternalLabelName: "replica"
