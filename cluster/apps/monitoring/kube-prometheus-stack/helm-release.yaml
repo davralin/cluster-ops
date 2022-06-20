@@ -25,10 +25,10 @@ spec:
   values:
     fullnameOverride: kube-prometheus
     nameOverride: kube-prometheus
+    defaultRules:
+      create: false
     alertmanager:
       config:
-        global:
-          resolve_timeout: 5m
         receivers:
           - name: matrix
             webhook_configs:
@@ -42,6 +42,9 @@ spec:
       alertmanagerSpec:
         replicas: 1
         podAntiAffinity: hard
+        image:
+          repository: quay.io/prometheus/alertmanager
+          tag: v0.24.0
         storage:
           volumeClaimTemplate:
             spec:
@@ -110,9 +113,9 @@ spec:
         targetPort: 2381
     prometheus:
       thanosService:
-        enabled: false
+        enabled: true
       thanosServiceMonitor:
-        enabled: false
+        enabled: true
       prometheusSpec:
         replicas: 1
         replicaExternalLabelName: "replica"
@@ -132,10 +135,10 @@ spec:
               resources:
                 requests:
                   storage: 10Gi
-        thanos:
-          image: quay.io/thanos/thanos:v0.26.0
+        #thanos:
+          #image: quay.io/thanos/thanos:v0.26.0
           # renovate: datasource=docker depName=quay.io/thanos/thanos
-          version: "v0.26.0"
+          #version: v0.26.0
         resources:
           requests:
             cpu: 500m
