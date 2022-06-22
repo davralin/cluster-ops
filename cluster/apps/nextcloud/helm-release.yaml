@@ -25,9 +25,9 @@ spec:
       retries: 3
   values:
     fullnameOverride: nextcloud
-    image:
-      repository: nextcloud
-      tag: 24.0.1-apache
+      #image:
+      #repository: nextcloud
+      #tag: 24.0.1-apache
     persistence:
       enabled: true
       existingClaim: nextcloud
