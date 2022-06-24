@@ -28,4 +28,4 @@ spec:
     reloader:
       podMonitor:
         enabled: true
-        namespace: reloader
+        namespace: default
