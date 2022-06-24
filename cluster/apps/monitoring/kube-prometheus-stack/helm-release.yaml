@@ -18,10 +18,10 @@ spec:
   install:
     createNamespace: true
     remediation:
-      retries: 5
+      retries: 3
   upgrade:
     remediation:
-      retries: 5
+      retries: 3
   values:
     fullnameOverride: kube-prometheus
     nameOverride: kube-prometheus
@@ -40,7 +40,7 @@ spec:
           repeat_interval: 6h
           receiver: "matrix"
       alertmanagerSpec:
-        replicas: 1
+        replicas: 2
         podAntiAffinity: hard
         image:
           repository: quay.io/prometheus/alertmanager
@@ -117,10 +117,10 @@ spec:
       thanosServiceMonitor:
         enabled: true
       prometheusSpec:
-        replicas: 1
+        replicas: 3
         replicaExternalLabelName: "replica"
         podAntiAffinity: hard
-        retentionSize: "6GB"
+        retentionSize: "4GB"
         ruleSelectorNilUsesHelmValues: false
         serviceMonitorSelectorNilUsesHelmValues: false
         podMonitorSelectorNilUsesHelmValues: false
@@ -134,11 +134,14 @@ spec:
               storageClassName: "ceph-block"
               resources:
                 requests:
-                  storage: 10Gi
-        #thanos:
-          #image: quay.io/thanos/thanos:v0.26.0
+                  storage: 5Gi
+        thanos:
+          image: quay.io/thanos/thanos:v0.26.0
           # renovate: datasource=docker depName=quay.io/thanos/thanos
-          #version: v0.26.0
+          version: "v0.26.0"
+          objectStorageConfig:
+            name: thanos-objstore-secret
+            key: objstore.yml
         resources:
           requests:
             cpu: 500m
