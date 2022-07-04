@@ -71,4 +71,10 @@ spec:
               value: "localhost"
             - name: DOMAIN
               value: "r.${SECRET_PUBLIC_DOMAIN}"
+            - name: "USE_HELMET"
+              value: "true"
+            - name: "USE_HELMET_HSTS"
+              value: "true"
+            - name: "REDIRECT_WWW"
+              value: "true"
       restartPolicy: Always
