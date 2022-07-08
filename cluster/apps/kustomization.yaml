@@ -31,7 +31,6 @@ resources:
   - metallb
   - minecraft
   - minio
-  - monicahq
   - monitoring
   - nextcloud
   - node-feature-discovery
