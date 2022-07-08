@@ -27,7 +27,7 @@ spec:
     fullnameOverride: loki
     image:
       repository: grafana/loki
-      tag: 2.5.0
+      tag: 2.6.0
     ingress:
       enabled: true
       annotations:
