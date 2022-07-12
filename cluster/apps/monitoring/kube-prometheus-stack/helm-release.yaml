@@ -23,10 +23,6 @@ spec:
     remediation:
       retries: 3
   values:
-    fullnameOverride: kube-prometheus
-    nameOverride: kube-prometheus
-    defaultRules:
-      create: false
     alertmanager:
       config:
         receivers:
@@ -52,19 +48,6 @@ spec:
               resources:
                 requests:
                   storage: 250Mi
-    kube-state-metrics:
-      metricLabelsAllowlist:
-        - "persistentvolumeclaims=[*]"
-      prometheus:
-        monitor:
-          enabled: true
-          relabelings:
-            - action: replace
-              regex: (.*)
-              replacement: $1
-              sourceLabels:
-                - __meta_kubernetes_pod_node_name
-              targetLabel: kubernetes_node
     grafana:
       enabled: false
       forceDeployDashboards: true
@@ -73,86 +56,3 @@ spec:
           multicluster:
             etcd:
               enabled: true
-    kubelet:
-      enabled: true
-      serviceMonitor:
-        metricRelabelings:
-          - action: replace
-            sourceLabels:
-              - node
-            targetLabel: instance
-    kubeApiServer:
-      enabled: true
-    kubeControllerManager:
-      enabled: true
-      endpoints:
-        - 10.0.1.67
-        - 10.0.1.68
-        - 10.0.1.69
-    kubeScheduler:
-      enabled: true
-      endpoints:
-        - 10.0.1.67
-        - 10.0.1.68
-        - 10.0.1.69
-    kubeProxy:
-      enabled: true
-      endpoints:
-        - 10.0.1.67
-        - 10.0.1.68
-        - 10.0.1.69
-    kubeEtcd:
-      enabled: true
-      endpoints:
-        - 10.0.1.67
-        - 10.0.1.68
-        - 10.0.1.69
-      service:
-        enabled: true
-        port: 2381
-        targetPort: 2381
-    prometheus:
-      thanosService:
-        enabled: true
-      thanosServiceMonitor:
-        enabled: true
-      prometheusSpec:
-        replicas: 3
-        replicaExternalLabelName: "replica"
-        podAntiAffinity: hard
-        retentionSize: "4GB"
-        ruleSelectorNilUsesHelmValues: false
-        serviceMonitorSelectorNilUsesHelmValues: false
-        podMonitorSelectorNilUsesHelmValues: false
-        probeSelectorNilUsesHelmValues: false
-        retention: 2d
-        enableAdminAPI: true
-        walCompression: true
-        storageSpec:
-          volumeClaimTemplate:
-            spec:
-              storageClassName: "ceph-block"
-              resources:
-                requests:
-                  storage: 5Gi
-        thanos:
-          image: quay.io/thanos/thanos:v0.27.0
-          # renovate: datasource=docker depName=quay.io/thanos/thanos
-          version: "v0.26.0"
-          objectStorageConfig:
-            name: thanos-objstore-secret
-            key: objstore.yml
-        resources:
-          requests:
-            cpu: 500m
-            memory: 2000Mi
-          limits:
-            memory: 8000Mi
-        additionalScrapeConfigs:
-          - job_name: firewall
-            scrape_interval: 1m
-            scrape_timeout: 10s
-            honor_timestamps: true
-            static_configs:
-              - targets:
-                  - "firewall.${SECRET_PRIVATE_DOMAIN}:9153"
