@@ -8,7 +8,7 @@ spec:
   nodeName: <storage-node-name>
   containers:
   - name: disk-wipe
-    image: busybox
+    image: busybox:1.35.0
     securityContext:
       privileged: true
     command: ["/bin/sh", "-c", "dd if=/dev/zero bs=1M count=100 oflag=direct of=<device>"]
