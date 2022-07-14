@@ -3,7 +3,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - backupbrowser.yaml
-  - daily-calendar-sync.yaml
+#  - daily-calendar-sync.yaml
   - daily-creative-backup.yaml
   - daily-imap-backup.yaml
   - daily-sitebackup-from.yaml
