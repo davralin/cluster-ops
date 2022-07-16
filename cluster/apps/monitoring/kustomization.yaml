@@ -6,7 +6,7 @@ resources:
   - goldilocks
   - grafana
   #- kube-prometheus-stack
-  #- loki
+  - loki
   - metrics-server
   - vpa
   - namespace.yaml
