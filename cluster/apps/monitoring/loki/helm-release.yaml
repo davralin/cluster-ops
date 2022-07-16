@@ -29,20 +29,6 @@ spec:
       repository: grafana/loki
       tag: 2.6.0
     ingress:
-      enabled: true
-      annotations:
-        haproxy.org/whitelist: "${HAPROXY_WHITELIST}"
-        haproxy.org/response-set-header: |
-          Strict-Transport-Security "max-age=31536000"
-          X-Frame-Options "DENY"
-          X-Content-Type-Options "nosniff"
-          Referrer-Policy "no-referrer-when-downgrade"
-      hosts:
-        - host: "loki.${SECRET_PRIVATE_DOMAIN}"
-          paths: []
-      tls:
-        - secretName: "${SECRET_PRIVATE_DOMAIN_CERT}"
-          hosts:
-            - "loki.${SECRET_PRIVATE_DOMAIN}"
+      enabled: false
     persistence:
       enabled: true
