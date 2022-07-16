@@ -39,6 +39,7 @@ spec:
           Referrer-Policy "no-referrer-when-downgrade"
       hosts:
         - host: "loki.${SECRET_PRIVATE_DOMAIN}"
+          paths: []
       tls:
         - secretName: "${SECRET_PRIVATE_DOMAIN_CERT}"
           hosts:
