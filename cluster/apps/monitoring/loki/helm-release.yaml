@@ -5,7 +5,6 @@ metadata:
   name: loki
   namespace: monitoring
 spec:
-  releaseName: loki
   interval: 5m
   chart:
     spec:
@@ -39,7 +38,7 @@ spec:
           X-Content-Type-Options "nosniff"
           Referrer-Policy "no-referrer-when-downgrade"
       hosts:
-        - "loki.${SECRET_PRIVATE_DOMAIN}"
+        - host: "loki.${SECRET_PRIVATE_DOMAIN}"
       tls:
         - secretName: "${SECRET_PRIVATE_DOMAIN_CERT}"
           hosts:
