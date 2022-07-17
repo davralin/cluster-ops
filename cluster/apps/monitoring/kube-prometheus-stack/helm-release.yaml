@@ -47,10 +47,11 @@ spec:
         storage:
           volumeClaimTemplate:
             spec:
+              storageClassName: nfs-client
               accessModes: ["ReadWriteOnce"]
               resources:
                 requests:
-                  storage: 1Gi
+                  storage: 5Gi
         externalUrl: https://alertmanager.kubeadm.local/
         routePrefix: /
 
