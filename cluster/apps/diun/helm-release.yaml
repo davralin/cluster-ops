@@ -27,7 +27,7 @@ spec:
     fullnameOverride: diun
     image:
       repository: ghcr.io/crazy-max/diun
-      tag: 4.21.0
+      tag: 4.22.0
     persistence:
       config:
         enabled: true
