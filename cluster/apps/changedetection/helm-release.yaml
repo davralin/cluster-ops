@@ -63,13 +63,6 @@ spec:
       - name: playwright-chrome
         image: browserless/chrome:1.54-chrome-stable
         imagePullPolicy: IfNotPresent
-        resources:
-          requests:
-            cpu: 100m
-            memory: 300Mi
-          limits:
-            cpu: 100m
-            memory: 300Mi
     podAnnotations:
       backup.velero.io/backup-volumes: config
     resources:
