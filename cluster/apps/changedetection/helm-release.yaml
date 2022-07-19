@@ -36,7 +36,7 @@ spec:
     env:
       TZ: "${TIMEZONE}"
       USE_X_SETTINGS: "1"
-      PLAYWRIGHT_DRIVER_URL: "ws://playwright-chrome:3000/?stealth=1&--disable-web-security=true"
+      PLAYWRIGHT_DRIVER_URL: "ws://localhost:3000/?stealth=1&--disable-web-security=true"
     ingress:
       main:
         enabled: true
