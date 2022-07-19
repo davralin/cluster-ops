@@ -58,8 +58,8 @@ spec:
       data:
         enabled: true
         existingClaim: frigate
-    securityContext:
-      privileged: true
+    nodeSelector:
+      feature.node.kubernetes.io/cpu-model.id: "165"
     resources:
       requests:
         gpu.intel.com/i915: 1
@@ -99,11 +99,9 @@ spec:
               # NOTE: See hardware acceleration docs for your specific device
               hwaccel_args:
                 - -hwaccel
-                - vaapi
-                - -hwaccel_device
+                - qsv
+                - -qsv_device
                 - /dev/dri/renderD128
-                - -hwaccel_output_format
-                - yuv420p
             record:
               enabled: true
             detectors:
