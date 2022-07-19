@@ -61,7 +61,7 @@ spec:
         mountPath: /datastore
     additionalContainers:
       - name: playwright-chrome
-        image: browserless/chrome:1.53-chrome-stable
+        image: browserless/chrome:1.54-chrome-stable
         imagePullPolicy: IfNotPresent
         resources:
           requests:
