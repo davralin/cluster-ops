@@ -57,10 +57,6 @@ spec:
                 - pciId:
                     class: ["0300"]
                     vendor: ["8086"]
-            - name: logitech-webcam
-              matchOn:
-                - usbId:
-                    vendor: ["046d", "081d"]
             - name: rtl-sdr-433mhz
               matchOn:
                 - usbId:
