@@ -131,8 +131,6 @@ spec:
                     - path: rtsp://${SECRET_HAGE_CAM_URL_PASS}/cam/realmonitor?channel=1&subtype=1&unicast=true
                       roles:
                         - detect
-                        - record
-                        - rtmp
                 objects:
                   track:
                     - person
