@@ -58,6 +58,8 @@ spec:
       data:
         enabled: true
         existingClaim: frigate
+    securityContext:
+      privileged: true
     resources:
       requests:
         gpu.intel.com/i915: 1
