@@ -36,6 +36,7 @@ spec:
     env:
       TZ: "${TIMEZONE}"
       USE_X_SETTINGS: "1"
+      PLAYWRIGHT_DRIVER_URL: "ws://playwright-chrome:3000/?stealth=1&--disable-web-security=true"
     ingress:
       main:
         enabled: true
@@ -58,6 +59,17 @@ spec:
         enabled: true
         existingClaim: changedetection
         mountPath: /datastore
+    additionalContainers:
+      - name: playwright-chrome
+        image: browserless/chrome:1.53-chrome-stable
+        imagePullPolicy: IfNotPresent
+        resources:
+          requests:
+            cpu: 100m
+            memory: 300Mi
+          limits:
+            cpu: 100m
+            memory: 300Mi
     podAnnotations:
       backup.velero.io/backup-volumes: config
     resources:
