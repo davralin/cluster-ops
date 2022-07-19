@@ -99,7 +99,6 @@ spec:
               # password: password
               # Optional: interval in seconds for publishing stats (default: shown below)
               stats_interval: 60
-
             ffmpeg:
               # Optional: global ffmpeg args (default: shown below)
               global_args: -hide_banner -loglevel warning
@@ -112,39 +111,24 @@ spec:
                 - /dev/dri/renderD128
                 - -hwaccel_output_format
                 - yuv420p
-
+            record:
+              enabled: true
             detectors:
               # coral:
               #   type: edgetpu
               #   device: usb
               cpu1:
                 type: cpu
-
             cameras:
-              # Name of your camera
-              dor:
-                detect:
-                  width: 1280
-                  height: 720
-                ffmpeg:
-                  inputs:
-                  - path: /dev/video0
-                    roles:
-                    - clips
-                    - detect
-                    - record
-                    - rtmp
-                  hwaccel_args: ''
-                  input_args: -f video4linux2 -avoid_negative_ts make_zero -fflags +genpts+discardcorrupt -use_wallclock_as_timestamps 1
-                objects:
-                  track:
-                    - person
-                    - cat
               # Name of your camera
               hage:
                 ffmpeg:
                   inputs:
-                    - path: rtsp://10.0.1.111
+                    - path: rtsp://${SECRET_HAGE_CAM_URL_PASS}/cam/realmonitor?channel=1&subtype=0&unicast=true
+                      roles:
+                        - record
+                        - rtmp
+                    - path: rtsp://${SECRET_HAGE_CAM_URL_PASS}/cam/realmonitor?channel=1&subtype=1&unicast=true
                       roles:
                         - detect
                         - record
