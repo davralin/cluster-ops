@@ -32,7 +32,7 @@ spec:
                   readOnly: false
           containers:
             - name: daily-plex-meta-manager
-              image: meisnate12/plex-meta-manager:v1.17.1
+              image: meisnate12/plex-meta-manager:v1.17.2
               args: ["--config", "/config/config.yaml", "--run"]
               volumeMounts:
                 - name: pmmconfig
