@@ -7,4 +7,5 @@ resources:
   - ../frontend
   - ../haproxy-ingress
   - ../kubed
+  - ../minecraft
   - ../reloader
