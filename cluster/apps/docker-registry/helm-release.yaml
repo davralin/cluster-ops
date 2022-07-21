@@ -29,7 +29,7 @@ spec:
       tag: 2.8.1
     persistence:
       enabled: false
-    replicaCount: 4
+    replicaCount: 1
     ingress:
       enabled: true
       className: haproxy
