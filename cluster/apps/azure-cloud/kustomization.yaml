@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - ../cert-manager
   - ../external-dns
+  - ../frontend
   - ../haproxy-ingress
   - ../kubed
   - ../reloader
