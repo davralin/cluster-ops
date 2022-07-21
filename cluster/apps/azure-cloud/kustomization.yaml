@@ -5,5 +5,4 @@ resources:
   - ../cert-manager
   - ../external-dns
   - ../kubed
-  - ../monitoring/metrics-server
   - ../reloader
