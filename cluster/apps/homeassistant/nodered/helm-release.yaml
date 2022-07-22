@@ -44,7 +44,7 @@ spec:
           - secretName: "${SECRET_PRIVATE_DOMAIN_CERT}"
     image:
       repository: ghcr.io/k8s-at-home/node-red
-      tag: v3.0.0
+      tag: v3.0.1
     env:
       TZ: "${TIMEZONE}"
     podAnnotations:
