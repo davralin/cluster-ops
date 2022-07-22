@@ -5,7 +5,7 @@ metadata:
   name: mc-router
   namespace: minecraft
 spec:
-  type: NodePort
+  type: LoadBalancer
   ports:
   - targetPort: web
     name: web
