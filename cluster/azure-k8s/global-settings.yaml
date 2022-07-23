@@ -8,3 +8,4 @@ data:
   TIMEZONE: "Europe/Oslo"
   BEASTHOST: "readsb-protobuf"
   HAPROXY_WHITELIST: "0.0.0.0/0"
+  STORAGE_READWRITEONCE: "managed"
