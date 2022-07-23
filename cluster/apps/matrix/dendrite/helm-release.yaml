@@ -28,6 +28,11 @@ spec:
     ingress:
       main:
         enabled: true
+    service:
+      main:
+        ports:
+          https:
+            enabled: false
     dendrite:
       polylithEnabled: false
       report_stats:
