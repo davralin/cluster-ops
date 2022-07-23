@@ -8,5 +8,4 @@ resources:
   - ../kubed
   - ../matrix/database
   - ../matrix/dendrite
-  - ../minecraft
   - ../reloader
