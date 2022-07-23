@@ -8,5 +8,6 @@ resources:
   - ../haproxy-ingress
   - ../kubed
   - ../matrix/database
+  - ../matrix/dendrite
   - ../minecraft
   - ../reloader
