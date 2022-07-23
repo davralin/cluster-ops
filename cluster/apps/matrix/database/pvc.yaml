@@ -5,7 +5,7 @@ metadata:
   name: database
   namespace: matrix
 spec:
-  storageClassName: ceph-block
+  storageClassName: "${STORAGE_READWRITEONCE}"
   accessModes:
     - ReadWriteOnce
   resources:
