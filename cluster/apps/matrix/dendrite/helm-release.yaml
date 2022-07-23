@@ -25,3 +25,10 @@ spec:
       retries: 3
   values:
     fullnameOverride: dendrite
+    ingress:
+      main:
+        enabled: true
+    dendrite:
+      polylithEnabled: false
+      report_stats:
+        enabled: true
