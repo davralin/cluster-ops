@@ -34,6 +34,8 @@ spec:
           https:
             enabled: false
     dendrite:
+      matrix_key_secret:
+        create: true
       polylithEnabled: false
       report_stats:
         enabled: true
