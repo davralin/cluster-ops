@@ -26,6 +26,8 @@ spec:
   values:
     fullnameOverride: dendrite
     dendrite:
+      global:
+        server_name: "${SECRET_PUBLIC_DOMAIN}"
       matrix_key_secret:
         existingSecret: dendrite-secret
       polylithEnabled: false
@@ -34,6 +36,8 @@ spec:
     ingress:
       main:
         enabled: true
+    nats:
+      enabled: false
     service:
       main:
         ports:
