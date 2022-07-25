@@ -7,7 +7,6 @@ resources:
   - airprint
   - apt-cacher-ng
   - archivebox
-  #- camera
   - cert-manager
   - changedetection
   - ddns
