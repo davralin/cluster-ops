@@ -25,6 +25,12 @@ spec:
       retries: 3
   values:
     fullnameOverride: dendrite
+    dendrite:
+      matrix_key_secret:
+        existingSecret: dendrite-secret
+      polylithEnabled: false
+      report_stats:
+        enabled: true
     ingress:
       main:
         enabled: true
@@ -33,9 +39,12 @@ spec:
         ports:
           https:
             enabled: false
-    dendrite:
-      matrix_key_secret:
-        existingSecret: dendrite-secret
-      polylithEnabled: false
-      report_stats:
+    persistence:
+      media:
         enabled: true
+        existingClaim: dendrite
+        subpath: media
+      jetstream:
+        enabled: true
+        existingClaim: dendrite
+        subpath: jetstream
