@@ -46,9 +46,7 @@ spec:
     persistence:
       media:
         enabled: true
-        existingClaim: dendrite
-        subpath: media
+        existingClaim: dendrite-media
       jetstream:
         enabled: true
-        existingClaim: dendrite
-        subpath: jetstream
+        existingClaim: dendrite-jetstream
