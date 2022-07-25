@@ -115,10 +115,10 @@ spec:
               hage:
                 ffmpeg:
                   inputs:
-                    - path: rtsp://${SECRET_HAGE_CAM_URL_PASS}/cam/realmonitor?channel=1&subtype=0&unicast=true
+                    - path: rtsp://${SECRET_DOR_CAM_URL_PASS}/cam/realmonitor?channel=1&subtype=0&unicast=true
                       roles:
                         - record
-                    - path: rtsp://${SECRET_HAGE_CAM_URL_PASS}/cam/realmonitor?channel=1&subtype=1&unicast=true
+                    - path: rtsp://${SECRET_DOR_CAM_URL_PASS}/cam/realmonitor?channel=1&subtype=1&unicast=true
                       roles:
                         - detect
                         - rtmp
