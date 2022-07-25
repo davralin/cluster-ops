@@ -112,7 +112,7 @@ spec:
                 type: cpu
             cameras:
               # Name of your camera
-              hage:
+              dor:
                 ffmpeg:
                   inputs:
                     - path: rtsp://${SECRET_DOR_CAM_URL_PASS}/cam/realmonitor?channel=1&subtype=0&unicast=true
