@@ -36,6 +36,8 @@ spec:
     ingress:
       main:
         enabled: true
+        hosts:
+          - host: "matrix.${SECRET_PUBLIC_DOMAIN}"
     nats:
       enabled: false
     service:
