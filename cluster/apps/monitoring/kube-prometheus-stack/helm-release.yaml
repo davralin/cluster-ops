@@ -112,11 +112,11 @@ spec:
         targetPort: 2381
     prometheus:
       thanosService:
-        enabled: true
+        enabled: false
       thanosServiceMonitor:
-        enabled: true
+        enabled: false
       prometheusSpec:
-        replicas: 3
+        replicas: 1
         replicaExternalLabelName: "replica"
         podAntiAffinity: hard
         retentionSize: "4GB"
