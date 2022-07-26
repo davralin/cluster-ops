@@ -16,7 +16,7 @@ spec:
           restartPolicy: Never
           containers:
             - name: mbsync
-              image: jakewharton/mbsync:1.2.0
+              image: jakewharton/mbsync:1.3.0
               command: ['/app/sync.sh']
               volumeMounts:
                 - mountPath: /config/mbsync.rc
