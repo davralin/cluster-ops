@@ -76,10 +76,10 @@ spec:
             access: proxy
             url: http://monitoring-prometheus-server
             isDefault: true
-          - name: Loki
-            type: loki
-            access: proxy
-            url: http://monitoring-loki-stack:3100
+          #- name: Loki
+            #type: loki
+            #access: proxy
+            #url: http://monitoring-loki-stack:3100
     dashboards:
       default:
         # Ref: https://grafana.com/grafana/dashboards/13168
