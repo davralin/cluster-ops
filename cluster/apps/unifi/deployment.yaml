@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
         - name: unifi-controller
-          image: lscr.io/linuxserver/unifi-controller:7.1.66
+          image: lscr.io/linuxserver/unifi-controller:7.1.68
           env:
             - name: MEM_LIMIT
               value: 1024M
