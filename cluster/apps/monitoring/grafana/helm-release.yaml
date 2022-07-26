@@ -132,6 +132,11 @@ spec:
           gnetId: 14847
           revision: 2
           datasource: Prometheus
+        # Ref: https://grafana.com/grafana/dashboards/14055
+        loki:
+          gnetId: 14055
+          revision: 5
+          datasource: loki,Prometheus
     sidecar:
       image:
         repository: quay.io/kiwigrid/k8s-sidecar
