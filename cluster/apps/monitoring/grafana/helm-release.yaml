@@ -76,6 +76,7 @@ spec:
             type: loki
             access: proxy
             url: http://monitoring-loki-stack:3100
+            isDefault: false
     dashboards:
       default:
         # Ref: https://grafana.com/grafana/dashboards/13168
