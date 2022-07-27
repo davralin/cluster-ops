@@ -1,0 +1,99 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: blackbox-exporter
+  namespace: monitoring
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: prometheus-blackbox-exporter
+      version: 6.0.0
+      sourceRef:
+        kind: HelmRepository
+        name: prometheus-community
+        namespace: flux-system
+      interval: 15m
+  install:
+    createNamespace: true
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
+  values:
+    fullnameOverride: blackbox-exporter
+    image:
+      repository: quay.io/prometheus/blackbox-exporter
+    ingress:
+      enabled: true
+      annotations:
+        haproxy.org/whitelist: "${HAPROXY_WHITELIST}"
+        haproxy.org/response-set-header: |
+          Strict-Transport-Security "max-age=31536000"
+          X-Frame-Options "DENY"
+          X-Content-Type-Options "nosniff"
+          Referrer-Policy "no-referrer-when-downgrade"
+      hosts:
+        - "blackbox.${SECRET_PRIVATE_DOMAIN}"
+      tls:
+        - secretName: "${SECRET_PRIVATE_DOMAIN_CERT}"
+          hosts:
+            - "blackbox.${SECRET_PRIVATE_DOMAIN}"
+    allowIcmp: true
+    config:
+      modules:
+        http_2xx:
+          prober: http
+          timeout: 5s
+          http:
+            valid_http_versions: ["HTTP/1.1", "HTTP/2.0"]
+            follow_redirects: true
+            preferred_ip_protocol: "ip4"
+        icmp:
+          prober: icmp
+          timeout: 30s
+          icmp:
+            preferred_ip_protocol: "ip4"
+    serviceMonitor:
+      enabled: true
+      defaults:
+        labels:
+          release: prometheus
+        interval: 2m
+        scrapeTimeout: 30s
+      targets:
+        - module: icmp
+          name: harmonyhub-icmp
+          url: 10.0.1.98
+    prometheusRule:
+      enabled: true
+      additionalLabels:
+        app: prometheus-operator
+        release: prometheus
+      rules:
+        - alert: BlackboxSslCertificateWillExpireSoon
+          expr: probe_ssl_earliest_cert_expiry - time() < 86400 * 3
+          for: 15m
+          labels:
+            severity: critical
+          annotations:
+            description: |-
+              The SSL certificate for {{"{{ $labels.target }}"}} will expire in less than 3 days
+        - alert: BlackboxSslCertificateExpired
+          expr: probe_ssl_earliest_cert_expiry - time() <= 0
+          for: 15m
+          labels:
+            severity: critical
+          annotations:
+            description: |-
+              The SSL certificate for {{"{{ $labels.target }}"}} has expired
+        - alert: BlackboxProbeFailed
+          expr: probe_success == 0
+          for: 15m
+          labels:
+            severity: critical
+          annotations:
+            description: |-
+              The host {{"{{ $labels.target }}"}} is currently unreachable
