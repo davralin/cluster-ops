@@ -27,7 +27,7 @@ spec:
     image:
       repository: quay.io/prometheus/blackbox-exporter
     ingress:
-      enabled: true
+      enabled: false
       annotations:
         haproxy.org/whitelist: "${HAPROXY_WHITELIST}"
         haproxy.org/response-set-header: |
