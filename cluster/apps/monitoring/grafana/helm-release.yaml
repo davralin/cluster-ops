@@ -132,6 +132,11 @@ spec:
           gnetId: 14847
           revision: 2
           datasource: Prometheus
+        # Ref: https://grafana.com/grafana/dashboards/7587
+        blackbox-exporter:
+          gnetId: 7587
+          revision: 3
+          datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/14055
         loki:
           gnetId: 14055
