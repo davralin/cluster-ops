@@ -25,7 +25,7 @@ spec:
   values:
     fullnameOverride: kube-prom-stack
     defaultRules:
-      create: false
+      create: true
     alertmanager:
       config:
         receivers:
