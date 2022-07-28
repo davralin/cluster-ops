@@ -43,11 +43,6 @@ spec:
           timeout: 30s
           icmp:
             preferred_ip_protocol: "ip4"
-        dns:
-          prober: dns
-          timeout: 30s
-          dns:
-            preferred_ip_protocol: "ip4"
     serviceMonitor:
       enabled: true
       defaults:
