@@ -141,10 +141,11 @@ spec:
           limits:
             memory: 8000Mi
         additionalScrapeConfigs:
-          - job_name: foreldre
+          - job_name: debians
             scrape_interval: 1m
             scrape_timeout: 10s
             honor_timestamps: true
             static_configs:
               - targets:
                   - "foreldre.w.ot:9100"
+                  - "mierin.w.ot:9100"
