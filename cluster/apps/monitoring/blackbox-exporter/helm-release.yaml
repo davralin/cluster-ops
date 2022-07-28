@@ -56,16 +56,16 @@ spec:
           url: harmonyhub
         - module: icmp
           name: loftet-core
-          url: loftet-core
+          url: loftet_core
         - module: icmp
           name: loftet-main
-          url: loftet-main
+          url: loftet_main
         - module: icmp
           name: loftet-secondary
-          url: loftet-secondary
+          url: loftet_secondary
         - module: icmp
           name: loftet-uplink
-          url: loftet-uplink
+          url: loftet_uplink
         - module: icmp
           name: serverplugh110
           url: serverplugh110
