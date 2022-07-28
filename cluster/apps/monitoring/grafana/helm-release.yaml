@@ -137,6 +137,11 @@ spec:
           gnetId: 7587
           revision: 3
           datasource: Prometheus
+        # Ref: https://grafana.com/grafana/dashboards/7845
+        zfs:
+          gnetId: 7845
+          revision: 4
+          datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/14055
         loki:
           gnetId: 14055
