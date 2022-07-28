@@ -72,44 +72,6 @@ spec:
           multicluster:
             etcd:
               enabled: true
-    kubelet:
-      enabled: true
-      serviceMonitor:
-        metricRelabelings:
-          - action: replace
-            sourceLabels:
-              - node
-            targetLabel: instance
-    kubeApiServer:
-      enabled: true
-    kubeControllerManager:
-      enabled: true
-      endpoints:
-        - 10.0.1.67
-        - 10.0.1.68
-        - 10.0.1.69
-    kubeScheduler:
-      enabled: true
-      endpoints:
-        - 10.0.1.67
-        - 10.0.1.68
-        - 10.0.1.69
-    kubeProxy:
-      enabled: true
-      endpoints:
-        - 10.0.1.67
-        - 10.0.1.68
-        - 10.0.1.69
-    kubeEtcd:
-      enabled: true
-      endpoints:
-        - 10.0.1.67
-        - 10.0.1.68
-        - 10.0.1.69
-      service:
-        enabled: true
-        port: 2381
-        targetPort: 2381
     prometheus:
       thanosService:
         enabled: false
