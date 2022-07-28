@@ -57,7 +57,7 @@ spec:
         scrapeTimeout: 30s
       targets:
         - module: icmp
-          name: HarmonyHub
+          name: harmonyhub
           url: HarmonyHub
         - module: icmp
           name: Loftet_Core
