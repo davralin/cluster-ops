@@ -27,7 +27,7 @@ spec:
     fullnameOverride: minio
     image:
       repository: bitnami/minio
-      tag: 2022.7.17
+      tag: 2022.7.26
     persistence:
       existingClaim: minio-local
     volumePermissions:
