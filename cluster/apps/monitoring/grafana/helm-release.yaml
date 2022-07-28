@@ -90,31 +90,16 @@ spec:
         # Ref: https://grafana.com/grafana/dashboards/13502
         minio:
           gnetId: 13502
-          revision: 17
-          datasource: Prometheus
-        # Ref: https://grafana.com/grafana/dashboards/5342
-        ceph-pools:
-          gnetId: 5342
-          revision: 5
+          revision: 19
           datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/2842
         ceph-overview:
           gnetId: 2842
           revision: 14
           datasource: Prometheus
-        # Ref: https://grafana.com/grafana/dashboards/5336
-        ceph-osd:
-          gnetId: 5336
-          revision: 5
-          datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/6739
         k8s-pvc:
           gnetId: 6739
-          revision: 1
-          datasource: Prometheus
-        # Ref: https://grafana.com/grafana/dashboards/12006
-        k8s-api:
-          gnetId: 12006
           revision: 1
           datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/1860
