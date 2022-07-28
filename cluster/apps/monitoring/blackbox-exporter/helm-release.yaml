@@ -58,22 +58,22 @@ spec:
       targets:
         - module: icmp
           name: harmonyhub
-          url: HarmonyHub
+          url: harmonyhub
         - module: icmp
-          name: Loftet_Core
-          url: Loftet_Core
+          name: loftet_core
+          url: loftet_core
         - module: icmp
-          name: Loftet_Main
-          url: Loftet_Main
+          name: loftet_main
+          url: loftet_main
         - module: icmp
-          name: Loftet_Secondary
-          url: Loftet_Secondary
+          name: loftet_secondary
+          url: loftet_secondary
         - module: icmp
-          name: Loftet_Uplink
-          url: Loftet_Uplink
+          name: loftet_uplink
+          url: loftet_uplink
         - module: icmp
-          name: ServerPlugH110
-          url: ServerPlugH110
+          name: serverplugh110
+          url: serverplugh110
         - module: dns
           name: "${SECRET_PRIVATE_DOMAIN}"
           url: "home.${SECRET_PRIVATE_DOMAIN}"
