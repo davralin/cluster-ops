@@ -141,10 +141,10 @@ spec:
           limits:
             memory: 8000Mi
         additionalScrapeConfigs:
-          - job_name: firewall
+          - job_name: foreldre
             scrape_interval: 1m
             scrape_timeout: 10s
             honor_timestamps: true
             static_configs:
               - targets:
-                  - "firewall.${SECRET_PRIVATE_DOMAIN}:9153"
+                  - "foreldre.w.ot:9100"
