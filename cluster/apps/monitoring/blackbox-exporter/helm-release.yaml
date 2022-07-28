@@ -76,7 +76,7 @@ spec:
           url: serverplugh110
         - module: dns
           name: "${SECRET_PRIVATE_DOMAIN}"
-          url: "home.${SECRET_PRIVATE_DOMAIN}"
+          query_name: "home.${SECRET_PRIVATE_DOMAIN}"
     prometheusRule:
       enabled: true
       additionalLabels:
