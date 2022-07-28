@@ -112,11 +112,6 @@ spec:
           gnetId: 9628
           revision: 7
           datasource: Prometheus
-        # Ref: https://grafana.com/grafana/dashboards/14847
-        uptime-kuma:
-          gnetId: 14847
-          revision: 2
-          datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/7587
         blackbox-exporter:
           gnetId: 7587
