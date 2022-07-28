@@ -74,9 +74,6 @@ spec:
         - module: icmp
           name: serverplugh110
           url: serverplugh110
-        - module: dns
-          name: "${SECRET_PRIVATE_DOMAIN}"
-          query_name: "home.${SECRET_PRIVATE_DOMAIN}"
     prometheusRule:
       enabled: true
       additionalLabels:
