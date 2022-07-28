@@ -5,7 +5,7 @@ metadata:
   name: kuma
   namespace: kuma
 spec:
-  storageClassName: ceph-block
+  storageClassName: "${STORAGE_READWRITEONCE}"
   accessModes:
     - ReadWriteOnce
   resources:

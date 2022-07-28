@@ -23,7 +23,6 @@ resources:
   - jobs
   - kanboard
   - kubed
-  - kuma/home
   - mailrelay
   - matrix
   - media

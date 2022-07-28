@@ -5,6 +5,7 @@ resources:
   - ../cert-manager
   - ../haproxy-ingress
   - ../kubed
+  - ../kuma
   - ../matrix/database
   - ../matrix/dendrite
   - ../reloader
