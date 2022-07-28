@@ -13,6 +13,10 @@ spec:
     type: Recreate
   template:
     metadata:
+      annotations:
+        prometheus.io/port: "9273"
+        prometheus.io/scrape: "true"
+        prometheus.io/path: "/metrics"
       labels:
         app: readsb-protobuf
     spec:
@@ -75,6 +79,8 @@ spec:
               value: "yes"
             - name: DISABLE_WEBAPP
               value: "yes"
+            - name: ENABLE_PROMETHEUS
+              value: "true"
           volumeMounts:
             - name: dev
               mountPath: /dev
