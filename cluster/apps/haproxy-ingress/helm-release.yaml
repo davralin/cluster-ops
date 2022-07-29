@@ -31,6 +31,10 @@ spec:
         level: debug
       service:
         type: LoadBalancer
+        enablePorts:
+          http: false
+      serviceMonitor:
+        enabled: false
       ingressClass: null
       ingressClassResource:
         default: true
