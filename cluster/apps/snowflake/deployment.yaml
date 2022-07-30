@@ -1,0 +1,21 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: snowflake
+  namespace: snowflake
+spec:
+  selector:
+    matchLabels:
+      app: snowflake
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: snowflake
+    spec:
+      containers:
+        - name: snowflake
+          image: thetorproject/snowflake-proxy:v2.3.0
+          args: ["-verbose"]
+      restartPolicy: Always

@@ -10,3 +10,4 @@ resources:
   - ../monitoring/metrics-server
   - ../reloader
   - ../s3-rclone
+  - ../snowflake
