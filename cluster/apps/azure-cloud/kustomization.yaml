@@ -9,3 +9,4 @@ resources:
   - ../matrix/database
   - ../matrix/dendrite
   - ../reloader
+  - ../snowflake
