@@ -27,7 +27,7 @@ spec:
     fullnameOverride: photoprism
     image:
       repository: photoprism/photoprism
-      tag: 220728-bookworm
+      tag: 220730-bookworm
     env:
       TZ: "${TIMEZONE}"
     ingress:
