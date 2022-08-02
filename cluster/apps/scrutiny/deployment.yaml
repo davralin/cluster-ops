@@ -8,6 +8,9 @@ spec:
   selector:
     matchLabels:
       app: scrutiny-web
+  replicas: 1
+  strategy:
+    type: Recreate
   template:
     metadata:
       labels:
