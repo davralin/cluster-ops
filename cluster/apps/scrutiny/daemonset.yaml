@@ -24,7 +24,7 @@ spec:
                 - SYS_ADMIN
           env:
             - name: COLLECTOR_API_ENDPOINT
-              value: "http://scrutiny-web:8080"
+              value: "http://scrutiny:8080"
             - name: COLLECTOR_CRON_SCHEDULE
               value: "*/2 * * * *"
           volumeMounts:
