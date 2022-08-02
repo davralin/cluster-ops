@@ -25,6 +25,8 @@ spec:
           env:
             - name: COLLECTOR_API_ENDPOINT
               value: "http://scrutiny:8080"
+            - name: COLLECTOR_CRON_SCHEDULE
+              value: "0 */2 * * *"
           volumeMounts:
           - name: devices
             mountPath: /dev
