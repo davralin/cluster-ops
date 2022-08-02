@@ -1,0 +1,28 @@
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: scrutiny
+  namespace: scrutiny
+spec:
+  selector:
+    matchLabels:
+      app: scrutiny
+  template:
+    metadata:
+      labels:
+        app: scrutiny
+    spec:
+      containers:
+        - name: scrutiny-collector
+          image: ghcr.io/analogj/scrutiny:master-collector
+          securityContext:
+            privileged: true
+            capabilities:
+              add:
+                - SYS_RAWIO
+                - SYS_ADMIN
+          env:
+            - name: COLLECTOR_API_ENDPOINT
+              value: "http://web:8080"
+      restartPolicy: Always

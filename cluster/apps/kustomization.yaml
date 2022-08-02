@@ -36,6 +36,7 @@ resources:
   - paperless-ngx
   - reloader
   - rssbridge
+  - scrutiny
   - searx
   - syncthing
   - unifi
