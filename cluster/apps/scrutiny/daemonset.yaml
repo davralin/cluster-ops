@@ -24,7 +24,7 @@ spec:
                 - SYS_ADMIN
           env:
             - name: COLLECTOR_API_ENDPOINT
-              value: "http://web:8080"
+              value: "http://scrutiny-web:8080"
           volumeMounts:
           - name: devices
             mountPath: /dev
