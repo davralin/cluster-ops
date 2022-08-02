@@ -2,16 +2,16 @@
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
-  name: scrutiny
+  name: scrutiny-collector
   namespace: scrutiny
 spec:
   selector:
     matchLabels:
-      app: scrutiny
+      app: scrutiny-collector
   template:
     metadata:
       labels:
-        app: scrutiny
+        app: scrutiny-collector
     spec:
       restartPolicy: Always
       containers:

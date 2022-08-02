@@ -1,0 +1,28 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: scrutiny-web
+  namespace: scrutiny
+spec:
+  selector:
+    matchLabels:
+      app: scrutiny-web
+  template:
+    metadata:
+      labels:
+        app: scrutiny-web
+    spec:
+      restartPolicy: Always
+      containers:
+        - name: scrutiny-web
+          image: ghcr.io/analogj/scrutiny:master-web
+          env:
+            - name: SCRUTINY_WEB_INFLUXDB_HOST
+              value: "localhost"
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+              name: web
+        - name: influxdb
+          image: influxdb:2.2
