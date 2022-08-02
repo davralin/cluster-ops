@@ -32,7 +32,6 @@ spec:
           volumeMounts:
           - name: influxdb
             mountPath: /var/lib/influxdb2
-      restartPolicy: Always
       volumes:
         - name: influxdb
           persistentVolumeClaim:
