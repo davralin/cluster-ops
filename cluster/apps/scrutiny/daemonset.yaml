@@ -13,7 +13,6 @@ spec:
       labels:
         app: scrutiny-collector
     spec:
-      restartPolicy: Always
       containers:
         - name: scrutiny-collector
           image: ghcr.io/analogj/scrutiny:master-collector
