@@ -13,6 +13,7 @@ spec:
       labels:
         app: scrutiny
     spec:
+      restartPolicy: Always
       containers:
         - name: scrutiny-collector
           image: ghcr.io/analogj/scrutiny:master-collector
@@ -25,4 +26,17 @@ spec:
           env:
             - name: COLLECTOR_API_ENDPOINT
               value: "http://web:8080"
-      restartPolicy: Always
+          volumeMounts:
+          - name: devices
+            mountPath: /dev
+          - name: udev
+            mountPath: /run/udev
+        volumes:
+        - hostPath:
+            path: /dev
+            type: ""
+          name: devices
+        - hostPath:
+            path: /run/udev
+            type: ""
+          name: udev
