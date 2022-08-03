@@ -5,8 +5,6 @@ metadata:
   name: scrutiny
   namespace: scrutiny
   annotations:
-    external-dns.alpha.kubernetes.io/target: "home.${SECRET_PUBLIC_DOMAIN}"
-    external-dns/is-public: "true"
     haproxy.org/response-set-header: |
       Strict-Transport-Security "max-age=31536000"
       X-Frame-Options "DENY"
@@ -14,7 +12,7 @@ metadata:
       Referrer-Policy "no-referrer-when-downgrade"
 spec:
   rules:
-    - host: "scrutiny.${SECRET_PUBLIC_DOMAIN}"
+    - host: "scrutiny.${SECRET_PRIATE_DOMAIN}"
       http:
         paths:
           - path: /
@@ -25,6 +23,6 @@ spec:
                 port:
                   number: 8080
   tls:
-    - secretName: "${SECRET_PUBLIC_DOMAIN_CERT}"
+    - secretName: "${SECRET_PRIATE_DOMAIN_CERT}"
       hosts:
-        - "scrutiny.${SECRET_PUBLIC_DOMAIN}"
+        - "scrutiny.${SECRET_PRIATE_DOMAIN}"
