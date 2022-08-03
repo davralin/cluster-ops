@@ -12,7 +12,7 @@ metadata:
       Referrer-Policy "no-referrer-when-downgrade"
 spec:
   rules:
-    - host: "scrutiny.${SECRET_PRIATE_DOMAIN}"
+    - host: "scrutiny.${SECRET_PRIVATE_DOMAIN}"
       http:
         paths:
           - path: /
@@ -23,6 +23,6 @@ spec:
                 port:
                   number: 8080
   tls:
-    - secretName: "${SECRET_PRIATE_DOMAIN_CERT}"
+    - secretName: "${SECRET_PRIVATE_DOMAIN_CERT}"
       hosts:
-        - "scrutiny.${SECRET_PRIATE_DOMAIN}"
+        - "scrutiny.${SECRET_PRIVATE_DOMAIN}"
