@@ -6,7 +6,7 @@ resources:
   - ../haproxy-ingress
   - ../kubed
   - ../kuma
-  - ../frontend/nitter
+  - ../frontend
   - ../matrix/database
   - ../matrix/dendrite
   - ../reloader
