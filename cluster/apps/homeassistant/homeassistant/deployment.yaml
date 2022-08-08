@@ -31,7 +31,7 @@ spec:
               subPath: homeassistant
       containers:
         - name: homeassistant
-          image: ghcr.io/home-assistant/home-assistant:2022.8.1
+          image: ghcr.io/home-assistant/home-assistant:2022.8.2
           ports:
             - name: web
               containerPort: 8123
