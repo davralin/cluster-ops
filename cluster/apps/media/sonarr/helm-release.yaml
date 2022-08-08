@@ -31,8 +31,8 @@ spec:
       fsGroup: 1000
       fsGroupChangePolicy: "OnRootMismatch"
     image:
-      repository: ghcr.io/k8s-at-home/sonarr-develop
-      tag: v3.0.8.1517
+      repository: ghcr.io/k8s-at-home/sonarr
+      tag: v3.0.9.1549
     env:
       TZ: "${TIMEZONE}"
     ingress:
