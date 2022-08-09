@@ -1,0 +1,27 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: bitcoind-local
+  namespace: bitcoind
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 800Gi
+  accessModes:
+  - ReadWriteOnce
+  hostPath:
+    path: /var/media/bitcoind
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: bitcoind-local
+  namespace: bitcoind
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 800Gi
