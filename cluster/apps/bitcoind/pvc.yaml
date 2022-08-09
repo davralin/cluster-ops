@@ -11,7 +11,7 @@ spec:
   accessModes:
   - ReadWriteOnce
   hostPath:
-    path: /var/media/bitcoind
+    path: /var/media/disk/bitcoind
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim

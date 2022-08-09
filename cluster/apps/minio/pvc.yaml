@@ -11,7 +11,7 @@ spec:
   accessModes:
   - ReadWriteOnce
   hostPath:
-    path: /var/media/minio
+    path: /var/media/disk/minio
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
