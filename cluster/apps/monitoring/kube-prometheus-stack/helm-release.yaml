@@ -29,6 +29,7 @@ spec:
       rules:
         alertmanager: true
     alertmanager:
+      enabled: false
       config:
         receivers:
           - name: matrix
