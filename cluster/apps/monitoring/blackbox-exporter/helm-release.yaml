@@ -44,7 +44,8 @@ spec:
           timeout: 5s
           http:
             preferred_ip_protocol: "ip4"
-            fail_if_body_not_matches_regexp: 'Sleep'
+            fail_if_body_not_matches_regexp:
+              - "Sleep"
         icmp:
           prober: icmp
           timeout: 30s
