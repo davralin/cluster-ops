@@ -39,6 +39,12 @@ spec:
             follow_redirects: true
             fail_if_not_ssl: true
             preferred_ip_protocol: "ip4"
+        http_printer:
+          prober: http
+          timeout: 5s
+          http:
+            preferred_ip_protocol: "ip4"
+            fail_if_body_not_matches_regexp: 'Sleep'
         icmp:
           prober: icmp
           timeout: 30s
@@ -73,6 +79,9 @@ spec:
         - module: http_2xx
           name: statuspage
           url: "https://status.${SECRET_PUBLIC_DOMAIN}"
+        - module: http_printer
+          name: printer
+          url: printer.w.ot/etc/longlcd.html
     prometheusRule:
       enabled: true
       additionalLabels:
