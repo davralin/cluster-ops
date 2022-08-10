@@ -19,7 +19,7 @@ spec:
       restartPolicy: Always
       containers:
         - name: scrutiny-web
-          image: ghcr.io/analogj/scrutiny:master-web
+          image: ghcr.io/analogj/scrutiny:v0.5.0-web
           env:
             - name: SCRUTINY_WEB_INFLUXDB_HOST
               value: "localhost"
