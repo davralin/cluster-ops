@@ -98,6 +98,10 @@ spec:
           gnetId: 6739
           revision: 1
           datasource: Prometheus
+        # Ref: https://grafana.com/grafana/dashboards/16424
+        k8s-aio:
+          gnetId: 16424
+          revision: 5
         # Ref: https://grafana.com/grafana/dashboards/1860
         node-exporter-full:
           gnetId: 1860
