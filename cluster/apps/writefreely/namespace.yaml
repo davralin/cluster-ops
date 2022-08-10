@@ -3,5 +3,3 @@ apiVersion: v1
 kind: Namespace
 metadata:
   name: writefreely
-  labels:
-    goldilocks.fairwinds.com/enabled: "true"

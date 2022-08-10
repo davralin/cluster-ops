@@ -5,9 +5,7 @@ resources:
   - alert-rules
   - alertmanager
   - blackbox-exporter
-  - goldilocks
   - grafana
   - kube-prometheus-stack
   - metrics-server
-  - vpa
   - namespace.yaml
