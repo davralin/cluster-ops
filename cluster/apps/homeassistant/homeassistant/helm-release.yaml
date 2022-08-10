@@ -54,7 +54,7 @@ spec:
         existingClaim: homeassistant
         subPath: homeassistant
     metrics:
-      enabled: false
+      enabled: true
     addons:
       codeserver:
         enabled: true
