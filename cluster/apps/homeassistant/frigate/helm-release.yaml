@@ -125,7 +125,6 @@ spec:
                 objects:
                   track:
                     - person
-                    - cat
             timestamp_style:
               # Optional: Format specifier conform to the Python package "datetime" (default: shown below)
               #           Additional Examples:
