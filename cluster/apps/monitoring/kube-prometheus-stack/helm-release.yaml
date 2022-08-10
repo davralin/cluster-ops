@@ -25,7 +25,9 @@ spec:
   values:
     fullnameOverride: kube-prom-stack
     defaultRules:
-      create: true
+      create: false
+      rules:
+        alertmanager: true
     alertmanager:
       config:
         receivers:
@@ -39,8 +41,9 @@ spec:
           repeat_interval: 6h
           receiver: "matrix"
       alertmanagerSpec:
-        replicas: 1
+        replicas: 3
         podAntiAffinity: hard
+        logLevel: debug
         image:
           repository: quay.io/prometheus/alertmanager
           tag: v0.24.0
@@ -87,7 +90,6 @@ spec:
         podMonitorSelectorNilUsesHelmValues: false
         probeSelectorNilUsesHelmValues: false
         retention: 2d
-        enableAdminAPI: true
         walCompression: true
         storageSpec:
           volumeClaimTemplate:
