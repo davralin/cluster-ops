@@ -28,7 +28,6 @@ resources:
   - matrix
   - media
   - metallb
-  - minecraft
   - minio
   - monitoring
   - nextcloud
