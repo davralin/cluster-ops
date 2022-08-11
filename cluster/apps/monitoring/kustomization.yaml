@@ -7,5 +7,4 @@ resources:
   - blackbox-exporter
   - grafana
   - kube-prometheus-stack
-  - metrics-server
   - namespace.yaml
