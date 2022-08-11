@@ -29,7 +29,6 @@ resources:
   - media
   - metallb
   - minio
-  - monitoring
   - nextcloud
   - node-feature-discovery
   - node-problem-detector
