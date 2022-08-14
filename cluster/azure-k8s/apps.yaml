@@ -8,7 +8,7 @@ spec:
   interval: 10m0s
   dependsOn:
     - name: core
-  path: ./cluster/apps/azure-cloud
+  path: ./cluster/apps/azure-k8s
   prune: true
   sourceRef:
     kind: GitRepository
