@@ -39,4 +39,4 @@ spec:
       DIUN_PROVIDERS_KUBERNETES_WATCHBYDEFAULT: "true"
     envFrom:
       - secretRef:
-        name: diun-telegram
+          name: diun-telegram
