@@ -39,6 +39,12 @@ spec:
       DIUN_PROVIDERS_KUBERNETES: "true"
       LOG_LEVEL: "debug"
       DIUN_PROVIDERS_KUBERNETES_WATCHBYDEFAULT: "true"
-    envFrom:
-      - secretRef:
-          name: diun-telegram
+    valuesFrom:
+      - targetPath: env.DIUN_NOTIF_TELEGRAM_CHATIDS
+        kind: Secret
+        name: diun-telegram
+        valuesKey: DIUN_NOTIF_TELEGRAM_CHATIDS
+      - targetPath: env.DIUN_NOTIF_TELEGRAM_TOKEN
+        kind: Secret
+        name: diun-telegram
+        valuesKey: DIUN_NOTIF_TELEGRAM_TOKEN
