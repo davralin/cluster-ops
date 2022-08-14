@@ -24,3 +24,7 @@ spec:
       retries: 3
   values:
     fullnameOverride: azure-csi
+    controller:
+      replicas: 1
+      runOnMaster: true
+      runOnControlPlane: true
