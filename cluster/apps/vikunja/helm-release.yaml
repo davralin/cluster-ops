@@ -27,6 +27,8 @@ spec:
     fullnameOverride: vikunja
     postgres:
       enabled: false
+    caddy:
+      noTls: true
     ingress:
       main:
         enabled: true
