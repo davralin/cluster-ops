@@ -6,3 +6,4 @@ resources:
   - ../blackbox-exporter
   - ../grafana
   - ../minecraft
+  - ../vikunja
