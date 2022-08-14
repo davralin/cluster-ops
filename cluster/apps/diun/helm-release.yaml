@@ -25,6 +25,8 @@ spec:
       retries: 3
   values:
     fullnameOverride: diun
+    strategy:
+      type: Recreate
     image:
       repository: ghcr.io/crazy-max/diun
       tag: 4.22.0
