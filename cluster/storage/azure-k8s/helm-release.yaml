@@ -14,7 +14,7 @@ spec:
         kind: HelmRepository
         name: azure-csi
         namespace: flux-system
-  targetNamespace: default
+  targetNamespace: kube-system
   install:
     createNamespace: true
     remediation:
