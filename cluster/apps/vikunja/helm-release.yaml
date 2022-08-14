@@ -25,6 +25,8 @@ spec:
       retries: 3
   values:
     fullnameOverride: vikunja
+    postgres:
+      enabled: false
     ingress:
       main:
         enabled: true
