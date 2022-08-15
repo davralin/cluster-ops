@@ -23,69 +23,7 @@ spec:
     remediation:
       retries: 3
   values:
-    fullnameOverride: kube-prom-stack
     defaultRules:
       create: false
       rules:
         alertmanager: true
-    alertmanager:
-      enabled: false
-    kube-state-metrics:
-      metricLabelsAllowlist:
-        - "persistentvolumeclaims=[*]"
-      prometheus:
-        monitor:
-          enabled: true
-          relabelings:
-            - action: replace
-              regex: (.*)
-              replacement: $1
-              sourceLabels:
-                - __meta_kubernetes_pod_node_name
-              targetLabel: kubernetes_node
-    grafana:
-      enabled: false
-      forceDeployDashboards: true
-      sidecar:
-        dashboards:
-          multicluster:
-            etcd:
-              enabled: true
-    prometheus:
-      thanosService:
-        enabled: false
-      thanosServiceMonitor:
-        enabled: false
-      prometheusSpec:
-        replicas: 1
-        replicaExternalLabelName: "replica"
-        podAntiAffinity: hard
-        retentionSize: "4GB"
-        ruleSelectorNilUsesHelmValues: false
-        serviceMonitorSelectorNilUsesHelmValues: false
-        podMonitorSelectorNilUsesHelmValues: false
-        probeSelectorNilUsesHelmValues: false
-        retention: 2d
-        walCompression: true
-        storageSpec:
-          volumeClaimTemplate:
-            spec:
-              storageClassName: "ceph-block"
-              resources:
-                requests:
-                  storage: 5Gi
-        resources:
-          requests:
-            cpu: 500m
-            memory: 2000Mi
-          limits:
-            memory: 8000Mi
-        additionalScrapeConfigs:
-          - job_name: debians
-            scrape_interval: 1m
-            scrape_timeout: 10s
-            honor_timestamps: true
-            static_configs:
-              - targets:
-                  - "foreldre.w.ot:9100"
-                  - "mierin.w.ot:9100"
