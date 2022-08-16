@@ -32,6 +32,7 @@ spec:
       baseUrl: "https://searx.${SECRET_PRIVATE_DOMAIN}"
     caddy:
       repository: caddy
+      # renovate: datasource=docker image=caddy
       tag: 2.5.1
     ingress:
       main:
