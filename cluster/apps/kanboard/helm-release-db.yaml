@@ -27,7 +27,7 @@ spec:
     fullnameOverride: mariadb
     image:
       repository: bitnami/mariadb
-      tag: 10.8.3
+      tag: 10.8.4
     auth:
       database: kanboard
       username: kanboard
