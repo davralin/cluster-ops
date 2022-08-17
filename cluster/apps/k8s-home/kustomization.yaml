@@ -3,7 +3,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - ../bitcoind
-  #- ../blackbox-exporter
+  - ../blackbox-exporter
   - ../frontend
   - ../grafana
   - ../minecraft
