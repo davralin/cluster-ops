@@ -128,6 +128,11 @@ spec:
           gnetId: 9628
           revision: 7
           datasource: Prometheus
+        # Ref: https://grafana.com/grafana/dashboards/11692
+        redis:
+          gnetId: 11692
+          revision: 1
+          datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/7845
         velero:
           gnetId: 15469
