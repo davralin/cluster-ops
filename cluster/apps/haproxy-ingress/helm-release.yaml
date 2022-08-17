@@ -34,7 +34,7 @@ spec:
         enablePorts:
           http: false
       serviceMonitor:
-        enabled: false
+        enabled: true
       ingressClass: null
       ingressClassResource:
         default: true
