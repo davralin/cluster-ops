@@ -4,8 +4,14 @@ kind: Kustomization
 resources:
   - ../bitcoind
   - ../blackbox-exporter
+  - ../descheduler
+  - ../external-dns
   - ../frontend
   - ../grafana
+  - ../kubed
   - ../minecraft
   - ../metrics-server
+  - ../node-feature-discovery
+  - ../node-problem-detector
+  - ../reloader
   - ../vikunja
