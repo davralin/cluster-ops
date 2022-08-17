@@ -98,6 +98,11 @@ spec:
           gnetId: 13192
           revision: 1
           datasource: Prometheus
+        # Ref: https://grafana.com/grafana/dashboards/364
+        haproxy:
+          gnetId: 364
+          revision: 3
+          datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/6739
         k8s-pvc:
           gnetId: 6739
@@ -119,10 +124,10 @@ spec:
           revision: 1
           datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/9628
-        #postgresql:
-          #gnetId: 9628
-          #revision: 7
-          #datasource: Prometheus
+        postgresql:
+          gnetId: 9628
+          revision: 7
+          datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/7845
         velero:
           gnetId: 15469
