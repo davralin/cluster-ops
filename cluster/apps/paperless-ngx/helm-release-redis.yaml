@@ -41,6 +41,8 @@ spec:
         tag: 11
     metrics:
       enabled: true
+      serviceMonitor:
+        enabled: true
       image:
         repository: bitnami/redis-exporter
         tag: 1.43.1
