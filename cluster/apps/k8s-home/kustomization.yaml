@@ -8,6 +8,7 @@ resources:
   - ../external-dns
   - ../frontend
   - ../grafana
+  - ../influxdb
   - ../kubed
   - ../minecraft
   - ../metrics-server
