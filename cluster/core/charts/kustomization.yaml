@@ -12,8 +12,8 @@ resources:
   - fairwinds.yaml
   - gitea.yaml
   - grafana.yaml
-  - halkeye.yaml
   - haproxytech.yaml
+  - itzg.yaml
   - jetstack.yaml
   - k8s-at-home.yaml
   - metallb.yaml
