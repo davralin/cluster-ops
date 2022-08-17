@@ -4,6 +4,6 @@ kind: Kustomization
 resources:
   - ../bitcoind
   #- ../blackbox-exporter
-  #- ../grafana
+  - ../grafana
   - ../minecraft
   - ../vikunja
