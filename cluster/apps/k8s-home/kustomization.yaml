@@ -7,4 +7,5 @@ resources:
   - ../frontend
   - ../grafana
   - ../minecraft
+  - ../metrics-server
   - ../vikunja
