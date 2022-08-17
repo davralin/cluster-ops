@@ -18,7 +18,7 @@ resources:
   - frontend
   - gitea
   - haproxy-ingress
-  - home-k8s
+  - k8s-home
   - homeassistant
   - intel-gpu
   - jobs
