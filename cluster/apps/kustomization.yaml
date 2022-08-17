@@ -15,7 +15,6 @@ resources:
   - drone
   - external-dns
   - freshrss
-  - frontend
   - gitea
   - haproxy-ingress
   - k8s-home
