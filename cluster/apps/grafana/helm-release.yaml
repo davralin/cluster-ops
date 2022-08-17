@@ -83,36 +83,46 @@ spec:
           #gnetId: 13168
           #revision: 4
           #datasource: Prometheus
-        # Ref: https://grafana.com/grafana/dashboards/13502
-        #minio:
-          #gnetId: 13502
-          #revision: 19
-          #datasource: Prometheus
+        # Ref: https://grafana.com/grafana/dashboards/7587
+        blackbox-exporter:
+          gnetId: 7587
+          revision: 3
+          datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/2842
         ceph-overview:
           gnetId: 2842
           revision: 14
+          datasource: Prometheus
+        # Ref: https://grafana.com/grafana/dashboards/13192
+        gitea:
+          gnetId: 13192
+          revision: 1
           datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/6739
         k8s-pvc:
           gnetId: 6739
           revision: 1
           datasource: Prometheus
+        # Ref: https://grafana.com/grafana/dashboards/13502
+        #minio:
+          #gnetId: 13502
+          #revision: 19
+          #datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/1860
         node-exporter-full:
           gnetId: 1860
           revision: 27
+          datasource: Prometheus
+        # Ref: https://grafana.com/grafana/dashboards/15549
+        node-problem-detector:
+          gnetId: 15549
+          revision: 1
           datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/9628
         #postgresql:
           #gnetId: 9628
           #revision: 7
           #datasource: Prometheus
-        # Ref: https://grafana.com/grafana/dashboards/7587
-        blackbox-exporter:
-          gnetId: 7587
-          revision: 3
-          datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/7845
         velero:
           gnetId: 15469
