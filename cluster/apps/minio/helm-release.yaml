@@ -62,3 +62,6 @@ spec:
     auth:
       rootUser: "${SECRET_MINIO_ADMIN}"
       rootPassword: "${SECRET_MINIO_PASSWORD}"
+    metrics:
+      serviceMonitor:
+        enabled: true
