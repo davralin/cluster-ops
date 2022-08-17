@@ -45,6 +45,8 @@ spec:
         tag: 11
     metrics:
       enabled: true
+      serviceMonitor:
+        enabled: true
       image:
         repository: bitnami/postgres-exporter
         tag: 0.11.0
