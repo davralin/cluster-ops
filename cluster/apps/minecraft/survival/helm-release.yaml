@@ -28,12 +28,12 @@ spec:
       eula: true
     #podAnnotations:
       #- "mc-router.itzg.me/externalServerName": "survival.${SECRET_PRIVATE_DOMAIN}"
-    #persistence:
-      #dataDir:
-        #enabled: true
-    #mcbackup:
-     # enabled: true
-#      pruneBackupsDays: 3
-      #persistence:
-        #backupDir:
-          #enabled: true
+    persistence:
+      dataDir:
+        enabled: true
+    mcbackup:
+      enabled: true
+      pruneBackupsDays: 3
+      persistence:
+        backupDir:
+          enabled: true
