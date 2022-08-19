@@ -26,8 +26,9 @@ spec:
   values:
     minecraftServer:
       eula: true
-    #podAnnotations:
-      #- "mc-router.itzg.me/externalServerName": "survival.${SECRET_PRIVATE_DOMAIN}"
+    podAnnotations:
+      - "mc-router.itzg.me/externalServerName": "survival.${SECRET_PRIVATE_DOMAIN}"
+      - "backup.velero.io/backup-volumes: backupdir"
     persistence:
       dataDir:
         enabled: true
