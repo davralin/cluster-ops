@@ -26,9 +26,19 @@ spec:
   values:
     minecraftServer:
       eula: true
+      type: SPIGOT
+      overrideServerProperties: true
+      whitelist: X
+      ops: X
+      max_players: 3
+      mode: survival
+      server_name: Survival
+      seed: 421112feedmekittens
+      pvp: true
+      tz: "{TIMEZONE}"
     podAnnotations:
-      - "mc-router.itzg.me/externalServerName": "survival.${SECRET_PRIVATE_DOMAIN}"
-      - "backup.velero.io/backup-volumes: backupdir"
+      mc-router.itzg.me/externalServerName: "survival.${SECRET_PRIVATE_DOMAIN}"
+      backup.velero.io/backup-volumes: backupdir
     persistence:
       dataDir:
         enabled: true
