@@ -23,13 +23,20 @@ spec:
   upgrade:
     remediation:
       retries: 3
+  valuesFrom:
+    - targetPath: minecraftServer.whitelist
+      kind: Secret
+      name: minecraft-secrets
+      valuesKey: whitelist
+    - targetPath: minecraftServer.ops
+      kind: Secret
+      name: minecraft-secrets
+      valuesKey: ops
   values:
     minecraftServer:
       eula: true
       type: SPIGOT
       overrideServerProperties: true
-      whitelist: X
-      ops: X
       maxPlayers: 3
       mode: survival
       motd: Survival
