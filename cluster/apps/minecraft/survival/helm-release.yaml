@@ -38,7 +38,7 @@ spec:
       tz: "{TIMEZONE}"
     podAnnotations:
       mc-router.itzg.me/externalServerName: "survival.${SECRET_PRIVATE_DOMAIN}"
-      backup.velero.io/backup-volumes: backupdir
+      backup.velero.io/backup-volumes: backupdir,datadir
     persistence:
       dataDir:
         enabled: true
