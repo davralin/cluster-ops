@@ -30,10 +30,10 @@ spec:
       overrideServerProperties: true
       whitelist: X
       ops: X
-      max_players: 3
+      maxPlayers: 3
       mode: survival
-      server_name: Survival
-      seed: 421112feedmekittens
+      MOTD: Survival
+      levelSeed: 421112feedmekittens
       pvp: true
       tz: "{TIMEZONE}"
     podAnnotations:
