@@ -66,3 +66,17 @@ spec:
             value: "1"
           - name: VIKUNJA_CACHE_TYPE
             value: "redis"
+          - name: VIKUNJA_METRICS_ENABLED
+            value: "true"
+          - name: "VIKUNJA_SERVICE_ENABLEREGISTRATION"
+            value: true
+          - name: "VIKUNJA_SERVICE_TIMEZONE"
+            value: "${TIMEZONE}"
+          - name: "VIKUNJA_MAILER_ENABLED"
+            value: "true"
+          - name: VIKUNJA_MAILER_HOST
+            value: "exim.mailrelay.svc.cluster.local"
+          - name: VIKUNJA_MAILER_PORT
+            value: "25"
+          - name: VIKUNJA_MAILER_FROMEMAIL
+            value: "vikunja@${SECRET_PRIVATE_DOMAIN}"
