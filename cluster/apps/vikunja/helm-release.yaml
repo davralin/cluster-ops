@@ -69,7 +69,7 @@ spec:
           - name: VIKUNJA_METRICS_ENABLED
             value: "true"
           - name: "VIKUNJA_SERVICE_ENABLEREGISTRATION"
-            value: true
+            value: "true"
           - name: "VIKUNJA_SERVICE_TIMEZONE"
             value: "${TIMEZONE}"
           - name: "VIKUNJA_MAILER_ENABLED"
@@ -80,3 +80,16 @@ spec:
             value: "25"
           - name: VIKUNJA_MAILER_FROMEMAIL
             value: "vikunja@${SECRET_PRIVATE_DOMAIN}"
+          - name: VIKUNJA_DATABASE_TYPE
+            value: "postgres"
+          - name: VIKUNJA_DATABASE_USER
+            value: "vikunja"
+          - name: VIKUNJA_DATABASE_HOST
+            value: "postgresql"
+          - name: VIKUNJA_DATABASE_DATABASE
+            value: "postgres"
+  valuesFrom:
+    - targetPath: additionalContainers.api.env.VIKUNJA_DATABASE_PASSWORD.value
+      kind: Secret
+      name: vikunja-secrets
+      valuesKey: password
