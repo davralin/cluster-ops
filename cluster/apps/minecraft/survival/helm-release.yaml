@@ -32,7 +32,7 @@ spec:
       ops: X
       maxPlayers: 3
       mode: survival
-      MOTD: Survival
+      motd: Survival
       levelSeed: 421112feedmekittens
       pvp: true
       tz: "{TIMEZONE}"
