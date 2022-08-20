@@ -31,13 +31,12 @@ spec:
   values:
     fullnameOverride: photoprism
     affinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-      - labelSelector:
-          matchExpressions:
-          - key: app
-            operator: In
-            values:
-              - nextcloud
+    - labelSelector:
+        matchExpressions:
+        - key: app
+          operator: In
+          values:
+            - nextcloud
     image:
       repository: photoprism/photoprism
       tag: 220730-bookworm
