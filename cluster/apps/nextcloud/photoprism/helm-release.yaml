@@ -33,10 +33,10 @@ spec:
     affinity:
     - labelSelector:
         matchExpressions:
-        - key: app.kubernetes.io/name
-          operator: In
-          values:
-            - nextcloud
+          - key: app.kubernetes.io/name
+            operator: In
+            values:
+              - nextcloud
     image:
       repository: photoprism/photoprism
       tag: 220730-bookworm
