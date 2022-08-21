@@ -36,6 +36,7 @@ spec:
       annotations:
         external-dns.alpha.kubernetes.io/target: "home.${SECRET_PRIVATE_DOMAIN}"
         external-dns/is-public: "true"
+        haproxy.org/whitelist: "${HAPROXY_WHITELIST}"
         haproxy.org/backend-config-snippet: |
           acl dav path /.well-known/carddav /.well-known/caldav
           redirect location /remote.php/dav/ if dav
