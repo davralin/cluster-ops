@@ -56,8 +56,9 @@ spec:
       MAX_TICK_TIME: "-1"
       USE_AIKAR_FLAGS: true
       ENFORCE_WHITELIST: "TRUE"
-    podAnnotations:
+    serviceAnnotations:
       mc-router.itzg.me/externalServerName: "survival.${SECRET_PRIVATE_DOMAIN}"
+    podAnnotations:
       backup.velero.io/backup-volumes: backupdir,datadir
     persistence:
       dataDir:
