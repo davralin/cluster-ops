@@ -19,9 +19,9 @@ spec:
     spec:
       serviceAccountName: mc-router
       containers:
-      - image: itzg/mc-router:1.14.1-pre1
+      - image: itzg/mc-router:1.16.1
         name: mc-router
-        args: ["--api-binding", ":8080", "--in-kube-cluster"]
+        args: ["--in-kube-cluster"]
         ports:
         - name: proxy
           containerPort: 25565
