@@ -13,6 +13,9 @@ rules:
 - apiGroups: [""]
   resources: ["services"]
   verbs: ["watch","list"]
+- apiGroups: ["apps"]
+  resources: ["statefulsets", "statefulsets/scale"]
+  verbs: ["watch","list","get","update"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
