@@ -3,7 +3,6 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: mc-router
-  namespace: minecraft
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
@@ -13,19 +12,15 @@ rules:
 - apiGroups: [""]
   resources: ["services"]
   verbs: ["watch","list"]
-- apiGroups: ["apps"]
-  resources: ["statefulsets", "statefulsets/scale"]
-  verbs: ["watch","list","get","update"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   name: mc-router-services-watcher
-  namespace: minecraft
 subjects:
 - kind: ServiceAccount
   name: mc-router
-  namespace: minecraft
+  namespace: default
 roleRef:
   kind: ClusterRole
   name: services-watcher
