@@ -34,17 +34,28 @@ spec:
       valuesKey: ops
   values:
     minecraftServer:
+      tz: "{TIMEZONE}"
       eula: true
       type: SPIGOT
-      overrideServerProperties: true
+      version: "LATEST"
+      difficulty: "easy"
       maxPlayers: 3
-      mode: survival
-      motd: Survival
       levelSeed: 421112feedmekittens
-      pvp: true
-      tz: "{TIMEZONE}"
+      mode: survival
+      memory: 2G
+      motd: "A Minecraft Server"
+      overrideServerProperties: true
+      onlineMode: "true"
       rcon:
         enabled: true
+    resources:
+      requests:
+        memory: 2G
+    extraEnv:
+      ENABLE_AUTOPAUSE: "TRUE"
+      MAX_TICK_TIME: "-1"
+      USE_AIKAR_FLAGS: true
+      ENFORCE_WHITELIST: "TRUE"
     podAnnotations:
       mc-router.itzg.me/externalServerName: "survival.${SECRET_PRIVATE_DOMAIN}"
       backup.velero.io/backup-volumes: backupdir,datadir
@@ -58,3 +69,4 @@ spec:
       persistence:
         backupDir:
           enabled: true
+          existingClaim: survival-backup
