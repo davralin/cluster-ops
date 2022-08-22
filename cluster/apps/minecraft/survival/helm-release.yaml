@@ -43,12 +43,15 @@ spec:
       levelSeed: 421112feedmekittens
       pvp: true
       tz: "{TIMEZONE}"
+      rcon:
+        enabled: true
     podAnnotations:
       mc-router.itzg.me/externalServerName: "survival.${SECRET_PRIVATE_DOMAIN}"
       backup.velero.io/backup-volumes: backupdir,datadir
     persistence:
       dataDir:
         enabled: true
+        existingClaim: survival
     mcbackup:
       enabled: true
       pruneBackupsDays: 3
