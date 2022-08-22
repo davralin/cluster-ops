@@ -21,7 +21,10 @@ spec:
       containers:
       - image: itzg/mc-router:1.16.1
         name: mc-router
-        args: ["--in-kube-cluster"]
+        args: ["--api-binding", ":8080", "--in-kube-cluster"]
+        envs:
+          - name: DEBUG
+            value: true
         ports:
         - name: proxy
           containerPort: 25565
