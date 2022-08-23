@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: kube-prometheus
-      version: 8.0.16
+      version: 8.1.1
       sourceRef:
         kind: HelmRepository
         name: bitnami-charts
