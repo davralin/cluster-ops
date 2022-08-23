@@ -6,7 +6,6 @@ resources:
   - ../haproxy-ingress-daemonset
   - ../kubed
   - ../kuma
-  - ../frontend
   - ../metrics-server
   - ../matrix/database
   - ../matrix/dendrite
