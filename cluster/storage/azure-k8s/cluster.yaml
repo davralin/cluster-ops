@@ -26,8 +26,9 @@ spec:
     fullnameOverride: rook-ceph
     toolbox:
       enabled: true
+      resources: {}
     monitoring:
-      enabled: true
+      enabled: false
       createPrometheusRules: false
     configOverride: |
       [global]
@@ -57,16 +58,12 @@ spec:
               timeoutSeconds: 5
       mgr:
         count: 2
-      resources:
-        prepareosd:
-          limits:
-            memory: "1Gi"
-          requests:
-            memory: "200Mi"
+      resources: {}
+      removeOSDsIfOutAndSafeToRemove: true
       storage:
         useAllNodes: true
         useAllDevices: true
-        encryptedDevice: true
+        encryptedDevice: false
     cephBlockPools:
       - name: ceph-blockpool
         spec:
