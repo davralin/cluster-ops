@@ -74,9 +74,6 @@ spec:
         - module: icmp
           name: loftet-uplink
           url: loftet_uplink
-        - module: icmp
-          name: serverplugh110
-          url: serverplugh110
         - module: http_2xx
           name: statuspage
           url: "https://status.${SECRET_PUBLIC_DOMAIN}"
