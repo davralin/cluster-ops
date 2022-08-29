@@ -26,6 +26,7 @@ spec:
     prometheus:
       persistence:
         enabled: true
+        size: 20G
     alertmanager:
       config:
         global:
