@@ -21,12 +21,8 @@ spec:
       containers:
       - image: itzg/mc-router:1.14.1-pre1
         name: mc-router
-        args: ["--in-kube-cluster"]
+        args: ["--in-kube-cluster","--debug"]
         envs:
-          - name: DEBUG
-            value: "true"
-          - name: IN_KUBE_CLUSTER
-            value: "true"
           - name: API_BINDING
             value: ":8080"
         ports:
