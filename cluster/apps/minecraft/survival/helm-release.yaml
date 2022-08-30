@@ -52,7 +52,7 @@ spec:
       requests:
         memory: 2G
     extraEnv:
-      ENABLE_AUTOPAUSE: "TRUE"
+      ENABLE_AUTOPAUSE: "FALSE"
       MAX_TICK_TIME: "-1"
       USE_AIKAR_FLAGS: true
       ENFORCE_WHITELIST: "TRUE"
