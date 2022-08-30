@@ -21,6 +21,7 @@ spec:
       containers:
       - image: itzg/mc-router:1.14.1-pre1
         name: mc-router
+        args: ["--in-kube-cluster"]
         envs:
           - name: DEBUG
             value: "true"
