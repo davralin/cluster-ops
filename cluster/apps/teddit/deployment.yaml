@@ -3,7 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: teddit
-  namespace: frontend
+  namespace: teddit
 spec:
   selector:
     matchLabels:

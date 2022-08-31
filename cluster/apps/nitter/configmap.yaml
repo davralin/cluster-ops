@@ -3,7 +3,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: nitter-config
-  namespace: frontend
+  namespace: nitter
 data:
   nitter.conf: |
     [Server]

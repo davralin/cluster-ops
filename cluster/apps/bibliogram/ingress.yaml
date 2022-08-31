@@ -2,8 +2,8 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: nitter
-  namespace: frontend
+  name: bibliogram
+  namespace: bibliogram
   annotations:
     haproxy.org/whitelist: "${HAPROXY_WHITELIST}"
     haproxy.org/response-set-header: |
@@ -13,17 +13,17 @@ metadata:
       Referrer-Policy "no-referrer-when-downgrade"
 spec:
   rules:
-    - host: "t.${SECRET_PUBLIC_DOMAIN}"
+    - host: "i.${SECRET_PUBLIC_DOMAIN}"
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: nitter
+                name: bibliogram
                 port:
-                  number: 8080
+                  number: 80
   tls:
     - secretName: ${SECRET_PUBLIC_DOMAIN_CERT}
       hosts:
-        - "t.${SECRET_PUBLIC_DOMAIN}"
+        - "i.${SECRET_PUBLIC_DOMAIN}"

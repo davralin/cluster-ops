@@ -3,7 +3,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: bibliogram
-  namespace: frontend
+  namespace: bibliogram
 spec:
   selector:
     app: bibliogram

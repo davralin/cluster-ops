@@ -3,7 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: bibliogram
-  namespace: frontend
+  namespace: bibliogram
 spec:
   selector:
     matchLabels:

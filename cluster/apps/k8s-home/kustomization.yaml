@@ -6,12 +6,14 @@ resources:
   - ../blackbox-exporter
   - ../descheduler
   - ../external-dns
-  - ../frontend
+  - ../bibliogram
   - ../grafana
   - ../influxdb
   - ../kubed
   - ../minecraft
   - ../metrics-server
+  - ../nitter
   - ../node-feature-discovery
   - ../node-problem-detector
   - ../reloader
+  - ../teddit

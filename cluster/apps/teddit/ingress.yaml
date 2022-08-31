@@ -2,8 +2,8 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: bibliogram
-  namespace: frontend
+  name: teddit
+  namespace: teddit
   annotations:
     haproxy.org/whitelist: "${HAPROXY_WHITELIST}"
     haproxy.org/response-set-header: |
@@ -13,17 +13,17 @@ metadata:
       Referrer-Policy "no-referrer-when-downgrade"
 spec:
   rules:
-    - host: "i.${SECRET_PUBLIC_DOMAIN}"
+    - host: "r.${SECRET_PUBLIC_DOMAIN}"
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: bibliogram
+                name: teddit
                 port:
-                  number: 80
+                  number: 8080
   tls:
     - secretName: ${SECRET_PUBLIC_DOMAIN_CERT}
       hosts:
-        - "i.${SECRET_PUBLIC_DOMAIN}"
+        - "r.${SECRET_PUBLIC_DOMAIN}"

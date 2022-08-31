@@ -2,8 +2,8 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: teddit
-  namespace: frontend
+  name: nitter
+  namespace: nitter
   annotations:
     haproxy.org/whitelist: "${HAPROXY_WHITELIST}"
     haproxy.org/response-set-header: |
@@ -13,17 +13,17 @@ metadata:
       Referrer-Policy "no-referrer-when-downgrade"
 spec:
   rules:
-    - host: "r.${SECRET_PUBLIC_DOMAIN}"
+    - host: "t.${SECRET_PUBLIC_DOMAIN}"
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: teddit
+                name: nitter
                 port:
                   number: 8080
   tls:
     - secretName: ${SECRET_PUBLIC_DOMAIN_CERT}
       hosts:
-        - "r.${SECRET_PUBLIC_DOMAIN}"
+        - "t.${SECRET_PUBLIC_DOMAIN}"
