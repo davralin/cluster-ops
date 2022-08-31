@@ -31,7 +31,7 @@ spec:
     - targetPath: minecraftServer.ops
       kind: Secret
       name: minecraft-secrets
-      valuesKey: ops1
+      valuesKey: ops
   values:
     minecraftServer:
       tz: "{TIMEZONE}"
