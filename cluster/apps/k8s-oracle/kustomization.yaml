@@ -8,6 +8,8 @@ resources:
   - ../haproxy-ingress-daemonset
   - ../kubed
   - ../metrics-server
+  - ../nitter
   - ../reloader
   - ../s3-rclone
   - ../snowflake
+  - ../teddit
