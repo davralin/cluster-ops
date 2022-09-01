@@ -10,6 +10,5 @@ resources:
   - ../metrics-server
   - ../nitter
   - ../reloader
-  - ../s3-rclone
   - ../snowflake
   - ../teddit
