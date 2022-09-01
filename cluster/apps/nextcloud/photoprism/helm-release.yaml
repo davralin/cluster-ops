@@ -39,7 +39,7 @@ spec:
               - nextcloud
     image:
       repository: photoprism/photoprism
-      tag: 220730-bookworm
+      tag: 220901-bookworm
     env:
       TZ: "${TIMEZONE}"
       PHOTOPRISM_DATABASE_DRIVER: "mysql"
