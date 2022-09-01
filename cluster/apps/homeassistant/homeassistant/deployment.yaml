@@ -43,7 +43,7 @@ spec:
               mountPath: /config
               subPath: homeassistant
         - name: vscode
-          image: lscr.io/linuxserver/code-server:4.6.0
+          image: lscr.io/linuxserver/code-server:4.6.1
           ports:
             - name: code
               containerPort: 8443
