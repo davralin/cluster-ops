@@ -45,7 +45,7 @@ spec:
           http:
             preferred_ip_protocol: "ip4"
             fail_if_body_not_matches_regexp:
-              - "Sleep"
+              - "NotSleep"
     serviceMonitor:
       enabled: true
       defaults:
