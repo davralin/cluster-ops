@@ -9,5 +9,6 @@ resources:
   - ../kubed
   - ../metrics-server
   - ../reloader
+  - ../rssbridge
   - ../snowflake
   - ../teddit
