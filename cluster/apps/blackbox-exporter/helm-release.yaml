@@ -46,11 +46,6 @@ spec:
             preferred_ip_protocol: "ip4"
             fail_if_body_not_matches_regexp:
               - "Sleep"
-        icmp:
-          prober: icmp
-          timeout: 30s
-          icmp:
-            preferred_ip_protocol: "ip4"
     serviceMonitor:
       enabled: true
       defaults:
@@ -59,21 +54,6 @@ spec:
         interval: 2m
         scrapeTimeout: 30s
       targets:
-        - module: icmp
-          name: harmonyhub
-          url: harmonyhub
-        - module: icmp
-          name: loftet-core
-          url: loftet_core
-        - module: icmp
-          name: loftet-main
-          url: loftet_main
-        - module: icmp
-          name: loftet-secondary
-          url: loftet_secondary
-        - module: icmp
-          name: loftet-uplink
-          url: loftet_uplink
         - module: http_2xx
           name: statuspage
           url: "https://status.${SECRET_PUBLIC_DOMAIN}"
