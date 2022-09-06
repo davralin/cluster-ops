@@ -10,6 +10,7 @@ resources:
   - ../grafana
   - ../influxdb
   - ../kubed
+  - ../local-path-provisioner
   - ../minecraft
   - ../metrics-server
   - ../nitter
