@@ -6,6 +6,7 @@ resources:
   - ../haproxy-ingress-daemonset
   - ../kubed
   - ../kuma
+  - ../local-path-provisioner
   - ../metrics-server
   - ../matrix/database
   - ../matrix/dendrite
