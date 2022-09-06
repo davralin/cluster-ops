@@ -27,7 +27,7 @@ spec:
     fullnameOverride: syncthing
     image:
       repository: syncthing/syncthing
-      tag: 1.20.4
+      tag: 1.21.0
     env:
       TZ: "${TIMEZONE}"
     ingress:
