@@ -27,7 +27,7 @@ spec:
     fullnameOverride: esphome
     image:
       repository: ghcr.io/esphome/esphome
-      tag: 2022.8.1
+      tag: 2022.8.2
     env:
       TZ: "${TIMEZONE}"
       ESPHOME_DASHBOARD_USE_PING: "true"
