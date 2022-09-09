@@ -65,7 +65,7 @@ spec:
             memory: "200Mi"
       storage:
         useAllNodes: true
-        useAllDevices: true
+        useAllDevices: false
         encryptedDevice: true
     cephBlockPools:
       - name: ceph-blockpool
