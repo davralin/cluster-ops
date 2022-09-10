@@ -13,6 +13,8 @@ spec:
     type: Recreate
   template:
     metadata:
+      annotations:
+        backup.velero.io/backup-volumes: airprint
       labels:
         app: airprint
     spec:
