@@ -27,7 +27,7 @@ spec:
     toolbox:
       enabled: true
     monitoring:
-      enabled: true
+      enabled: false
       createPrometheusRules: false
     configOverride: |
       [global]
