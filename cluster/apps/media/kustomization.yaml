@@ -9,7 +9,7 @@ resources:
   - jellyfin
   - lidarr
   - namespace.yaml
-  #- media-rclone
+  - media-rclone
   - pvc.yaml
   - plex
   #- plex-meta-manager
