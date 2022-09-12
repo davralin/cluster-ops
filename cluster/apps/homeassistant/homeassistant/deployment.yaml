@@ -57,7 +57,6 @@ spec:
           volumeMounts:
             - name: homeassistant
               mountPath: /config
-              subPath: vscode
             - name: homeassistant
               mountPath: /config/workspace
       volumes:
