@@ -60,7 +60,6 @@ spec:
               subPath: vscode
             - name: homeassistant
               mountPath: /config/workspace
-              subPath: homeassistant
       volumes:
         - name: homeassistant
           persistentVolumeClaim:
