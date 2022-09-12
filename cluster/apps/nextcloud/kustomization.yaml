@@ -6,6 +6,6 @@ resources:
   - helm-release-db.yaml
   - helm-release-redis.yaml
   - namespace.yaml
-  - photoprism
+#  - photoprism
   - pvc.yaml
   - secret.sops.yaml
