@@ -5,6 +5,7 @@ resources:
   - ../bitcoind
   - ../blackbox-exporter
   - ../descheduler
+  - ../esphome
   - ../external-dns
   - ../bibliogram
   - ../grafana
