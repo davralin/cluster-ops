@@ -83,6 +83,9 @@ spec:
             - name: alivia
               devices:
                 - name: "/dev/disk/by-id/ata-Samsung_SSD_870_QVO_4TB_S5STNF0T205013V"
+            - name: moiraine
+              devices:
+                - name: "/dev/disk/by-id/ata-Samsung_SSD_870_QVO_4TB_S5STNF0T308086D"
     cephBlockPools:
       - name: ceph-blockpool
         spec:
