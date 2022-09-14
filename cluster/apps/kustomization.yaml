@@ -10,7 +10,6 @@ resources:
   - cert-manager
   - changedetection
   - ddns
-  - diun
   - drone
   - freshrss
   - gitea
