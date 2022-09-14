@@ -8,7 +8,6 @@ resources:
   - ../descheduler
   - ../esphome
   - ../external-dns
-  - ../dendrite
   - ../grafana
   - ../influxdb
   - ../kubed
