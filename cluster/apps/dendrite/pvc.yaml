@@ -3,7 +3,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: dendrite-media
-  namespace: matrix
+  namespace: dendrite
 spec:
   storageClassName: "${STORAGE_READWRITEONCE}"
   accessModes:
@@ -16,7 +16,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: dendrite-jetstream
-  namespace: matrix
+  namespace: dendrite
 spec:
   storageClassName: "${STORAGE_READWRITEONCE}"
   accessModes:
