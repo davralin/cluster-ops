@@ -18,7 +18,6 @@ resources:
   - homeassistant
   - intel-gpu
   - jobs
-  - kanboard
   - mailrelay
   - matrix
   - media
