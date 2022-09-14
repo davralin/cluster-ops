@@ -8,7 +8,5 @@ resources:
   - ../kuma
   - ../local-path-provisioner
   - ../metrics-server
-  - ../matrix/database
-  - ../matrix/dendrite
   - ../reloader
   - ../snowflake
