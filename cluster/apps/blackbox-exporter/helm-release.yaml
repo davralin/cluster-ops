@@ -24,6 +24,7 @@ spec:
       retries: 5
   values:
     fullnameOverride: blackbox-exporter
+    pspEnabled: false
     image:
       repository: quay.io/prometheus/blackbox-exporter
     ingress:
