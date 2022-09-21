@@ -5,7 +5,7 @@ resources:
   - helm-release.yaml
   - helm-release-db.yaml
   - helm-release-redis.yaml
+  #- hourly-to-jottacloud.yaml
   - namespace.yaml
-#  - photoprism
   - pvc.yaml
   - secret.sops.yaml
