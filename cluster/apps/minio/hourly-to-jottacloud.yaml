@@ -1,0 +1,60 @@
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: hourly-to-jottacloud
+  namespace: minio
+spec:
+  schedule: "10 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: Never
+          initContainers:
+            - name: init-mkdir-cp-rclone
+              image: busybox:1.35.0
+              command: ['sh', '-c', "/bin/mkdir -p /config/rclone; cp -vn /tmp/rclone.conf /config/rclone/rclone.conf"]
+              volumeMounts:
+                - mountPath: /tmp
+                  name: rclone-config
+                  readOnly: true
+                - mountPath: /config
+                  name: rcloneconfig
+                  readOnly: false
+          containers:
+            - name: hourly-to-jottacloud
+              image: rclone/rclone:1.59
+              args:
+                - sync
+                - --drive-stop-on-upload-limit
+                - --ignore-case
+                - --check-first
+                - --dry-run
+                - --delete-before
+                - --verbose
+                - --progress
+                - /minio/
+                - "jottacloud-crypt:/minio/$(($(date +%V)%2))/"
+              volumeMounts:
+                - mountPath: /minio
+                  name: minio
+                  readOnly: true
+                - mountPath: /config
+                  name: rcloneconfig
+                  readOnly: false
+          volumes:
+            - name: minio
+              persistentVolumeClaim:
+                claimName: minio
+            - name: rcloneconfig
+              emptyDir: {}
+            - name: rclone-config
+              secret:
+                secretName: rclone-config
+                items:
+                  - key: rclone.conf
+                    path: rclone.conf
