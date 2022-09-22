@@ -35,7 +35,7 @@ spec:
       tag: 220901-bookworm
     env:
       TZ: "${TIMEZONE}"
-      PHOTOPRISM_DATABASE_DRIVER: "mysql"
+      #PHOTOPRISM_DATABASE_DRIVER: "mysql"
     ingress:
       main:
         enabled: true
