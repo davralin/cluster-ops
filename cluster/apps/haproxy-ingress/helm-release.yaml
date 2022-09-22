@@ -42,6 +42,3 @@ spec:
         enabled: false
     defaultBackend:
       replicaCount: 1
-      image:
-        repository: ghcr.io/davralin/nginx-autoindex
-        tag: latest
