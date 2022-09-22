@@ -31,7 +31,7 @@ spec:
     auth:
       database: photoprism
       username: photoprism
-      existingSecret: photoprism
+      #existingSecret: photoprism
     primary:
       podAnnotations:
         backup.velero.io/backup-volumes: data
