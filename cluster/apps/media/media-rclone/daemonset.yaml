@@ -30,7 +30,7 @@ spec:
       terminationGracePeriodSeconds: 120
       containers:
       - name: media-rclone
-        image: rclone/rclone:1.59
+        image: rclone/rclone:1.59.2
         args:
           - mount
           - "gcrypt:"
