@@ -5,7 +5,7 @@ metadata:
   name: weekly-to-jottacloud
   namespace: minio
 spec:
-  schedule: "57 * * * *"
+  schedule: "01 * * * *"
   concurrencyPolicy: Forbid
   successfulJobsHistoryLimit: 1
   failedJobsHistoryLimit: 1
@@ -38,7 +38,7 @@ spec:
                 - --verbose
                 - --progress
                 - /minio/
-                - "jottacloud-crypt:/minio/$(($(date +%V)%2))/"
+                - "jottacloud-crypt:/minio/"
               volumeMounts:
                 - mountPath: /minio
                   name: minio
