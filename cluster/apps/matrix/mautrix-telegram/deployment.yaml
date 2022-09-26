@@ -33,7 +33,7 @@ spec:
               subPath: config-telegram.yaml
       containers:
         - name: bridge
-          image: dock.mau.dev/mautrix/telegram:v0.12.0
+          image: dock.mau.dev/mautrix/telegram:v0.12.1
           ports:
             - containerPort: 29317
               protocol: TCP
