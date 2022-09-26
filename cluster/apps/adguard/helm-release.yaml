@@ -26,8 +26,14 @@ spec:
   values:
     fullnameOverride: adguard
     persistence:
+      config:
+        existingClaim: adguard-config
       data:
-        existingClaim: adguard
+        existingClaim: adguard-data
     service:
       main:
+        type: LoadBalancer
+      dns-udp:
+        type: LoadBalancer
+      dns-http:
         type: LoadBalancer
