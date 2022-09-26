@@ -33,7 +33,9 @@ spec:
     service:
       main:
         type: LoadBalancer
+        primary: false
       dns-udp:
         type: LoadBalancer
       dns-http:
         type: LoadBalancer
+        primary: true
