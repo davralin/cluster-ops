@@ -30,10 +30,6 @@ spec:
               image: rclone/rclone:1.59.2
               args:
                 - sync
-                - --drive-stop-on-upload-limit
-                - --ignore-case
-                - --check-first
-                - --delete-before
                 - --progress
                 - /minio/
                 - "jottacloud-crypt:/minio/"
