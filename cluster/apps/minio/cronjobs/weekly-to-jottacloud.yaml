@@ -5,7 +5,7 @@ metadata:
   name: weekly-to-jottacloud
   namespace: minio
 spec:
-  schedule: "10 * * * *"
+  schedule: "57 * * * *"
   concurrencyPolicy: Forbid
   successfulJobsHistoryLimit: 1
   failedJobsHistoryLimit: 1
@@ -49,7 +49,7 @@ spec:
           volumes:
             - name: minio
               persistentVolumeClaim:
-                claimName: minio
+                claimName: minio-local
             - name: rcloneconfig
               persistentVolumeClaim:
                 claimName: rcloneconfig
