@@ -25,6 +25,8 @@ spec:
       retries: 3
   values:
     fullnameOverride: adguard
+    hostNetwork: true
+    dnsPolicy: ClusterFirstWithHostNet
     persistence:
       config:
         existingClaim: adguard-config
