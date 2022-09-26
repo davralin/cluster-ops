@@ -30,6 +30,8 @@ spec:
               image: rclone/rclone:1.59.2
               args:
                 - sync
+                - --check-first
+                - --delete-before
                 - --progress
                 - /minio/
                 - "jottacloud-crypt:/minio/"
