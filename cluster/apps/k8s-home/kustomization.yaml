@@ -14,6 +14,7 @@ resources:
   - ../local-path-provisioner
   - ../minecraft
   - ../metrics-server
+  - ..//minio/cronjobs
   - ../nitter
   - ../node-feature-discovery
   - ../node-problem-detector
