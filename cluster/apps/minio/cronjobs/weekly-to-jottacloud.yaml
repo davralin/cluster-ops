@@ -5,7 +5,7 @@ metadata:
   name: weekly-to-jottacloud
   namespace: minio
 spec:
-  schedule: "01 * * * *"
+  schedule: "06 * * * *"
   concurrencyPolicy: Forbid
   successfulJobsHistoryLimit: 1
   failedJobsHistoryLimit: 1
@@ -33,7 +33,6 @@ spec:
                 - --drive-stop-on-upload-limit
                 - --ignore-case
                 - --check-first
-                - --dry-run
                 - --delete-before
                 - --verbose
                 - --progress
