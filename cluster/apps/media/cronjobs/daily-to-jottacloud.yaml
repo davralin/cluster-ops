@@ -1,0 +1,61 @@
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: daily-to-jottacloud
+  namespace: media
+spec:
+  schedule: "14 01 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: Never
+          initContainers:
+            - name: init-mkdir-cp-rclone
+              image: busybox:1.35.0
+              command: ['sh', '-c', "/bin/mkdir -p /config/rclone; cp -v /tmp/rclone.conf /config/rclone/rclone.conf"]
+              volumeMounts:
+                - mountPath: /tmp
+                  name: rclone-config
+                  readOnly: true
+                - mountPath: /config
+                  name: rcloneconfig
+                  readOnly: false
+          containers:
+            - name: daily-to-jottacloud
+              image: rclone/rclone:1.59.2
+              args:
+                - sync
+                - --drive-stop-on-upload-limit
+                - --ignore-case
+                - --check-first
+                - --delete-before
+                - --verbose
+                - --exclude
+                - /downloads/**
+                - /media/
+                - jottacloud-crypt:/media
+              volumeMounts:
+                - mountPath: /media
+                  name: media
+                  readOnly: true
+                - mountPath: /config
+                  name: rcloneconfig
+                  readOnly: false
+          volumes:
+            - name: media
+              persistentVolumeClaim:
+                claimName: media
+            - name: rcloneconfig
+              persistentVolumeClaim:
+                claimName: rcloneconfig
+            - name: rclone-config
+              secret:
+                secretName: rclone-config
+                items:
+                  - key: rclone.conf
+                    path: rclone.conf

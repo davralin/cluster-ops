@@ -6,3 +6,4 @@ resources:
   - daily-dosage.yaml
   - daily-from-gsuite-to-tv.yaml
   - daily-to-gsuite.yaml
+  - daily-to-jottacloud.yaml
