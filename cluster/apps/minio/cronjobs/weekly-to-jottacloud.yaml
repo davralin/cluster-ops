@@ -13,6 +13,8 @@ spec:
     spec:
       template:
         spec:
+          nodeSelector:
+            feature.node.kubernetes.io/custom-usb-backupdrive: "true"
           restartPolicy: Never
           initContainers:
             - name: init-mkdir-cp-rclone
@@ -28,7 +30,14 @@ spec:
           containers:
             - name: weekly-to-jottacloud
               image: rclone/rclone:1.59.2
-              command: ['/bin/sleep', 'infinity']
+              args:
+                - sync
+                - --check-first
+                - --delete-before
+                - --verbose
+                - --progress
+                - /minio/
+                - "jottacloud-crypt:/minio/"
               volumeMounts:
                 - mountPath: /minio
                   name: minio
