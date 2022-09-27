@@ -17,7 +17,7 @@ spec:
           initContainers:
             - name: init-mkdir-cp-rclone
               image: busybox:1.35.0
-              command: ['sh', '-c', "/bin/mkdir -p /config/rclone; cp -v /tmp/rclone.conf /config/rclone/rclone.conf"]
+              command: ['sh', '-c', "/bin/mkdir -p /config/rclone; cp -vn /tmp/rclone.conf /config/rclone/rclone.conf"]
               volumeMounts:
                 - mountPath: /tmp
                   name: rclone-config
