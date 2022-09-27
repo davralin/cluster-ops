@@ -34,7 +34,6 @@ spec:
                 - sync
                 - --check-first
                 - --delete-before
-                - --verbose
                 - --progress
                 - /minio/
                 - "jottacloud-crypt:/minio/"
