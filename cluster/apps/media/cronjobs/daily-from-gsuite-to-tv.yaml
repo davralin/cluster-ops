@@ -31,7 +31,6 @@ spec:
               args:
                 - copy
                 - --verbose
-                - --dry-run
                 - gcrypt:/archive/video/tv-series
                 - /media/video/tv-series/import/
               volumeMounts:
