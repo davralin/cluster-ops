@@ -4,4 +4,5 @@ kind: Kustomization
 resources:
   - daily-chown-media.yaml
   - daily-dosage.yaml
+  - daily-from-gsuite-to-tv.yaml
   - daily-to-gsuite.yaml
