@@ -28,14 +28,7 @@ spec:
           containers:
             - name: weekly-to-jottacloud
               image: rclone/rclone:1.59.2
-              args:
-                - sync
-                - --check-first
-                - --delete-before
-                - --verbose
-                - --progress
-                - /minio/
-                - "jottacloud-crypt:/minio/"
+              command: ['/bin/sleep', 'infinity']
               volumeMounts:
                 - mountPath: /minio
                   name: minio
