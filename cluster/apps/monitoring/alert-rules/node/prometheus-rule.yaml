@@ -23,7 +23,7 @@ spec:
           expr: 100 - (avg by (instance) (irate(node_cpu_seconds_total{mode="idle"}[5m])) * 100) > 90
           for: 15m
           labels:
-            severity: warning
+            #severity: warning
             context: node
           annotations:
             summary: High load on node
@@ -32,7 +32,7 @@ spec:
           expr: (100 - 100 * sum(node_filesystem_avail_bytes{device!~"tmpfs|by-uuid",fstype=~"xfs|ext4"} / node_filesystem_size_bytes{device!~"tmpfs|by-uuid",fstype=~"xfs|ext4"}) BY (instance,device)) > 85
           for: 5m
           labels:
-            severity: warning
+            #severity: warning
             context: node
           annotations:
             description: Node disk usage above 85%
