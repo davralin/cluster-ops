@@ -25,10 +25,10 @@ spec:
   values:
     fullnameOverride: kube-prometheus
     prometheus:
-      retention: 3d
       persistence:
         enabled: true
         size: 10G
+      retention: 3d
     alertmanager:
       config:
         global:
