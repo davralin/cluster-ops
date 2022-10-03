@@ -23,10 +23,12 @@ spec:
     remediation:
       retries: 3
   values:
+    fullnameOverride: kube-prometheus
     prometheus:
+      retention: 3d
       persistence:
         enabled: true
-        size: 30G
+        size: 10G
     alertmanager:
       config:
         global:
