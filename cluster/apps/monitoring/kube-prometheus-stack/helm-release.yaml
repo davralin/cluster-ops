@@ -49,3 +49,5 @@ spec:
         storageClass: "local-path"
     blackboxExporter:
       enabled: false
+    kubeProxy:
+      enabled: false
