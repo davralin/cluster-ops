@@ -34,7 +34,7 @@ spec:
                 - --delete-before
                 - --progress
                 - /nextcloud/
-                - "jottacloud-crypt:/nextcloud/"
+                - "jottacloud-crypt:/nextcloud/current"
               volumeMounts:
                 - mountPath: /nextcloud
                   name: nextcloud
