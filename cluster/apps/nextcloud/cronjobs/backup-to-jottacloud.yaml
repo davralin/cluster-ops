@@ -34,7 +34,7 @@ spec:
                 - --delete-before
                 - --progress
                 - --backup-dir
-                - "jottacloud-crypt:/nextcloud/$(date -I)"
+                - jottacloud-crypt:/nextcloud/$(date -I)
                 - /nextcloud/
                 - "jottacloud-crypt:/nextcloud/current"
               volumeMounts:
