@@ -35,8 +35,7 @@ spec:
                 - --check-first
                 - --delete-before
                 - --verbose
-                - --exclude
-                - /downloads/**
+                - --jottacloud-hard-delete
                 - /media/
                 - jottacloud-crypt:/media
               volumeMounts:

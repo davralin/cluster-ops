@@ -33,6 +33,7 @@ spec:
                 - --check-first
                 - --delete-before
                 - --progress
+                - --jottacloud-hard-delete
                 - --backup-dir
                 - jottacloud-crypt:/nextcloud/$(date -I)
                 - /nextcloud/
