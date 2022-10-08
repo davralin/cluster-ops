@@ -4,5 +4,3 @@ kind: Kustomization
 resources:
   - backup-ssh-key.yaml
   - offsite-sync.yaml
-  - pvc.yaml
-  - weekly-to-jottacloud.yaml
