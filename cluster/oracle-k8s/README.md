@@ -1,3 +1,0 @@
-# bootstrap
-
-flux bootstrap git --verbose --url=ssh://git@github.com/davralin/cluster-ops.git --branch main --path cluster/oracle-k8s --private-key-file=.ssh/id_ed25519 --password=XXX
