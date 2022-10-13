@@ -27,7 +27,7 @@ spec:
     fullnameOverride: influxdb
     image:
       repository: bitnami/influxdb
-      tag: 2.3.0-debian-11-r17
+      tag: 2.4.0-debian-11-r17
     persistence:
       enabled: true
       existingClaim: influxdb
