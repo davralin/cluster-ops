@@ -17,8 +17,6 @@ spec:
           containers:
             - name: daily-plextraktsync
               image: ghcr.io/taxel/plextraktsync:0.22.1
-              command: "/bin/sleep"
-              args: "infinity"
               volumeMounts:
                 - mountPath: /app/config
                   name: plextraktsync
