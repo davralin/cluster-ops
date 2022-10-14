@@ -1,0 +1,29 @@
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: daily-plextraktsync
+  namespace: media
+spec:
+  schedule: "08 07 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: Never
+          containers:
+            - name: daily-plextraktsync
+              image: ghcr.io/taxel/plextraktsync:0.22.1
+              command: "/bin/sleep"
+              args:
+                - infinity
+              volumeMounts:
+                - mountPath: /app/config
+                  name: plextraktsync
+          volumes:
+            - name: plextraktsync
+              persistentVolumeClaim:
+                claimName: plextraktsync
