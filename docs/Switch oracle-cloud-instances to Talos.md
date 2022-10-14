@@ -9,6 +9,9 @@ wget https://github.com/talos-systems/talos/releases/download/${talos_version}/n
 wipefs -af $destination_disk
 xzcat nocloud-*64.raw.xz | dd of=${destination_disk} bs=1M
 
+echo 1 > /proc/sys/kernel/sysrq
+echo b > /proc/sysrq-trigger
+
 ````
 
 # arm64
@@ -30,6 +33,9 @@ echo 3 > /proc/sys/vm/drop_caches
 dd if=${cloud_instance}-arm64.img of=/dev/sda bs=1M status=progress
 sync
 echo 3 > /proc/sys/vm/drop_caches
+
+echo 1 > /proc/sys/kernel/sysrq
+echo b > /proc/sysrq-trigger
 
 ````
 
