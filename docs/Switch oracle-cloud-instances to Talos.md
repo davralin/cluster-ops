@@ -20,7 +20,7 @@ echo b > /proc/sysrq-trigger
 apt update && apt install qemu-utils -y
 
 talos_version=v1.2.5
-cloud_instance=azure
+cloud_instance=oracle
 mkdir /tmp/temp && mount -t tmpfs tmpfs /tmp/temp/ && cd /tmp/temp
 wget https://github.com/talos-systems/talos/releases/download/${talos_version}/${cloud_instance}-arm64.qcow2.xz
 xz -d ${cloud_instance}-arm64.qcow2.xz
