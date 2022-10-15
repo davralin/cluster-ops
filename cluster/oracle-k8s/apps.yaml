@@ -8,7 +8,7 @@ spec:
   interval: 10m0s
   dependsOn:
     - name: core
-  path: ./cluster/apps/k8s-cloud
+  path: ./cluster/apps/k8s-oracle
   prune: true
   sourceRef:
     kind: GitRepository
