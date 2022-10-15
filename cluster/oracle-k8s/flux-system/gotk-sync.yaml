@@ -24,7 +24,7 @@ spec:
     secretRef:
       name: sops-gpg
   interval: 10m0s
-  path: ./cluster/cloud-k8s
+  path: ./cluster/oracle-k8s
   prune: true
   sourceRef:
     kind: GitRepository
