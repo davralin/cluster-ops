@@ -31,7 +31,6 @@ spec:
               args:
                 - move
                 - --verbose
-                - --dry-run
                 - gcrypt:/archive/video/movies_import
                 - /media/video/movies/import/
               volumeMounts:
