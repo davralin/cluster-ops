@@ -19,8 +19,12 @@ metadata:
   name: flux-system
   namespace: flux-system
 spec:
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-gpg
   interval: 10m0s
-  path: ./cluster/oracle-k8s
+  path: ./cluster/cloud-k8s
   prune: true
   sourceRef:
     kind: GitRepository
