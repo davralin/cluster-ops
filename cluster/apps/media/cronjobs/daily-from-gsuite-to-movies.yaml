@@ -32,8 +32,8 @@ spec:
                 - move
                 - --verbose
                 - --delete-empty-src-dirs
-                - gcrypt:/archive/video/movies_import
-                - /media/video/movies/import/
+                - gcrypt:/archive/video/import
+                - /media/video/import/
               volumeMounts:
                 - mountPath: /media
                   name: media
