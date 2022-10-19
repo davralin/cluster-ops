@@ -27,7 +27,7 @@ spec:
     prometheus:
       persistence:
         enabled: true
-        size: 30G
+        storageClass: "local-path"
       retention: 3d
     alertmanager:
       config:
