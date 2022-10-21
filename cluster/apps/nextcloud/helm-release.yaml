@@ -83,10 +83,10 @@ spec:
     phpClientHttpsFix:
       enabled: true
     readinessProbe:
-      enabled: true
+      enabled: false
       initialDelaySeconds: 900
     livenessProbe:
-      enabled: true
+      enabled: false
       initialDelaySeconds: 900
     internalDatabase:
       enabled: false
