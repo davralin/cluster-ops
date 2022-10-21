@@ -28,6 +28,10 @@ spec:
     image:
       repository: nextcloud
       tag: 25.0.0-apache
+    livenessProbe:
+      initialDelaySeconds: 300
+    readinessProbe:
+      initialDelaySeconds: 300
     persistence:
       enabled: true
       existingClaim: nextcloud
