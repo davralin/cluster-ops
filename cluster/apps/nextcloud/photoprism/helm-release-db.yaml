@@ -31,14 +31,18 @@ spec:
     auth:
       database: photoprism
       username: photoprism
-      #existingSecret: photoprism
+      existingSecret: photoprism
     primary:
       podAnnotations:
         backup.velero.io/backup-volumes: data
       persistence:
         enabled: true
         existingClaim: photoprism-mariadb
+      livenessProbe:
+        enabled: false
+        initialDelaySeconds: 30000
       readinessProbe:
+        enabled: false
         initialDelaySeconds: 30000
     volumePermissions:
       enabled: true
