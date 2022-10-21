@@ -39,18 +39,18 @@ spec:
         enabled: true
         existingClaim: photoprism-mariadb
       livenessProbe:
-        enabled: false
-        initialDelaySeconds: 30000
+        enabled: true
+        initialDelaySeconds: 300
       readinessProbe:
-        enabled: false
-        initialDelaySeconds: 30000
+        enabled: true
+        initialDelaySeconds: 300
     volumePermissions:
       enabled: true
       image:
         repository: bitnami/bitnami-shell
         tag: 11
     metrics:
-      enabled: false
+      enabled: true
       image:
         repository: bitnami/mysqld-exporter
         tag: 0.14.0
