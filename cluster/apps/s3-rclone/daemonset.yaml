@@ -30,7 +30,7 @@ spec:
       terminationGracePeriodSeconds: 120
       containers:
       - name: s3-rclone
-        image: rclone/rclone:1.59.2
+        image: rclone/rclone:1.60.0
         args:
           - mount
           - "oracle-s3-crypt:"

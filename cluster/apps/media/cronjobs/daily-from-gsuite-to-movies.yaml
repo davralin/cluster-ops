@@ -27,7 +27,7 @@ spec:
                   readOnly: false
           containers:
             - name: daily-from-gsuite-to-movies
-              image: rclone/rclone:1.59.2
+              image: rclone/rclone:1.60.0
               args:
                 - move
                 - --verbose
