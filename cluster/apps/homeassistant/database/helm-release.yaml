@@ -27,7 +27,7 @@ spec:
     fullnameOverride: postgresql
     image:
       repository: bitnami/postgresql
-      tag: 14.5.0
+      tag: 15.0.0
     auth:
       database: homeassistant
       username: homeassistant
