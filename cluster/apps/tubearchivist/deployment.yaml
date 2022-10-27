@@ -48,7 +48,7 @@ spec:
             - name: tubearchivist-media
               mountPath: /cache
         - name: es
-          image: bbilly1/tubearchivist-es:8.4.3
+          image: elasticsearch:8.4.3
           ports:
             - name: es-http
               containerPort: 9200
