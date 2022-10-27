@@ -33,12 +33,12 @@ spec:
                 secretKeyRef:
                   name: tubearchivist-secrets
                   key: TA_PASSWORD
-      restartPolicy: Always
           volumeMounts:
             - name: tubearchivist-cache
               mountPath: /youtube
             - name: tubearchivist-media
               mountPath: /cache
+      restartPolicy: Always
       volumes:
         - name: tubearchivist-media
           persistentVolumeClaim:
