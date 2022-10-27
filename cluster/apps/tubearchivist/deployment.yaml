@@ -75,3 +75,6 @@ spec:
         - name: tubearchivist-cache
           persistentVolumeClaim:
             claimName: tubearchivist-cache
+        - name: tubearchivist-es
+          persistentVolumeClaim:
+            claimName: tubearchivist-es
