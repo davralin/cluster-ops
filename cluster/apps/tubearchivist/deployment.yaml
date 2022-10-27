@@ -23,4 +23,26 @@ spec:
           env:
             - name: TZ
               value: "${TIMEZONE}"
+            - name: TA_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: tubearchivist-secrets
+                  key: TA_USERNAME
+            - name: TA_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: tubearchivist-secrets
+                  key: TA_PASSWORD
       restartPolicy: Always
+          volumeMounts:
+            - name: tubearchivist-cache
+              mountPath: /youtube
+            - name: tubearchivist-media
+              mountPath: /cache
+      volumes:
+        - name: tubearchivist-media
+          persistentVolumeClaim:
+            claimName: tubearchivist-media
+        - name: tubearchivist-cache
+          persistentVolumeClaim:
+            claimName: tubearchivist-cache
