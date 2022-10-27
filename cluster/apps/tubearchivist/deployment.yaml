@@ -25,6 +25,8 @@ spec:
               value: "${TIMEZONE}"
             - name: ES_URL
               value: "http://localhost:9200"
+            - name: TA_HOST
+              value: "tube.${SECRET_PUBLIC_DOMAIN}"
             - name: TA_USERNAME
               valueFrom:
                 secretKeyRef:
