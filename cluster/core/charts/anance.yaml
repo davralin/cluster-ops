@@ -2,9 +2,9 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
-  name: azure-csi
+  name: ananace-charts
   namespace: flux-system
 spec:
   interval: 15m
-  url: https://raw.githubusercontent.com/kubernetes-sigs/azuredisk-csi-driver/master/charts
+  url: https://ananace.gitlab.io/charts
   timeout: 3m
