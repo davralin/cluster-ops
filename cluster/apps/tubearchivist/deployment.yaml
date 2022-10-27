@@ -23,6 +23,8 @@ spec:
           env:
             - name: TZ
               value: "${TIMEZONE}"
+            - name: ES_URL
+              value: "http://localhost:9200"
             - name: TA_USERNAME
               valueFrom:
                 secretKeyRef:
@@ -33,11 +35,38 @@ spec:
                 secretKeyRef:
                   name: tubearchivist-secrets
                   key: TA_PASSWORD
+            - name: ELASTIC_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: tubearchivist-secrets
+                  key: ELASTIC_PASSWORD
           volumeMounts:
             - name: tubearchivist-cache
               mountPath: /youtube
             - name: tubearchivist-media
               mountPath: /cache
+        - name: tubearchivist-es
+          image: bbilly1/tubearchivist-es:8.4.3
+          ports:
+            - name: es-http
+              containerPort: 9200
+          env:
+            - name: TZ
+              value: "${TIMEZONE}"
+            - name: xpack.security.enabled
+              value: "true"
+            - name: discovery.type
+              value: "single-node"
+            - name: ES_JAVA_OPTS
+              value: "-Xms512m -Xmx512m"
+            - name: ELASTIC_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: tubearchivist-secrets
+                  key: ELASTIC_PASSWORD
+          volumeMounts:
+            - name: tubearchivist-es
+              mountPath: /usr/share/elasticsearch/data
       restartPolicy: Always
       volumes:
         - name: tubearchivist-media
