@@ -1,0 +1,26 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: tubearchivist-media
+  namespace: tubearchivist
+spec:
+  storageClassName: "${STORAGE_READWRITEONCE}"
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 50Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: tubearchivist-cache
+  namespace: tubearchivist
+spec:
+  storageClassName: "${STORAGE_READWRITEONCE}"
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi

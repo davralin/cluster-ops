@@ -1,0 +1,26 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tubearchivist
+  namespace: tubearchivist
+spec:
+  selector:
+    matchLabels:
+      app: tubearchivist
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: tubearchivist
+    spec:
+      containers:
+        - name: tubearchivist
+          image: bbilly1/tubearchivist:v0.2.3
+          ports:
+            - name: http
+              containerPort: 8000
+          env:
+            - name: TZ
+              value: "${TIMEZONE}"
+      restartPolicy: Always
