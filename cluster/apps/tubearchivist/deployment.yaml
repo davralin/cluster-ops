@@ -27,6 +27,8 @@ spec:
               value: "http://localhost:9200"
             - name: TA_HOST
               value: "tube.${SECRET_PUBLIC_DOMAIN}"
+            - name: REDIS_HOST
+              value: "localhost"
             - name: TA_USERNAME
               valueFrom:
                 secretKeyRef:
@@ -69,6 +71,17 @@ spec:
           volumeMounts:
             - name: tubearchivist-es
               mountPath: /usr/share/elasticsearch/data
+        - name: redis
+          image: bbilly1/rejson:v2.2.0
+          ports:
+            - name: redis
+              containerPort: 6379
+          env:
+            - name: TZ
+              value: "${TIMEZONE}"
+          volumeMounts:
+            - name: tubearchivist-redis
+              mountPath: /data
       restartPolicy: Always
       volumes:
         - name: tubearchivist-media
@@ -80,3 +93,6 @@ spec:
         - name: tubearchivist-es
           persistentVolumeClaim:
             claimName: tubearchivist-es
+        - name: tubearchivist-redis
+          persistentVolumeClaim:
+            claimName: tubearchivist-redis
