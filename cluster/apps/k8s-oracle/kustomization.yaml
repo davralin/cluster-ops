@@ -7,7 +7,6 @@ resources:
   - ../docker-registry
   - ../external-dns
   - ../haproxy-ingress-daemonset
-  - ../ipfs
   - ../kubed
   - ../local-path-provisioner
   - ../metrics-server
