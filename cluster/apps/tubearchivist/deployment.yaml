@@ -15,7 +15,7 @@ spec:
         app: tubearchivist
     spec:
       containers:
-        - name: tubearchivist
+        - name: ta
           image: bbilly1/tubearchivist:v0.2.3
           ports:
             - name: http
@@ -47,7 +47,7 @@ spec:
               mountPath: /youtube
             - name: tubearchivist-media
               mountPath: /cache
-        - name: tubearchivist-es
+        - name: es
           image: bbilly1/tubearchivist-es:8.4.3
           ports:
             - name: es-http
