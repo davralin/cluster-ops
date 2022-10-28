@@ -27,5 +27,9 @@ spec:
     fullnameOverride: metallb
     prometheus:
       scrapeAnnotations: true
+      crds:
+        enabled: true
+      psp:
+        create: false
       prometheusRule:
         enabled: true
