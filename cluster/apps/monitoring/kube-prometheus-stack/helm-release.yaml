@@ -28,6 +28,7 @@ spec:
       persistence:
         enabled: true
         size: 30G
+        storageClass: "${STORAGE_READWRITEONCE}"
       retention: 3d
     alertmanager:
       config:
