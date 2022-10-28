@@ -44,9 +44,9 @@ spec:
         repository: bitnami/bitnami-shell
         tag: 11
     metrics:
-      enabled: false
+      enabled: "${MONITORING_PROMETHEUS}"
       serviceMonitor:
-        enabled: false
+        enabled: "${MONITORING_PROMETHEUS}"
       image:
         repository: bitnami/postgres-exporter
         tag: 0.11.1

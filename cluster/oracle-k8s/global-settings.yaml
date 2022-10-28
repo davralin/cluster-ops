@@ -9,3 +9,4 @@ data:
   BEASTHOST: "readsb-protobuf"
   HAPROXY_WHITELIST: "0.0.0.0/0"
   STORAGE_READWRITEONCE: "local-path"
+  MONITORING_PROMETHEUS: "false"
