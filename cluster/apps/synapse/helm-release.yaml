@@ -27,3 +27,9 @@ spec:
     fullnameOverride: synapse
     serverName: "${SECRET_PUBLIC_DOMAIN}"
     publicServerName: "matrix.${SECRET_PUBLIC_DOMAIN}"
+    postgresql:
+      enabled: false
+    redis:
+      enabled: false
+    volumePermissions:
+      enabled: true
