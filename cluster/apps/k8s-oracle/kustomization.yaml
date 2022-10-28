@@ -13,5 +13,6 @@ resources:
   - ../reloader
   - ../rssbridge
   - ../snowflake
+  - ../synapse
   - ../teddit
   - ../tubearchivist

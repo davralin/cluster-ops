@@ -1,0 +1,29 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: synapse
+  namespace: synapse
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: synapse
+      version: 2.7.6
+      sourceRef:
+        kind: HelmRepository
+        name: ananace-charts
+        namespace: flux-system
+      interval: 5m
+  targetNamespace: synapse
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  values:
+    fullnameOverride: synapse
+    serverName: "${SECRET_PUBLIC_DOMAIN}"
+    publicServerName: "matrix.${SECRET_PUBLIC_DOMAIN}"
