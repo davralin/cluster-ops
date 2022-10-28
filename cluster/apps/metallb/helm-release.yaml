@@ -27,7 +27,6 @@ spec:
     fullnameOverride: metallb
     prometheus:
       scrapeAnnotations: true
-    prometheus:
       serviceMonitor:
         enabled: true
       prometheusRule:
