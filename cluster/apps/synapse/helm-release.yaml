@@ -23,6 +23,11 @@ spec:
   upgrade:
     remediation:
       retries: 3
+  valuesFrom:
+    - targetPath: externalPostgresql.password
+      kind: Secret
+      name: synapse-secrets
+      valuesKey: postgres-password
   values:
     fullnameOverride: synapse
     serverName: "${SECRET_PUBLIC_DOMAIN}"
