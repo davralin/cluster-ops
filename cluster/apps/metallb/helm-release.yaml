@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: metallb
-      version: 0.13.7
+      version: 0.12.1
       sourceRef:
         kind: HelmRepository
         name: metallb
@@ -25,11 +25,9 @@ spec:
       retries: 3
   values:
     fullnameOverride: metallb
-    prometheus:
-      scrapeAnnotations: true
-      crds:
-        enabled: true
-      psp:
-        create: false
-      prometheusRule:
-        enabled: true
+    configInline:
+      address-pools:
+      - name: default
+        protocol: layer2
+        addresses:
+        - 10.0.1.30-10.0.1.59
