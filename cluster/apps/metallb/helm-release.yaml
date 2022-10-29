@@ -25,6 +25,14 @@ spec:
       retries: 3
   values:
     fullnameOverride: metallb
+    crds:
+      enabled: true
+    psp:
+      create: false
+    prometheus:
+      scrapeAnnotations: true
+      prometheusRule:
+        enabled: true
     configInline:
       address-pools:
       - name: default
