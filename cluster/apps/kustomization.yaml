@@ -21,7 +21,6 @@ resources:
   - mailrelay
   - matrix
   - media
-  - metallb
   - minio
   - nextcloud
   - paperless-ngx
