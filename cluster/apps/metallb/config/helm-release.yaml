@@ -42,4 +42,4 @@ spec:
           namespace: metallb-system
         spec:
           addresses:
-            - "${METALLB_LB_RANGE}"
+            - 10.0.1.30-10.0.1.59
