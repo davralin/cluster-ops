@@ -61,4 +61,4 @@ spec:
       rootPassword: "${SECRET_MINIO_PASSWORD}"
     metrics:
       serviceMonitor:
-        enabled: true
+        enabled: "${MONITORING_PROMETHEUS}"
