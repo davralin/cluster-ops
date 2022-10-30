@@ -5,6 +5,6 @@ metadata:
   name: ananace-charts
   namespace: flux-system
 spec:
-  interval: 15m
+  interval: 2h
   url: https://ananace.gitlab.io/charts
   timeout: 3m

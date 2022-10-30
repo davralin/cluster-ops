@@ -8,6 +8,7 @@ resources:
   - deliveryhero.yaml
   - descheduler.yaml
   - drone.yaml
+  - dysnix.yaml
   - external-dns.yaml
   - gitea.yaml
   - grafana.yaml
