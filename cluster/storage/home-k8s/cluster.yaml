@@ -22,6 +22,9 @@ spec:
   upgrade:
     remediation:
       retries: 3
+  dependsOn:
+    - name: rook-ceph
+      namespace: flux-system
   values:
     fullnameOverride: rook-ceph
     toolbox:
