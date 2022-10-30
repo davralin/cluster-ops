@@ -9,8 +9,12 @@ spec:
     matchLabels:
       app: tubearchivist
   replicas: 1
+  strategy:
+    type: Recreate
   template:
     metadata:
+      annotations:
+        backup.velero.io/backup-volumes: tubearchivist-media,tubearchivist-cache,tubearchivist-es,tubearchivist-redis
       labels:
         app: tubearchivist
     spec:
