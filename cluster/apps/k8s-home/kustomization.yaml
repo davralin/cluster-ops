@@ -12,6 +12,7 @@ resources:
   - ../influxdb
   - ../kubed
   - ../local-path-provisioner
+  - ../metallb
   - ../minecraft
   - ../metrics-server
   - ../minio/cronjobs
