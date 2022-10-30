@@ -22,9 +22,9 @@ spec:
   upgrade:
     remediation:
       retries: 5
-  dependsOn:
-    - name: metallb
-      namespace: metallb-system
+  #dependsOn:
+    #- name: metallb
+      #namespace: metallb-system
   values:
     resources:
       - apiVersion: metallb.io/v1beta1
