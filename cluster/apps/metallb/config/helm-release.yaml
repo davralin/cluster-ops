@@ -14,6 +14,7 @@ spec:
         kind: HelmRepository
         name: dysnix
         namespace: flux-system
+  targetNamespace: metallb-system
   install:
     createNamespace: true
     remediation:
