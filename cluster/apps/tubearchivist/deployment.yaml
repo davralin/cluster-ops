@@ -19,7 +19,7 @@ spec:
         app: tubearchivist
     spec:
       containers:
-        - name: ta
+        - name: tubearchivist
           image: bbilly1/tubearchivist:v0.2.3
           ports:
             - name: http
