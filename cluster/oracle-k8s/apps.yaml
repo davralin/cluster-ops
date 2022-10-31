@@ -9,7 +9,7 @@ spec:
   dependsOn:
     - name: core
   path: ./cluster/apps/k8s-oracle
-  prune: true
+  prune: false
   sourceRef:
     kind: GitRepository
     name: flux-system

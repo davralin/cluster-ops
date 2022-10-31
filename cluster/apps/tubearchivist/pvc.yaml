@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: tubearchivist-media
+  name: ta-media
   namespace: tubearchivist
 spec:
   storageClassName: "${STORAGE_READWRITEONCE}"
@@ -15,7 +15,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: tubearchivist-cache
+  name: ta-cache
   namespace: tubearchivist
 spec:
   storageClassName: "${STORAGE_READWRITEONCE}"
@@ -28,7 +28,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: tubearchivist-es
+  name: ta-es
   namespace: tubearchivist
 spec:
   storageClassName: "${STORAGE_READWRITEONCE}"
@@ -41,7 +41,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: tubearchivist-redis
+  name: ta-redis
   namespace: tubearchivist
 spec:
   storageClassName: "${STORAGE_READWRITEONCE}"

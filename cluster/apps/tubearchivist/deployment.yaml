@@ -14,7 +14,7 @@ spec:
   template:
     metadata:
       annotations:
-        backup.velero.io/backup-volumes: tubearchivist-media,tubearchivist-cache,tubearchivist-es,tubearchivist-redis
+        backup.velero.io/backup-volumes: ta-media,ta-cache,ta-es,ta-redis
       labels:
         app: tubearchivist
     spec:
@@ -49,9 +49,9 @@ spec:
                   name: tubearchivist-secrets
                   key: ELASTIC_PASSWORD
           volumeMounts:
-            - name: tubearchivist-cache
+            - name: ta-cache
               mountPath: /youtube
-            - name: tubearchivist-media
+            - name: ta-media
               mountPath: /cache
         - name: es
           image: elasticsearch:8.4.3
@@ -73,10 +73,10 @@ spec:
                   name: tubearchivist-secrets
                   key: ELASTIC_PASSWORD
           volumeMounts:
-            - name: tubearchivist-es
+            - name: ta-es
               mountPath: /usr/share/elasticsearch/data
         - name: redis
-          image: bbilly1/rejson:v2.2.0
+          image: redislabs/rejson:2.4.0
           ports:
             - name: redis
               containerPort: 6379
@@ -84,19 +84,19 @@ spec:
             - name: TZ
               value: "${TIMEZONE}"
           volumeMounts:
-            - name: tubearchivist-redis
+            - name: ta-redis
               mountPath: /data
       restartPolicy: Always
       volumes:
-        - name: tubearchivist-media
+        - name: ta-media
           persistentVolumeClaim:
-            claimName: tubearchivist-media
-        - name: tubearchivist-cache
+            claimName: ta-media
+        - name: ta-cache
           persistentVolumeClaim:
-            claimName: tubearchivist-cache
-        - name: tubearchivist-es
+            claimName: ta-cache
+        - name: ta-es
           persistentVolumeClaim:
-            claimName: tubearchivist-es
-        - name: tubearchivist-redis
+            claimName: ta-es
+        - name: ta-redis
           persistentVolumeClaim:
-            claimName: tubearchivist-redis
+            claimName: ta-redis
