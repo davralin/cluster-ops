@@ -12,7 +12,7 @@ metadata:
       Referrer-Policy "no-referrer-when-downgrade"
 spec:
   rules:
-    - host: "tube.${SECRET_PUBLIC_DOMAIN}"
+    - host: "tube.${SECRET_PRIVATE_DOMAIN}"
       http:
         paths:
           - path: /
@@ -23,6 +23,6 @@ spec:
                 port:
                   number: 8000
   tls:
-    - secretName: "${SECRET_PUBLIC_DOMAIN_CERT}"
+    - secretName: "${SECRET_PRIVATE_DOMAIN_CERT}"
       hosts:
-        - "tube.${SECRET_PUBLIC_DOMAIN}"
+        - "tube.${SECRET_PRIVATE_DOMAIN}"
