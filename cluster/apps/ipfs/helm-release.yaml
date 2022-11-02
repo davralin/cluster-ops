@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: ipfs
-      version: 3.0.44
+      version: 3.0.45
       sourceRef:
         kind: HelmRepository
         name: truecharts
