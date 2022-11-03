@@ -24,8 +24,6 @@ spec:
     remediation:
       retries: 3
   values:
-    diagnosticMode:
-      enabled: true
     fullnameOverride: postgresql
     image:
       repository: bitnami/postgresql
@@ -35,8 +33,6 @@ spec:
       username: homeassistant
       existingSecret: homeassistant-secrets
     primary:
-      containerSecurityContext:
-        runAsUser: 0
       podAnnotations:
         backup.velero.io/backup-volumes: data
       persistence:
