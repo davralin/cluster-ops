@@ -36,7 +36,7 @@ spec:
       existingSecret: homeassistant-secrets
     primary:
       containerSecurityContext:
-        runAsUser: "0"
+        runAsUser: 0
       podAnnotations:
         backup.velero.io/backup-volumes: data
       persistence:
