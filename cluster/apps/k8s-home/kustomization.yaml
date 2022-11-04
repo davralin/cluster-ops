@@ -13,9 +13,10 @@ resources:
   - ../kubed
   - ../local-path-provisioner
   - ../metallb
-  - ../minecraft
   - ../metrics-server
+  - ../minecraft
   - ../minio
+  - ../monerod
   - ../nitter
   - ../node-feature-discovery
   - ../node-problem-detector
