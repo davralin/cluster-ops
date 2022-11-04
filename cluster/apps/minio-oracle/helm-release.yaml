@@ -25,10 +25,10 @@ spec:
       retries: 3
   values:
     fullnameOverride: minio
-#    persistence:
-#      existingClaim: minio
-#    volumePermissions:
-#      enabled: true
+    persistence:
+      existingClaim: minio
+    volumePermissions:
+      enabled: true
 #    ingress:
 #      enabled: true
 #      annotations:
@@ -57,6 +57,6 @@ spec:
     auth:
       rootUser: "${SECRET_MINIO_ADMIN}"
       rootPassword: "${SECRET_MINIO_PASSWORD}"
-#    metrics:
-#      serviceMonitor:
-#        enabled: "${MONITORING_PROMETHEUS}"
+    metrics:
+      serviceMonitor:
+        enabled: "${MONITORING_PROMETHEUS}"
