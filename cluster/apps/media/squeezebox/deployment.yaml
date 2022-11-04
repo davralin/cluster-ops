@@ -32,7 +32,7 @@ spec:
             - name: squeezebox
               mountPath: /config
       containers:
-        - image: lmscommunity/logitechmediaserver:8.3.1
+        - image: lmscommunity/logitechmediaserver:8.4.0
           name: squeezebox
           ports:
             - name: slimproto
