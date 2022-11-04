@@ -32,7 +32,7 @@ spec:
     fullnameOverride: photoprism
     image:
       repository: photoprism/photoprism
-      tag: 221103-bookworm
+      tag: 221104-bookworm
     env:
       TZ: "${TIMEZONE}"
       #PHOTOPRISM_DATABASE_DRIVER: "mysql"
