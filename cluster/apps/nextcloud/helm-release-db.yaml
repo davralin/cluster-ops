@@ -27,12 +27,16 @@ spec:
     fullnameOverride: postgresql
     image:
       repository: bitnami/postgresql
-      tag: 14.5.0
+      tag: 15.0.0
     auth:
       database: nextcloud
       username: nextcloud
       existingSecret: nextcloud-secrets
+    diagnosticMode:
+      enabled: true
     primary:
+      containerSecurityContext:
+        runAsUser: 0
       podAnnotations:
         backup.velero.io/backup-volumes: data
       persistence:
