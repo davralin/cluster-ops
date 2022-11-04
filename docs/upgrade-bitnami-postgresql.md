@@ -18,11 +18,12 @@
 10. `cd /bitnami/postgresql/oldbin`
 11. `tar --extract --directory . --file /tmp/postgresql-14.5.0-17-linux-${OS_ARCH}-debian-11.tar.gz`
 12. `mv postgresql-14.5.0-linux-${OS_ARCH}-debian-11/files/postgresql/bin/* .`
-13. `gosu postgres initdb -E UTF8 -D /bitnami/postgresql/data -U postgres`
-14. `cd /tmp; rm /bitnami/postgresql/olddata/postmaster.pid`
-15. `cp /bitnami/postgresql/data/postgresql.conf /bitnami/postgresql/olddata/; cp /bitnami/postgresql/data/pg_hba.conf /bitnami/postgresql/olddata/; chown -R postgres:postgres /bitnami/postgresql/data /bitnami/postgresql/olddata`
-16. Start the "old" server: `gosu postgres /bitnami/postgresql/oldbin/pg_ctl start -w -D /bitnami/postgresql/olddata/`
-17. After successfull start, stop it: `gosu postgres /bitnami/postgresql/oldbin/pg_ctl stop -w -D /bitnami/postgresql/olddata/`
-18. `gosu postgres pg_upgrade -b /bitnami/postgresql/oldbin -B /opt/bitnami/postgresql/bin -d /bitnami/postgresql/olddata -D /bitnami/postgresql/data --socketdir=/tmp`
-19. `./delete_old_cluster.sh`
-20. Remove `primary.containerSecurityContext.runAsUser=0` and `diagnosticMode.enabled=true` from your helm-release.
+13. `chown -R postgres:postgres /bitnami/postgresql/data /bitnami/postgresql/olddata`
+14. `gosu postgres initdb -E UTF8 -D /bitnami/postgresql/data -U postgres`
+15. `cd /tmp; rm /bitnami/postgresql/olddata/postmaster.pid`
+16. `cp /bitnami/postgresql/data/postgresql.conf /bitnami/postgresql/olddata/; cp /bitnami/postgresql/data/pg_hba.conf /bitnami/postgresql/olddata/; chown -R postgres:postgres /bitnami/postgresql/data /bitnami/postgresql/olddata`
+17. Start the "old" server: `gosu postgres /bitnami/postgresql/oldbin/pg_ctl start -w -D /bitnami/postgresql/olddata/`
+18. After successfull start, stop it: `gosu postgres /bitnami/postgresql/oldbin/pg_ctl stop -w -D /bitnami/postgresql/olddata/`
+19. `gosu postgres pg_upgrade -b /bitnami/postgresql/oldbin -B /opt/bitnami/postgresql/bin -d /bitnami/postgresql/olddata -D /bitnami/postgresql/data --socketdir=/tmp`
+20. `./delete_old_cluster.sh`
+21. Remove `primary.containerSecurityContext.runAsUser=0` and `diagnosticMode.enabled=true` from your helm-release.
