@@ -25,38 +25,38 @@ spec:
       retries: 3
   values:
     fullnameOverride: minio
-    persistence:
-      existingClaim: minio
-    volumePermissions:
-      enabled: true
-    ingress:
-      enabled: true
-      annotations:
-        haproxy.org/whitelist: "${HAPROXY_WHITELIST}"
-        haproxy.org/response-set-header: |
-          Strict-Transport-Security "max-age=31536000"
-          X-Frame-Options "DENY"
-          X-Content-Type-Options "nosniff"
-          Referrer-Policy "no-referrer-when-downgrade"
-      hostname: "minio.${SECRET_PUBLIC_DOMAIN}"
-    apiIngress:
-      enabled: true
-      annotations:
-        haproxy.org/whitelist: "${HAPROXY_WHITELIST}"
-        haproxy.org/response-set-header: |
-          Strict-Transport-Security "max-age=31536000"
-          X-Frame-Options "DENY"
-          X-Content-Type-Options "nosniff"
-          Referrer-Policy "no-referrer-when-downgrade"
-      hostname: "s3.${SECRET_PUBLIC_DOMAIN}"
-    podAnnotations:
-      prometheus.io/scrape: "${MONITORING_PROMETHEUS}"
-      prometheus.io/path: "/minio/v2/metrics/cluster"
-      prometheus.io/port: "9000"
-      secret.reloader.stakater.com/reload: "minio"
-    auth:
-      rootUser: "${SECRET_MINIO_ADMIN}"
-      rootPassword: "${SECRET_MINIO_PASSWORD}"
-    metrics:
-      serviceMonitor:
-        enabled: "${MONITORING_PROMETHEUS}"
+#    persistence:
+#      existingClaim: minio
+#    volumePermissions:
+#      enabled: true
+#    ingress:
+#      enabled: true
+#      annotations:
+#        haproxy.org/whitelist: "${HAPROXY_WHITELIST}"
+#        haproxy.org/response-set-header: |
+#          Strict-Transport-Security "max-age=31536000"
+#          X-Frame-Options "DENY"
+#          X-Content-Type-Options "nosniff"
+#          Referrer-Policy "no-referrer-when-downgrade"
+#      hostname: "minio.${SECRET_PUBLIC_DOMAIN}"
+#    apiIngress:
+#      enabled: true
+#      annotations:
+#        haproxy.org/whitelist: "${HAPROXY_WHITELIST}"
+#        haproxy.org/response-set-header: |
+#          Strict-Transport-Security "max-age=31536000"
+#          X-Frame-Options "DENY"
+#          X-Content-Type-Options "nosniff"
+#          Referrer-Policy "no-referrer-when-downgrade"
+#      hostname: "s3.${SECRET_PUBLIC_DOMAIN}"
+#    podAnnotations:
+#      prometheus.io/scrape: "${MONITORING_PROMETHEUS}"
+#      prometheus.io/path: "/minio/v2/metrics/cluster"
+#      prometheus.io/port: "9000"
+#      secret.reloader.stakater.com/reload: "minio"
+#    auth:
+#      rootUser: "${SECRET_MINIO_ADMIN}"
+#      rootPassword: "${SECRET_MINIO_PASSWORD}"
+#    metrics:
+#      serviceMonitor:
+#        enabled: "${MONITORING_PROMETHEUS}"
