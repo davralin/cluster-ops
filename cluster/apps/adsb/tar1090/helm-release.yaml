@@ -1,0 +1,55 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: tar1090
+  namespace: adsb
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: tar1090
+      version: 0.0.36
+      sourceRef:
+        kind: HelmRepository
+        name: truecharts
+        namespace: flux-system
+      interval: 5m
+  targetNamespace: adsb
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  valuesFrom:
+    - targetPath: env.LAT
+      kind: Secret
+      name: adsb-lat-long-alt
+      valuesKey: lat
+    - targetPath: env.LONG
+      kind: Secret
+      name: adsb-lat-long-alt
+      valuesKey: long
+  values:
+    fullnameOverride: tar1090
+    env:
+      BEASTHOST: "${BEASTHOST}"
+    ingress:
+      main:
+        enabled: true
+        annotations:
+          haproxy.org/whitelist: "${HAPROXY_WHITELIST}"
+          haproxy.org/response-set-header: |
+            Strict-Transport-Security "max-age=31536000"
+            X-Frame-Options "DENY"
+            X-Content-Type-Options "nosniff"
+            Referrer-Policy "no-referrer-when-downgrade"
+        hosts:
+          - host: "planes.${SECRET_PRIVATE_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - secretName: "${SECRET_PRIVATE_DOMAIN_CERT}"
