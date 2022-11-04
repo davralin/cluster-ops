@@ -54,9 +54,9 @@ spec:
 #      prometheus.io/path: "/minio/v2/metrics/cluster"
 #      prometheus.io/port: "9000"
 #      secret.reloader.stakater.com/reload: "minio"
-#    auth:
-#      rootUser: "${SECRET_MINIO_ADMIN}"
-#      rootPassword: "${SECRET_MINIO_PASSWORD}"
+    auth:
+      rootUser: "${SECRET_MINIO_ADMIN}"
+      rootPassword: "${SECRET_MINIO_PASSWORD}"
 #    metrics:
 #      serviceMonitor:
 #        enabled: "${MONITORING_PROMETHEUS}"
