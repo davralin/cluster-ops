@@ -24,7 +24,6 @@ resources:
   - paperless-ngx
   - rssbridge
   - scrutiny
-  - searx
   - syncthing
   - unifi
   - velero
