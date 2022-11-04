@@ -12,24 +12,17 @@
 5. `ensure_user_exists postgres -i 1001 -g postgres`
 6. `mv /bitnami/postgresql/data /bitnami/postgresql/olddata`
 7. `mkdir -p /bitnami/postgresql/data; mkdir -p /bitnami/postgresql/oldbin`
-8. `chown -R postgres:postgres /bitnami/postgresql/data /bitnami/postgresql/olddata`
-9. `cd /tmp/`
-10. Download the application-package from the *previous* release you upgraded from, check upstream Dockerfile.
+8. `cd /tmp/`
+9. Download the application-package from the *previous* release you upgraded from, check upstream Dockerfile.
 `apt update && apt install curl -y && curl --remote-name https://downloads.bitnami.com/files/stacksmith/postgresql-14.5.0-17-linux-${OS_ARCH}-debian-11.tar.gz`
-11. `cd /bitnami/postgresql/oldbin`
-12. `tar --extract --directory . --file /tmp/postgresql-14.5.0-17-linux-${OS_ARCH}-debian-11.tar.gz`
-13. `mv postgresql-14.5.0-linux-${OS_ARCH}-debian-11/files/postgresql/bin/* .`
-14. `gosu postgres initdb -E UTF8 -D /bitnami/postgresql/data -U postgres`
-15. `cd /tmp; rm /bitnami/postgresql/olddata/postmaster.pid`
-15. `gosu postgres pg_upgrade -b /bitnami/postgresql/oldbin -B /opt/bitnami/postgresql/bin -d /bitnami/postgresql/olddata -D /bitnami/postgresql/data --socketdir=/tmp`
-16. `./delete_old_cluster.sh`
-17. Remove `primary.containerSecurityContext.runAsUser=0` and `diagnosticMode.enabled=true` from your helm-release.
-
-
-If something borks, this is something to help you with:
-1. `The source cluster was not shut down cleanly.`
-2. `cp /bitnami/postgresql/data/postgresql.conf /bitnami/postgresql/olddata/; cp /bitnami/postgresql/data/pg_hba.conf /bitnami/postgresql/olddata/; chown -R postgres:postgres /bitnami/postgresql/olddata`
-3. Start a "old" server, you might have to create some config-files:
-   `gosu postgres /bitnami/postgresql/oldbin/pg_ctl start -w -D /bitnami/postgresql/olddata/`
-4. After successfull start, stop it: `/bitnami/postgresql/oldbin/pg_ctl stop -w -D /bitnami/postgresql/olddata/`
-5. Try `pg_upgrade` again.
+10. `cd /bitnami/postgresql/oldbin`
+11. `tar --extract --directory . --file /tmp/postgresql-14.5.0-17-linux-${OS_ARCH}-debian-11.tar.gz`
+12. `mv postgresql-14.5.0-linux-${OS_ARCH}-debian-11/files/postgresql/bin/* .`
+13. `gosu postgres initdb -E UTF8 -D /bitnami/postgresql/data -U postgres`
+14. `cd /tmp; rm /bitnami/postgresql/olddata/postmaster.pid`
+15. `cp /bitnami/postgresql/data/postgresql.conf /bitnami/postgresql/olddata/; cp /bitnami/postgresql/data/pg_hba.conf /bitnami/postgresql/olddata/; chown -R postgres:postgres /bitnami/postgresql/data /bitnami/postgresql/olddata`
+16. Start the "old" server: `gosu postgres /bitnami/postgresql/oldbin/pg_ctl start -w -D /bitnami/postgresql/olddata/`
+17. After successfull start, stop it: `gosu postgres /bitnami/postgresql/oldbin/pg_ctl stop -w -D /bitnami/postgresql/olddata/`
+18. `gosu postgres pg_upgrade -b /bitnami/postgresql/oldbin -B /opt/bitnami/postgresql/bin -d /bitnami/postgresql/olddata -D /bitnami/postgresql/data --socketdir=/tmp`
+19. `./delete_old_cluster.sh`
+20. Remove `primary.containerSecurityContext.runAsUser=0` and `diagnosticMode.enabled=true` from your helm-release.
