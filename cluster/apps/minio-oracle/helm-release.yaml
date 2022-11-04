@@ -28,7 +28,7 @@ spec:
     persistence:
       existingClaim: minio
     volumePermissions:
-      enabled: true
+      enabled: false
 #    ingress:
 #      enabled: true
 #      annotations:
