@@ -20,7 +20,6 @@ resources:
   - mailrelay
   - matrix
   - media
-  - minio
   - nextcloud
   - paperless-ngx
   - rssbridge

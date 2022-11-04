@@ -15,7 +15,7 @@ resources:
   - ../metallb
   - ../minecraft
   - ../metrics-server
-  - ../minio/cronjobs
+  - ../minio
   - ../nitter
   - ../node-feature-discovery
   - ../node-problem-detector
