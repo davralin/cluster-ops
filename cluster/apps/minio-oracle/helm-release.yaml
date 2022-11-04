@@ -29,26 +29,26 @@ spec:
       existingClaim: minio
     volumePermissions:
       enabled: false
-#    ingress:
-#      enabled: true
-#      annotations:
-#        haproxy.org/whitelist: "${HAPROXY_WHITELIST}"
-#        haproxy.org/response-set-header: |
-#          Strict-Transport-Security "max-age=31536000"
-#          X-Frame-Options "DENY"
-#          X-Content-Type-Options "nosniff"
-#          Referrer-Policy "no-referrer-when-downgrade"
-#      hostname: "minio.${SECRET_PUBLIC_DOMAIN}"
-#    apiIngress:
-#      enabled: true
-#      annotations:
-#        haproxy.org/whitelist: "${HAPROXY_WHITELIST}"
-#        haproxy.org/response-set-header: |
-#          Strict-Transport-Security "max-age=31536000"
-#          X-Frame-Options "DENY"
-#          X-Content-Type-Options "nosniff"
-#          Referrer-Policy "no-referrer-when-downgrade"
-#      hostname: "s3.${SECRET_PUBLIC_DOMAIN}"
+    ingress:
+      enabled: true
+      annotations:
+        haproxy.org/whitelist: "${HAPROXY_WHITELIST}"
+        haproxy.org/response-set-header: |
+          Strict-Transport-Security "max-age=31536000"
+          X-Frame-Options "DENY"
+          X-Content-Type-Options "nosniff"
+          Referrer-Policy "no-referrer-when-downgrade"
+      hostname: "minio.${SECRET_PUBLIC_DOMAIN}"
+    apiIngress:
+      enabled: true
+      annotations:
+        haproxy.org/whitelist: "${HAPROXY_WHITELIST}"
+        haproxy.org/response-set-header: |
+          Strict-Transport-Security "max-age=31536000"
+          X-Frame-Options "DENY"
+          X-Content-Type-Options "nosniff"
+          Referrer-Policy "no-referrer-when-downgrade"
+      hostname: "s3.${SECRET_PUBLIC_DOMAIN}"
 #    podAnnotations:
 #      prometheus.io/scrape: "${MONITORING_PROMETHEUS}"
 #      prometheus.io/path: "/minio/v2/metrics/cluster"
