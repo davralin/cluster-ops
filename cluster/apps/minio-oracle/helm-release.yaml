@@ -49,11 +49,11 @@ spec:
           X-Content-Type-Options "nosniff"
           Referrer-Policy "no-referrer-when-downgrade"
       hostname: "s3.${SECRET_PUBLIC_DOMAIN}"
-#    podAnnotations:
-#      prometheus.io/scrape: "${MONITORING_PROMETHEUS}"
-#      prometheus.io/path: "/minio/v2/metrics/cluster"
-#      prometheus.io/port: "9000"
-#      secret.reloader.stakater.com/reload: "minio"
+    podAnnotations:
+      prometheus.io/scrape: "${MONITORING_PROMETHEUS}"
+      prometheus.io/path: "/minio/v2/metrics/cluster"
+      prometheus.io/port: "9000"
+      secret.reloader.stakater.com/reload: "minio"
     auth:
       rootUser: "${SECRET_MINIO_ADMIN}"
       rootPassword: "${SECRET_MINIO_PASSWORD}"
