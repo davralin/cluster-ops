@@ -9,6 +9,7 @@ resources:
   - ../kubed
   - ../local-path-provisioner
   - ../metrics-server
+  - ../minio-oracle
   - ../reloader
   - ../rssbridge
   - ../snowflake
