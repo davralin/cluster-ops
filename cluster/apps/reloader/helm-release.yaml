@@ -27,5 +27,5 @@ spec:
     fullnameOverride: reloader
     reloader:
       podMonitor:
-        enabled: true
+        enabled: "${MONITORING_PROMETHEUS}"
         namespace: default
