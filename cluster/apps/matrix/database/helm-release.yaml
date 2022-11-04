@@ -32,11 +32,7 @@ spec:
       database: synapse
       username: synapse
       existingSecret: database-secrets
-    diagnosticMode:
-      enabled: true
     primary:
-      containerSecurityContext:
-        runAsUser: 0
       podAnnotations:
         backup.velero.io/backup-volumes: data
       persistence:
