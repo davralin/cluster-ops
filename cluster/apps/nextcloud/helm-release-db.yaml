@@ -32,11 +32,7 @@ spec:
       database: nextcloud
       username: nextcloud
       existingSecret: nextcloud-secrets
-    diagnosticMode:
-      enabled: true
     primary:
-      containerSecurityContext:
-        runAsUser: 0
       podAnnotations:
         backup.velero.io/backup-volumes: data
       persistence:
