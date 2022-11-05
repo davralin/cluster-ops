@@ -25,3 +25,10 @@ spec:
       retries: 3
   values:
     fullnameOverride: cloudflareddns
+    env:
+      CF_ZONES: "${SECRET_INTERNAL_DOMAIN},${SECRET_PRIVATE_DOMAIN},${SECRET_PUBLIC_DOMAIN}"
+  valuesFrom:
+    - targetPath: secretEnv.CF_APITOKEN
+      kind: Secret
+      name: cloudflare-api-token-secret
+      valuesKey: CF_APITOKEN
