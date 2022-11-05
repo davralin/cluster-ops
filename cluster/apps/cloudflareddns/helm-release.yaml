@@ -27,6 +27,7 @@ spec:
     fullnameOverride: cloudflareddns
     env:
       CF_ZONES: "${SECRET_INTERNAL_DOMAIN},${SECRET_PRIVATE_DOMAIN},${SECRET_PUBLIC_DOMAIN}"
+      INTERVAL: 900
   valuesFrom:
     - targetPath: secretEnv.CF_APITOKEN
       kind: Secret
