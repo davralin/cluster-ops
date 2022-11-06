@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: tar1090
-      version: 0.0.39
+      version: 0.0.40
       sourceRef:
         kind: HelmRepository
         name: truecharts
