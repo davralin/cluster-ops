@@ -2,26 +2,50 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
+  - ../adsb
+  - ../airconnect
+  - ../airprint
+  - ../archivebox
   - ../bitcoind
   - ../bibliogram
   - ../blackbox-exporter
+  - ../cert-manager
+  - ../changedetection
   - ../cloudflareddns
   - ../descheduler
+  - ../drone
   - ../esphome
   - ../external-dns
+  - ../freshrss
+  - ../gitea
   - ../grafana
+  - ../haproxy-ingress
+  - ../homeassistant
   - ../influxdb
+  - ../intel-gpu
+  - ../jobs
   - ../kubed
   - ../local-path-provisioner
+  - ../mailrelay
+  - ../matrix
+  - ../media
   - ../metallb
   - ../metrics-server
   - ../minecraft
   - ../minio
   - ../monerod
+  - ../nextcloud
   - ../nitter
   - ../node-feature-discovery
   - ../node-problem-detector
+  - ../paperless-ngx
   - ../reloader
+  - ../rssbridge
+  - ../scrutiny
+  - ../syncthing
   - ../teddit
   - ../tubearchivist
+  - ../unifi
+  - ../velero
   - ../warrior
+  - ../writefreely
