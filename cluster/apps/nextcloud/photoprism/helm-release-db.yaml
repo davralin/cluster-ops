@@ -39,10 +39,10 @@ spec:
         enabled: true
         existingClaim: photoprism-mariadb
       livenessProbe:
-        enabled: false
+        enabled: true
         initialDelaySeconds: 300
       readinessProbe:
-        enabled: false
+        enabled: true
         initialDelaySeconds: 300
     volumePermissions:
       enabled: true
