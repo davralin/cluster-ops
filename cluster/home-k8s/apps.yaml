@@ -8,7 +8,7 @@ spec:
   interval: 10m0s
   dependsOn:
     - name: monitoring
-  path: ./cluster/apps
+  path: ./cluster/apps/k8s-home
   prune: false
   sourceRef:
     kind: GitRepository
