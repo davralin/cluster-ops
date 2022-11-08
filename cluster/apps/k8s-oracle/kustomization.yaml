@@ -12,4 +12,5 @@ resources:
   - ../reloader
   - ../rssbridge
   - ../snowflake
+  - ../storj
   - ../teddit

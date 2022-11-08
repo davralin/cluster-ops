@@ -1,0 +1,34 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: storj
+  namespace: storj
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: storj
+      version: 2.0.62
+      sourceRef:
+        kind: HelmRepository
+        name: truecharts
+        namespace: flux-system
+      interval: 5m
+  targetNamespace: storj
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  values:
+    fullnameOverride: storj
+    env:
+      STORAGE: "50GB"
+    persistence:
+      identity:
+        storageClass: "local-path"
+      storage:
+        storageClass: "local-path"
