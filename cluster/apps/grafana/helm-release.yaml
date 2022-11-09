@@ -140,7 +140,7 @@ spec:
     sidecar:
       image:
         repository: quay.io/kiwigrid/k8s-sidecar
-        tag: 1.20.0
+        tag: 1.21.0
       dashboards:
         enabled: true
         searchNamespace: ALL
