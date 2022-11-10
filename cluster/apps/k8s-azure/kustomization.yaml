@@ -11,7 +11,5 @@ resources:
   - ../metrics-server
   - ../minio-azure
   - ../reloader
-  - ../rssbridge
   - ../snowflake
   - ../synapse
-  - ../teddit
