@@ -9,10 +9,10 @@ spec:
   chart:
     spec:
       chart: photoprism
-      version: 7.1.2
+      version: 10.0.56
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home-charts
+        name: truecharts
         namespace: flux-system
       interval: 5m
   targetNamespace: nextcloud
@@ -30,12 +30,10 @@ spec:
       valuesKey: mariadb-password
   values:
     fullnameOverride: photoprism
-    image:
-      repository: photoprism/photoprism
-      tag: 221105-bookworm
     env:
       TZ: "${TIMEZONE}"
-      #PHOTOPRISM_DATABASE_DRIVER: "mysql"
+      PHOTOPRISM_DATABASE_DRIVER: "mysql"
+      PHOTOPRISM_DATABASE_SERVER: "photoprism-mariadb"
     ingress:
       main:
         enabled: true
@@ -53,8 +51,10 @@ spec:
                 pathType: Prefix
         tls:
           - secretName: "${SECRET_PRIVATE_DOMAIN_CERT}"
+    mariadb:
+      enabled: false
     persistence:
-      config:
+      storage:
         enabled: true
         existingClaim: photoprism
       originals:
@@ -63,4 +63,4 @@ spec:
         ReadOnly: true
         subPath: data/mikr/files/Bilder
     podAnnotations:
-      backup.velero.io/backup-volumes: config
+      backup.velero.io/backup-volumes: storage
