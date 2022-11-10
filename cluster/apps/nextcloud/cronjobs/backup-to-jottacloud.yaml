@@ -5,7 +5,7 @@ metadata:
   name: backup-to-jottacloud
   namespace: nextcloud
 spec:
-  schedule: "35 * * * *"
+  schedule: "27 05 * * *"
   concurrencyPolicy: Forbid
   successfulJobsHistoryLimit: 1
   failedJobsHistoryLimit: 1
@@ -28,8 +28,7 @@ spec:
           containers:
             - name: backup-to-jottacloud
               image: rclone/rclone:1.60.0
-              command: ["/bin/sh"]
-              args: ["-c", "/usr/local/bin/rclone-config"]
+              command: ["/usr/local/bin/rclone-backup.sh"]
               volumeMounts:
                 - mountPath: /nextcloud
                   name: nextcloud
@@ -37,9 +36,9 @@ spec:
                 - mountPath: /config
                   name: rcloneconfig
                   readOnly: false
-                - name: rclone-config
-                  mountPath: /usr/local/bin/rclone-config
-                  subPath: rclone-config
+                - name: rclone-backup
+                  mountPath: /usr/local/bin/rclone-backup.sh
+                  subPath: rclone-backup.sh
                   readOnly: true
           volumes:
             - name: nextcloud
