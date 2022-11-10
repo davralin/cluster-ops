@@ -27,7 +27,7 @@ spec:
     - targetPath: externalPostgresql.password
       kind: Secret
       name: synapse-secrets
-      valuesKey: postgres-password
+      valuesKey: password
   values:
     fullnameOverride: synapse
     serverName: "${SECRET_PUBLIC_DOMAIN}"
