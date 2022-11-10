@@ -28,7 +28,7 @@ spec:
               topologyKey: "kubernetes.io/hostname"
       containers:
         - name: exim
-          image: devture/exim-relay:4.95-r0-2
+          image: devture/exim-relay:4.95-r0-4
           ports:
             - containerPort: 8025
               protocol: TCP
