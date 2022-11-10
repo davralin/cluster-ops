@@ -40,5 +40,7 @@ spec:
       enabled: false
     redis:
       enabled: false
+    persistence:
+      storageClass: "${STORAGE_READWRITEONCE}"
     volumePermissions:
       enabled: true
