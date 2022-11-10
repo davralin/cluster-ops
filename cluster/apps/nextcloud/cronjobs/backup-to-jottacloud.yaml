@@ -28,16 +28,8 @@ spec:
           containers:
             - name: backup-to-jottacloud
               image: rclone/rclone:1.60.0
-              args:
-                - sync
-                - --check-first
-                - --delete-before
-                - --progress
-                - --jottacloud-hard-delete
-                - --backup-dir
-                - "jottacloud-crypt:/nextcloud/`date -I`"
-                - /nextcloud/
-                - "jottacloud-crypt:/nextcloud/current"
+              command: ["/bin/bash"]
+              args: ["-c", "/usr/local/bin/rclone-config"]
               volumeMounts:
                 - mountPath: /nextcloud
                   name: nextcloud
@@ -45,6 +37,10 @@ spec:
                 - mountPath: /config
                   name: rcloneconfig
                   readOnly: false
+                - name: rclone-config
+                  mountPath: /usr/local/bin/rclone-config
+                  subPath: rclone-config
+                  readOnly: true
           volumes:
             - name: nextcloud
               persistentVolumeClaim:
@@ -58,3 +54,7 @@ spec:
                 items:
                   - key: rclone.conf
                     path: rclone.conf
+            - name: rclone-backup
+              configMap:
+                defaultMode: 0755
+                name: rclone-backup

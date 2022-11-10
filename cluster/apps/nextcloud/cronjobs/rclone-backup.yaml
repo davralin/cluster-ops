@@ -1,0 +1,14 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: rclone-backup
+  namespace: nextcloud
+data:
+  rclone-backup: |
+    #!/bin/bash
+    ARGS="sync --check-first --delete-before --progress --jottacloud-hard-delete --backup-dir jottacloud-crypt:/nextcloud/$(date -I)"
+    SRC="/nextcloud/"
+    DEST="jottacloud-crypt:/nextcloud/current"
+
+    /usr/local/bin/rclone "$ARGS" "$SRC" "$DEST"
