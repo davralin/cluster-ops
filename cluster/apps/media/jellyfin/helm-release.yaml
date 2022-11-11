@@ -61,11 +61,6 @@ spec:
         existingClaim: media
         mountPath: /data
         readOnly: true
-      archive:
-        enabled: true
-        existingClaim: gcrypt-host-path
-        mountPath: /archive
-        readOnly: true
     podAnnotations:
       backup.velero.io/backup-volumes: config
     resources:

@@ -48,11 +48,6 @@ spec:
         existingClaim: media
         mountPath: /data
         readOnly: true
-      archive:
-        enabled: true
-        existingClaim: gcrypt-host-path
-        mountPath: /archive
-        readOnly: true
     service:
       plex:
         enabled: true

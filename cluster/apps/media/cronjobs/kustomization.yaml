@@ -5,6 +5,4 @@ resources:
   - daily-chown-media.yaml
   - daily-dosage.yaml
   - daily-plextraktsync.yaml
-  - daily-from-gsuite-to-movies.yaml
-  - daily-to-gsuite.yaml
   - daily-to-jottacloud.yaml
