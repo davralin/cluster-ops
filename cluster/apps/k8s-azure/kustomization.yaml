@@ -9,7 +9,6 @@ resources:
   - ../kubed
   - ../local-path-provisioner
   - ../metrics-server
-  - ../minio-azure
   - ../reloader
   - ../snowflake
   - ../synapse
