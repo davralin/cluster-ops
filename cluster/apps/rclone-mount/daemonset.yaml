@@ -2,19 +2,19 @@
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
-  name: media-rclone
-  namespace: media
+  name: rclone-mount
+  namespace: rclone
 spec:
   selector:
     matchLabels:
-      app.kubernetes.io/name: media-rclone
+      app.kubernetes.io/name: rclone-mount
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: media-rclone
+        app.kubernetes.io/name: rclone-mount
     spec:
       initContainers:
-      - name: media-rclone-config
+      - name: media-mount-config
         image: busybox:1.35.0
         command:
           - cp
@@ -29,12 +29,12 @@ spec:
           mountPath: /out
       terminationGracePeriodSeconds: 120
       containers:
-      - name: media-rclone
+      - name: media-mount
         image: rclone/rclone:1.60.0
         args:
           - mount
-          - "gcrypt:"
-          - /var/media/gcrypt
+          - "jottacloud-crypt:"
+          - /var/media/rclone
           - --config=/etc/rclone/rclone.conf
           - --allow-non-empty
           - --allow-other
@@ -42,7 +42,7 @@ spec:
         lifecycle:
           preStop:
             exec:
-              command: ["/bin/sh","-c","fusermount -uz /var/media/gcrypt"]
+              command: ["/bin/sh","-c","fusermount -uz /var/media/rclone"]
         securityContext:
           privileged: true
           capabilities:
@@ -54,7 +54,7 @@ spec:
         - name: data
           mountPath: /var/lib/rclone
         - name: media
-          mountPath: /var/media/gcrypt
+          mountPath: /var/media/rclone
           mountPropagation: Bidirectional
       volumes:
       - name: config
@@ -64,7 +64,7 @@ spec:
           secretName: rclone-config
       - name: media
         hostPath:
-          path: /var/media/gcrypt
+          path: /var/media/rclone
       - name: data
         hostPath:
           path: /var/lib/rclone/

@@ -4,4 +4,4 @@ kind: Kustomization
 resources:
   - daemonset.yaml
   - pvc.yaml
-  #- secret.yaml
+  - secret.yaml
