@@ -38,8 +38,8 @@ spec:
         config:
           region: EU1
           s3ForcePathStyle: true
-          s3Url: gateway.storjshare.io
-          publicUrl: gateway.storjshare.io
+          s3Url: https://gateway.storjshare.io
+          publicUrl: https://gateway.storjshare.io
       volumeSnapshotLocation:
         name: aws
         config:
