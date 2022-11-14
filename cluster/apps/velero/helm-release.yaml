@@ -26,7 +26,7 @@ spec:
   values:
     fullnameOverride: velero
     image:
-      repository: ghcr.io/k8s-at-home/velero
+      repository: velero/velero
     configuration:
       extraEnvVars:
         TZ: "${TIMEZONE}"
