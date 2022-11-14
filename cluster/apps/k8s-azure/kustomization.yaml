@@ -11,4 +11,4 @@ resources:
   - ../reloader
   - ../snowflake
   - ../synapse
-  - ../velero-storj
+  - ../velero-oracle
