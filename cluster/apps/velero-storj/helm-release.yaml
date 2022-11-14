@@ -36,11 +36,14 @@ spec:
         bucket: velero-backup
         default: true
         config:
+          region: EU1
           s3ForcePathStyle: true
           s3Url: https://gateway.storjshare.io
           publicUrl: https://gateway.storjshare.io
       volumeSnapshotLocation:
         name: aws
+        config:
+          region: EU1
       resticTimeout: 6h
       logLevel: debug
     initContainers:
