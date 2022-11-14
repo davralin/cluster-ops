@@ -38,8 +38,8 @@ spec:
         config:
           region: EU1
           s3ForcePathStyle: true
-          s3Url: https://gateway.storjshare.io
-          publicUrl: https://gateway.storjshare.io
+          s3Url: gateway.storjshare.io
+          publicUrl: gateway.storjshare.io
       volumeSnapshotLocation:
         name: aws
         config:
@@ -57,7 +57,7 @@ spec:
       existingSecret: velero-s3-creds
     schedules:
       daily-backup:
-        schedule: "40 * * * *"
+        schedule: "*/2 * * * *"
         template:
           ttl: "720h"
     metrics:
