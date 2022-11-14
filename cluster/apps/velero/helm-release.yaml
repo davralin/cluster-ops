@@ -67,7 +67,7 @@ spec:
         enabled: "{$MONITORING_PROMETHEUS}"
     backupsEnabled: true
     snapshotsEnabled: true
-    upgradeCRDs: true
+    upgradeCRDs: false
     cleanUpCRDs: false
     kubectl:
       image:
