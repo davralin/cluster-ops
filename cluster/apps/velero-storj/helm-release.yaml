@@ -67,7 +67,7 @@ spec:
     backupsEnabled: true
     snapshotsEnabled: true
     upgradeCRDs: true
-    cleanUpCRDs: true
+    cleanUpCRDs: false
     kubectl:
       image:
         repository: ghcr.io/onedr0p/kubernetes-kubectl
