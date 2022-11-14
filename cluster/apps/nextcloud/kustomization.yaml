@@ -9,4 +9,4 @@ resources:
   - namespace.yaml
   - photoprism
   - pvc.yaml
-  - secret.sops.yaml
+  - secret.yaml

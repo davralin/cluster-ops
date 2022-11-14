@@ -6,4 +6,4 @@ resources:
   - mc-router
   - survival
   - namespace.yaml
-  - secret.sops.yaml
+  - secret.yaml
