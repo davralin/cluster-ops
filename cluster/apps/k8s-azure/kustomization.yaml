@@ -6,6 +6,7 @@ resources:
   - ../external-dns
   - ../haproxy-ingress-daemonset
   - ../kubed
+  - ../kuma
   - ../local-path-provisioner
   - ../metrics-server
   - ../reloader
