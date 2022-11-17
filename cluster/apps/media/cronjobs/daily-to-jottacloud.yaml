@@ -27,7 +27,7 @@ spec:
                   readOnly: false
           containers:
             - name: daily-to-jottacloud
-              image: rclone/rclone:1.60.0
+              image: rclone/rclone:1.60.1
               args:
                 - sync
                 - --drive-stop-on-upload-limit

@@ -30,7 +30,7 @@ spec:
       terminationGracePeriodSeconds: 120
       containers:
       - name: media-mount
-        image: rclone/rclone:1.60.0
+        image: rclone/rclone:1.60.1
         args:
           - mount
           - "jottacloud-crypt:"
