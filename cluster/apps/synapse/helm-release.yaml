@@ -42,13 +42,15 @@ spec:
       includeUnderscoreSynapse: false
     externalPostgresql:
       host: postgresql
-    #externalRedis:
-      #host: redis-master
-      #password: ""
     postgresql:
       enabled: false
     redis:
       enabled: true
+    # I was unable to use my regular redis-setup.
+    # The internal setup uses a bunch of configmap-scripts I can't be arsed to duplicate.
+    # externalRedis:
+      # host: redis-master
+      # password: ""
     persistence:
       storageClass: "${STORAGE_READWRITEONCE}"
     volumePermissions:
