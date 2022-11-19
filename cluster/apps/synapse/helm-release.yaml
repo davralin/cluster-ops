@@ -42,13 +42,13 @@ spec:
       includeUnderscoreSynapse: false
     externalPostgresql:
       host: postgresql
-    externalRedis:
-      host: redis-master
-      password: ""
+    #externalRedis:
+      #host: redis-master
+      #password: ""
     postgresql:
       enabled: false
     redis:
-      enabled: false
+      enabled: true
     persistence:
       storageClass: "${STORAGE_READWRITEONCE}"
     volumePermissions:
