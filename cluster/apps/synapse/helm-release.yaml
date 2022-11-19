@@ -30,8 +30,8 @@ spec:
       valuesKey: password
   values:
     fullnameOverride: synapse
-    serverName: "${SECRET_PUBLIC_DOMAIN}"
-    publicServerName: "matrix.${SECRET_PUBLIC_DOMAIN}"
+    serverName: "${SECRET_PRIVATE_DOMAIN}"
+    publicServerName: "matrix.${SECRET_PRIVATE_DOMAIN}"
     ingress:
       annotations:
         haproxy.org/response-set-header: |
