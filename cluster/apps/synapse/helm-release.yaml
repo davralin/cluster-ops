@@ -44,12 +44,11 @@ spec:
       host: postgresql
     externalRedis:
       host: redis-master
+      password: ""
     postgresql:
       enabled: false
     redis:
       enabled: false
-      auth:
-        enabled: false
     persistence:
       storageClass: "${STORAGE_READWRITEONCE}"
     volumePermissions:
