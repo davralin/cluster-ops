@@ -32,6 +32,14 @@ spec:
     fullnameOverride: synapse
     serverName: "${SECRET_PUBLIC_DOMAIN}"
     publicServerName: "matrix.${SECRET_PUBLIC_DOMAIN}"
+    ingress:
+      annotations:
+        haproxy.org/response-set-header: |
+          Strict-Transport-Security "max-age=31536000"
+          X-Frame-Options "DENY"
+          X-Content-Type-Options "nosniff"
+          Referrer-Policy "no-referrer-when-downgrade"
+      includeUnderscoreSynapse: false
     externalPostgresql:
       host: postgresql
     externalRedis:
