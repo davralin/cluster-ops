@@ -40,6 +40,8 @@ spec:
           X-Content-Type-Options "nosniff"
           Referrer-Policy "no-referrer-when-downgrade"
       includeUnderscoreSynapse: false
+      tls:
+        - secretName: "${SECRET_PRIVATE_DOMAIN_CERT}"
     externalPostgresql:
       host: postgresql
     postgresql:
