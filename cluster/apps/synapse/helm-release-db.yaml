@@ -34,7 +34,7 @@ spec:
       existingSecret: synapse-secrets
     primary:
       initdb:
-        args: "--encoding='UTF8' --lc-collate='C' --lc-ctype='C'"
+        args: "--encoding=UTF8 --lc-collate=C --lc-ctype=C"
       podAnnotations:
         backup.velero.io/backup-volumes: data
       persistence:
