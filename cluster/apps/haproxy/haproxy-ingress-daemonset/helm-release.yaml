@@ -23,8 +23,6 @@ spec:
   upgrade:
     remediation:
       retries: 3
-  dependsOn:
-    - namespace: haproxy-controller
   values:
     fullnameOverride: haproxy-controller
     controller:
