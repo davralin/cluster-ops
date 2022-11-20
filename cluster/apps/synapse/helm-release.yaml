@@ -32,6 +32,8 @@ spec:
     fullnameOverride: synapse
     serverName: "${SECRET_PRIVATE_DOMAIN}"
     publicServerName: "matrix.${SECRET_PRIVATE_DOMAIN}"
+    wellknown:
+      enabled: true
     ingress:
       annotations:
         haproxy.org/response-set-header: |
