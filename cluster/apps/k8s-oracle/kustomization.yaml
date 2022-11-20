@@ -5,7 +5,7 @@ resources:
   - ../cert-manager
   - ../docker-registry
   - ../external-dns
-  - ../haproxy-ingress-daemonset
+  - ../haproxy/haproxy-ingress-daemonset
   - ../kubed
   - ../local-path-provisioner
   - ../metrics-server

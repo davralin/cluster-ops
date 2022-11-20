@@ -19,7 +19,7 @@ resources:
   - ../freshrss
   - ../gitea
   - ../grafana
-  - ../haproxy-ingress
+  - ../haproxy/haproxy-ingress
   - ../homeassistant
   - ../influxdb
   - ../intel-gpu

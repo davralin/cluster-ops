@@ -4,7 +4,7 @@ kind: Kustomization
 resources:
   - ../cert-manager
   - ../external-dns
-  - ../haproxy-ingress-daemonset
+  - ../haproxy/haproxy-ingress-daemonset
   - ../kubed
   - ../kuma
   - ../local-path-provisioner
