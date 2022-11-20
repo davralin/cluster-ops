@@ -29,10 +29,15 @@ spec:
       kind: DaemonSet
       logging:
         level: debug
+      service:
+        enablePorts:
+          http: false
       ingressClass: null
       ingressClassResource:
         default: true
       defaultTLSSecret:
         enabled: false
+      serviceMonitor:
+        enabled: "${MONITORING_PROMETHEUS}"
     defaultBackend:
-      replicaCount: 0
+      enabled: false

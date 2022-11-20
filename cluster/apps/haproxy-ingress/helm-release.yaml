@@ -33,12 +33,12 @@ spec:
         type: LoadBalancer
         enablePorts:
           http: false
-      serviceMonitor:
-        enabled: true
       ingressClass: null
       ingressClassResource:
         default: true
       defaultTLSSecret:
         enabled: false
+      serviceMonitor:
+        enabled: "${MONITORING_PROMETHEUS}"
     defaultBackend:
-      replicaCount: 1
+      enabled: false
