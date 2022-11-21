@@ -78,7 +78,7 @@ spec:
             - name: ta-es
               mountPath: /usr/share/elasticsearch/data
         - name: redis
-          image: redislabs/rejson:2.4.1
+          image: redislabs/rejson:2.4.2
           ports:
             - name: redis
               containerPort: 6379
