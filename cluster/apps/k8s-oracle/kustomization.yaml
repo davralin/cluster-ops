@@ -11,5 +11,6 @@ resources:
   - ../local-path-provisioner
   - ../metrics-server
   - ../reloader
+  - ../rssbridge
   - ../snowflake
   - ../teddit
