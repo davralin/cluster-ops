@@ -46,7 +46,7 @@ spec:
         config:
           region: eu-stockholm-1
       resticTimeout: 6h
-      logLevel: debug
+      logLevel: info
     initContainers:
       - name: velero-plugin-for-aws
         image: velero/velero-plugin-for-aws:v1.5.2

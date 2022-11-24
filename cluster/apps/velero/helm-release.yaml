@@ -46,10 +46,10 @@ spec:
         config:
           region: north-europe-1
       resticTimeout: 6h
-      logLevel: debug
+      logLevel: info
     initContainers:
       - name: velero-plugin-for-aws
-        image: ghcr.io/k8s-at-home/velero-plugin-for-aws:v1.5.0
+        image: velero/velero-plugin-for-aws:v1.5.2
         imagePullPolicy: IfNotPresent
         volumeMounts:
           - mountPath: /target
