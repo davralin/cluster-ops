@@ -16,7 +16,7 @@ spec:
           restartPolicy: Never
           containers:
             - name: daily-plextraktsync
-              image: ghcr.io/taxel/plextraktsync:0.24.1
+              image: ghcr.io/taxel/plextraktsync:0.24.2
               volumeMounts:
                 - mountPath: /app/config
                   name: plextraktsync
