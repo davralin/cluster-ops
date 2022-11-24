@@ -50,7 +50,7 @@ spec:
             periodSeconds: 30
           volumeMounts:
             - name: bibliogram-config
-              mountPath: /app/config.js
+              mountPath: /config/config.js
               subPath: config.js
       volumes:
         - name: bibliogram-config
