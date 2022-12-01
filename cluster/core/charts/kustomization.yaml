@@ -10,6 +10,7 @@ resources:
   - drone.yaml
   - dysnix.yaml
   - external-dns.yaml
+  - fold.yaml
   - gitea.yaml
   - grafana.yaml
   - haproxytech.yaml
