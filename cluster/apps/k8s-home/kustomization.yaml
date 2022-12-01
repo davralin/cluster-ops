@@ -8,7 +8,6 @@ resources:
   - ../archivebox
   - ../bitcoind
   - ../bibliogram
-  - ../blackbox-exporter
   - ../cert-manager
   - ../changedetection
   - ../cloudflareddns
@@ -18,7 +17,6 @@ resources:
   - ../external-dns
   - ../freshrss
   - ../gitea
-  - ../grafana
   - ../haproxy/haproxy-ingress
   - ../homeassistant
   - ../influxdb
