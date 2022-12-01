@@ -15,6 +15,7 @@ spec:
         name: prometheus-community
         namespace: flux-system
       interval: 15m
+  targetNamespace: monitoring
   install:
     createNamespace: true
     remediation:
