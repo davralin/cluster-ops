@@ -25,3 +25,5 @@ spec:
       retries: 3
   values:
     fullnameOverride: kube-prometheus-stack
+    grafana:
+      enabled: false
