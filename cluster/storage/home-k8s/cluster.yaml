@@ -76,7 +76,7 @@ spec:
                 - name: "/dev/disk/by-id/nvme-Samsung_SSD_970_EVO_Plus_2TB_S6P1NS0T208153T"
             - name: elayne
               devices:
-                - name: "/dev/disk/by-id/nvme-Samsung_SSD_970_EVO_Plus_2TB_S6P1NS0T209382T"
+                - name: "/dev/disk/by-id/ata-Samsung_SSD_870_QVO_4TB_S5STNF0T205013V"
             - name: min
               devices:
                 - name: "/dev/disk/by-id/nvme-Samsung_SSD_970_EVO_Plus_2TB_S6P1NS0T209438H"
@@ -84,9 +84,6 @@ spec:
               devices:
                 - name: "/dev/disk/by-id/ata-Samsung_SSD_870_QVO_4TB_S5STNF0T308094T"
                 - name: "/dev/disk/by-id/usb-Samsung_SSD_960_PRO_DD56419883C2E-0:0"
-            - name: alivia
-              devices:
-                - name: "/dev/disk/by-id/ata-Samsung_SSD_870_QVO_4TB_S5STNF0T205013V"
             - name: moiraine
               devices:
                 - name: "/dev/disk/by-id/ata-Samsung_SSD_870_QVO_4TB_S5STNF0T308086D"
