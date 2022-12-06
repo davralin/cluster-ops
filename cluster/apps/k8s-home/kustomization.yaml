@@ -45,6 +45,7 @@ resources:
   - ../teddit
   - ../tubearchivist
   - ../unifi
+  - ../unifi-helm
   - ../velero
   - ../warrior
   - ../writefreely
