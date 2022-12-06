@@ -11,6 +11,7 @@ resources:
   - dysnix.yaml
   - external-dns.yaml
   - fold.yaml
+  - geek-cookbook.yaml
   - gitea.yaml
   - grafana.yaml
   - haproxytech.yaml
