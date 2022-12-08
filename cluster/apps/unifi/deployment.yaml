@@ -24,8 +24,6 @@ spec:
         - name: unifi-controller
           image: lscr.io/linuxserver/unifi-controller:7.3.76
           env:
-            - name: MEM_LIMIT
-              value: 1024M
             - name: PGID
               value: "1000"
             - name: PUID
