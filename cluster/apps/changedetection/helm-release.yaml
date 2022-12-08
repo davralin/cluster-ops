@@ -32,7 +32,7 @@ spec:
       fsGroupChangePolicy: "OnRootMismatch"
     image:
       repository: ghcr.io/dgtlmoon/changedetection.io
-      tag: 0.39.22
+      tag: 0.40.0
     env:
       TZ: "${TIMEZONE}"
       USE_X_SETTINGS: "1"
