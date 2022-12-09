@@ -1,0 +1,23 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: invidious
+  namespace: invidious
+spec:
+  selector:
+    matchLabels:
+      app: invidious
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: invidious
+    spec:
+      containers:
+        - name: invidious
+          image: quay.io/invidious/invidious
+          env:
+            - name: TZ
+              value: "${TIMEZONE}"
+      restartPolicy: Always
