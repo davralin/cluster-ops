@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: piaware
-          image: mikenye/piaware:v7.2
+          image: mikenye/piaware:v8.1
           env:
             - name: TZ
               value: "${TIMEZONE}"
