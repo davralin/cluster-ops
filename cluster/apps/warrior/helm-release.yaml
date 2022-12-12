@@ -8,11 +8,11 @@ spec:
   interval: 5m
   chart:
     spec:
-      chart: archiveteam-warrior
-      version: 0.0.35
+      chart: warrior
+      version: 1.2.2
       sourceRef:
         kind: HelmRepository
-        name: truecharts
+        name: geek-cookbook
         namespace: flux-system
       interval: 5m
   targetNamespace: warrior
@@ -47,5 +47,6 @@ spec:
       DOWNLOADER: "davralin"
       SELECTED_PROJECT: "auto"
     persistence:
-      data:
+      config:
+        enabled: true
         existingClaim: warrior
