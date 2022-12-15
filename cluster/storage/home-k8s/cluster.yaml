@@ -83,7 +83,7 @@ spec:
             - name: egwene
               devices:
                 - name: "/dev/disk/by-id/ata-Samsung_SSD_870_QVO_4TB_S5STNF0T308094T"
-                - name: "/dev/disk/by-id/usb-Samsung_SSD_960_PRO_DD56419883C2E-0:0"
+                - name: "/dev/disk/by-id/usb-Samsung_SSD_970_EVO_DD56419883C2E-0:0"
             - name: moiraine
               devices:
                 - name: "/dev/disk/by-id/ata-Samsung_SSD_870_QVO_4TB_S5STNF0T308086D"
