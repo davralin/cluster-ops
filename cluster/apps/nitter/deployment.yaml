@@ -33,7 +33,7 @@ spec:
       restartPolicy: Always
       containers:
         - name: redis
-          image: redis:7.0.6-alpine
+          image: redis:7.0.7-alpine
           livenessProbe:
             tcpSocket:
               port: 6379
