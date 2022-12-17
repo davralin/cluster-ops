@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - configmap.yaml
   - deployment.yaml
+  - helm-release-redis.yaml
   - ingress.yaml
   - namespace.yaml
   - service.yaml

@@ -27,27 +27,6 @@ spec:
                       - teddit
               topologyKey: "kubernetes.io/hostname"
       containers:
-        - name: redis
-          image: redis:7.0.6-alpine
-          livenessProbe:
-            tcpSocket:
-              port: 6379
-            initialDelaySeconds: 300
-            periodSeconds: 30
-          ports:
-            - containerPort: 6379
-              protocol: TCP
-              name: redis
-          resources:
-            requests:
-              cpu: 20m
-              memory: 64Mi
-            limits:
-              cpu: 40m
-              memory: 256Mi
-          env:
-            - name: REDIS_REPLICATION_MODE
-              value: "master"
         - name: teddit
           image: 1337kavin/teddit
           ports:
@@ -68,7 +47,7 @@ spec:
             periodSeconds: 30
           env:
             - name: REDIS_HOST
-              value: "localhost"
+              value: "redis-master"
             - name: DOMAIN
               value: "r.${SECRET_PUBLIC_DOMAIN}"
             - name: "USE_HELMET"

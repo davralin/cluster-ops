@@ -18,7 +18,7 @@ data:
     [Cache]
     listMinutes = 240  # how long to cache list info (not the tweets, so keep it high)
     rssMinutes = 10  # how long to cache rss queries
-    redisHost = "localhost"
+    redisHost = "redis-master"
     redisPort = 6379
     redisConnections = 20 # connection pool size
     redisMaxConnections = 30
