@@ -7,7 +7,6 @@ resources:
   - ../airprint
   - ../archivebox
   - ../bitcoind
-  - ../bibliogram
   - ../cert-manager
   - ../changedetection
   - ../cloudflareddns
