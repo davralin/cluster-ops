@@ -11,4 +11,3 @@ resources:
   - ../reloader
   - ../snowflake
   - ../synapse
-  - ../velero-oracle
