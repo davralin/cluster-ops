@@ -12,7 +12,7 @@ spec:
     - name: pvc.rules
       rules:
         - alert: KubernetesVolumeOutOfDiskSpace
-          expr: kubelet_volume_stats_available_bytes / kubelet_volume_stats_capacity_bytes * 100 < 10
+          expr: kubelet_volume_stats_available_bytes / kubelet_volume_stats_capacity_bytes * 100 < 50
           for: 2m
           #labels:
             #severity: warning
