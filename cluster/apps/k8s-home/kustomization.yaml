@@ -6,7 +6,6 @@ resources:
   - ../airconnect
   - ../airprint
   - ../archivebox
-  - ../bitcoind
   - ../cert-manager
   - ../changedetection
   - ../cloudflareddns
@@ -32,7 +31,6 @@ resources:
   - ../metrics-server
   - ../minecraft
   - ../minio
-  - ../monerod
   - ../nextcloud
   - ../nitter
   - ../node-feature-discovery
