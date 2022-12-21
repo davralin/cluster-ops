@@ -22,7 +22,6 @@ resources:
   - ../invidious
   - ../jobs
   - ../kubed
-  - ../lnd
   - ../local-path-provisioner
   - ../mailrelay
   - ../matrix
