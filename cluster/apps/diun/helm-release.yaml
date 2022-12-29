@@ -29,7 +29,7 @@ spec:
       type: Recreate
     image:
       repository: ghcr.io/crazy-max/diun
-      tag: 4.22.0
+      tag: 4.24.0
     persistence:
       config:
         enabled: true
