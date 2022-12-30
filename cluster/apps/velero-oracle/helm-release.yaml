@@ -26,8 +26,8 @@ spec:
   values:
     fullnameOverride: velero
     image:
-      repository: velero/velero
-      tag: v1.10.0
+      repository: ghcr.io/k8s-at-home/velero
+      tag: v1.9.1
     configuration:
       extraEnvVars:
         TZ: "${TIMEZONE}"
@@ -46,10 +46,10 @@ spec:
         config:
           region: eu-stockholm-1
       resticTimeout: 6h
-      logLevel: info
+      logLevel: debug
     initContainers:
       - name: velero-plugin-for-aws
-        image: velero/velero-plugin-for-aws:v1.6.0
+        image: ghcr.io/k8s-at-home/velero-plugin-for-aws:v1.5.0
         imagePullPolicy: IfNotPresent
         volumeMounts:
           - mountPath: /target
@@ -58,7 +58,7 @@ spec:
       existingSecret: velero-s3-creds
     schedules:
       daily-backup:
-        schedule: "12 */2 * * *"
+        schedule: "40 * * * *"
         template:
           ttl: "720h"
     metrics:
@@ -71,8 +71,8 @@ spec:
     cleanUpCRDs: false
     kubectl:
       image:
-        repository: ghcr.io/onedr0p/kubernetes-kubectl
-        tag: 1.26.0
+        repository: ghcr.io/k8s-at-home/kubectl
+        tag: v1.25.4
     deployRestic: true
     restic:
       podVolumePath: /var/lib/kubelet/pods
@@ -80,4 +80,15 @@ spec:
       tolerations:
         - key: "node-role.kubernetes.io/master"
           operator: "Exists"
-    resources: []
+      resources:
+        requests:
+          memory: 200Mi
+          cpu: 15m
+        limits:
+          memory: 3000Mi
+    resources:
+      requests:
+        memory: 300Mi
+        cpu: 25m
+      limits:
+        memory: 1500Mi
