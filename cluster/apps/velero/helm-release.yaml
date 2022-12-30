@@ -62,9 +62,9 @@ spec:
         template:
           ttl: "720h"
     metrics:
-      enabled: true
+      enabled: "{$MONITORING_PROMETHEUS}"
       serviceMonitor:
-        enabled: true
+        enabled: "{$MONITORING_PROMETHEUS}"
     backupsEnabled: true
     snapshotsEnabled: true
     upgradeCRDs: false
