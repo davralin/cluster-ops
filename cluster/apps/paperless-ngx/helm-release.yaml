@@ -27,7 +27,7 @@ spec:
     fullnameOverride: paperless-ngx
     image:
       repository: ghcr.io/paperless-ngx/paperless-ngx
-      tag: 1.10.2
+      tag: 1.11.0
     env:
       PAPERLESS_TIME_ZONE: "${TIMEZONE}"
       PAPERLESS_OCR_LANGUAGE: "nor+eng"
