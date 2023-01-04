@@ -20,7 +20,7 @@ spec:
     spec:
       initContainers:
         - name: init-cp-configs
-          image: busybox:1.35.0
+          image: busybox:1.36.0
           command: ['sh', '-c', "cp --verbose --no-clobber /tmp/*.yaml /config/bridge/"]
           volumeMounts:
             - name: mautrix-signal-bridge
@@ -33,7 +33,7 @@ spec:
               mountPath: /tmp/config.yaml
               subPath: config-signal.yaml
         - name: init-chown-config
-          image: busybox:1.35.0
+          image: busybox:1.36.0
           command:
             - /bin/chown
             - -R

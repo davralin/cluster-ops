@@ -16,7 +16,7 @@ spec:
           restartPolicy: Never
           initContainers:
             - name: init-mkdir-cp-pmm
-              image: busybox:1.35.0
+              image: busybox:1.36.0
               command: ['sh', '-c', "/bin/cp -RLfv /tmp/* /config/"]
               volumeMounts:
                 - name: plex-meta-manager
