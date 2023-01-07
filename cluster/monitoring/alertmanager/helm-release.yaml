@@ -1,0 +1,38 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: alertmanager
+  namespace: monitoring
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: alertmanager
+      version: 0.24.1
+      sourceRef:
+        kind: HelmRepository
+        name: prometheus-community
+        namespace: flux-system
+      interval: 15m
+  targetNamespace: monitoring
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  values:
+    fullnameOverride: alertmanager
+    config:
+      receivers:
+        - name: "matrix"
+          webhook_configs:
+          - url: 'http://matrix-alertmanager.matrix.svc.cluster.local/alerts?secret=${SECRET_MATRIX_ALERTMANAGER_SECRET}'
+      route:
+        group_by: ["alertname", "job"]
+        group_wait: 30s
+        group_interval: 5m
+        repeat_interval: 6h
+        receiver: "matrix"
