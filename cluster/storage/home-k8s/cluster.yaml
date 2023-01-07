@@ -71,6 +71,10 @@ spec:
         useAllDevices: false
         encryptedDevice: true
         nodes:
+            - name: aviendha
+              devices:
+                - name: "/dev/disk/by-id/ata-Samsung_SSD_870_QVO_4TB_S5STNF0T308086D"
+                - name: "/dev/disk/by-id/nvme-Samsung_SSD_970_EVO_Plus_2TB_S6P1NS0T208153T"
             - name: elayne
               devices:
                 - name: "/dev/disk/by-id/ata-Samsung_SSD_870_QVO_4TB_S5STNF0T205013V"
@@ -82,9 +86,6 @@ spec:
               devices:
                 - name: "/dev/disk/by-id/ata-Samsung_SSD_870_QVO_4TB_S5STNF0T308094T"
                 - name: "/dev/disk/by-id/usb-Samsung_SSD_970_EVO_DD56419883C2E-0:0"
-            - name: moiraine
-              devices:
-                - name: "/dev/disk/by-id/ata-Samsung_SSD_870_QVO_4TB_S5STNF0T308086D"
     cephBlockPools:
       - name: ceph-blockpool
         spec:
