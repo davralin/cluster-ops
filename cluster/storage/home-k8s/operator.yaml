@@ -27,3 +27,4 @@ spec:
     fullnameOverride: rook-ceph
     crds:
       enabled: true
+    disableAdmissionController: true
