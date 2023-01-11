@@ -8,11 +8,11 @@ spec:
   interval: 5m
   chart:
     spec:
-      chart: tar1090
-      version: 0.0.40
+      chart: app-template
+      version: 1.2.1
       sourceRef:
         kind: HelmRepository
-        name: truecharts
+        name: bjw-s-charts
         namespace: flux-system
       interval: 5m
   targetNamespace: adsb
@@ -34,8 +34,17 @@ spec:
       valuesKey: long
   values:
     fullnameOverride: tar1090
+    image:
+      repository: ghcr.io/sdr-enthusiasts/docker-tar1090
+      tag: latest
     env:
+      TZ: "${TIMEZONE}"
       BEASTHOST: "${BEASTHOST}"
+    service:
+      main:
+        ports:
+          http:
+            port: 8078
     ingress:
       main:
         enabled: true

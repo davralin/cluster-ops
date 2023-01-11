@@ -5,6 +5,7 @@ resources:
   - anance.yaml
   - appscode.yaml
   - bitnami.yaml
+  - bjw-s.yaml
   - deliveryhero.yaml
   - descheduler.yaml
   - drone.yaml
