@@ -37,6 +37,9 @@ spec:
     image:
       repository: cr.hotio.dev/hotio/cloudflareddns
       tag: latest
+    service:
+      main:
+        enabled: false
     env:
       TZ: "${TIMEZONE}"
       CF_HOSTS: "home.${SECRET_INTERNAL_DOMAIN};home.${SECRET_PRIVATE_DOMAIN};home.${SECRET_PUBLIC_DOMAIN}"
