@@ -30,11 +30,6 @@ spec:
       valuesKey: CF_APITOKEN
   values:
     fullnameOverride: cloudflareddns
-    podSecurityContext:
-      runAsUser: 1000
-      runAsGroup: 1000
-      fsGroup: 1000
-      fsGroupChangePolicy: "OnRootMismatch"
     image:
       repository: cr.hotio.dev/hotio/cloudflareddns
       tag: latest
