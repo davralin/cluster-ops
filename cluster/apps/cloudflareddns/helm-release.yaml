@@ -24,7 +24,7 @@ spec:
     remediation:
       retries: 3
   valuesFrom:
-    - targetPath: secretEnv.CF_APITOKEN
+    - targetPath: env.CF_APITOKEN
       kind: Secret
       name: cloudflare-api-token-secret
       valuesKey: CF_APITOKEN
