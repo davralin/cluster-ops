@@ -27,6 +27,5 @@ resources:
   - prometheus.yaml
   - rook-ceph.yaml
   - stakater.yaml
-  - truecharts.yaml
   - twuni.yaml
   - velero.yaml

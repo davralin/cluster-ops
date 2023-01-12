@@ -8,11 +8,11 @@ spec:
   interval: 5m
   chart:
     spec:
-      chart: photoprism
-      version: 11.0.2
+      chart: app-template
+      version: 1.2.1
       sourceRef:
         kind: HelmRepository
-        name: truecharts
+        name: bjw-s-charts
         namespace: flux-system
       interval: 5m
   targetNamespace: nextcloud
@@ -30,10 +30,27 @@ spec:
       valuesKey: mariadb-password
   values:
     fullnameOverride: photoprism
+    podSecurityContext:
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+      fsGroupChangePolicy: "OnRootMismatch"
+    image:
+      repository: photoprism/photoprism
+      tag: 221118-jammy
     env:
       TZ: "${TIMEZONE}"
       PHOTOPRISM_DATABASE_DRIVER: "mysql"
       PHOTOPRISM_DATABASE_SERVER: "photoprism-mariadb"
+      PHOTOPRISM_READONLY: "true"
+      PHOTOPRISM_SITE_URL: "photo.${SECRET_PRIVATE_DOMAIN}"
+      PHOTOPRISM_UID: 1000
+      PHOTOPRISM_GID: 1000
+    service:
+      main:
+        ports:
+          http:
+            port: 2342
     ingress:
       main:
         enabled: true
@@ -51,16 +68,16 @@ spec:
                 pathType: Prefix
         tls:
           - secretName: "${SECRET_PRIVATE_DOMAIN_CERT}"
-    mariadb:
-      enabled: false
     persistence:
-      storage:
+      config:
         enabled: true
+        mountPath: /photoprism
         existingClaim: photoprism
       originals:
         enabled: true
+        mountPath: /photoprism/originals
         existingClaim: nextcloud
         ReadOnly: true
         subPath: data/mikr/files/Bilder
     podAnnotations:
-      backup.velero.io/backup-volumes: storage
+      backup.velero.io/backup-volumes: config
