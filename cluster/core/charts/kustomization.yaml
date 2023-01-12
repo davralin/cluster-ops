@@ -16,6 +16,7 @@ resources:
   - gitea.yaml
   - grafana.yaml
   - haproxytech.yaml
+  - intel.yaml
   - itzg.yaml
   - jetstack.yaml
   - k8s-at-home.yaml
