@@ -46,6 +46,7 @@ spec:
       PHOTOPRISM_SITE_URL: "photo.${SECRET_PRIVATE_DOMAIN}"
       PHOTOPRISM_UID: 1000
       PHOTOPRISM_GID: 1000
+      PHOTOPRISM_AUTH_MODE: public
     service:
       main:
         ports:
