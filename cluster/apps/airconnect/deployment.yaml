@@ -21,7 +21,7 @@ spec:
       hostNetwork: true
       containers:
         - name: airconnect
-          image: 1activegeek/airconnect
+          image: 1activegeek/airconnect:1.0.8
           livenessProbe:
             tcpSocket:
               port: 49152
