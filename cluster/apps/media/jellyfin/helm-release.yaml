@@ -8,11 +8,11 @@ spec:
   interval: 5m
   chart:
     spec:
-      chart: jellyfin
-      version: 9.5.3
+      chart: app-template
+      version: 1.2.1
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home-charts
+        name: bjw-s-charts
         namespace: flux-system
       interval: 5m
   targetNamespace: media
@@ -30,11 +30,18 @@ spec:
       runAsGroup: 1000
       fsGroup: 1000
       fsGroupChangePolicy: "OnRootMismatch"
+      supplementalGroups:
+        - 44
+        - 109
+        - 100
     image:
-      repository: jellyfin/jellyfin
-      tag: 10.8.8
-    env:
-      TZ: "${TIMEZONE}"
+      repository: ghcr.io/onedr0p/jellyfin
+      tag: 10.8.8@sha256:342c94a24b9c12e6b5a4de2d506229b9313d39026404a8137be1df9481ed0e68
+    service:
+      main:
+        ports:
+          http:
+            port: 8096
     ingress:
       main:
         enabled: true
@@ -52,6 +59,8 @@ spec:
                 pathType: Prefix
         tls:
           - secretName: "${SECRET_PRIVATE_DOMAIN_CERT}"
+    env:
+      TZ: "${TIMEZONE}"
     persistence:
       config:
         enabled: true
@@ -61,13 +70,16 @@ spec:
         existingClaim: media
         mountPath: /data
         readOnly: true
+      transcode:
+        enabled: true
+        type: emptyDir
     podAnnotations:
       backup.velero.io/backup-volumes: config
     resources:
       requests:
         gpu.intel.com/i915: 1
-        memory: 800Mi
+        memory: 1000Mi
         cpu: 200m
       limits:
         gpu.intel.com/i915: 1
-        memory: 1000Mi
+        memory: 6000Mi
