@@ -8,11 +8,11 @@ spec:
   interval: 5m
   chart:
     spec:
-      chart: bazarr
-      version: 10.6.2
+      chart: app-template
+      version: 1.2.1
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home-charts
+        name: bjw-s-charts
         namespace: flux-system
       interval: 5m
   targetNamespace: media
@@ -31,10 +31,13 @@ spec:
       fsGroup: 1000
       fsGroupChangePolicy: "OnRootMismatch"
     image:
-      repository: ghcr.io/k8s-at-home/bazarr
-      tag: v1.1.2
-    env:
-      TZ: "${TIMEZONE}"
+      repository: ghcr.io/onedr0p/bazarr
+      tag: 1.1.4@sha256:73de30b5f8143f7e41a76ef0645a1d12808d57b4933c86623937017024119e46
+    service:
+      main:
+        ports:
+          http:
+            port: 6767
     ingress:
       main:
         enabled: true
@@ -52,11 +55,12 @@ spec:
                 pathType: Prefix
         tls:
           - secretName: "${SECRET_PRIVATE_DOMAIN_CERT}"
+    env:
+      TZ: "${TIMEZONE}"
     persistence:
       config:
         enabled: true
         existingClaim: bazarr
-        mountPath: /config
       media:
         enabled: true
         existingClaim: media
@@ -67,3 +71,5 @@ spec:
       requests:
         cpu: 200m
         memory: 200Mi
+      limits:
+        memory: 1000Mi
