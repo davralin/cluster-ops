@@ -8,11 +8,11 @@ spec:
   interval: 5m
   chart:
     spec:
-      chart: qbittorrent
-      version: 13.5.2
+      chart: app-template
+      version: 1.2.1
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home-charts
+        name: bjw-s-charts
         namespace: flux-system
       interval: 5m
   targetNamespace: media
@@ -31,12 +31,23 @@ spec:
       fsGroup: 1000
       fsGroupChangePolicy: "OnRootMismatch"
     image:
-      repository: ghcr.io/k8s-at-home/qbittorrent
-      tag: v4.4.3.1
-    env:
-      TZ: "${TIMEZONE}"
-    settings:
-      automaticPortSetup: false
+      repository: ghcr.io/onedr0p/qbittorrent
+      tag: 4.5.0@sha256:5ff2064d788100f54770dc5e477f32d41be7e71ee36923a22236053576e39d5d
+    service:
+      main:
+        ports:
+          http:
+            port: 8080
+      bittorrent:
+        enabled: true
+        type: LoadBalancer
+        ports:
+          bittorrent:
+            enabled: true
+            port: 9500
+            protocol: TCP
+            targetPort: 9500
+        externalTrafficPolicy: Local
     ingress:
       main:
         enabled: true
@@ -54,21 +65,8 @@ spec:
                 pathType: Prefix
         tls:
           - secretName: "${SECRET_PRIVATE_DOMAIN_CERT}"
-    service:
-      main:
-        ports:
-          http:
-            port: 8080
-      qbittorrent-service:
-        enabled: true
-        type: LoadBalancer
-        ports:
-          bittorrent:
-            enabled: true
-            port: 9500
-            protocol: TCP
-            targetPort: 9500
-        externalTrafficPolicy: Local
+    env:
+      TZ: "${TIMEZONE}"
     persistence:
       config:
         enabled: true
@@ -81,7 +79,7 @@ spec:
       backup.velero.io/backup-volumes: config
     resources:
       requests:
-        memory: 600Mi
         cpu: 200m
+        memory: 600Mi
       limits:
         memory: 1200Mi
