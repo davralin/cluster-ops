@@ -8,11 +8,11 @@ spec:
   interval: 5m
   chart:
     spec:
-      chart: readarr
-      version: 6.4.2
+      chart: app-template
+      version: 1.2.1
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home-charts
+        name: bjw-s-charts
         namespace: flux-system
       interval: 5m
   targetNamespace: media
@@ -31,10 +31,13 @@ spec:
       fsGroup: 1000
       fsGroupChangePolicy: "OnRootMismatch"
     image:
-      repository: ghcr.io/k8s-at-home/readarr
-      tag: v0.1.1.1352
-    env:
-      TZ: "${TIMEZONE}"
+      repository: ghcr.io/onedr0p/readarr-develop
+      tag: 0.1.1.1320@sha256:16d24bb3d4c5e94339319140d95866202da1b989e1797f6c3c4e4e08aebae9ac
+    service:
+      main:
+        ports:
+          http:
+            port: 8787
     ingress:
       main:
         enabled: true
@@ -52,6 +55,8 @@ spec:
                 pathType: Prefix
         tls:
           - secretName: "${SECRET_PRIVATE_DOMAIN_CERT}"
+    env:
+      TZ: "${TIMEZONE}"
     persistence:
       config:
         enabled: true
@@ -64,5 +69,7 @@ spec:
       backup.velero.io/backup-volumes: config
     resources:
       requests:
-        cpu: 50m
+        cpu: 100m
         memory: 200Mi
+      limits:
+        memory: 1000Mi
