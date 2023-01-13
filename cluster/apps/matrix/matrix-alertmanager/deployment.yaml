@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: matrix-alertmanager
-          image: jaywink/matrix-alertmanager:v0.6.0
+          image: jaywink/matrix-alertmanager:v0.7.0
           ports:
             - name: web
               containerPort: 3000
