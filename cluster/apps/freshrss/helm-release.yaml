@@ -8,11 +8,11 @@ spec:
   interval: 5m
   chart:
     spec:
-      chart: freshrss
-      version: 6.4.2
+      chart: app-template
+      version: 1.2.1
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home-charts
+        name: bjw-s-charts
         namespace: flux-system
       interval: 5m
   targetNamespace: freshrss
@@ -25,11 +25,20 @@ spec:
       retries: 3
   values:
     fullnameOverride: freshrss
+    # Container binds to 80, which requires root, it also starts with chmod
+    #podSecurityContext:
+      #runAsUser: 1000
+      #runAsGroup: 1000
+      #fsGroup: 1000
+      #fsGroupChangePolicy: "OnRootMismatch"
     image:
-      repository: lscr.io/linuxserver/freshrss
+      repository: ghcr.io/linuxserver/freshrss
       tag: 1.20.2
-    env:
-      TZ: "${TIMEZONE}"
+    service:
+      main:
+        ports:
+          http:
+            port: 80
     ingress:
       main:
         enabled: true
@@ -47,6 +56,10 @@ spec:
                 pathType: Prefix
         tls:
           - secretName: "${SECRET_PRIVATE_DOMAIN_CERT}"
+    env:
+      TZ: "${TIMEZONE}"
+      PUID: 1000
+      PGID: 1000
     persistence:
       config:
         enabled: true
