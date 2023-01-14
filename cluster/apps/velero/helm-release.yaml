@@ -39,8 +39,8 @@ spec:
         config:
           region: "{VELERO_S3_REGION}"
           s3ForcePathStyle: true
-          s3Url: http://minio.minio.svc.cluster.local:9000
-          publicUrl: "https://s3.${SECRET_PRIVATE_DOMAIN}"
+          s3Url: "{VELERO_S3_URL}"
+          publicUrl: "{VELERO_S3_PUBLIC_URL}"
       volumeSnapshotLocation:
         name: aws
         config:

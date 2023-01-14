@@ -11,3 +11,5 @@ data:
   STORAGE_READWRITEONCE: "ceph-block"
   MONITORING_PROMETHEUS: "true"
   VELERO_S3_REGION: "north-europe-1"
+  VELERO_S3_URL: "http://minio.minio.svc.cluster.local:9000"
+  VELERO_S3_PUBLIC_URL: "https://s3.${SECRET_PRIVATE_DOMAIN}"
