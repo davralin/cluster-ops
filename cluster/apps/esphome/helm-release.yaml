@@ -8,11 +8,11 @@ spec:
   interval: 5m
   chart:
     spec:
-      chart: esphome
-      version: 8.4.2
+      chart: app-template
+      version: 1.2.1
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home-charts
+        name: bjw-s-charts
         namespace: flux-system
       interval: 5m
   targetNamespace: esphome
@@ -25,12 +25,20 @@ spec:
       retries: 3
   values:
     fullnameOverride: esphome
+    # This can't run as root, since the container assumes it might need access to USB-devices and such.
+    #podSecurityContext:
+      #runAsUser: 1000
+      #runAsGroup: 1000
+      #fsGroup: 1000
+      #fsGroupChangePolicy: "OnRootMismatch"
     image:
       repository: ghcr.io/esphome/esphome
       tag: 2022.12.3
-    env:
-      TZ: "${TIMEZONE}"
-      ESPHOME_DASHBOARD_USE_PING: "true"
+    service:
+      main:
+        ports:
+          http:
+            port: 6052
     ingress:
       main:
         enabled: true
@@ -48,18 +56,25 @@ spec:
                 pathType: Prefix
         tls:
           - secretName: "${SECRET_PRIVATE_DOMAIN_CERT}"
-    podAnnotations:
-      backup.velero.io/backup-volumes: config
+    env:
+      TZ: "${TIMEZONE}"
+      ESPHOME_DASHBOARD_USE_PING: "true"
     persistence:
       config:
         enabled: true
         existingClaim: esphome
+    podAnnotations:
+      backup.velero.io/backup-volumes: config
+    resources:
+      requests:
+        cpu: 100m
+        memory: 200Mi
     addons:
       codeserver:
         enabled: true
         image:
-          repository: ghcr.io/k8s-at-home/code-server
-          tag: v4.6.0
+          repository: ghcr.io/coder/code-server
+          tag: 4.9.1
         env:
           TZ: "${TIMEZONE}"
         workingDir: "/config"
