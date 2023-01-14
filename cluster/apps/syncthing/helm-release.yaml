@@ -8,11 +8,11 @@ spec:
   interval: 5m
   chart:
     spec:
-      chart: syncthing
-      version: 3.5.2
+      chart: app-template
+      version: 1.2.1
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home-charts
+        name: bjw-s-charts
         namespace: flux-system
       interval: 5m
   targetNamespace: syncthing
@@ -25,11 +25,30 @@ spec:
       retries: 3
   values:
     fullnameOverride: syncthing
+    podSecurityContext:
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+      fsGroupChangePolicy: "OnRootMismatch"
     image:
       repository: syncthing/syncthing
       tag: 1.23.0
-    env:
-      TZ: "${TIMEZONE}"
+    service:
+      main:
+        ports:
+          http:
+            port: 8384
+      transfer:
+        type: LoadBalancer
+        ports:
+          tcp-transfer:
+            enabled: true
+            port: 22000
+            protocol: TCP
+          quic-transfer:
+            enabled: true
+            port: 22000
+            protocol: UDP
     ingress:
       main:
         enabled: true
@@ -47,19 +66,21 @@ spec:
                 pathType: Prefix
         tls:
           - secretName: "${SECRET_PUBLIC_DOMAIN_CERT}"
+    env:
+      TZ: "${TIMEZONE}"
+      PUID: 1000
+      PGID: 1000
     persistence:
-      data:
+      config:
         enabled: true
         existingClaim: syncthing
-    service:
-      listen:
-        type: LoadBalancer
+        mountPath: /var/syncthing
     podAnnotations:
-      backup.velero.io/backup-volumes: data
+      backup.velero.io/backup-volumes: config
     resources:
       requests:
-        cpu: 100m
         memory: 75Mi
+        cpu: 100m
       limits:
-        cpu: 500m
         memory: 300Mi
+        cpu: 500m
