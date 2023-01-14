@@ -8,11 +8,11 @@ spec:
   interval: 5m
   chart:
     spec:
-      chart: uptime-kuma
-      version: 1.4.2
+      chart: app-template
+      version: 1.2.1
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home-charts
+        name: bjw-s-charts
         namespace: flux-system
       interval: 5m
   targetNamespace: kuma
@@ -25,8 +25,20 @@ spec:
       retries: 3
   values:
     fullnameOverride: kuma
-    env:
-      TZ: "${TIMEZONE}"
+    # Container starts with chmod
+    #podSecurityContext:
+      #runAsUser: 1000
+      #runAsGroup: 1000
+      #fsGroup: 1000
+      #fsGroupChangePolicy: "OnRootMismatch"
+    image:
+      repository: louislam/uptime-kuma
+      tag: 1.19.4
+    service:
+      main:
+        ports:
+          http:
+            port: 3001
     ingress:
       main:
         enabled: true
@@ -43,9 +55,16 @@ spec:
                 pathType: Prefix
         tls:
           - secretName: "${SECRET_PUBLIC_DOMAIN_CERT}"
+    env:
+      TZ: "${TIMEZONE}"
     persistence:
-      data:
+      config:
         enabled: true
         existingClaim: kuma
+        mountPath: /app/data
     podAnnotations:
-      backup.velero.io/backup-volumes: data
+      backup.velero.io/backup-volumes: config
+    resources:
+      requests:
+        cpu: 10m
+        memory: 30Mi
