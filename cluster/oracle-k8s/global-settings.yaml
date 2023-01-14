@@ -10,3 +10,4 @@ data:
   HAPROXY_WHITELIST: "0.0.0.0/0"
   STORAGE_READWRITEONCE: "local-path"
   MONITORING_PROMETHEUS: "false"
+  VELERO_S3_REGION: "eu-stockholm-1"
