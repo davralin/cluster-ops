@@ -8,11 +8,11 @@ spec:
   interval: 5m
   chart:
     spec:
-      chart: node-red
-      version: 10.3.2
+      chart: app-template
+      version: 1.2.1
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home-charts
+        name: bjw-s-charts
         namespace: flux-system
       interval: 5m
   targetNamespace: homeassistant
@@ -25,6 +25,19 @@ spec:
       retries: 3
   values:
     fullnameOverride: node-red
+    podSecurityContext:
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+      fsGroupChangePolicy: "OnRootMismatch"
+    image:
+      repository: nodered/node-red
+      tag: 3.0.2
+    service:
+      main:
+        ports:
+          http:
+            port: 1880
     ingress:
       main:
         enabled: true
@@ -42,15 +55,17 @@ spec:
                 pathType: Prefix
         tls:
           - secretName: "${SECRET_PRIVATE_DOMAIN_CERT}"
-    image:
-      repository: ghcr.io/k8s-at-home/node-red
-      tag: v3.0.2
     env:
       TZ: "${TIMEZONE}"
-    podAnnotations:
-      backup.velero.io/backup-volumes: config
+      FLOWS: flows.json
     persistence:
       config:
         enabled: true
         existingClaim: nodered
-        mountPath: "/data"
+        mountPath: /data
+    podAnnotations:
+      backup.velero.io/backup-volumes: config
+    resources:
+      requests:
+        cpu: 10m
+        memory: 100Mi
