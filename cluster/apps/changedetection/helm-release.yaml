@@ -8,11 +8,11 @@ spec:
   interval: 5m
   chart:
     spec:
-      chart: changedetection-io
-      version: 1.5.2
+      chart: app-template
+      version: 1.2.1
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home-charts
+        name: bjw-s-charts
         namespace: flux-system
       interval: 5m
   targetNamespace: changedetection
@@ -33,10 +33,11 @@ spec:
     image:
       repository: ghcr.io/dgtlmoon/changedetection.io
       tag: 0.40.0
-    env:
-      TZ: "${TIMEZONE}"
-      USE_X_SETTINGS: "1"
-      PLAYWRIGHT_DRIVER_URL: "ws://localhost:3000/?stealth=1&--disable-web-security=true"
+    service:
+      main:
+        ports:
+          http:
+            port: 5000
     ingress:
       main:
         enabled: true
@@ -54,18 +55,22 @@ spec:
                 pathType: Prefix
         tls:
           - secretName: "${SECRET_PRIVATE_DOMAIN_CERT}"
+    env:
+      TZ: "${TIMEZONE}"
+      USE_X_SETTINGS: "1"
+      PLAYWRIGHT_DRIVER_URL: "ws://localhost:3000/?stealth=1&--disable-web-security=true"
     persistence:
       config:
         enabled: true
         existingClaim: changedetection
         mountPath: /datastore
-    additionalContainers:
-      - name: playwright-chrome
-        image: browserless/chrome:1.54-chrome-stable
-        imagePullPolicy: IfNotPresent
     podAnnotations:
       backup.velero.io/backup-volumes: config
     resources:
       requests:
         cpu: 10m
         memory: 30Mi
+    additionalContainers:
+      - name: playwright-chrome
+        image: browserless/chrome:1.54-chrome-stable
+        imagePullPolicy: IfNotPresent

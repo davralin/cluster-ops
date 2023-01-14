@@ -16,7 +16,6 @@ resources:
   - haproxytech.yaml
   - itzg.yaml
   - jetstack.yaml
-  - k8s-at-home.yaml
   - metallb.yaml
   - metrics-server.yaml
   - nextcloud.yaml
