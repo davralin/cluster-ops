@@ -11,7 +11,6 @@ resources:
   - drone.yaml
   - dysnix.yaml
   - external-dns.yaml
-  - geek-cookbook.yaml
   - gitea.yaml
   - grafana.yaml
   - haproxytech.yaml

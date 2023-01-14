@@ -8,11 +8,11 @@ spec:
   interval: 5m
   chart:
     spec:
-      chart: warrior
-      version: 1.2.2
+      chart: app-template
+      version: 1.2.1
       sourceRef:
         kind: HelmRepository
-        name: geek-cookbook
+        name: bjw-s-charts
         namespace: flux-system
       interval: 5m
   targetNamespace: warrior
@@ -25,6 +25,19 @@ spec:
       retries: 3
   values:
     fullnameOverride: warrior
+    podSecurityContext:
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+      fsGroupChangePolicy: "OnRootMismatch"
+    image:
+      repository: atdr.meo.ws/archiveteam/warrior-dockerfile
+      tag: latest@sha256:61e4e56de96d5c72d1df939882722515f29a91bf36b1415866f326d638641f73
+    service:
+      main:
+        ports:
+          http:
+            port: 8001
     ingress:
       main:
         enabled: true
@@ -50,3 +63,10 @@ spec:
       config:
         enabled: true
         existingClaim: warrior
+        mountPath: /projects
+    resources:
+      requests:
+        cpu: 100m
+        memory: 300Mi
+      limits:
+        memory: 1000Mi
