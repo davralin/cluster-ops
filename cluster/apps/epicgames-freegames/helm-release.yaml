@@ -38,11 +38,12 @@ spec:
       valuesKey: TOTP
   values:
     fullnameOverride: epicgames-free
-    podSecurityContext:
-      runAsUser: 1000
-      runAsGroup: 1000
-      fsGroup: 1000
-      fsGroupChangePolicy: "OnRootMismatch"
+    # Starts by linking in TZ
+    #podSecurityContext:
+      #runAsUser: 1000
+      #runAsGroup: 1000
+      #fsGroup: 1000
+      #fsGroupChangePolicy: "OnRootMismatch"
     image:
       repository: ghcr.io/claabs/epicgames-freegames-node
       tag: latest
