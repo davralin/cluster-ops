@@ -72,12 +72,14 @@ spec:
     env:
       TZ: "${TIMEZONE}"
       RUN_ON_STARTUP: "true"
+      BASE_URL: "https://epicgames.${SECRET_PRIVATE_DOMAIN}"
       EMAIL_SENDER_ADDRESS: "epicgames@${SECRET_PRIVATE_DOMAIN}"
       EMAIL_RECIPIENT_ADDRESS: "epicgames@${SECRET_PRIVATE_DOMAIN}"
+      EMAIL_SENDER_NAME: "Epic Automation"
       SMTP_HOST: "exim.mailrelay.svc.cluster.local"
       SMTP_PORT: "25"
       SMTP_SECURE: "false"
-      TEST_NOTIFIERS: "true"
+      TEST_NOTIFIERS: "False"
     persistence:
       config:
         enabled: true
