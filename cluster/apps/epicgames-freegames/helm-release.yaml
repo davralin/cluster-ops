@@ -52,6 +52,13 @@ spec:
         ports:
           http:
             port: 3000
+    probes:
+      liveness:
+        enabled: false
+      readiness:
+        enabled: false
+      startup:
+        enabled: false
     ingress:
       main:
         enabled: true
@@ -76,9 +83,10 @@ spec:
       EMAIL_SENDER_ADDRESS: "epicgames@${SECRET_PRIVATE_DOMAIN}"
       EMAIL_RECIPIENT_ADDRESS: "epicgames@${SECRET_PRIVATE_DOMAIN}"
       EMAIL_SENDER_NAME: "Epic Automation"
+      SMTP_HOST: "exim.mailrelay.svc.cluster.local"
       SMTP_PORT: "25"
       SMTP_SECURE: "False"
-      TEST_NOTIFIERS: "True"
+      TEST_NOTIFIERS: "False"
     persistence:
       config:
         enabled: true
