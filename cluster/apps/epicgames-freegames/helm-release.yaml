@@ -46,6 +46,7 @@ spec:
         enabled: false
     env:
       TZ: "${TIMEZONE}"
+      RUN_ON_STARTUP: "true"
     resources:
       requests:
         memory: 100Mi
