@@ -38,6 +38,11 @@ spec:
       valuesKey: TOTP
   values:
     fullnameOverride: epicgames-free
+    podSecurityContext:
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+      fsGroupChangePolicy: "OnRootMismatch"
     image:
       repository: ghcr.io/claabs/epicgames-freegames-node
       tag: latest
@@ -73,6 +78,11 @@ spec:
       SMTP_PORT: "25"
       SMTP_SECURE: "false"
       TEST_NOTIFIERS: "true"
+    persistence:
+      config:
+        enabled: true
+        existingClaim: epicgames-free
+        mountPath: /usr/app/config
     resources:
       requests:
         memory: 100Mi
