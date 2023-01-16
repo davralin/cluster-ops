@@ -86,7 +86,6 @@ spec:
       SMTP_HOST: "exim.mailrelay.svc.cluster.local"
       SMTP_PORT: "25"
       SMTP_SECURE: "False"
-      TEST_NOTIFIERS: "False"
     persistence:
       config:
         enabled: true
