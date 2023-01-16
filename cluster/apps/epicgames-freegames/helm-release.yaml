@@ -43,10 +43,36 @@ spec:
       tag: latest
     service:
       main:
-        enabled: false
+        ports:
+          http:
+            port: 3000
+    ingress:
+      main:
+        enabled: true
+        annotations:
+          haproxy.org/whitelist: "${HAPROXY_WHITELIST}"
+          haproxy.org/response-set-header: |
+            Strict-Transport-Security "max-age=31536000"
+            X-Frame-Options "DENY"
+            X-Content-Type-Options "nosniff"
+            Referrer-Policy "no-referrer-when-downgrade"
+        hosts:
+          - host: "epicgames.${SECRET_PRIVATE_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - secretName: "${SECRET_PRIVATE_DOMAIN_CERT}"
     env:
       TZ: "${TIMEZONE}"
       RUN_ON_STARTUP: "true"
+      BASE_URL: "epicgames.${SECRET_PRIVATE_DOMAIN}"
+      EMAIL_SENDER_ADDRESS: "epicgames@${SECRET_PRIVATE_DOMAIN}"
+      EMAIL_RECIPIENT_ADDRESS: "epicgames@${SECRET_PRIVATE_DOMAIN}"
+      SMTP_HOST: "exim.mailrelay.svc.cluster.local"
+      SMTP_PORT: "25"
+      SMTP_SECURE: "false"
+      TEST_NOTIFIERS: "true"
     resources:
       requests:
         memory: 100Mi
