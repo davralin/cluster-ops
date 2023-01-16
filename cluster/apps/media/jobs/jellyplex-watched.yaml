@@ -25,11 +25,12 @@ spec:
       retries: 3
   values:
     fullnameOverride: jellyplex-watched
-    podSecurityContext:
-      runAsUser: 1000
-      runAsGroup: 1000
-      fsGroup: 1000
-      fsGroupChangePolicy: "OnRootMismatch"
+    # App runs as root
+    #podSecurityContext:
+      #runAsUser: 1000
+      #runAsGroup: 1000
+      #fsGroup: 1000
+      #fsGroupChangePolicy: "OnRootMismatch"
     image:
       repository: luigi311/jellyplex-watched
       tag: 3.3.0
