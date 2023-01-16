@@ -14,7 +14,7 @@ spec:
   template:
     metadata:
       annotations:
-        configmap.reloader.stakater.com/reload: nitter-config
+        reloader.stakater.com/auto: "true"
       labels:
         app: nitter
     spec:

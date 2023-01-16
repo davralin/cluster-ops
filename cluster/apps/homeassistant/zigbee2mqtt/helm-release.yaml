@@ -63,7 +63,7 @@ spec:
       feature.node.kubernetes.io/custom-zwave-conbee-ii: "true"
     podAnnotations:
       backup.velero.io/backup-volumes: config
-      configmap.reloader.stakater.com/reload: "zigbee2mqtt-settings"
+      reloader.stakater.com/auto: "true"
     config:
       homeassistant: true
       device_options:

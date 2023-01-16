@@ -26,7 +26,7 @@ spec:
       createCRD: true
     worker:
       annotations:
-        configmap.reloader.stakater.com/reload: node-feature-discovery-worker-conf
+        reloader.stakater.com/auto: "true"
       config:
         sources:
           usb:
