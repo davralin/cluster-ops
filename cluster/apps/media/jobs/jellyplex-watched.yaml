@@ -40,4 +40,4 @@ spec:
       TZ: "${TIMEZONE}"
     envFrom:
       - secretRef:
-        name: jellyplex-watched-config
+          name: jellyplex-watched-config
