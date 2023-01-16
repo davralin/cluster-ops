@@ -39,5 +39,5 @@ spec:
     env:
       TZ: "${TIMEZONE}"
     envFrom:
-      - configMapRef:
+      - secretRef:
         name: jellyplex-watched-config
