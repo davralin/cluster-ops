@@ -82,3 +82,8 @@ spec:
         subPath: data/mikr/files/Bilder
     podAnnotations:
       backup.velero.io/backup-volumes: config
+    resources:
+      requests:
+        memory: 3000Mi
+      limits:
+        memory: 4000Mi
