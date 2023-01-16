@@ -72,7 +72,7 @@ spec:
     env:
       TZ: "${TIMEZONE}"
       RUN_ON_STARTUP: "true"
-      BASE_URL: "epicgames.${SECRET_PRIVATE_DOMAIN}"
+      BASE_URL: "https://epicgames.${SECRET_PRIVATE_DOMAIN}"
       EMAIL_SENDER_ADDRESS: "epicgames@${SECRET_PRIVATE_DOMAIN}"
       EMAIL_RECIPIENT_ADDRESS: "epicgames@${SECRET_PRIVATE_DOMAIN}"
       SMTP_HOST: "exim.mailrelay.svc.cluster.local"
