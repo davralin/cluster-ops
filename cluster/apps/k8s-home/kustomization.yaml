@@ -11,6 +11,7 @@ resources:
   - ../cloudflareddns
   - ../descheduler
   - ../drone
+  - ../epicgames-freegames
   - ../esphome
   - ../external-dns
   - ../freshrss
