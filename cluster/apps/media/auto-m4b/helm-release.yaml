@@ -50,9 +50,13 @@ spec:
         existingClaim: media
         subPath: unsorted/auto-m4b
         mountPath: /temp
+      backup:
+        enabled: true
+        type: emptyDir
+        mountPath: /temp/backup
     resources:
       requests:
         cpu: 50m
-        memory: 100Mi
-      limits:
         memory: 200Mi
+      limits:
+        memory: 400Mi
