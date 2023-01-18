@@ -33,7 +33,7 @@ spec:
       #fsGroupChangePolicy: "OnRootMismatch"
     image:
       repository: louislam/uptime-kuma
-      tag: 1.19.5
+      tag: 1.19.6
     service:
       main:
         ports:
