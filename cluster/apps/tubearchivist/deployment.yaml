@@ -69,6 +69,8 @@ spec:
               value: "-Xms512m -Xmx512m"
             - name: path.repo
               value: "/usr/share/elasticsearch/data/snapshot"
+            - name: ENABLE_CAST
+              value: "True"
             - name: ELASTIC_PASSWORD
               valueFrom:
                 secretKeyRef:
