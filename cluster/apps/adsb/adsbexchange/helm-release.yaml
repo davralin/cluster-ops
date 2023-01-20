@@ -45,7 +45,7 @@ spec:
       fsGroupChangePolicy: "OnRootMismatch"
     image:
       repository: mikenye/adsbexchange
-      tag: 20221209.2142
+      tag: "20221209.2142"
     service:
       main:
         enabled: false
