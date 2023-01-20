@@ -25,7 +25,7 @@ spec:
       retries: 3
   values:
     fullnameOverride: auto-m4b
-    # App runs as root
+    # Init-system runs as root
     #podSecurityContext:
       #runAsUser: 1000
       #runAsGroup: 1000
@@ -46,15 +46,15 @@ spec:
       config:
         enabled: true
         type: emptyDir
-      media:
-        enabled: true
-        existingClaim: media
-        subPath: unsorted/auto-m4b
-        mountPath: /temp
       backup:
         enabled: true
         type: emptyDir
         mountPath: /temp/backup
+      media:
+        enabled: true
+        existingClaim: media
+        subPath: unsorted/audiobooks
+        mountPath: /temp
     resources:
       requests:
         cpu: 50m
