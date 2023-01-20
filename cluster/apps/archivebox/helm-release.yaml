@@ -25,11 +25,12 @@ spec:
       retries: 3
   values:
     fullnameOverride: archivebox
-    podSecurityContext:
-      runAsUser: 1000
-      runAsGroup: 1000
-      fsGroup: 1000
-      fsGroupChangePolicy: "OnRootMismatch"
+    # App chown's on boot
+    #podSecurityContext:
+      #runAsUser: 1000
+      #runAsGroup: 1000
+      #fsGroup: 1000
+      #fsGroupChangePolicy: "OnRootMismatch"
     image:
       repository: archivebox/archivebox
       tag: 0.6.3
