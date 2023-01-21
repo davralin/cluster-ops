@@ -32,7 +32,7 @@ spec:
       fsGroupChangePolicy: "OnRootMismatch"
     image:
       repository: ghcr.io/dgtlmoon/changedetection.io
-      tag: 0.40.0.4
+      tag: 0.40.1.0
     service:
       main:
         ports:
