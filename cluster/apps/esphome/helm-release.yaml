@@ -33,7 +33,7 @@ spec:
       #fsGroupChangePolicy: "OnRootMismatch"
     image:
       repository: ghcr.io/esphome/esphome
-      tag: 2022.12.3
+      tag: 2022.12.6
     service:
       main:
         ports:
