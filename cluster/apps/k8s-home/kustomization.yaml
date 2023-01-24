@@ -44,6 +44,6 @@ resources:
   - ../teddit
   - ../tubearchivist
   - ../unifi
-  - ../velero
+  #- ../velero
   - ../warrior
   - ../writefreely
