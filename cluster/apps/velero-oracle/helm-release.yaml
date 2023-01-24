@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: velero
-      version: 2.32.6
+      version: 3.1.0
       sourceRef:
         kind: HelmRepository
         name: vmware-tanzu-charts
@@ -25,9 +25,6 @@ spec:
       retries: 3
   values:
     fullnameOverride: velero
-    image:
-      repository: ghcr.io/k8s-at-home/velero
-      tag: v1.9.1
     configuration:
       extraEnvVars:
         TZ: "${TIMEZONE}"
@@ -48,47 +45,44 @@ spec:
       resticTimeout: 6h
       logLevel: debug
     initContainers:
-      - name: velero-plugin-for-aws
-        image: ghcr.io/k8s-at-home/velero-plugin-for-aws:v1.5.0
-        imagePullPolicy: IfNotPresent
-        volumeMounts:
-          - mountPath: /target
-            name: plugins
-    credentials:
-      existingSecret: velero-s3-creds
-    schedules:
-      daily-backup:
-        schedule: "40 * * * *"
-        template:
-          ttl: "720h"
-    metrics:
-      enabled: "{$MONITORING_PROMETHEUS}"
-      serviceMonitor:
-        enabled: "{$MONITORING_PROMETHEUS}"
-    backupsEnabled: true
-    snapshotsEnabled: true
-    upgradeCRDs: false
-    cleanUpCRDs: false
-    kubectl:
-      image:
-        repository: ghcr.io/k8s-at-home/kubectl
-        tag: v1.25.4
-    deployRestic: true
-    restic:
-      podVolumePath: /var/lib/kubelet/pods
-      privileged: false
-      tolerations:
-        - key: "node-role.kubernetes.io/master"
-          operator: "Exists"
-      resources:
-        requests:
-          memory: 200Mi
-          cpu: 15m
-        limits:
-          memory: 3000Mi
+    - name: velero-plugin-for-aws
+      image: velero/velero-plugin-for-aws:v1.6.0@sha256:04b19ab31ab2c1bc56de1b18dcfc268bdfce32b0edf313869781ded2320beed0
+      imagePullPolicy: IfNotPresent
+      volumeMounts:
+      - mountPath: /target
+        name: plugins
     resources:
       requests:
         memory: 300Mi
         cpu: 25m
       limits:
         memory: 1500Mi
+    metrics:
+      enabled: "{$MONITORING_PROMETHEUS}"
+      serviceMonitor:
+        enabled: "{$MONITORING_PROMETHEUS}"
+    snapshotsEnabled: true
+    deployNodeAgent: true
+    upgradeCRDs: false
+    nodeAgent:
+      podVolumePath: /var/lib/kubelet/pods
+      privileged: false
+      tolerations:
+      - key: "arm"
+        operator: "Exists"
+      - key: "node-role.kubernetes.io/master"
+        operator: "Exists"
+      resources:
+        requests:
+          memory: 200Mi
+          cpu: 15m
+        limits:
+          memory: 3000Mi
+          cpu: null
+    credentials:
+      existingSecret: velero-s3-creds
+    schedules:
+      daily-backup:
+        schedule: "40 12 * * *"
+        template:
+          ttl: "720h"
