@@ -41,6 +41,6 @@ spec:
       BEASTHOST: "${BEASTHOST}"
       SITENAME: "${SECRET_ADSBEXCHANGE_SITENAME}"
       UUID: "${SECRET_ADSBEXCHANGE_UUID}"
-    envFrom:
-     - secretRef:
-         name: adsb-lat-long-alt
+      ALT: "\"${SECRET_ALT}\""
+      LAT: "\"${SECRET_LAT}\""
+      LONG: "\"${SECRET_LONG}\""
