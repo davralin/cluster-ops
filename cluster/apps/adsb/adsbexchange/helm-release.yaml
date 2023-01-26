@@ -23,19 +23,6 @@ spec:
   upgrade:
     remediation:
       retries: 3
-  valuesFrom:
-    - targetPath: env.LAT
-      kind: Secret
-      name: adsb-lat-long-alt
-      valuesKey: lat
-    - targetPath: env.LONG
-      kind: Secret
-      name: adsb-lat-long-alt
-      valuesKey: long
-    - targetPath: env.ALT
-      kind: Secret
-      name: adsb-lat-long-alt
-      valuesKey: alt
   values:
     fullnameOverride: adsbexchange
     podSecurityContext:
@@ -54,3 +41,6 @@ spec:
       BEASTHOST: "${BEASTHOST}"
       SITENAME: "${SECRET_ADSBEXCHANGE_SITENAME}"
       UUID: "${SECRET_ADSBEXCHANGE_UUID}"
+    envFrom:
+     - secretRef:
+         name: adsb-lat-long-alt
