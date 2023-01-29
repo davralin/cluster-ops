@@ -5,7 +5,7 @@ metadata:
   name: daily-to-jottacloud
   namespace: minio
 spec:
-  schedule: "* * * * *"
+  schedule: "37 13 * * *"
   concurrencyPolicy: Forbid
   successfulJobsHistoryLimit: 1
   failedJobsHistoryLimit: 1
