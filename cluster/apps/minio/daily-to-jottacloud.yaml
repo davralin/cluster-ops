@@ -30,7 +30,7 @@ spec:
                 - --delete-before
                 - --verbose
                 - --jottacloud-hard-delete
-                - /data
+                - /data/
                 - jottacloud-crypt:/minio/
               volumeMounts:
                 - mountPath: /data
