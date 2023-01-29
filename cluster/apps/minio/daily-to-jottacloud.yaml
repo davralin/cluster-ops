@@ -1,0 +1,41 @@
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: daily-to-jottacloud
+  namespace: minio
+spec:
+  schedule: "* * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          nodeSelector:
+            feature.node.kubernetes.io/custom-usb-backupdrive: "true"
+          restartPolicy: Never
+          containers:
+            - name: daily-to-jottacloud
+              image: rclone/rclone:1.61.1
+              args:
+                - sync
+                - --config /data/rclone.conf
+                - --drive-stop-on-upload-limit
+                - --ignore-case
+                - --check-first
+                - --dry-run
+                - --delete-before
+                - --verbose
+                - --jottacloud-hard-delete
+                - /data/
+                - jottacloud-crypt:/minio
+              volumeMounts:
+                - mountPath: /data
+                  name: minio-local
+                  readOnly: true
+          volumes:
+            - name: data
+              persistentVolumeClaim:
+                claimName: minio-local
