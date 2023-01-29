@@ -36,6 +36,6 @@ spec:
                   name: minio-local
                   readOnly: true
           volumes:
-            - name: data
+            - name: minio-local
               persistentVolumeClaim:
                 claimName: minio-local
