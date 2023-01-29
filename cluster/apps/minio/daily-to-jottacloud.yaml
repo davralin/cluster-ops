@@ -20,8 +20,8 @@ spec:
             - name: daily-to-jottacloud
               image: rclone/rclone:1.61.1
               args:
-                - sync
                 - --config /data/rclone.conf
+                - sync
                 - --drive-stop-on-upload-limit
                 - --ignore-case
                 - --check-first
