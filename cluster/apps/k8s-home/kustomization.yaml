@@ -20,7 +20,6 @@ resources:
   - ../homeassistant
   - ../influxdb
   - ../intel-gpu
-  - ../invidious
   - ../jobs
   - ../kubed
   - ../local-path-provisioner
