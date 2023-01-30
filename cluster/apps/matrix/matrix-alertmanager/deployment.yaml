@@ -24,18 +24,18 @@ spec:
           env:
             - name: "APP_PORT"
               value: "3000"
-            - name: "MENTION_ROOM"
-              value: "0"
-            - name: "MATRIX_HOMESERVER_URL"
-              value: "http://synapse-service:8008"
             - name: "APP_ALERTMANAGER_SECRET"
               value: "${SECRET_MATRIX_ALERTMANAGER_SECRET}"
-            - name: "MATRIX_USER"
-              value: "@${SECRET_MATRIX_NOTIFICATION_USER}"
-            - name: "MATRIX_TOKEN"
-              value: "${SECRET_MATRIX_NOTIFICATION_TOKEN}"
+            - name: "MATRIX_HOMESERVER_URL"
+              value: "http://synapse-service:8008"
             - name: "MATRIX_ROOMS"
               value: "matrix/${SECRET_MATRIX_NOTIFICATION_ROOM}"
+            - name: "MATRIX_TOKEN"
+              value: "${SECRET_MATRIX_NOTIFICATION_TOKEN}"
+            - name: "MATRIX_USER"
+              value: "@${SECRET_MATRIX_NOTIFICATION_USER}"
+            - name: "MENTION_ROOM"
+              value: "0"
           resources:
             requests:
               cpu: 50m
