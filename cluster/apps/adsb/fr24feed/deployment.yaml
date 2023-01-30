@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: fr24feed
-          image: mikenye/fr24feed:1.0.29-8
+          image: mikenye/fr24feed:1.0.34-0
           ports:
             - containerPort: 8754
               protocol: TCP
