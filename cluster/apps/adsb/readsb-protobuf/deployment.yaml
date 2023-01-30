@@ -28,7 +28,7 @@ spec:
                      - "true"
       containers:
         - name: readsb-protobuf
-          image: ghcr.io/sdr-enthusiasts/docker-readsb-protobuf
+          image: ghcr.io/sdr-enthusiasts/docker-readsb-protobuf:v4.0.3
           ports:
             - name: raw-prot-in
               containerPort: 30001
