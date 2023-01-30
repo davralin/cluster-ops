@@ -30,7 +30,6 @@ spec:
               image: rclone/rclone:1.61.1
               args:
                 - sync
-                - --drive-stop-on-upload-limit
                 - --ignore-case
                 - --check-first
                 - --delete-before

@@ -23,7 +23,6 @@ spec:
                 - --config
                 - /data/rclone.conf
                 - sync
-                - --drive-stop-on-upload-limit
                 - --ignore-case
                 - --check-first
                 - --dry-run
