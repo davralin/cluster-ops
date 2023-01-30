@@ -34,7 +34,7 @@ spec:
             - bot_token: "${SECRET_TELEGRAM_TOKEN}"
               api_url: "https://api.telegram.org"
               chat_id: "${SECRET_TELEGRAM_CHATID}"
-              parse_mode: 'Markdown'
+              parse_mode: 'MarkdownV2'
       route:
         group_by: ["alertname", "job"]
         group_wait: 30s
