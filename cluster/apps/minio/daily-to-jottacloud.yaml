@@ -23,6 +23,8 @@ spec:
                 - --config
                 - /data/rclone.conf
                 - sync
+                - --checkers
+                - "24"
                 - --ignore-case
                 - --check-first
                 - --delete-before
