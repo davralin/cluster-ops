@@ -6,4 +6,4 @@ metadata:
   namespace: flux-system
 spec:
   type: alertmanager
-  address: http://alertmanager-operated.monitoring:9093/api/v2/alerts/
+  address: http://alertmanager.monitoring:9093/api/v2/alerts/
