@@ -23,7 +23,7 @@ spec:
                 - --config
                 - /data/rclone.conf
                 - sync
-                - --checkers
+                - --transfers
                 - "24"
                 - --ignore-case
                 - --check-first
