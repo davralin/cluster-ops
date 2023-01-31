@@ -4,5 +4,4 @@ kind: Kustomization
 resources:
   - daily-chown-media.yaml
   - daily-dosage.yaml
-  - daily-plextraktsync.yaml
   - daily-to-jottacloud.yaml
