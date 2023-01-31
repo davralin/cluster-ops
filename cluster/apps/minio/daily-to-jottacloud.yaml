@@ -28,7 +28,7 @@ spec:
                 - --ignore-case
                 - --check-first
                 - --delete-before
-                - --verbose
+                - --progress
                 - --jottacloud-hard-delete
                 - /data
                 - jottacloud-crypt:minio/
