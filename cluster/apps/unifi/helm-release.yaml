@@ -36,7 +36,6 @@ spec:
     service:
       main:
         type: LoadBalancer
-        loadBalancerIP: 10.0.1.38
         externalTrafficPolicy: Local
         ports:
           http:
@@ -74,6 +73,7 @@ spec:
       main:
         enabled: true
         annotations:
+          haproxy.org/server-ssl: "true"
           haproxy.org/whitelist: "${HAPROXY_WHITELIST}"
           haproxy.org/response-set-header: |
             Strict-Transport-Security "max-age=31536000"
