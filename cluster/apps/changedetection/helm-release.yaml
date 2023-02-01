@@ -70,7 +70,7 @@ spec:
       requests:
         cpu: 10m
         memory: 30Mi
-    additionalContainers:
+    sidecars:
       - name: playwright-chrome
         image: browserless/chrome
         tag: 1-chrome-stable@sha256:53e494831372a740026436e719651739bf55bd34cd6154f059174c4edf001552
