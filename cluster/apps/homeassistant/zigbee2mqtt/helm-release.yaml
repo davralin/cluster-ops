@@ -27,7 +27,7 @@ spec:
     fullnameOverride: zigbee2mqtt
     image:
       repository: koenkk/zigbee2mqtt
-      tag: 1.29.2
+      tag: 1.30.0
     ingress:
       main:
         enabled: true
