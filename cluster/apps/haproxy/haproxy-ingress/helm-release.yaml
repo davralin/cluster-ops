@@ -33,7 +33,7 @@ spec:
         type: LoadBalancer
         enablePorts:
           http: false
-        externalTrafficPolicy: local
+        externalTrafficPolicy: Local
       ingressClass: null
       ingressClassResource:
         default: true
