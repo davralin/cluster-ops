@@ -72,5 +72,5 @@ spec:
         memory: 30Mi
     additionalContainers:
       - name: playwright-chrome
-        image: browserless/chrome:1.54-chrome-stable
-        imagePullPolicy: IfNotPresent
+        image: browserless/chrome
+        tag: 1-chrome-stable@sha256:53e494831372a740026436e719651739bf55bd34cd6154f059174c4edf001552
