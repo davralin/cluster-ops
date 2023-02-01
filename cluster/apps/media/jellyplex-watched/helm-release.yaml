@@ -33,7 +33,7 @@ spec:
       #fsGroupChangePolicy: "OnRootMismatch"
     image:
       repository: luigi311/jellyplex-watched
-      tag: 3.3.0
+      tag: 4.0.0
     service:
       main:
         enabled: false
