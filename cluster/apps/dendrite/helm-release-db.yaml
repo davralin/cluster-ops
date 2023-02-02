@@ -32,7 +32,7 @@ spec:
       fsGroupChangePolicy: "OnRootMismatch"
     image:
       repository: library/postgres
-      tag: 15.1
+      tag: 15.1-alpine
     service:
       main:
         ports:
