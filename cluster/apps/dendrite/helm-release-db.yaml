@@ -31,7 +31,7 @@ spec:
       fsGroup: 1000
       fsGroupChangePolicy: "OnRootMismatch"
     image:
-      repository: _/postgres
+      repository: library/postgres
       tag: 15.1
     service:
       main:
