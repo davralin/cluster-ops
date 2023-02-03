@@ -2,8 +2,8 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: adguardhome-sync
-  namespace: jobs
+  name: adguardhome
+  namespace: adguardhome
 spec:
   interval: 5m
   chart:
@@ -15,7 +15,7 @@ spec:
         name: bjw-s-charts
         namespace: flux-system
       interval: 5m
-  targetNamespace: jobs
+  targetNamespace: adguardhome
   install:
     createNamespace: true
     remediation:
@@ -24,16 +24,22 @@ spec:
     remediation:
       retries: 3
   values:
-    fullnameOverride: adguardhome-sync
+    fullnameOverride: adguardhome
     image:
-      repository: ghcr.io/bakito/adguardhome-sync
-      tag: v0.4.11
-    args: ["run"]
+      repository: adguard/adguardhome
+      tag: v0.107.23
     service:
       main:
+        type: LoadBalancer
+        externalTrafficPolicy: Local
         ports:
           http:
-            port: 8080
+            port: 3000
+            protocol: HTTP
+          dns:
+            enabled: true
+            port: 53
+            protocol: TCP
     ingress:
       main:
         enabled: true
@@ -45,7 +51,7 @@ spec:
             X-Content-Type-Options "nosniff"
             Referrer-Policy "no-referrer-when-downgrade"
         hosts:
-          - host: "adguardsync.${SECRET_PRIVATE_DOMAIN}"
+          - host: "adguard.${SECRET_PRIVATE_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
@@ -53,12 +59,12 @@ spec:
           - secretName: "${SECRET_PRIVATE_DOMAIN_CERT}"
     env:
       TZ: "${TIMEZONE}"
-      ORIGIN_URL: 'https://192.168.1.2:3000'
-      ORIGIN_USERNAME: 'username'
-      ORIGIN_PASSWORD: 'password'
-      REPLICA_URL: 'http://192.168.1.3'
-      REPLICA_USERNAME: 'username'
-      REPLICA_PASSWORD: 'password'
+    persistence:
+      config:
+        enabled: true
+        existingClaim: adguardhome
+    podAnnotations:
+      backup.velero.io/backup-volumes: config
     resources:
       requests:
         memory: 100Mi
