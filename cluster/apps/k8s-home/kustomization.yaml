@@ -12,7 +12,6 @@ resources:
   - ../descheduler
   - ../drone
   - ../epicgames-freegames
-  - ../esphome
   - ../external-dns
   - ../freshrss
   - ../gitea
