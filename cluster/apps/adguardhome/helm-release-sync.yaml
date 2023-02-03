@@ -1,0 +1,85 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: adguardhome-sync
+  namespace: adguardhome
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: app-template
+      version: 1.3.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+      interval: 5m
+  targetNamespace: adguardhome
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  valuesFrom:
+    - targetPath: env.ORIGIN_URL
+      kind: Secret
+      name: adguardhome-sync-secret
+      valuesKey: ORIGIN_URL
+    - targetPath: env.ORIGIN_USERNAME
+      kind: Secret
+      name: adguardhome-sync-secret
+      valuesKey: USERNAME
+    - targetPath: env.REPLICA_USERNAME
+      kind: Secret
+      name: adguardhome-sync-secret
+      valuesKey: USERNAME
+    - targetPath: env.ORIGIN_PASSWORD
+      kind: Secret
+      name: adguardhome-sync-secret
+      valuesKey: PASSWORD
+    - targetPath: env.REPLICA_PASSWORD
+      kind: Secret
+      name: adguardhome-sync-secret
+      valuesKey: PASSWORD
+    - targetPath: env.REPLICA_URL
+      kind: Secret
+      name: adguardhome-sync-secret
+      valuesKey: REPLICA_URL
+  values:
+    fullnameOverride: adguardhome-sync
+    image:
+      repository: ghcr.io/bakito/adguardhome-sync
+      tag: v0.4.11
+    args: ["run"]
+    service:
+      main:
+        ports:
+          http:
+            port: 8080
+    ingress:
+      main:
+        enabled: true
+        annotations:
+          haproxy.org/whitelist: "${HAPROXY_WHITELIST}"
+          haproxy.org/response-set-header: |
+            Strict-Transport-Security "max-age=31536000"
+            X-Frame-Options "DENY"
+            X-Content-Type-Options "nosniff"
+            Referrer-Policy "no-referrer-when-downgrade"
+        hosts:
+          - host: "adguardsync.${SECRET_PRIVATE_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - secretName: "${SECRET_PRIVATE_DOMAIN_CERT}"
+    env:
+      TZ: "${TIMEZONE}"
+    resources:
+      requests:
+        memory: 100Mi
+      limits:
+        memory: 2000Mi
