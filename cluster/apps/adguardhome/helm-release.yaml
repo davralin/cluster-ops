@@ -36,10 +36,14 @@ spec:
           http:
             port: 80
             protocol: HTTP
-          dns:
+          dns-tcp:
             enabled: true
             port: 53
             protocol: TCP
+          dns-udp:
+            enabled: true
+            port: 53
+            protocol: UDP
     ingress:
       main:
         enabled: true
