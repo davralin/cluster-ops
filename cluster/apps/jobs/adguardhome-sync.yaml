@@ -28,6 +28,7 @@ spec:
     image:
       repository: ghcr.io/bakito/adguardhome-sync
       tag: v0.4.11
+    command: ["run"]
     service:
       main:
         ports:
