@@ -1,0 +1,179 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: dendrite
+  namespace: dendrite
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: app-template
+      version: 1.3.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+      interval: 5m
+  targetNamespace: dendrite
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  values:
+    fullnameOverride: dendrite
+    podSecurityContext:
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+      fsGroupChangePolicy: "OnRootMismatch"
+    image:
+      repository: ghcr.io/matrix-org/dendrite-monolith
+      tag: v0.11.0
+    service:
+      main:
+        ports:
+          http:
+            port: 8008
+    ingress:
+      main:
+        enabled: true
+        annotations:
+          haproxy.org/response-set-header: |
+            Strict-Transport-Security "max-age=31536000"
+            X-Frame-Options "DENY"
+            X-Content-Type-Options "nosniff"
+            Referrer-Policy "no-referrer-when-downgrade"
+        hosts:
+          - host: "dendrite.${SECRET_PRIVATE_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+              - path: /.well-known/matrix/server
+                pathType: Prefix
+              - path: /.well-known/matrix/client
+                pathType: Prefix
+          - host: "${SECRET_PRIVATE_DOMAIN}"
+            paths:
+              - path: /.well-known/matrix/
+                pathType: Prefix
+              - path: /.well-known/matrix/server
+                pathType: Prefix
+              - path: /.well-known/matrix/client
+                pathType: Prefix
+        tls:
+          - secretName: "${SECRET_PRIVATE_DOMAIN_CERT}"
+            hosts:
+              - dendrite.${SECRET_PRIVATE_DOMAIN}
+    secrets:
+      yaml:
+        enabled: true
+        stringData:
+          dendrite.yaml: |
+            version: 2
+            global:
+              server_name: "${SECRET_PRIVATE_DOMAIN}"
+              well_known_server_name: "dendrite.${SECRET_PRIVATE_DOMAIN}:443"
+              well_known_client_name: "https://dendrite.${SECRET_PRIVATE_DOMAIN}:443"
+              database:
+                connection_string: LOREMIPSUM
+              cache:
+                max_size_estimated: 600mb
+              report_stats:
+                  enabled: true
+              jetstream:
+                storage_path: "/jetstream"
+            app_service_api:
+              config_files:
+                []
+            media_api:
+              base_path: /media
+            client_api:
+              registration_shared_secret: "LOREMIPSUM"
+            mscs:
+              mscs:
+                - msc2836 # Threading
+                - msc2946 # Spaces
+                - msc2444 # Peeking over federation
+                - msc2753 # Peeking via sync
+            sync_api:
+              search:
+                enabled: true
+                base_path: /search
+                language: "en"
+    env:
+      TZ: "${TIMEZONE}"
+    persistence:
+      logs:
+        enabled: true
+        mountPath: /var/dendrite-log
+        type: emptyDir
+      media:
+        enabled: true
+        existingClaim: dendrite-media-pvc
+      search:
+        enabled: true
+        existingClaim: dendrite-search-pvc
+      jetstream:
+        enabled: true
+        existingClaim: dendrite-jetstream-pvc
+      matrix-key:
+        enabled: true
+        type: secret
+        name: dendrite-matrix-key
+        mountPath: "/etc/dendrite/matrix_key.pem"
+        subPath: "matrix_key.pem"
+        defaultMode: 0600
+      dendrite-config:
+        enabled: true
+        type: secret
+        name: dendrite-yaml
+        mountPath: "/etc/dendrite/dendrite.yaml"
+        subPath: "dendrite.yaml"
+    podAnnotations:
+      configmap.reloader.stakater.com/reload: "dendrite-config"
+      backup.velero.io/backup-volumes: media
+    probes:
+      liveness:
+        enabled: true
+        custom: true
+        spec:
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 10
+          httpGet:
+            path: /_dendrite/monitor/health
+            port: http
+      readiness:
+        enabled: true
+        custom: true
+        spec:
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 10
+          httpGet:
+            path: /_dendrite/monitor/health
+            port: http
+      startup:
+        enabled: true
+        custom: true
+        spec:
+          initialDelaySeconds: 5
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 10
+          httpGet:
+            path: /_dendrite/monitor/up
+            port: http
+    resources:
+      requests:
+        cpu: 300m
+        memory: 500Mi
+      limits:
+        cpu: 1
+        memory: 1Gi
