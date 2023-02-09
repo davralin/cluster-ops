@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: dendrite-db
+  name: dendrite-postgresql
   namespace: dendrite
 spec:
   storageClassName: "${STORAGE_READWRITEONCE}"
