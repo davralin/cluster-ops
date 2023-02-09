@@ -75,6 +75,7 @@ spec:
           dendrite.yaml: |
             version: 2
             global:
+              private_key: /etc/dendrite/matrix_key.pem
               server_name: "${SECRET_PRIVATE_DOMAIN}"
               well_known_server_name: "dendrite.${SECRET_PRIVATE_DOMAIN}:443"
               well_known_client_name: "https://dendrite.${SECRET_PRIVATE_DOMAIN}:443"
@@ -125,7 +126,7 @@ spec:
         type: secret
         name: dendrite-matrix-key
         mountPath: "/etc/dendrite/matrix_key.pem"
-        subPath: "matrix_key.pem"
+        subPath: "matrix-key.pem"
         defaultMode: 0600
       dendrite-config:
         enabled: true
