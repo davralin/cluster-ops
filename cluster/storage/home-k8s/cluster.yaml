@@ -83,8 +83,6 @@ spec:
               devices:
                 - name: "/dev/disk/by-id/nvme-Samsung_SSD_970_EVO_Plus_2TB_S6P1NS0T209438H"
                 - name: "/dev/disk/by-id/usb-LaCie_Rugged_SSD_0000NL6Q35WK-0:0"
-            - name: egwene
-              devices:
                 - name: "/dev/disk/by-id/ata-Samsung_SSD_870_QVO_4TB_S5STNF0T308094T"
     cephBlockPools:
       - name: ceph-blockpool
