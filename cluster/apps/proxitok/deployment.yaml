@@ -29,7 +29,7 @@ spec:
       restartPolicy: Always
       containers:
         - name: proxitok
-          image: quay.io/pussthecatorg/proxitok
+          image: ghcr.io/pablouser1/proxitok
           env:
             - name: REDIS_HOST
               value: redis-master
