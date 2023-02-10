@@ -80,7 +80,7 @@ spec:
               well_known_server_name: "dendrite.${SECRET_PRIVATE_DOMAIN}:443"
               well_known_client_name: "https://dendrite.${SECRET_PRIVATE_DOMAIN}:443"
               database:
-                connection_string: LOREMIPSUM
+                connection_string: postgresql://dendrite:${SECRET_DENDRITE_DB_PASSWD}@postgresql/dendrite?sslmode=disable
               cache:
                 max_size_estimated: 600mb
               report_stats:
@@ -93,7 +93,7 @@ spec:
             media_api:
               base_path: /media
             client_api:
-              registration_shared_secret: "LOREMIPSUM"
+              registration_shared_secret: "${SECRET_DENDRITE_REGISTRATION_SHARED_SECRET}"
             mscs:
               mscs:
                 - msc2836 # Threading
