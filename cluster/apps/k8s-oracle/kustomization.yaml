@@ -10,6 +10,7 @@ resources:
   - ../kuma
   - ../local-path-provisioner
   - ../metrics-server
+  - ../proxitok
   - ../reloader
   - ../snowflake
   - ../velero-oracle

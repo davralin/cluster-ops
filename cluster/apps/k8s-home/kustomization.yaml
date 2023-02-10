@@ -36,7 +36,6 @@ resources:
   - ../node-feature-discovery
   - ../node-problem-detector
   - ../paperless-ngx
-  - ../proxitok
   - ../reloader
   - ../rssbridge
   - ../scrutiny
