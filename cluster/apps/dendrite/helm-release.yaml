@@ -135,7 +135,7 @@ spec:
         mountPath: "/etc/dendrite/dendrite.yaml"
         subPath: "dendrite.yaml"
     podAnnotations:
-      configmap.reloader.stakater.com/reload: "dendrite-config"
+      reloader.stakater.com/auto: "true"
       backup.velero.io/backup-volumes: media
     probes:
       liveness:
