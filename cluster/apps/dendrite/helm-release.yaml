@@ -105,6 +105,9 @@ spec:
                 enabled: true
                 base_path: /search
                 language: "en"
+            logging:
+              - type: std
+                level: debug
     env:
       TZ: "${TIMEZONE}"
     persistence:
