@@ -65,6 +65,10 @@ spec:
         enabled: true
         existingClaim: media
         mountPath: /data
+      add-ons:
+        enabled: true
+        type: emptyDir
+        mountPath: /add-ons
     podAnnotations:
       backup.velero.io/backup-volumes: config
     resources:
