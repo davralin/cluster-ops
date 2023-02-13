@@ -73,3 +73,15 @@ spec:
         memory: 200Mi
       limits:
         memory: 1000Mi
+    additionalContainers:
+      subcleaner:
+        name: subcleaner
+        image: k8s.gcr.io/git-sync/git-sync:v3.6.2
+        args:
+          - --repo=https://github.com/KBlixt/subcleaner.git
+          - --branch=master
+          - --depth=1
+          - --root=/add-ons/subcleaner
+        volumeMounts:
+          - name: add-ons
+            mountPath: /add-ons
