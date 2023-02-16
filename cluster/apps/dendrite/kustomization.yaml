@@ -4,6 +4,8 @@ kind: Kustomization
 resources:
   - dendrite-matrix-key.yaml
   - helm-release-db.yaml
+  - helm-release-heisenbridge.yaml
+  - helm-release-mautrix-telegram.yaml
   - helm-release.yaml
   - namespace.yaml
   - pvc.yaml
