@@ -89,7 +89,7 @@ spec:
                 storage_path: "/jetstream"
             app_service_api:
               config_files:
-                []
+                - /etc/dendrite/heisenbridge.yaml
             media_api:
               base_path: /media
             client_api:
@@ -137,6 +137,12 @@ spec:
         name: dendrite-yaml
         mountPath: "/etc/dendrite/dendrite.yaml"
         subPath: "dendrite.yaml"
+      heisenbridge:
+        enabled: true
+        type: secret
+        name: heisenbridge-yaml
+        mountPath: "/etc/dendrite/heisenbridge.yaml"
+        subPath: "heisenbridge.yaml"
     podAnnotations:
       reloader.stakater.com/auto: "true"
       backup.velero.io/backup-volumes: media

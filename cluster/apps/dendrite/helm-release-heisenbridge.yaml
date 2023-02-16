@@ -60,7 +60,7 @@ spec:
     env:
       TZ: "${TIMEZONE}"
     persistence:
-      config:
+      heisenbridge:
         enabled: true
         type: secret
         name: heisenbridge-yaml
