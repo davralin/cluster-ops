@@ -8,6 +8,6 @@ subsets:
 - addresses:
   - ip: 10.0.1.71
   ports:
-  - name: HTTP
+  - name: homeassistant
     port: 8123
     protocol: TCP
