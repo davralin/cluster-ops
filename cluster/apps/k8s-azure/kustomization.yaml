@@ -10,4 +10,3 @@ resources:
   - ../metrics-server
   - ../reloader
   - ../snowflake
-  - ../synapse
