@@ -45,7 +45,7 @@ spec:
         stringData:
           heisenbridge.yaml: |
             id: heisenbridge
-            url: http://0.0.0.0:9898
+            url: http://heisenbridge:9898
             # Dummy values, I'll regenerate these later on.
             as_token: Zlv9iUVO9B0tosoSjFdcNVgG0p7wz6fygCz3IUeZXoR5jSS2HEmDJpaZzQR3W1TG
             hs_token: a2qwJJgpW9yeCuoRa2DyJzvIdEC10WIlQbZV68IhElPdufruoAqRFSEatSWBm6s1
