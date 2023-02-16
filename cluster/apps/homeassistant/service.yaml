@@ -6,6 +6,6 @@ metadata:
   namespace: homeassistant
 spec:
   ports:
-    - protocol: HTTP
+    - protocol: TCP
       port: 8123
       targetPort: 8123

@@ -10,4 +10,4 @@ subsets:
   ports:
   - name: HTTP
     port: 8123
-    protocol: HTTP
+    protocol: TCP
