@@ -6,6 +6,7 @@ metadata:
   namespace: minecraft
 spec:
   type: LoadBalancer
+  externalTrafficPolicy: Local
   ports:
   - targetPort: web
     name: web

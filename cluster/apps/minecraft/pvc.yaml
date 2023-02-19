@@ -1,0 +1,13 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: fabric-plugins
+  namespace: minecraft
+spec:
+  storageClassName: ceph-filesystem
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi

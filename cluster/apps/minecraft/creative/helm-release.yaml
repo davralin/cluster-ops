@@ -33,6 +33,15 @@ spec:
       name: minecraft-secrets
       valuesKey: ops
   values:
+    extraVolumes:
+      - volumeMounts:
+          - name: fabric-plugins
+            mountPath: /plugins
+            readOnly: false
+      - volumes:
+         - name: fabric-plugins
+           persistentVolumeClaim:
+             claimName: fabric-plugins
     minecraftServer:
       tz: "{TIMEZONE}"
       eula: true
@@ -56,12 +65,14 @@ spec:
       MAX_TICK_TIME: "-1"
       USE_AIKAR_FLAGS: true
       ENFORCE_WHITELIST: "TRUE"
+      REMOVE_OLD_MODS: "TRUE"
     serviceAnnotations:
       mc-router.itzg.me/externalServerName: "creative.${SECRET_PRIVATE_DOMAIN}"
       external-dns.alpha.kubernetes.io/target: "home.${SECRET_PRIVATE_DOMAIN}"
       external-dns/is-public: "true"
     podAnnotations:
       backup.velero.io/backup-volumes: backupdir,datadir
+      reloader.stakater.com/auto: "true"
     persistence:
       dataDir:
         enabled: true
