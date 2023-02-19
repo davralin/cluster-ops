@@ -51,7 +51,7 @@ spec:
       maxPlayers: 5
       levelSeed: 421112feedmekittens
       mode: creative
-      memory: 2G
+      memory: 3G
       motd: "A Minecraft Server"
       overrideServerProperties: true
       onlineMode: "true"
