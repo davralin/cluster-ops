@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: tubearchivist
-          image: bbilly1/tubearchivist:v0.3.2
+          image: bbilly1/tubearchivist:v0.3.3
           ports:
             - name: http
               containerPort: 8000
@@ -80,7 +80,7 @@ spec:
             - name: ta-es
               mountPath: /usr/share/elasticsearch/data
         - name: redis
-          image: redislabs/rejson:2.4.5
+          image: redis/redis-stack-server:6.2.6-v4
           ports:
             - name: redis
               containerPort: 6379
