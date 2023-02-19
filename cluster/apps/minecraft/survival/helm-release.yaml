@@ -35,16 +35,10 @@ spec:
   values:
     extraVolumes:
       - volumeMounts:
-          - name: fabric-plugins
-            mountPath: /plugins
-            readOnly: false
           - name: fabric-mods
             mountPath: /mods
             readOnly: false
       - volumes:
-         - name: fabric-plugins
-           persistentVolumeClaim:
-             claimName: fabric-plugins
          - name: fabric-mods
            persistentVolumeClaim:
              claimName: fabric-mods
@@ -65,7 +59,7 @@ spec:
         enabled: true
     resources:
       requests:
-        memory: 2G
+        memory: 3G
     extraEnv:
       ENABLE_AUTOPAUSE: "FALSE"
       MAX_TICK_TIME: "-1"

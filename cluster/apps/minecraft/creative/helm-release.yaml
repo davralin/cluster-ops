@@ -35,23 +35,17 @@ spec:
   values:
     extraVolumes:
       - volumeMounts:
-          - name: fabric-plugins
-            mountPath: /plugins
-            readOnly: false
           - name: fabric-mods
             mountPath: /mods
             readOnly: false
       - volumes:
-         - name: fabric-plugins
-           persistentVolumeClaim:
-             claimName: fabric-plugins
          - name: fabric-mods
            persistentVolumeClaim:
              claimName: fabric-mods
     minecraftServer:
       tz: "{TIMEZONE}"
       eula: true
-      type: FABRIC
+      type: SPIGOT
       version: "LATEST"
       difficulty: "easy"
       maxPlayers: 5
@@ -65,7 +59,7 @@ spec:
         enabled: true
     resources:
       requests:
-        memory: 2G
+        memory: 3G
     extraEnv:
       ENABLE_AUTOPAUSE: "FALSE"
       MAX_TICK_TIME: "-1"
