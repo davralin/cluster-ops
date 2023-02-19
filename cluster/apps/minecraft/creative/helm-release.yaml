@@ -33,17 +33,26 @@ spec:
       name: minecraft-secrets
       valuesKey: ops
   values:
+    extraVolumes:
+      - volumeMounts:
+          - name: fabric-mods
+            mountPath: /mods
+            readOnly: false
+      - volumes:
+         - name: fabric-mods
+           persistentVolumeClaim:
+             claimName: fabric-mods
     minecraftServer:
       tz: "{TIMEZONE}"
       eula: true
-      type: SPIGOT
+      type: FABRIC
       version: "LATEST"
       difficulty: "easy"
       maxPlayers: 5
       levelSeed: 421112feedmekittens
       mode: creative
       memory: 3G
-      motd: "A Minecraft Server"
+      motd: "A Creative Minecraft Server"
       overrideServerProperties: true
       onlineMode: "true"
       rcon:

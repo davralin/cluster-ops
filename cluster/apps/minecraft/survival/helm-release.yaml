@@ -52,7 +52,7 @@ spec:
       levelSeed: 421112feedmekittens
       mode: survival
       memory: 3G
-      motd: "A Minecraft Server"
+      motd: "A Survival Minecraft Server"
       overrideServerProperties: true
       onlineMode: "true"
       rcon:
