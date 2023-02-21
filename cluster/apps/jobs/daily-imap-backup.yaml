@@ -16,7 +16,7 @@ spec:
           restartPolicy: Never
           containers:
             - name: mbsync
-              image: jakewharton/mbsync:1.3.0
+              image: jakewharton/mbsync:1.4.0
               command: ['/usr/bin/mbsync']
               args: ["-V", "-a", "-c", "/config/mbsync.rc"]
               volumeMounts:
