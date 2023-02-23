@@ -37,8 +37,8 @@ spec:
     service:
       main:
         enabled: false
-    configMaps:
-      beets:
+    secrets:
+      yaml:
         enabled: true
         stringData:
           config.yaml: |
