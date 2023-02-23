@@ -77,7 +77,3 @@ spec:
             existingClaim: media
             subPath: unsorted/audiobooks/untagged
             mountPath: /input
-          - name: output
-            existingClaim: media
-            subPath: unsorted/audiobooks/beets/output
-            mountPath: /audiobooks
