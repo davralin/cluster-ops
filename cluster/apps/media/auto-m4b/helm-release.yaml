@@ -103,7 +103,7 @@ spec:
         memory: 200Mi
       limits:
         memory: 400Mi
-    additionalContainers:
+    sidecars:
       audible-beets:
         name: audible-beets
         image: lscr.io/linuxserver/beets
