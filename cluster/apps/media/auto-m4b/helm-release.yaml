@@ -115,6 +115,6 @@ spec:
             mountPath: /data
           - name: auto-m4b-yaml
             enabled: true
-            type: configmap
+            type: secret
             mountPath: "/config/config.yaml"
             subPath: "config.yaml"
