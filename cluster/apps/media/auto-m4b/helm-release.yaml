@@ -111,10 +111,5 @@ spec:
         volumeMounts:
           - name: media
             existingClaim: media
-            subPath: unsorted/audiobooks/untagged
-            mountPath: /data
-          - name: auto-m4b-yaml
-            enabled: true
-            type: secret
-            mountPath: "/config/config.yaml"
-            subPath: "config.yaml"
+            subPath: unsorted/audiobooks/beets/scripts
+            mountPath: /custom-cont-init.d
