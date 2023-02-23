@@ -70,4 +70,6 @@ spec:
         args: ["infinity"]
         volumeMounts:
           - name: media
+            existingClaim: media
+            subPath: unsorted/audiobooks
             mountPath: /input
