@@ -115,3 +115,9 @@ spec:
             existingClaim: media
             subPath: unsorted/audiobooks/untagged
             mountPath: /data
+          - name: beets-config
+            enabled: true
+            type: configmap
+            name: auto-m4b-yaml
+            mountPath: "/config/config.yaml"
+            subPath: "config.yaml"
