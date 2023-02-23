@@ -75,8 +75,8 @@ spec:
       requests:
         cpu: 200m
         memory: 200Mi
-      limits:
-        memory: 1000Mi
+          #      limits:
+        #        memory: 1000Mi
     additionalContainers:
       subcleaner:
         name: subcleaner
