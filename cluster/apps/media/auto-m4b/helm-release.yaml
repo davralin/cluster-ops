@@ -75,3 +75,7 @@ spec:
             existingClaim: media
             subPath: unsorted/audiobooks/untagged
             mountPath: /input
+          - name: script
+            existingClaim: media
+            subPath: unsorted/audiobooks/beets/scripts
+            mountPath: /custom-cont-init.d
