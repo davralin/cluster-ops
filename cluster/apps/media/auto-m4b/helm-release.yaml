@@ -69,7 +69,15 @@ spec:
         command: ["/bin/sleep"]
         args: ["infinity"]
         volumeMounts:
+          - name: config
+            existingClaim: media
+            subPath: unsorted/audiobooks/beets/config
+            mountPath: /config
           - name: media
             existingClaim: media
-            subPath: unsorted/audiobooks
+            subPath: unsorted/audiobooks/untagged
             mountPath: /input
+          - name: output
+            existingClaim: media
+            subPath: unsorted/audiobooks/beets/output
+            mountPath: /audiobooks
