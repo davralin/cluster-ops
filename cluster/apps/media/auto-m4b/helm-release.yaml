@@ -115,7 +115,7 @@ spec:
             existingClaim: media
             subPath: unsorted/audiobooks/untagged
             mountPath: /data
-          - name: dendrite-config
+          - name: beets-config
             enabled: true
             type: configmap
             name: config-yaml
