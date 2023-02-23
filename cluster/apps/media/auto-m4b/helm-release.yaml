@@ -67,7 +67,7 @@ spec:
         image: lscr.io/linuxserver/beets
         tags: 1.6.0@sha256:e7ccdc5e64ebd23d924e4db2027e3d7e00c5dcde54f8a0ed521e96623130c9ae
         volumeMounts:
-          - name: media
+          - name: script
             existingClaim: media
             subPath: unsorted/audiobooks/beets/scripts
             mountPath: /custom-cont-init.d
