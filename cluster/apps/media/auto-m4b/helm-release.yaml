@@ -50,6 +50,11 @@ spec:
         enabled: true
         type: emptyDir
         mountPath: /temp/backup
+      beets-config:
+        enabled: true
+        existingClaim: media
+        subPath: unsorted/audiobooks/beets/scripts
+        mountPath: /custom-cont-init.d
       media:
         enabled: true
         existingClaim: media
