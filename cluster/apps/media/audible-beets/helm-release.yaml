@@ -44,7 +44,7 @@ spec:
       UMASK: 000
     persistence:
       config:
-        enabled: false
+        enabled: true
         existingClaim: media
         subPath: unsorted/audiobooks/beets/config
         mountPath: /config
