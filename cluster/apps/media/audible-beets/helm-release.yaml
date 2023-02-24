@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: auto-m4b
+  name: audible-beets
   namespace: media
 spec:
   interval: 5m
@@ -24,7 +24,7 @@ spec:
     remediation:
       retries: 3
   values:
-    fullnameOverride: auto-m4b
+    fullnameOverride: audible-beets
     # Init-system runs as root
     #podSecurityContext:
       #runAsUser: 1000
@@ -32,8 +32,8 @@ spec:
       #fsGroup: 1000
       #fsGroupChangePolicy: "OnRootMismatch"
     image:
-      repository: seanap/auto-m4b
-      tag: latest@sha256:b3a84d2c4ac520a0efa2b18223754e67404aba771886d3ac974e9ddc86a566ea
+      repository: seanap/audible-beets
+      tag: 1.6.0@sha256:e7ccdc5e64ebd23d924e4db2027e3d7e00c5dcde54f8a0ed521e96623130c9ae
     service:
       main:
         enabled: false
@@ -43,15 +43,26 @@ spec:
       PGID: 1000
       UMASK: 000
     persistence:
-      backup:
-        enabled: true
-        type: emptyDir
-        mountPath: /temp/backup
-      temp:
+      input:
         enabled: true
         existingClaim: media
-        subPath: unsorted/audiobooks/auto-m4b
-        mountPath: /temp
+        subPath: unsorted/audiobooks/auto-m4b/untagged
+        mountPath: /input
+      output:
+        enabled: true
+        existingClaim: media
+        subPath: unsorted/audiobooks/output
+        mountPath: /audiobooks
+      config:
+        enabled: true
+        existingClaim: media
+        subPath: unsorted/audiobooks/beets/config
+        mountPath: /config
+      scripts:
+        enabled: true
+        existingClaim: media
+        subPath: unsorted/audiobooks/beets/scripts
+        mountPath: /custom-cont-init.d
     resources:
       requests:
         cpu: 50m
