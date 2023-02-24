@@ -32,7 +32,7 @@ spec:
       #fsGroup: 1000
       #fsGroupChangePolicy: "OnRootMismatch"
     image:
-      repository: seanap/audible-beets
+      repository: lscr.io/linuxserver/beets
       tag: 1.6.0@sha256:e7ccdc5e64ebd23d924e4db2027e3d7e00c5dcde54f8a0ed521e96623130c9ae
     service:
       main:
