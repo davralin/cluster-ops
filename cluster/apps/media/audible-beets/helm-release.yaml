@@ -43,21 +43,6 @@ spec:
       PGID: 1000
       UMASK: 000
     persistence:
-      input:
-        enabled: false
-        existingClaim: media
-        subPath: unsorted/audiobooks/auto-m4b/untagged
-        mountPath: /input
-      output:
-        enabled: false
-        existingClaim: media
-        subPath: unsorted/audiobooks/output
-        mountPath: /audiobooks
-      config:
-        enabled: false
-        existingClaim: media
-        subPath: unsorted/audiobooks/beets/config
-        mountPath: /config
       scripts:
         enabled: true
         existingClaim: media
