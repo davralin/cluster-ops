@@ -44,17 +44,17 @@ spec:
       UMASK: 000
     persistence:
       input:
-        enabled: true
+        enabled: false
         existingClaim: media
         subPath: unsorted/audiobooks/auto-m4b/untagged
         mountPath: /input
       output:
-        enabled: true
+        enabled: false
         existingClaim: media
         subPath: unsorted/audiobooks/output
         mountPath: /audiobooks
       config:
-        enabled: true
+        enabled: false
         existingClaim: media
         subPath: unsorted/audiobooks/beets/config
         mountPath: /config
