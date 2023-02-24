@@ -43,15 +43,10 @@ spec:
       PGID: 1000
       UMASK: 000
     persistence:
-      config:
-        enabled: true
-        existingClaim: media
-        subPath: unsorted/audiobooks/beets/config
-        mountPath: /config
       scripts:
         enabled: true
         existingClaim: media
-        subPath: unsorted/audiobooks/beets/scripts
+        subPath: unsorted/audiobooks
         mountPath: /custom-cont-init.d
     resources:
       requests:
