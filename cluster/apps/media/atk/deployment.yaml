@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: sleep
-          image: ghcr.io/davralin/sleep:latest@sha256:ed123a80bcdc6ca7c029d816187a89fd72f5ab508acd2478c3b57f7741ae5355
+          image: ghcr.io/davralin/sleep:latest@sha256:744949948d87c6895d346895f535696f3bdcff68bcec7bcee1dadaf364fcdf6e
           resources:
             requests:
               cpu: 1m
