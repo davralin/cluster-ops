@@ -32,8 +32,8 @@ spec:
       #fsGroup: 1000
       #fsGroupChangePolicy: "OnRootMismatch"
     image:
-      repository: lscr.io/linuxserver/beets
-      tag: 1.6.0@sha256:e7ccdc5e64ebd23d924e4db2027e3d7e00c5dcde54f8a0ed521e96623130c9ae
+      repository: ghcr.io/linuxserver/beets
+      tag: 1.6.0@sha256:8b417bb75be3b788ac3a86cc99141f9c941b742e3b6dfeeeaed58ac5f86fbf3a
     service:
       main:
         enabled: false
