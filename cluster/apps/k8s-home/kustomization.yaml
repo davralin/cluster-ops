@@ -7,6 +7,7 @@ resources:
   - ../airconnect
   - ../airprint
   - ../archivebox
+  - ../botkube
   - ../cert-manager
   - ../changedetection
   - ../cloudflareddns

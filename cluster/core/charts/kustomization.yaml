@@ -6,6 +6,7 @@ resources:
   - appscode.yaml
   - bitnami.yaml
   - bjw-s.yaml
+  - botkube.yaml
   - deliveryhero.yaml
   - descheduler.yaml
   - drone.yaml
