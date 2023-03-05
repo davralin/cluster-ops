@@ -29,9 +29,10 @@ spec:
       clusterName: "${CLUSTER_NAME}"
     communications:
       default-group:
-        discord.enabled: "true"
-        botID: "${SECRET_DISCORD_BOT_ID}"
-        token: "${SECRET_DISCORD_TOKEN}"
-        channels:
-          default:
-            id: "${SECRET_DISCORD_CHANNEL_ID}"
+        discord:
+          enabled: "true"
+          botID: "${SECRET_DISCORD_BOT_ID}"
+          token: "${SECRET_DISCORD_TOKEN}"
+          channels:
+            default:
+              id: "${SECRET_DISCORD_CHANNEL_ID}"
