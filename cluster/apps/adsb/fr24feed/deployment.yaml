@@ -22,8 +22,6 @@ spec:
               protocol: TCP
               name: http
           env:
-            - name: TZ
-              value: "${TIMEZONE}"
             - name: BEASTHOST
               value: "${BEASTHOST}"
             - name: FR24KEY
