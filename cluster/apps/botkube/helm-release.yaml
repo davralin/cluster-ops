@@ -23,6 +23,19 @@ spec:
   upgrade:
     remediation:
       retries: 3
+  valuesFrom:
+    - targetPath: communications.default-group.discord.token
+      kind: Secret
+      name: botkube-discord
+      valuesKey: TOKEN
+    - targetPath: communications.default-group.discord.botID
+      kind: Secret
+      name: botkube-discord
+      valuesKey: BOTID
+    - targetPath: communications.default-group.discord.channels.default.id
+      kind: Secret
+      name: botkube-discord
+      valuesKey: CHANNELID
   values:
     fullnameOverride: botkube
     settings:
@@ -31,8 +44,3 @@ spec:
       default-group:
         discord:
           enabled: "true"
-          botID: "${SECRET_DISCORD_BOT_ID}"
-          token: "${SECRET_DISCORD_TOKEN}"
-          channels:
-            default:
-              id: "${SECRET_DISCORD_CHANNEL_ID}"
