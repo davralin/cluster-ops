@@ -30,7 +30,7 @@ spec:
     communications:
       default-group:
         discord.enabled: "true"
-        botID: "${SECRET_DISCORD_CHANNEL_ID}"
+        botID: "${SECRET_DISCORD_BOT_ID}"
         token: "${SECRET_DISCORD_TOKEN}"
         channels:
           default_id: "${SECRET_DISCORD_CHANNEL_ID}"
