@@ -16,7 +16,7 @@ spec:
           restartPolicy: Never
           containers:
             - name: daily-status-backup
-              image: b2un0/rsync
+              image: b2un0/rsync:1.0.1
               command: ['/usr/bin/rsync']
               args: ["--archive", "--delete", "--verbose", "--copy-links", "-e", "ssh -o StrictHostKeyChecking=no", "ansible@10.0.2.13:/opt/uptime_kuma/backup/", "/srv/"]
               volumeMounts:
