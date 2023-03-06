@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: piaware
-          image: mikenye/piaware:v8.2
+          image: ghcr.io/sdr-enthusiasts/docker-piaware:v8.2
           env:
             - name: TZ
               value: "${TIMEZONE}"

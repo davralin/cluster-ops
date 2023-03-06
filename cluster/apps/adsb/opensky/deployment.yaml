@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: opensky
-          image: mikenye/opensky-network:2.1.7-1
+          image: ghcr.io/sdr-enthusiasts/docker-opensky-network:2.1.7-1
           env:
             - name: TZ
               value: "${TIMEZONE}"

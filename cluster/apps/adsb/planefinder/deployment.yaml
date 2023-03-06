@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: planefinder
-          image: mikenye/planefinder:5.0.161
+          image: ghcr.io/sdr-enthusiasts/docker-planefinder:5.0.161
           env:
             - name: TZ
               value: "${TIMEZONE}"

@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: fr24feed
-          image: mikenye/fr24feed:1.0.37-0
+          image: ghcr.io/sdr-enthusiasts/docker-flightradar24:1.0.37-0
           ports:
             - containerPort: 8754
               protocol: TCP

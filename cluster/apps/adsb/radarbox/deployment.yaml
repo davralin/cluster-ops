@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: radarbox
-          image: ghcr.io/sdr-enthusiasts/docker-radarbox:v1.0.7-20220225123400
+          image: ghcr.io/sdr-enthusiasts/docker-radarbox:v1.0.8-20220708190411
           env:
             - name: TZ
               value: "${TIMEZONE}"

@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: adsbhub
-          image: mikenye/adsbhub:1.06
+          image: ghcr.io/sdr-enthusiasts/docker-adsbhub:1.06
           env:
             - name: TZ
               value: "${TIMEZONE}"
