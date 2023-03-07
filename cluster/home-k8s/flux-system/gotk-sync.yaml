@@ -23,6 +23,13 @@ spec:
     provider: sops
     secretRef:
       name: sops-gpg
+  postBuild:
+    substitute: {}
+    substituteFrom:
+      - kind: ConfigMap
+        name: global-settings
+      - kind: Secret
+        name: global-settings
   interval: 10m0s
   path: ./cluster/home-k8s
   prune: true
