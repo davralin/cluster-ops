@@ -5,6 +5,7 @@ metadata:
   name: notify-error-discord
   namespace: flux-system
 spec:
+  summary: "${CLUSTER_NAME}"
   providerRef:
     name: discord
   eventSeverity: info
