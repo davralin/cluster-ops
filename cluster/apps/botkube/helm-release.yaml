@@ -38,9 +38,35 @@ spec:
       valuesKey: CHANNELID
   values:
     fullnameOverride: botkube
-    settings:
-      clusterName: "${CLUSTER_NAME}"
     communications:
       default-group:
         discord:
           enabled: "true"
+    config:
+      resources:
+        - name: velero.io/v1/backups
+          namespaces:
+            include:
+              - all
+          events:
+            - all
+          updateSetting:
+            includeDiff: true
+            fields:
+              - status.phase
+        - name: velero.io/v1/restores
+          namespaces:
+            include:
+              - all
+          events:
+            - all
+          updateSetting:
+            includeDiff: true
+            fields:
+              - status.phase
+    executors:
+      helm:
+        botkube/helm:
+          enabled: true
+    settings:
+      clusterName: "${CLUSTER_NAME}"
