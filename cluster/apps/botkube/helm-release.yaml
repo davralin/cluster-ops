@@ -105,12 +105,12 @@ spec:
             - type: apps/v1/daemonsets
             - type: apps/v1/deployments
             - type: apps/v1/statefulsets
-            - name: velero.io/v1/backups
+            - type: velero.io/v1/backups
               updateSetting:
                 includeDiff: true
                 fields:
                   - status.phase
-            - name: velero.io/v1/restores
+            - type: velero.io/v1/restores
               updateSetting:
                 includeDiff: true
                 fields:
