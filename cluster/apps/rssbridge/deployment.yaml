@@ -52,7 +52,7 @@ spec:
               mountPath: /app/config.ini.php
               subPath: config.ini.php
         - name: memcached
-          image: memcached:1.6.18
+          image: memcached:1.6.19
           ports:
             - name: memcached
               containerPort: 11211
