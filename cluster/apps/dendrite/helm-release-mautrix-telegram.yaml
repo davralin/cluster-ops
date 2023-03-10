@@ -32,7 +32,7 @@ spec:
       #fsGroupChangePolicy: "OnRootMismatch"
     image:
       repository: dock.mau.dev/mautrix/telegram
-      tag: v0.12.2
+      tag: v0.13.0
     service:
       main:
         ports:
