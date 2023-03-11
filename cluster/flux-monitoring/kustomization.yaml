@@ -3,4 +3,5 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - discord-notifications.yaml
-  - flux-notifications.yaml
+  - helm-info-discord.yaml
+  - notify-error-discord.yaml
