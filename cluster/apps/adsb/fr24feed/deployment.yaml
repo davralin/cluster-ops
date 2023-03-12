@@ -30,11 +30,11 @@ spec:
               value: "yes"
             - name: VERBOSE_LOGGING
               value: "false"
-          livenessProbe:
-            exec:
-              command:
-                - /scripts/healthcheck.sh
-            initialDelaySeconds: 300
-            periodSeconds: 600
-            timeoutSeconds: 30
+                #          livenessProbe:
+                #            exec:
+                #              command:
+                #                - /scripts/healthcheck.sh
+                #            initialDelaySeconds: 300
+                #            periodSeconds: 600
+                #            timeoutSeconds: 30
       restartPolicy: Always
