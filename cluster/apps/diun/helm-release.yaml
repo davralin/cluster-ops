@@ -23,6 +23,11 @@ spec:
   upgrade:
     remediation:
       retries: 3
+  valuesFrom:
+    - targetPath: env.DIUN_NOTIF_DISCORD_WEBHOOKURL
+      kind: Secret
+      name: diun-discord
+      valuesKey: DISCORD_WEBHOOKURL
   values:
     fullnameOverride: diun
     strategy:
@@ -31,7 +36,7 @@ spec:
       repository: ghcr.io/crazy-max/diun
       tag: 4.24.0
     persistence:
-      config:
+      data:
         enabled: true
         existingClaim: diun
     env:
@@ -39,6 +44,3 @@ spec:
       DIUN_PROVIDERS_KUBERNETES: "true"
       LOG_LEVEL: "debug"
       DIUN_PROVIDERS_KUBERNETES_WATCHBYDEFAULT: "true"
-    secret:
-      DIUN_NOTIF_TELEGRAM_CHATIDS: "${SECRET_TELEGRAM_CHATID}"
-      DIUN_NOTIF_TELEGRAM_TOKEN: "${SECRET_TELEGRAM_TOKEN}"
