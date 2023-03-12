@@ -13,6 +13,7 @@ resources:
   - ../cloudflareddns
   - ../dendrite
   - ../descheduler
+  - ../diun
   - ../drone
   - ../epicgames-freegames
   - ../external-dns
