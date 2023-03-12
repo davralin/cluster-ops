@@ -39,6 +39,8 @@ spec:
       data:
         enabled: true
         existingClaim: diun
+    podAnnotations:
+      reloader.stakater.com/auto: "true"
     env:
       TZ: "${TIMEZONE}"
       DIUN_PROVIDERS_KUBERNETES: "true"
