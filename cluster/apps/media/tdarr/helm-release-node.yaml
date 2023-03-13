@@ -26,9 +26,12 @@ spec:
   values:
     fullnameOverride: tdarr-node
     podSecurityContext:
-      runAsUser: 1000
-      runAsGroup: 1000
-      fsGroup: 1000
+      runAsUser: 0
+      runAsGroup: 0
+      fsGroup: 0
+      capabilities:
+        add:
+          - CHOWN
     image:
       repository: ghcr.io/haveagitgat/tdarr_node
       tag: 2.00.19.1
