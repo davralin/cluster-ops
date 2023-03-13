@@ -25,11 +25,11 @@ spec:
       retries: 3
   values:
     fullnameOverride: mautrix-telegram
-    #podSecurityContext:
-      #runAsUser: 1000
-      #runAsGroup: 1000
-      #fsGroup: 1000
-      #fsGroupChangePolicy: "OnRootMismatch"
+    podSecurityContext:
+      runAsUser: 0
+      runAsGroup: 0
+      fsGroup: 0
+      fsGroupChangePolicy: "OnRootMismatch"
     image:
       repository: dock.mau.dev/mautrix/telegram
       tag: v0.13.0
