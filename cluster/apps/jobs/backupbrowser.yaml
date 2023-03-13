@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: backupbrowser
-          image: ghcr.io/davralin/sleep:latest@sha256:21f4c0352382d87b85d45468e9535db730efe31b7644cf62be4c9badcfa75e23
+          image: ghcr.io/davralin/sleep:latest@sha256:ca318d85bbd827266c3bc0bd86a9249afa756f1822b6c7ccb9ceaf71f9e3878f
           volumeMounts:
             - mountPath: /data
               name: remotebackup
