@@ -29,7 +29,7 @@ resources:
   - ../mailrelay
   - ../matrix
   - ../media
-    #  - ../metallb
+  - ../metallb
   - ../metrics-server
   - ../minecraft
   - ../minio
