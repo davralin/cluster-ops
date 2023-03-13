@@ -8,7 +8,7 @@ spec:
   selector:
     matchLabels:
       app: planefinder
-  replicas: 0
+  replicas: 1
   template:
     metadata:
       labels:
@@ -34,11 +34,11 @@ spec:
                   key: long
             - name: SHARECODE
               value: "${SECRET_PLANEFINDER_SHARECODE}"
-          livenessProbe:
-            exec:
-              command:
-                - /scripts/healthcheck.sh
-            initialDelaySeconds: 300
-            periodSeconds: 600
-            timeoutSeconds: 30
+                #          livenessProbe:
+                #            exec:
+                #              command:
+                #                - /scripts/healthcheck.sh
+                #            initialDelaySeconds: 300
+                #            periodSeconds: 600
+                #            timeoutSeconds: 30
       restartPolicy: Always
