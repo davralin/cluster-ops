@@ -5,9 +5,9 @@ metadata:
   name: tdarr
   namespace: media
 spec:
-  storageClassName: ceph-block
+  storageClassName: ceph-filesystem
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   resources:
     requests:
       storage: 1Gi
