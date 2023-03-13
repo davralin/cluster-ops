@@ -61,6 +61,7 @@ spec:
       TZ: "${TIMEZONE}"
       PUID: "1000"
       PGID: "1000"
+      internalNode: "true"
     persistence:
       config:
         enabled: true
@@ -86,7 +87,9 @@ spec:
       backup.velero.io/backup-volumes: config
     resources:
       requests:
-        memory: 250Mi
-        cpu: 500m
+        gpu.intel.com/i915: 1
+        memory: 2500Mi
+        cpu: 2000m
       limits:
-        memory: 500Mi
+        gpu.intel.com/i915: 1
+        memory: 5000Mi
