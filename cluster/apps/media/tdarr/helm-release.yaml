@@ -65,19 +65,17 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: tdarr
+        existingClaim: tdarr-configs
         mountPath: /app/configs
-        subPath: configs
       server:
         enabled: true
-        existingClaim: tdarr
+        existingClaim: tdarr-server
         mountPath: /app/server
-        subPath: server
       transcode:
         enabled: true
-        existingClaim: tdarr
+        existingClaim: tdarr-transcode
         mountPath: /temp
-        subPath: transcode
+        type: emptyDir
       media:
         enabled: true
         existingClaim: media
