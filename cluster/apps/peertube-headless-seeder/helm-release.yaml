@@ -36,9 +36,10 @@ spec:
     service:
       main:
         enabled: false
+    env:
+      TZ: "${TIMEZONE}"
+      api_url: "https://jupiter.tube/api/v1/accounts/jblive/videos"
     resources:
       requests:
-        cpu: 50m
+        cpu: 100m
         memory: 200Mi
-      limits:
-        memory: 400Mi
