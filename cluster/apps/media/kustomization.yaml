@@ -22,5 +22,5 @@ resources:
   - squeezebox
   - sshd
   - tautulli
-    #  - tdarr
+  - tdarr
   - yt-dlp
