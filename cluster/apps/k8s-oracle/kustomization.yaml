@@ -11,6 +11,7 @@ resources:
   - ../kuma
   - ../local-path-provisioner
   - ../metrics-server
+  - ../peertube-headless-seeder
   - ../reloader
   - ../snowflake
   - ../velero-oracle
