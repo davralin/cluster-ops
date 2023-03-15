@@ -27,7 +27,7 @@ spec:
                   readOnly: false
           containers:
             - name: hourly-to-jottacloud
-              image: rclone/rclone:1.62.0
+              image: rclone/rclone:1.62.1
               args:
                 - sync
                 - --ignore-case
