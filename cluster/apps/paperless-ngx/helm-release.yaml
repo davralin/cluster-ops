@@ -103,9 +103,9 @@ spec:
       limits:
         memory: 1000Mi
     sidecars:
-      - name: tika
+      tika:
         image: ghcr.io/paperless-ngx/tika
         tag: 2.5.0-minimal
-      - name: gotenberg
+      gotenberg:
         image: docker.io/gotenberg/gotenberg
         tag: "7.8.1"
