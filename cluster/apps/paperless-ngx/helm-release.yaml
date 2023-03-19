@@ -111,5 +111,6 @@ spec:
         tag: 7.8.1
         command:
           - "gotenberg"
+        args:
           - "--chromium-disable-javascript=true"
           - "--chromium-allow-list=file:///tmp/.*"
