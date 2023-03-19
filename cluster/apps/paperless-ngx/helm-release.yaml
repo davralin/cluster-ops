@@ -107,10 +107,5 @@ spec:
         image: ghcr.io/paperless-ngx/tika
         tag: 2.5.0-minimal
       - name: gotenberg
-        image:  docker.io/gotenberg/gotenberg
-        tag: 7.8.1
-        command:
-          - "gotenberg"
-        args:
-          - "--chromium-disable-javascript=true"
-          - "--chromium-allow-list=file:///tmp/.*"
+        image: docker.io/gotenberg/gotenberg
+        tag: "7.8.1"
