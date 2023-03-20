@@ -50,6 +50,7 @@ spec:
       difficulty: "easy"
       maxPlayers: 3
       levelSeed: 421112feedmekittens
+      maxTickTime: "-1"
       mode: survival
       memory: 3G
       motd: "A Survival Minecraft Server"
@@ -62,7 +63,6 @@ spec:
         memory: 3G
     extraEnv:
       ENABLE_AUTOPAUSE: "FALSE"
-      MAX_TICK_TIME: "-1"
       USE_AIKAR_FLAGS: true
       ENFORCE_WHITELIST: "TRUE"
       REMOVE_OLD_MODS: "TRUE"
