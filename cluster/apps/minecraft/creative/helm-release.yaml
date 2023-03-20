@@ -43,10 +43,10 @@ spec:
            persistentVolumeClaim:
              claimName: fabric-mods
     minecraftServer:
-      tz: "{TIMEZONE}"
+      tz: "${TIMEZONE}"
       eula: true
       type: FABRIC
-      version: "1.19.4"
+      version: "1.19.3"
       difficulty: "easy"
       maxPlayers: 5
       levelSeed: 421112feedmekittens
