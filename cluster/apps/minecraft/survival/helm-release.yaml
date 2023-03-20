@@ -46,7 +46,7 @@ spec:
       tz: "${TIMEZONE}"
       eula: true
       type: FABRIC
-      version: "1.19.3"
+      version: "LATEST"
       difficulty: "easy"
       maxPlayers: 3
       levelSeed: 421112feedmekittens
