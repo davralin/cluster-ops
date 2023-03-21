@@ -57,7 +57,7 @@ spec:
       enabled: true
       existingClaim: gitea
     signing:
-      enabled: true
+      enabled: false
       gpgHome: /data/git/.gnupg
     gitea:
       podAnnotations:
