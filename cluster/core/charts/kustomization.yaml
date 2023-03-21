@@ -12,6 +12,7 @@ resources:
   - drone.yaml
   - dysnix.yaml
   - external-dns.yaml
+  - falco.yaml
   - gitea.yaml
   - grafana.yaml
   - haproxytech.yaml

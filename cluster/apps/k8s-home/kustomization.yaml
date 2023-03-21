@@ -17,6 +17,7 @@ resources:
   - ../drone
   - ../epicgames-freegames
   - ../external-dns
+  - ../falco
   - ../freshrss
   - ../gitea
   - ../haproxy/haproxy-ingress
