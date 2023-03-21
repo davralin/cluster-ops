@@ -25,6 +25,7 @@ resources:
   - ../intel-gpu
   - ../jobs
   - ../kubed
+  - ../kuma
   - ../local-path-provisioner
   - ../mailrelay
   - ../matrix
