@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: filebrowser
-          image: ghcr.io/davralin/sleep:latest@sha256:ca318d85bbd827266c3bc0bd86a9249afa756f1822b6c7ccb9ceaf71f9e3878f
+          image: ghcr.io/davralin/sleep:latest@sha256:05cfb80602f3e1353e979c5ea1c3debcf37d1f0a0d913546d8068ce1b8b3df3a
           volumeMounts:
             - mountPath: /data
               name: media
