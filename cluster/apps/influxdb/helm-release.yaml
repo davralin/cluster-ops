@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: influxdb
-      version: 5.4.18
+      version: 5.4.19
       sourceRef:
         kind: HelmRepository
         name: bitnami-charts
