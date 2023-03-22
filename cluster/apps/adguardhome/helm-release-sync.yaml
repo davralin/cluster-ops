@@ -59,27 +59,12 @@ spec:
         ports:
           http:
             port: 8080
-    ingress:
-      main:
-        enabled: true
-        annotations:
-          haproxy.org/whitelist: "${HAPROXY_WHITELIST}"
-          haproxy.org/response-set-header: |
-            Strict-Transport-Security "max-age=31536000"
-            X-Frame-Options "DENY"
-            X-Content-Type-Options "nosniff"
-            Referrer-Policy "no-referrer-when-downgrade"
-        hosts:
-          - host: "adguardsync.${SECRET_PRIVATE_DOMAIN}"
-            paths:
-              - path: /
-                pathType: Prefix
-        tls:
-          - secretName: "${SECRET_PRIVATE_DOMAIN_CERT}"
     env:
       TZ: "${TIMEZONE}"
     resources:
       requests:
-        memory: 100Mi
+        cpu: 50m
+        memory: 20Mi
       limits:
-        memory: 2000Mi
+        cpu: 100m
+        memory: 50Mi
