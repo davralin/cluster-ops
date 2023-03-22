@@ -36,7 +36,7 @@ spec:
     fullnameOverride: tar1090
     image:
       repository: ghcr.io/sdr-enthusiasts/docker-tar1090
-      tag: latest@sha256:51059b521e0ad2a42104e08d17fbd0d3fe0f2915edd27a5da91c697a3d188226
+      tag: latest@sha256:0c0a3394898931e47c3d0c76ccbbc07b9fd098a919fa91707fe9de6ac6a3a4c3
     env:
       TZ: "${TIMEZONE}"
       BEASTHOST: "${BEASTHOST}"
