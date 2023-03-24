@@ -8,7 +8,7 @@ resources:
   - ../external-dns
   - ../haproxy/haproxy-ingress-daemonset
   - ../kubed
-  - ../kuma
+  - ../kuma-public
   - ../local-path-provisioner
   - ../metrics-server
   - ../reloader
