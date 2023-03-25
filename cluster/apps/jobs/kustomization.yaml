@@ -6,7 +6,6 @@ resources:
 #  - daily-calendar-sync.yaml
   - daily-imap-backup.yaml
   - daily-sitebackup-from.yaml
-  - daily-status-backup.yaml
   - mbsync.yaml
   - namespace.yaml
   - pvc.yaml
