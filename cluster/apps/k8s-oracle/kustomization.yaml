@@ -14,3 +14,4 @@ resources:
   - ../reloader
   - ../snowflake
   - ../velero-oracle
+  - ../well-known-hosting
