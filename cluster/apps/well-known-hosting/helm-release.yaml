@@ -54,7 +54,7 @@ spec:
         enabled: true
         existingClaim: wellknown
         mountPath: /usr/share/nginx/html
-        readOnly: false
+        readOnly: true
     podAnnotations:
       backup.velero.io/backup-volumes: config
     resources:
