@@ -83,11 +83,6 @@ spec:
           #gnetId: 13168
           #revision: 4
           #datasource: Prometheus
-        # Ref: https://grafana.com/grafana/dashboards/7587
-        blackbox-exporter:
-          gnetId: 7587
-          revision: 3
-          datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/2842
         ceph-overview:
           gnetId: 2842
