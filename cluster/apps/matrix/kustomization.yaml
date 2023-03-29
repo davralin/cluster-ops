@@ -4,7 +4,6 @@ kind: Kustomization
 resources:
   - database
   - heisenbridge
-  - matrix-alertmanager
   - mautrix-signal
   - mautrix-telegram
   - mx-discord
