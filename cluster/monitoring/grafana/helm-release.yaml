@@ -91,7 +91,7 @@ spec:
         # Ref: https://grafana.com/grafana/dashboards/2842
         ceph-overview:
           gnetId: 2842
-          revision: 14
+          revision: 16
           datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/13192
         gitea:
@@ -116,12 +116,12 @@ spec:
         # Ref: https://grafana.com/grafana/dashboards/13502
         minio:
           gnetId: 13502
-          revision: 19
+          revision: 21
           datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/1860
         node-exporter-full:
           gnetId: 1860
-          revision: 27
+          revision: 30
           datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/15549
         node-problem-detector:
@@ -138,7 +138,7 @@ spec:
           gnetId: 11692
           revision: 1
           datasource: Prometheus
-        # Ref: https://grafana.com/grafana/dashboards/7845
+        # Ref: https://grafana.com/grafana/dashboards/15469
         velero:
           gnetId: 15469
           revision: 1
