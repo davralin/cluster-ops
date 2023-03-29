@@ -103,6 +103,11 @@ spec:
           gnetId: 364
           revision: 3
           datasource: Prometheus
+        # Ref: https://grafana.com/grafana/dashboards/13838
+        kubernetes-overview:
+          gnetId: 13838
+          revision: 2
+          datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/6739
         k8s-pvc:
           gnetId: 6739
