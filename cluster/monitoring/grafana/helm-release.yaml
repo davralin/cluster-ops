@@ -93,11 +93,6 @@ spec:
           gnetId: 2842
           revision: 16
           datasource: Prometheus
-        # Ref: https://grafana.com/grafana/dashboards/13192
-        gitea:
-          gnetId: 13192
-          revision: 1
-          datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/364
         haproxy:
           gnetId: 364
@@ -114,29 +109,14 @@ spec:
           revision: 1
           datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/13502
-        minio:
-          gnetId: 13502
-          revision: 21
-          datasource: Prometheus
+        #minio:
+          #gnetId: 13502
+          #revision: 21
+          #datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/1860
         node-exporter-full:
           gnetId: 1860
           revision: 30
-          datasource: Prometheus
-        # Ref: https://grafana.com/grafana/dashboards/15549
-        node-problem-detector:
-          gnetId: 15549
-          revision: 1
-          datasource: Prometheus
-        # Ref: https://grafana.com/grafana/dashboards/9628
-        postgresql:
-          gnetId: 9628
-          revision: 7
-          datasource: Prometheus
-        # Ref: https://grafana.com/grafana/dashboards/11692
-        redis:
-          gnetId: 11692
-          revision: 1
           datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/15469
         velero:
