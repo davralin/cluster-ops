@@ -1,0 +1,88 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: velero
+  namespace: velero
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: velero
+      version: 3.1.5
+      sourceRef:
+        kind: HelmRepository
+        name: vmware-tanzu-charts
+        namespace: flux-system
+      interval: 5m
+  targetNamespace: velero
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  values:
+    fullnameOverride: velero
+    configuration:
+      extraEnvVars:
+        TZ: "${TIMEZONE}"
+      provider: azure
+      backupStorageLocation:
+        name: default
+        bucket: velero-backup
+        default: true
+        config:
+          region: eu-stockholm-1
+          s3ForcePathStyle: true
+          s3Url: https://axrgc2ikvehk.compat.objectstorage.eu-stockholm-1.oraclecloud.com
+          publicUrl: https://axrgc2ikvehk.compat.objectstorage.eu-stockholm-1.oraclecloud.com
+      volumeSnapshotLocation:
+        name: aws
+        config:
+          region: eu-stockholm-1
+      resticTimeout: 6h
+      logLevel: debug
+    initContainers:
+    - name: velero-velero-plugin-for-microsoft-azure
+      image: velero/velero-plugin-for-microsoft-azure:v1.5.4@sha256:b936e64465da78214640998f479dc1cb3dcddbb34331eceb3e0d423e7fbbf3e2
+      imagePullPolicy: IfNotPresent
+      volumeMounts:
+      - mountPath: /target
+        name: plugins
+    resources:
+      requests:
+        memory: 300Mi
+        cpu: 25m
+      limits:
+        memory: 1500Mi
+    metrics:
+      enabled: "{$MONITORING_PROMETHEUS}"
+      serviceMonitor:
+        enabled: "{$MONITORING_PROMETHEUS}"
+    snapshotsEnabled: false
+    deployNodeAgent: true
+    upgradeCRDs: false
+    nodeAgent:
+      podVolumePath: /var/lib/kubelet/pods
+      privileged: false
+      tolerations:
+      - key: "arm"
+        operator: "Exists"
+      - key: "node-role.kubernetes.io/master"
+        operator: "Exists"
+      resources:
+        requests:
+          memory: 200Mi
+          cpu: 15m
+        limits:
+          memory: 3000Mi
+          cpu: null
+    credentials:
+      existingSecret: velero-s3-creds
+    schedules:
+      daily-backup:
+        schedule: "10 17 * * *"
+        template:
+          ttl: "720h"
