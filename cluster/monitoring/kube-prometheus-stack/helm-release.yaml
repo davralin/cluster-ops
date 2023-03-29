@@ -29,3 +29,14 @@ spec:
       enabled: false
     grafana:
       enabled: false
+    prometheus:
+      prometheusSpec:
+        additionalScrapeConfigs:
+          - job_name: node-exporter
+            scrape_interval: 1m
+            scrape_timeout: 10s
+            honor_timestamps: true
+            static_configs:
+              - targets:
+                  - 10.0.1.1:9100
+                  - 10.0.2.9:9100
