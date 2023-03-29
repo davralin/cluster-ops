@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: gitea
-      version: 7.0.4
+      version: 8.0.1
       sourceRef:
         kind: HelmRepository
         name: gitea-charts
@@ -35,6 +35,7 @@ spec:
     ingress:
       enabled: true
       annotations:
+        haproxy.org/whitelist: "${HAPROXY_WHITELIST}"
         haproxy.org/response-set-header: |
           Strict-Transport-Security "max-age=31536000"
           X-Frame-Options "DENY"
@@ -96,9 +97,9 @@ spec:
         webhook:
           ALLOWED_HOST_LIST: "drone.${SECRET_PUBLIC_DOMAIN}"
       metrics:
-        enabled: true
+        enabled: "${MONITORING_PROMETHEUS}"
         serviceMonitor:
-          enabled: true
+          enabled: "${MONITORING_PROMETHEUS}"
   valuesFrom:
     - targetPath: gitea.admin.email
       kind: Secret
