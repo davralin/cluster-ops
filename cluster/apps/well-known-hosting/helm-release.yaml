@@ -27,7 +27,7 @@ spec:
     fullnameOverride: wellknown
     image:
       repository: docker.io/library/nginx
-      tag: 1.23.3
+      tag: 1.23.4
     service:
       main:
         ports:
