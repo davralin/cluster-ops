@@ -57,9 +57,10 @@ spec:
                 sources:
                   - crds
                   - k8s-recommendation-events
-                  - k8s-all-events
+                  #- k8s-all-events
                   - k8s-err-events
                   - k8s-err-with-logs-events
+                  - velero
     executors:
       helm:
         botkube/helm:
@@ -90,8 +91,6 @@ spec:
             - name: notification.toolkit.fluxcd.io/v1beta1/alerts
             - name: monitoring.coreos.com/v1/podmonitors
             - name: monitoring.coreos.com/v1/servicemonitors
-            - name: velero.io/v1/backups
-            - name: velero.io/v1/restores
       k8s-recommendation-events:
         kubernetes:
           enabled: true
@@ -118,16 +117,6 @@ spec:
             - type: apps/v1/daemonsets
             - type: apps/v1/deployments
             - type: apps/v1/statefulsets
-            - type: velero.io/v1/backups
-              updateSetting:
-                includeDiff: true
-                fields:
-                  - status.phase
-            - type: velero.io/v1/restores
-              updateSetting:
-                includeDiff: true
-                fields:
-                  - status.phase
       k8s-create-events:
         kubernetes:
           enabled: true
@@ -141,8 +130,6 @@ spec:
             - type: apps/v1/deployments
             - type: apps/v1/statefulsets
             - type: apps/v1/daemonsets
-            - name: velero.io/v1/backups
-            - name: velero.io/v1/restores
       k8s-err-events:
         kubernetes:
           enabled: true
@@ -162,3 +149,17 @@ spec:
           #       - ".*" # match all event messages...
           #     exclude:
           #       - ".*volsync.*" # ...except those containing 'volsync'
+      velero:
+        kubernetes:
+          enabled: true
+          resources:
+            - type: velero.io/v1/backups
+              updateSetting:
+                includeDiff: true
+                fields:
+                  - status.phase
+            - type: velero.io/v1/restores
+              updateSetting:
+                includeDiff: true
+                fields:
+                  - status.phase
