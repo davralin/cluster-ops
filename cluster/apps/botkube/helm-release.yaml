@@ -47,6 +47,19 @@ spec:
       default-group:
         discord:
           enabled: "true"
+          channels:
+            default:
+              notification:
+                disabled: false
+              bindings:
+                executors:
+                  - kubectl-read-only
+                sources:
+                  - crds
+                  - k8s-recommendation-events
+                  - k8s-all-events
+                  - k8s-err-events
+                  - k8s-err-with-logs-events
     executors:
       helm:
         botkube/helm:
