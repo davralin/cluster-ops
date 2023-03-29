@@ -27,6 +27,22 @@ spec:
     fullnameOverride: kube-prometheus-stack
     alertmanager:
       enabled: false
+      config:
+        receivers:
+          - name: "TelegramAndDiscord"
+            telegram_configs:
+              - bot_token: "${SECRET_TELEGRAM_TOKEN}"
+                api_url: "https://api.telegram.org"
+                chat_id: "${SECRET_TELEGRAM_CHATID}"
+                parse_mode: 'MarkdownV2'
+            discord_configs:
+              - webhook_url: "${SECRET_DISCORD_ALERTMANAGER_URL}"
+        route:
+          group_by: ["alertname", "job"]
+          group_wait: 30s
+          group_interval: 5m
+          repeat_interval: 6h
+          receiver: "TelegramAndDiscord"
     grafana:
       enabled: false
     prometheus:
