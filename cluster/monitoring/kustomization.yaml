@@ -4,7 +4,6 @@ kind: Kustomization
 resources:
   - alert-rules
   - alertmanager
-  - blackbox-exporter
   - grafana
   - kube-prometheus-stack
   - namespace.yaml
