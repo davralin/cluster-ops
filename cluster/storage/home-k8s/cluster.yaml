@@ -30,8 +30,8 @@ spec:
     toolbox:
       enabled: true
     monitoring:
-      enabled: "{$MONITORING_PROMETHEUS}"
-      createPrometheusRules: "{$MONITORING_PROMETHEUS}"
+      enabled: "True"
+      createPrometheusRules: "True"
     configOverride: |
       [global]
       bdev_enable_discard = true
