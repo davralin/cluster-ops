@@ -117,6 +117,10 @@ spec:
         velero:
           gnetId: 15469
           revision: 1
+        # Ref: https://grafana.com/grafana/dashboards/17251
+        wireguard:
+          gnetId: 17251
+          revision: 1
     sidecar:
       image:
         repository: quay.io/kiwigrid/k8s-sidecar
