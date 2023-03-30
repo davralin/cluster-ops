@@ -121,6 +121,7 @@ spec:
         wireguard:
           gnetId: 17251
           revision: 1
+          datasource: Prometheus
     sidecar:
       image:
         repository: quay.io/kiwigrid/k8s-sidecar
