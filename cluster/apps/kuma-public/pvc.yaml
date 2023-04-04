@@ -4,6 +4,8 @@ kind: PersistentVolumeClaim
 metadata:
   name: kuma
   namespace: kuma
+  annotations:
+    volumeType: local
 spec:
   storageClassName: "${STORAGE_READWRITEONCE}"
   accessModes:

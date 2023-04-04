@@ -4,6 +4,8 @@ kind: PersistentVolumeClaim
 metadata:
   name: wellknown
   namespace: wellknown
+  annotations:
+    volumeType: local
 spec:
   storageClassName: "${STORAGE_READWRITEONCE}"
   accessModes:
