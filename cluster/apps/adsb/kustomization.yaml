@@ -12,3 +12,4 @@ resources:
   - radarbox
   - readsb-protobuf
   - tar1090
+  - ultrafeeder
