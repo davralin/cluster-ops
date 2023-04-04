@@ -24,10 +24,6 @@ spec:
     remediation:
       retries: 3
   valuesFrom:
-    - targetPath: env.ALT
-      kind: Secret
-      name: adsb-lat-long-alt
-      valuesKey: alt
     - targetPath: env.LAT
       kind: Secret
       name: adsb-lat-long-alt
