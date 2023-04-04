@@ -11,5 +11,4 @@ resources:
   - secrets.yaml
   - radarbox
   - readsb-protobuf
-  - tar1090
   - ultrafeeder

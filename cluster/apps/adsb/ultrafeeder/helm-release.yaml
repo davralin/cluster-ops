@@ -23,6 +23,19 @@ spec:
   upgrade:
     remediation:
       retries: 3
+  valuesFrom:
+    - targetPath: env.ALT
+      kind: Secret
+      name: adsb-lat-long-alt
+      valuesKey: alt
+    - targetPath: env.LAT
+      kind: Secret
+      name: adsb-lat-long-alt
+      valuesKey: lat
+    - targetPath: env.LONG
+      kind: Secret
+      name: adsb-lat-long-alt
+      valuesKey: long
   values:
     fullnameOverride: ultrafeeder
     # App chown's on boot
@@ -50,12 +63,12 @@ spec:
             X-Content-Type-Options "nosniff"
             Referrer-Policy "no-referrer-when-downgrade"
         hosts:
-          - host: "test.${SECRET_PUBLIC_DOMAIN}"
+          - host: "planes.${SECRET_PRIVATE_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
         tls:
-          - secretName: "${SECRET_PUBLIC_DOMAIN_CERT}"
+          - secretName: "${SECRET_PRIVATE_DOMAIN_CERT}"
     env:
       TZ: "${TIMEZONE}"
       BEASTHOST: "${BEASTHOST}"
