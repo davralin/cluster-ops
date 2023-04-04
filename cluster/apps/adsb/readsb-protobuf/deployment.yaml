@@ -63,6 +63,8 @@ spec:
               value: "rtlsdr"
             - name: READSB_DCFILTER
               value: "yes"
+            - name: READSB_FORWARD_MLAT
+              value: "true"
             - name: READSB_FIX
               value: "yes"
             - name: READSB_NET_ENABLE

@@ -81,6 +81,7 @@ spec:
     env:
       TZ: "${TIMEZONE}"
       BEASTHOST: "${BEASTHOST}"
+      MLATHOST: "${BEASTHOST}"
       PROMETHEUS_ENABLE: "true"
       TAR1090_ENABLE_AC_DB: "true"
     resources:
