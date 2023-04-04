@@ -113,6 +113,13 @@ spec:
     prometheus:
       prometheusSpec:
         additionalScrapeConfigs:
+          - job_name: adsb
+            scrape_interval: 1m
+            scrape_timeout: 10s
+            honor_timestamps: true
+            static_configs:
+              - targets:
+                  - ultrafeeder-prometheus.adsb.svc.cluster.local:9273
           - job_name: node-exporter
             scrape_interval: 1m
             scrape_timeout: 10s
@@ -121,6 +128,5 @@ spec:
               - targets:
                   - 10.0.1.1:9100
                   - 10.0.1.1:9586
-                  - 10.0.1.65:9100
                   - 10.0.2.9:9100
                   - 10.0.2.11:9100
