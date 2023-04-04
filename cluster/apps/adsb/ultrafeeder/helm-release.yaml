@@ -56,7 +56,7 @@ spec:
       main:
         enabled: true
         endpoints:
-          - port: 9273
+          - port: prometheus
             scheme: http
             path: /metrics
             interval: 1m
@@ -81,6 +81,8 @@ spec:
     env:
       TZ: "${TIMEZONE}"
       BEASTHOST: "${BEASTHOST}"
+      PROMETHEUS_ENABLE: "true"
+      TAR1090_ENABLE_AC_DB: "true"
     resources:
       requests:
         cpu: 50m
