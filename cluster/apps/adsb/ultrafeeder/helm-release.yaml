@@ -52,6 +52,19 @@ spec:
         ports:
           http:
             port: 80
+      prometheus:
+        ports:
+          scrape:
+            port: 9273
+    serviceMonitor:
+      main:
+        enabled: true
+        endpoints:
+          - port: 9273
+            scheme: http
+            path: /metrics
+            interval: 1m
+            scrapeTimeout: 10s
     ingress:
       main:
         enabled: true
