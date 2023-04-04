@@ -26,11 +26,11 @@ spec:
   values:
     fullnameOverride: ultrafeeder
     # App chown's on boot
-    podSecurityContext:
-      runAsUser: 1000
-      runAsGroup: 1000
-      fsGroup: 1000
-      fsGroupChangePolicy: "OnRootMismatch"
+    #podSecurityContext:
+      #runAsUser: 1000
+      #runAsGroup: 1000
+      #fsGroup: 1000
+      #fsGroupChangePolicy: "OnRootMismatch"
     image:
       repository: ghcr.io/sdr-enthusiasts/docker-adsb-ultrafeeder
       tag: latest@sha256:7e3345c538a110eb56f5717bdb77cf8d70d84f2b25ffea49a2b1979846d6e1f6
