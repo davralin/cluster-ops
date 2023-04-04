@@ -31,16 +31,24 @@ spec:
       #fsGroup: 1000
       #fsGroupChangePolicy: "OnRootMismatch"
     image:
-      repository: ghcr.io/matrix-org/dendrite-monolith
-      tag: v0.12.0
+      repository: ghcr.io/davralin/sleep
+      tag: latest
     service:
       main:
+        enabled: false
         ports:
           http:
             port: 8008
+    probes:
+      liveness:
+        enabled: false
+      readiness:
+        enabled: false
+      startup:
+        enabled: false
     ingress:
       main:
-        enabled: true
+        enabled: false
         annotations:
           haproxy.org/response-set-header: |
             Strict-Transport-Security "max-age=31536000"
@@ -146,40 +154,6 @@ spec:
     podAnnotations:
       reloader.stakater.com/auto: "true"
       backup.velero.io/backup-volumes: media
-    probes:
-      liveness:
-        enabled: true
-        custom: true
-        spec:
-          initialDelaySeconds: 10
-          periodSeconds: 10
-          timeoutSeconds: 5
-          failureThreshold: 10
-          httpGet:
-            path: /_dendrite/monitor/health
-            port: http
-      readiness:
-        enabled: true
-        custom: true
-        spec:
-          initialDelaySeconds: 10
-          periodSeconds: 10
-          timeoutSeconds: 5
-          failureThreshold: 10
-          httpGet:
-            path: /_dendrite/monitor/health
-            port: http
-      startup:
-        enabled: true
-        custom: true
-        spec:
-          initialDelaySeconds: 5
-          periodSeconds: 10
-          timeoutSeconds: 5
-          failureThreshold: 10
-          httpGet:
-            path: /_dendrite/monitor/up
-            port: http
     resources:
       requests:
         cpu: 300m
