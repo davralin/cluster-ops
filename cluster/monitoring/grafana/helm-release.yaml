@@ -78,11 +78,6 @@ spec:
             isDefault: true
     dashboards:
       default:
-        # Ref: https://grafana.com/grafana/dashboards/13168
-        #adbs:
-          #gnetId: 13168
-          #revision: 4
-          #datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/2842
         ceph-overview:
           gnetId: 2842
@@ -112,6 +107,11 @@ spec:
         node-exporter-full:
           gnetId: 1860
           revision: 30
+          datasource: Prometheus
+        # Ref: https://grafana.com/grafana/dashboards/15377
+        readsb-protobuf:
+          gnetId: 15377
+          revision: 1
           datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/15469
         velero:
