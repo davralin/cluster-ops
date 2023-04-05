@@ -30,6 +30,8 @@ spec:
         - name: readsb-protobuf
           image: ghcr.io/sdr-enthusiasts/docker-readsb-protobuf:v4.0.3
           ports:
+            - name: prometheus
+              containerPort: 9273
             - name: raw-prot-in
               containerPort: 30001
             - name: raw-prot-out

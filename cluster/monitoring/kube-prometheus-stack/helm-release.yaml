@@ -121,6 +121,7 @@ spec:
             honor_timestamps: true
             static_configs:
               - targets:
+                  - readsb-protobuf.adsb.svc.cluster.local:9273
                   - ultrafeeder-prometheus.adsb.svc.cluster.local:9273
           - job_name: node-exporter
             scrape_interval: 1m
