@@ -34,7 +34,7 @@ spec:
           - CHOWN
     image:
       repository: ghcr.io/haveagitgat/tdarr
-      tag: 2.00.19.1
+      tag: 2.00.20.1
     service:
       main:
         ports:
