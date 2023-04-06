@@ -47,6 +47,6 @@ resources:
   - ../teddit
   - ../tubearchivist
   - ../unifi
-  - ../velero-azure
+  - ../velero
   - ../warrior
   - ../writefreely
