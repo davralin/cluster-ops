@@ -14,5 +14,5 @@ resources:
   - ../metrics-server
   - ../reloader
   - ../snowflake
-  - ../velero-azure
+  - ../velero-oracle
   - ../well-known-hosting
