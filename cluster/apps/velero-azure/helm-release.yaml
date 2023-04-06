@@ -23,6 +23,23 @@ spec:
   upgrade:
     remediation:
       retries: 3
+  valuesFrom:
+    - targetPath: configuration.backupStorageLocation.config.resourceGroup
+      kind: Secret
+      name: credentials-azure-velero
+      valuesKey: AZURE_BACKUP_RESOURCE_GROUP
+    - targetPath: configuration.backupStorageLocation.config.storageAccount
+      kind: Secret
+      name: credentials-azure-velero
+      valuesKey: AZURE_STORAGE_ACCOUNT_ID
+    - targetPath: configuration.backupStorageLocation.config.storageAccountKeyEnvVar
+      kind: Secret
+      name: credentials-azure-velero
+      valuesKey: AZURE_STORAGE_ACCOUNT_ACCESS_KEY
+    - targetPath: configuration.backupStorageLocation.config.subscriptionId
+      kind: Secret
+      name: credentials-azure-velero
+      valuesKey: AZURE_BACKUP_SUBSCRIPTION_ID
   values:
     fullnameOverride: velero
     configuration:
@@ -31,17 +48,8 @@ spec:
       provider: azure
       backupStorageLocation:
         name: default
-        bucket: velero-backup
+        bucket: velero
         default: true
-        config:
-          region: eu-stockholm-1
-          s3ForcePathStyle: true
-          s3Url: https://axrgc2ikvehk.compat.objectstorage.eu-stockholm-1.oraclecloud.com
-          publicUrl: https://axrgc2ikvehk.compat.objectstorage.eu-stockholm-1.oraclecloud.com
-      volumeSnapshotLocation:
-        name: aws
-        config:
-          region: eu-stockholm-1
       resticTimeout: 6h
       logLevel: debug
     initContainers:
@@ -80,9 +88,9 @@ spec:
           memory: 3000Mi
           cpu: null
     credentials:
-      existingSecret: velero-s3-creds
+      existingSecret: credentials-azure-velero
     schedules:
       daily-backup:
-        schedule: "10 17 * * *"
+        schedule: "10 21 * * *"
         template:
           ttl: "720h"
