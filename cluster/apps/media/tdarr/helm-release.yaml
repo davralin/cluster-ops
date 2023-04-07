@@ -32,6 +32,9 @@ spec:
       capabilities:
         add:
           - CHOWN
+      supplementalGroups:
+        - 44
+        - 226
     image:
       repository: ghcr.io/haveagitgat/tdarr
       tag: 2.00.20.1
@@ -61,7 +64,6 @@ spec:
       TZ: "${TIMEZONE}"
       PUID: "1000"
       PGID: "1000"
-      internalNode: "true"
     persistence:
       config:
         enabled: true
@@ -73,9 +75,8 @@ spec:
         mountPath: /app/server
       transcode:
         enabled: true
-        existingClaim: tdarr-transcode
+        existingClaim: tdarr-cache
         mountPath: /temp
-        type: emptyDir
       media:
         enabled: true
         existingClaim: media
@@ -84,9 +85,8 @@ spec:
       backup.velero.io/backup-volumes: config,server
     resources:
       requests:
-        gpu.intel.com/i915: 1
-        memory: 2500Mi
+        memory: 1500Mi
         cpu: 2000m
       limits:
-        gpu.intel.com/i915: 1
-        memory: 5000Mi
+        memory: 2000Mi
+        cpu: 2000m
