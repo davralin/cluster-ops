@@ -80,7 +80,6 @@ spec:
         enabled: true
         existingClaim: media
         mountPath: /data
-        readOnly: true
     podAnnotations:
       backup.velero.io/backup-volumes: config,server
     resources:
