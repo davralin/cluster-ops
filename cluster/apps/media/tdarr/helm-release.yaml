@@ -43,6 +43,10 @@ spec:
         ports:
           http:
             port: 8265
+          server:
+            enabled: true
+            protocol: TCP
+            port: 8266
     ingress:
       main:
         enabled: true
