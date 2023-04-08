@@ -63,7 +63,7 @@ spec:
       media:
         enabled: true
         existingClaim: media
-        mountPath: /media
+        mountPath: /data
       cache:
         enabled: true
         existingClaim: tdarr-cache
