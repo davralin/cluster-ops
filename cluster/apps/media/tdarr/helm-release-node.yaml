@@ -37,7 +37,7 @@ spec:
         - 226
     controller:
       type: statefulset
-      replicas: 2
+      replicas: 3
     image:
       repository: ghcr.io/haveagitgat/tdarr_node_acc
       tag: 2.00.20.1
@@ -70,9 +70,7 @@ spec:
         mountPath: /cache
     resources:
       requests:
-        gpu.intel.com/i915: 1
-        memory: 2500Mi
+        memory: 500Mi
         cpu: 2000m
       limits:
-        gpu.intel.com/i915: 1
-        memory: 5000Mi
+        memory: 1000Mi
