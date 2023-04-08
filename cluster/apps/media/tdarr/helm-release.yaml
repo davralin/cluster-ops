@@ -85,8 +85,5 @@ spec:
       backup.velero.io/backup-volumes: config,server
     resources:
       requests:
-        memory: 1500Mi
-        cpu: 2000m
-      limits:
-        memory: 2000Mi
-        cpu: 2000m
+        cpu: 10m
+        memory: 250Mi
