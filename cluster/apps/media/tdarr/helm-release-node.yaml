@@ -36,8 +36,7 @@ spec:
         - 44
         - 226
     controller:
-      type: statefulset
-      replicas: 3
+      type: daemonset
     image:
       repository: ghcr.io/haveagitgat/tdarr_node_acc
       tag: 2.00.20.1
