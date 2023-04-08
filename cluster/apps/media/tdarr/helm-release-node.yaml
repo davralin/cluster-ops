@@ -69,7 +69,7 @@ spec:
         mountPath: /cache
     resources:
       requests:
-        memory: 500Mi
+        memory: 600Mi
         cpu: 2000m
       limits:
-        memory: 1000Mi
+        memory: 1200Mi
