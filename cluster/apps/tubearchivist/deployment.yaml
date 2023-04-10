@@ -50,9 +50,9 @@ spec:
                   key: ELASTIC_PASSWORD
           volumeMounts:
             - name: ta-cache
-              mountPath: /youtube
-            - name: ta-media
               mountPath: /cache
+            - name: ta-media
+              mountPath: /youtube
         - name: es
           image: elasticsearch:8.7.0
           ports:

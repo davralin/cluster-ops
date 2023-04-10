@@ -78,11 +78,11 @@ spec:
     persistence:
       cache:
         enabled: true
-        existingClaim: ta-media # This is wrong, but #legacy
+        existingClaim: ta-cache
         mountPath: /cache
       media:
         enabled: true
-        existingClaim: ta-cache # This is wrong, but #legacy
+        existingClaim: ta-media
         mountPath: /youtube
     podAnnotations:
       backup.velero.io/backup-volumes: cache,elasticsearch,media,redis
