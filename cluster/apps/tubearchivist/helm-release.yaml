@@ -1,0 +1,135 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: tubearchivist
+  namespace: tubearchivist
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: app-template
+      version: 1.3.2
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+      interval: 5m
+  targetNamespace: tubearchivist
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  valuesFrom:
+    - targetPath: env.TA_USERNAME
+      kind: Secret
+      name: tubearchivist-secrets
+      valuesKey: TA_USERNAME
+    - targetPath: env.TA_PASSWORD
+      kind: Secret
+      name: tubearchivist-secrets
+      valuesKey: TA_PASSWORD
+    - targetPath: env.ELASTIC_PASSWORD
+      kind: Secret
+      name: tubearchivist-secrets
+      valuesKey: ELASTIC_PASSWORD
+    - targetPath: sidecars.elasticsearch.ELASTIC_PASSWORD
+      kind: Secret
+      name: tubearchivist-secrets
+      valuesKey: ELASTIC_PASSWORD
+  values:
+    fullnameOverride: tubearchivist
+    image:
+      repository: bbilly1/tubearchivist
+      tag: v0.3.4
+    service:
+      main:
+        ports:
+          http:
+            port: 8000
+    ingress:
+      main:
+        enabled: true
+        annotations:
+          haproxy.org/whitelist: "${HAPROXY_WHITELIST}"
+          haproxy.org/response-set-header: |
+            Strict-Transport-Security "max-age=31536000"
+            X-Frame-Options "DENY"
+            X-Content-Type-Options "nosniff"
+            Referrer-Policy "no-referrer-when-downgrade"
+        hosts:
+          - host: "tube.${SECRET_PRIVATE_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - secretName: "${SECRET_PRIVATE_DOMAIN_CERT}"
+    env:
+      TZ: "${TIMEZONE}"
+      HOST_UID: 1000
+      HOST_GID: 1000
+      ES_URL: "http://localhost:9200"
+      TA_HOST: "https://tube.${SECRET_PRIVATE_DOMAIN}"
+      REDIS_HOST: "localhost"
+      ENABLE_CAST: "true"
+    persistence:
+      cache:
+        enabled: true
+        existingClaim: ta-media # This is wrong, but #legacy
+        mountPath: /cache
+      media:
+        enabled: true
+        existingClaim: ta-cache # This is wrong, but #legacy
+        mountPath: /youtube
+    podAnnotations:
+      backup.velero.io/backup-volumes: cache,elasticsearch,media,redis
+    resources:
+      requests:
+        memory: 1024Mi
+        cpu: 500m
+    sidecars:
+      elasticsearch:
+        name: elasticsearch
+        image: elasticsearch:8.7.0
+        service:
+          main:
+            ports:
+              http:
+                port: 9200
+        env:
+          TZ: "${TIMEZONE}"
+          xpack.security.enabled: "true"
+          discovery.type: "single-node"
+          ES_JAVA_OPTS: "-Xms512m -Xmx512m"
+          path.repo: "/usr/share/elasticsearch/data/snapshot"
+        persistence:
+          elasticsearch:
+            enabled: true
+            existingClaim: ta-es
+            mountPath: /usr/share/elasticsearch/data
+        resources:
+          requests:
+            memory: 1100Mi
+            cpu: 100m
+      redis:
+        name: redis
+        image: redis/redis-stack-server:6.2.6-v4
+        service:
+          main:
+            ports:
+              http:
+                port: 6379
+        env:
+          TZ: "${TIMEZONE}"
+        persistence:
+          redis:
+            enabled: true
+            existingClaim: ta-redis
+            mountPath: /data
+        resources:
+          requests:
+            memory: 50Mi
+            cpu: 50m
