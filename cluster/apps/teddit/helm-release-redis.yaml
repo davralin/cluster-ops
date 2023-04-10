@@ -40,9 +40,9 @@ spec:
         repository: bitnami/bitnami-shell
         tag: 11
     metrics:
-      enabled: true
+      enabled: "${MONITORING_PROMETHEUS}"
       serviceMonitor:
-        enabled: true
+        enabled: "${MONITORING_PROMETHEUS}"
       image:
         repository: bitnami/redis-exporter
         tag: 1.50.0
