@@ -36,6 +36,10 @@ spec:
       kind: Secret
       name: epicgames-free-login
       valuesKey: TOTP
+    - targetPath: env.DISCORD_WEBHOOK
+      kind: Secret
+      name: epicgames-free-login
+      valuesKey: WEBHOOK_URL
   values:
     fullnameOverride: epicgames-free
     # Starts by linking in TZ
@@ -46,7 +50,7 @@ spec:
       #fsGroupChangePolicy: "OnRootMismatch"
     image:
       repository: ghcr.io/claabs/epicgames-freegames-node
-      tag: latest
+      tag: latest@sha256:94ad4426de8910f813c6d55641658d7cfcae036ba751e8e4bd5645f89ae05662
     service:
       main:
         ports:
@@ -80,12 +84,6 @@ spec:
       TZ: "${TIMEZONE}"
       RUN_ON_STARTUP: "true"
       BASE_URL: "https://epicgames.${SECRET_PRIVATE_DOMAIN}"
-      EMAIL_SENDER_ADDRESS: "epicgames@${SECRET_PRIVATE_DOMAIN}"
-      EMAIL_RECIPIENT_ADDRESS: "epicgames@${SECRET_PRIVATE_DOMAIN}"
-      EMAIL_SENDER_NAME: "Epic Automation"
-      SMTP_HOST: "exim.mailrelay.svc.cluster.local"
-      SMTP_PORT: "25"
-      SMTP_SECURE: "False"
     persistence:
       config:
         enabled: true
