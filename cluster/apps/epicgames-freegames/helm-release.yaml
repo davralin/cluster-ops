@@ -84,6 +84,7 @@ spec:
       TZ: "${TIMEZONE}"
       RUN_ON_STARTUP: "true"
       BASE_URL: "https://epicgames.${SECRET_PRIVATE_DOMAIN}"
+      TEST_NOTIFIERS: "true"
     persistence:
       config:
         enabled: true
