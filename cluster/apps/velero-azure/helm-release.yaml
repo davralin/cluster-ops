@@ -54,7 +54,7 @@ spec:
       logLevel: debug
     initContainers:
     - name: velero-velero-plugin-for-microsoft-azure
-      image: velero/velero-plugin-for-microsoft-azure:v1.6.1@sha256:c44e15e829c52c1c0280f2dce11b3d278505f64a57d387c5d370fd86ecf735c5
+      image: velero/velero-plugin-for-microsoft-azure:v1.7.0@sha256:a64c92eadf8eabb6af3435114725763c5863ce75a84192d956ed5b8c2729f091
       imagePullPolicy: IfNotPresent
       volumeMounts:
       - mountPath: /target
