@@ -29,9 +29,6 @@ spec:
                 - mountPath: /consume
                   name: consume
                   readOnly: false
-                - mountPath: /config
-                  name: rcloneconfig
-                  readOnly: false
           volumes:
             - name: consume
               persistentVolumeClaim:
