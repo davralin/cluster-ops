@@ -90,6 +90,10 @@ spec:
         enabled: true
         existingClaim: paperless-ngx-data
         mountPath: /usr/src/paperless/data
+      consume:
+        enabled: true
+        existingClaim: paperless-ngx-consume
+        mountPath: /usr/src/paperless/consume
       media:
         enabled: true
         existingClaim: paperless-ngx-media

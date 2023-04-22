@@ -5,7 +5,7 @@ metadata:
   name: database
   namespace: paperless-ngx
 spec:
-  storageClassName: ceph-block
+  storageClassName: "${STORAGE_READWRITEONCE}"
   accessModes:
     - ReadWriteOnce
   resources:
@@ -18,7 +18,7 @@ metadata:
   name: paperless-ngx-data
   namespace: paperless-ngx
 spec:
-  storageClassName: ceph-block
+  storageClassName: "${STORAGE_READWRITEONCE}"
   accessModes:
     - ReadWriteOnce
   resources:
@@ -31,9 +31,22 @@ metadata:
   name: paperless-ngx-media
   namespace: paperless-ngx
 spec:
-  storageClassName: ceph-block
+  storageClassName: "${STORAGE_READWRITEONCE}"
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
       storage: 2Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: paperless-ngx-consume
+  namespace: paperless-ngx
+spec:
+  storageClassName: ceph-filesystem
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 512Mi
