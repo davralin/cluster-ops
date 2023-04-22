@@ -1,0 +1,38 @@
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: daily-to-consume
+  namespace: paperless-ngx
+spec:
+  schedule: "17 05 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: Never
+          containers:
+            - name: daily-to-consume
+              image: rclone/rclone:1.62.2
+              args:
+                - --config
+                - /consume/rclone.conf
+                - copy
+                - --dry-run
+                - --verbose
+                - nextcloud:Scans/
+                - /consume
+              volumeMounts:
+                - mountPath: /consume
+                  name: consume
+                  readOnly: false
+                - mountPath: /config
+                  name: rcloneconfig
+                  readOnly: false
+          volumes:
+            - name: consume
+              persistentVolumeClaim:
+                claimName: paperless-ngx-consume
