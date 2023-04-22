@@ -20,8 +20,7 @@ spec:
               args:
                 - --config
                 - /consume/rclone.conf
-                - copy
-                - --dry-run
+                - move
                 - --verbose
                 - nextcloud:Scans/
                 - /consume
