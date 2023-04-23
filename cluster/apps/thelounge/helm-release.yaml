@@ -1,0 +1,72 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: thelounge
+  namespace: thelounge
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: app-template
+      version: 1.4.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+      interval: 5m
+  targetNamespace: thelounge
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  values:
+    fullnameOverride: thelounge
+    # Container binds to 80, which requires root, it also starts with chmod
+    #podSecurityContext:
+      #runAsUser: 1000
+      #runAsGroup: 1000
+      #fsGroup: 1000
+      #fsGroupChangePolicy: "OnRootMismatch"
+    image:
+      repository: thelounge/thelounge
+      tag: 4.3.1
+    service:
+      main:
+        ports:
+          http:
+            port: 9000
+    ingress:
+      main:
+        enabled: true
+        annotations:
+          haproxy.org/response-set-header: |
+            Strict-Transport-Security "max-age=31536000"
+            X-Frame-Options "DENY"
+            X-Content-Type-Options "nosniff"
+            Referrer-Policy "no-referrer-when-downgrade"
+        hosts:
+          - host: "thelounge.${SECRET_PUBLIC_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - secretName: "${SECRET_PUBLIC_DOMAIN_CERT}"
+    env:
+      TZ: "${TIMEZONE}"
+      THELOUNGE_HOME: "/config"
+    persistence:
+      config:
+        enabled: true
+        existingClaim: thelounge
+    podAnnotations:
+      backup.velero.io/backup-volumes: config
+    resources:
+      requests:
+        cpu: 25m
+        memory: 250Mi
+      limits:
+        memory: 500Mi
