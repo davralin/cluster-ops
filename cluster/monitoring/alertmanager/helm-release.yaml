@@ -51,9 +51,9 @@ spec:
           X-Content-Type-Options "nosniff"
           Referrer-Policy "no-referrer-when-downgrade"
       hosts:
-        - host: "alertmanager.${SECRET_PUBLIC_DOMAIN}"
+        - host: "alertmanager.${SECRET_PRIVATE_DOMAIN}"
           paths:
             - path: /
               pathType: Prefix
       tls:
-        - secretName: "${SECRET_PUBLIC_DOMAIN_CERT}"
+        - secretName: "${SECRET_PRIVATE_DOMAIN_CERT}"
