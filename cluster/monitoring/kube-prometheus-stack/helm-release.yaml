@@ -90,6 +90,19 @@ spec:
               sourceLabels:
                 - __meta_kubernetes_pod_node_name
               targetLabel: kubernetes_node
+        ingress:
+          enabled: true
+          annotations:
+            haproxy.org/whitelist: "${HAPROXY_WHITELIST}"
+            haproxy.org/response-set-header: |
+              Strict-Transport-Security "max-age=31536000"
+              X-Frame-Options "DENY"
+              X-Content-Type-Options "nosniff"
+              Referrer-Policy "no-referrer-when-downgrade"
+          hosts:
+            - "alertmanager.${SECRET_PUBLIC_DOMAIN}"
+          tls:
+            - secretName: "${SECRET_PUBLIC_DOMAIN_CERT}"
     nodeExporter:
       enabled: true
       serviceMonitor:
