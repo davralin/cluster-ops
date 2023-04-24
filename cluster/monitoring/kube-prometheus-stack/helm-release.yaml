@@ -123,7 +123,7 @@ spec:
             X-Content-Type-Options "nosniff"
             Referrer-Policy "no-referrer-when-downgrade"
         hosts:
-          - "alertmanager.${SECRET_PRIVATE_DOMAIN}"
+          - "prometheus.${SECRET_PRIVATE_DOMAIN}"
         tls:
           - secretName: "${SECRET_PRIVATE_DOMAIN_CERT}"
       prometheusSpec:
