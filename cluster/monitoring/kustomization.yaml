@@ -6,4 +6,5 @@ resources:
   - alertmanager
   - grafana
   - kube-prometheus-stack
+  - loki
   - namespace.yaml
