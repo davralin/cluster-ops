@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - anance.yaml
   - appscode.yaml
+  - aqua.yaml
   - bitnami.yaml
   - bjw-s.yaml
   - botkube.yaml

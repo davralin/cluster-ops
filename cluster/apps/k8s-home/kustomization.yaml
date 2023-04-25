@@ -44,6 +44,7 @@ resources:
   - ../scrutiny
   - ../syncthing
   - ../teddit
+  - ../trivvy-operator
   - ../tubearchivist
   - ../unifi
   - ../velero

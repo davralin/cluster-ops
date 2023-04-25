@@ -1,0 +1,37 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: trivy-operator
+  namespace: trivy
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: trivy-operator
+      version: 0.10.1
+      sourceRef:
+        kind: HelmRepository
+        name: aqua-charts
+        namespace: flux-system
+      interval: 5m
+  targetNamespace: trivy
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  values:
+    fullnameOverride: trivy-operator
+    excludeNamespaces: "{{ .Release.Namespace }}"
+    operator:
+      replicas: 1
+      scanJobsConcurrentLimit: 3
+      vulnerabilityScannerScanOnlyCurrentRevisions: true
+      configAuditScannerScanOnlyCurrentRevisions: true
+    trivy:
+      ignoreUnfixed: true
+    serviceMonitor:
+      enabled: "${MONITORING_PROMETHEUS}"
