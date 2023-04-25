@@ -27,10 +27,7 @@ spec:
     ingress:
       enabled: true
       hosts:
-        - host: "loki.${SECRET_PRIVATE_DOMAIN}"
-          paths:
-            - path: /
-              pathType: Prefix
+        - "loki.${SECRET_PRIVATE_DOMAIN}"
       tls:
         - hosts:
             - "${SECRET_PRIVATE_DOMAIN_CERT}"
