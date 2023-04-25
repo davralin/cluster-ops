@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: synapse
-          image: matrixdotorg/synapse:v1.81.0
+          image: matrixdotorg/synapse:v1.82.0
           ports:
             - containerPort: 8008
               protocol: TCP
