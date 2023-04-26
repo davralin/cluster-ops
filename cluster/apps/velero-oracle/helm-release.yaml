@@ -28,20 +28,21 @@ spec:
     configuration:
       extraEnvVars:
         TZ: "${TIMEZONE}"
-      provider: aws
       backupStorageLocation:
-        name: default
-        bucket: velero-backup
-        default: true
-        config:
-          region: eu-stockholm-1
-          s3ForcePathStyle: true
-          s3Url: https://axrgc2ikvehk.compat.objectstorage.eu-stockholm-1.oraclecloud.com
-          publicUrl: https://axrgc2ikvehk.compat.objectstorage.eu-stockholm-1.oraclecloud.com
+        - name: default
+          bucket: velero-backup
+          default: true
+          provider: aws
+          config:
+            region: "eu-stockholm-1"
+            s3ForcePathStyle: true
+            s3Url: https://axrgc2ikvehk.compat.objectstorage.eu-stockholm-1.oraclecloud.com
+            publicUrl: https://axrgc2ikvehk.compat.objectstorage.eu-stockholm-1.oraclecloud.com
       volumeSnapshotLocation:
-        name: aws
-        config:
-          region: eu-stockholm-1
+        - name: aws
+          provider: aws
+          config:
+            region: "eu-stockholm-1"
       resticTimeout: 6h
       logLevel: debug
     initContainers:
@@ -58,9 +59,11 @@ spec:
       limits:
         memory: 1500Mi
     metrics:
-      enabled: "{$MONITORING_PROMETHEUS}"
+      enabled: "${MONITORING_PROMETHEUS}"
       serviceMonitor:
-        enabled: "{$MONITORING_PROMETHEUS}"
+        enabled: "${MONITORING_PROMETHEUS}"
+      prometheusRule:
+        enabled: "${MONITORING_PROMETHEUS}"
     snapshotsEnabled: true
     deployNodeAgent: true
     upgradeCRDs: false

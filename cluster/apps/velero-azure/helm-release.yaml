@@ -45,11 +45,11 @@ spec:
     configuration:
       extraEnvVars:
         TZ: "${TIMEZONE}"
-      provider: azure
       backupStorageLocation:
-        name: default
-        bucket: velero
-        default: true
+        - name: default
+          bucket: velero
+          default: true
+          provider: azure
       resticTimeout: 6h
       logLevel: debug
     initContainers:
@@ -66,9 +66,11 @@ spec:
       limits:
         memory: 1500Mi
     metrics:
-      enabled: "{$MONITORING_PROMETHEUS}"
+      enabled: "${MONITORING_PROMETHEUS}"
       serviceMonitor:
-        enabled: "{$MONITORING_PROMETHEUS}"
+        enabled: "${MONITORING_PROMETHEUS}"
+      prometheusRule:
+        enabled: "${MONITORING_PROMETHEUS}"
     snapshotsEnabled: false
     deployNodeAgent: true
     upgradeCRDs: false
