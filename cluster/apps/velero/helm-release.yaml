@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: velero
-      version: 4.0.0
+      version: 3.2.0
       sourceRef:
         kind: HelmRepository
         name: vmware-tanzu-charts
@@ -30,20 +30,31 @@ spec:
       extraEnvVars:
         TZ: "${TIMEZONE}"
       backupStorageLocation:
-        - name: default
-          bucket: velero-backup
-          default: true
-          provider: aws
-          config:
-            region: "north-europe-1"
-            s3ForcePathStyle: true
-            s3Url: "https://s3.${SECRET_PRIVATE_DOMAIN}"
-            publicUrl: "https://s3.${SECRET_PRIVATE_DOMAIN}"
+        name: default
+        bucket: velero-backup
+        default: true
+        config:
+          region: "north-europe-1"
+          s3ForcePathStyle: true
+          s3Url: "https://s3.${SECRET_PRIVATE_DOMAIN}"
+          publicUrl: "https://s3.${SECRET_PRIVATE_DOMAIN}"
+#        - name: default
+#          bucket: velero-backup
+#          default: true
+#          provider: aws
+#          config:
+#            region: "north-europe-1"
+#            s3ForcePathStyle: true
+#            s3Url: "https://s3.${SECRET_PRIVATE_DOMAIN}"
+#            publicUrl: "https://s3.${SECRET_PRIVATE_DOMAIN}"
       volumeSnapshotLocation:
-        - name: aws
-          provider: aws
-          config:
-            region: "north-europe-1"
+        name: aws
+        config:
+          region: "north-europe-1"
+#        - name: aws
+#          provider: aws
+#          config:
+#            region: "north-europe-1"
       resticTimeout: 6h
       logLevel: debug
     initContainers:
@@ -104,6 +115,6 @@ spec:
       existingSecret: velero-s3-creds
     schedules:
       daily-backup:
-        schedule: "40 * * * *"
+        schedule: "55 * * * *"
         template:
           ttl: "720h"
