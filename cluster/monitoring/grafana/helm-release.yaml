@@ -99,10 +99,10 @@ spec:
           revision: 1
           datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/13502
-        #minio:
-          #gnetId: 13502
-          #revision: 21
-          #datasource: Prometheus
+        minio:
+          gnetId: 13502
+          revision: 21
+          datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/1860
         node-exporter-full:
           gnetId: 1860
