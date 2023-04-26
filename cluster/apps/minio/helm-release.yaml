@@ -50,9 +50,6 @@ spec:
           Referrer-Policy "no-referrer-when-downgrade"
       hostname: "s3.${SECRET_PRIVATE_DOMAIN}"
     podAnnotations:
-      prometheus.io/scrape: "true"
-      prometheus.io/path: "/minio/v2/metrics/cluster"
-      prometheus.io/port: "9000"
       reloader.stakater.com/auto: "true"
     nodeSelector:
       feature.node.kubernetes.io/custom-usb-backupdrive: "true"
