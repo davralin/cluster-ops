@@ -59,9 +59,11 @@ spec:
       limits:
         memory: 1500Mi
     metrics:
-      enabled: "{$MONITORING_PROMETHEUS}"
+      enabled: "${MONITORING_PROMETHEUS}"
       serviceMonitor:
-        enabled: "{$MONITORING_PROMETHEUS}"
+        enabled: "${MONITORING_PROMETHEUS}"
+      prometheusRule:
+        enabled: "${MONITORING_PROMETHEUS}"
     snapshotsEnabled: true
     deployNodeAgent: true
     upgradeCRDs: false
