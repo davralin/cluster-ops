@@ -26,6 +26,7 @@ spec:
   values:
     fullnameOverride: velero
     configuration:
+      provider: aws
       extraEnvVars:
         TZ: "${TIMEZONE}"
       backupStorageLocation:
