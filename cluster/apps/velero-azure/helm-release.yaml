@@ -71,6 +71,23 @@ spec:
         enabled: "${MONITORING_PROMETHEUS}"
       prometheusRule:
         enabled: "${MONITORING_PROMETHEUS}"
+        spec:
+          - alert: VeleroBackupPartialFailures
+            annotations:
+              message: Velero backup {{ $labels.schedule }} has {{ $value }} partially failed backups.
+            expr: |-
+              sum(increase(velero_backup_partial_failure_total{schedule != ""}[12h])) > 0
+            for: 5m
+            labels:
+              severity: warning
+          - alert: VeleroBackupFailures
+            annotations:
+              message: Velero backup {{ $labels.schedule }} has {{ $value }} failed backups.
+            expr: |-
+              sum(increase(velero_backup_failure_total{schedule != ""}[12h])) > 0
+            for: 5m
+            labels:
+              severity: warning
     snapshotsEnabled: false
     deployNodeAgent: true
     upgradeCRDs: false
