@@ -53,12 +53,12 @@ spec:
       resticTimeout: 6h
       logLevel: debug
     initContainers:
-    - name: velero-velero-plugin-for-microsoft-azure
-      image: velero/velero-plugin-for-microsoft-azure:v1.7.0@sha256:a64c92eadf8eabb6af3435114725763c5863ce75a84192d956ed5b8c2729f091
-      imagePullPolicy: IfNotPresent
-      volumeMounts:
-      - mountPath: /target
-        name: plugins
+      - name: velero-velero-plugin-for-microsoft-azure
+        image: velero/velero-plugin-for-microsoft-azure:v1.7.0@sha256:a64c92eadf8eabb6af3435114725763c5863ce75a84192d956ed5b8c2729f091
+        imagePullPolicy: IfNotPresent
+        volumeMounts:
+        - mountPath: /target
+          name: plugins
     resources:
       requests:
         memory: 300Mi
