@@ -30,18 +30,18 @@ spec:
         TZ: "${TIMEZONE}"
       provider: aws
       backupStorageLocation:
-        name: default
-        bucket: velero-backup
-        default: true
-        config:
-          region: "north-europe-1"
-          s3ForcePathStyle: true
-          s3Url: "http://minio.minio.svc.cluster.local:9000"
-          publicUrl: "https://s3.${SECRET_PRIVATE_DOMAIN}"
+        - name: default
+          bucket: velero-backup
+          default: true
+          config:
+            region: "north-europe-1"
+            s3ForcePathStyle: true
+            s3Url: "https://s3.${SECRET_PRIVATE_DOMAIN}"
+            publicUrl: "https://s3.${SECRET_PRIVATE_DOMAIN}"
       volumeSnapshotLocation:
-        name: aws
-        config:
-          region: "north-europe-1"
+        - name: aws
+          config:
+            region: "north-europe-1"
       resticTimeout: 6h
       logLevel: debug
     initContainers:
