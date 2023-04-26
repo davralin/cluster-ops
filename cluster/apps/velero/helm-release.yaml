@@ -28,11 +28,11 @@ spec:
     configuration:
       extraEnvVars:
         TZ: "${TIMEZONE}"
-      provider: aws
       backupStorageLocation:
         - name: default
           bucket: velero-backup
           default: true
+          provider: aws
           config:
             region: "north-europe-1"
             s3ForcePathStyle: true
@@ -40,6 +40,7 @@ spec:
             publicUrl: "https://s3.${SECRET_PRIVATE_DOMAIN}"
       volumeSnapshotLocation:
         - name: aws
+          provider: aws
           config:
             region: "north-europe-1"
       resticTimeout: 6h
