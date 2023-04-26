@@ -90,7 +90,7 @@ spec:
               severity: warning
     snapshotsEnabled: false
     deployNodeAgent: true
-    upgradeCRDs: false
+    upgradeCRDs: true
     nodeAgent:
       podVolumePath: /var/lib/kubelet/pods
       privileged: false
