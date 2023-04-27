@@ -78,9 +78,10 @@ spec:
             honor_timestamps: true
             static_configs:
               - targets:
-                  - 10.0.1.1:9100
-                  - 10.0.2.9:9100
-                  - 10.0.2.11:9100
+                  - foreldre.w.ot:9100
+                  - hassos.w.ot:9100
+                  - mierin.w.ot:9100
+                  - rand.w.ot:9100
         serviceMonitorSelectorNilUsesHelmValues: false
         serviceMonitorSelector: {}
         serviceMonitorNamespaceSelector: {}
