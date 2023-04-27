@@ -102,6 +102,6 @@ spec:
       existingSecret: velero-s3-creds
     schedules:
       daily-backup:
-        schedule: "12 21 * * *"
+        schedule: "40 23 * * *"
         template:
           ttl: "720h"
