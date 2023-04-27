@@ -113,11 +113,6 @@ spec:
           gnetId: 15377
           revision: 1
           datasource: Prometheus
-        # Ref: https://grafana.com/grafana/dashboards/17813
-        trivvy-operator:
-          gnetId: 17813
-          revision: 2
-          datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/15469
         velero:
           gnetId: 15469
