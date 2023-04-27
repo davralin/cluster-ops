@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: velero
-      version: 3.2.0
+      version: 4.0.1
       sourceRef:
         kind: HelmRepository
         name: vmware-tanzu-charts
@@ -26,35 +26,23 @@ spec:
   values:
     fullnameOverride: velero
     configuration:
-      provider: aws
       extraEnvVars:
         TZ: "${TIMEZONE}"
       backupStorageLocation:
-        name: default
-        bucket: velero-backup
-        default: true
-        config:
-          region: "north-europe-1"
-          s3ForcePathStyle: true
-          s3Url: "https://s3.${SECRET_PRIVATE_DOMAIN}"
-          publicUrl: "https://s3.${SECRET_PRIVATE_DOMAIN}"
-#        - name: default
-#          bucket: velero-backup
-#          default: true
-#          provider: aws
-#          config:
-#            region: "north-europe-1"
-#            s3ForcePathStyle: true
-#            s3Url: "https://s3.${SECRET_PRIVATE_DOMAIN}"
-#            publicUrl: "https://s3.${SECRET_PRIVATE_DOMAIN}"
+        - name: default
+          bucket: velero-backup
+          default: true
+          provider: aws
+          config:
+            region: "north-europe-1"
+            s3ForcePathStyle: true
+            s3Url: "https://s3.${SECRET_PRIVATE_DOMAIN}"
+            publicUrl: "https://s3.${SECRET_PRIVATE_DOMAIN}"
       volumeSnapshotLocation:
-        name: aws
-        config:
-          region: "north-europe-1"
-#        - name: aws
-#          provider: aws
-#          config:
-#            region: "north-europe-1"
+        - name: aws
+          provider: aws
+          config:
+            region: "north-europe-1"
       resticTimeout: 6h
       logLevel: debug
     initContainers:
