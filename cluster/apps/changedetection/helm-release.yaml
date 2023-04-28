@@ -73,4 +73,4 @@ spec:
     sidecars:
       playwright-chrome:
         image: browserless/chrome
-        tag: 1-chrome-stable@sha256:53e494831372a740026436e719651739bf55bd34cd6154f059174c4edf001552
+        tag: 1-chrome-stable@sha256:0c1d3fdbad5009b28d5611bc742fa7b7a0131ea8d02f17cf35854ca16724c29a
