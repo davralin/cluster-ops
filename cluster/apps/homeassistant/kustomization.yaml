@@ -6,4 +6,3 @@ resources:
   - endpoints.yaml
   - ingress.yaml
   - service.yaml
-  - zigbee2mqtt
