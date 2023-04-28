@@ -43,6 +43,7 @@ spec:
           provider: aws
           credential:
             name: velero-s3-offsite-creds
+            key: cloud
           config:
             region: "north-europe-1"
             s3ForcePathStyle: true
