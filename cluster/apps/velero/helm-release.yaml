@@ -38,6 +38,14 @@ spec:
             s3ForcePathStyle: true
             s3Url: "https://s3.${SECRET_PRIVATE_DOMAIN}"
             publicUrl: "https://s3.${SECRET_PRIVATE_DOMAIN}"
+        - name: offsite
+          bucket: velero-offsite
+          provider: aws
+          config:
+            region: "north-europe-1"
+            s3ForcePathStyle: true
+            s3Url: "http://10.0.2.11:9000"
+            publicUrl: "http://10.0.2.11:9000"
       volumeSnapshotLocation:
         - name: aws
           provider: aws
@@ -106,10 +114,3 @@ spec:
         template:
           ttl: "720h"
           storageLocation: default
-          volumeSnapshotLocations: default
-      hourly-backup:
-        schedule: "10 * * * *"
-        template:
-          ttl: "48h"
-          storageLocation: default
-          volumeSnapshotLocations: default
