@@ -93,11 +93,6 @@ spec:
     nodeAgent:
       podVolumePath: /var/lib/kubelet/pods
       privileged: false
-      tolerations:
-      - key: "arm"
-        operator: "Exists"
-      - key: "node-role.kubernetes.io/master"
-        operator: "Exists"
       resources:
         requests:
           memory: 200Mi
