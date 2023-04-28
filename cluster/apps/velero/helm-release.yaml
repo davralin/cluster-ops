@@ -105,3 +105,15 @@ spec:
         schedule: "40 23 * * *"
         template:
           ttl: "720h"
+          storageLocation:
+            - default
+          volumeSnapshotLocations:
+            - default
+      hourly-backup:
+        schedule: "10 * * * *"
+        template:
+          ttl: "48h"
+          storageLocation:
+            - default
+          volumeSnapshotLocations:
+            - default
