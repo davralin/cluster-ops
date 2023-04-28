@@ -41,6 +41,8 @@ spec:
         - name: offsite
           bucket: velero-offsite
           provider: aws
+          credential:
+            name: velero-s3-offsite-creds
           config:
             region: "north-europe-1"
             s3ForcePathStyle: true
