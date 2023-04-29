@@ -27,3 +27,6 @@ spec:
     fullnameOverride: rook-ceph
     crds:
       enabled: true
+    monitoring:
+      enabled: "true"
+      createPrometheusRules: "true"
