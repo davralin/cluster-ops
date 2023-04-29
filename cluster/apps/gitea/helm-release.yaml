@@ -26,7 +26,7 @@ spec:
   values:
     fullnameOverride: gitea
     image:
-      tag: 1.19.0
+      tag: 1.19.2
       rootless: true
     containerSecurityContext:
       capabilities:
