@@ -112,8 +112,12 @@ spec:
         template:
           ttl: "720h"
           storageLocation: default
+          volumeSnapshotLocations:
+            - default
       daily-offsite-backup:
         schedule: "40 23 * * *"
         template:
           ttl: "720h"
           storageLocation: offsite
+          volumeSnapshotLocations:
+            - offsite
