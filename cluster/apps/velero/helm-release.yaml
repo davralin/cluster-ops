@@ -113,11 +113,11 @@ spec:
           ttl: "720h"
           storageLocation: default
           volumeSnapshotLocations:
-            - default
+            - aws
       daily-offsite-backup:
         schedule: "40 23 * * *"
         template:
           ttl: "720h"
           storageLocation: offsite
           volumeSnapshotLocations:
-            - offsite
+            - aws
