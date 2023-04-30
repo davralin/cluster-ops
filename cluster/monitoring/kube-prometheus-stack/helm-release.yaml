@@ -44,7 +44,7 @@ spec:
           repeat_interval: 6h
           receiver: "TelegramAndDiscord"
       ingress:
-        enabled: true
+        enabled: false
         annotations:
           haproxy.org/whitelist: "${HAPROXY_WHITELIST}"
           haproxy.org/response-set-header: |
