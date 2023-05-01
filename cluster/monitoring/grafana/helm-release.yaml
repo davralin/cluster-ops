@@ -137,6 +137,7 @@ spec:
         searchNamespace: ALL
     plugins:
       - snuids-radar-panel
+      - grafana-clock-panel
     serviceMonitor:
       enabled: true
     ingress:
