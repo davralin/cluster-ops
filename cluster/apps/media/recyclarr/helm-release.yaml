@@ -43,6 +43,10 @@ spec:
       config:
         enabled: true
         existingClaim: recyclarr
+      media:
+        enabled: true
+        existingClaim: media
+        readOnly: true
     podAnnotations:
       backup.velero.io/backup-volumes: config
     resources:
