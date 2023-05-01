@@ -33,6 +33,9 @@ spec:
           bucket: velero-backup
           default: true
           provider: aws
+          credential:
+            name: velero-s3-creds
+            key: cloud
           config:
             region: "north-europe-1"
             s3ForcePathStyle: true
@@ -104,18 +107,16 @@ spec:
         limits:
           memory: 3000Mi
           cpu: null
-    credentials:
-      existingSecret: velero-s3-creds
     schedules:
-      hourly-backup:
-        schedule: "10 * * * *"
+      daily-backup:
+        schedule: "10 04 * * *"
         template:
           ttl: "720h"
           storageLocation: default
           volumeSnapshotLocations:
             - aws
       daily-offsite-backup:
-        schedule: "40 23 * * *"
+        schedule: "10 23 * * *"
         template:
           ttl: "720h"
           storageLocation: offsite
