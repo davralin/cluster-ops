@@ -38,7 +38,6 @@ spec:
         enabled: false
     env:
       TZ: "${TIMEZONE}"
-      QBT_RUN: "true"
     persistence:
       config:
         enabled: true
