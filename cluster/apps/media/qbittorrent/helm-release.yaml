@@ -83,3 +83,14 @@ spec:
         memory: 2000Mi
       limits:
         memory: 3000Mi
+    sidecars:
+      subcleaner:
+        name: qbit-manage
+        image: docker.io/bobokun/qbit_manage:v3.6.2
+        env:
+          TZ: "${TIMEZONE}"
+          QBT_RUN: true # run and exit
+        volumeMounts:
+          - name: qbittorrent
+            mountPath: /config
+            subPath: qbit-manage
