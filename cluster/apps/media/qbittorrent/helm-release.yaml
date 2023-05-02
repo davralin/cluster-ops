@@ -84,7 +84,7 @@ spec:
       limits:
         memory: 3000Mi
     sidecars:
-      subcleaner:
+      qbit-manage:
         name: qbit-manage
         image: docker.io/bobokun/qbit_manage:v3.6.2
         env:
