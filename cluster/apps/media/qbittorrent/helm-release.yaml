@@ -91,6 +91,6 @@ spec:
           TZ: "${TIMEZONE}"
           QBT_RUN: true # run and exit
         volumeMounts:
-          - name: qbittorrent
+          - name: config
             mountPath: /config
             subPath: qbit-manage
