@@ -1,0 +1,40 @@
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: daily-to-azure
+  namespace: minio
+spec:
+  schedule: "15 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          nodeSelector:
+            feature.node.kubernetes.io/custom-usb-backupdrive: "true"
+          restartPolicy: Never
+          containers:
+            - name: daily-to-azure
+              image: rclone/rclone:1.62.2
+              args:
+                - --config
+                - /data/rclone.conf
+                - sync
+                - --transfers
+                - "24"
+                - --ignore-case
+                - --check-first
+                - --delete-before
+                - --progress
+                - /data
+                - azure-crypt:minio/
+              volumeMounts:
+                - mountPath: /data
+                  name: minio-local
+          volumes:
+            - name: minio-local
+              persistentVolumeClaim:
+                claimName: minio-local
