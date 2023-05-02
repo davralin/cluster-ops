@@ -47,7 +47,7 @@ spec:
         enabled: true
         existingClaim: media
         mountPath: /data
-      emptyDir:
+      emptydir:
         enabled: true
         type: emptyDir
         mountPath: /app/config
