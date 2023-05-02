@@ -25,6 +25,8 @@ spec:
       retries: 3
   values:
     fullnameOverride: qbit-manage
+    command: "/bin/sleep"
+    args: "inifinity"
     podSecurityContext:
       runAsUser: 1000
       runAsGroup: 1000
@@ -46,10 +48,6 @@ spec:
         enabled: true
         existingClaim: media
         mountPath: /data
-      emptydir:
-        enabled: true
-        type: emptyDir
-        mountPath: /app/config
     podAnnotations:
       backup.velero.io/backup-volumes: config
     resources:
