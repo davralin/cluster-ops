@@ -26,7 +26,7 @@ spec:
   values:
     fullnameOverride: qbit-manage
     command: "/bin/sleep"
-    args: "inifinity"
+    args: "infinity"
     podSecurityContext:
       runAsUser: 1000
       runAsGroup: 1000
