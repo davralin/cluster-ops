@@ -83,18 +83,3 @@ spec:
         memory: 2000Mi
       limits:
         memory: 3000Mi
-    sidecars:
-      qbit-manage:
-        name: qbit-manage
-        image: docker.io/bobokun/qbit_manage:v3.6.2
-        podSecurityContext:
-          runAsUser: 0
-          runAsGroup: 0
-          fsGroup: 0
-        env:
-          TZ: "${TIMEZONE}"
-          QBT_RUN: true # run and exit
-        volumeMounts:
-          - name: config
-            mountPath: /app/config
-            subPath: qbit-manage
