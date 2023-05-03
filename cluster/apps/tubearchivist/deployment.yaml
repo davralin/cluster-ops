@@ -56,7 +56,7 @@ spec:
             - name: ta-media
               mountPath: /youtube
         - name: es
-          image: elasticsearch:8.7.0
+          image: elasticsearch:8.7.1
           ports:
             - name: es-http
               containerPort: 9200
