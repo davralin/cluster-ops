@@ -66,6 +66,15 @@ spec:
       USE_AIKAR_FLAGS: true
       ENFORCE_WHITELIST: "TRUE"
       REMOVE_OLD_MODS: "TRUE"
+    extraPorts:
+      - name: prometheus
+        containerPort: 25585
+        service:
+          enabled: true
+          type: ClusterIP
+          port: 25585
+        ingress:
+          enabled: false
     serviceAnnotations:
       mc-router.itzg.me/externalServerName: "survival.${SECRET_PRIVATE_DOMAIN}"
       external-dns.alpha.kubernetes.io/target: "home.${SECRET_PRIVATE_DOMAIN}"

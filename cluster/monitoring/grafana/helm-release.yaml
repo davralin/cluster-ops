@@ -98,6 +98,11 @@ spec:
           gnetId: 6739
           revision: 1
           datasource: Prometheus
+        # Ref: https://grafana.com/grafana/dashboards/14492
+        minecraft:
+          gnetId: 14492
+          revision: 2
+          datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/13502
         minio:
           gnetId: 13502
