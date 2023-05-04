@@ -33,7 +33,7 @@ spec:
       #fsGroupChangePolicy: "OnRootMismatch"
     image:
       repository: archivebox/archivebox
-      tag: 0.6.3
+      tag: 0.7.0
     args: ["server"]
     service:
       main:
