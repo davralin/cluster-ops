@@ -93,3 +93,12 @@ spec:
         backupDir:
           enabled: true
           existingClaim: creative-backup
+      sidecarContainers:
+        - name: prometheus-exporter
+          image: joshi425/minecraft_exporter:latest@sha256:313eb866703533566fcd290e7cf12785fd0517ad3b4e175f6f20b16a5a82e414
+          env:
+            RCON_PASSWORD: "CHANGEME!"
+         volumesMounts:
+           - name: dataDir
+             mountPath: /world
+             readOnly: true
