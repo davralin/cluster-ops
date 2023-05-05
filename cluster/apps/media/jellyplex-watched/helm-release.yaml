@@ -78,7 +78,7 @@ spec:
       JELLYFIN_TOKEN: "${SECRET_JELLYFIN_TOKEN}"
       ## Blacklisting/Whitelisting libraries, library types such as Movies/TV Shows, and users. Mappings apply so if the mapping for the user or library exist then both will be excluded.
       #BLACKLIST_LIBRARY: ""
-      WHITELIST_LIBRARY: "Movies,TV-Shows"
+      WHITELIST_LIBRARY_TYPE: "Movies,TV-Shows"
       #BLACKLIST_LIBRARY_TYPE: ""
       #WHITELIST_LIBRARY_TYPE: ""
       #BLACKLIST_USERS: ""
