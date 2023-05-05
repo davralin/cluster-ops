@@ -87,14 +87,6 @@ spec:
               - targets:
                   - readsb-protobuf.adsb.svc.cluster.local:9273
                   - ultrafeeder-prometheus.adsb.svc.cluster.local:9273
-          - job_name: minecraft
-            scrape_interval: 1m
-            scrape_timeout: 10s
-            honor_timestamps: true
-            static_configs:
-              - targets:
-                  - minecraft-creative-minecraft.minecraft.svc.cluster.local:25585
-                  - minecraft-survival-minecraft.minecraft.svc.cluster.local:25585
           - job_name: node-exporter
             scrape_interval: 1m
             scrape_timeout: 10s
