@@ -113,6 +113,10 @@ spec:
           gnetId: 1860
           revision: 30
           datasource: Prometheus
+        # Ref: https://github.com/jsclayton/prometheus-plex-exporter
+        plex-dashboards:
+          url: "https://raw.githubusercontent.com/jsclayton/prometheus-plex-exporter/main/examples/dashboards/Media%20Server.json"
+          datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/15377
         readsb-protobuf:
           gnetId: 15377
