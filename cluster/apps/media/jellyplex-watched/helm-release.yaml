@@ -55,7 +55,7 @@ spec:
       USER_MAPPING: '{ "${SECRET_PLEX_USER}": "${SECRET_JELLYFIN_USER}" }'
       ## Map libraries between plex and jellyfin in the even that they are different, order does not matter
       #LIBRARY_MAPPING: { "Shows": "TV Shows" }
-      LIBRARY_MAPPING: '{ "Shows": "TV Shows" }'
+      LIBRARY_MAPPING: '{ "Shows": "TV-Shows" }'
       ## Recommended to use token as it is faster to connect as it is direct to the server instead of going through the plex servers
       ## URL of the plex server, use hostname or IP address if the hostname is not resolving correctly
       ## Comma seperated list for multiple servers
@@ -78,7 +78,7 @@ spec:
       JELLYFIN_TOKEN: "${SECRET_JELLYFIN_TOKEN}"
       ## Blacklisting/Whitelisting libraries, library types such as Movies/TV Shows, and users. Mappings apply so if the mapping for the user or library exist then both will be excluded.
       #BLACKLIST_LIBRARY: ""
-      WHITELIST_LIBRARY_TYPE: "movie,show"
+      WHITELIST_LIBRARY: "Movies,TV-Shows,Shows"
       #BLACKLIST_LIBRARY_TYPE: ""
       #WHITELIST_LIBRARY_TYPE: ""
       #BLACKLIST_USERS: ""
