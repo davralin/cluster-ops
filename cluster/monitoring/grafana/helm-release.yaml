@@ -101,19 +101,19 @@ spec:
         # Ref: https://grafana.com/grafana/dashboards/13502
         minio:
           gnetId: 13502
-          revision: 21
+          revision: 22
           datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/1860
         node-exporter-full:
           gnetId: 1860
-          revision: 30
+          revision: 31
           datasource: Prometheus
         # Ref: https://github.com/jsclayton/prometheus-plex-exporter
         plex-dashboards:
           url: "https://raw.githubusercontent.com/jsclayton/prometheus-plex-exporter/main/examples/dashboards/Media%20Server.json"
           datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/9628
-        plex-dashboards:
+        postgresql-dashboard:
           gnetId: 9628
           revision: 7
           datasource: Prometheus
