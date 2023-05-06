@@ -112,6 +112,11 @@ spec:
         plex-dashboards:
           url: "https://raw.githubusercontent.com/jsclayton/prometheus-plex-exporter/main/examples/dashboards/Media%20Server.json"
           datasource: Prometheus
+        # Ref: https://grafana.com/grafana/dashboards/9628
+        plex-dashboards:
+          gnetId: 9628
+          revision: 7
+          datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/15377
         readsb-protobuf:
           gnetId: 15377
