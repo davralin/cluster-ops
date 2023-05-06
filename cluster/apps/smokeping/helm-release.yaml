@@ -65,7 +65,7 @@ spec:
     configMaps:
       config:
         enabled: true
-        data:
+        data: |
           *** Targets ***
 
           probe = FPing
