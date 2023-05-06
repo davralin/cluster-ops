@@ -305,6 +305,7 @@ spec:
         enabled: true
         type: configMap
         mountPath: /config/Targets
+        name: config
       data:
         enabled: true
         existingClaim: smokeping-data
