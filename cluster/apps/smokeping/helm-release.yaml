@@ -31,6 +31,9 @@ spec:
       runAsGroup: 1000
       fsGroup: 1000
       fsGroupChangePolicy: "OnRootMismatch"
+      capabilities:
+        add:
+          - CHOWN
     image:
       repository: lscr.io/linuxserver/smokeping
       tag: 2.7.3@sha256:cfcb83da4804fcd38bc3a52dc0fffd2d288ad55c519a0ff076bf1a54eb070199
