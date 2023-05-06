@@ -88,6 +88,16 @@ spec:
           gnetId: 364
           revision: 3
           datasource: Prometheus
+        # Ref: https://grafana.com/grafana/dashboards/12693
+        haproxy2:
+          gnetId: 12693
+          revision: 5
+          datasource: Prometheus
+        # Ref: https://grafana.com/grafana/dashboards/12950
+        hwmon:
+          gnetId: 12950
+          revision: 2
+          datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/13838
         kubernetes-overview:
           gnetId: 13838
@@ -120,6 +130,11 @@ spec:
         # Ref: https://grafana.com/grafana/dashboards/15377
         readsb-protobuf:
           gnetId: 15377
+          revision: 1
+          datasource: Prometheus
+        # Ref: https://grafana.com/grafana/dashboards/11835
+        redis-dashboard:
+          gnetId: 11835
           revision: 1
           datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/11315
