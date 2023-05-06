@@ -27,6 +27,7 @@ spec:
     fullnameOverride: kube-prometheus-stack
     alertmanager:
       fullnameOverride: kube-prom-alertmanager
+      enabled: true
       config:
         receivers:
           - name: "TelegramAndDiscord"
