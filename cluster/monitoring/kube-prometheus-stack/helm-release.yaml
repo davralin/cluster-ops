@@ -25,37 +25,37 @@ spec:
       retries: 3
   values:
     fullnameOverride: kube-prometheus-stack
-    alertmanager:
-      fullnameOverride: kube-prom-alertmanager
-      enabled: true
-      config:
-        receivers:
-          - name: "TelegramAndDiscord"
-            telegram_configs:
-              - bot_token: "${SECRET_TELEGRAM_TOKEN}"
-                api_url: "https://api.telegram.org"
-                chat_id: "${SECRET_TELEGRAM_CHATID}"
-                parse_mode: 'MarkdownV2'
-            discord_configs:
-              - webhook_url: "${SECRET_DISCORD_ALERTMANAGER_URL}"
-        route:
-          group_by: ["alertname", "job"]
-          group_wait: 30s
-          group_interval: 5m
-          repeat_interval: 6h
-          receiver: "TelegramAndDiscord"
-      ingress:
-        enabled: false
-        annotations:
-          haproxy.org/whitelist: "${HAPROXY_WHITELIST}"
-          haproxy.org/response-set-header: |
-            Strict-Transport-Security "max-age=31536000"
-            X-Frame-Options "DENY"
-            X-Content-Type-Options "nosniff"
-            Referrer-Policy "no-referrer-when-downgrade"
-        hosts: "alertmanager.${SECRET_PRIVATE_DOMAIN}"
-        tls:
-          - secretName: "${SECRET_PRIVATE_DOMAIN_CERT}"
+#    alertmanager:
+#      fullnameOverride: kube-prom-alertmanager
+#      enabled: true
+#      config:
+#        receivers:
+#          - name: "TelegramAndDiscord"
+#            telegram_configs:
+#              - bot_token: "${SECRET_TELEGRAM_TOKEN}"
+#                api_url: "https://api.telegram.org"
+#                chat_id: "${SECRET_TELEGRAM_CHATID}"
+#                parse_mode: 'MarkdownV2'
+#            discord_configs:
+#              - webhook_url: "${SECRET_DISCORD_ALERTMANAGER_URL}"
+#        route:
+#          group_by: ["alertname", "job"]
+#          group_wait: 30s
+#          group_interval: 5m
+#          repeat_interval: 6h
+#          receiver: "TelegramAndDiscord"
+#      ingress:
+#        enabled: false
+#        annotations:
+#          haproxy.org/whitelist: "${HAPROXY_WHITELIST}"
+#          haproxy.org/response-set-header: |
+#            Strict-Transport-Security "max-age=31536000"
+#            X-Frame-Options "DENY"
+#            X-Content-Type-Options "nosniff"
+#            Referrer-Policy "no-referrer-when-downgrade"
+#        hosts: "alertmanager.${SECRET_PRIVATE_DOMAIN}"
+#        tls:
+#          - secretName: "${SECRET_PRIVATE_DOMAIN_CERT}"
     defaultRules:
       create: false
     grafana:
