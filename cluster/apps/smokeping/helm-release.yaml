@@ -308,7 +308,7 @@ spec:
         name: config
       data:
         enabled: true
-        existingClaim: smokeping-data
+        existingClaim: smokeping
     podAnnotations:
       backup.velero.io/backup-volumes: data
     resources:
