@@ -43,6 +43,7 @@ resources:
   - ../reloader
   - ../rssbridge
   - ../scrutiny
+  - ../smokeping
   - ../syncthing
   - ../teddit
   - ../tubearchivist
