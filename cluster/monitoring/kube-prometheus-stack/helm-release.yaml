@@ -24,6 +24,7 @@ spec:
     remediation:
       retries: 3
   values:
+    cleanPrometheusOperatorObjectNames: true
     fullnameOverride: kube-prom
     alertmanager:
       config:
@@ -42,26 +43,32 @@ spec:
           group_interval: 5m
           repeat_interval: 6h
           receiver: "TelegramAndDiscord"
-      ingress:
-        enabled: false
-        annotations:
-          haproxy.org/whitelist: "${HAPROXY_WHITELIST}"
-          haproxy.org/response-set-header: |
-            Strict-Transport-Security "max-age=31536000"
-            X-Frame-Options "DENY"
-            X-Content-Type-Options "nosniff"
-            Referrer-Policy "no-referrer-when-downgrade"
-        hosts: "alertmanager.${SECRET_PRIVATE_DOMAIN}"
-        tls:
-          - secretName: "${SECRET_PRIVATE_DOMAIN_CERT}"
+#      ingress:
+#        enabled: false
+#        annotations:
+#          haproxy.org/whitelist: "${HAPROXY_WHITELIST}"
+#          haproxy.org/response-set-header: |
+#            Strict-Transport-Security "max-age=31536000"
+#            X-Frame-Options "DENY"
+#            X-Content-Type-Options "nosniff"
+#            Referrer-Policy "no-referrer-when-downgrade"
+#        hosts: "alertmanager.${SECRET_PRIVATE_DOMAIN}"
+#        tls:
+#          - secretName: "${SECRET_PRIVATE_DOMAIN_CERT}"
     defaultRules:
-      create: false
+      create: true
     grafana:
       enabled: false
-    kube-state-metrics:
-      fullnameOverride: kube-prom-kube-state-metrics
-    nodeExporter:
-      fullnameOverride: kube-prom-node-exporter
+      forceDeployDashboards: true
+      sidecar:
+        dashboards:
+          multicluster:
+            etcd:
+              enabled: true
+#    kube-state-metrics:
+#      fullnameOverride: kube-prom-kube-state-metrics
+#    nodeExporter:
+#      fullnameOverride: kube-prom-node-exporter
     prometheus:
       ingress:
         enabled: true
@@ -77,6 +84,15 @@ spec:
         tls:
           - secretName: "${SECRET_PRIVATE_DOMAIN_CERT}"
       prometheusSpec:
+        retention: 2d
+        retentionSize: 15GB
+        storageSpec:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: local-path
+              resources:
+                requests:
+                  storage: 20Gi
         additionalScrapeConfigs:
           - job_name: adsb
             scrape_interval: 1m
