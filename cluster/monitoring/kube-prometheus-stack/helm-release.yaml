@@ -50,7 +50,8 @@ spec:
                 - alertname =~ "InfoInhibitor"
             - receiver: TelegramAndDiscord
               matchers:
-                - severity = "warning|critical"
+                - severity = "critical"
+                # - severity = "warning|critical"
               continue: true
 #      ingress:
 #        enabled: false
@@ -65,7 +66,7 @@ spec:
 #        tls:
 #          - secretName: "${SECRET_PRIVATE_DOMAIN_CERT}"
     defaultRules:
-      create: true
+      create: false #true
     grafana:
       enabled: false
     kube-state-metrics:
