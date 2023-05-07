@@ -73,6 +73,8 @@ spec:
           multicluster:
             etcd:
               enabled: true
+    kube-state-metrics:
+      fullnameOverride: kube-prom-kube-state-metrics
     prometheus:
       ingress:
         enabled: true
