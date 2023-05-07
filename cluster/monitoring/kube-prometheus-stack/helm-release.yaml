@@ -67,12 +67,6 @@ spec:
       create: true
     grafana:
       enabled: false
-      forceDeployDashboards: true
-      sidecar:
-        dashboards:
-          multicluster:
-            etcd:
-              enabled: true
     kube-state-metrics:
       fullnameOverride: kube-prom-kube-state-metrics
     prometheus:
