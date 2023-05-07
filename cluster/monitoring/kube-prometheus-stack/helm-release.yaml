@@ -36,12 +36,21 @@ spec:
                 parse_mode: 'MarkdownV2'
             discord_configs:
               - webhook_url: "${SECRET_DISCORD_ALERTMANAGER_URL}"
+          - name: "null"
         route:
           group_by: ["alertname", "job"]
           group_wait: 30s
           group_interval: 5m
           repeat_interval: 6h
           receiver: "TelegramAndDiscord"
+          routes:
+            - receiver: "null"
+              matchers:
+                - alertname =~ "InfoInhibitor"
+            - receiver: TelegramAndDiscord
+              matchers:
+                - severity = "warning|critical"
+              continue: true
 #      ingress:
 #        enabled: false
 #        annotations:
