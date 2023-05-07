@@ -25,7 +25,6 @@ spec:
       retries: 3
   values:
     cleanPrometheusOperatorObjectNames: true
-    fullnameOverride: kube-prom
     alertmanager:
       config:
         receivers:
@@ -65,10 +64,6 @@ spec:
           multicluster:
             etcd:
               enabled: true
-#    kube-state-metrics:
-#      fullnameOverride: kube-prom-kube-state-metrics
-#    nodeExporter:
-#      fullnameOverride: kube-prom-node-exporter
     prometheus:
       ingress:
         enabled: true
