@@ -24,9 +24,8 @@ spec:
     remediation:
       retries: 3
   values:
-    fullnameOverride: kube-prometheus-stack
+    fullnameOverride: kube-prom
     alertmanager:
-      fullnameOverride: kube-prom-alertmanager
       config:
         receivers:
           - name: "TelegramAndDiscord"
