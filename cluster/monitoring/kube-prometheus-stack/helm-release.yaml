@@ -26,7 +26,7 @@ spec:
   values:
     fullnameOverride: kube-prom
     alertmanager:
-      fullnameOverride: kube-prom-alertmanager
+      fullnameOverride: ""
       config:
         receivers:
           - name: "TelegramAndDiscord"
