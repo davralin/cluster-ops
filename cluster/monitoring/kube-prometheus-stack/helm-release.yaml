@@ -26,7 +26,6 @@ spec:
   values:
     fullnameOverride: "kube-prom"
     alertmanager:
-      fullnameOverride: "kube-prom"
       config:
         receivers:
           - name: "TelegramAndDiscord"
@@ -53,18 +52,19 @@ spec:
                 - severity = "critical"
                 # - severity = "warning|critical"
               continue: true
-#      ingress:
-#        enabled: false
-#        annotations:
-#          haproxy.org/whitelist: "${HAPROXY_WHITELIST}"
-#          haproxy.org/response-set-header: |
-#            Strict-Transport-Security "max-age=31536000"
-#            X-Frame-Options "DENY"
-#            X-Content-Type-Options "nosniff"
-#            Referrer-Policy "no-referrer-when-downgrade"
-#        hosts: "alertmanager.${SECRET_PRIVATE_DOMAIN}"
-#        tls:
-#          - secretName: "${SECRET_PRIVATE_DOMAIN_CERT}"
+      ingress:
+        enabled: true
+        pathType: Prefix
+        annotations:
+          haproxy.org/whitelist: "${HAPROXY_WHITELIST}"
+          haproxy.org/response-set-header: |
+            Strict-Transport-Security "max-age=31536000"
+            X-Frame-Options "DENY"
+            X-Content-Type-Options "nosniff"
+            Referrer-Policy "no-referrer-when-downgrade"
+        hosts: "alertmanager.${SECRET_PRIVATE_DOMAIN}"
+        tls:
+          - secretName: "${SECRET_PRIVATE_DOMAIN_CERT}"
     defaultRules:
       create: false #true
     grafana:
