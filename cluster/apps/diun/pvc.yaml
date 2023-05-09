@@ -5,7 +5,7 @@ metadata:
   name: diun
   namespace: diun
 spec:
-  storageClassName: ceph-block
+  storageClassName: "${STORAGE_READWRITEONCE}"
   accessModes:
     - ReadWriteOnce
   resources:
