@@ -13,7 +13,6 @@ resources:
   - ../changedetection
   - ../cloudflareddns
   - ../descheduler
-  - ../diun
   - ../drone
   - ../epicgames-freegames
   - ../external-dns

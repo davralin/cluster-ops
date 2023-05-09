@@ -5,6 +5,7 @@ resources:
   - ../botkube
   - ../cert-manager
   - ../dendrite
+  - ../diun
   - ../docker-registry
   - ../external-dns
   - ../haproxy/haproxy-ingress-daemonset
