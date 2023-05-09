@@ -42,6 +42,8 @@ spec:
             port: 49152
     env:
       TZ: "${TIMEZONE}"
+      PGID: "1000"
+      PUID: "1000"
     resources:
       requests:
         cpu: 20m
