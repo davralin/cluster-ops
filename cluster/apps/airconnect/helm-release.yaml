@@ -37,9 +37,7 @@ spec:
       tag: 1.1.5
     service:
       main:
-        ports:
-          http:
-            port: 49152
+        enabled: false
     env:
       TZ: "${TIMEZONE}"
       PGID: "1000"
