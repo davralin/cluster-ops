@@ -32,7 +32,7 @@ spec:
       fsGroupChangePolicy: "OnRootMismatch"
     image:
       repository: ghcr.io/onedr0p/prowlarr
-      tag: 1.4.1.3258@sha256:d91053d68735aac97ddbf09be870cf03f176889471ea668d043a4f546a43ab57
+      tag: 1.4.1.3258@sha256:a4a329dd359521fca01051c45d12596453d279e206c5c42e49b7062eacc769ae
     service:
       main:
         ports:
