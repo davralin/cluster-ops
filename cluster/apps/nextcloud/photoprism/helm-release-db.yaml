@@ -27,7 +27,7 @@ spec:
     fullnameOverride: photoprism-mariadb
     image:
       repository: bitnami/mariadb
-      tag: 10.11.2
+      tag: 10.11.3
     auth:
       database: photoprism
       username: photoprism
