@@ -26,7 +26,7 @@ spec:
   values:
     image:
       repository: registry
-      tag: 2.8.1
+      tag: 2.8.2
     persistence:
       enabled: false
     replicaCount: 1
