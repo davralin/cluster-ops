@@ -15,7 +15,7 @@ spec:
         spec:
           containers:
             - name: dosage
-              image: ghcr.io/davralin/dosage:latest@sha256:c00fe9482c9b7d4e02c467136a179d49cc87b0b181a8aafeb39432927c5ecf3f
+              image: ghcr.io/davralin/dosage:latest@sha256:76d32dc0144b8651f3fc5cc1e119497a845ef83fe120d5ebe109a74b865a46d1
               args:
                 - dosage
                 - -b
