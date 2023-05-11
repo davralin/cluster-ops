@@ -2,8 +2,8 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: media-local
-  namespace: media
+  name: minio-local-usb
+  namespace: minio
 spec:
   storageClassName: manual
   capacity:
@@ -11,13 +11,13 @@ spec:
   accessModes:
   - ReadWriteOnce
   hostPath:
-    path: /var/media/disk/media
+    path: /var/media/usb/minio
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: media-local
-  namespace: media
+  name: minio-local-usb
+  namespace: minio
 spec:
   storageClassName: manual
   accessModes:
@@ -30,9 +30,9 @@ apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: daily-sync-to-usb
-  namespace: media
+  namespace: minio
 spec:
-  schedule: "11 * * * *"
+  schedule: "03 * * * *"
   concurrencyPolicy: Forbid
   successfulJobsHistoryLimit: 1
   failedJobsHistoryLimit: 1
@@ -47,18 +47,18 @@ spec:
             - name: daily-sync-to-usb
               image: b2un0/rsync:1.0.1
               command: ['/usr/bin/rsync']
-              args: ["--archive", "--delete", "--progress", "--exclude", "downloads/", "/media/", "/srv/"]
+              args: ["--archive", "--delete", "--progress", "/media/", "/srv/"]
               volumeMounts:
                 - mountPath: /media
-                  name: media
+                  name: minio-local
                   readOnly: true
                 - mountPath: /srv
-                  name: media-local
+                  name: minio-local-usb
                   readOnly: false
           volumes:
-            - name: media-local
+            - name: minio-local
               persistentVolumeClaim:
-                claimName: media-local
-            - name: media
+                claimName: minio-local
+            - name: minio-local-usb
               persistentVolumeClaim:
-                claimName: media
+                claimName: minio-local-usb
