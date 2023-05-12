@@ -48,7 +48,7 @@ spec:
             X-Content-Type-Options "nosniff"
             Referrer-Policy "no-referrer-when-downgrade"
         hosts:
-          - host: "dendrite.${SECRET_PRIVATE_DOMAIN}"
+          - host: "dendrite.${SECRET_PUBLIC_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
@@ -56,7 +56,7 @@ spec:
                 pathType: Prefix
               - path: /.well-known/matrix/client
                 pathType: Prefix
-          - host: "${SECRET_PRIVATE_DOMAIN}"
+          - host: "${SECRET_PUBLIC_DOMAIN}"
             paths:
               - path: /.well-known/matrix/
                 pathType: Prefix
@@ -65,9 +65,9 @@ spec:
               - path: /.well-known/matrix/client
                 pathType: Prefix
         tls:
-          - secretName: "${SECRET_PRIVATE_DOMAIN_CERT}"
+          - secretName: "${SECRET_PUBLIC_DOMAIN_CERT}"
             hosts:
-              - dendrite.${SECRET_PRIVATE_DOMAIN}
+              - dendrite.${SECRET_PUBLIC_DOMAIN}
     secrets:
       yaml:
         enabled: true
@@ -76,9 +76,9 @@ spec:
             version: 2
             global:
               private_key: /etc/dendrite/matrix_key.pem
-              server_name: "${SECRET_PRIVATE_DOMAIN}"
-              well_known_server_name: "dendrite.${SECRET_PRIVATE_DOMAIN}:443"
-              well_known_client_name: "https://dendrite.${SECRET_PRIVATE_DOMAIN}:443"
+              server_name: "${SECRET_PUBLIC_DOMAIN}"
+              well_known_server_name: "dendrite.${SECRET_PUBLIC_DOMAIN}:443"
+              well_known_client_name: "https://dendrite.${SECRET_PUBLIC_DOMAIN}:443"
               database:
                 connection_string: postgresql://dendrite:${SECRET_DENDRITE_DB_PASSWD}@postgresql/dendrite?sslmode=disable
               cache:
