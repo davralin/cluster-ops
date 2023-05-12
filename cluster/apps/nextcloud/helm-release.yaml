@@ -57,7 +57,7 @@ spec:
         passwordKey: nextcloud-password
       extraInitContainers:
         - name: postgresql-isready
-          image: bitnami/postgresql:15.2.0
+          image: bitnami/postgresql:15.3.0
           command: ['sh', '-c', 'until pg_isready -h postgresql -U nextcloud; do sleep 2 ; done']
       defaultConfigs:
         redis.config.php: true
