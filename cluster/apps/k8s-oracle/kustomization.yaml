@@ -17,4 +17,3 @@ resources:
   - ../snowflake
   - ../thelounge
   - ../velero-oracle
-  - ../well-known-hosting

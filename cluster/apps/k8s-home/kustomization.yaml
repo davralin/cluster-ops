@@ -27,7 +27,6 @@ resources:
   - ../kuma-private
   - ../local-path-provisioner
   - ../mailrelay
-  - ../matrix
   - ../media
   - ../metallb
   - ../metrics-server
