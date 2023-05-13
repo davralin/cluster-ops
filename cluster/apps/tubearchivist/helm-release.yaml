@@ -44,7 +44,7 @@ spec:
     fullnameOverride: tubearchivist
     image:
       repository: bbilly1/tubearchivist
-      tag: v0.3.5
+      tag: v0.3.6
     service:
       main:
         ports:
