@@ -25,9 +25,6 @@ spec:
       retries: 3
   values:
     fullnameOverride: postgresql
-    image:
-      repository: bitnami/postgresql
-      tag: 15.3.0
     auth:
       database: nextcloud
       username: nextcloud
@@ -40,13 +37,7 @@ spec:
         existingClaim: nextcloud-postgresql
     volumePermissions:
       enabled: true
-      image:
-        repository: bitnami/bitnami-shell
-        tag: 11
     metrics:
       enabled: "${MONITORING_PROMETHEUS}"
       serviceMonitor:
         enabled: "${MONITORING_PROMETHEUS}"
-      image:
-        repository: bitnami/postgres-exporter
-        tag: 0.12.0

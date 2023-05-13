@@ -25,18 +25,12 @@ spec:
       retries: 3
   values:
     fullnameOverride: influxdb
-    image:
-      repository: bitnami/influxdb
-      tag: 2.6.1-debian-11-r17
     persistence:
       enabled: true
       existingClaim: influxdb
     volumePermissions:
       enabled: true
-      image:
-        repository: bitnami/bitnami-shell
-        tag: 11
     metrics:
-      enabled: true
+      enabled: "${MONITORING_PROMETHEUS}"
       serviceMonitor:
-        enabled: true
+        enabled: "${MONITORING_PROMETHEUS}"

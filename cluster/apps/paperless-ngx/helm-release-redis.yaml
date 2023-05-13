@@ -25,9 +25,6 @@ spec:
       retries: 3
   values:
     fullnameOverride: redis
-    image:
-      repository: bitnami/redis
-      tag: 7.0.11
     architecture: standalone
     auth:
       enabled: false
@@ -36,13 +33,7 @@ spec:
         enabled: false
     volumePermissions:
       enabled: true
-      image:
-        repository: bitnami/bitnami-shell
-        tag: 11
     metrics:
       enabled: "${MONITORING_PROMETHEUS}"
       serviceMonitor:
         enabled: "${MONITORING_PROMETHEUS}"
-      image:
-        repository: bitnami/redis-exporter
-        tag: 1.50.0

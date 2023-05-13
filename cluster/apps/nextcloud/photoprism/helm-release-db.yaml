@@ -25,9 +25,6 @@ spec:
       retries: 3
   values:
     fullnameOverride: photoprism-mariadb
-    image:
-      repository: bitnami/mariadb
-      tag: 10.11.3
     auth:
       database: photoprism
       username: photoprism
@@ -46,11 +43,7 @@ spec:
         initialDelaySeconds: 900
     volumePermissions:
       enabled: true
-      image:
-        repository: bitnami/bitnami-shell
-        tag: 11
     metrics:
-      enabled: true
-      image:
-        repository: bitnami/mysqld-exporter
-        tag: 0.14.0
+      enabled: "${MONITORING_PROMETHEUS}"
+      serviceMonitor:
+        enabled: "${MONITORING_PROMETHEUS}"
