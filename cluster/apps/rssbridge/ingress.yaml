@@ -13,7 +13,7 @@ metadata:
       Referrer-Policy "no-referrer-when-downgrade"
 spec:
   rules:
-    - host: "rssbridge.${SECRET_PUBLIC_DOMAIN}"
+    - host: "rssbridge.${SECRET_PRIVATE_DOMAIN}"
       http:
         paths:
           - path: /
@@ -24,6 +24,6 @@ spec:
                 port:
                   number: 80
   tls:
-    - secretName: "${SECRET_PUBLIC_DOMAIN_CERT}"
+    - secretName: "${SECRET_PRIVATE_DOMAIN_CERT}"
       hosts:
-        - "rssbridge.${SECRET_PUBLIC_DOMAIN}"
+        - "rssbridge.${SECRET_PRIVATE_DOMAIN}"
