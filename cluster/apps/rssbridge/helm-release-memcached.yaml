@@ -1,0 +1,39 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: memcached
+  namespace: rssbridge
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: memcached
+      version: 6.4.1
+      sourceRef:
+        kind: HelmRepository
+        name: bitnami-charts
+        namespace: flux-system
+      interval: 5m
+  targetNamespace: rssbridge
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  values:
+    fullnameOverride: memcached
+    image:
+      repository: bitnami/memcached
+      tag: 7.0.11
+    architecture: standalone
+    auth:
+      enabled: false
+    volumePermissions:
+      enabled: true
+    metrics:
+      enabled: "${MONITORING_PROMETHEUS}"
+      serviceMonitor:
+        enabled: "${MONITORING_PROMETHEUS}"

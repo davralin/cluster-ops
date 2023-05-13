@@ -5,6 +5,7 @@ namespace: rssbridge
 resources:
   - configmap.yaml
   - deployment.yaml
+  - helm-release-memcached.yaml
   - ingress.yaml
   - namespace.yaml
   - service.yaml
