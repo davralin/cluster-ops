@@ -13,7 +13,7 @@ data:
     httpMaxConnections = 100
     staticDir = "./public"
     title = "nitter"
-    hostname = "t.${SECRET_PUBLIC_DOMAIN}"
+    hostname = "t.${SECRET_PRIVATE_DOMAIN}"
 
     [Cache]
     listMinutes = 240  # how long to cache list info (not the tweets, so keep it high)
@@ -40,9 +40,10 @@ data:
     # Change default preferences here, see src/prefs_impl.nim for a complete list
     [Preferences]
     theme = "Nitter"
-    replaceTwitter = "t.${SECRET_PUBLIC_DOMAIN}"
+    replaceTwitter = "t.${SECRET_PRIVATE_DOMAIN}"
     replaceYouTube = "yewtu.be"
-    replaceInstagram = "i.${SECRET_PUBLIC_DOMAIN}"
+    replaceInstagram = ""
+    replaceReddit = "r.${SECRET_PRIVATE_DOMAIN}"
     proxyVideos = true
     hlsPlayback = false
     infiniteScroll = false

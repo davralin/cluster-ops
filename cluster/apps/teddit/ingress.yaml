@@ -13,7 +13,7 @@ metadata:
       Referrer-Policy "no-referrer-when-downgrade"
 spec:
   rules:
-    - host: "r.${SECRET_PUBLIC_DOMAIN}"
+    - host: "r.${SECRET_PRIVATE_DOMAIN}"
       http:
         paths:
           - path: /
@@ -24,6 +24,6 @@ spec:
                 port:
                   number: 8080
   tls:
-    - secretName: ${SECRET_PUBLIC_DOMAIN_CERT}
+    - secretName: ${SECRET_PRIVATE_DOMAIN_CERT}
       hosts:
-        - "r.${SECRET_PUBLIC_DOMAIN}"
+        - "r.${SECRET_PRIVATE_DOMAIN}"
