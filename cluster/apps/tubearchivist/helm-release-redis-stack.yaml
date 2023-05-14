@@ -1,0 +1,44 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: redis-stack
+  namespace: tubearchivist
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: app-template
+      version: 1.5.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+      interval: 5m
+  targetNamespace: tubearchivist
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  values:
+    fullnameOverride: redis-stack
+    image:
+      repository: redis/redis-stack-server
+      tag: 6.2.6-v4
+    service:
+      main:
+        ports:
+          http:
+            port: 6379
+    env:
+      TZ: "${TIMEZONE}"
+    persistence:
+      config:
+        enabled: false
+        existingClaim: ta-redis
+        mountPath: /data
+    podAnnotations:
+      backup.velero.io/backup-volumes: config
