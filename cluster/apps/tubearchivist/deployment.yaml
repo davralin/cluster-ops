@@ -14,7 +14,7 @@ spec:
   template:
     metadata:
       annotations:
-        backup.velero.io/backup-volumes: ta-media,ta-cache,ta-es,ta-redis
+        backup.velero.io/backup-volumes: ta-media,ta-cache
       labels:
         app: tubearchivist
     spec:
@@ -28,7 +28,7 @@ spec:
             - name: TZ
               value: "${TIMEZONE}"
             - name: ES_URL
-              value: "http://localhost:9200"
+              value: "http://elasticsearch.tubearchivist.svc.cluster.local:9200"
             - name: TA_HOST
               value: "https://tube.${SECRET_PRIVATE_DOMAIN}"
             - name: REDIS_HOST
@@ -55,30 +55,6 @@ spec:
               mountPath: /cache
             - name: ta-media
               mountPath: /youtube
-        - name: es
-          image: elasticsearch:8.7.1
-          ports:
-            - name: es-http
-              containerPort: 9200
-          env:
-            - name: TZ
-              value: "${TIMEZONE}"
-            - name: xpack.security.enabled
-              value: "true"
-            - name: discovery.type
-              value: "single-node"
-            - name: ES_JAVA_OPTS
-              value: "-Xms512m -Xmx512m"
-            - name: path.repo
-              value: "/usr/share/elasticsearch/data/snapshot"
-            - name: ELASTIC_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: tubearchivist-secrets
-                  key: ELASTIC_PASSWORD
-          volumeMounts:
-            - name: ta-es
-              mountPath: /usr/share/elasticsearch/data
       restartPolicy: Always
       volumes:
         - name: ta-media
@@ -87,6 +63,3 @@ spec:
         - name: ta-cache
           persistentVolumeClaim:
             claimName: ta-cache
-        - name: ta-es
-          persistentVolumeClaim:
-            claimName: ta-es

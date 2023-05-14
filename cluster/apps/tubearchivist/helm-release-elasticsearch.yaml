@@ -1,0 +1,53 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: elasticsearch
+  namespace: tubearchivist
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: app-template
+      version: 1.5.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+      interval: 5m
+  targetNamespace: tubearchivist
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  valuesFrom:
+    - targetPath: env.ELASTIC_PASSWORD
+      kind: Secret
+      name: tubearchivist-secrets
+      valuesKey: ELASTIC_PASSWORD
+  values:
+    fullnameOverride: elasticsearch
+    image:
+      repository: elasticsearch
+      tag: 8.7.1
+    service:
+      main:
+        ports:
+          http:
+            port: 9200
+    env:
+      TZ: "${TIMEZONE}"
+      xpack.security.enabled: "true"
+      discovery.type: "single-node"
+      ES_JAVA_OPTS: "-Xms512m -Xmx512m"
+      path.repo: "/usr/share/elasticsearch/data/snapshot"
+    persistence:
+      config:
+        enabled: true
+        existingClaim: ta-es
+        mountPath: /usr/share/elasticsearch/data
+    podAnnotations:
+      backup.velero.io/backup-volumes: config
