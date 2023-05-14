@@ -44,7 +44,7 @@ spec:
     fullnameOverride: tubearchivist
     image:
       repository: bbilly1/tubearchivist
-      tag: v0.3.6
+      tag: v0.3.5
     service:
       main:
         ports:
@@ -71,9 +71,9 @@ spec:
       TZ: "${TIMEZONE}"
       HOST_UID: 1000
       HOST_GID: 1000
-      ES_URL: "http://localhost:9200"
+      ES_URL: "http://elasticsearch.tubearchivist.svc.cluster.local:9200"
       TA_HOST: "https://tube.${SECRET_PRIVATE_DOMAIN}"
-      REDIS_HOST: "localhost"
+      REDIS_HOST: "redis-stack.tubearchivist.svc.cluster.local"
       ENABLE_CAST: "true"
     persistence:
       cache:
@@ -85,51 +85,8 @@ spec:
         existingClaim: ta-media
         mountPath: /youtube
     podAnnotations:
-      backup.velero.io/backup-volumes: cache,elasticsearch,media,redis
+      backup.velero.io/backup-volumes: cache,media
     resources:
       requests:
         memory: 1024Mi
         cpu: 500m
-    sidecars:
-      elasticsearch:
-        name: elasticsearch
-        image: elasticsearch:8.7.1
-        service:
-          main:
-            ports:
-              http:
-                port: 9200
-        env:
-          TZ: "${TIMEZONE}"
-          xpack.security.enabled: "true"
-          discovery.type: "single-node"
-          ES_JAVA_OPTS: "-Xms512m -Xmx512m"
-          path.repo: "/usr/share/elasticsearch/data/snapshot"
-        persistence:
-          elasticsearch:
-            enabled: true
-            existingClaim: ta-es
-            mountPath: /usr/share/elasticsearch/data
-        resources:
-          requests:
-            memory: 1100Mi
-            cpu: 100m
-      redis:
-        name: redis
-        image: redis/redis-stack-server:6.2.6-v4
-        service:
-          main:
-            ports:
-              http:
-                port: 6379
-        env:
-          TZ: "${TIMEZONE}"
-        persistence:
-          redis:
-            enabled: true
-            existingClaim: ta-redis
-            mountPath: /data
-        resources:
-          requests:
-            memory: 50Mi
-            cpu: 50m
