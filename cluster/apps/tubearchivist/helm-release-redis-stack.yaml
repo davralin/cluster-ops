@@ -37,7 +37,7 @@ spec:
       TZ: "${TIMEZONE}"
     persistence:
       config:
-        enabled: false
+        enabled: true
         existingClaim: ta-redis
         mountPath: /data
     podAnnotations:

@@ -32,7 +32,7 @@ spec:
             - name: TA_HOST
               value: "https://tube.${SECRET_PRIVATE_DOMAIN}"
             - name: REDIS_HOST
-              value: "localhost"
+              value: "redis-stack.tubearchivist.svc.cluster.local"
             - name: ENABLE_CAST
               value: "true"
             - name: TA_USERNAME
@@ -79,17 +79,6 @@ spec:
           volumeMounts:
             - name: ta-es
               mountPath: /usr/share/elasticsearch/data
-        - name: redis
-          image: redis/redis-stack-server:6.2.6-v4
-          ports:
-            - name: redis
-              containerPort: 6379
-          env:
-            - name: TZ
-              value: "${TIMEZONE}"
-          volumeMounts:
-            - name: ta-redis
-              mountPath: /data
       restartPolicy: Always
       volumes:
         - name: ta-media
@@ -101,6 +90,3 @@ spec:
         - name: ta-es
           persistentVolumeClaim:
             claimName: ta-es
-        - name: ta-redis
-          persistentVolumeClaim:
-            claimName: ta-redis
