@@ -28,7 +28,7 @@ spec:
               topologyKey: "kubernetes.io/hostname"
       containers:
         - name: teddit
-          image: 1337kavin/teddit:latest@sha256:9c5405a2645a9e4e437c160658d8d92b10f2e03cacee0f09621963db11ad201d
+          image: 1337kavin/teddit:latest@sha256:5891a96fa6a1e37d22b9137358d46de87c4ecbfa7d26a4d1483aa9a3ae0b71de
           ports:
             - containerPort: 8080
               protocol: TCP
