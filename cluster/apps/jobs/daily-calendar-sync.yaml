@@ -13,7 +13,7 @@ spec:
           restartPolicy: Never
           containers:
             - name: vdirsyncer
-              image: ghcr.io/davralin/vdirsyncer:latest@sha256:c6127f8f59ebeb4063ffafbf40c3c9da84de38e894ee0007d98a49ed6a9ed70b
+              image: ghcr.io/davralin/vdirsyncer:latest@sha256:2e3bb8405484b1e5ec26b7856c1231d7ebc438022fde42bf1e2860d49cd65f0f
               command: ['/usr/bin/vdirsyncer']
               args: ["-c", "/vdirsync/config", "-v", "INFO", "discover"]
               volumeMounts:
