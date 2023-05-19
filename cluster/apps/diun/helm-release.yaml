@@ -45,5 +45,6 @@ spec:
       TZ: "${TIMEZONE}"
       DIUN_PROVIDERS_KUBERNETES: "true"
       LOG_LEVEL: "debug"
+      DIUN_NOTIFY_ON: "update"
       DIUN_PROVIDERS_KUBERNETES_WATCHBYDEFAULT: "true"
       DIUN_WATCH_SCHEDULE: "13 05 * * *"
