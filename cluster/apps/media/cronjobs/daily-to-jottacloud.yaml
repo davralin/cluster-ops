@@ -16,7 +16,7 @@ spec:
           restartPolicy: Never
           initContainers:
             - name: init-mkdir-cp-rclone
-              image: busybox:1.36.0
+              image: busybox:1.36.1
               command: ['sh', '-c', "/bin/mkdir -p /config/rclone; cp -vn /tmp/rclone.conf /config/rclone/rclone.conf"]
               volumeMounts:
                 - mountPath: /tmp

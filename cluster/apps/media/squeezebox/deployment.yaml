@@ -22,7 +22,7 @@ spec:
     spec:
       initContainers:
         - name: init-chown-config
-          image: busybox:1.36.0
+          image: busybox:1.36.1
           command:
             - /bin/chown
             - -R
