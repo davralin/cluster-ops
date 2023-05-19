@@ -21,6 +21,7 @@ resources:
   - ../haproxy/haproxy-ingress
   - ../homeassistant
   - ../intel-gpu
+  - ../it-tools
   - ../jobs
   - ../kubed
   - ../kuma-private
