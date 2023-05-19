@@ -32,7 +32,7 @@ spec:
       #fsGroupChangePolicy: "OnRootMismatch"
     image:
       repository: ghcr.io/matrix-org/dendrite-monolith
-      tag: main #v0.12.0
+      tag: main@sha256:02e0cdcace5183308d56523947c54b7bb572881a61e94b10c7b3a05da416c87c
     service:
       main:
         ports:
