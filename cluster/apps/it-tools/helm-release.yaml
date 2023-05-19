@@ -25,11 +25,12 @@ spec:
       retries: 3
   values:
     fullnameOverride: it-tools
-    podSecurityContext:
-      runAsUser: 1000
-      runAsGroup: 1000
-      fsGroup: 1000
-      fsGroupChangePolicy: "OnRootMismatch"
+    # fails on startup due to missing permissions
+    #podSecurityContext:
+      #runAsUser: 1000
+      #runAsGroup: 1000
+      #fsGroup: 1000
+      #fsGroupChangePolicy: "OnRootMismatch"
     image:
       repository: ghcr.io/corentinth/it-tools
       tag: 2023.5.14-77f2efc
