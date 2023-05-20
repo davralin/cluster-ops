@@ -36,10 +36,6 @@ spec:
       kind: Secret
       name: tubearchivist-secrets
       valuesKey: ELASTIC_PASSWORD
-    - targetPath: sidecars.elasticsearch.ELASTIC_PASSWORD
-      kind: Secret
-      name: tubearchivist-secrets
-      valuesKey: ELASTIC_PASSWORD
   values:
     fullnameOverride: tubearchivist
     image:
