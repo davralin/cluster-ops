@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: tubearchivist
-          image: bbilly1/tubearchivist:v0.3.5
+          image: bbilly1/tubearchivist:v0.3.6
           ports:
             - name: http
               containerPort: 8000
