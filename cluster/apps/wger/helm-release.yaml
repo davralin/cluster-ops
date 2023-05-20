@@ -1,0 +1,80 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: wger
+  namespace: wger
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: app-template
+      version: 1.5.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+      interval: 5m
+  targetNamespace: wger
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  values:
+    fullnameOverride: wger
+    podSecurityContext:
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+      fsGroupChangePolicy: "OnRootMismatch"
+    image:
+      repository: wger/server
+      tag: latest@sha256:34da034551268f8e1ca4bf48755f99d4651225df191779d42a2dd781fee3b447
+    service:
+      main:
+        ports:
+          http:
+            port: 8000
+    ingress:
+      main:
+        enabled: true
+        annotations:
+          haproxy.org/whitelist: "${HAPROXY_WHITELIST}"
+          haproxy.org/response-set-header: |
+            Strict-Transport-Security "max-age=31536000"
+            X-Frame-Options "DENY"
+            X-Content-Type-Options "nosniff"
+            Referrer-Policy "no-referrer-when-downgrade"
+        hosts:
+          - host: "wger.${SECRET_PRIVATE_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - secretName: "${SECRET_PRIVATE_DOMAIN_CERT}"
+    env:
+      TIME_ZONE: "${TIMEZONE}"
+    persistence:
+      config:
+        enabled: false
+        existingClaim: wger
+        mountPath: /projects
+    sidecars:
+      celery_worker:
+        image: wger/server
+        tag: latest@sha256:34da034551268f8e1ca4bf48755f99d4651225df191779d42a2dd781fee3b447
+        command: ["/start-worker"]
+      celery_beat:
+        image: wger/server
+        tag: latest@sha256:34da034551268f8e1ca4bf48755f99d4651225df191779d42a2dd781fee3b447
+        command: ["/start-beat"]
+    resources:
+      requests:
+        cpu: 100m
+        memory: 300Mi
+      limits:
+        cpu: 500m
+        memory: 600Mi
