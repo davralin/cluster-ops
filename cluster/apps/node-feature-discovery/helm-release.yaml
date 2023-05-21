@@ -55,4 +55,4 @@ spec:
             - name: usb-backupdrive
               matchOn:
                 - usbId:
-                    vendor: ["0bc2", "ab30"]
+                    vendor: ["8087", "0026"]
