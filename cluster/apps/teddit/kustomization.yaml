@@ -2,8 +2,6 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - deployment.yaml
   - helm-release-redis.yaml
-  - ingress.yaml
+  - helm-release.yaml
   - namespace.yaml
-  - service.yaml
