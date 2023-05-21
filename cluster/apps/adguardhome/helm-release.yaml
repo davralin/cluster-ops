@@ -68,6 +68,10 @@ spec:
         enabled: true
         existingClaim: adguardhome
         mountPath: /opt/adguardhome/conf
+      data:
+        enabled: true
+        existingClaim: adguardhome-data
+        mountPath: /opt/adguardhome/work
     podAnnotations:
       backup.velero.io/backup-volumes: config
     resources:
