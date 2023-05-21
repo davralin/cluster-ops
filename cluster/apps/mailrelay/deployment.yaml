@@ -52,7 +52,7 @@ spec:
             periodSeconds: 15
           env:
             - name: HOSTNAME
-              value: email.w.ot
+              value: "smtp.${SECRET_PRIVATE_DOMAIN}"
             - name: SMARTHOST
               valueFrom:
                 secretKeyRef:
