@@ -52,10 +52,6 @@ spec:
               matchOn:
                 - usbId:
                     vendor: ["0bda", "2838"]
-            - name: zwave-conbee-ii
-              matchOn:
-                - usbId:
-                    vendor: ["1cf1", "0030"]
             - name: usb-backupdrive
               matchOn:
                 - usbId:
