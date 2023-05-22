@@ -32,7 +32,7 @@ spec:
       fsGroupChangePolicy: "OnRootMismatch"
     image:
       repository: 1337kavin/teddit
-      tag: latest@sha256:e073c5ca5468edfa6360e06236b0799b705e3509ef0a2a5df9f953bf9c0cbc74
+      tag: latest@sha256:51678cb1525cbdca217ede55c56df01c0b33403bdc4a747e2897d922c827b8c0
     service:
       main:
         ports:
