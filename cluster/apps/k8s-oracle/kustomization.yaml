@@ -15,5 +15,6 @@ resources:
   - ../metrics-server
   - ../reloader
   - ../snowflake
+  - ../tailscale
   - ../thelounge
   - ../velero-oracle

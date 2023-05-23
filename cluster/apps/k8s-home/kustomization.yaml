@@ -41,6 +41,7 @@ resources:
   - ../reloader
   - ../scrutiny
   - ../syncthing
+  - ../tailscale
   - ../teddit
   - ../tubearchivist
   - ../unifi
