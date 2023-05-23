@@ -38,6 +38,13 @@ spec:
         ports:
           http:
             port: 45387
+    probes:
+      liveness:
+        enabled: false
+      readiness:
+        enabled: false
+      startup:
+        enabled: false
     env:
       TZ: "${TIMEZONE}"
       TS_KUBE_SECRET: "tailscale-auth"
