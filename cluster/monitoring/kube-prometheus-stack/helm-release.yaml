@@ -57,7 +57,8 @@ spec:
             X-Frame-Options "DENY"
             X-Content-Type-Options "nosniff"
             Referrer-Policy "no-referrer-when-downgrade"
-        hosts: "alertmanager.${SECRET_PRIVATE_DOMAIN}"
+        hosts:
+         - "alertmanager.${SECRET_PRIVATE_DOMAIN}"
         tls:
           - secretName: "${SECRET_PRIVATE_DOMAIN_CERT}"
     defaultRules:
