@@ -28,12 +28,7 @@ spec:
     alertmanager:
       config:
         receivers:
-          - name: "TelegramAndDiscord"
-            telegram_configs:
-              - bot_token: "${SECRET_TELEGRAM_TOKEN}"
-                api_url: "https://api.telegram.org"
-                chat_id: "${SECRET_TELEGRAM_CHATID}"
-                parse_mode: 'MarkdownV2'
+          - name: "Discord"
             discord_configs:
               - webhook_url: "${SECRET_DISCORD_ALERTMANAGER_URL}"
           - name: "null"
@@ -42,15 +37,15 @@ spec:
           group_wait: 30s
           group_interval: 5m
           repeat_interval: 6h
-          receiver: "TelegramAndDiscord"
+          receiver: "Discord"
           routes:
-            - receiver: "null"
+            - receiver: "Discord"
               matchers:
                 - alertname =~ "InfoInhibitor"
             - receiver: TelegramAndDiscord
               matchers:
-                - severity = "critical"
-                # - severity = "warning|critical"
+                # - severity = "critical"
+                - severity = "warning|critical"
               continue: true
       ingress:
         enabled: true
