@@ -39,7 +39,7 @@ spec:
           repeat_interval: 6h
           receiver: "Discord"
           routes:
-            - receiver: "Discord"
+            - receiver: "null"
               matchers:
                 - alertname =~ "InfoInhibitor"
             - receiver: TelegramAndDiscord
