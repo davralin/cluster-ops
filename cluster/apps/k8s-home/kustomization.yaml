@@ -24,7 +24,7 @@ resources:
   - ../it-tools
   - ../jobs
   - ../kubed
-  - ../kuma-private
+  - ../kuma
   - ../local-path-provisioner
   - ../mailrelay
   - ../media
