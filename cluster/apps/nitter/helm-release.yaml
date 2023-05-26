@@ -49,12 +49,12 @@ spec:
             X-Content-Type-Options "nosniff"
             Referrer-Policy "no-referrer-when-downgrade"
         hosts:
-          - host: "t.${SECRET_PRIVATE_DOMAIN}"
+          - host: "t.${SECRET_DEFAULT_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
         tls:
-          - secretName: "${SECRET_PRIVATE_DOMAIN_CERT}"
+          - secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
     secrets:
       config:
         enabled: true
@@ -67,7 +67,7 @@ spec:
             httpMaxConnections = 100
             staticDir = "./public"
             title = "nitter"
-            hostname = "t.${SECRET_PRIVATE_DOMAIN}"
+            hostname = "t.${SECRET_DEFAULT_DOMAIN}"
 
             [Cache]
             listMinutes = 240  # how long to cache list info (not the tweets, so keep it high)
@@ -94,10 +94,10 @@ spec:
             # Change default preferences here, see src/prefs_impl.nim for a complete list
             [Preferences]
             theme = "Nitter"
-            replaceTwitter = "t.${SECRET_PRIVATE_DOMAIN}"
+            replaceTwitter = "t.${SECRET_DEFAULT_DOMAIN}"
             replaceYouTube = "yewtu.be"
             replaceInstagram = ""
-            replaceReddit = "r.${SECRET_PRIVATE_DOMAIN}"
+            replaceReddit = "r.${SECRET_DEFAULT_DOMAIN}"
             proxyVideos = true
             hlsPlayback = false
             infiniteScroll = false
