@@ -107,7 +107,7 @@ spec:
       config:
         enabled: true
         type: secret
-        name: nitter-conf
+        name: nitter-config
         mountPath: "/src/nitter.conf"
         subPath: "nitter.conf"
     podAnnotations:
