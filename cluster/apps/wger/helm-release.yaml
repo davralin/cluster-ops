@@ -32,7 +32,7 @@ spec:
       fsGroupChangePolicy: "OnRootMismatch"
     image:
       repository: wger/server
-      tag: latest@sha256:62b7f3b28106e37da86d6a27f88eac6635d9555cced2d7c966269444dcb17ae3
+      tag: latest@sha256:f339f19dd5c571dca59b408b857a0cdbad52aa4946fa1b9a88c311f96c859d1c
     service:
       main:
         ports:
