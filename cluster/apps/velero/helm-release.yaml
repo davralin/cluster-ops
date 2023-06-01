@@ -50,8 +50,8 @@ spec:
           config:
             region: "north-europe-1"
             s3ForcePathStyle: true
-            s3Url: "http://10.0.2.11:9000"
-            publicUrl: "http://10.0.2.11:9000"
+            s3Url: "http://100.64.252.42:9000"
+            publicUrl: "http://100.64.252.42:9000"
       volumeSnapshotLocation:
         - name: aws
           provider: aws
