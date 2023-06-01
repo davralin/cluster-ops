@@ -16,8 +16,6 @@
         "patch"
       ],
       "matchPackageNames": [
-        "lycheeverse/lychee-action",
-        "minio",
         "renovatebot/github-action"
       ]
     }
