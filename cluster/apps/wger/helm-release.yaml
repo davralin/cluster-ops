@@ -23,6 +23,11 @@ spec:
   upgrade:
     remediation:
       retries: 3
+  valuesFrom:
+    - targetPath: env.DJANGO_DB_PASSWORD
+      kind: Secret
+      name: wger-secrets
+      valuesKey: password
   values:
     fullnameOverride: wger
     podSecurityContext:
@@ -60,6 +65,7 @@ spec:
       SITE_URL: "wger.${SECRET_DEFAULT_DOMAIN}"
       ALLOW_REGISTRATION: "True"
       ALLOW_GUEST_USERS: "True"
+      DJANGO_DB_HOST: "postgresql"
     persistence:
       media:
         enabled: true
