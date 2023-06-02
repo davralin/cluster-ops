@@ -1,0 +1,40 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: backupbrowser
+  namespace: jobs
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: app-template
+      version: 1.5.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+      interval: 5m
+  targetNamespace: jobs
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  values:
+    fullnameOverride: backupbrowser
+    image:
+      repository: ghcr.io/davralin/sleep
+      tag: latest@sha256:d61fcb3cba27824ba3cfce31b439567ffc82a73decdfb7f92ed5154f67a39f38
+    service:
+      main:
+        enabled: false
+      podAnnotations:
+        backup.velero.io/backup-volumes: config
+    persistence:
+      config:
+        enabled: true
+        existingClaim: remotebackup
+        mountPath: /data
