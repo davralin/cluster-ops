@@ -44,7 +44,18 @@ spec:
       hostname: "wger.${SECRET_DEFAULT_DOMAIN}"
       path: /static
       pathType: Prefix
-    staticSitePVC: wger-static
+    extraVolumes:
+      - name: wger-media
+        persistentVolumeClaim:
+          claimName: wger-media
+      - name: wger-static
+        persistentVolumeClaim:
+          claimName: wger-static
+    extraVolumeMounts:
+      - name: wger-media
+        mountPath: /opt/bitnami/nginx/html/media/
+      - name: wger-static
+        mountPath: /opt/bitnami/nginx/html/static/
     extraEnvVars:
     - name: TZ
       value: "${TIMEZONE}"
