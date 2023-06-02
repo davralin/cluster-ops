@@ -55,4 +55,4 @@ spec:
       serviceMonitor:
         enabled: "${MONITORING_PROMETHEUS}"
       prometheusRule:
-        enabled: "${MONITORING_PROMETHEUS}"
+        enabled: false #"${MONITORING_PROMETHEUS}"
