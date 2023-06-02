@@ -32,6 +32,8 @@ spec:
     service:
       type: ClusterIP
       port: 8080
+    updateStrategy:
+      type: Recreate
     ingress:
       enabled: true
       annotations:

@@ -46,11 +46,12 @@ spec:
     ingress:
       main:
         enabled: true
-        annotations: #X-Content-Type-Options "nosniff"
+        annotations:
           haproxy.org/whitelist: "${HAPROXY_WHITELIST}"
           haproxy.org/response-set-header: |
             Strict-Transport-Security "max-age=31536000"
             X-Frame-Options "DENY"
+            X-Content-Type-Options "nosniff"
             Referrer-Policy "no-referrer-when-downgrade"
         hosts:
           - host: "wger.${SECRET_DEFAULT_DOMAIN}"
@@ -65,6 +66,7 @@ spec:
       ALLOW_REGISTRATION: "True"
       ALLOW_GUEST_USERS: "True"
       DJANGO_DB_HOST: "postgresql"
+      DEBUG: "True"
     persistence:
       media:
         enabled: true
