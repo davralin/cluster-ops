@@ -58,6 +58,8 @@ spec:
     env:
       TIME_ZONE: "${TIMEZONE}"
       SITE_URL: "wger.${SECRET_DEFAULT_DOMAIN}"
+      ALLOW_REGISTRATION: "True"
+      ALLOW_GUEST_USERS: "True"
     persistence:
       media:
         enabled: true
