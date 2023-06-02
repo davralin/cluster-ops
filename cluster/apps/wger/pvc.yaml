@@ -18,9 +18,9 @@ metadata:
   name: wger-static
   namespace: wger
 spec:
-  storageClassName: "${STORAGE_READWRITEONCE}"
+  storageClassName: ceph-filesystem
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   resources:
     requests:
       storage: 1Gi
@@ -31,9 +31,9 @@ metadata:
   name: wger-media
   namespace: wger
 spec:
-  storageClassName: "${STORAGE_READWRITEONCE}"
+  storageClassName: ceph-filesystem
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   resources:
     requests:
       storage: 1Gi
