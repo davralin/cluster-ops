@@ -32,7 +32,7 @@ spec:
       kind: Secret
       name: adguardhome-sync-secret
       valuesKey: USERNAME
-    - targetPath: env.REPLICA_USERNAME
+    - targetPath: env.REPLICA1_USERNAME
       kind: Secret
       name: adguardhome-sync-secret
       valuesKey: USERNAME
@@ -40,11 +40,11 @@ spec:
       kind: Secret
       name: adguardhome-sync-secret
       valuesKey: PASSWORD
-    - targetPath: env.REPLICA_PASSWORD
+    - targetPath: env.REPLICA1_PASSWORD
       kind: Secret
       name: adguardhome-sync-secret
       valuesKey: PASSWORD
-    - targetPath: env.REPLICA_URL
+    - targetPath: env.REPLICA1_URL
       kind: Secret
       name: adguardhome-sync-secret
       valuesKey: REPLICA_URL
@@ -56,11 +56,10 @@ spec:
     args: ["run"]
     service:
       main:
-        ports:
-          http:
-            port: 8080
+        enabled: false
     env:
       TZ: "${TIMEZONE}"
+      API_PORT: '0'
     resources:
       requests:
         cpu: 50m
