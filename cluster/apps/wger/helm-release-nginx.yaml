@@ -39,7 +39,6 @@ spec:
         haproxy.org/response-set-header: |
           Strict-Transport-Security "max-age=31536000"
           X-Frame-Options "DENY"
-          X-Content-Type-Options "nosniff"
           Referrer-Policy "no-referrer-when-downgrade"
       hostname: "wger.${SECRET_DEFAULT_DOMAIN}"
       path: /static
