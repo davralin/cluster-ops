@@ -47,4 +47,3 @@ resources:
   - ../unifi
   - ../velero
   - ../warrior
-  - ../writefreely
