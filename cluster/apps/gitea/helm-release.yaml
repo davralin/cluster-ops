@@ -42,12 +42,12 @@ spec:
           X-Content-Type-Options "nosniff"
           Referrer-Policy "no-referrer-when-downgrade"
       hosts:
-        - host: "gitea.${SECRET_PUBLIC_DOMAIN}"
+        - host: "gitea.${SECRET_PRIVATE_DOMAIN}"
           paths:
             - path: /
               pathType: Prefix
       tls:
-        - secretName: "${SECRET_PUBLIC_DOMAIN_CERT}"
+        - secretName: "${SECRET_PRIVATE_DOMAIN_CERT}"
     service:
       ssh:
         type: LoadBalancer
@@ -67,9 +67,9 @@ spec:
       config:
         server:
           DISABLE_SSH: false
-          SSH_DOMAIN: "ssh.${SECRET_PUBLIC_DOMAIN}"
-          DOMAIN: "gitea.${SECRET_PUBLIC_DOMAIN}"
-          ROOT_URL: "https://gitea.${SECRET_PUBLIC_DOMAIN}"
+          SSH_DOMAIN: "ssh.${SECRET_PRIVATE_DOMAIN}"
+          DOMAIN: "gitea.${SECRET_PRIVATE_DOMAIN}"
+          ROOT_URL: "https://gitea.${SECRET_PRIVATE_DOMAIN}"
           ENABLE_GZIP: true
           OFFLINE_MODE: true
           LANDING_PAGE: explore
@@ -95,7 +95,7 @@ spec:
         mailer:
           enabled: false
         webhook:
-          ALLOWED_HOST_LIST: "drone.${SECRET_PUBLIC_DOMAIN}"
+          ALLOWED_HOST_LIST: "drone.${SECRET_PRIVATE_DOMAIN}"
       metrics:
         enabled: "${MONITORING_PROMETHEUS}"
         serviceMonitor:
