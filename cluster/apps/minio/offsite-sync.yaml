@@ -20,7 +20,7 @@ spec:
             - name: offsite-sync-to
               image: b2un0/rsync:1.0.1
               command: ['/usr/bin/rsync']
-              args: ["--archive", "--delete", "--verbose", "-e", "ssh -o StrictHostKeyChecking=no", "/srv/", "user@10.0.2.9:/srv/minio-backup/"]
+              args: ["--archive", "--delete", "--verbose", "-e", "ssh -o StrictHostKeyChecking=no", "/srv/", "user@100.127.74.75:/srv/minio-backup/"]
               volumeMounts:
                 - mountPath: /srv
                   name: minio-local

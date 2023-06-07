@@ -18,7 +18,7 @@ spec:
             - name: rsync-sitebackup-from
               image: b2un0/rsync:1.0.1
               command: ['/usr/bin/rsync']
-              args: ["--archive", "--delete", "--verbose", "--rsync-path", "sudo rsync", "-e", "ssh -o StrictHostKeyChecking=no", "user@10.0.2.9:/srv/foreldre/", "/srv/"]
+              args: ["--archive", "--delete", "--verbose", "--rsync-path", "sudo rsync", "-e", "ssh -o StrictHostKeyChecking=no", "user@100.127.74.75:/srv/foreldre/", "/srv/"]
               volumeMounts:
                 - mountPath: /srv
                   name: sitebackup
