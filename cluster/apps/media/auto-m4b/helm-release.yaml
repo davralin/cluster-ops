@@ -33,7 +33,7 @@ spec:
       #fsGroupChangePolicy: "OnRootMismatch"
     image:
       repository: seanap/auto-m4b
-      tag: latest@sha256:b3a84d2c4ac520a0efa2b18223754e67404aba771886d3ac974e9ddc86a566ea
+      tag: latest@sha256:d1a87791bd34cdb424bc1d55a8b43a025528e83f1a0e1e681c0e3458d6b5657d
     service:
       main:
         enabled: false
