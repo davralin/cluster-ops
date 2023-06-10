@@ -8,6 +8,7 @@ resources:
   - ../docker-registry
   - ../external-dns
   - ../haproxy/haproxy-ingress-daemonset
+  - ../it-tools
   - ../kubed
   - ../kuma
   - ../local-path-provisioner
@@ -15,5 +16,6 @@ resources:
   - ../reloader
   - ../snowflake
   - ../tailscale
+  - ../teddit
   - ../thelounge
   - ../velero-oracle

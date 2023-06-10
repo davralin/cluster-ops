@@ -49,16 +49,16 @@ spec:
             X-Content-Type-Options "nosniff"
             Referrer-Policy "no-referrer-when-downgrade"
         hosts:
-          - host: "r.${SECRET_PRIVATE_DOMAIN}"
+          - host: "r.${SECRET_DEFAULT_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
         tls:
-          - secretName: "${SECRET_PRIVATE_DOMAIN_CERT}"
+          - secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
     env:
       TZ: "${TIMEZONE}"
       REDIS_HOST: "redis-master"
-      DOMAIN: "r.${SECRET_PRIVATE_DOMAIN}"
+      DOMAIN: "r.${SECRET_DEFAULT_DOMAIN}"
       USE_HELMET: "true"
       USE_HELMET_HSTS: "true"
       REDIRECT_WWW: "true"
