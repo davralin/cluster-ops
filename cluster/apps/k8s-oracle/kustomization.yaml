@@ -16,6 +16,5 @@ resources:
   - ../reloader
   - ../snowflake
   - ../tailscale
-  - ../teddit
   - ../thelounge
   - ../velero-oracle
