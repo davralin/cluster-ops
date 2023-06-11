@@ -5,7 +5,7 @@ metadata:
   name: daily-to-jottacloud
   namespace: media
 spec:
-  schedule: "14 01 * * *"
+  schedule: "* * * * *"
   concurrencyPolicy: Forbid
   successfulJobsHistoryLimit: 1
   failedJobsHistoryLimit: 1
@@ -35,10 +35,10 @@ spec:
                 - --delete-before
                 - --verbose
                 - --jottacloud-hard-delete
-                - --exclude
-                - downloads/**
                 - /media/
                 - jottacloud-crypt:/media
+                - --exclude
+                - /downloads/**
               volumeMounts:
                 - mountPath: /media
                   name: media
