@@ -4,4 +4,4 @@ kind: Kustomization
 resources:
   - daily-chown-media.yaml
   - daily-dosage.yaml
-#  - daily-to-jottacloud.yaml
+  - daily-to-jottacloud.yaml
