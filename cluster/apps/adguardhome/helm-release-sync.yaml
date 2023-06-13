@@ -60,6 +60,7 @@ spec:
     env:
       TZ: "${TIMEZONE}"
       API_PORT: '0'
+      CRON: '*/30 * * * *'
     resources:
       requests:
         cpu: 50m
