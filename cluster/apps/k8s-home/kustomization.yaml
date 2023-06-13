@@ -40,6 +40,7 @@ resources:
   - ../peertube-headless-seeder
   - ../reloader
   - ../scrutiny
+  - ../smokeping
   - ../syncthing
   - ../tailscale
   - ../teddit
