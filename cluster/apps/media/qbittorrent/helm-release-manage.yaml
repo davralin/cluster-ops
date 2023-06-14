@@ -32,13 +32,12 @@ spec:
       fsGroupChangePolicy: "OnRootMismatch"
     image:
       repository: docker.io/bobokun/qbit_manage
-      tag: develop
+      tag: v4.0.0
     service:
       main:
         enabled: false
     env:
       TZ: "${TIMEZONE}"
-      QBT_DEBUG: "True"
     persistence:
       config:
         enabled: true
