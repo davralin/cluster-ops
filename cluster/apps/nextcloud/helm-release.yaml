@@ -73,20 +73,18 @@ spec:
           - "-c"
           - "apt-get update && apt-get install -y openrc && start-stop-daemon --start --background --pidfile /cron.pid --exec /cron.sh"
     metrics:
-      enabled: true
+      enabled: "${MONITORING_PROMETHEUS}"
       image:
         repository: xperimental/nextcloud-exporter
         tag: 0.6.1
       serviceMonitor:
-        enabled: true
+        enabled: "${MONITORING_PROMETHEUS}"
     phpClientHttpsFix:
       enabled: true
-    readinessProbe:
-      enabled: false
-      initialDelaySeconds: 900
-    livenessProbe:
-      enabled: false
-      initialDelaySeconds: 900
+    startupProbe:
+      enabled: true
+      periodSeconds: 60
+      failureThreshold: 60
     internalDatabase:
       enabled: false
     externalDatabase:
