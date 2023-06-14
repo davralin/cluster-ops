@@ -27,7 +27,7 @@ spec:
     fullnameOverride: backupbrowser
     image:
       repository: ghcr.io/davralin/sleep
-      tag: latest@sha256:d61fcb3cba27824ba3cfce31b439567ffc82a73decdfb7f92ed5154f67a39f38
+      tag: latest@sha256:d70e99f8fba1784021affc5cc46af0d20b1c717e8fb4fea3f510a915aaf0d593
     service:
       main:
         enabled: false
