@@ -79,7 +79,8 @@ spec:
         mountPath: /app/server
       transcode:
         enabled: true
-        existingClaim: tdarr-cache
+        existingClaim: media
+        subPath: unsorted/tdarr
         mountPath: /temp
       media:
         enabled: true

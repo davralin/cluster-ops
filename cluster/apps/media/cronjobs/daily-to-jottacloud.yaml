@@ -40,6 +40,8 @@ spec:
                 - jottacloud-crypt:/media
                 - --exclude
                 - downloads/**
+                - --exclude
+                - unsorted/tdarr/**
               volumeMounts:
                 - mountPath: /media
                   name: media

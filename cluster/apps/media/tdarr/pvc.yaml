@@ -24,16 +24,3 @@ spec:
   resources:
     requests:
       storage: 4Gi
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: tdarr-cache
-  namespace: media
-spec:
-  storageClassName: ceph-filesystem
-  accessModes:
-    - ReadWriteMany
-  resources:
-    requests:
-      storage: 500Gi # TODO, minimize this later

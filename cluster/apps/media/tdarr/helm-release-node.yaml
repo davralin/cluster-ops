@@ -65,7 +65,8 @@ spec:
         mountPath: /data
       cache:
         enabled: true
-        existingClaim: tdarr-cache
+        existingClaim: media
+        subPath: unsorted/tdarr
         mountPath: /temp
     resources:
       requests:
