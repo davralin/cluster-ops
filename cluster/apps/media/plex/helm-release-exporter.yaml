@@ -32,7 +32,7 @@ spec:
       fsGroupChangePolicy: "OnRootMismatch"
     image:
       repository: ghcr.io/jsclayton/prometheus-plex-exporter
-      tag: latest@sha256:918fbb6f0fe1b86a2c28b2e50cf0fc50e5f61e75dd73eba9d201900bee2dc6d2
+      tag: latest@sha256:ebb7c4cb360ab430b3db5011e4e35c8fbff60d5b32510c6f5d2fbd5a581b4511
     service:
       main:
         ports:
