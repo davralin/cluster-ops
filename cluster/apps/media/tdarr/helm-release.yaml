@@ -77,15 +77,14 @@ spec:
         enabled: true
         existingClaim: tdarr-server
         mountPath: /app/server
-      transcode:
-        enabled: true
-        existingClaim: media
-        subPath: unsorted/tdarr
-        mountPath: /temp
       media:
         enabled: true
         existingClaim: media
-        mountPath: /data
+        subPath:
+          - path: .
+            mountPath: /data
+          - path: unsorted/tdarr
+            mountPath: /temp
     podAnnotations:
       backup.velero.io/backup-volumes: config,server
     resources:

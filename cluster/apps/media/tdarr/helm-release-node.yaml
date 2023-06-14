@@ -62,12 +62,11 @@ spec:
       media:
         enabled: true
         existingClaim: media
-        mountPath: /data
-      cache:
-        enabled: true
-        existingClaim: media
-        subPath: unsorted/tdarr
-        mountPath: /temp
+        subPath:
+          - path: .
+            mountPath: /data
+          - path: unsorted/tdarr
+            mountPath: /temp
     resources:
       requests:
         memory: 600Mi
