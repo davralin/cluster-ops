@@ -1,0 +1,46 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: fr24feed
+  namespace: adsb
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: app-template
+      version: 1.5.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+      interval: 5m
+  targetNamespace: adsb
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  values:
+    fullnameOverride: fr24feed
+    image:
+      repository: ghcr.io/sdr-enthusiasts/docker-flightradar24
+      tag: 1.0.37-0
+    service:
+      main:
+        enabled: false
+    env:
+      TZ: "${TIMEZONE}"
+      BEASTHOST: "${BEASTHOST}"
+      FR24KEY: "${SECRET_FR24KEY}"
+      MLAT: "yes"
+      VERBOSE_LOGGING: "false"
+    resources:
+      requests:
+        cpu: 50m
+        memory: 64Mi
+      limits:
+        cpu: 100m
+        memory: 128Mi
