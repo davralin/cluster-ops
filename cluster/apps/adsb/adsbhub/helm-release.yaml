@@ -43,6 +43,7 @@ spec:
     env:
       TZ: "${TIMEZONE}"
       SBSHOST: "${BEASTHOST}"
+      CLIENTKEY: "${SECRET_ADSBHUB_CLIENTKEY}"
     resources:
       requests:
         cpu: 50m
