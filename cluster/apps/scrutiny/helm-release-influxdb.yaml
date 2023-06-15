@@ -1,0 +1,36 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: influxdb
+  namespace: scrutiny
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: influxdb
+      version: 5.6.1
+      sourceRef:
+        kind: HelmRepository
+        name: bitnami-charts
+        namespace: flux-system
+      interval: 5m
+  targetNamespace: scrutiny
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  values:
+    fullnameOverride: influxdb
+    persistence:
+      enabled: true
+      existingClaim: influxdb
+    volumePermissions:
+      enabled: true
+    metrics:
+      enabled: "${MONITORING_PROMETHEUS}"
+      serviceMonitor:
+        enabled: "${MONITORING_PROMETHEUS}"
