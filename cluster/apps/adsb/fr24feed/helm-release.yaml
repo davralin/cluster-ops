@@ -30,9 +30,27 @@ spec:
       tag: 1.0.37-0
     service:
       main:
-        enabled: false
+        ports:
+          http:
+            port: 8754
+    ingress:
+      main:
+        enabled: true
+        annotations:
+          haproxy.org/whitelist: "${HAPROXY_WHITELIST}"
+          haproxy.org/response-set-header: |
+            Strict-Transport-Security "max-age=31536000"
+            X-Frame-Options "DENY"
+            X-Content-Type-Options "nosniff"
+            Referrer-Policy "no-referrer-when-downgrade"
+        hosts:
+          - host: "fr24feed.${SECRET_DEFAULT_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
     env:
-      TZ: "${TIMEZONE}"
       BEASTHOST: "${BEASTHOST}"
       FR24KEY: "${SECRET_FR24KEY}"
       MLAT: "yes"

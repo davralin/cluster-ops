@@ -72,12 +72,12 @@ spec:
             X-Content-Type-Options "nosniff"
             Referrer-Policy "no-referrer-when-downgrade"
         hosts:
-          - host: "planes.${SECRET_PRIVATE_DOMAIN}"
+          - host: "planes.${SECRET_DEFAULT_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
         tls:
-          - secretName: "${SECRET_PRIVATE_DOMAIN_CERT}"
+          - secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
     env:
       TZ: "${TIMEZONE}"
       BEASTHOST: "${BEASTHOST}"
