@@ -40,7 +40,10 @@ spec:
             - name: OPENSKY_USERNAME
               value: "${SECRET_OPENSKY_USERNAME}"
             - name: OPENSKY_SERIAL
-              value: "${SECRET_OPENSKY_SERIAL}"
+              valueFrom:
+                secretKeyRef:
+                  name: adsb-lat-long-alt
+                  key: opensky-serial
           livenessProbe:
             exec:
               command:
