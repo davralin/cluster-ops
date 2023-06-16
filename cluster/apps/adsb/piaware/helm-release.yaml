@@ -32,14 +32,6 @@ spec:
       kind: Secret
       name: adsb-lat-long-alt
       valuesKey: long
-    - targetPath: env.ALT
-      kind: Secret
-      name: adsb-lat-long-alt
-      valuesKey: alt
-    - targetPath: env.piaware_SERIAL
-      kind: Secret
-      name: adsb-lat-long-alt
-      valuesKey: piaware_serial
   values:
     fullnameOverride: piaware
     image:
