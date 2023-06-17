@@ -65,15 +65,15 @@ spec:
       PGID: 1000
     persistence:
       config:
-        enabled: false
-        type: emptyDir
-        mountPath: /config/Targets
-        name: config
-      data:
         enabled: true
         existingClaim: smokeping
+        subPath:
+          - path: config
+            mountPath: /config/
+          - path: data
+            mountPath: /data/
     podAnnotations:
-      backup.velero.io/backup-volumes: data
+      backup.velero.io/backup-volumes: config
     resources:
       requests:
         cpu: 10m
