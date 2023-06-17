@@ -53,42 +53,20 @@ spec:
             X-Content-Type-Options "nosniff"
             Referrer-Policy "no-referrer-when-downgrade"
         hosts:
-          - host: "smokeping.${SECRET_PRIVATE_DOMAIN}"
+          - host: "smokeping.${SECRET_DEFAULT_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
         tls:
-          - secretName: "${SECRET_PRIVATE_DOMAIN_CERT}"
+          - secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
     env:
       TZ: "${TIMEZONE}"
       PUID: 1000
       PGID: 1000
-    configMaps:
-      config:
-        enabled: true
-        data: |
-          *** Targets ***
-
-          probe = FPing
-
-          menu = Top
-          title = Network Latency Grapher
-          remark = Welcome to the SmokePing website of WORKS Company. \
-                  Here you will learn all about the latency of our network.
-
-          + InternetSites
-
-          menu = Internet Sites
-          title = Internet Sites
-
-          ++ Fleisbook
-          menu = Fleisbook
-          title = Fleisbook
-          host = Facebook.com
     persistence:
       config:
-        enabled: true
-        type: configMap
+        enabled: false
+        type: emptyDir
         mountPath: /config/Targets
         name: config
       data:
