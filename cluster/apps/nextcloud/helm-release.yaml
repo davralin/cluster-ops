@@ -70,11 +70,11 @@ spec:
         smtp.config.php: true
       mail:
         enabled: false
-    lifecycle:
-      postStartCommand:
-          - "sh"
-          - "-c"
-          - "apt-get update && apt-get install -y openrc && start-stop-daemon --start --background --pidfile /cron.pid --exec /cron.sh"
+          #    lifecycle:
+          #      postStartCommand:
+          #          - "sh"
+          #          - "-c"
+          #          - "apt-get update && apt-get install -y openrc && start-stop-daemon --start --background --pidfile /cron.pid --exec /cron.sh"
     metrics:
       enabled: "${MONITORING_PROMETHEUS}"
       image:
