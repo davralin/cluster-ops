@@ -25,6 +25,7 @@ spec:
       retries: 3
   values:
     fullnameOverride: smokeping
+    hostname: smokeping
     # Container starts with chmod
     #podSecurityContext:
     #  runAsUser: 1000
