@@ -59,6 +59,9 @@ spec:
         - name: postgresql-isready
           image: bitnami/postgresql:15.3.0
           command: ['sh', '-c', 'until pg_isready -h postgresql -U nextcloud; do sleep 2 ; done']
+      extraEnv:
+        - name: REDIS_HOST
+          value: "redis-master"
       defaultConfigs:
         redis.config.php: true
         apache-pretty-urls.config.php: true
@@ -87,6 +90,8 @@ spec:
       failureThreshold: 60
     internalDatabase:
       enabled: false
+    cronjob:
+      enabled: true
     externalDatabase:
       enabled: true
       type: postgresql
