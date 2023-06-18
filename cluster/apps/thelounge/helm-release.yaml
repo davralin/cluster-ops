@@ -33,7 +33,7 @@ spec:
       #fsGroupChangePolicy: "OnRootMismatch"
     image:
       repository: thelounge/thelounge
-      tag: 4.4.0
+      tag: 4.4.1
     service:
       main:
         ports:
