@@ -42,7 +42,7 @@ spec:
             - receiver: "null"
               matchers:
                 - alertname =~ "InfoInhibitor"
-            - receiver: TelegramAndDiscord
+            - receiver: "Discord"
               matchers:
                 # - severity = "critical"
                 - severity = "warning|critical"
