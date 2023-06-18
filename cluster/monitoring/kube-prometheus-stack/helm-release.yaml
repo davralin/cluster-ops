@@ -31,6 +31,12 @@ spec:
           - name: "Discord"
             discord_configs:
               - webhook_url: "${SECRET_DISCORD_ALERTMANAGER_URL}"
+          - name: "Email"
+            email_config:
+              - to: 'alertmanager@${SECRET_DEFAULT_DOMAIN}'
+                from: 'alertmanager@${SECRET_DEFAULT_DOMAIN}'
+                smarthost: exim.mailrelay.svc.cluster.local:25
+                require_tls: false
           - name: "null"
         route:
           group_by: ["alertname", "job"]
@@ -44,8 +50,11 @@ spec:
                 - alertname =~ "InfoInhibitor"
             - receiver: "Discord"
               matchers:
-                # - severity = "critical"
                 - severity = "warning|critical"
+              continue: true
+            - receiver: "Email"
+              matchers:
+                - severity = "critical"
               continue: true
       ingress:
         enabled: true
