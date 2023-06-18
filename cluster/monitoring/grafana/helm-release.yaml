@@ -37,7 +37,7 @@ spec:
     adminPassword: "${SECRET_GRAFANA_PASSWORD}"
     grafana.ini:
       server:
-        root_url: "https://grafana.${SECRET_PRIVATE_DOMAIN}"
+        root_url: "https://grafana.${SECRET_DEFAULT_DOMAIN}"
       paths:
         data: /var/lib/grafana/data
         logs: /var/log/grafana
@@ -66,10 +66,6 @@ spec:
     datasources:
       datasources.yaml:
         apiVersion: 1
-        # list of datasources that should be deleted from the database
-        deleteDatasources:
-          - name: Loki
-            orgId: 1
         datasources:
           - name: Prometheus
             type: prometheus
@@ -189,11 +185,11 @@ spec:
           X-Content-Type-Options "nosniff"
           Referrer-Policy "no-referrer-when-downgrade"
       hosts:
-        - "grafana.${SECRET_PRIVATE_DOMAIN}"
+        - "grafana.${SECRET_DEFAULT_DOMAIN}"
       tls:
-        - secretName: "${SECRET_PRIVATE_DOMAIN_CERT}"
+        - secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
           hosts:
-            - "grafana.${SECRET_PRIVATE_DOMAIN}"
+            - "grafana.${SECRET_DEFAULT_DOMAIN}"
     serviceAccount:
       create: true
       autoMount: true
