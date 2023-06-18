@@ -50,12 +50,11 @@ spec:
       difficulty: "easy"
       maxPlayers: 3
       levelSeed: 421112feedmekittens
-      maxTickTime: "-1"
+      maxTickTime: -1
       mode: survival
       memory: 3G
       motd: "A Survival Minecraft Server"
       overrideServerProperties: true
-      onlineMode: "true"
       rcon:
         enabled: true
     resources:

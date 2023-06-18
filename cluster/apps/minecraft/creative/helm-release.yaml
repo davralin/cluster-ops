@@ -50,12 +50,11 @@ spec:
       difficulty: "easy"
       maxPlayers: 5
       levelSeed: 421112feedmekittens
-      maxTickTime: "-1"
+      maxTickTime: -1
       mode: creative
       memory: 3G
       motd: "A Creative Minecraft Server"
       overrideServerProperties: true
-      onlineMode: "true"
       rcon:
         enabled: true
     resources:
