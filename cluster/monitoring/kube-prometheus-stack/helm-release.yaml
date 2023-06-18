@@ -32,7 +32,7 @@ spec:
             discord_configs:
               - webhook_url: "${SECRET_DISCORD_ALERTMANAGER_URL}"
           - name: "Email"
-            email_config:
+            email_configs:
               - to: 'alertmanager@${SECRET_DEFAULT_DOMAIN}'
                 from: 'alertmanager@${SECRET_DEFAULT_DOMAIN}'
                 smarthost: exim.mailrelay.svc.cluster.local:25
