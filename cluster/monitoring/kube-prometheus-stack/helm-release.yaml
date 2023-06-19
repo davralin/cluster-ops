@@ -119,7 +119,7 @@ spec:
             honor_timestamps: true
             static_configs:
               - targets:
-                  - foreldre.w.ot:9100
+                  - nas.${SECRET_OFFSITE_DOMAIN}:9100
                   - hassos.w.ot:9100
                   - mierin.w.ot:9100
                   - rand.w.ot:9100
