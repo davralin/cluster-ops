@@ -74,8 +74,12 @@ spec:
       create: true
     grafana:
       enabled: false
-    kube-state-metrics:
-      fullnameOverride: kube-prom-kube-state-metrics
+    kubeScheduler:
+      enabled: true
+      endpoints:
+        - 10.0.1.67
+        - 10.0.1.68
+        - 10.0.1.69
     prometheus:
       ingress:
         enabled: true
