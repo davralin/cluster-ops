@@ -80,16 +80,6 @@ spec:
       enabled: false
     kubeProxy:
       enabled: false
-    nodeExporter:
-      enabled: true
-      serviceMonitor:
-        relabelings:
-          - action: replace
-            regex: (.*)
-            replacement: $1
-            sourceLabels:
-              - __meta_kubernetes_pod_node_name
-            targetLabel: kubernetes_node
     prometheus:
       ingress:
         enabled: true
@@ -129,10 +119,10 @@ spec:
             honor_timestamps: true
             static_configs:
               - targets:
-                  - nas.${SECRET_OFFSITE_DOMAIN}:9100
-                  - hassos.w.ot:9100
+                  - ha.${SECRET_PRIVATE_DOMAIN}:9100
                   - mierin.w.ot:9100
-                  - rand.w.ot:9100
+                  - nas.${SECRET_OFFSITE_DOMAIN}:9100
+                  - proxmox.${SECRET_INTERNAL_DOMAIN}:9100
         serviceMonitorSelectorNilUsesHelmValues: false
         serviceMonitorSelector: {}
         serviceMonitorNamespaceSelector: {}
