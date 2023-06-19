@@ -11,6 +11,7 @@ resources:
   - ../botkube
   - ../cert-manager
   - ../changedetection
+  - ../chatbot-ui
   - ../cloudflareddns
   - ../descheduler
   - ../drone
