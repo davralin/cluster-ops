@@ -68,7 +68,7 @@ spec:
         apiVersion: 1
         datasources:
           - name: Prometheus
-            type: Prometheus
+            type: prometheus
             access: proxy
             url: http://kube-prom-prometheus:9090
             isDefault: true
