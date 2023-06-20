@@ -67,8 +67,3 @@ spec:
       kubectl-read-only:
         botkube/kubectl:
           enabled: true
-    actions:
-      'describe-created-resource':
-        enabled: false
-      'show-logs-on-error':
-        enabled: true
