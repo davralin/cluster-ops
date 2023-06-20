@@ -94,10 +94,10 @@ spec:
           revision: 3
           datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/12693
-        haproxy2:
-          gnetId: 12693
-          revision: 5
-          datasource: Prometheus
+        #haproxy2:
+          #gnetId: 12693
+          #revision: 5
+          #datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/12950
         hwmon:
           gnetId: 12950
@@ -114,10 +114,10 @@ spec:
           revision: 1
           datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/13502
-        minio:
-          gnetId: 13502
-          revision: 22
-          datasource: Prometheus
+        #minio:
+          #gnetId: 13502
+          #revision: 22
+          #datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/1860
         node-exporter-full:
           gnetId: 1860
@@ -162,10 +162,10 @@ spec:
           gnetId: 15469
           revision: 1
         # Ref: https://grafana.com/grafana/dashboards/17251
-        wireguard:
-          gnetId: 17251
-          revision: 1
-          datasource: Prometheus
+        #wireguard:
+          #gnetId: 17251
+          #revision: 1
+          #datasource: Prometheus
     sidecar:
       image:
         repository: quay.io/kiwigrid/k8s-sidecar
