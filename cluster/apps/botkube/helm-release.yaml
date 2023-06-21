@@ -61,8 +61,6 @@ spec:
                 sources:
                   - k8s-recommendation-events
                   - k8s-all-events
-          notification:
-            type: short
     executors:
       kubectl-read-only:
         botkube/kubectl:
