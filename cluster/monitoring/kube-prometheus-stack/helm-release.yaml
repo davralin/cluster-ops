@@ -74,6 +74,8 @@ spec:
       create: true
     grafana:
       enabled: false
+    kubelet:
+      enabled: false
     kubeScheduler:
       enabled: false
     kubeControllerManager:
