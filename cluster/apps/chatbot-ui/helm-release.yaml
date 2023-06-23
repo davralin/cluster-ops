@@ -50,8 +50,8 @@ spec:
                 pathType: Prefix
         tls:
           - secretName: "${SECRET_PRIVATE_DOMAIN_CERT}"
-    #env:
-      #OPENAI_API_KEY: "$|{SECRET_CHATGPT_API_KEY}"
+    env:
+      OPENAI_API_KEY: "${SECRET_OPENAI_KEY}"
     resources:
       requests:
         memory: 100Mi
