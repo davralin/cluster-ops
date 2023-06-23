@@ -5,3 +5,4 @@ resources:
   - discord-notifications.yaml
   - helm-info-discord.yaml
   - notify-error-discord.yaml
+  - https://github.com/fluxcd/flux2/blob/main/manifests/monitoring/monitoring-config/kustomization.yaml
