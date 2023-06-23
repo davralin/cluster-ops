@@ -44,7 +44,7 @@ spec:
       clusterName: "${CLUSTER_NAME}"
     actions:
       'describe-created-resource':
-        enabled: false
+        enabled: true
       'show-logs-on-error':
         enabled: true
     communications:
@@ -60,7 +60,7 @@ spec:
                   - kubectl-read-only
                 sources:
                   - k8s-recommendation-events
-                  - k8s-all-events
+                  - k8s-err-with-logs-events
     executors:
       kubectl-read-only:
         botkube/kubectl:
