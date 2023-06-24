@@ -123,6 +123,11 @@ spec:
           gnetId: 1860
           revision: 31
           datasource: Prometheus
+        # Ref: https://grafana.com/grafana/dashboards/15549
+        node-problem-detector:
+          gnetId: 15549
+          revision: 1
+          datasource: Prometheus
         # Ref: https://github.com/jsclayton/prometheus-plex-exporter
         plex-dashboards:
           url: "https://raw.githubusercontent.com/jsclayton/prometheus-plex-exporter/main/examples/dashboards/Media%20Server.json"
