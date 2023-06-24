@@ -26,8 +26,8 @@ spec:
   values:
     fullnameOverride: chatbotui
     image:
-      repository: ghcr.io/mckaywrigley/chatbot-ui
-      tag: main@sha256:569dffe6043136f03de86bde38453a58d05150f29476239dc1da4ce2573b4101
+      repository: ghcr.io/cogentapps/chat-with-gpt
+      tag: release@sha256:502561b7c9274fd3e206e26a0a59ecfff617c0286fd12aa3062177de93d9d4ad
     service:
       main:
         ports:
@@ -52,6 +52,13 @@ spec:
           - secretName: "${SECRET_PRIVATE_DOMAIN_CERT}"
     env:
       OPENAI_API_KEY: "${SECRET_OPENAI_KEY}"
+    persistence:
+      config:
+        enabled: true
+        existingClaim: chatbotui
+        mountPath: /app/data
+    podAnnotations:
+      FIXMEbackup.velero.io/backup-volumes: config
     resources:
       requests:
         memory: 100Mi
