@@ -36,10 +36,10 @@ spec:
         enabled: true
         existingClaim: monicahq-mariadb
       livenessProbe:
-        enabled: false
+        enabled: true
         initialDelaySeconds: 900
       readinessProbe:
-        enabled: false
+        enabled: true
         initialDelaySeconds: 900
     volumePermissions:
       enabled: true
