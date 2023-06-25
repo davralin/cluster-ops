@@ -18,5 +18,5 @@ spec:
               args:
                 - /bin/sh
                 - -c
-                - "/bin/wget --quiet --output-document /dev/null 'http://squeezebox-tcp:9000/settings/index.html?p0=rescan'"
+                - "/bin/wget --quiet --output-document /dev/null 'http://squeezebox:9000/settings/index.html?p0=rescan'"
           restartPolicy: OnFailure
