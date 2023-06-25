@@ -52,8 +52,8 @@ spec:
             primary: false
           mail:
             primary: true
-            port: 8025
-            nodePort: 25
+            port: 25
+            targetPort: 8025
             protocol: TCP
     env:
       HOSTNAME: "smtp.${SECRET_DEFAULT_DOMAIN}"
