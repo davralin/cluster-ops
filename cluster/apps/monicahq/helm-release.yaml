@@ -23,11 +23,11 @@ spec:
   upgrade:
     remediation:
       retries: 3
-  #valuesFrom:
-    #- targetPath: env.DB_PASSWORD
-      #kind: Secret
-      #name: monicahq
-      #valuesKey: mariadb-password
+  valuesFrom:
+    - targetPath: env.DB_PASSWORD
+      kind: Secret
+      name: monicahq
+      valuesKey: mariadb-password
   values:
     fullnameOverride: monicahq
     # App chowns on startup.
