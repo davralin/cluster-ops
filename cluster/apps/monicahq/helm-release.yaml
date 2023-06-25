@@ -36,7 +36,7 @@ spec:
       fsGroup: 1000
       fsGroupChangePolicy: "OnRootMismatch"
     image:
-      repository: monicahq/monicahq
+      repository: library/monicahq
       tag: 4.0.0-apache
     service:
       main:
