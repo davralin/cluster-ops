@@ -32,10 +32,6 @@ spec:
       kind: Secret
       name: adsb-lat-long-alt
       valuesKey: long
-#    - targetPath: env.ALT
-#      kind: Secret
-#      name: adsb-lat-long-alt
-#      valuesKey: alt
   values:
     fullnameOverride: radarbox
     image:
@@ -47,6 +43,7 @@ spec:
     env:
       TZ: "${TIMEZONE}"
       BEASTHOST: "${BEASTHOST}"
+      ALT: "${SECRET_ALT}"
       SHARING_KEY: "${SECRET_RADARBOX_SHARING_KEY}"
     resources:
       requests:
