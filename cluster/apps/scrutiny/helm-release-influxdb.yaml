@@ -25,9 +25,6 @@ spec:
       retries: 3
   values:
     fullnameOverride: influxdb
-    auth:
-      admin:
-        password: "password12345"
     persistence:
       enabled: true
       existingClaim: influxdb

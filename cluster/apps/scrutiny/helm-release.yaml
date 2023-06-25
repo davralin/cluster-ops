@@ -52,14 +52,14 @@ spec:
           - secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
     env:
       TZ: "${TIMEZONE}"
-      SCRUTINY_WEB_INFLUXDB_HOST: "influxdb"
+      SCRUTINY_WEB_INFLUXDB_HOST: "influxdb.scrutiny.svc.cluster.local"
     persistence:
       scrutiny:
         enabled: true
         existingClaim: scrutiny
         mountPath: /opt/scrutiny/config
     podAnnotations:
-      backup.velero.io/backup-volumes: config,server
+      backup.velero.io/backup-volumes: scrutiny
     resources:
       requests:
         cpu: 50m
