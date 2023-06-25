@@ -36,7 +36,7 @@ spec:
       fsGroup: 1000
       fsGroupChangePolicy: "OnRootMismatch"
     image:
-      repository: monicahq
+      repository: monica
       tag: 4.0.0-apache
     service:
       main:
