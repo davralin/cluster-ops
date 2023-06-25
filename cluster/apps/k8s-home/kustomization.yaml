@@ -5,7 +5,6 @@ resources:
   - ../adguardhome
   - ../adsb
   - ../airconnect
-  - ../airprint
   - ../archivebox
   - ../awx
   - ../botkube
