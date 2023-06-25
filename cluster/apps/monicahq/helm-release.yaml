@@ -68,7 +68,7 @@ spec:
     env:
       APP_ENV: "production"
       CACHE_DRIVER: "database"
-      DB_PORT: 3306
+      DB_PORT: "3306"
       DB_DATABASE: monicahq
       DB_USERNAME: monicahq
       DB_HOST: "monicahq-mariadb"
