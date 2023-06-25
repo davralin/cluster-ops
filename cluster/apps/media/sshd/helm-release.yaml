@@ -25,11 +25,12 @@ spec:
       retries: 3
   values:
     fullnameOverride: sshd
-    podSecurityContext:
-      runAsUser: 1000
-      runAsGroup: 1000
-      fsGroup: 1000
-      fsGroupChangePolicy: "OnRootMismatch"
+    # App does root-things on first boot.
+    #podSecurityContext:
+      #runAsUser: 1000
+      #runAsGroup: 1000
+      #fsGroup: 1000
+      #fsGroupChangePolicy: "OnRootMismatch"
     image:
       repository: lscr.io/linuxserver/openssh-server
       tag: 9.3_p1-r3-ls119
