@@ -5,7 +5,20 @@ metadata:
   name: monicahq-mariadb
   namespace: monicahq
 spec:
-  storageClassName: ceph-block
+  storageClassName: "${STORAGE_READWRITEONCE}"
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: monicahq-data
+  namespace: monicahq
+spec:
+  storageClassName: "${STORAGE_READWRITEONCE}"
   accessModes:
     - ReadWriteOnce
   resources:

@@ -1,0 +1,84 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: monicahq
+  namespace: monicahq
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: app-template
+      version: 1.5.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+      interval: 5m
+  targetNamespace: monicahq
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  valuesFrom:
+    - targetPath: env.DB_PASSWORD
+      kind: Secret
+      name: monicahq
+      valuesKey: mariadb-password
+  values:
+    fullnameOverride: monicahq
+    podSecurityContext:
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+      fsGroupChangePolicy: "OnRootMismatch"
+    image:
+      repository: monicahq/monicahq
+      tag: 4.0.0-apache
+    service:
+      main:
+        ports:
+          http:
+            port: 8080
+    ingress:
+      main:
+        enabled: true
+        annotations:
+          haproxy.org/whitelist: "${HAPROXY_WHITELIST}"
+          haproxy.org/response-set-header: |
+            Strict-Transport-Security "max-age=31536000"
+            X-Frame-Options "DENY"
+            X-Content-Type-Options "nosniff"
+            Referrer-Policy "no-referrer-when-downgrade"
+        hosts:
+          - host: "monicahq.${SECRET_DEFAULT_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
+    persistence:
+      config:
+        enabled: true
+        mountPath: /var/www/html/storage
+        existingClaim: monicahq-data
+    env:
+      APP_ENV: "production"
+      CACHE_DRIVER: "database"
+      DB_PORT: 3306
+      DB_DATABASE: monicahq
+      DB_USERNAME: monicahq
+      DB_HOST: "monicahq-mariadb"
+      LOG_CHANNEL: "stderr"
+      SESSION_DRIVER: "database"
+      QUEUE_DRIVER: "sync"
+    resources:
+      requests:
+        cpu: 50m
+        memory: 150Mi
+      limits:
+        cpu: 200m
+        memory: 300Mi
