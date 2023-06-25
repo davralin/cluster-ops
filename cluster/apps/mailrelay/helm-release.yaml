@@ -1,0 +1,62 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: exim
+  namespace: mailrelay
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: app-template
+      version: 1.5.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+      interval: 5m
+  targetNamespace: mailrelay
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  valuesFrom:
+    - targetPath: env.SMARTHOST
+      kind: Secret
+      name: mail-smarthost
+      valuesKey: smarthost
+    - targetPath: env.SMTP_USERNAME
+      kind: Secret
+      name: mail-smarthost
+      valuesKey: username
+    - targetPath: env.SMTP_PASSWORD
+      kind: Secret
+      name: mail-smarthost
+      valuesKey: password
+  values:
+    fullnameOverride: exim
+    podSecurityContext:
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+      fsGroupChangePolicy: "OnRootMismatch"
+    image:
+      repository: devture/exim-relay
+      tag: 4.95-r0-4
+    service:
+      main:
+        ports:
+          http:
+            port: 8025
+    env:
+      HOSTNAME: "smtp.${SECRET_DEFAULT_DOMAIN}"
+    resources:
+      requests:
+        cpu: 50m
+        memory: 80Mi
+      limits:
+        cpu: 100m
+        memory: 128Mi
