@@ -50,9 +50,15 @@ spec:
       tag: 4.95-r0-4
     service:
       main:
+        type: LoadBalancer
         ports:
           http:
+            enabled: false
+            primary: false
+          mail:
+            primary: true
             port: 8025
+            protocol: TCP
     env:
       HOSTNAME: "smtp.${SECRET_DEFAULT_DOMAIN}"
     resources:
