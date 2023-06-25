@@ -49,7 +49,7 @@ spec:
             X-Content-Type-Options "nosniff"
             Referrer-Policy "no-referrer-when-downgrade"
         hosts:
-          - host: "libreddit.${SECRET_DEFAULT_DOMAIN}"
+          - host: "r.${SECRET_DEFAULT_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix

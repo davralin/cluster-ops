@@ -45,7 +45,6 @@ resources:
   - ../smokeping
   - ../syncthing
   - ../tailscale
-  - ../teddit
   - ../tubearchivist
   - ../unifi
   - ../velero
