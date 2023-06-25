@@ -62,7 +62,7 @@ spec:
       LIBREDDIT_DEFAULT_LAYOUT: "card"
       LIBREDDIT_DEFAULT_HIDE_HLS_NOTIFICATION: "true"
       LIBREDDIT_DEFAULT_FRONT_PAGE: "popular"
-      LIBREDDIT_DEFAULT_SUBSCRIPTIONS: "ansible,scrubs,debian"
+      LIBREDDIT_DEFAULT_SUBSCRIPTIONS: "ansible+scrubs+debian"
     resources:
       requests:
         cpu: 50m
