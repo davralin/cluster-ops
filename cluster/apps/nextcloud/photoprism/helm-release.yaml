@@ -37,7 +37,7 @@ spec:
       fsGroupChangePolicy: "OnRootMismatch"
     image:
       repository: photoprism/photoprism
-      tag: 221118-jammy
+      tag: 230625
     env:
       TZ: "${TIMEZONE}"
       PHOTOPRISM_DATABASE_DRIVER: "mysql"
