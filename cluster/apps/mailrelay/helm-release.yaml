@@ -43,6 +43,8 @@ spec:
       runAsGroup: 1000
       fsGroup: 1000
       fsGroupChangePolicy: "OnRootMismatch"
+    controller:
+      type: daemonset
     image:
       repository: devture/exim-relay
       tag: 4.95-r0-4
