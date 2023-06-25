@@ -5,7 +5,7 @@ metadata:
   name: offsite-sync
   namespace: minio
 spec:
-  schedule: "17 * * * *"
+  schedule: "17 01 * * *"
   concurrencyPolicy: Forbid
   successfulJobsHistoryLimit: 1
   failedJobsHistoryLimit: 1
