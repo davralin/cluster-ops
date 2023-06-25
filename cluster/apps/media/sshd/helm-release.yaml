@@ -51,7 +51,6 @@ spec:
       PGID: "1000"
       PUID: "1000"
       SUDO_ACCESS: "true"
-      TZ: "${TIMEZONE}"
       USER_NAME: "user"
     persistence:
       config:
