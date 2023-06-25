@@ -56,7 +56,11 @@ spec:
         tls:
           - secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
     env:
+      LIBREDDIT_SFW_ONLY: "off"
       LIBREDDIT_DEFAULT_SHOW_NSFW: "true"
+      LIBREDDIT_DEFAULT_USE_HLS: "true"
+      LIBREDDIT_DEFAULT_LAYOUT: "card"
+      LIBREDDIT_DEFAULT_HIDE_HLS_NOTIFICATION: "true"
       LIBREDDIT_DEFAULT_FRONT_PAGE: "popular"
     resources:
       requests:
