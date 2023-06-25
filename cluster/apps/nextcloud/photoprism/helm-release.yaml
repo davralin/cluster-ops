@@ -47,6 +47,7 @@ spec:
       PHOTOPRISM_UID: 1000
       PHOTOPRISM_GID: 1000
       PHOTOPRISM_AUTH_MODE: public
+      PHOTOPRISM_DISABLE_CHOWN: "true"
     service:
       main:
         ports:
