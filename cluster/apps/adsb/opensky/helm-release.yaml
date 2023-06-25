@@ -32,10 +32,6 @@ spec:
       kind: Secret
       name: adsb-lat-long-alt
       valuesKey: long
-    - targetPath: env.ALT
-      kind: Secret
-      name: adsb-lat-long-alt
-      valuesKey: alt
     - targetPath: env.OPENSKY_SERIAL
       kind: Secret
       name: adsb-lat-long-alt
@@ -52,6 +48,7 @@ spec:
       TZ: "${TIMEZONE}"
       BEASTHOST: "${BEASTHOST}"
       OPENSKY_USERNAME: "${SECRET_OPENSKY_USERNAME}"
+      ALT: "${SECRET_ALT}"
     resources:
       requests:
         cpu: 50m
