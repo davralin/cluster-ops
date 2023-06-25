@@ -42,7 +42,6 @@ resources:
   - ../paperless-ngx
   - ../peertube-headless-seeder
   - ../reloader
-  - ../scrutiny
   - ../smokeping
   - ../syncthing
   - ../tailscale
