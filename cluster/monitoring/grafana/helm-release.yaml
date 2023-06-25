@@ -79,6 +79,9 @@ spec:
           gnetId: 2842
           revision: 16
           datasource: Prometheus
+        cert-manager:
+          url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/cert-manager/dashboards/cert-manager.json
+          datasource: Prometheus
         flux-cluster:
           url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/monitoring-config/dashboards/cluster.json
           datasource: Prometheus
@@ -171,6 +174,11 @@ spec:
           #gnetId: 17251
           #revision: 1
           #datasource: Prometheus
+        # Ref: https://grafana.com/grafana/dashboards/7845
+        zfs:
+          gnetId: 7845
+          revision: 4
+          datasource: Prometheus
     sidecar:
       image:
         repository: quay.io/kiwigrid/k8s-sidecar
