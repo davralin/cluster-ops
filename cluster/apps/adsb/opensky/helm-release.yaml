@@ -32,10 +32,10 @@ spec:
       kind: Secret
       name: adsb-lat-long-alt
       valuesKey: long
-    - targetPath: env.OPENSKY_SERIAL
-      kind: Secret
-      name: adsb-lat-long-alt
-      valuesKey: opensky-serial
+    #- targetPath: env.OPENSKY_SERIAL
+      #kind: Secret
+      #name: adsb-lat-long-alt
+      #valuesKey: opensky-serial
   values:
     fullnameOverride: opensky
     image:
