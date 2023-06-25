@@ -63,6 +63,7 @@ spec:
         existingClaim: monicahq-data
     env:
       APP_ENV: "production"
+      APP_URL: "https://monicahq.${SECRET_DEFAULT_DOMAIN}"
       CACHE_DRIVER: "database"
       DB_PORT: "3306"
       DB_DATABASE: monicahq
@@ -74,6 +75,11 @@ spec:
             name: monicahq
             key: "mariadb-password"
       LOG_CHANNEL: "stderr"
+      MAIL_HOST: "exim.mailrelay.svc.cluster.local"
+      MAIL_PORT: "25"
+      MAIL_ENCRYPTION: "false"
+      MAIL_FROM_ADDRESS: "monicahq@${SECRET_DEFAULT_DOMAIN}"
+      REDIS_HOST: "redis-master"
       SESSION_DRIVER: "database"
       QUEUE_DRIVER: "sync"
     resources:
