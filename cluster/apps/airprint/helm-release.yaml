@@ -25,12 +25,12 @@ spec:
       retries: 3
   values:
     fullnameOverride: airprint
-    # App chown's on boot
-    podSecurityContext:
-      runAsUser: 1000
-      runAsGroup: 1000
-      fsGroup: 1000
-      fsGroupChangePolicy: "OnRootMismatch"
+    # App does weird things at the beginning.
+    #podSecurityContext:
+      #runAsUser: 1000
+      #runAsGroup: 1000
+      #fsGroup: 1000
+      #fsGroupChangePolicy: "OnRootMismatch"
     image:
       repository: chuckcharlie/cups-avahi-airprint
       tag: 1.1.1
