@@ -1,0 +1,72 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: sshd
+  namespace: media
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: app-template
+      version: 1.5.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+      interval: 5m
+  targetNamespace: media
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  values:
+    fullnameOverride: sshd
+    podSecurityContext:
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+      fsGroupChangePolicy: "OnRootMismatch"
+    image:
+      repository: lscr.io/linuxserver/openssh-server
+      tag: 9.3_p1-r3-ls119
+    service:
+      main:
+        type: LoadBalancer
+        ports:
+          http:
+            enabled: false
+            primary: false
+          ssh:
+            primary: true
+            port: 22
+            targetPort: 2222
+            protocol: TCP
+    env:
+      TZ: "${TIMEZONE}"
+      PUBLIC_KEY: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDK16+6/jzCvp3Sthg0S0JY2syS3ypa8kxkLr34mJghisvIr4o3G3o0PAaB9rZHd/M2cmZYP7/bkXt/QpWWjaOlztQvYd3oZ9sAl5Omt0kKcmzdsiz5om+0sBfpHVBgkC+nBFgF3+/e2hMh8Z7xqPfbFhpZjBDozh2HflN09xwt5K1fREflxLZfQl9VYLbwRhRtlpmPOXmMWO+6jF90tggvLs926zIV1oe+cQbxrdhPyq09fCAvZKPOfurrJBjB+EZ2IJIwhL/GpkANOBp3TmoES/FVkvzkYrdHq9DVqq4rm1L5FK85ssQK6Fk0VVh7fWknIoMzLRnPRFoMBcb+7dU2TrwY0IIaepulrWtGSSmSjzQXkEP9KnCoFtHxSj5qSgYX1PjSiXoVAEULhQdCQzp2DEwDbiwDKbaZ1VBCwH4TDII9zWYJ355CguD03hWrdrpSXbWE3JFHZtT/ZYK2J23yZEiWY6wMW5YvGSY6kRZzpg6bnCmxi1PlRuLmlWDR/dUTSp+WMmAv/wnbHyLJD5WGJnmSXlI+xYsdbl+VjUpOylBEOR+wWKNww9UTS6U+aYZJ8bh5tDSvgxrg6qJoij/UlG3yQUX3hRi/iWctETJ3PSTRyFY5QNZjhnaglR+NKDn0vvZ6GF759wQ9gkOoYEuXmHFHKaymvowE+qIGXhgSnw=="
+      PGID: "1000"
+      PUID: "1000"
+      SUDO_ACCESS: "true"
+      TZ: "${TIMEZONE}"
+      USER_NAME: "user"
+    persistence:
+      config:
+        enabled: true
+        existingClaim: sshkeys
+      media:
+        enabled: true
+        existingClaim: media
+        mountPath: /data
+    podAnnotations:
+      backup.velero.io/backup-volumes: config
+    resources:
+      requests:
+        cpu: 100m
+        memory: 10Mi
+      limits:
+        cpu: 200m
+        memory: 50Mi
