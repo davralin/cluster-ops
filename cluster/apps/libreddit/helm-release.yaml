@@ -56,13 +56,13 @@ spec:
         tls:
           - secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
     env:
-      LIBREDDIT_SFW_ONLY: "off"
-      LIBREDDIT_DEFAULT_SHOW_NSFW: "true"
-      LIBREDDIT_DEFAULT_USE_HLS: "true"
+      LIBREDDIT_DEFAULT_FRONT_PAGE: "default"
+      LIBREDDIT_DEFAULT_HIDE_HLS_NOTIFICATION: "on"
       LIBREDDIT_DEFAULT_LAYOUT: "card"
-      LIBREDDIT_DEFAULT_HIDE_HLS_NOTIFICATION: "true"
-      LIBREDDIT_DEFAULT_FRONT_PAGE: "popular"
+      LIBREDDIT_DEFAULT_SHOW_NSFW: "on"
       LIBREDDIT_DEFAULT_SUBSCRIPTIONS: "ansible+scrubs+debian"
+      LIBREDDIT_DEFAULT_USE_HLS: "on"
+      LIBREDDIT_SFW_ONLY: "off"
     resources:
       requests:
         cpu: 50m
