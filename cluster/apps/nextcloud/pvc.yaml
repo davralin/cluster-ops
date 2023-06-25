@@ -18,7 +18,7 @@ metadata:
   name: nextcloud-postgresql
   namespace: nextcloud
 spec:
-  storageClassName: ceph-block
+  storageClassName: "${STORAGE_READWRITEONCE}"
   accessModes:
     - ReadWriteOnce
   resources:

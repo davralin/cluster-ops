@@ -5,7 +5,7 @@ metadata:
   name: gitea
   namespace: gitea
 spec:
-  storageClassName: ceph-block
+  storageClassName: "${STORAGE_READWRITEONCE}"
   accessModes:
     - ReadWriteOnce
   resources:
