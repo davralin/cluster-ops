@@ -23,15 +23,15 @@ spec:
   upgrade:
     remediation:
       retries: 3
-#  valuesFrom:
-#    - targetPath: env.LAT
-#      kind: Secret
-#      name: adsb-lat-long-alt
-#      valuesKey: lat
-#    - targetPath: env.LONG
-#      kind: Secret
-#      name: adsb-lat-long-alt
-#      valuesKey: long
+  valuesFrom:
+    - targetPath: env.LAT
+      kind: Secret
+      name: adsb-lat-long-alt
+      valuesKey: lat
+    - targetPath: env.LONG
+      kind: Secret
+      name: adsb-lat-long-alt
+      valuesKey: long
 #    - targetPath: env.ALT
 #      kind: Secret
 #      name: adsb-lat-long-alt
