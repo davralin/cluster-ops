@@ -53,6 +53,7 @@ spec:
           mail:
             primary: true
             port: 8025
+            nodePort: 25
             protocol: TCP
     env:
       HOSTNAME: "smtp.${SECRET_DEFAULT_DOMAIN}"
