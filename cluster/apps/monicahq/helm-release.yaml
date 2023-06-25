@@ -64,7 +64,7 @@ spec:
     env:
       APP_ENV: "production"
       APP_URL: "https://monicahq.${SECRET_DEFAULT_DOMAIN}"
-      CACHE_DRIVER: "database"
+      CACHE_DRIVER: "redis"
       DB_PORT: "3306"
       DB_DATABASE: monicahq
       DB_USERNAME: monicahq
@@ -80,8 +80,8 @@ spec:
       MAIL_ENCRYPTION: "false"
       MAIL_FROM_ADDRESS: "monicahq@${SECRET_DEFAULT_DOMAIN}"
       REDIS_HOST: "redis-master"
-      SESSION_DRIVER: "database"
-      QUEUE_DRIVER: "sync"
+      SESSION_DRIVER: "redis"
+      QUEUE_CONNECTOR: "sync"
     resources:
       requests:
         cpu: 50m
