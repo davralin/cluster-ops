@@ -23,11 +23,6 @@ spec:
   upgrade:
     remediation:
       retries: 3
-  valuesFrom:
-    - targetPath: env.DB_PASSWORD
-      kind: Secret
-      name: monicahq
-      valuesKey: mariadb-password
   values:
     fullnameOverride: monicahq
     # App chowns on startup.
@@ -73,6 +68,11 @@ spec:
       DB_DATABASE: monicahq
       DB_USERNAME: monicahq
       DB_HOST: "monicahq-mariadb"
+      DB_PASSWORD:
+        valueFrom:
+          secretKeyRef:
+            name: monicahq
+            key: "mariadb-password"
       LOG_CHANNEL: "stderr"
       SESSION_DRIVER: "database"
       QUEUE_DRIVER: "sync"
