@@ -34,6 +34,7 @@ resources:
   - ../metrics-server
   - ../minecraft
   - ../minio
+  - ../monicahq
   - ../nextcloud
   - ../nitter
   - ../node-feature-discovery
