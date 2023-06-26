@@ -17,6 +17,6 @@ spec:
       hostNetwork: true
       containers:
         - name: snowflake
-          image: thetorproject/snowflake-proxy:v2.5.1
+          image: thetorproject/snowflake-proxy:v2.6.0
           args: ["-verbose"]
       restartPolicy: Always
