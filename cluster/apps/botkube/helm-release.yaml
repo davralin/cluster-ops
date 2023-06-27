@@ -46,7 +46,7 @@ spec:
       'describe-created-resource':
         enabled: true
       'show-logs-on-error':
-        enabled: true
+        enabled: false
     communications:
       default-group:
         discord:
