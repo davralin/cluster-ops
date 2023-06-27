@@ -39,7 +39,7 @@ spec:
                 require_tls: false
           - name: "healthchecksio"
             webhook_config:
-              url: "${SECRET_ALERTMANAGER_HEALTHCHECKS_IO}"
+              - url: "${SECRET_ALERTMANAGER_HEALTHCHECKS_IO}"
         route:
           group_by: ["alertname", "job"]
           group_wait: 30s
@@ -48,8 +48,8 @@ spec:
           receiver: "Discord"
           routes:
             - receiver: "healthchecksio"
-              match:
-                alertname: Watchdog
+              matchers:
+                - alertname = "Watchdog"
             - receiver: "Discord"
               matchers:
                 - severity = "warning|critical"
