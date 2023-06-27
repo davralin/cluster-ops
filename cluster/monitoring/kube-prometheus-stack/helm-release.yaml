@@ -40,8 +40,9 @@ spec:
                 smarthost: exim.mailrelay.svc.cluster.local:25
                 require_tls: false
           - name: "healthchecksio"
-            webhookConfigs:
-              - url: "${SECRET_ALERTMANAGER_HEALTHCHECKS_IO}"
+            webhook_configs:
+              - send_resolved: true
+                url: "${SECRET_ALERTMANAGER_HEALTHCHECKS_IO}"
         route:
           group_by: ["alertname", "job"]
           group_wait: 30s
