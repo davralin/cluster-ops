@@ -29,7 +29,7 @@ spec:
       runAsUser: 0
       runAsGroup: 0
       fsGroup: 0
-        fsGroupChangePolicy: "OnRootMismatch"
+      fsGroupChangePolicy: "OnRootMismatch"
     image:
       repository: ghcr.io/recyclarr/recyclarr
       tag: 5.1.0@sha256:85a0d9231530316fa95a535cdda7c08bfff530c307858fc9d070fb6a611a1ed8
