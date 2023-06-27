@@ -42,6 +42,8 @@ spec:
                 - downloads/**
                 - --exclude
                 - unsorted/tdarr/**
+                - --exclude
+                - "*TdarrCacheFile*"
               volumeMounts:
                 - mountPath: /media
                   name: media
