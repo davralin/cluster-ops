@@ -37,7 +37,9 @@ spec:
                 from: 'alertmanager@${SECRET_DEFAULT_DOMAIN}'
                 smarthost: exim.mailrelay.svc.cluster.local:25
                 require_tls: false
-          - name: "null"
+          - name: "healthchecksio"
+            webhook_configs:
+              url: "${SECRET_ALERTMANAGER_HEALTHCHECKS_IO}"
         route:
           group_by: ["alertname", "job"]
           group_wait: 30s
@@ -45,9 +47,9 @@ spec:
           repeat_interval: 6h
           receiver: "Discord"
           routes:
-            - receiver: "null"
-              matchers:
-                - alertname =~ "InfoInhibitor"
+            - receiver: "healthchecksio"
+              match:
+                alertname: Watchdog
             - receiver: "Discord"
               matchers:
                 - severity = "warning|critical"
