@@ -32,7 +32,6 @@ spec:
       ingress:
         hosts:
           core: "harbor.${SECRET_DEFAULT_DOMAIN}"
-          notary: "harbor-notary.${SECRET_DEFAULT_DOMAIN}"
         annotations:
           haproxy.org/whitelist: "${HAPROXY_WHITELIST}"
           haproxy.org/response-set-header: |
@@ -41,7 +40,16 @@ spec:
             X-Content-Type-Options "nosniff"
             Referrer-Policy "no-referrer-when-downgrade"
     externalURL: "https://harbor.${SECRET_DEFAULT_DOMAIN}"
+    enableMigrateHelmHook: true
+    redis:
+      type: external
+      external:
+        addr: redis-master:6379
     metrics:
       enabled: "${MONITORING_PROMETHEUS}"
       serviceMonitor:
         enabled: "${MONITORING_PROMETHEUS}"
+    trivy:
+      severity: "UNKNOWN,MEDIUM,HIGH,CRITICAL"
+    notary:
+      enabled: false
