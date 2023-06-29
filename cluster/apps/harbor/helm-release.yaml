@@ -40,7 +40,7 @@ spec:
             X-Frame-Options "SAMEORIGIN"
             X-Content-Type-Options "nosniff"
             Referrer-Policy "no-referrer-when-downgrade"
-externalURL: "https://harbor.${SECRET_DEFAULT_DOMAIN}"
+#externalURL: "https://harbor.${SECRET_DEFAULT_DOMAIN}"
 metrics:
   enabled: "${MONITORING_PROMETHEUS}"
   serviceMonitor:
