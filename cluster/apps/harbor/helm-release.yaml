@@ -1,0 +1,47 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: harbor
+  namespace: harbor
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: harbor
+      version: 1.12.2
+      sourceRef:
+        kind: HelmRepository
+        name: harbor
+        namespace: flux-system
+      interval: 5m
+  targetNamespace: harbor
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  values:
+    fullnameOverride: harbor
+    expose:
+      type: ingress
+      tls:
+        certSource: ${SECRET_DEFAULT_DOMAIN_CERT}"
+      ingress:
+        hosts:
+          core: "harbor.${SECRET_DEFAULT_DOMAIN}"
+          notary: "harbor-notary.${SECRET_DEFAULT_DOMAIN}"
+        annotations:
+          haproxy.org/whitelist: "${HAPROXY_WHITELIST}"
+          haproxy.org/response-set-header: |
+            Strict-Transport-Security "max-age=31536000"
+            X-Frame-Options "SAMEORIGIN"
+            X-Content-Type-Options "nosniff"
+            Referrer-Policy "no-referrer-when-downgrade"
+externalURL: "https://harbor.${SECRET_DEFAULT_DOMAIN}"
+metrics:
+  enabled: "${MONITORING_PROMETHEUS}"
+  serviceMonitor:
+    enabled: "${MONITORING_PROMETHEUS}"
