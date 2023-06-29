@@ -23,6 +23,7 @@ spec:
   upgrade:
     remediation:
       retries: 3
+  timeout: 20m
   values:
     fullnameOverride: harbor
     expose:
