@@ -50,9 +50,9 @@ spec:
       serviceMonitor:
         enabled: "${MONITORING_PROMETHEUS}"
     core:
-      replicas: 2
+      replicas: 1
     registry:
-      replicas: 2
+      replicas: 1
     persistence:
       persistentVolumeClaim:
         registry:
