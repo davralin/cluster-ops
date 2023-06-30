@@ -49,6 +49,10 @@ spec:
       enabled: "${MONITORING_PROMETHEUS}"
       serviceMonitor:
         enabled: "${MONITORING_PROMETHEUS}"
+    persistence:
+      persistentVolumeClaim:
+        registry:
+          size: 20Gi
     trivy:
       severity: "UNKNOWN,MEDIUM,HIGH,CRITICAL"
     notary:
