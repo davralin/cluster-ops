@@ -49,6 +49,8 @@ spec:
       enabled: "${MONITORING_PROMETHEUS}"
       serviceMonitor:
         enabled: "${MONITORING_PROMETHEUS}"
+    core:
+      replicas: 2
     registry:
       replicas: 2
     persistence:
