@@ -10,6 +10,7 @@ data:
   CLUSTER_NAME: "home-k8s"
   HAPROXY_WHITELIST: "10.0.0.0/8"
   STORAGE_READWRITEONCE: "ceph-block"
+  STORAGE_READWRITEMANY: "ceph-filesystem"
   MONITORING_PROMETHEUS: "True"
   VELERO_S3_REGION: "north-europe-1"
   VELERO_S3_URL: "http://minio.minio.svc.cluster.local:9000"

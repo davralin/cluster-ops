@@ -53,6 +53,7 @@ spec:
       persistentVolumeClaim:
         registry:
           size: 20Gi
+          storageClass: "${STORAGE_READWRITEMANY}"
     trivy:
       severity: "UNKNOWN,MEDIUM,HIGH,CRITICAL"
     notary:
