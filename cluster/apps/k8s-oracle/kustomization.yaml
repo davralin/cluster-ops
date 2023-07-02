@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - ../botkube
   - ../cert-manager
+  - ../chatbot-ui
   - ../dendrite
   - ../docker-registry
   - ../external-dns
