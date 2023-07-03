@@ -44,12 +44,6 @@ spec:
     serviceMonitor:
       main:
         enabled: "${MONITORING_PROMETHEUS}"
-        endpoints:
-          - port: main
-            scheme: http
-            path: /metrics
-            interval: 1m
-            scrapeTimeout: 10s
     env:
       PORT: "9707"
       URL: "http://sonarr.media.svc.cluster.local:8989"
