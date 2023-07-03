@@ -33,7 +33,9 @@ spec:
     image:
       repository: ghcr.io/onedr0p/exportarr
       tag: v1.5.3
-    args: ["prowlarr"]
+    args:
+      - prowlarr
+      - "--enable-additional-metrics"
     service:
       main:
         ports:
