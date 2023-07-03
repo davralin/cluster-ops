@@ -57,18 +57,18 @@ spec:
             X-Content-Type-Options "nosniff"
             Referrer-Policy "no-referrer-when-downgrade"
         hosts:
-          - host: "tube.${SECRET_PRIVATE_DOMAIN}"
+          - host: "tube.${SECRET_DEFAULT_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
         tls:
-          - secretName: "${SECRET_PRIVATE_DOMAIN_CERT}"
+          - secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
     env:
       TZ: "${TIMEZONE}"
       HOST_UID: 1000
       HOST_GID: 1000
       ES_URL: "http://elasticsearch.tubearchivist.svc.cluster.local:9200"
-      TA_HOST: "https://tube.${SECRET_PRIVATE_DOMAIN}"
+      TA_HOST: "https://tube.${SECRET_DEFAULT_DOMAIN}"
       REDIS_HOST: "redis-stack.tubearchivist.svc.cluster.local"
       ENABLE_CAST: "true"
     persistence:
