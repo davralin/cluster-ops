@@ -136,10 +136,9 @@ spec:
           gnetId: 9628
           revision: 7
           datasource: Prometheus
-        # Ref: https://grafana.com/grafana/dashboards/12896
-        radarr:
-          gnetId: 12896
-          revision: 1
+        # Ref: https://github.com/onedr0p/exportarr/
+        exportarr:
+          url: "https://raw.githubusercontent.com/onedr0p/exportarr/master/examples/grafana/dashboard2.json"
           datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/15377
         readsb-protobuf:
@@ -150,11 +149,6 @@ spec:
         redis-dashboard:
           gnetId: 11835
           revision: 1
-          datasource: Prometheus
-        # Ref: https://grafana.com/grafana/dashboards/12530
-        sonarr:
-          gnetId: 12530
-          revision: 2
           datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/11315
         unifi-poller-client-insights:
