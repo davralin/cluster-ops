@@ -136,6 +136,11 @@ spec:
           gnetId: 9628
           revision: 7
           datasource: Prometheus
+        # Ref: https://grafana.com/grafana/dashboards/12896
+        radarr:
+          gnetId: 12896
+          revision: 1
+          datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/15377
         readsb-protobuf:
           gnetId: 15377
@@ -196,6 +201,7 @@ spec:
     plugins:
       - snuids-radar-panel
       - grafana-clock-panel
+      - grafana-piechart-panel
     serviceMonitor:
       enabled: true
     ingress:
