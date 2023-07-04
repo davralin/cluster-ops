@@ -2,7 +2,7 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
-  name: dysnix
+  name: dysnix-charts
   namespace: flux-system
 spec:
   interval: 2h

@@ -12,7 +12,7 @@ spec:
       version: v0.13.2
       sourceRef:
         kind: HelmRepository
-        name: appscode
+        name: appscode-charts
         namespace: flux-system
       interval: 5m
   targetNamespace: default

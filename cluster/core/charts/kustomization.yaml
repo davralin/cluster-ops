@@ -2,7 +2,6 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - anance.yaml
   - appscode.yaml
   - awx.yaml
   - bitnami.yaml
@@ -13,7 +12,6 @@ resources:
   - drone.yaml
   - dysnix.yaml
   - external-dns.yaml
-  - giantswarm.yaml
   - gitea.yaml
   - grafana.yaml
   - haproxytech.yaml
@@ -23,10 +21,9 @@ resources:
   - metallb.yaml
   - metrics-server.yaml
   - nextcloud.yaml
-  - nicholaswilde.yaml
   - node-feature-discovery.yaml
   - prometheus.yaml
+  - renovate.yaml
   - rook-ceph.yaml
   - stakater.yaml
-  - twuni.yaml
   - velero.yaml

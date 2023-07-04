@@ -12,7 +12,7 @@ spec:
       version: 0.27.1
       sourceRef:
         kind: HelmRepository
-        name: descheduler
+        name: descheduler-charts
         namespace: flux-system
       interval: 5m
   targetNamespace: default

@@ -2,9 +2,9 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
-  name: giantswarm-charts
+  name: renovate
   namespace: flux-system
 spec:
   interval: 2h
-  url: https://giantswarm.github.io/giantswarm-catalog
+  url: https://docs.renovatebot.com/helm-charts
   timeout: 3m
