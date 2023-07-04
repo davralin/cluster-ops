@@ -6,7 +6,6 @@ resources:
   - ../cert-manager
   - ../chatbot-ui
   - ../dendrite
-  - ../docker-registry
   - ../external-dns
   - ../haproxy/haproxy-ingress-daemonset
   - ../it-tools
