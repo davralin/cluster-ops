@@ -31,8 +31,8 @@ spec:
   values:
     fullnameOverride: cloudflareddns
     image:
-      repository: cr.hotio.dev/hotio/cloudflareddns
-      tag: latest
+      repository: ghcr.io/hotio/cloudflareddns
+      tag: latest@sha256:2acd01734b1e90fc7ea7c2625ffe98199491a0af5eafe0991498fa14d098c843
     service:
       main:
         enabled: false
