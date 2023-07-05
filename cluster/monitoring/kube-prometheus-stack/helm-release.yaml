@@ -102,8 +102,8 @@ spec:
         tls:
           - secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
       prometheusSpec:
-        retention: 2d
-        retentionSize: 15GB
+        retention: 7d
+        retentionSize: 30GB
         storageSpec:
           volumeClaimTemplate:
             spec:
@@ -119,16 +119,6 @@ spec:
             static_configs:
               - targets:
                   - readsb-protobuf.adsb.svc.cluster.local:9273
-          - job_name: exportarr
-            scrape_interval: 5m
-            scrape_timeout: 30s
-            honor_timestamps: true
-            static_configs:
-              - targets:
-                  - prowlarr-exportarr.media.svc.cluster.local:9707
-                  - radarr-exportarr.media.svc.cluster.local:9707
-                  - readarr-exportarr.media.svc.cluster.local:9707
-                  - sonarr-exportarr.media.svc.cluster.local:9707
           - job_name: node-exporter
             scrape_interval: 1m
             scrape_timeout: 10s
