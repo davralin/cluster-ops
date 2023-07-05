@@ -67,22 +67,9 @@ spec:
           requests:
             memory: "200Mi"
       storage:
-        useAllNodes: false
-        useAllDevices: false
+        useAllNodes: true
+        useAllDevices: true
         encryptedDevice: true
-        nodes:
-            - name: aviendha
-              devices:
-                - name: "/dev/disk/by-id/ata-Samsung_SSD_870_QVO_4TB_S5STNF0T308086D"
-                - name: "/dev/disk/by-id/nvme-Samsung_SSD_980_PRO_with_Heatsink_2TB_S6WRNS0TB17974X"
-            - name: elayne
-              devices:
-                - name: "/dev/disk/by-id/ata-Samsung_SSD_870_QVO_4TB_S5STNF0T205013V"
-                - name: "/dev/disk/by-id/nvme-Samsung_SSD_970_EVO_Plus_2TB_S6P1NS0T209382T"
-            - name: min
-              devices:
-                - name: "/dev/disk/by-id/nvme-Samsung_SSD_970_EVO_Plus_2TB_S6P1NS0T209438H"
-                - name: "/dev/disk/by-id/ata-Samsung_SSD_870_QVO_4TB_S5STNF0T308094T"
     cephBlockPools:
       - name: ceph-blockpool
         spec:
