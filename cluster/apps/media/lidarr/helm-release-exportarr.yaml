@@ -35,7 +35,6 @@ spec:
       tag: v1.5.3
     args:
       - lidarr
-      - "--enable-additional-metrics"
     service:
       main:
         ports:
@@ -43,14 +42,34 @@ spec:
             port: 9707
     serviceMonitor:
       main:
-        enabled: false #"${MONITORING_PROMETHEUS}"
+        enabled: "${MONITORING_PROMETHEUS}"
+        endpoints:
+          - port: http
+            interval: 4m
+            scrapeTimeout: 90s
+            path: /metrics
+    probes:
+      livenessProbe:
+        httpGet:
+          path: /healthz
+          port: monitoring
+        failureThreshold: 5
+        periodSeconds: 10
+      readinessProbe:
+        httpGet:
+          path: /healthz
+          port: monitoring
+        failureThreshold: 5
+        periodSeconds: 10
     env:
       PORT: "9707"
       URL: "http://lidarr.media.svc.cluster.local:8686"
       APIKEY: "${SECRET_LIDARR_API_KEY}"
-#    resources:
-#      requests:
-#        cpu: 200m
-#        memory: 500Mi
-#      limits:
-#        memory: 1000Mi
+      ENABLE_ADDITIONAL_METRICS: true
+    resources:
+      requests:
+        cpu: 100m
+        memory: 64Mi
+      limits:
+        cpu: 500m
+        memory: 256Mi
