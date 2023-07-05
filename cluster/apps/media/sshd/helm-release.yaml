@@ -32,7 +32,7 @@ spec:
       #fsGroup: 1000
       #fsGroupChangePolicy: "OnRootMismatch"
     image:
-      repository: lscr.io/linuxserver/openssh-server
+      repository: ghcr.io/linuxserver/openssh-server
       tag: 9.3_p1-r3-ls119
     service:
       main:
