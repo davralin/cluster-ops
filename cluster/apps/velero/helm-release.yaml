@@ -116,7 +116,7 @@ spec:
           volumeSnapshotLocations:
             - aws
       daily-offsite-backup:
-        schedule: "10 23 * * *"
+        schedule: "10 23 * * 1"
         template:
           ttl: "720h"
           storageLocation: offsite
