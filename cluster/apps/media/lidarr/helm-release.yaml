@@ -25,6 +25,7 @@ spec:
       retries: 3
   values:
     fullnameOverride: lidarr
+    hostname: lidarr
     podSecurityContext:
       runAsUser: 1000
       runAsGroup: 1000

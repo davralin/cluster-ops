@@ -25,6 +25,7 @@ spec:
       retries: 3
   values:
     fullnameOverride: prowlarr
+    hostname: prowlarr
     podSecurityContext:
       runAsUser: 1000
       runAsGroup: 1000

@@ -25,6 +25,7 @@ spec:
       retries: 3
   values:
     fullnameOverride: radarr
+    hostname: radarr
     podSecurityContext:
       runAsUser: 1000
       runAsGroup: 1000
