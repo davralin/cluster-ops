@@ -32,14 +32,14 @@ spec:
       kind: Secret
       name: adguardhome-sync-secret
       valuesKey: USERNAME
-    - targetPath: env.REPLICA1_USERNAME
-      kind: Secret
-      name: adguardhome-sync-secret
-      valuesKey: USERNAME
     - targetPath: env.ORIGIN_PASSWORD
       kind: Secret
       name: adguardhome-sync-secret
       valuesKey: PASSWORD
+    - targetPath: env.REPLICA1_USERNAME
+      kind: Secret
+      name: adguardhome-sync-secret
+      valuesKey: USERNAME
     - targetPath: env.REPLICA1_PASSWORD
       kind: Secret
       name: adguardhome-sync-secret
