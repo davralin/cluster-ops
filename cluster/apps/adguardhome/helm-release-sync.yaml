@@ -47,7 +47,19 @@ spec:
     - targetPath: env.REPLICA1_URL
       kind: Secret
       name: adguardhome-sync-secret
-      valuesKey: REPLICA_URL
+      valuesKey: REPLICA1_URL
+    - targetPath: env.REPLICA2_USERNAME
+      kind: Secret
+      name: adguardhome-sync-secret
+      valuesKey: USERNAME
+    - targetPath: env.REPLICA2_PASSWORD
+      kind: Secret
+      name: adguardhome-sync-secret
+      valuesKey: PASSWORD
+    - targetPath: env.REPLICA2_URL
+      kind: Secret
+      name: adguardhome-sync-secret
+      valuesKey: REPLICA2_URL
   values:
     fullnameOverride: adguardhome-sync
     image:
