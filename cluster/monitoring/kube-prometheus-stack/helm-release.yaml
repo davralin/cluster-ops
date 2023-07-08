@@ -55,7 +55,7 @@ spec:
                 - alertname = "Watchdog"
             - receiver: "Discord"
               matchers:
-                - severity = "warning|critical"
+                - severity = "warning"
               continue: true
             - receiver: "Email"
               matchers:
