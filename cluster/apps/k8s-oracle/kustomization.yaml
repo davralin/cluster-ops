@@ -12,6 +12,7 @@ resources:
   - ../kubed
   - ../kuma
   - ../local-path-provisioner
+  - ../librespeed
   - ../metrics-server
   - ../reloader
   - ../snowflake

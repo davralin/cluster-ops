@@ -27,6 +27,7 @@ resources:
   - ../kubed
   - ../kuma
   - ../libreddit
+  - ../librespeed
   - ../local-path-provisioner
   - ../mailrelay
   - ../media
