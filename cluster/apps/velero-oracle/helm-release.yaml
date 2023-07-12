@@ -80,9 +80,8 @@ spec:
             for: 5m
             labels:
               severity: warning
-    snapshotsEnabled: true
-    deployNodeAgent: true
-    upgradeCRDs: true
+    snapshotsEnabled: false
+    upgradeCRDs: false
     nodeAgent:
       podVolumePath: /var/lib/kubelet/pods
       privileged: false
