@@ -92,15 +92,9 @@ spec:
         tls:
           - secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
       prometheusSpec:
-        retention: 7d
+        retention: 10d
         retentionSize: 30GB
-        storageSpec:
-          volumeClaimTemplate:
-            spec:
-              storageClassName: "${STORAGE_READWRITEONCE}"
-              resources:
-                requests:
-                  storage: 20Gi
+        storageSpec: {}
         serviceMonitorSelectorNilUsesHelmValues: false
         serviceMonitorSelector: {}
         serviceMonitorNamespaceSelector: {}
