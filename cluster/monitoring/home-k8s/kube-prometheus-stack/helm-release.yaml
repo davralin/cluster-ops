@@ -1,0 +1,124 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: kube-prometheus-stack
+  namespace: monitoring
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: kube-prometheus-stack
+      version: 48.0.1
+      sourceRef:
+        kind: HelmRepository
+        name: prometheus-community-charts
+        namespace: flux-system
+      interval: 15m
+  targetNamespace: monitoring
+  install:
+    createNamespace: true
+    crds: CreateReplace
+    remediation:
+      retries: 3
+  upgrade:
+    crds: CreateReplace
+    remediation:
+      retries: 3
+  values:
+    fullnameOverride: "kube-prom"
+    alertmanager:
+      config:
+        receivers:
+          - name: "Discord"
+            discord_configs:
+              - webhook_url: "${SECRET_DISCORD_ALERTMANAGER_URL}"
+          - name: "healthchecksio"
+            webhook_configs:
+              - send_resolved: true
+                url: "${SECRET_ALERTMANAGER_HEALTHCHECKS_IO}"
+        route:
+          group_by: ["alertname", "job"]
+          group_wait: 30s
+          group_interval: 5m
+          repeat_interval: 6h
+          receiver: "Discord"
+          routes:
+            - receiver: "healthchecksio"
+              matchers:
+                - alertname = "Watchdog"
+            - receiver: "Discord"
+              matchers:
+                - severity = "critical|warning"
+              continue: true
+      ingress:
+        enabled: true
+        pathType: Prefix
+        annotations:
+          haproxy.org/whitelist: "${HAPROXY_WHITELIST}"
+          haproxy.org/response-set-header: |
+            Strict-Transport-Security "max-age=31536000"
+            X-Frame-Options "DENY"
+            X-Content-Type-Options "nosniff"
+            Referrer-Policy "no-referrer-when-downgrade"
+        hosts:
+         - "alertmanager.${SECRET_DEFAULT_DOMAIN}"
+        tls:
+          - secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
+    defaultRules:
+      create: true
+    grafana:
+      enabled: false
+    kubelet:
+      enabled: false
+    kubeScheduler:
+      enabled: false
+    kubeControllerManager:
+      enabled: false
+    kubeProxy:
+      enabled: false
+    prometheus:
+      ingress:
+        enabled: true
+        annotations:
+          haproxy.org/whitelist: "${HAPROXY_WHITELIST}"
+          haproxy.org/response-set-header: |
+            Strict-Transport-Security "max-age=31536000"
+            X-Frame-Options "DENY"
+            X-Content-Type-Options "nosniff"
+            Referrer-Policy "no-referrer-when-downgrade"
+        hosts:
+          - "prometheus.${SECRET_DEFAULT_DOMAIN}"
+        tls:
+          - secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
+      prometheusSpec:
+        retention: 7d
+        retentionSize: 30GB
+        storageSpec:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: "${STORAGE_READWRITEONCE}"
+              resources:
+                requests:
+                  storage: 20Gi
+        additionalScrapeConfigs:
+          - job_name: adsb
+            scrape_interval: 1m
+            scrape_timeout: 10s
+            honor_timestamps: true
+            static_configs:
+              - targets:
+                  - readsb-protobuf.adsb.svc.cluster.local:9273
+          - job_name: node-exporter
+            scrape_interval: 1m
+            scrape_timeout: 10s
+            honor_timestamps: true
+            static_configs:
+              - targets:
+                  - ha.${SECRET_PRIVATE_DOMAIN}:9100
+                  - mierin.w.ot:9100
+                  - nas.${SECRET_OFFSITE_DOMAIN}:9100
+                  - proxmox.${SECRET_INTERNAL_DOMAIN}:9100
+        serviceMonitorSelectorNilUsesHelmValues: false
+        serviceMonitorSelector: {}
+        serviceMonitorNamespaceSelector: {}

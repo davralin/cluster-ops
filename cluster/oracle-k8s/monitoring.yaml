@@ -8,7 +8,7 @@ spec:
   interval: 10m0s
   dependsOn:
     - name: core
-  path: ./cluster/monitoring/home-k8s
+  path: ./cluster/monitoring/oracle-k8s
   prune: true
   sourceRef:
     kind: GitRepository

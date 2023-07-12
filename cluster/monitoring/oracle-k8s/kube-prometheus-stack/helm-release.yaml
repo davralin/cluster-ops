@@ -33,12 +33,6 @@ spec:
           - name: "Discord"
             discord_configs:
               - webhook_url: "${SECRET_DISCORD_ALERTMANAGER_URL}"
-          - name: "Email"
-            email_configs:
-              - to: 'alertmanager@${SECRET_DEFAULT_DOMAIN}'
-                from: 'alertmanager@${SECRET_DEFAULT_DOMAIN}'
-                smarthost: exim.mailrelay.svc.cluster.local:25
-                require_tls: false
           - name: "healthchecksio"
             webhook_configs:
               - send_resolved: true
@@ -56,10 +50,6 @@ spec:
             - receiver: "Discord"
               matchers:
                 - severity = "critical|warning"
-              continue: true
-            - receiver: "Email"
-              matchers:
-                - severity = "info"
               continue: true
       ingress:
         enabled: true
@@ -107,28 +97,10 @@ spec:
         storageSpec:
           volumeClaimTemplate:
             spec:
-              storageClassName: ceph-block
+              storageClassName: "${STORAGE_READWRITEONCE}"
               resources:
                 requests:
                   storage: 20Gi
-        additionalScrapeConfigs:
-          - job_name: adsb
-            scrape_interval: 1m
-            scrape_timeout: 10s
-            honor_timestamps: true
-            static_configs:
-              - targets:
-                  - readsb-protobuf.adsb.svc.cluster.local:9273
-          - job_name: node-exporter
-            scrape_interval: 1m
-            scrape_timeout: 10s
-            honor_timestamps: true
-            static_configs:
-              - targets:
-                  - ha.${SECRET_PRIVATE_DOMAIN}:9100
-                  - mierin.w.ot:9100
-                  - nas.${SECRET_OFFSITE_DOMAIN}:9100
-                  - proxmox.${SECRET_INTERNAL_DOMAIN}:9100
         serviceMonitorSelectorNilUsesHelmValues: false
         serviceMonitorSelector: {}
         serviceMonitorNamespaceSelector: {}
