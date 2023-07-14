@@ -43,6 +43,8 @@ spec:
                 - --exclude
                 - unsorted/tdarr/**
                 - --exclude
+                - unsorted/syncthing/**
+                - --exclude
                 - "*TdarrCacheFile*"
               volumeMounts:
                 - mountPath: /media
