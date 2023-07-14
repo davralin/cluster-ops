@@ -82,7 +82,7 @@ spec:
             annotations:
               message: Velero backup {{ $labels.schedule }} has {{ $value }} partially failed backups.
             expr: |-
-              sum(increase(velero_backup_partial_failure_total{schedule != ""}[12h])) > 0
+              sum(increase(velero_backup_partial_failure_total{schedule != ""}[32h])) > 0
             for: 5m
             labels:
               severity: warning
@@ -90,7 +90,7 @@ spec:
             annotations:
               message: Velero backup {{ $labels.schedule }} has {{ $value }} failed backups.
             expr: |-
-              sum(increase(velero_backup_failure_total{schedule != ""}[12h])) > 0
+              sum(increase(velero_backup_failure_total{schedule != ""}[32h])) > 0
             for: 5m
             labels:
               severity: warning
