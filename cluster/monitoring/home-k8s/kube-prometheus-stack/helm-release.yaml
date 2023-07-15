@@ -67,6 +67,10 @@ spec:
           - secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
     defaultRules:
       create: true
+    kubeControllerManager:
+      enabled: false
+    kubeEtcd:
+      enabled: false
     kubelet:
       enabled: true
       serviceMonitor:
