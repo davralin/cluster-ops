@@ -67,6 +67,14 @@ spec:
           - secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
     defaultRules:
       create: true
+    kubelet:
+      enabled: true
+      serviceMonitor:
+        metricRelabelings:
+          - action: replace
+            sourceLabels:
+              - node
+            targetLabel: instance
     grafana:
       enabled: false
     prometheus:
