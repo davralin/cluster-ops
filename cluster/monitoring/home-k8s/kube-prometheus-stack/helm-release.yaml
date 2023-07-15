@@ -75,6 +75,10 @@ spec:
             sourceLabels:
               - node
             targetLabel: instance
+    kubeProxy:
+      enabled: false
+    kubeScheduler:
+      enabled: false
     grafana:
       enabled: false
     prometheus:
