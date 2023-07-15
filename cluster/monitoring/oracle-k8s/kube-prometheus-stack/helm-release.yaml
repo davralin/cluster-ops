@@ -69,14 +69,6 @@ spec:
       create: true
     grafana:
       enabled: false
-    kubelet:
-      enabled: true
-    kubeScheduler:
-      enabled: true
-    kubeControllerManager:
-      enabled: true
-    kubeProxy:
-      enabled: true
     prometheus:
       ingress:
         enabled: true
