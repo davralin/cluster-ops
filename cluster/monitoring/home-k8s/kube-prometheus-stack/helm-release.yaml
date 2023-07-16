@@ -101,7 +101,7 @@ spec:
           - secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
       prometheusSpec:
         retention: 10d
-        retentionSize: 30GB
+        retentionSize: 40GB
         storageSpec:
           volumeClaimTemplate:
             spec:
