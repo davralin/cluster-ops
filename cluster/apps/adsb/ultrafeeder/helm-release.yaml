@@ -42,7 +42,7 @@ spec:
       #fsGroupChangePolicy: "OnRootMismatch"
     image:
       repository: ghcr.io/sdr-enthusiasts/docker-adsb-ultrafeeder
-      tag: latest@sha256:a1cc036cec7a814864281655e28e0003ea6ac23ff3c8ae8428bd38b723720389
+      tag: latest@sha256:97b8e8615800a7640e01b2b56c3f7f78567f02337e0ac694d08c467349fd6048
     service:
       main:
         ports:
