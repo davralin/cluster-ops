@@ -47,6 +47,8 @@ spec:
             - receiver: "healthchecksio"
               matchers:
                 - alertname = "Watchdog"
+            - receiver: "healthchecksio"
+              matchers:
                 - alertname ="AlertmanagerClusterFailedToSendAlerts"
             - receiver: "Discord"
               matchers:
