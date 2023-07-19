@@ -27,7 +27,7 @@ spec:
                   readOnly: false
           containers:
             - name: daily-to-jottacloud
-              image: rclone/rclone:1.63.0
+              image: rclone/rclone:1.63.1
               args:
                 - sync
                 - --ignore-case

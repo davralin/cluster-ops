@@ -16,7 +16,7 @@ spec:
           restartPolicy: Never
           containers:
             - name: daily-to-consume
-              image: rclone/rclone:1.63.0
+              image: rclone/rclone:1.63.1
               args:
                 - --config
                 - /consume/rclone.conf

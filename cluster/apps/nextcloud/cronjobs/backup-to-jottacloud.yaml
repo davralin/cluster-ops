@@ -27,7 +27,7 @@ spec:
                   readOnly: false
           containers:
             - name: backup-to-jottacloud
-              image: rclone/rclone:1.63.0
+              image: rclone/rclone:1.63.1
               command: ["/usr/local/bin/rclone-backup.sh"]
               volumeMounts:
                 - mountPath: /nextcloud
