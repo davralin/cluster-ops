@@ -18,7 +18,7 @@ spec:
           restartPolicy: Never
           containers:
             - name: daily-to-azure
-              image: rclone/rclone:1.63.0
+              image: rclone/rclone:1.63.1
               args:
                 - --config
                 - /data/rclone.conf
