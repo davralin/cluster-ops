@@ -25,11 +25,12 @@ spec:
       retries: 3
   values:
     fullnameOverride: audiobookshelf
-    podSecurityContext:
-      runAsUser: 1000
-      runAsGroup: 1000
-      fsGroup: 1000
-      fsGroupChangePolicy: "OnRootMismatch"
+    # App listens on port 80, which is a reserved port
+    #    podSecurityContext:
+    # runAsUser: 1000
+    # runAsGroup: 1000
+    # fsGroup: 1000
+    # fsGroupChangePolicy: "OnRootMismatch"
     image:
       repository: ghcr.io/advplyr/audiobookshelf
       tag: 2.3.2
