@@ -27,7 +27,7 @@ spec:
     fullnameOverride: unpoller
     image:
       repository: ghcr.io/unpoller/unpoller
-      tag: v2.7.18
+      tag: v2.7.20
     env:
       TZ: "${TIMEZONE}"
       UP_UNIFI_DEFAULT_URL: https://unifi.${SECRET_PRIVATE_DOMAIN}
