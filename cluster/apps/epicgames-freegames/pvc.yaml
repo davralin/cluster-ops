@@ -5,7 +5,7 @@ metadata:
   name: epicgames-free
   namespace: epicgames-free
 spec:
-  storageClassName: ceph-block
+  storageClassName: "${STORAGE_READWRITEONCE}"
   accessModes:
     - ReadWriteOnce
   resources:

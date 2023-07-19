@@ -5,7 +5,7 @@ metadata:
   name: drone
   namespace: drone
 spec:
-  storageClassName: ceph-block
+  storageClassName: "${STORAGE_READWRITEONCE}"
   accessModes:
     - ReadWriteOnce
   resources:

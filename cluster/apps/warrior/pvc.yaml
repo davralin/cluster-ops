@@ -5,7 +5,7 @@ metadata:
   name: warrior
   namespace: warrior
 spec:
-  storageClassName: ceph-block
+  storageClassName: "${STORAGE_READWRITEONCE}"
   accessModes:
     - ReadWriteOnce
   resources:
