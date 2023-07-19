@@ -1,0 +1,84 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: audiobookshelf
+  namespace: media
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: app-template
+      version: 1.5.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+      interval: 5m
+  targetNamespace: media
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  values:
+    fullnameOverride: audiobookshelf
+    podSecurityContext:
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+      fsGroupChangePolicy: "OnRootMismatch"
+    image:
+      repository: ghcr.io/advplyr/audiobookshelf
+      tag: 2.3.2
+    service:
+      main:
+        ports:
+          http:
+            port: 80
+    ingress:
+      main:
+        enabled: true
+        annotations:
+          haproxy.org/whitelist: "${HAPROXY_WHITELIST}"
+          haproxy.org/response-set-header: |
+            Strict-Transport-Security "max-age=31536000"
+            X-Frame-Options "DENY"
+            X-Content-Type-Options "nosniff"
+            Referrer-Policy "no-referrer-when-downgrade"
+        hosts:
+          - host: "audio.${SECRET_PRIVATE_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - secretName: "${SECRET_PRIVATE_DOMAIN_CERT}"
+    env:
+      TZ: "${TIMEZONE}"
+      AUDIOBOOKSHELF_UID: 1000
+      AUDIOBOOKSHELF_GID: 1000
+      CONFIG_PATH: /config
+      METADATA_PATH: /config/metadata
+    persistence:
+      config:
+        enabled: true
+        existingClaim: audiobookshelf
+      cache:
+        enabled: true
+        mountPath: /.npm
+        type: emptyDir
+      media:
+        enabled: true
+        existingClaim: media
+        mountPath: /data
+        readOnly: true
+    podAnnotations:
+      backup.velero.io/backup-volumes: config
+    resources:
+      requests:
+        memory: 100Mi
+        cpu: 100m
+      limits:
+        memory: 500Mi
