@@ -37,7 +37,7 @@ spec:
       main:
         enabled: false
     env:
-      CRON_SCHEDULE: "* * * * *"
+      CRON_SCHEDULE: "37 13 * * *"
       TZ: "${TIMEZONE}"
     persistence:
       config:
