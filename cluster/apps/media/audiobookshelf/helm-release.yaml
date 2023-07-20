@@ -33,7 +33,7 @@ spec:
     # fsGroupChangePolicy: "OnRootMismatch"
     image:
       repository: ghcr.io/advplyr/audiobookshelf
-      tag: 2.3.2
+      tag: 2.3.3
     service:
       main:
         ports:
