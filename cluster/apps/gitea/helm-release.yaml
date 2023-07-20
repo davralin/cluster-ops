@@ -54,6 +54,8 @@ spec:
       enabled: false
     postgresql:
       enabled: false
+    postgresql-ha:
+      enabled: false
     persistence:
       enabled: true
       mount: true
