@@ -51,7 +51,7 @@ spec:
       ssh:
         type: LoadBalancer
     redis-cluster:
-      enabled: false
+      enabled: true
     postgresql:
       enabled: false
     persistence:
