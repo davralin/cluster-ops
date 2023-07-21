@@ -71,8 +71,7 @@ spec:
         backup.velero.io/backup-volumes: data
       config:
         cache:
-          adapter: redis
-          host: redis://redis-master:6379
+          adapter: memory
         server:
           DISABLE_SSH: false
           SSH_DOMAIN: "ssh.${SECRET_PRIVATE_DOMAIN}"
