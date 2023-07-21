@@ -52,8 +52,7 @@ spec:
               matchFeatures:
                 - feature: usb.device
                   matchExpressions:
-                    vendor: {op: In, value: ["0bda"]}
-                    vendor: {op: In, value: ["2838"]}
+                    vendor: {op: In, value: ["0bda", "2838"]}
 #            - name: rtl-sdr-433mhz
 #              matchOn:
 #                - usbId:
