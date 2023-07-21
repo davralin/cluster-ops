@@ -33,6 +33,11 @@ spec:
       annotations:
         reloader.stakater.com/auto: "true"
       config:
+        core:
+          labelSources:
+            - custom
+            - usb
+            - pci
         sources:
           custom:
             - name: intel-gpu
