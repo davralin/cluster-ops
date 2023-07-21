@@ -7,6 +7,7 @@ resources:
   - bitnami.yaml
   - bjw-s.yaml
   - botkube.yaml
+  - bugfest.yaml
   - deliveryhero.yaml
   - descheduler.yaml
   - drone.yaml

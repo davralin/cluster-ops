@@ -46,6 +46,7 @@ resources:
   - ../smokeping
   - ../syncthing
   - ../tailscale
+  - ../tor-controller
   - ../tubearchivist
   - ../unifi
   - ../velero
