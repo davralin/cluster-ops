@@ -61,6 +61,4 @@ spec:
               matchFeatures:
                 - feature: usb.device
                   matchExpressions:
-                    class: { op: In, value: ["08"] }
-                    vendor: { op: In, value: ["059f"] }
-                    product: { op: In, value: ["10fa"] }
+                    serial: { op: In, value: ["0000NL6Q35WK"] }
