@@ -69,6 +69,8 @@ spec:
     gitea:
       podAnnotations:
         backup.velero.io/backup-volumes: data
+      cache:
+        adapter: memory
       config:
         server:
           DISABLE_SSH: false
