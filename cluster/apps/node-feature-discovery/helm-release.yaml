@@ -45,10 +45,15 @@ spec:
                 - pciId:
                     class: ["0300"]
                     vendor: ["8086"]
-#            - name: rtl-sdr-433mhz
-#              matchOn:
-#                - usbId:
-#                    vendor: ["0bda", "2838"]
+            - name: rtl-sdr-433mhz
+              matchOn:
+                - usbId:
+                    vendor: ["0bda", "2838"]
+            - name: rtl-sdr-433mhz2
+              matchOn:
+                - usbId:
+                    class: ["0bda"]
+                    vendor: ["2838"]
 #            - name: usb-backupdrive
 #              matchOn:
 #                - usbId:
