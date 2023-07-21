@@ -53,11 +53,10 @@ spec:
                 - feature: usb.device
                   matchExpressions:
                     vendor: {op: In, value: ["0bda", "2838"]}
-#            - name: rtl-sdr-433mhz
-#              matchOn:
-#                - usbId:
-#                    vendor: ["0bda", "2838"]
-#            - name: usb-backupdrive
-#              matchOn:
-#                - usbId:
-#                    vendor: ["8087", "0026"]
+            - name: "usb-backupdrive"
+              labels:
+                custom-usb-backupdrive: "true"
+              matchFeatures:
+                - feature: usb.device
+                  matchExpressions:
+                    vendor: {op: In, value: ["8087", "0026"]}
