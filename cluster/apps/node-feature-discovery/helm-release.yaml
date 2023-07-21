@@ -36,11 +36,9 @@ spec:
         core:
           labelSources:
             - custom
-            - usb
+          klog:
+            v: 9
         sources:
-          usb:
-            deviceClassWhitelist: ["*"]
-            deviceLabelFields: ["*"]
           custom:
             - name: "intel-gpu"
               labels:
