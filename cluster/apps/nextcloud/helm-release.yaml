@@ -27,7 +27,7 @@ spec:
     fullnameOverride: nextcloud
     image:
       repository: nextcloud
-      tag: 27.0.0-apache
+      tag: 27.0.1-apache
     persistence:
       enabled: true
       existingClaim: nextcloud
