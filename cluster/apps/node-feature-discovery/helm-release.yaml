@@ -18,41 +18,34 @@ spec:
   install:
     createNamespace: true
     crds: CreateReplace
+    remediation:
+      retries: 3
   upgrade:
+    remediation:
+      retries: 3
     crds: CreateReplace
   values:
     fullnameOverride: node-feature-discovery
-    nodeFeatureRule:
-      createCRD: true
+    master:
+      annotations:
+        reloader.stakater.com/auto: "true"
     worker:
       annotations:
         reloader.stakater.com/auto: "true"
       config:
         sources:
-          usb:
-            deviceClassWhitelist:
-              - "02"
-              - "03"
-              - "0e"
-              - "ef"
-              - "fe"
-              - "ff"
-            deviceLabelFields:
-              - class
-              - vendor
-              - device
-              - serial
+          cpu: []
           custom:
             - name: intel-gpu
               matchOn:
                 - pciId:
                     class: ["0300"]
                     vendor: ["8086"]
-            - name: rtl-sdr-433mhz
-              matchOn:
-                - usbId:
-                    vendor: ["0bda", "2838"]
-            - name: usb-backupdrive
-              matchOn:
-                - usbId:
-                    vendor: ["8087", "0026"]
+#            - name: rtl-sdr-433mhz
+#              matchOn:
+#                - usbId:
+#                    vendor: ["0bda", "2838"]
+#            - name: usb-backupdrive
+#              matchOn:
+#                - usbId:
+#                    vendor: ["8087", "0026"]
