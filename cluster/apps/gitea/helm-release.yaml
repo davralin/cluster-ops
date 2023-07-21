@@ -70,6 +70,7 @@ spec:
       podAnnotations:
         backup.velero.io/backup-volumes: data
       cache:
+        enabled: false
         adapter: memory
       config:
         server:
