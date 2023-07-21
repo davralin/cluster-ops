@@ -37,11 +37,10 @@ spec:
           labelSources:
             - custom
             - usb
-            - pci
         sources:
           usb:
-            deviceClassWhitelist: ["02", "03", "0e", "ef", "fe", "ff"]
-            deviceLabelFields: ["class", "vendor", "device"]
+            deviceClassWhitelist: ["*"]
+            deviceLabelFields: ["*"]
           custom:
             - name: "intel-gpu"
               labels:
