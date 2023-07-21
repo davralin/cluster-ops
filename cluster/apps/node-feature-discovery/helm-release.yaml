@@ -34,7 +34,6 @@ spec:
         reloader.stakater.com/auto: "true"
       config:
         sources:
-          cpu: []
           custom:
             - name: intel-gpu
               matchOn:
