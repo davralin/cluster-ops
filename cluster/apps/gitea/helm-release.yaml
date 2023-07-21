@@ -51,7 +51,7 @@ spec:
       ssh:
         type: LoadBalancer
     redis-cluster:
-      enabled: true
+      enabled: false
     postgresql:
       enabled: false
     postgresql-ha:
@@ -87,6 +87,8 @@ spec:
           DEFAULT_PRIVATE: true
         database:
           DB_TYPE: sqlite3
+        session:
+          provider: memory
         service:
           DISABLE_REGISTRATION: true
           REQUIRE_SIGNIN_VIEW: true
