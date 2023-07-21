@@ -46,15 +46,15 @@ spec:
               matchFeatures:
                 - feature: pci.device
                   matchExpressions:
-                    class: {op: In, value: ["0300"]}
-                    vendor: {op: In, value: ["8086"]}
+                    class: { op: In, value: ["0300"] }
+                    vendor: { op: In, value: ["8086"] }
             - name: "rtl-sdr-433mhz"
               labels:
                 custom-rtl-sdr-433mhz: "true"
               matchFeatures:
                 - feature: usb.device
                   matchExpressions:
-                    vendor: {op: In, value: ["0bda", "2838"]}
+                    vendor: { op: In, value: ["0bda", "2838"] }
             - name: "usb-backupdrive"
               labels:
                 custom-usb-backupdrive: "true"
