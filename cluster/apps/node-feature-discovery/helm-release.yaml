@@ -63,4 +63,5 @@ spec:
               matchFeatures:
                 - feature: usb.device
                   matchExpressions:
-                    vendor: {op: In, value: ["8087", "0026"]}
+                    vendor: {op: In, value: ["059f"]}
+                    product: {op: In, value: ["10fa"]}
