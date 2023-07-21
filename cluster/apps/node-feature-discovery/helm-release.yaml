@@ -36,24 +36,20 @@ spec:
         core:
           labelSources:
             - custom
-            - usb
-            - pci
         sources:
           custom:
-            - name: intel-gpu
-              matchOn:
-                - pciId:
-                    class: ["0300"]
-                    vendor: ["8086"]
-            - name: rtl-sdr-433mhz
-              matchOn:
-                - usbId:
-                    vendor: ["0bda", "2838"]
-            - name: rtl-sdr-433mhz2
-              matchOn:
-                - usbId:
-                    class: ["0bda"]
-                    vendor: ["2838"]
+            - name: "intel-gpu"
+              labels:
+                custom-intel-gpu: "true"
+              matchFeatures:
+                - feature: pci.device
+                  matchExpressions:
+                    class: {op: In, value: ["0300"]}
+                    vendor: {op: In, value: ["8086"]}
+#            - name: rtl-sdr-433mhz
+#              matchOn:
+#                - usbId:
+#                    vendor: ["0bda", "2838"]
 #            - name: usb-backupdrive
 #              matchOn:
 #                - usbId:
