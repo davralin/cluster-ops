@@ -50,6 +50,8 @@ spec:
     service:
       ssh:
         type: LoadBalancer
+    strategy:
+      type: Recreate
     redis-cluster:
       enabled: false
     postgresql:
