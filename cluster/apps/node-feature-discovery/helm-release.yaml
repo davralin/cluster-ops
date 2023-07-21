@@ -53,6 +53,7 @@ spec:
                 - feature: usb.device
                   matchExpressions:
                     vendor: {op: In, value: ["0dba"]}
+                    serial: {op: In, value: ["00000001"]}
             - name: "usb-backupdrive"
               labels:
                 custom-usb-backupdrive: "true"
