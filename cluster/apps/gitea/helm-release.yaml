@@ -69,10 +69,10 @@ spec:
     gitea:
       podAnnotations:
         backup.velero.io/backup-volumes: data
-      cache:
-        adapter: redis
-        host: redis://redis-master:6379
       config:
+        cache:
+          adapter: redis
+          host: redis://redis-master:6379
         server:
           DISABLE_SSH: false
           SSH_DOMAIN: "ssh.${SECRET_PRIVATE_DOMAIN}"
