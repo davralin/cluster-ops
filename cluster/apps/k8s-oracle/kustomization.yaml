@@ -19,5 +19,4 @@ resources:
   - ../snowflake
   - ../tailscale
   - ../thelounge
-  - ../tor-controller
   - ../velero-oracle
