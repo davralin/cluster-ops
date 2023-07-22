@@ -5,16 +5,16 @@ metadata:
   name: gitea
   namespace: gitea
 spec:
-  interval: 15m
+  interval: 5m
   chart:
     spec:
-      chart: gitea
-      version: 9.0.4
+      chart: app-template
+      version: 1.5.1
       sourceRef:
         kind: HelmRepository
-        name: gitea-charts
+        name: bjw-s-charts
         namespace: flux-system
-      interval: 15m
+      interval: 5m
   targetNamespace: gitea
   install:
     createNamespace: true
@@ -25,100 +25,62 @@ spec:
       retries: 3
   values:
     fullnameOverride: gitea
-    image:
-      rootless: true
-    containerSecurityContext:
+    podSecurityContext:
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+      fsGroupChangePolicy: "OnRootMismatch"
+    securityContext:
       capabilities:
         add:
           - SYS_CHROOT
-    ingress:
-      enabled: true
-      annotations:
-        haproxy.org/whitelist: "${HAPROXY_WHITELIST}"
-        haproxy.org/response-set-header: |
-          Strict-Transport-Security "max-age=31536000"
-          X-Frame-Options "DENY"
-          X-Content-Type-Options "nosniff"
-          Referrer-Policy "no-referrer-when-downgrade"
-      hosts:
-        - host: "gitea.${SECRET_PRIVATE_DOMAIN}"
-          paths:
-            - path: /
-              pathType: Prefix
-      tls:
-        - secretName: "${SECRET_PRIVATE_DOMAIN_CERT}"
+    image:
+      repository: gitea/gitea
+      tag: 1.20.1-rootless
     service:
+      main:
+        ports:
+          http:
+            port: 3000
       ssh:
         type: LoadBalancer
-    strategy:
-      type: Recreate
-    redis-cluster:
-      enabled: false
-    postgresql:
-      enabled: false
-    postgresql-ha:
-      enabled: false
+        ports:
+          ssh:
+            enabled: true
+            port: 22
+            protocol: TCP
+    ingress:
+      main:
+        enabled: true
+        annotations:
+          haproxy.org/whitelist: "${HAPROXY_WHITELIST}"
+          haproxy.org/response-set-header: |
+            Strict-Transport-Security "max-age=31536000"
+            X-Frame-Options "DENY"
+            X-Content-Type-Options "nosniff"
+            Referrer-Policy "no-referrer-when-downgrade"
+        hosts:
+          - host: "gitea.${SECRET_DEFAULT_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
+    env:
+      TZ: "${TIMEZONE}"
+      USER_UID: 1000
+      USER_GID: 1000
     persistence:
-      enabled: true
-      mount: true
-      create: false
-      claimName: gitea
-    signing:
-      enabled: false
-      gpgHome: /data/git/.gnupg
-    gitea:
-      podAnnotations:
-        backup.velero.io/backup-volumes: data
       config:
-        cache:
-          adapter: memory
-        server:
-          DISABLE_SSH: false
-          SSH_DOMAIN: "ssh.${SECRET_PRIVATE_DOMAIN}"
-          DOMAIN: "gitea.${SECRET_PRIVATE_DOMAIN}"
-          ROOT_URL: "https://gitea.${SECRET_PRIVATE_DOMAIN}"
-          ENABLE_GZIP: true
-          OFFLINE_MODE: true
-          LANDING_PAGE: explore
-          LFS_START_SERVER: true
-          ALLOW_GRACEFUL_RESTARTS: true
-        admin:
-          DISABLE_REGULAR_ORG_CREATION: true
-        ui:
-          DEFAULT_THEME: auto
-        repository:
-          DEFAULT_BRANCH: main
-          DEFAULT_PRIVATE: true
-        database:
-          DB_TYPE: sqlite3
-        session:
-          provider: memory
-        service:
-          DISABLE_REGISTRATION: true
-          REQUIRE_SIGNIN_VIEW: true
-          DEFAULT_KEEP_EMAIL_PRIVATE: true
-          DEFAULT_ALLOW_CREATE_ORGANIZATION: false
-          DEFAULT_USER_IS_RESTRICTED: true
-        cron:
-          ENABLED: true
-        mailer:
-          enabled: false
-        webhook:
-          ALLOWED_HOST_LIST: "drone.${SECRET_PRIVATE_DOMAIN}"
-      metrics:
-        enabled: "${MONITORING_PROMETHEUS}"
-        serviceMonitor:
-          enabled: "${MONITORING_PROMETHEUS}"
-  valuesFrom:
-    - targetPath: gitea.admin.email
-      kind: Secret
-      name: gitea-config
-      valuesKey: email
-    - targetPath: gitea.admin.username
-      kind: Secret
-      name: gitea-config
-      valuesKey: username
-    - targetPath: gitea.admin.password
-      kind: Secret
-      name: gitea-config
-      valuesKey: password
+        enabled: true
+        existingClaim: gitea
+        mountPath: /data
+    podAnnotations:
+      backup.velero.io/backup-volumes: config
+    resources:
+      requests:
+        memory: 75Mi
+        cpu: 100m
+      limits:
+        memory: 300Mi
+        cpu: 500m
