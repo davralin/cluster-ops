@@ -7,4 +7,6 @@ metadata:
 data:
   rclone-backup.sh: |
     #!/bin/sh
+    sleep infinity
     /usr/local/bin/rclone sync --check-first --delete-before --progress --jottacloud-hard-delete --backup-dir "jottacloud-crypt:/nextcloud/$(date -I)" /nextcloud/ jottacloud-crypt:/nextcloud/current
+    /usr/local/bin/rclone sync --check-first --delete-before --progress --jottacloud-hard-delete --backup-dir "jottacloud-telia-crypt:/nextcloud/$(date -I)" /nextcloud/ jottacloud-telia-crypt:/nextcloud/current
