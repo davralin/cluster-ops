@@ -72,6 +72,7 @@ spec:
       TZ: "${TIMEZONE}"
       USER_UID: 1000
       USER_GID: 1000
+      GITEA__ACTIONS__ENABLED: "True"
       GITEA__MAILER__ENABLED: "True"
       GITEA__MAILER__PROTOCOL: "SMTP"
       GITEA__MAILER__SMTP_ADDR: "exim.mailrelay.svc.cluster.local"
