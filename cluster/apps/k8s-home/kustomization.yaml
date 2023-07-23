@@ -13,7 +13,6 @@ resources:
   - ../chatbot-ui
   - ../cloudflareddns
   - ../descheduler
-  - ../drone
   - ../epicgames-freegames
   - ../external-dns
   - ../freshrss
