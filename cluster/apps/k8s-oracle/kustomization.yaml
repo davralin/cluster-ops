@@ -11,7 +11,6 @@ resources:
   - ../it-tools
   - ../kubed
   - ../kuma
-  - ../gitea
   - ../local-path-provisioner
   - ../librespeed
   - ../metrics-server
