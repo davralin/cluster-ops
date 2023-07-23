@@ -44,10 +44,12 @@ spec:
             port: 3000
       ssh:
         type: LoadBalancer
+        externalTrafficPolicy: Local
         ports:
           ssh:
             enabled: true
             port: 22
+            targetPort: 2222
             protocol: TCP
     ingress:
       main:
