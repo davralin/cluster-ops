@@ -73,6 +73,7 @@ spec:
       USER_UID: 1000
       USER_GID: 1000
       GITEA__SERVER__DOMAIN: "gitea.${SECRET_DEFAULT_DOMAIN}"
+      GITEA__SERVER__ROOT_URL: "https://gitea.${SECRET_DEFAULT_DOMAIN}"
       GITEA__SERVER__SSH_DOMAIN: "ssh.${SECRET_DEFAULT_DOMAIN}"
       GITEA__SERVER__SSH_PORT: 22
     persistence:
