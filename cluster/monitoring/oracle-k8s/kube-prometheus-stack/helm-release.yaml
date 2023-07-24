@@ -75,13 +75,7 @@ spec:
     kubeEtcd:
       enabled: false
     kubelet:
-      enabled: true
-      serviceMonitor:
-        metricRelabelings:
-          - action: replace
-            sourceLabels:
-              - node
-            targetLabel: instance
+      enabled: false
     kubeProxy:
       enabled: false
     kubeScheduler:
