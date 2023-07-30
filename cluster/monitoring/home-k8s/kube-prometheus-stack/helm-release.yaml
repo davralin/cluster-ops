@@ -101,14 +101,14 @@ spec:
           - secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
       prometheusSpec:
         retention: 10d
-        retentionSize: 40GB
+        retentionSize: 39GB
         storageSpec:
           volumeClaimTemplate:
             spec:
               storageClassName: "${STORAGE_READWRITEONCE}"
               resources:
                 requests:
-                  storage: 20Gi
+                  storage: 40Gi
         additionalScrapeConfigs:
           - job_name: adsb
             scrape_interval: 1m
