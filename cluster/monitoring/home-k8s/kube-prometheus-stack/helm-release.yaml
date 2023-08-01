@@ -110,13 +110,13 @@ spec:
                 requests:
                   storage: 40Gi
         additionalScrapeConfigs:
-          - job_name: adsb
-            scrape_interval: 1m
-            scrape_timeout: 10s
-            honor_timestamps: true
-            static_configs:
-              - targets:
-                  - readsb-protobuf.adsb.svc.cluster.local:9273
+          #- job_name: adsb
+          #  scrape_interval: 1m
+          #  scrape_timeout: 10s
+          #  honor_timestamps: true
+          #  static_configs:
+          #    - targets:
+          #        - readsb-protobuf.adsb.svc.cluster.local:9273
           - job_name: node-exporter
             scrape_interval: 1m
             scrape_timeout: 10s
