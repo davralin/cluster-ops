@@ -12,7 +12,6 @@ resources:
   - ../changedetection
   - ../chatbot-ui
   - ../cloudflareddns
-  - ../descheduler
   - ../epicgames-freegames
   - ../external-dns
   - ../freshrss
