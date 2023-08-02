@@ -25,6 +25,7 @@ spec:
       retries: 3
   values:
     fullnameOverride: libreddit
+    replicas: 2
     podSecurityContext:
       runAsUser: 1000
       runAsGroup: 1000
