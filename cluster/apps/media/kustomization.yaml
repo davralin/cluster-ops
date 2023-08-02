@@ -23,7 +23,6 @@ resources:
   - sonarr
   - squeezebox
   - sshd
-  - syncthing
   - tautulli
   - tdarr
   - yt-dlp
