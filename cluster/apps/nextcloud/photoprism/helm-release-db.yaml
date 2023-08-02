@@ -44,6 +44,6 @@ spec:
     volumePermissions:
       enabled: true
     metrics:
-      enabled: "${MONITORING_PROMETHEUS}"
+      enabled: false #"${MONITORING_PROMETHEUS}"
       serviceMonitor:
-        enabled: "${MONITORING_PROMETHEUS}"
+        enabled: false #"${MONITORING_PROMETHEUS}"
