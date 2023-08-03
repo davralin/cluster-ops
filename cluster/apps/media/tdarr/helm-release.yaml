@@ -22,7 +22,7 @@ spec:
       retries: 3
   upgrade:
     remediation:
-      retries: 3
+      retries: -1
   values:
     fullnameOverride: tdarr
     podSecurityContext:
