@@ -124,6 +124,7 @@ spec:
             static_configs:
               - targets:
                   - ha.${SECRET_PRIVATE_DOMAIN}:9100
+                  - home.${SECRET_PRIVATE_DOMAIN}:9100
                   - mierin.w.ot:9100
                   - nas.${SECRET_OFFSITE_DOMAIN}:9100
                   - proxmox.${SECRET_PRIVATE_DOMAIN}:9100
