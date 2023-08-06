@@ -4,4 +4,5 @@ kind: Kustomization
 resources:
   - cleanup.yaml
   - cronjob.yaml
+  - pvc.yaml
   - yt-dlp-config.yaml
