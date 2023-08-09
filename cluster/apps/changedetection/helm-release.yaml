@@ -58,8 +58,8 @@ spec:
     env:
       TZ: "${TIMEZONE}"
       USE_X_SETTINGS: "1"
-      PLAYWRIGHT_DRIVER_URL: "ws://localhost:3000/?stealth=1&--disable-web-security=true"
-      WEBDRIVER_URL: "ws://localhost:3000/?stealth=1&--disable-web-security=true"
+      PLAYWRIGHT_DRIVER_URL: ws://localhost:3000
+      WEBDRIVER_URL: ws://localhost:3000
     persistence:
       config:
         enabled: true
