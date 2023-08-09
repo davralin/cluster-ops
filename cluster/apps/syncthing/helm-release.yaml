@@ -32,7 +32,7 @@ spec:
       fsGroupChangePolicy: "OnRootMismatch"
     image:
       repository: syncthing/syncthing
-      tag: 1.23.6
+      tag: 1.23.7
     service:
       main:
         ports:
