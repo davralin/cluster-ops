@@ -70,7 +70,7 @@ spec:
         memory: 30Mi
     sidecars:
       browser:
-        name: browser
+        name: browser-chrome
         image: browserless/chrome
         tag: 1-chrome-stable@sha256:0c1d3fdbad5009b28d5611bc742fa7b7a0131ea8d02f17cf35854ca16724c29a
         env:
