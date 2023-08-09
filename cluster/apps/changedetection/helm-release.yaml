@@ -57,6 +57,7 @@ spec:
           - secretName: "${SECRET_PRIVATE_DOMAIN_CERT}"
     env:
       TZ: "${TIMEZONE}"
+      PLAYWRIGHT_DRIVER_URL: ws://playwright-chrome:3000/?stealth=1&--disable-web-security=true
     persistence:
       config:
         enabled: true
