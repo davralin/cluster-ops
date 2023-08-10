@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 data:
   TIMEZONE: "Europe/Oslo"
-  BEASTHOST: "readsb-protobuf"
+  BEASTHOST: "10.0.1.80"
   CLUSTER_NAME: "home-k8s"
   HAPROXY_WHITELIST: "10.0.0.0/8"
   STORAGE_READWRITEONCE: "ceph-block"

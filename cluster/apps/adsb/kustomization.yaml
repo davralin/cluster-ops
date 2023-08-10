@@ -10,5 +10,5 @@ resources:
   - planefinder
   - secrets.yaml
   - radarbox
-  - readsb-protobuf
+    #  - readsb-protobuf
   - ultrafeeder
