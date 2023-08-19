@@ -34,7 +34,7 @@ spec:
     hostNetwork: true
     image:
       repository: 1activegeek/airconnect
-      tag: 1.1.5
+      tag: 1.1.8
     service:
       main:
         enabled: false
