@@ -27,7 +27,7 @@ spec:
     fullnameOverride: chatbotui
     image:
       repository: ghcr.io/mckaywrigley/chatbot-ui
-      tag: main@sha256:569dffe6043136f03de86bde38453a58d05150f29476239dc1da4ce2573b4101
+      tag: main@sha256:8c60abae8a34fd43f7015c124e0b972839e0efb35c06cd31cd1ec1ed9a57ceeb
     service:
       main:
         ports:
