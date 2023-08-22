@@ -37,7 +37,7 @@ spec:
     #      - CHOWN
     image:
       repository: ghcr.io/linuxserver/smokeping
-      tag: 2.8.2@sha256:68419ecb1ad4f0515b30c1b982fa1a58200c52d8a42550788e8b18500d45bf46
+      tag: 2.8.2@sha256:5dfb026f71fe4486c44af01219f850374c111a3762db236067560b50e7dcb764
     service:
       main:
         ports:
