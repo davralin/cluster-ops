@@ -25,6 +25,7 @@ spec:
       retries: 3
   values:
     fullnameOverride: tailscale
+    hostname: "${CLUSTER_NAME}"
     serviceAccount:
       name: tailscale
     podSecurityContext:
