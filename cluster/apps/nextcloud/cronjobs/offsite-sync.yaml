@@ -18,7 +18,7 @@ spec:
             - name: offsite-sync-to
               image: b2un0/rsync:1.0.1
               command: ['/usr/bin/rsync']
-              args: ["--archive", "--delete", "--verbose", "-e", "ssh -o StrictHostKeyChecking=no", "/nextcloud/", "ansible@10.0.2.11:/mnt/nextcloud-backup/"]
+              args: ["--archive", "--delete", "--verbose", "-e", "ssh -o StrictHostKeyChecking=no", "/nextcloud/", "ansible@100.89.107.20:/mnt/nextcloud-backup/"]
               volumeMounts:
                 - mountPath: /nextcloud
                   name: nextcloud
