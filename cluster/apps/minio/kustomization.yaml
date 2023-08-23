@@ -4,7 +4,7 @@ kind: Kustomization
 resources:
   - backup-ssh-key.yaml
   - daily-to-jottacloud.yaml
-  - daily-to-azure.yaml
+    #  - daily-to-azure.yaml
   - helm-release.yaml
   - namespace.yaml
   - offsite-sync.yaml
