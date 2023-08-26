@@ -25,37 +25,20 @@ spec:
       retries: 3
   values:
     fullnameOverride: icecast
-    # fails on startup due to missing permissions
-    #podSecurityContext:
-      #runAsUser: 1000
-      #runAsGroup: 1000
-      #fsGroup: 1000
-      #fsGroupChangePolicy: "OnRootMismatch"
+    podSecurityContext:
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+      fsGroupChangePolicy: "OnRootMismatch"
     image:
       repository: ghcr.io/libretime/icecast
       tag: 2.4.4
     service:
+      type: LoadBalancer
       main:
         ports:
           http:
             port: 8000
-    ingress:
-      main:
-        enabled: true
-        annotations:
-          haproxy.org/whitelist: "${HAPROXY_WHITELIST}"
-          haproxy.org/response-set-header: |
-            Strict-Transport-Security "max-age=31536000"
-            X-Frame-Options "DENY"
-            X-Content-Type-Options "nosniff"
-            Referrer-Policy "no-referrer-when-downgrade"
-        hosts:
-          - host: "cast.${SECRET_DEFAULT_DOMAIN}"
-            paths:
-              - path: /
-                pathType: Prefix
-        tls:
-          - secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
     env:
       ICECAST_SOURCE_PASSWORD: "source"
       ICECAST_RELAY_PASSWORD: "relay"
@@ -66,10 +49,3 @@ spec:
       ICECAST_HOSTNAME: "cast.${SECRET_DEFAULT_DOMAIN}"
       ICECAST_MAX_CLIENTS: "69"
       ICECAST_MAX_SOURCES: "69"
-    resources:
-      requests:
-        cpu: 50m
-        memory: 32Mi
-      limits:
-        cpu: 50m
-        memory: 32Mi
