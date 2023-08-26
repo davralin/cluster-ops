@@ -36,6 +36,7 @@ spec:
     service:
       main:
         type: LoadBalancer
+        externalTrafficPolicy: Local
         ports:
           http:
             port: 8000
