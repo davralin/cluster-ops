@@ -20,6 +20,7 @@ resources:
   - ../harbor
   - ../intel-gpu
   - ../it-tools
+  - ../icecast
   - ../jobs
   - ../kubed
   - ../kuma
