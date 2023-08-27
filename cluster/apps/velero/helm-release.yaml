@@ -30,7 +30,7 @@ spec:
         TZ: "${TIMEZONE}"
       backupStorageLocation:
         - name: default
-          bucket: velero-backup
+          bucket: "velero-${CLUSTER_NAME}"
           default: true
           provider: aws
           credential:
