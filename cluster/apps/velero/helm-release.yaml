@@ -39,8 +39,8 @@ spec:
           config:
             region: "${VELERO_S3_REGION}"
             s3ForcePathStyle: true
-            s3Url: "http://${VELERO_S3_URL}"
-            publicUrl: "http://${VELERO_S3_PUBLIC_URL}"
+            s3Url: "${VELERO_S3_URL}"
+            publicUrl: "${VELERO_S3_PUBLIC_URL}"
       volumeSnapshotLocation:
         - name: aws
           provider: aws
