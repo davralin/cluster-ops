@@ -33,19 +33,11 @@ spec:
           bucket: "velero-${CLUSTER_NAME}"
           default: true
           provider: aws
-          credential:
-            name: velero-s3-creds
-            key: cloud
           config:
             region: "${VELERO_S3_REGION}"
             s3ForcePathStyle: true
             s3Url: "${VELERO_S3_URL}"
             publicUrl: "${VELERO_S3_PUBLIC_URL}"
-      volumeSnapshotLocation:
-        - name: aws
-          provider: aws
-          config:
-            region: "${VELERO_S3_REGION}"
       resticTimeout: 6h
     initContainers:
       - name: velero-plugin-for-aws
@@ -54,6 +46,19 @@ spec:
         volumeMounts:
           - mountPath: /target
             name: plugins
+    credentials:
+      useSecret: true
+      existingSecret: velero-s3-creds
+    deployNodeAgent: true
+    nodeAgent:
+      podVolumePath: /var/lib/kubelet/pods
+      privileged: false
+      resources:
+        requests:
+          memory: 200Mi
+          cpu: 15m
+        limits:
+          memory: 3000Mi
     resources:
       requests:
         memory: 300Mi
@@ -99,8 +104,14 @@ spec:
             for: 15m
             labels:
               severity: warning
-    snapshotsEnabled: true
+    backupsEnabled: true
+    snapshotsEnabled: false
     upgradeCRDs: false
+    cleanUpCRDs: false
+    kubectl:
+      image:
+        repository: ghcr.io/onedr0p/kubernetes-kubectl
+        tag: 1.28.1
     schedules:
       daily-backup:
         schedule: "10 04 * * *"
