@@ -48,10 +48,3 @@ spec:
                   matchExpressions:
                     class: { op: In, value: ["0300"] }
                     vendor: { op: In, value: ["8086"] }
-            - name: "usb-backupdrive"
-              labels:
-                custom-usb-backupdrive: "true"
-              matchFeatures:
-                - feature: usb.device
-                  matchExpressions:
-                    serial: { op: In, value: ["0000NL6Q35WK"] }

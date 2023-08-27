@@ -32,7 +32,6 @@ resources:
   - ../metallb
   - ../metrics-server
   - ../minecraft
-  - ../minio
   - ../nextcloud
   - ../nitter
   - ../node-feature-discovery

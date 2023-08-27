@@ -4,5 +4,4 @@ kind: Kustomization
 resources:
   - helm-release.yaml
   - namespace.yaml
-  - offsite-creds.yaml
   - secret.yaml
