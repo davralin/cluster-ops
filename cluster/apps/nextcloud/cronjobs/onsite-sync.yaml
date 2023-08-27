@@ -5,8 +5,7 @@ metadata:
   name: onsite-sync
   namespace: nextcloud
 spec:
-  #schedule: "45 */6 * * *"
-  schedule: "* * * * *"
+  schedule: "45 */6 * * *"
   concurrencyPolicy: Forbid
   successfulJobsHistoryLimit: 1
   failedJobsHistoryLimit: 1
