@@ -5,7 +5,8 @@ metadata:
   name: onsite-sync
   namespace: nextcloud
 spec:
-  schedule: "45 */6 * * *"
+  #schedule: "45 */6 * * *"
+  schedule: "* * * * *"
   concurrencyPolicy: Forbid
   successfulJobsHistoryLimit: 1
   failedJobsHistoryLimit: 1
@@ -18,7 +19,7 @@ spec:
             - name: onsite-sync-to
               image: b2un0/rsync:1.0.1
               command: ['/usr/bin/rsync']
-              args: ["--archive", "--delete", "--verbose", "-e", "ssh -o StrictHostKeyChecking=no", "/nextcloud/", "ansible@10.0.1.78:/opt/backup/nextcloud/"]
+              args: ["--archive", "--delete", "--verbose", "-e", "ssh -o StrictHostKeyChecking=no", "/nextcloud/", "ansible@10.0.1.77:/opt/backup/nextcloud/"]
               volumeMounts:
                 - mountPath: /nextcloud
                   name: nextcloud
