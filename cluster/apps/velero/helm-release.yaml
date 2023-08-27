@@ -18,11 +18,13 @@ spec:
   targetNamespace: velero
   install:
     createNamespace: true
+    crds: CreateReplace
     remediation:
       retries: 3
   upgrade:
     remediation:
       retries: 3
+    crds: CreateReplace
   values:
     fullnameOverride: velero
     configuration:
@@ -106,7 +108,7 @@ spec:
               severity: warning
     backupsEnabled: true
     snapshotsEnabled: false
-    upgradeCRDs: false
+    upgradeCRDs: true
     cleanUpCRDs: false
     kubectl:
       image:
