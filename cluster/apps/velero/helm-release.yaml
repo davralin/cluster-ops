@@ -122,5 +122,3 @@ spec:
           excludedNamespaces:
             - rook-ceph
           storageLocation: default
-          volumeSnapshotLocations:
-            - aws
