@@ -27,7 +27,7 @@ spec:
     fullnameOverride: llamagpt-ui
     image:
       repository: ghcr.io/getumbrel/llama-gpt-ui
-      tag: latest
+      tag: 1.0.1
     service:
       main:
         ports:
