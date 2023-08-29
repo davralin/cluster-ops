@@ -173,7 +173,7 @@ spec:
     sidecar:
       image:
         repository: quay.io/kiwigrid/k8s-sidecar
-        tag: 1.25.0
+        tag: 1.25.1
       dashboards:
         enabled: true
         searchNamespace: ALL
