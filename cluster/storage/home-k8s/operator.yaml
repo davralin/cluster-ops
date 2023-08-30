@@ -28,5 +28,5 @@ spec:
     crds:
       enabled: true
     monitoring:
-      enabled: "true"
-      createPrometheusRules: "true"
+      enabled: "false"
+      createPrometheusRules: "false"

@@ -2,47 +2,46 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - ../adguardhome
-  - ../adsb
-  - ../airconnect
-  - ../archivebox
-  - ../awx
+  #- ../adguardhome
+  #- ../adsb
+  #- ../airconnect
+  #- ../archivebox
+  #- ../awx
   - ../botkube
   - ../cert-manager
-  - ../changedetection
-  - ../chatbot-ui
-  - ../cloudflareddns
-  - ../epicgames-freegames
-  - ../external-dns
-  - ../freshrss
-  - ../gitea
+  #- ../changedetection
+  #- ../chatbot-ui
+  #- ../cloudflareddns
+  #- ../epicgames-freegames
+  #- ../external-dns
+  #- ../freshrss
+  #- ../gitea
   - ../haproxy/haproxy-ingress
-  - ../harbor
-  - ../intel-gpu
-  - ../it-tools
-  - ../jobs
+  #- ../harbor
+  #- ../intel-gpu
+  #- ../it-tools
+  #- ../jobs
   - ../kubed
-  - ../kuma
-  - ../libreddit
-  - ../librespeed
-  - ../llamagpt
-  - ../local-path-provisioner
-  - ../mailrelay
-  - ../media
-  - ../metallb
+  #- ../kuma
+  #- ../libreddit
+  #- ../librespeed
+  #- ../llamagpt
+  #- ../mailrelay
+  #- ../media
+  #- ../metallb
   - ../metrics-server
-  - ../minecraft
-  - ../nextcloud
-  - ../nitter
-  - ../node-feature-discovery
-  - ../node-problem-detector
-  - ../paperless-ngx
-  - ../peertube-headless-seeder
-  - ../reloader
-  - ../smokeping
-  - ../syncthing
+  #- ../minecraft
+  #- ../nextcloud
+  #- ../nitter
+  #- ../node-feature-discovery
+  #- ../node-problem-detector
+  #- ../paperless-ngx
+  #- ../peertube-headless-seeder
+  #- ../reloader
+  #- ../smokeping
+  #- ../syncthing
   - ../tailscale
-  - ../tubearchivist
-  - ../unifi
-  - ../velero
-  - ../warrior
+  #- ../tubearchivist
+  #- ../unifi
+  #- ../velero
+  #- ../warrior
