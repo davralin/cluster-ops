@@ -28,7 +28,7 @@ resources:
   #- ../llamagpt
   #- ../mailrelay
   #- ../media
-  #- ../metallb
+  - ../metallb
   - ../metrics-server
   #- ../minecraft
   #- ../nextcloud
