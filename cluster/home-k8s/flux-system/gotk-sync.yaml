@@ -6,7 +6,7 @@ metadata:
   name: flux-system
   namespace: flux-system
 spec:
-  interval: 1m0s
+  interval: 10m0s
   ref:
     branch: main
   secretRef:
@@ -19,6 +19,10 @@ metadata:
   name: flux-system
   namespace: flux-system
 spec:
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-gpg
   interval: 10m0s
   path: ./cluster/home-k8s
   prune: true
