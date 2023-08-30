@@ -1,0 +1,1 @@
+flux bootstrap git --verbose --url=ssh://git@github.com/davralin/cluster-ops.git --branch main --path cluster/home-k8s --private-key-file=.ssh/id_ed25519 --password=loremipsum
