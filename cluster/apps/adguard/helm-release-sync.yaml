@@ -27,7 +27,7 @@ spec:
     - targetPath: env.ORIGIN_URL
       kind: Secret
       name: adguard-sync-secret
-      valuesKey: ORIGIN_URL
+      valuesKey: REPLICA1_URL
     - targetPath: env.ORIGIN_USERNAME
       kind: Secret
       name: adguard-sync-secret
@@ -47,7 +47,7 @@ spec:
     - targetPath: env.REPLICA1_URL
       kind: Secret
       name: adguard-sync-secret
-      valuesKey: REPLICA1_URL
+      valuesKey: ORIGIN_URL
   values:
     fullnameOverride: adguard-sync
     image:
