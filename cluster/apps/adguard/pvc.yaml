@@ -3,7 +3,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: adguardhome
-  namespace: adguardhome
+  namespace: adguard
 spec:
   storageClassName: "${STORAGE_READWRITEONCE}"
   accessModes:
@@ -16,7 +16,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: adguardhome-data
-  namespace: adguardhome
+  namespace: adguard
 spec:
   storageClassName: "${STORAGE_READWRITEONCE}"
   accessModes:

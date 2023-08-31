@@ -2,8 +2,8 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: adguardhome
-  namespace: adguardhome
+  name: adguard
+  namespace: adguard
 spec:
   interval: 5m
   chart:
@@ -15,7 +15,7 @@ spec:
         name: bjw-s-charts
         namespace: flux-system
       interval: 5m
-  targetNamespace: adguardhome
+  targetNamespace: adguard
   install:
     createNamespace: true
     remediation:
@@ -24,7 +24,7 @@ spec:
     remediation:
       retries: 3
   values:
-    fullnameOverride: adguardhome
+    fullnameOverride: adguard
     image:
       repository: adguard/adguardhome
       tag: v0.107.36
@@ -66,11 +66,11 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: adguardhome
+        existingClaim: adguard
         mountPath: /opt/adguardhome/conf
       data:
         enabled: true
-        existingClaim: adguardhome-data
+        existingClaim: adguard-data
         mountPath: /opt/adguardhome/work
     podAnnotations:
       backup.velero.io/backup-volumes: config

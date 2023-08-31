@@ -2,8 +2,8 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: adguardhome-sync
-  namespace: adguardhome
+  name: adguard-sync
+  namespace: adguard
 spec:
   interval: 5m
   chart:
@@ -15,7 +15,7 @@ spec:
         name: bjw-s-charts
         namespace: flux-system
       interval: 5m
-  targetNamespace: adguardhome
+  targetNamespace: adguard
   install:
     createNamespace: true
     remediation:
@@ -26,30 +26,30 @@ spec:
   valuesFrom:
     - targetPath: env.ORIGIN_URL
       kind: Secret
-      name: adguardhome-sync-secret
+      name: adguard-sync-secret
       valuesKey: ORIGIN_URL
     - targetPath: env.ORIGIN_USERNAME
       kind: Secret
-      name: adguardhome-sync-secret
+      name: adguard-sync-secret
       valuesKey: USERNAME
     - targetPath: env.ORIGIN_PASSWORD
       kind: Secret
-      name: adguardhome-sync-secret
+      name: adguard-sync-secret
       valuesKey: PASSWORD
     - targetPath: env.REPLICA1_USERNAME
       kind: Secret
-      name: adguardhome-sync-secret
+      name: adguard-sync-secret
       valuesKey: USERNAME
     - targetPath: env.REPLICA1_PASSWORD
       kind: Secret
-      name: adguardhome-sync-secret
+      name: adguard-sync-secret
       valuesKey: PASSWORD
     - targetPath: env.REPLICA1_URL
       kind: Secret
-      name: adguardhome-sync-secret
+      name: adguard-sync-secret
       valuesKey: REPLICA1_URL
   values:
-    fullnameOverride: adguardhome-sync
+    fullnameOverride: adguard-sync
     image:
       repository: ghcr.io/bakito/adguardhome-sync
       tag: v0.4.15
