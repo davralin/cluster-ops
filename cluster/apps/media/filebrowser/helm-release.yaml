@@ -36,7 +36,3 @@ spec:
         enabled: true
         existingClaim: media
         mountPath: /data
-      rclone:
-        enabled: true
-        existingClaim: rcloneconfig
-        mountPath: /rclone
