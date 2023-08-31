@@ -3,7 +3,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: node-feature-discovery
-  namespace: default
+  namespace: node-feature-discovery
 spec:
   interval: 5m
   chart:
@@ -14,7 +14,7 @@ spec:
         kind: HelmRepository
         name: node-feature-discovery-charts
         namespace: flux-system
-  targetNamespace: default
+  targetNamespace: node-feature-discovery
   install:
     createNamespace: true
     crds: CreateReplace
