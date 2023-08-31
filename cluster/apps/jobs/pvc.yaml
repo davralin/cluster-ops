@@ -31,7 +31,7 @@ metadata:
   name: remotebackup
   namespace: jobs
 spec:
-  storageClassName: ceph-filesystem
+  storageClassName: "${STORAGE_READWRITEMANY}"
   accessModes:
     - ReadWriteMany
   resources:

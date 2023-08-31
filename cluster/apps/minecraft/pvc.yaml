@@ -5,7 +5,7 @@ metadata:
   name: fabric-mods
   namespace: minecraft
 spec:
-  storageClassName: ceph-filesystem
+  storageClassName: "${STORAGE_READWRITEMANY}"
   accessModes:
     - ReadWriteMany
   resources:

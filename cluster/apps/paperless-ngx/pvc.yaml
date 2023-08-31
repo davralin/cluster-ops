@@ -44,7 +44,7 @@ metadata:
   name: paperless-ngx-consume
   namespace: paperless-ngx
 spec:
-  storageClassName: ceph-filesystem
+  storageClassName: "${STORAGE_READWRITEMANY}"
   accessModes:
     - ReadWriteMany
   resources:
