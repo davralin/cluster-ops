@@ -3,7 +3,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: intel-gpu-plugin
-  namespace: default
+  namespace: intel-gpu
 spec:
   interval: 15m
   chart:
@@ -25,6 +25,7 @@ spec:
     - name: node-feature-discovery
       namespace: node-feature-discovery
   values:
+    targetNamespace: intel-gpu
     global:
       nameOverride: intel-gpu-plugin
     controller:
