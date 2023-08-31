@@ -4,8 +4,8 @@ kind: Kustomization
 resources:
   - cronjobs
   - helm-release.yaml
-  - helm-release-db.yaml
-  - helm-release-redis.yaml
+#  - helm-release-db.yaml
+#  - helm-release-redis.yaml
   - namespace.yaml
   - pvc.yaml
-  - secret.yaml
+#  - secret.yaml

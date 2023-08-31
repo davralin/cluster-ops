@@ -27,7 +27,7 @@ resources:
   - ../metallb
   - ../metrics-server
   #- ../minecraft
-  #- ../nextcloud
+  - ../nextcloud
   - ../nitter
   - ../node-feature-discovery
   - ../node-problem-detector

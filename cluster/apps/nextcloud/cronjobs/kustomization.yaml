@@ -3,7 +3,8 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - backup-ssh-key.yaml
-  - backup-to-jottacloud.yaml
-  - onsite-sync.yaml
+#  - backup-to-jottacloud.yaml
+#  - onsite-sync.yaml
+  - onsite-sync-back.yaml
   - pvc.yaml
-  - rclone-backup.yaml
+#  - rclone-backup.yaml

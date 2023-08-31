@@ -5,7 +5,7 @@ metadata:
   name: rcloneconfig
   namespace: nextcloud
 spec:
-  storageClassName: ceph-filesystem
+  storageClassName: "${STORAGE_READWRITEMANY}"
   accessModes:
     - ReadWriteMany
   resources:
