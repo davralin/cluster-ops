@@ -34,7 +34,7 @@ spec:
         externalTrafficPolicy: Local
         ports:
           http:
-            port: 3000
+            port: 80
             protocol: HTTP
           dns-tcp:
             enabled: true
