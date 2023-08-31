@@ -4,29 +4,29 @@ kind: Kustomization
 resources:
   #- ../adguardhome
   #- ../adsb
-  #- ../airconnect
+  - ../airconnect
   #- ../archivebox
   #- ../awx
   - ../botkube
   - ../cert-manager
   #- ../changedetection
-  #- ../chatbot-ui
-  #- ../cloudflareddns
+  - ../chatbot-ui
+  - ../cloudflareddns
   #- ../epicgames-freegames
-  #- ../external-dns
+  - ../external-dns
   #- ../freshrss
   #- ../gitea
   - ../haproxy/haproxy-ingress
   #- ../harbor
   - ../intel-gpu
-  #- ../it-tools
+  - ../it-tools
   #- ../jobs
   - ../kubed
   #- ../kuma
-  #- ../libreddit
-  #- ../librespeed
+  - ../libreddit
+  - ../librespeed
   #- ../llamagpt
-  #- ../mailrelay
+  - ../mailrelay
   #- ../media
   - ../metallb
   - ../metrics-server
@@ -34,9 +34,9 @@ resources:
   #- ../nextcloud
   #- ../nitter
   - ../node-feature-discovery
-  #- ../node-problem-detector
+  - ../node-problem-detector
   #- ../paperless-ngx
-  #- ../peertube-headless-seeder
+  - ../peertube-headless-seeder
   - ../reloader
   #- ../smokeping
   #- ../syncthing
@@ -44,4 +44,4 @@ resources:
   #- ../tubearchivist
   #- ../unifi
   #- ../velero
-  #- ../warrior
+  - ../warrior
