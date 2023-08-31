@@ -23,6 +23,8 @@ spec:
                 - --check-first
                 - --delete-before
                 - --verbose
+                - --exclude
+                - video/**
                 - jottacloud-crypt:/media
                 - /media/
               volumeMounts:
