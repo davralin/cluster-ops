@@ -2,26 +2,26 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - audible-beets
-  - auto-m4b
-  - bazarr
+  #- audible-beets
+  #- auto-m4b
+  #- bazarr
   - cronjobs
   - filebrowser
-  - jellyfin
-  - jellyplex-watched
-  - lidarr
+  #- jellyfin
+  #- jellyplex-watched
+  #- lidarr
   - namespace.yaml
   - pvc.yaml
-  - plex
-  - postgresql
-  - prowlarr
-  - qbittorrent
-  - radarr
-  - readarr
-  - recyclarr
-  - sonarr
-  - squeezebox
+  #- plex
+  #- postgresql
+  #- prowlarr
+  #- qbittorrent
+  #- radarr
+  #- readarr
+  #- recyclarr
+  #- sonarr
+  #- squeezebox
   - sshd
-  - tautulli
-  - tdarr
-  - yt-dlp
+  #- tautulli
+  #- tdarr
+  #- yt-dlp

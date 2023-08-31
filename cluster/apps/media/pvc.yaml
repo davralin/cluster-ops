@@ -5,7 +5,7 @@ metadata:
   name: rcloneconfig
   namespace: media
 spec:
-  storageClassName: ceph-filesystem
+  storageClassName: "${STORAGE_READWRITEMANY}"
   accessModes:
     - ReadWriteMany
   resources:
@@ -18,9 +18,9 @@ metadata:
   name: media
   namespace: media
 spec:
-  storageClassName: ceph-filesystem
+  storageClassName: "${STORAGE_READWRITEMANY}"
   accessModes:
     - ReadWriteMany
   resources:
     requests:
-      storage: 7Ti
+      storage: 1Ti
