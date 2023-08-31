@@ -44,6 +44,10 @@ spec:
             enabled: true
             port: 53
             protocol: UDP
+    probes:
+      startup:
+        spec:
+          initialDelaySeconds: 60
     ingress:
       main:
         enabled: true
