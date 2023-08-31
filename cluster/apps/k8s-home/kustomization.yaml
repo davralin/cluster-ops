@@ -18,7 +18,7 @@ resources:
   #- ../gitea
   - ../haproxy/haproxy-ingress
   #- ../harbor
-  #- ../intel-gpu
+  - ../intel-gpu
   #- ../it-tools
   #- ../jobs
   - ../kubed
@@ -33,11 +33,11 @@ resources:
   #- ../minecraft
   #- ../nextcloud
   #- ../nitter
-  #- ../node-feature-discovery
+  - ../node-feature-discovery
   #- ../node-problem-detector
   #- ../paperless-ngx
   #- ../peertube-headless-seeder
-  #- ../reloader
+  - ../reloader
   #- ../smokeping
   #- ../syncthing
   - ../tailscale
