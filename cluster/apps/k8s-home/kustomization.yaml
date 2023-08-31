@@ -4,7 +4,6 @@ kind: Kustomization
 resources:
   #- ../adguardhome
   #- ../adsb
-  - ../airconnect
   #- ../archivebox
   #- ../awx
   - ../botkube
