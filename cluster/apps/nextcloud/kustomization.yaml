@@ -7,6 +7,5 @@ resources:
   - helm-release-db.yaml
   - helm-release-redis.yaml
   - namespace.yaml
-  - photoprism
   - pvc.yaml
   - secret.yaml
