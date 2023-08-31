@@ -2,7 +2,7 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  #- ../adguardhome
+  - ../adguardhome
   #- ../adsb
   #- ../archivebox
   #- ../awx
@@ -11,12 +11,11 @@ resources:
   #- ../changedetection
   - ../chatbot-ui
   - ../cloudflareddns
-  #- ../epicgames-freegames
+  - ../epicgames-freegames
   - ../external-dns
   #- ../freshrss
   #- ../gitea
   - ../haproxy/haproxy-ingress
-  #- ../harbor
   - ../intel-gpu
   - ../it-tools
   #- ../jobs
@@ -24,14 +23,13 @@ resources:
   #- ../kuma
   - ../libreddit
   - ../librespeed
-  #- ../llamagpt
   - ../mailrelay
   - ../media
   - ../metallb
   - ../metrics-server
   #- ../minecraft
   #- ../nextcloud
-  #- ../nitter
+  - ../nitter
   - ../node-feature-discovery
   - ../node-problem-detector
   #- ../paperless-ngx
