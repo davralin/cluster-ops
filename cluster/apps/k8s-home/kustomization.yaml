@@ -37,6 +37,6 @@ resources:
   #- ../syncthing
   - ../tailscale
   #- ../tubearchivist
-  #- ../unifi
+  - ../unifi
   - ../velero
   - ../warrior

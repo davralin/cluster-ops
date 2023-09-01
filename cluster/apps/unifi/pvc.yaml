@@ -2,12 +2,10 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  labels:
-    app: unifi-controller
   name: unifi
   namespace: unifi
 spec:
-  storageClassName: "${STORAGE_READWRITEONCE}"
+  storageClassName: "${STORAGE_READWRITEMANY}"
   accessModes:
     - ReadWriteOnce
   resources:
