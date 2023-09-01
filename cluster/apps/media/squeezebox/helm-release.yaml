@@ -78,6 +78,7 @@ spec:
         existingClaim: media
         mountPath: /music
         subPath: audio/music
+        readOnly: true
     podAnnotations:
       backup.velero.io/backup-volumes: config
     resources:
