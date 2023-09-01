@@ -33,7 +33,8 @@ spec:
       backupStorageLocation:
         - name: default
           #bucket: "velero-${CLUSTER_NAME}"
-          bucket: "velero-old-backup"
+          #bucket: "velero-old-backup"
+          bucket: "velero-rclone-backup"
           default: true
           provider: aws
           accessMode: ReadOnly
