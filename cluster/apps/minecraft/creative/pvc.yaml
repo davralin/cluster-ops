@@ -18,7 +18,7 @@ metadata:
   name: creative-backup
   namespace: minecraft
 spec:
-  storageClassName: "${STORAGE_READWRITEONCE}"
+  storageClassName: "${STORAGE_READWRITEMANY}"
   accessModes:
     - ReadWriteOnce
   resources:
