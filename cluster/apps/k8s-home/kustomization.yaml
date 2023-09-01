@@ -12,20 +12,20 @@ resources:
   - ../cloudflareddns
   - ../epicgames-freegames
   #- ../freshrss
-  - ../gitea
+  #- ../gitea
   - ../haproxy/haproxy-ingress
   - ../intel-gpu
   - ../it-tools
   - ../jobs
   - ../kubed
-  - ../kuma
+  #- ../kuma
   - ../libreddit
   - ../librespeed
   - ../mailrelay
   - ../media
   - ../metallb
   - ../metrics-server
-  - ../minecraft
+  #- ../minecraft
   - ../nextcloud
   - ../nitter
   - ../node-feature-discovery
@@ -35,7 +35,7 @@ resources:
   - ../reloader
   #- ../syncthing
   #- ../tailscale
-  - ../tubearchivist
-  - ../unifi
+  #- ../tubearchivist
+  #- ../unifi
   - ../velero
   - ../warrior
