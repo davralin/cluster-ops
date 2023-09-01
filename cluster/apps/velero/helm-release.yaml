@@ -32,9 +32,11 @@ spec:
         TZ: "${TIMEZONE}"
       backupStorageLocation:
         - name: default
-          bucket: "velero-${CLUSTER_NAME}"
+          #bucket: "velero-${CLUSTER_NAME}"
+          bucket: "velero-old-backup"
           default: true
           provider: aws
+          accessMode: ReadOnly
           config:
             region: "${VELERO_S3_REGION}"
             s3ForcePathStyle: true
@@ -116,7 +118,7 @@ spec:
         tag: 1.28.1
     schedules:
       daily-backup:
-        schedule: "10 04 * * *"
+        schedule: "10 04 1 8 *"
         template:
           ttl: "720h"
           excludedNamespaces:
