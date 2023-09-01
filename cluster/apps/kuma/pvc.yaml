@@ -5,7 +5,7 @@ metadata:
   name: kuma
   namespace: kuma
 spec:
-  storageClassName: "${STORAGE_READWRITEONCE}"
+  storageClassName: "${STORAGE_READWRITEMANY}"
   accessModes:
     - ReadWriteOnce
   resources:

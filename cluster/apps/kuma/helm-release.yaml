@@ -25,12 +25,15 @@ spec:
       retries: 3
   values:
     fullnameOverride: kuma
-    # Container starts with chmod
-    #podSecurityContext:
-      #runAsUser: 1000
-      #runAsGroup: 1000
-      #fsGroup: 1000
-      #fsGroupChangePolicy: "OnRootMismatch"
+    podSecurityContext:
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+      fsGroupChangePolicy: "OnRootMismatch"
+    securityContext:
+      capabilities:
+        add:
+          - SYS_CHROOT
     image:
       repository: louislam/uptime-kuma
       tag: 1.23.1
