@@ -20,7 +20,7 @@ resources:
   #- readarr
   #- recyclarr
   #- sonarr
-  #- squeezebox
+  - squeezebox
   - sshd
   #- tautulli
   #- tdarr

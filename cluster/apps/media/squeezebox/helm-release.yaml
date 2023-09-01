@@ -33,7 +33,7 @@ spec:
       #fsGroupChangePolicy: "OnRootMismatch"
     image:
       repository: lmscommunity/logitechmediaserver
-      tag: 8.4.0
+      tag: 8.4.0@sha256:df7f9c885186b1ff261a18449176745e1e67bc870ac830eba75ec14d0652c3c6
     service:
       main:
         type: LoadBalancer
