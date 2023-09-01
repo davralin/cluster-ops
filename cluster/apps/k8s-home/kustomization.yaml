@@ -33,7 +33,6 @@ resources:
   #- ../paperless-ngx
   - ../peertube-headless-seeder
   - ../reloader
-  #- ../smokeping
   #- ../syncthing
   #- ../tailscale
   #- ../tubearchivist
