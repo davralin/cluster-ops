@@ -35,7 +35,7 @@ resources:
   - ../reloader
   #- ../smokeping
   #- ../syncthing
-  - ../tailscale
+  #- ../tailscale
   #- ../tubearchivist
   - ../unifi
   - ../velero
