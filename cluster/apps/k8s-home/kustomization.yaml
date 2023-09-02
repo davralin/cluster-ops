@@ -12,7 +12,7 @@ resources:
   - ../cloudflareddns
   - ../epicgames-freegames
   #- ../freshrss
-  #- ../gitea
+  - ../gitea
   - ../haproxy/haproxy-ingress
   - ../intel-gpu
   - ../it-tools
@@ -36,6 +36,6 @@ resources:
   #- ../syncthing
   #- ../tailscale
   #- ../tubearchivist
-  #- ../unifi
+  - ../unifi
   - ../velero
   - ../warrior
