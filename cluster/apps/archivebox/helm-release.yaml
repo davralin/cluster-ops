@@ -31,6 +31,19 @@ spec:
       #runAsGroup: 1000
       #fsGroup: 1000
       #fsGroupChangePolicy: "OnRootMismatch"
+    initContainers:
+      init:
+        image:
+          repository: archivebox/archivebox
+          tag: 0.7.0
+        args: ["init"]
+        env:
+          TZ: "${TIMEZONE}"
+        persistence:
+          config:
+            enabled: true
+            existingClaim: archivebox
+            mountPath: /data
     image:
       repository: archivebox/archivebox
       tag: 0.7.0
