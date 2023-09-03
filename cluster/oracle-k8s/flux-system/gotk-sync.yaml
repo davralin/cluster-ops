@@ -13,7 +13,7 @@ spec:
     name: flux-system
   url: ssh://git@github.com/davralin/cluster-ops.git
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: flux-system
