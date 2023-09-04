@@ -11,7 +11,7 @@ resources:
   - ../chatbot-ui
   - ../cloudflareddns
   - ../epicgames-freegames
-  #- ../freshrss
+  - ../freshrss
   - ../gitea
   - ../haproxy/haproxy-ingress
   - ../intel-gpu
