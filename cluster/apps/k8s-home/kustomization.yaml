@@ -7,7 +7,7 @@ resources:
   - ../archivebox
   - ../botkube
   - ../cert-manager
-  #- ../changedetection
+  - ../changedetection
   - ../chatbot-ui
   - ../cloudflareddns
   - ../epicgames-freegames
@@ -34,7 +34,7 @@ resources:
   - ../peertube-headless-seeder
   - ../reloader
   #- ../syncthing
-  #- ../tailscale
+  - ../tailscale
   - ../tubearchivist
   - ../unifi
   - ../velero
