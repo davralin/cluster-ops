@@ -32,7 +32,7 @@ spec:
     fullnameOverride: cloudflareddns
     image:
       repository: ghcr.io/hotio/cloudflareddns
-      tag: latest@sha256:cebb7a3a8aab3832a252249da6d8a9b26ecdaf63780a0d9b2ee7c728c40e60a1
+      tag: latest@sha256:fdbfb6423bcd1605bedb6f877639d79405099fc955d000683de6313f3ef559a0
     service:
       main:
         enabled: false
