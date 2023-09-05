@@ -1,0 +1,29 @@
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: postgres-v15
+  namespace: cloudnative-pg
+spec:
+  # using only 1 replica: very difficult to drain the node where postgres is running
+  # using more than 1 replica: write amplification issues when leveraging replicated storage (e.g. ceph)
+  instances: 2
+  imageName: ghcr.io/cloudnative-pg/postgresql:15.2
+  primaryUpdateStrategy: unsupervised
+  storage:
+    size: 20Gi
+    storageClass: rook-ceph-block
+  superuserSecret:
+    name: cloudnative-pg-secret
+  postgresql:
+    parameters:
+      max_connections: "300"
+      shared_buffers: 512MB
+  monitoring:
+    enablePodMonitor: "${MONITORING_PROMETHEUS}"
+  resources:
+    requests:
+      memory: "512Mi"
+      cpu: "1"
+    limits:
+      memory: "4Gi"
