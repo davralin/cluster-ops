@@ -5,6 +5,7 @@ resources:
   - ../botkube
   - ../cert-manager
   - ../chatbot-ui
+  - ../cloudnative-pg
   - ../dendrite
   - ../haproxy/haproxy-ingress-daemonset
   - ../it-tools

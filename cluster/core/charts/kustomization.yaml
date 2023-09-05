@@ -8,6 +8,7 @@ resources:
   - bjw-s.yaml
   - botkube.yaml
   - bugfest.yaml
+  - cloudnative-pg.yaml
   - deliveryhero.yaml
   - descheduler.yaml
   - dysnix.yaml

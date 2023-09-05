@@ -10,6 +10,7 @@ resources:
   - ../changedetection
   - ../chatbot-ui
   - ../cloudflareddns
+  - ../cloudnative-pg
   - ../epicgames-freegames
   - ../freshrss
   - ../gitea
