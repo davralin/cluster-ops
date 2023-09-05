@@ -12,7 +12,7 @@ spec:
   primaryUpdateStrategy: unsupervised
   storage:
     size: 20Gi
-    storageClass: rook-ceph-block
+    storageClass: "${STORAGE_READWRITEONCE}"
   superuserSecret:
     name: cloudnative-pg-secret
   postgresql:
