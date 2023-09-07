@@ -5,3 +5,4 @@ resources:
   - cluster15
   - helm-release.yaml
   - namespace.yaml
+  - secret.yaml

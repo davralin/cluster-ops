@@ -25,3 +25,19 @@ spec:
       cpu: "1"
     limits:
       memory: "4Gi"
+  backup:
+    retentionPolicy: 30d
+    barmanObjectStore:
+      wal:
+        compression: bzip2
+        maxParallel: 8
+      destinationPath: s3://postgresql-${CLUSTER_NAME}/
+      endpointURL: "${VELERO_S3_URL}"
+      serverName: postgres-v15
+      s3Credentials:
+        accessKeyId:
+          name: cloudnative-pg-secret
+          key: aws-access-key-id
+        secretAccessKey:
+          name: cloudnative-pg-secret
+          key: aws-secret-access-key
