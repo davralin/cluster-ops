@@ -20,6 +20,7 @@ spec:
               args:
                 - sync
                 - --ignore-case
+                - --dry-run
                 - --check-first
                 - --delete-before
                 - --verbose
