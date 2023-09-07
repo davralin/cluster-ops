@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: kubernetes-ingress
-      version: 1.32.4
+      version: 1.33.0
       sourceRef:
         kind: HelmRepository
         name: haproxytech-charts
@@ -32,6 +32,7 @@ spec:
       service:
         enablePorts:
           http: false
+          prometheus: true
       ingressClass: null
       ingressClassResource:
         default: true
