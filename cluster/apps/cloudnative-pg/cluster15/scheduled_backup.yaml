@@ -6,8 +6,7 @@ metadata:
   namespace: cloudnative-pg
 spec:
   # daily, 2am UTC
-  #schedule: "0 0 2 * * *"
-  schedule: "0 30 17 * * *"
+  schedule: "0 0 2 * * *"
   immediate: true
   backupOwnerReference: self
   cluster:
