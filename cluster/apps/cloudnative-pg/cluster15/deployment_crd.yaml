@@ -13,6 +13,8 @@ spec:
   storage:
     size: 20Gi
     storageClass: "${STORAGE_READWRITEONCE}"
+  superuserSecret:
+    name: cloudnative-pg-secret
   postgresql:
     parameters:
       max_connections: "300"

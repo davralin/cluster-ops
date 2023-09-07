@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - deployment_crd.yaml
   - prometheus_rules.yaml
+  - scheduled_backup.yaml
