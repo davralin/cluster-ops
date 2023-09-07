@@ -33,11 +33,28 @@ spec:
       backupStorageLocation:
         - name: default
           bucket: "velero-${CLUSTER_NAME}"
-          #bucket: "velero-old-backup"
-          #bucket: "velero-rclone-backup"
           default: true
           provider: aws
-          #accessMode: ReadOnly
+          config:
+            region: "${VELERO_S3_REGION}"
+            s3ForcePathStyle: true
+            s3Url: "${VELERO_S3_URL}"
+            publicUrl: "${VELERO_S3_PUBLIC_URL}"
+        - name: velero-old-backup
+          bucket: "velero-old-backup"
+          default: false
+          provider: aws
+          accessMode: ReadOnly
+          config:
+            region: "${VELERO_S3_REGION}"
+            s3ForcePathStyle: true
+            s3Url: "${VELERO_S3_URL}"
+            publicUrl: "${VELERO_S3_PUBLIC_URL}"
+        - name: velero-rclone-backup
+          bucket: "velero-rclone-backup"
+          default: false
+          provider: aws
+          accessMode: ReadOnly
           config:
             region: "${VELERO_S3_REGION}"
             s3ForcePathStyle: true
