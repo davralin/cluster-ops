@@ -13,6 +13,11 @@ spec:
   storage:
     size: 20Gi
     storageClass: "${STORAGE_READWRITEONCE}"
+  managed:
+    roles:
+    - name: freshrss
+      passwordSecret:
+        name: freshrss-postgresql-secret
   superuserSecret:
     name: cloudnative-pg-secret
   postgresql:
