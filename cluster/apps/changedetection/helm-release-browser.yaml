@@ -32,7 +32,7 @@ spec:
       fsGroupChangePolicy: "OnRootMismatch"
     image:
       repository: browserless/chrome
-      tag: 1-chrome-stable@sha256:0c1d3fdbad5009b28d5611bc742fa7b7a0131ea8d02f17cf35854ca16724c29a
+      tag: 1-chrome-stable@sha256:315fe123dc5aa2f2a5ec0d091960813cdc6bc77faf18571381ad21af3892aec9
     service:
       main:
         ports:
