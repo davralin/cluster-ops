@@ -7,11 +7,11 @@ metadata:
 spec:
   # using only 1 replica: very difficult to drain the node where postgres is running
   # using more than 1 replica: write amplification issues when leveraging replicated storage (e.g. ceph)
-  instances: 3
+  instances: 1
   imageName: ghcr.io/cloudnative-pg/postgresql:15.2
   primaryUpdateStrategy: unsupervised
   storage:
-    size: 20Gi
+    size: 512Mi
     storageClass: "${STORAGE_READWRITEONCE}"
   managed:
     roles:
@@ -43,7 +43,7 @@ spec:
       wal:
         compression: bzip2
         maxParallel: 8
-      destinationPath: s3://postgresql-${CLUSTER_NAME}/
+      destinationPath: s3://postgresql-${CLUSTER_NAME}-freshrss/
       endpointURL: "${S3_URL}"
       serverName: postgres-v15
       s3Credentials:
