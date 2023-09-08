@@ -16,6 +16,7 @@ spec:
   managed:
     roles:
     - name: freshrss
+      login: true
       passwordSecret:
         name: freshrss-postgresql-secret
   enableSuperuserAccess: false
