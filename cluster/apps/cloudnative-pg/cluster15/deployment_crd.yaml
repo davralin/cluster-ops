@@ -18,8 +18,7 @@ spec:
     - name: freshrss
       passwordSecret:
         name: freshrss-postgresql-secret
-  superuserSecret:
-    name: cloudnative-pg-secret
+  enableSuperuserAccess: false
   postgresql:
     parameters:
       max_connections: "300"
@@ -43,8 +42,8 @@ spec:
       serverName: postgres-v15
       s3Credentials:
         accessKeyId:
-          name: cloudnative-pg-secret
+          name: cloudnative-pg-s3-secret
           key: minio-access-key
         secretAccessKey:
-          name: cloudnative-pg-secret
+          name: cloudnative-pg-s3-secret
           key: minio-secret-key
