@@ -5,8 +5,7 @@ metadata:
   name: postgres-v15
   namespace: cloudnative-pg
 spec:
-  # daily, 2am UTC
-  schedule: "0 0 * * * *"
+  schedule: "0 */5 * * * *"
   immediate: true
   backupOwnerReference: self
   cluster:
