@@ -7,7 +7,7 @@ metadata:
 spec:
   # using only 1 replica: very difficult to drain the node where postgres is running
   # using more than 1 replica: write amplification issues when leveraging replicated storage (e.g. ceph)
-  instances: 2
+  instances: 1
   imageName: ghcr.io/cloudnative-pg/postgresql:15.2
   primaryUpdateStrategy: unsupervised
   storage:
@@ -26,6 +26,9 @@ spec:
       owner: freshrss
       secret:
         name: freshrss-postgresql-secret
+    # use this to recover from a backup
+    #recovery:
+      #source: freshrss-backup
   monitoring:
     enablePodMonitor: "${MONITORING_PROMETHEUS}"
   resources:
@@ -50,3 +53,18 @@ spec:
         secretAccessKey:
           name: cloudnative-pg-s3-secret
           key: minio-secret-key
+  externalClusters:
+    - name: freshrss-backup
+      barmanObjectStore:
+        wal:
+          compression: bzip2
+          maxParallel: 8
+        destinationPath: s3://postgresql-${CLUSTER_NAME}/
+        endpointURL: "${VELERO_S3_URL}"
+        s3Credentials:
+          accessKeyId:
+            name: cloudnative-pg-s3-secret
+            key: minio-access-key
+          secretAccessKey:
+            name: cloudnative-pg-s3-secret
+            key: minio-secret-key
