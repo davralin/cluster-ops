@@ -21,14 +21,14 @@ spec:
         name: freshrss-postgresql-secret
   enableSuperuserAccess: false
   bootstrap:
-    initdb:
-      database: freshrss
-      owner: freshrss
-      secret:
-        name: freshrss-postgresql-secret
+    #initdb:
+      #database: freshrss
+      #owner: freshrss
+      #secret:
+        #name: freshrss-postgresql-secret
     # use this to recover from a backup
-    #recovery:
-      #source: freshrss-backup
+    recovery:
+      source: freshrss-backup
   monitoring:
     enablePodMonitor: "${MONITORING_PROMETHEUS}"
   resources:
