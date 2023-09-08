@@ -60,6 +60,7 @@ spec:
           compression: bzip2
           maxParallel: 8
         destinationPath: s3://postgresql-${CLUSTER_NAME}/
+        serverName: postgres-v15
         endpointURL: "${S3_URL}"
         s3Credentials:
           accessKeyId:
