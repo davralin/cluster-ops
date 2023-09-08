@@ -20,10 +20,12 @@ spec:
       passwordSecret:
         name: freshrss-postgresql-secret
   enableSuperuserAccess: false
-  postgresql:
-    parameters:
-      max_connections: "300"
-      shared_buffers: 512MB
+  bootstrap:
+    initdb:
+      database: freshrss
+      owner: freshrss
+      secret:
+        name: freshrss-postgresql-secret
   monitoring:
     enablePodMonitor: "${MONITORING_PROMETHEUS}"
   resources:
