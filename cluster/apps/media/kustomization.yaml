@@ -7,13 +7,12 @@ resources:
   #- bazarr
   - cronjobs
   - filebrowser
-  #- jellyfin
+  - jellyfin
   #- jellyplex-watched
   #- lidarr
   - namespace.yaml
   - pvc.yaml
-  #- plex
-  #- postgresql
+  - plex
   #- prowlarr
   #- qbittorrent
   #- radarr
@@ -23,5 +22,5 @@ resources:
   - squeezebox
   - sshd
   #- tautulli
-  #- tdarr
+  - tdarr
   #- yt-dlp
