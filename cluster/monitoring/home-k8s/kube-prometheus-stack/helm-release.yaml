@@ -128,5 +128,8 @@ spec:
                   - nas.${SECRET_OFFSITE_DOMAIN}:9100
                   - proxmox.${SECRET_PRIVATE_DOMAIN}:9100
         serviceMonitorSelectorNilUsesHelmValues: false
+        podMonitorSelectorNilUsesHelmValues: false
+        probeSelectorNilUsesHelmValues: false
+        ruleSelectorNilUsesHelmValues: false
         serviceMonitorSelector: {}
         serviceMonitorNamespaceSelector: {}

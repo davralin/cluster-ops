@@ -102,6 +102,8 @@ spec:
         retention: 10d
         retentionSize: 30GB
         storageSpec: {}
-        serviceMonitorSelectorNilUsesHelmValues: false
+        podMonitorSelectorNilUsesHelmValues: false
+        probeSelectorNilUsesHelmValues: false
+        ruleSelectorNilUsesHelmValues: false
         serviceMonitorSelector: {}
         serviceMonitorNamespaceSelector: {}
