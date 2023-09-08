@@ -13,5 +13,5 @@ data:
   STORAGE_READWRITEMANY: "ceph-filesystem"
   MONITORING_PROMETHEUS: "True"
   VELERO_S3_REGION: "north-europe-1"
-  VELERO_S3_URL: "http://10.0.1.78:9000"
+  S3_URL: "http://10.0.1.78:9000"
   VELERO_S3_PUBLIC_URL: "http://10.0.1.78:9000"

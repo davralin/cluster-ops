@@ -44,7 +44,7 @@ spec:
         compression: bzip2
         maxParallel: 8
       destinationPath: s3://postgresql-${CLUSTER_NAME}/
-      endpointURL: "${VELERO_S3_URL}"
+      endpointURL: "${S3_URL}"
       serverName: postgres-v15
       s3Credentials:
         accessKeyId:
@@ -60,7 +60,7 @@ spec:
           compression: bzip2
           maxParallel: 8
         destinationPath: s3://postgresql-${CLUSTER_NAME}/
-        endpointURL: "${VELERO_S3_URL}"
+        endpointURL: "${S3_URL}"
         s3Credentials:
           accessKeyId:
             name: cloudnative-pg-s3-secret
