@@ -19,7 +19,6 @@ resources:
   - jetstack.yaml
   - metallb.yaml
   - metrics-server.yaml
-  - nextcloud.yaml
   - node-feature-discovery.yaml
   - prometheus.yaml
   - renovate.yaml

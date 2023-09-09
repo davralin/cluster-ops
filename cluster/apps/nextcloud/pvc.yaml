@@ -11,16 +11,3 @@ spec:
   resources:
     requests:
       storage: 650Gi
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: nextcloud-postgresql
-  namespace: nextcloud
-spec:
-  storageClassName: "${STORAGE_READWRITEONCE}"
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 1Gi

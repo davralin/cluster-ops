@@ -8,11 +8,11 @@ spec:
   interval: 5m
   chart:
     spec:
-      chart: nextcloud
-      version: 4.3.1
+      chart: app-template
+      version: 1.5.1
       sourceRef:
         kind: HelmRepository
-        name: nextcloud-charts
+        name: bjw-s-charts
         namespace: flux-system
       interval: 5m
   targetNamespace: nextcloud
@@ -25,80 +25,60 @@ spec:
       retries: 3
   values:
     fullnameOverride: nextcloud
+    # Container binds to 80, which requires root, it also starts with chmod
+    #podSecurityContext:
+      #runAsUser: 1000
+      #runAsGroup: 1000
+      #fsGroup: 1000
+      #fsGroupChangePolicy: "OnRootMismatch"
     image:
       repository: nextcloud
       tag: 27.0.2-apache
-    persistence:
-      enabled: true
-      existingClaim: nextcloud
+    service:
+      main:
+        ports:
+          http:
+            port: 80
     ingress:
-      enabled: true
-      annotations:
-        haproxy.org/backend-config-snippet: |
-          acl dav path /.well-known/carddav /.well-known/caldav
-          redirect location /remote.php/dav/ if dav
-        haproxy.org/response-set-header: |
-          Strict-Transport-Security "max-age=31536000"
-          X-Frame-Options "SAMEORIGIN"
-          X-Content-Type-Options "nosniff"
-          X-Download-Options "NoOpen"
-          Referrer-Policy "no-referrer-when-downgrade"
-          server "."
-          x-powered-by "."
-      hostname: "cloud.${SECRET_PRIVATE_DOMAIN}"
-    nextcloud:
-      host: "cloud.${SECRET_PRIVATE_DOMAIN}"
-      existingSecret:
+      main:
         enabled: true
-        secretName: nextcloud-secrets
-        usernameKey: nextcloud-username
-        passwordKey: nextcloud-password
-      extraInitContainers:
-        - name: postgresql-isready
-          image: bitnami/postgresql:15.4.0
-          command: ['sh', '-c', 'until pg_isready -h postgresql -U nextcloud; do sleep 2 ; done']
-      extraEnv:
-        - name: REDIS_HOST
-          value: "redis-master"
-      defaultConfigs:
-        redis.config.php: true
-        apache-pretty-urls.config.php: true
-        apcu.config.php: true
-        apps.config.php: true
-        smtp.config.php: true
-      mail:
-        enabled: false
-          #    lifecycle:
-          #      postStartCommand:
-          #          - "sh"
-          #          - "-c"
-          #          - "apt-get update && apt-get install -y openrc && start-stop-daemon --start --background --pidfile /cron.pid --exec /cron.sh"
-    metrics:
-      enabled: "${MONITORING_PROMETHEUS}"
-      image:
-        repository: xperimental/nextcloud-exporter
-        tag: 0.6.1
-      serviceMonitor:
-        enabled: "${MONITORING_PROMETHEUS}"
-    phpClientHttpsFix:
-      enabled: true
-    startupProbe:
-      enabled: true
-      periodSeconds: 60
-      failureThreshold: 60
-    internalDatabase:
-      enabled: false
-    cronjob:
-      enabled: true
-    externalDatabase:
-      enabled: true
-      type: postgresql
-      host: postgresql
-      database: nextcloud
-      existingSecret:
+        annotations:
+          haproxy.org/backend-config-snippet: |
+            acl dav path /.well-known/carddav /.well-known/caldav
+            redirect location /remote.php/dav/ if dav
+          haproxy.org/response-set-header: |
+            Strict-Transport-Security "max-age=31536000"
+            X-Frame-Options "SAMEORIGIN"
+            X-Content-Type-Options "nosniff"
+            X-Download-Options "NoOpen"
+            Referrer-Policy "no-referrer-when-downgrade"
+            server "."
+            x-powered-by "."
+        hosts:
+          - host: "cloud.${SECRET_DEFAULT_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
+    env:
+      TZ: "${TIMEZONE}"
+      REDIS_HOST: "redis-master"
+      SMTP_HOST: "exim.mailrelay.svc.cluster.local"
+      SMTP_PORT: "25"
+      SMTP_AUTHTYPE: "PLAIN"
+      MAIL_FROM_ADDRESS: "cloud.${SECRET_DEFAULT_DOMAIN}"
+      POSTGRES_HOST: "postgres-v15-rw.cloudnative-pg.svc.cluster.local"
+      POSTGRES_DB: "nextcloud"
+      POSTGRES_USER: "nextcloud"
+    persistence:
+      config:
         enabled: true
-        secretName: nextcloud-secrets
-        usernameKey: db-username
-        passwordKey: db-password
+        existingClaim: nextcloud
+        mountPath: /var/www/html
     podAnnotations:
-      backup.velero.io/backup-volumes: nextcloud-main
+      backup.velero.io/backup-volumes: config
+    resources:
+      requests:
+        cpu: 1000m
+        memory: 3000Mi
