@@ -50,8 +50,8 @@ spec:
         enabled: true
         annotations:
           haproxy.org/backend-config-snippet: |
-            acl dav path /.well-known/carddav /.well-known/caldav
-            redirect location /remote.php/dav/ if dav
+            acl url_discovery path /.well-known/caldav /.well-known/carddav
+            http-request redirect location /remote.php/dav/ code 301 if url_discovery
             option http-keep-alive
             timeout server 120000ms
           haproxy.org/response-set-header: |
