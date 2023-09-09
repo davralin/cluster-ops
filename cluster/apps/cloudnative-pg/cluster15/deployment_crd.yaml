@@ -22,10 +22,10 @@ spec:
   enableSuperuserAccess: false
   bootstrap:
     #initdb:
-      #database: freshrss
-      #owner: freshrss
+      #database: app
+      #owner: app
       #secret:
-        #name: freshrss-postgresql-secret
+        #name: app-postgresql-secret
     # use this to recover from a backup
     recovery:
       source: postgres-v15
@@ -43,7 +43,7 @@ spec:
       wal:
         compression: bzip2
         maxParallel: 8
-      destinationPath: s3://postgresql-${CLUSTER_NAME}/postgres-v15/
+      destinationPath: s3://postgresql-${CLUSTER_NAME}/
       endpointURL: "${S3_URL}"
       serverName: postgres-v15
       s3Credentials:
@@ -59,7 +59,7 @@ spec:
         wal:
           compression: bzip2
           maxParallel: 8
-        destinationPath: s3://postgresql-${CLUSTER_NAME}/postgres-v15/
+        destinationPath: s3://postgresql-${CLUSTER_NAME}/
         serverName: postgres-v15
         endpointURL: "${S3_URL}"
         s3Credentials:
