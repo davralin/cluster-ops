@@ -21,14 +21,19 @@ spec:
         name: freshrss-postgresql-secret
   enableSuperuserAccess: false
   bootstrap:
-    #initdb:
-      #database: app
-      #owner: app
-      #secret:
-        #name: app-postgresql-secret
-    # use this to recover from a backup
+    # use this to recover a net-new cluster from a backup
     recovery:
       source: postgres-v15
+    # # use this to 'migrate' from an existing cnpg cluster (e.g. "cluster-pg14") to the new cluster
+    # initdb:
+    #   import:
+    #     type: monolith
+    #     databases:
+    #       - "*"
+    #     roles:
+    #       - "*"
+    #     source:
+    #       externalCluster: cluster-pg14
   monitoring:
     enablePodMonitor: "${MONITORING_PROMETHEUS}"
   resources:
@@ -36,7 +41,7 @@ spec:
       memory: "512Mi"
       cpu: "1"
     limits:
-      memory: "4Gi"
+      memory: "1Gi"
   backup:
     retentionPolicy: 30d
     barmanObjectStore:
@@ -54,6 +59,7 @@ spec:
           name: cloudnative-pg-s3-secret
           key: minio-secret-key
   externalClusters:
+    # this represents the s3 backup to restore from. Must be same version.
     - name: postgres-v15
       barmanObjectStore:
         wal:
@@ -69,3 +75,13 @@ spec:
           secretAccessKey:
             name: cloudnative-pg-s3-secret
             key: minio-secret-key
+    # # this represents an existing cnpg cluster to migrate from (e.g. upgrading from postgres v14 to postgres v15)
+    # - name: cluster-pg14
+    #   connectionParameters:
+    #     host: postgres-v14-rw.cloudnative-pg.svc.cluster.local
+    #     user: postgres
+    #     dbname: postgres
+    #     sslmode: require
+    #   password:
+    #     name: cloudnative-pg-secret
+    #     key: password
