@@ -76,6 +76,7 @@ spec:
       MAIL_FROM_ADDRESS: "cloud@${SECRET_DEFAULT_DOMAIN}"
       OVERWRITEPROTOCOL: "https"
       OVERWRITEHOST: "cloud.${SECRET_DEFAULT_DOMAIN}"
+      TRUSTED_PROXIES: "10.0.0.0/8"
       POSTGRES_HOST: "postgres-v15-rw.cloudnative-pg.svc.cluster.local"
       POSTGRES_DB: "nextcloud"
       POSTGRES_USER: "nextcloud"
