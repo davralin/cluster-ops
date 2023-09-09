@@ -43,7 +43,7 @@ spec:
     probes:
       startup:
         spec:
-          initialDelaySeconds: 300
+          initialDelaySeconds: 30
           periodSeconds: 30
     ingress:
       main:
