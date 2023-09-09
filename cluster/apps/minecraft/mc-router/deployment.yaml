@@ -19,7 +19,7 @@ spec:
     spec:
       serviceAccountName: mc-router
       containers:
-      - image: itzg/mc-router:1.18.1
+      - image: itzg/mc-router:1.19.0
         name: mc-router
         args: ["--in-kube-cluster","--debug"]
         envs:
