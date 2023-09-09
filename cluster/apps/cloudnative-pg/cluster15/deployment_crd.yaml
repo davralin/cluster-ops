@@ -28,7 +28,7 @@ spec:
         #name: freshrss-postgresql-secret
     # use this to recover from a backup
     recovery:
-      source: freshrss-backup
+      source: temp-backup
   monitoring:
     enablePodMonitor: "${MONITORING_PROMETHEUS}"
   resources:
@@ -54,12 +54,12 @@ spec:
           name: cloudnative-pg-s3-secret
           key: minio-secret-key
   externalClusters:
-    - name: freshrss-backup
+    - name: temp-backup
       barmanObjectStore:
         wal:
           compression: bzip2
           maxParallel: 8
-        destinationPath: s3://postgresql-${CLUSTER_NAME}/
+        destinationPath: s3://postgresql-${CLUSTER_NAME}-freshrss/
         serverName: postgres-v15
         endpointURL: "${S3_URL}"
         s3Credentials:
