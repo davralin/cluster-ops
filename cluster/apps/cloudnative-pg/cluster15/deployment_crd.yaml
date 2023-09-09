@@ -19,7 +19,8 @@ spec:
       login: true
       passwordSecret:
         name: freshrss-postgresql-secret
-  enableSuperuserAccess: false
+  superuserSecret:
+    name: cloudnative-pg-secret
   bootstrap:
     # use this to recover a net-new cluster from a backup
     recovery:
@@ -53,10 +54,10 @@ spec:
       serverName: postgres-v15
       s3Credentials:
         accessKeyId:
-          name: cloudnative-pg-s3-secret
+          name: cloudnative-pg-secret
           key: minio-access-key
         secretAccessKey:
-          name: cloudnative-pg-s3-secret
+          name: cloudnative-pg-secret
           key: minio-secret-key
   externalClusters:
     # this represents the s3 backup to restore from. Must be same version.
@@ -70,10 +71,10 @@ spec:
         endpointURL: "${S3_URL}"
         s3Credentials:
           accessKeyId:
-            name: cloudnative-pg-s3-secret
+            name: cloudnative-pg-secret
             key: minio-access-key
           secretAccessKey:
-            name: cloudnative-pg-s3-secret
+            name: cloudnative-pg-secret
             key: minio-secret-key
     # # this represents an existing cnpg cluster to migrate from (e.g. upgrading from postgres v14 to postgres v15)
     # - name: cluster-pg14
