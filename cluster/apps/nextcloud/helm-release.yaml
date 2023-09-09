@@ -52,6 +52,11 @@ spec:
           haproxy.org/backend-config-snippet: |
             acl dav path /.well-known/carddav /.well-known/caldav
             redirect location /remote.php/dav/ if dav
+            option http-keep-alive
+            timeout server 4000ms
+            timeout client 2000ms
+            timeout http-keep-alive 2000ms
+            timeout http-request 4000ms
           haproxy.org/response-set-header: |
             Strict-Transport-Security "max-age=31536000"
             X-Frame-Options "SAMEORIGIN"
