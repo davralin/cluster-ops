@@ -17,12 +17,8 @@ spec:
     roles:
     - name: freshrss
       login: true
-      passwordSecret:
-        name: freshrss-postgresql-secret
     - name: nextcloud
       login: true
-      passwordSecret:
-        name: nextcloud-postgresql-secret
   superuserSecret:
     name: cloudnative-pg-secret
   bootstrap:
