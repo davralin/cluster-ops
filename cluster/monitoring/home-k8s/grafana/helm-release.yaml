@@ -95,11 +95,6 @@ spec:
           #gnetId: 12693
           #revision: 5
           #datasource: Prometheus
-        # Ref: https://grafana.com/grafana/dashboards/14075
-        harbor:
-          gnetId: 14075
-          revision: 2
-          datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/12950
         hwmon:
           gnetId: 12950
