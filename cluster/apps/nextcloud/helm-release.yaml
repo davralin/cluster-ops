@@ -49,7 +49,7 @@ spec:
       main:
         enabled: true
         annotations:
-          haproxy.org/whitelist: "10.0.1.112/32"
+          haproxy.org/whitelist: "10.0.1.112/32,10.0.1.2/32"
           haproxy.org/backend-config-snippet: |
             acl dav path /.well-known/carddav /.well-known/caldav
             redirect location /remote.php/dav/ if dav
