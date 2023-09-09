@@ -77,6 +77,11 @@ spec:
       POSTGRES_HOST: "postgres-v15-rw.cloudnative-pg.svc.cluster.local"
       POSTGRES_DB: "nextcloud"
       POSTGRES_USER: "nextcloud"
+      POSTGRES_PASSWORD:
+        valueFrom:
+          secretKeyRef:
+            name: nextcloud-postgresql-secret
+            key: password
     persistence:
       config:
         enabled: true
