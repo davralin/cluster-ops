@@ -13,8 +13,8 @@ resources:
   - namespace.yaml
   - pvc.yaml
   - plex
-  #- prowlarr
-  #- qbittorrent
+  - prowlarr
+  - qbittorrent
   #- radarr
   #- readarr
   #- recyclarr
