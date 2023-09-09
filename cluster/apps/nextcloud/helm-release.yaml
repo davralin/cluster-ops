@@ -76,6 +76,7 @@ spec:
       SMTP_PORT: "25"
       SMTP_AUTHTYPE: "PLAIN"
       MAIL_FROM_ADDRESS: "cloud.${SECRET_DEFAULT_DOMAIN}"
+      OVERWRITEPROTOCOL: "https"
       POSTGRES_HOST: "postgres-v15-rw.cloudnative-pg.svc.cluster.local"
       POSTGRES_DB: "nextcloud"
       POSTGRES_USER: "nextcloud"
