@@ -61,8 +61,6 @@ spec:
             X-Content-Type-Options "nosniff"
             X-Download-Options "NoOpen"
             Referrer-Policy "no-referrer-when-downgrade"
-            server "."
-            x-powered-by "."
         hosts:
           - host: "cloud.${SECRET_DEFAULT_DOMAIN}"
             paths:
@@ -76,8 +74,9 @@ spec:
       SMTP_HOST: "exim.mailrelay.svc.cluster.local"
       SMTP_PORT: "25"
       SMTP_AUTHTYPE: "PLAIN"
-      MAIL_FROM_ADDRESS: "cloud.${SECRET_DEFAULT_DOMAIN}"
+      MAIL_FROM_ADDRESS: "cloud@${SECRET_DEFAULT_DOMAIN}"
       OVERWRITEPROTOCOL: "https"
+      OVERWRITEHOST: "cloud.${SECRET_DEFAULT_DOMAIN}"
       POSTGRES_HOST: "postgres-v15-rw.cloudnative-pg.svc.cluster.local"
       POSTGRES_DB: "nextcloud"
       POSTGRES_USER: "nextcloud"
