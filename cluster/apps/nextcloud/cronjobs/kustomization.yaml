@@ -5,6 +5,6 @@ resources:
   - backup-ssh-key.yaml
 #  - backup-to-jottacloud.yaml
   - cron-curl.yaml
-#  - onsite-sync.yaml
+  - onsite-sync.yaml
   - pvc.yaml
 #  - rclone-backup.yaml
