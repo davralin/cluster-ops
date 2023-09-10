@@ -19,7 +19,7 @@ resources:
   - ../it-tools
   - ../jobs
   - ../kubed
-  #- ../kuma
+  - ../kuma
   - ../libreddit
   - ../librespeed
   - ../mailrelay
