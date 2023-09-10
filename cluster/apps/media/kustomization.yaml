@@ -2,22 +2,22 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  #- bazarr
+  - bazarr
   - cronjobs
   - filebrowser
   - jellyfin
   #- jellyplex-watched
-  #- lidarr
+  - lidarr
   - namespace.yaml
   - pvc.yaml
   - plex
   - prowlarr
   - qbittorrent
-  #- radarr
-  #- readarr
+  - radarr
+  - readarr
   - sonarr
   - squeezebox
   - sshd
-  #- tautulli
+  - tautulli
   - tdarr
   #- yt-dlp
