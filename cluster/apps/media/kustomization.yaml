@@ -16,7 +16,7 @@ resources:
   #- radarr
   #- readarr
   #- recyclarr
-  #- sonarr
+  - sonarr
   - squeezebox
   - sshd
   #- tautulli
