@@ -40,7 +40,7 @@ spec:
     env:
       TZ: "${TIMEZONE}"
       ## Do not mark any shows/movies as played and instead just output to log if they would of been marked.
-      DRYRUN: "False"
+      DRYRUN: "True"
       ## Additional logging information
       DEBUG: "True"
       ## Debugging level, "info" is default, "debug" is more verbose

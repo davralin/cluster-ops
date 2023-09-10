@@ -6,7 +6,7 @@ resources:
   - cronjobs
   - filebrowser
   - jellyfin
-  #- jellyplex-watched
+  - jellyplex-watched
   - lidarr
   - namespace.yaml
   - pvc.yaml
@@ -20,4 +20,4 @@ resources:
   - sshd
   - tautulli
   - tdarr
-  #- yt-dlp
+  - yt-dlp
