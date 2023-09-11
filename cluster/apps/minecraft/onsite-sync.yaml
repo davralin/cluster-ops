@@ -1,0 +1,52 @@
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: onsite-sync
+  namespace: minecraft
+spec:
+  schedule: "12 */6 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: Never
+          containers:
+            - name: onsite-sync-to
+              image: b2un0/rsync:1.0.1
+              command: ['/usr/bin/rsync']
+              args: ["--archive", "--delete", "--verbose", "-e", "ssh -o StrictHostKeyChecking=no", "/minecraft/", "ansible@10.0.1.77:/opt/backup/minecraft/"]
+              volumeMounts:
+                - mountPath: /minecraft/creative
+                  name: creative-backup
+                  readOnly: true
+                - mountPath: /minecraft/mods
+                  name: fabric-mods
+                  readOnly: true
+                - mountPath: /minecraft/survival
+                  name: survival-backup
+                  readOnly: true
+                - mountPath: /root/.ssh/id_ed25519
+                  name: sshkey
+                  subPath: id_ed25519
+                  readOnly: true
+          volumes:
+            - name: creative-backup
+              persistentVolumeClaim:
+                claimName: creative-backup
+            - name: fabric-mods
+              persistentVolumeClaim:
+                claimName: fabric-mods
+            - name: survival-backup
+              persistentVolumeClaim:
+                claimName: survival-backup
+            - name: sshkey
+              secret:
+                secretName: sshkey
+                defaultMode: 0600
+                items:
+                  - key: id_ed25519
+                    path: id_ed25519

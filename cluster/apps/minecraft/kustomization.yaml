@@ -5,6 +5,8 @@ resources:
   - creative
   - mc-router
   - survival
+  - backup-ssh-key.yaml
   - namespace.yaml
+  - onsite-sync.yaml
   - pvc.yaml
   - secret.yaml
