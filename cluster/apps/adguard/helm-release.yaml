@@ -27,7 +27,7 @@ spec:
     fullnameOverride: adguard
     image:
       repository: adguard/adguardhome
-      tag: v0.107.37
+      tag: v0.107.38
     service:
       main:
         type: LoadBalancer
