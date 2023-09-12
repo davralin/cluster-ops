@@ -32,7 +32,7 @@ spec:
       fsGroupChangePolicy: "OnRootMismatch"
     image:
       repository: docker.io/bobokun/qbit_manage
-      tag: v4.0.3
+      tag: v4.0.4
     service:
       main:
         enabled: false
