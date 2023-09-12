@@ -16,7 +16,7 @@ spec:
           restartPolicy: Never
           containers:
             - name: daily-from-jottacloud
-              image: rclone/rclone:1.63.1
+              image: rclone/rclone:1.64.0
               args:
                 - sync
                 - --ignore-case
