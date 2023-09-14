@@ -7,6 +7,7 @@ resources:
   - survival
   - backup-ssh-key.yaml
   - namespace.yaml
+  - offsite-sync.yaml
   - onsite-sync.yaml
   - pvc.yaml
   - secret.yaml

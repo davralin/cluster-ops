@@ -3,9 +3,9 @@ apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: offsite-sync
-  namespace: nextcloud
+  namespace: minecraft
 spec:
-  schedule: "13 */12 * * *"
+  schedule: "47 */12 * * *"
   concurrencyPolicy: Forbid
   successfulJobsHistoryLimit: 1
   failedJobsHistoryLimit: 1
@@ -18,19 +18,31 @@ spec:
             - name: offsite-sync-to
               image: b2un0/rsync:1.0.1
               command: ['/usr/bin/rsync']
-              args: ["--archive", "--delete", "--verbose", "-e", "ssh -o StrictHostKeyChecking=no", "/nextcloud/", "ansible@100.105.190.136:/opt/backup/nextcloud/"]
+              args: ["--archive", "--delete", "--verbose", "-e", "ssh -o StrictHostKeyChecking=no", "/minecraft/", "ansible@100.105.190.136:/opt/backup/minecraft/"]
               volumeMounts:
-                - mountPath: /nextcloud
-                  name: nextcloud
+                - mountPath: /minecraft/creative
+                  name: creative-backup
+                  readOnly: true
+                - mountPath: /minecraft/mods
+                  name: fabric-mods
+                  readOnly: true
+                - mountPath: /minecraft/survival
+                  name: survival-backup
                   readOnly: true
                 - mountPath: /root/.ssh/id_ed25519
                   name: sshkey
                   subPath: id_ed25519
                   readOnly: true
           volumes:
-            - name: nextcloud
+            - name: creative-backup
               persistentVolumeClaim:
-                claimName: nextcloud
+                claimName: creative-backup
+            - name: fabric-mods
+              persistentVolumeClaim:
+                claimName: fabric-mods
+            - name: survival-backup
+              persistentVolumeClaim:
+                claimName: survival-backup
             - name: sshkey
               secret:
                 secretName: sshkey
