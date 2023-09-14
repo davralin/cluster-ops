@@ -53,17 +53,8 @@ spec:
               persistentVolumeClaim:
                 claimName: media
             - name: scratch-volume-video
-              ephemeral:
-                volumeClaimTemplate:
-                  metadata:
-                    labels:
-                      type: scratch-volume-video
-                  spec:
-                    accessModes: ["ReadWriteOnce"]
-                    storageClassName: "${STORAGE_READWRITEONCE}"
-                    resources:
-                      requests:
-                        storage: 50Gi
+              persistentVolumeClaim:
+                claimName: yt-dlp-scratch-volume
             - name: yt-dlp-config
               configMap:
                 name: yt-dlp-config
