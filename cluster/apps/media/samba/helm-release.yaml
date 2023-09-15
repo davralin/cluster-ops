@@ -1,0 +1,70 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: samba
+  namespace: media
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: app-template
+      version: 1.5.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+      interval: 5m
+  targetNamespace: media
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  values:
+    fullnameOverride: samba
+    # App listens on root-required ports
+    #podSecurityContext:
+      #runAsUser: 1000
+      #runAsGroup: 1000
+      #fsGroup: 1000
+      #fsGroupChangePolicy: "OnRootMismatch"
+    image:
+      repository: dperson/samba
+      tag: latest@sha256:4cb487986c024c4b42c7900b03ee5cc051d66ba57ec687c9f393e64a54cac3e3
+    args: ['-s "music;/data"']
+    service:
+      main:
+        type: LoadBalancer
+        ports:
+          http:
+            enabled: false
+            primary: false
+          nbt:
+            primary: false
+            port: 139
+            targetPort: 139
+            protocol: TCP
+          samba:
+            primary: true
+            port: 445
+            targetPort: 445
+            protocol: TCP
+    env:
+      TZ: "${TIMEZONE}"
+    persistence:
+      media:
+        enabled: true
+        existingClaim: media
+        mountPath: /data
+        subPath: audio/music
+        readOnly: true
+    resources:
+      requests:
+        cpu: 100m
+        memory: 10Mi
+      limits:
+        cpu: 200m
+        memory: 50Mi

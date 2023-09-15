@@ -15,6 +15,7 @@ resources:
   - qbittorrent
   - radarr
   - readarr
+  - samba
   - sonarr
   - squeezebox
   - sshd
