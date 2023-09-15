@@ -27,7 +27,7 @@ spec:
     - targetPath: env.PAPERLESS_DBPASS
       kind: Secret
       name: paperless-secrets
-      valuesKey: password
+      valuesKey: postgresql-password
     - targetPath: env.PAPERLESS_ADMIN_USER
       kind: Secret
       name: paperless-secrets
@@ -79,7 +79,7 @@ spec:
       PAPERLESS_REDIS: "redis://redis-master"
       PAPERLESS_FILENAME_FORMAT: "{created_year}/{correspondent}/{title}"
       PAPERLESS_URL: "https://paperless-ngx.${SECRET_PRIVATE_DOMAIN}"
-      PAPERLESS_DBHOST: "postgresql"
+      PAPERLESS_DBHOST: "postgres-v15-rw.cloudnative-pg.svc.cluster.local"
       PAPERLESS_DBNAME: "paperless-ngx"
       PAPERLESS_DBUSER: "paperless-ngx"
       PAPERLESS_TIKA_ENABLED: "1"

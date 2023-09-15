@@ -31,7 +31,7 @@ resources:
   - ../nitter
   - ../node-feature-discovery
   - ../node-problem-detector
-  #- ../paperless-ngx
+  - ../paperless-ngx
   - ../peertube-headless-seeder
   - ../reloader
   #- ../syncthing
