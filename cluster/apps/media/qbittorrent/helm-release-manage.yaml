@@ -31,8 +31,8 @@ spec:
       fsGroup: 1000
       fsGroupChangePolicy: "OnRootMismatch"
     image:
-      repository: davralin/sleep #docker.io/bobokun/qbit_manage
-      tag: latest #v4.0.4
+      repository: docker.io/bobokun/qbit_manage
+      tag: v4.0.4
     service:
       main:
         enabled: false
