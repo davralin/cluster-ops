@@ -8,4 +8,4 @@ resources:
   - offsite-sync.yaml
   - onsite-sync.yaml
   - pvc.yaml
-#  - rclone-backup.yaml
+  - rclone-backup.yaml
