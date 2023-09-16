@@ -26,9 +26,9 @@ spec:
   values:
     fullnameOverride: syncthing
     podSecurityContext:
-      runAsUser: 0
-      runAsGroup: 0
-      fsGroup: 0
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
       fsGroupChangePolicy: "OnRootMismatch"
     image:
       repository: syncthing/syncthing
@@ -68,8 +68,8 @@ spec:
           - secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
     env:
       TZ: "${TIMEZONE}"
-      PUID: 0
-      PGID: 0
+      PUID: 1000
+      PGID: 1000
     persistence:
       config:
         enabled: true
