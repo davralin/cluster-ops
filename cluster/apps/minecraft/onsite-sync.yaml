@@ -29,6 +29,9 @@ spec:
                 - mountPath: /minecraft/survival
                   name: survival-backup
                   readOnly: true
+                - mountPath: /minecraft/old_worlds
+                  name: old-worlds
+                  readOnly: true
                 - mountPath: /root/.ssh/id_ed25519
                   name: sshkey
                   subPath: id_ed25519
@@ -40,6 +43,9 @@ spec:
             - name: fabric-mods
               persistentVolumeClaim:
                 claimName: fabric-mods
+            - name: old-worlds
+              persistentVolumeClaim:
+                claimName: old-worlds
             - name: survival-backup
               persistentVolumeClaim:
                 claimName: survival-backup
