@@ -34,7 +34,7 @@ resources:
   - ../paperless-ngx
   - ../peertube-headless-seeder
   - ../reloader
-  #- ../syncthing
+  - ../syncthing
   - ../tailscale
   - ../tubearchivist
   - ../unifi
