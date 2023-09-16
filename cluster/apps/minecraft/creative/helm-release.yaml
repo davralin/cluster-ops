@@ -40,7 +40,7 @@ spec:
             readOnly: false
           - name: old-worlds
             mountPath: /oldworlds
-            readOnly: false #fixme
+            readOnly: true
       - volumes:
          - name: fabric-mods
            persistentVolumeClaim:
