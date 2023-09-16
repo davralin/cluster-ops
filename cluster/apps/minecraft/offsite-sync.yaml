@@ -18,7 +18,7 @@ spec:
             - name: offsite-sync-to
               image: b2un0/rsync:1.0.1
               command: ['/usr/bin/rsync']
-              args: ["--archive", "--delete", "--verbose", "-e", "ssh -o StrictHostKeyChecking=no", "/minecraft/", "ansible@100.105.190.136:/opt/backup/minecraft/"]
+              args: ["--archive", "--delete", "--verbose", "-e", "ssh -o StrictHostKeyChecking=no", "/minecraft/", "user@nas.${SECRET_OFFSITE_DOMAIN}:/srv/backup/minecraft/"]
               volumeMounts:
                 - mountPath: /minecraft/creative
                   name: creative-backup
