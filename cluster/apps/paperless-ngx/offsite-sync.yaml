@@ -1,0 +1,40 @@
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: offsite-sync
+  namespace: paperless-ngx
+spec:
+  schedule: "13 */12 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: Never
+          containers:
+            - name: offsite-sync-to
+              image: b2un0/rsync:1.0.1
+              command: ['/usr/bin/rsync']
+              args: ["--archive", "--delete", "--verbose", "-e", "ssh -o StrictHostKeyChecking=no", "/paperless-ngx/", "user@nas.${SECRET_OFFSITE_DOMAIN}:/srv/backup/paperless-ngx/"]
+              volumeMounts:
+                - mountPath: /paperless-ngx
+                  name: paperless-ngx
+                  readOnly: true
+                - mountPath: /root/.ssh/id_ed25519
+                  name: sshkey
+                  subPath: id_ed25519
+                  readOnly: true
+          volumes:
+            - name: paperless-ngx
+              persistentVolumeClaim:
+                claimName: paperless-ngx-media
+            - name: sshkey
+              secret:
+                secretName: sshkey
+                defaultMode: 0600
+                items:
+                  - key: id_ed25519
+                    path: id_ed25519

@@ -6,5 +6,7 @@ resources:
   - helm-release-redis.yaml
   - helm-release.yaml
   - namespace.yaml
+  - offsite-sync.yaml
+  - onsite-sync.yaml
   - pvc.yaml
   - secret.yaml
