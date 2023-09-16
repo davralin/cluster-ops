@@ -22,6 +22,7 @@ spec:
               volumeMounts:
                 - mountPath: /paperless-ngx
                   name: paperless-ngx
+                  subPath: documents/originals
                   readOnly: true
                 - mountPath: /root/.ssh/id_ed25519
                   name: sshkey
