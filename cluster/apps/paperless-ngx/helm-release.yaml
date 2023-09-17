@@ -85,6 +85,9 @@ spec:
       PAPERLESS_TIKA_ENABLED: "1"
       PAPERLESS_TIKA_ENDPOINT: "http://localhost:9998"
       PAPERLESS_TIKA_GOTENBERG_ENDPOINT: "http://localhost:3000"
+      PAPERLESS_CONSUMER_POLLING: 3600
+      PAPERLESS_CONSUMER_RECURSIVE: true
+      PAPERLESS_CONSUMPTION_DIR: /usr/src/paperless/consume
     persistence:
       config:
         enabled: true
