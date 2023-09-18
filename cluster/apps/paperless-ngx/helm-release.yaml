@@ -108,7 +108,8 @@ spec:
         cpu: 100m
         memory: 300Mi
       limits:
-        memory: 2000Mi
+        #memory: 1000Mi
+        memory: 100000Mi
     sidecars:
       tika:
         image: ghcr.io/paperless-ngx/tika
