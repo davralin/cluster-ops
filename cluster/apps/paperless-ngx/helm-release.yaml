@@ -77,7 +77,7 @@ spec:
       PAPERLESS_OCR_LANGUAGE: "nor+eng"
       PAPERLESS_OCR_LANGUAGES: "nor"
       PAPERLESS_REDIS: "redis://redis-master"
-      PAPERLESS_FILENAME_FORMAT: "{created_year}/{correspondent}/{title}"
+      PAPERLESS_FILENAME_FORMAT: "{created_year}/{correspondent}/{created_month}_{title}"
       PAPERLESS_URL: "https://paperless-ngx.${SECRET_PRIVATE_DOMAIN}"
       PAPERLESS_DBHOST: "postgres-v15-rw.cloudnative-pg.svc.cluster.local"
       PAPERLESS_DBNAME: "paperless-ngx"
@@ -88,7 +88,6 @@ spec:
       PAPERLESS_CONSUMER_POLLING: 3600
       PAPERLESS_CONSUMER_RECURSIVE: true
       PAPERLESS_CONSUMPTION_DIR: /usr/src/paperless/consume
-      PAPERLESS_FILENAME_FORMAT: "{created_year}/{correspondent}/{created_month}_{title}"
     persistence:
       config:
         enabled: true
