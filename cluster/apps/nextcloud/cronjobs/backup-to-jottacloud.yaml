@@ -14,17 +14,6 @@ spec:
       template:
         spec:
           restartPolicy: Never
-          initContainers:
-            - name: init-mkdir-cp-rclone
-              image: busybox:1.36.1
-              command: ['sh', '-c', "/bin/mkdir -p /config/rclone; cp -vn /tmp/rclone.conf /config/rclone/rclone.conf"]
-              volumeMounts:
-                - mountPath: /tmp
-                  name: rclone-config
-                  readOnly: true
-                - mountPath: /config
-                  name: rcloneconfig
-                  readOnly: false
           containers:
             - name: backup-to-jottacloud
               image: rclone/rclone:1.64.0
@@ -47,12 +36,6 @@ spec:
             - name: rcloneconfig
               persistentVolumeClaim:
                 claimName: rcloneconfig
-            - name: rclone-config
-              secret:
-                secretName: rclone-config
-                items:
-                  - key: rclone.conf
-                    path: rclone.conf
             - name: rclone-backup
               configMap:
                 defaultMode: 0755
