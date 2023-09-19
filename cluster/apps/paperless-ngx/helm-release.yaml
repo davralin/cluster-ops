@@ -88,6 +88,7 @@ spec:
       PAPERLESS_CONSUMER_POLLING: 3600
       PAPERLESS_CONSUMER_RECURSIVE: true
       PAPERLESS_CONSUMPTION_DIR: /usr/src/paperless/consume
+      PAPERLESS_FILENAME_FORMAT: "{created_year}/{correspondent}/{created_month}_{title}"
     persistence:
       config:
         enabled: true
