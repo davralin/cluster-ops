@@ -16,7 +16,7 @@ spec:
           restartPolicy: Never
           containers:
             - name: cron-curl
-              image: nextcloud:27.0.2-apache
+              image: nextcloud:27.1.0-apache
               command:
                 - curl
               args:
