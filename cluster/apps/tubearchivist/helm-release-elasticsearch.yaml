@@ -32,7 +32,7 @@ spec:
     fullnameOverride: elasticsearch
     image:
       repository: elasticsearch
-      tag: 8.9.2
+      tag: 8.10.1
     service:
       main:
         ports:
