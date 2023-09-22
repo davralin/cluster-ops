@@ -34,7 +34,7 @@ spec:
       #fsGroupChangePolicy: "OnRootMismatch"
     image:
       repository: nextcloud
-      tag: 27.1.0-apache
+      tag: 27.1.1-apache
     service:
       main:
         ports:
