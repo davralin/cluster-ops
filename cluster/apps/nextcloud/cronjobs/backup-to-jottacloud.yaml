@@ -22,7 +22,7 @@ spec:
                 - mountPath: /nextcloud
                   name: nextcloud
                   readOnly: true
-                - mountPath: /config
+                - mountPath: /config/rclone
                   name: rcloneconfig
                   readOnly: false
                 - name: rclone-backup
