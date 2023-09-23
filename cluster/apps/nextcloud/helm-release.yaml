@@ -89,10 +89,6 @@ spec:
         enabled: true
         existingClaim: nextcloud
         mountPath: /var/www/html
-      rclone:
-        enabled: true
-        existingClaim: rcloneconfig
-        mountPath: /rclone
     podAnnotations:
       backup.velero.io/backup-volumes: config
     resources:
