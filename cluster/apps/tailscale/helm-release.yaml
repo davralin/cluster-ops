@@ -33,7 +33,7 @@ spec:
       runAsGroup: 1000
     image:
       repository: ghcr.io/tailscale/tailscale
-      tag: v1.48.2
+      tag: v1.50.0
     service:
       main:
         ports:
