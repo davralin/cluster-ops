@@ -23,6 +23,11 @@ spec:
   upgrade:
     remediation:
       retries: 3
+  valuesFrom:
+    - targetPath: env.GITEA__database__PASSWD
+      kind: Secret
+      name: gitea-config
+      valuesKey: POSTGRES_PASSWORD
   values:
     fullnameOverride: gitea
     podSecurityContext:
@@ -73,11 +78,10 @@ spec:
       USER_UID: 1000
       USER_GID: 1000
       GITEA__ACTIONS__ENABLED: "True"
-      #GITEA__database__DB_TYPE: "postgres"
-      #GITEA__database__HOST: "postgres-v15-rw.cloudnative-pg.svc.cluster.local:5432"
-      #GITEA__database__NAME: "gitea"
-      #GITEA__database__USER: "gitea"
-      #GITEA__database__PASSWD: "gitea" # replace with secret created
+      GITEA__database__DB_TYPE: "postgres"
+      GITEA__database__HOST: "postgres-v15-rw.cloudnative-pg.svc.cluster.local:5432"
+      GITEA__database__NAME: "gitea"
+      GITEA__database__USER: "gitea"
       GITEA__MAILER__ENABLED: "True"
       GITEA__MAILER__PROTOCOL: "SMTP"
       GITEA__MAILER__SMTP_ADDR: "exim.mailrelay.svc.cluster.local"
