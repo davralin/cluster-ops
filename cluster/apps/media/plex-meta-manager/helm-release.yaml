@@ -40,6 +40,7 @@ spec:
         enabled: false
     env:
       TZ: "${TIMEZONE}"
+      PMM_TIMES: "23:22"
     persistence:
       media:
         enabled: true
