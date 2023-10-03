@@ -32,7 +32,7 @@ spec:
       #fsGroup: 1000
       #fsGroupChangePolicy: "OnRootMismatch"
     image:
-      repository: meisnate12/plex-meta-manager
+      repository: docker.io/meisnate12/plex-meta-manager
       tag: v1.19.1
     service:
       main:
