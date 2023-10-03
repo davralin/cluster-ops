@@ -34,6 +34,7 @@ spec:
     image:
       repository: meisnate12/plex-meta-manager
       tag: v1.19.1
+    args: ["--debug --ignore-schedules --run --trace"]
     service:
       main:
         enabled: false
