@@ -34,7 +34,7 @@ spec:
     image:
       repository: meisnate12/plex-meta-manager
       tag: v1.19.1
-    args: ["--debug --ignore-schedules --run --trace"]
+    args: ["debug --trace --ignore-schedules --run"]
     service:
       main:
         enabled: false
@@ -49,7 +49,6 @@ spec:
       temp:
         enabled: true
         existingClaim: plex-meta-manager
-        type: emptyDir
     resources:
       requests:
         cpu: 50m
