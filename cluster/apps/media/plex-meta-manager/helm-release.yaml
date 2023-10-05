@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.1
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -25,32 +25,38 @@ spec:
       retries: 3
   values:
     fullnameOverride: plex-meta-manager
-    # App runs as root
-    #podSecurityContext:
-      #runAsUser: 1000
-      #runAsGroup: 1000
-      #fsGroup: 1000
-      #fsGroupChangePolicy: "OnRootMismatch"
-    image:
-      repository: meisnate12/plex-meta-manager
-      tag: v1.19.1
-    args: ["debug --trace --ignore-schedules --run"]
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+    controllers:
+      main:
+        containers:
+          main:
+            image:
+              repository: meisnate12/plex-meta-manager
+              tag: v1.19.1
+            args: ["debug --trace --ignore-schedules --run"]
+            env:
+              TZ: "${TIMEZONE}"
+              PMM_TIMES: "08:00"
+              PMM_READ_ONLY_CONFIG: "True"
+            resources:
+              requests:
+                cpu: 50m
+                memory: 100Mi
     service:
       main:
         enabled: false
-    env:
-      TZ: "${TIMEZONE}"
-      PMM_TIMES: "23:22"
     persistence:
       media:
-        enabled: true
         existingClaim: media
-        subPath: unsorted/pmm/
-        mountPath: /config
+        advancedMounts:
+          main:
+            main:
+              - path: /config
+                subPath: unsorted/pmm/
       temp:
-        enabled: true
         existingClaim: plex-meta-manager
-    resources:
-      requests:
-        cpu: 50m
-        memory: 100Mi
