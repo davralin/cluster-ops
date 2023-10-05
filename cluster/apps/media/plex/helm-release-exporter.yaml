@@ -2,14 +2,14 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: plex-exporter
+  name: &name plex-exporter
   namespace: media
 spec:
   interval: 5m
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.2
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -24,24 +24,29 @@ spec:
     remediation:
       retries: 3
   values:
-    fullnameOverride: plex-exporter
-    podSecurityContext:
-      runAsUser: 1000
-      runAsGroup: 1000
-      fsGroup: 1000
-      fsGroupChangePolicy: "OnRootMismatch"
-    image:
-      repository: ghcr.io/jsclayton/prometheus-plex-exporter
-      tag: latest@sha256:ebb7c4cb360ab430b3db5011e4e35c8fbff60d5b32510c6f5d2fbd5a581b4511
+    fullnameOverride: *name
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+    controllers:
+      main:
+        containers:
+          main:
+            image:
+              repository: ghcr.io/jsclayton/prometheus-plex-exporter
+              tag: latest@sha256:ebb7c4cb360ab430b3db5011e4e35c8fbff60d5b32510c6f5d2fbd5a581b4511
+            env:
+              TZ: "${TIMEZONE}"
+              PLEX_SERVER: "http://plex.media.svc.cluster.local:32400"
+              PLEX_TOKEN: "${SECRET_PLEX_TOKEN}"
     service:
       main:
         ports:
           http:
             port: 9000
-    env:
-      TZ: "${TIMEZONE}"
-      PLEX_SERVER: "http://plex.media.svc.cluster.local:32400"
-      PLEX_TOKEN: "${SECRET_PLEX_TOKEN}"
     serviceMonitor:
       main:
         enabled: "${MONITORING_PROMETHEUS}"
