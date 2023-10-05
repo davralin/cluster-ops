@@ -2,14 +2,14 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: filebrowser
+  name: &name filebrowser
   namespace: media
 spec:
   interval: 5m
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.2
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -24,19 +24,21 @@ spec:
     remediation:
       retries: 3
   values:
-    fullnameOverride: filebrowser
-    image:
-      repository: ghcr.io/davralin/sleep
-      tag: latest@sha256:d70e99f8fba1784021affc5cc46af0d20b1c717e8fb4fea3f510a915aaf0d593
+    fullnameOverride: *name
+    controllers:
+      main:
+        containers:
+          main:
+            image:
+              repository: ghcr.io/davralin/sleep
+              tag: latest@sha256:d70e99f8fba1784021affc5cc46af0d20b1c717e8fb4fea3f510a915aaf0d593
     service:
       main:
         enabled: false
     persistence:
-      config:
+      data:
         enabled: true
         existingClaim: media
-        mountPath: /data
       rclone:
         enabled: true
         existingClaim: rcloneconfig
-        mountPath: /rclone
