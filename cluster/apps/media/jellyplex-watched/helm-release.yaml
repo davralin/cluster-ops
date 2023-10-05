@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: jellyplex-watched
+  name: &name jellyplex-watched
   namespace: media
 spec:
   interval: 5m
@@ -24,7 +24,7 @@ spec:
     remediation:
       retries: 3
   values:
-    fullnameOverride: jellyplex-watched
+    fullnameOverride: *name
     # App runs as root
     #defaultPodOptions:
       #securityContext:

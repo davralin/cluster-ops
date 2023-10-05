@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: plex-meta-manager
+  name: &name plex-meta-manager
   namespace: media
 spec:
   interval: 5m
@@ -24,7 +24,7 @@ spec:
     remediation:
       retries: 3
   values:
-    fullnameOverride: plex-meta-manager
+    fullnameOverride: *name
     defaultPodOptions:
       securityContext:
         runAsUser: 1000
@@ -38,10 +38,8 @@ spec:
             image:
               repository: meisnate12/plex-meta-manager
               tag: v1.19.1
-            args: ["debug --trace --ignore-schedules --run"]
             env:
               TZ: "${TIMEZONE}"
-              PMM_TIMES: "08:00"
               PMM_READ_ONLY_CONFIG: "True"
             resources:
               requests:
