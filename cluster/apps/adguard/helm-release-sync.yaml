@@ -24,27 +24,27 @@ spec:
     remediation:
       retries: 3
   valuesFrom:
-    - targetPath: env.ORIGIN_URL
+    - targetPath: controllers.main.containers.main.env.ORIGIN_URL
       kind: Secret
       name: adguard-sync-secret
       valuesKey: ORIGIN_URL
-    - targetPath: env.ORIGIN_USERNAME
+    - targetPath: controllers.main.containers.main.env.ORIGIN_USERNAME
       kind: Secret
       name: adguard-sync-secret
       valuesKey: USERNAME
-    - targetPath: env.ORIGIN_PASSWORD
+    - targetPath: controllers.main.containers.main.env.ORIGIN_PASSWORD
       kind: Secret
       name: adguard-sync-secret
       valuesKey: PASSWORD
-    - targetPath: env.REPLICA1_USERNAME
+    - targetPath: controllers.main.containers.main.env.REPLICA1_USERNAME
       kind: Secret
       name: adguard-sync-secret
       valuesKey: USERNAME
-    - targetPath: env.REPLICA1_PASSWORD
+    - targetPath: controllers.main.containers.main.env.REPLICA1_PASSWORD
       kind: Secret
       name: adguard-sync-secret
       valuesKey: PASSWORD
-    - targetPath: env.REPLICA1_URL
+    - targetPath: controllers.main.containers.main.env.REPLICA1_URL
       kind: Secret
       name: adguard-sync-secret
       valuesKey: REPLICA1_URL
