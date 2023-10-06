@@ -2,14 +2,14 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: adguard-sync
+  name: &name adguard-sync
   namespace: adguard
 spec:
   interval: 5m
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.2
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -49,22 +49,32 @@ spec:
       name: adguard-sync-secret
       valuesKey: REPLICA1_URL
   values:
-    fullnameOverride: adguard-sync
-    image:
-      repository: ghcr.io/bakito/adguardhome-sync
-      tag: v0.4.15
-    args: ["run"]
+    fullnameOverride: *name
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+    controllers:
+      main:
+        containers:
+          main:
+            image:
+              repository: ghcr.io/bakito/adguardhome-sync
+              tag: v0.4.15
+            args: ["run"]
+            env:
+              TZ: "${TIMEZONE}"
+              API_PORT: '0'
+              CRON: '*/30 * * * *'
+            resources:
+              requests:
+                cpu: 50m
+                memory: 20Mi
+              limits:
+                cpu: 100m
+                memory: 50Mi
     service:
       main:
         enabled: false
-    env:
-      TZ: "${TIMEZONE}"
-      API_PORT: '0'
-      CRON: '*/30 * * * *'
-    resources:
-      requests:
-        cpu: 50m
-        memory: 20Mi
-      limits:
-        cpu: 100m
-        memory: 50Mi
