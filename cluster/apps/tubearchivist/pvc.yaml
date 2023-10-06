@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: ta-media
+  name: youtube
   namespace: tubearchivist
 spec:
   storageClassName: "${STORAGE_READWRITEONCE}"
@@ -15,7 +15,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: ta-cache
+  name: cache
   namespace: tubearchivist
 spec:
   storageClassName: "${STORAGE_READWRITEONCE}"
@@ -23,12 +23,12 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 40Gi
+      storage: 30Gi
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: ta-es
+  name: elasticsearch
   namespace: tubearchivist
 spec:
   storageClassName: "${STORAGE_READWRITEONCE}"
@@ -41,7 +41,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: ta-redis
+  name: redis
   namespace: tubearchivist
 spec:
   storageClassName: "${STORAGE_READWRITEONCE}"

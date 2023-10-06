@@ -2,14 +2,14 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: tubearchivist
+  name: &name tubearchivist
   namespace: tubearchivist
 spec:
   interval: 5m
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.2
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -24,23 +24,47 @@ spec:
     remediation:
       retries: 3
   valuesFrom:
-    - targetPath: env.TA_USERNAME
+    - targetPath: controllers.main.containers.main.env.TA_USERNAME
       kind: Secret
       name: tubearchivist-secrets
       valuesKey: TA_USERNAME
-    - targetPath: env.TA_PASSWORD
+    - targetPath: controllers.main.containers.main.env.TA_PASSWORD
       kind: Secret
       name: tubearchivist-secrets
       valuesKey: TA_PASSWORD
-    - targetPath: env.ELASTIC_PASSWORD
+    - targetPath: controllers.main.containers.main.env.ELASTIC_PASSWORD
       kind: Secret
       name: tubearchivist-secrets
       valuesKey: ELASTIC_PASSWORD
   values:
-    fullnameOverride: tubearchivist
-    image:
-      repository: bbilly1/tubearchivist
-      tag: v0.4.1
+    fullnameOverride: *name
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+    controllers:
+      main:
+        annotations:
+          backup.velero.io/backup-volumes: cache,youtube
+        containers:
+          main:
+            image:
+              repository: bbilly1/tubearchivist
+              tag: v0.4.1
+            env:
+              TZ: "${TIMEZONE}"
+              HOST_UID: 1000
+              HOST_GID: 1000
+              ES_URL: "http://elasticsearch.tubearchivist.svc.cluster.local:9200"
+              TA_HOST: "https://tube.${SECRET_DEFAULT_DOMAIN}"
+              REDIS_HOST: "redis-stack.tubearchivist.svc.cluster.local"
+              ENABLE_CAST: "true"
+            resources:
+              requests:
+                memory: 1024Mi
+                cpu: 500m
     service:
       main:
         ports:
@@ -61,28 +85,15 @@ spec:
             paths:
               - path: /
                 pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
-    env:
-      TZ: "${TIMEZONE}"
-      HOST_UID: 1000
-      HOST_GID: 1000
-      ES_URL: "http://elasticsearch.tubearchivist.svc.cluster.local:9200"
-      TA_HOST: "https://tube.${SECRET_DEFAULT_DOMAIN}"
-      REDIS_HOST: "redis-stack.tubearchivist.svc.cluster.local"
-      ENABLE_CAST: "true"
     persistence:
       cache:
         enabled: true
-        existingClaim: ta-cache
-        mountPath: /cache
-      media:
+        existingClaim: cache
+      youtube:
         enabled: true
-        existingClaim: ta-media
-        mountPath: /youtube
-    podAnnotations:
-      backup.velero.io/backup-volumes: cache,media
-    resources:
-      requests:
-        memory: 1024Mi
-        cpu: 500m
+        existingClaim: youtube
