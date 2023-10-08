@@ -72,7 +72,7 @@ spec:
       ENFORCE_WHITELIST: "TRUE"
       REMOVE_OLD_MODS: "TRUE"
     serviceAnnotations:
-      mc-router.itzg.me/externalServerName: "creative.${SECRET_PRIVATE_DOMAIN}"
+      mc-router.itzg.me/externalServerName: "creative.${SECRET_DEFAULT_DOMAIN}"
     podAnnotations:
       backup.velero.io/backup-volumes: backupdir,datadir
       reloader.stakater.com/auto: "true"

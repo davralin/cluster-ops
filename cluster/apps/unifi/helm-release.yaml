@@ -102,7 +102,7 @@ spec:
             X-Content-Type-Options "nosniff"
             Referrer-Policy "no-referrer-when-downgrade"
         hosts:
-          - host: "unifi.${SECRET_PRIVATE_DOMAIN}"
+          - host: "unifi.${SECRET_DEFAULT_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
@@ -110,7 +110,7 @@ spec:
                   name: main
                   port: http
         tls:
-          - secretName: "${SECRET_PRIVATE_DOMAIN_CERT}"
+          - secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
     persistence:
       unifi:
         enabled: true

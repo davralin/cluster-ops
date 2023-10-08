@@ -74,16 +74,16 @@ spec:
             X-Content-Type-Options "nosniff"
             Referrer-Policy "no-referrer-when-downgrade"
         hosts:
-          - host: "epicgames.${SECRET_PRIVATE_DOMAIN}"
+          - host: "epicgames.${SECRET_DEFAULT_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
         tls:
-          - secretName: "${SECRET_PRIVATE_DOMAIN_CERT}"
+          - secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
     env:
       TZ: "${TIMEZONE}"
       RUN_ON_STARTUP: "true"
-      BASE_URL: "https://epicgames.${SECRET_PRIVATE_DOMAIN}"
+      BASE_URL: "https://epicgames.${SECRET_DEFAULT_DOMAIN}"
     persistence:
       config:
         enabled: true

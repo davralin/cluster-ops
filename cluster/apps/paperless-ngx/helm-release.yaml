@@ -66,19 +66,19 @@ spec:
             X-Content-Type-Options "nosniff"
             Referrer-Policy "no-referrer-when-downgrade"
         hosts:
-          - host: "paperless-ngx.${SECRET_PRIVATE_DOMAIN}"
+          - host: "paperless-ngx.${SECRET_DEFAULT_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
         tls:
-          - secretName: "${SECRET_PRIVATE_DOMAIN_CERT}"
+          - secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
     env:
       PAPERLESS_TIME_ZONE: "${TIMEZONE}"
       PAPERLESS_OCR_LANGUAGE: "nor+eng"
       PAPERLESS_OCR_LANGUAGES: "nor"
       PAPERLESS_REDIS: "redis://redis-master"
       PAPERLESS_FILENAME_FORMAT: "{created_year}/{correspondent}/{created_month}_{title}"
-      PAPERLESS_URL: "https://paperless-ngx.${SECRET_PRIVATE_DOMAIN}"
+      PAPERLESS_URL: "https://paperless-ngx.${SECRET_DEFAULT_DOMAIN}"
       PAPERLESS_DBHOST: "postgres-v15-rw.cloudnative-pg.svc.cluster.local"
       PAPERLESS_DBNAME: "paperless-ngx"
       PAPERLESS_DBUSER: "paperless-ngx"
