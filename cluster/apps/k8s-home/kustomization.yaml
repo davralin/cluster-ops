@@ -28,7 +28,6 @@ resources:
   - ../metrics-server
   - ../minecraft
   - ../nextcloud
-  - ../nitter
   - ../node-feature-discovery
   - ../node-problem-detector
   - ../paperless-ngx
