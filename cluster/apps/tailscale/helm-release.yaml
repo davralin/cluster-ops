@@ -2,14 +2,14 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: tailscale
+  name: &name tailscale
   namespace: tailscale
 spec:
   interval: 5m
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -24,35 +24,42 @@ spec:
     remediation:
       retries: 3
   values:
-    fullnameOverride: tailscale
-    hostname: "${CLUSTER_NAME}"
+    fullnameOverride: *name
+    defaultPodOptions:
+      hostname: "${CLUSTER_NAME}"
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+    controllers:
+      main:
+        containers:
+          main:
+            image:
+              repository: ghcr.io/tailscale/tailscale
+              tag: v1.50.1
+            env:
+              TZ: "${TIMEZONE}"
+              TS_KUBE_SECRET: "tailscale-auth"
+              SA_NAME: tailscale
+              TS_USERSPACE: "true"
+              TS_ROUTES: "${SECRET_TAILSCALE_ROUTES}"
+              TS_EXTRA_ARGS: "--advertise-exit-node"
+            envFrom:
+              - secretRef:
+                  name: tailscale-auth
+            probes:
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+              startup:
+                enabled: false
     serviceAccount:
       name: tailscale
-    podSecurityContext:
-      runAsUser: 1000
-      runAsGroup: 1000
-    image:
-      repository: ghcr.io/tailscale/tailscale
-      tag: v1.50.1
     service:
       main:
         ports:
           http:
             port: 45387
-    probes:
-      liveness:
-        enabled: false
-      readiness:
-        enabled: false
-      startup:
-        enabled: false
-    env:
-      TZ: "${TIMEZONE}"
-      TS_KUBE_SECRET: "tailscale-auth"
-      SA_NAME: tailscale
-      TS_USERSPACE: "true"
-      TS_ROUTES: "${SECRET_TAILSCALE_ROUTES}"
-      TS_EXTRA_ARGS: "--advertise-exit-node"
-    envFrom:
-      - secretRef:
-          name: tailscale-auth
