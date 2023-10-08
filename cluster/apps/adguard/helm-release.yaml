@@ -2,14 +2,14 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: adguard
+  name: &name adguard
   namespace: adguard
 spec:
   interval: 5m
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -24,10 +24,30 @@ spec:
     remediation:
       retries: 3
   values:
-    fullnameOverride: adguard
-    image:
-      repository: adguard/adguardhome
-      tag: v0.107.38
+    fullnameOverride: *name
+    # Containers listens on tcp/53 and tcp/80
+    #defaultPodOptions:
+      #securityContext:
+        #runAsUser: 1000
+        #runAsGroup: 1000
+        #sGroup: 1000
+        #fsGroupChangePolicy: "OnRootMismatch"
+    controllers:
+      main:
+        annotations:
+          backup.velero.io/backup-volumes: config
+        containers:
+          main:
+            image:
+              repository: adguard/adguardhome
+              tag: v0.107.38
+            env:
+              TZ: "${TIMEZONE}"
+            resources:
+              requests:
+                memory: 100Mi
+              limits:
+                memory: 2000Mi
     service:
       main:
         type: LoadBalancer
@@ -55,27 +75,23 @@ spec:
             X-Content-Type-Options "nosniff"
             Referrer-Policy "no-referrer-when-downgrade"
         hosts:
-          - host: "adguard.${SECRET_PRIVATE_DOMAIN}"
+          - host: "adguard.${SECRET_DEFAULT_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
-          - secretName: "${SECRET_PRIVATE_DOMAIN_CERT}"
-    env:
-      TZ: "${TIMEZONE}"
+          - secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
     persistence:
       config:
         enabled: true
         existingClaim: adguard
-        mountPath: /opt/adguardhome/conf
+        globalMounts:
+          - path: /opt/adguardhome/conf
       data:
         enabled: true
         existingClaim: adguard-data
-        mountPath: /opt/adguardhome/work
-    podAnnotations:
-      backup.velero.io/backup-volumes: config
-    resources:
-      requests:
-        memory: 100Mi
-      limits:
-        memory: 2000Mi
+        globalMounts:
+          - path: /opt/adguardhome/work
