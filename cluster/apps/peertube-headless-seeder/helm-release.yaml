@@ -2,14 +2,14 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: peertube-headless-seeder
+  name: &name peertube-headless-seeder
   namespace: headless-seeder
 spec:
   interval: 5m
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -24,22 +24,27 @@ spec:
     remediation:
       retries: 3
   values:
-    fullnameOverride: peertube-headless-seeder
-    podSecurityContext:
-      runAsUser: 1000
-      runAsGroup: 1000
-      fsGroup: 1000
-      fsGroupChangePolicy: "OnRootMismatch"
-    image:
-      repository: tyrsarm/peertube-headless-seeder
-      tag: v0.2
+    fullnameOverride: *name
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+    controllers:
+      main:
+        containers:
+          main:
+            image:
+              repository: tyrsarm/peertube-headless-seeder
+              tag: v0.2
+            env:
+              TZ: "${TIMEZONE}"
+              api_url: "https://jupiter.tube/api/v1/accounts/jblive/videos"
+            resources:
+              requests:
+                cpu: 100m
+                memory: 200Mi
     service:
       main:
         enabled: false
-    env:
-      TZ: "${TIMEZONE}"
-      api_url: "https://jupiter.tube/api/v1/accounts/jblive/videos"
-    resources:
-      requests:
-        cpu: 100m
-        memory: 200Mi
