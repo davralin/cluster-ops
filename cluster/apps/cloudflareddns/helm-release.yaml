@@ -2,14 +2,14 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: cloudflareddns
+  name: &name cloudflareddns
   namespace: cloudflareddns
 spec:
   interval: 5m
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -24,22 +24,32 @@ spec:
     remediation:
       retries: 3
   valuesFrom:
-    - targetPath: env.CF_APITOKEN
+    - targetPath: controllers.main.containers.main.env.CF_APITOKEN
       kind: Secret
       name: cloudflare-api-token-secret
       valuesKey: CF_APITOKEN
   values:
-    fullnameOverride: cloudflareddns
-    image:
-      repository: ghcr.io/hotio/cloudflareddns
-      tag: latest@sha256:50183b984504d6d5824f2cb84a9668c77a35f9c2b55a265540188b6072e5cbf9
+    fullnameOverride: *name
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+    controllers:
+      main:
+        containers:
+          main:
+            image:
+              repository: ghcr.io/hotio/cloudflareddns
+              tag: latest@sha256:50183b984504d6d5824f2cb84a9668c77a35f9c2b55a265540188b6072e5cbf9
+            env:
+              TZ: "${TIMEZONE}"
+              CF_HOSTS: "home.${SECRET_INTERNAL_DOMAIN};home.${SECRET_PRIVATE_DOMAIN}"
+              CF_ZONES: "${SECRET_INTERNAL_DOMAIN};${SECRET_PRIVATE_DOMAIN}"
+              CF_RECORDTYPES: "A;A"
+              LOG_LEVEL: 3
+              INTERVAL: 900
     service:
       main:
         enabled: false
-    env:
-      TZ: "${TIMEZONE}"
-      CF_HOSTS: "home.${SECRET_INTERNAL_DOMAIN};home.${SECRET_PRIVATE_DOMAIN}"
-      CF_ZONES: "${SECRET_INTERNAL_DOMAIN};${SECRET_PRIVATE_DOMAIN}"
-      CF_RECORDTYPES: "A;A"
-      LOG_LEVEL: 3
-      INTERVAL: 900

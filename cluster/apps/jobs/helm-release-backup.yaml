@@ -2,14 +2,14 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: backupbrowser
+  name: &name backupbrowser
   namespace: jobs
 spec:
   interval: 5m
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -24,17 +24,27 @@ spec:
     remediation:
       retries: 3
   values:
-    fullnameOverride: backupbrowser
-    image:
-      repository: ghcr.io/davralin/sleep
-      tag: latest@sha256:d70e99f8fba1784021affc5cc46af0d20b1c717e8fb4fea3f510a915aaf0d593
+    fullnameOverride: *name
+    # Need this as root
+    #defaultPodOptions:
+      #securityContext:
+        #runAsUser: 1000
+        #runAsGroup: 1000
+        #fsGroup: 1000
+        #fsGroupChangePolicy: "OnRootMismatch"
+    controllers:
+      main:
+        annotations:
+          backup.velero.io/backup-volumes: data
+        containers:
+          main:
+            image:
+              repository: ghcr.io/davralin/sleep
+              tag: latest@sha256:d70e99f8fba1784021affc5cc46af0d20b1c717e8fb4fea3f510a915aaf0d593
     service:
       main:
         enabled: false
-    podAnnotations:
-      backup.velero.io/backup-volumes: config
     persistence:
-      config:
+      data:
         enabled: true
         existingClaim: remotebackup
-        mountPath: /data
