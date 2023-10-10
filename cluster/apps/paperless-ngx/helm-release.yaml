@@ -2,14 +2,14 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: paperless-ngx
+  name: &name paperless-ngx
   namespace: paperless-ngx
 spec:
   interval: 5m
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -24,32 +24,69 @@ spec:
     remediation:
       retries: 3
   valuesFrom:
-    - targetPath: env.PAPERLESS_DBPASS
+    - targetPath: controllers.main.containers.main.env.PAPERLESS_DBPASS
       kind: Secret
       name: paperless-secrets
       valuesKey: postgresql-password
-    - targetPath: env.PAPERLESS_ADMIN_USER
+    - targetPath: controllers.main.containers.main.env.PAPERLESS_ADMIN_USER
       kind: Secret
       name: paperless-secrets
       valuesKey: paperless-admin-user
-    - targetPath: env.PAPERLESS_ADMIN_PASSWORD
+    - targetPath: controllers.main.containers.main.env.PAPERLESS_ADMIN_PASSWORD
       kind: Secret
       name: paperless-secrets
       valuesKey: paperless-admin-pw
-    - targetPath: env.PAPERLESS_ADMIN_EMAIL
+    - targetPath: controllers.main.containers.main.env.PAPERLESS_ADMIN_EMAIL
       kind: Secret
       name: paperless-secrets
       valuesKey: paperless-admin-email
   values:
-    fullnameOverride: paperless-ngx
-    #podSecurityContext:
-      #runAsUser: 1000
-      #runAsGroup: 1000
-      #fsGroup: 1000
-      #fsGroupChangePolicy: "OnRootMismatch"
-    image:
-      repository: ghcr.io/paperless-ngx/paperless-ngx
-      tag: 1.17.4
+    fullnameOverride: *name
+    #defaultPodOptions:
+      #securityContext:
+        #runAsUser: 1000
+        #runAsGroup: 1000
+        #fsGroup: 1000
+        #fsGroupChangePolicy: "OnRootMismatch"
+    controllers:
+      main:
+        annotations:
+          backup.velero.io/backup-volumes: config,media
+        containers:
+          main:
+            image:
+              repository: ghcr.io/paperless-ngx/paperless-ngx
+              tag: 1.17.4
+            env:
+              PAPERLESS_TIME_ZONE: "${TIMEZONE}"
+              PAPERLESS_OCR_LANGUAGE: "nor+eng"
+              PAPERLESS_OCR_LANGUAGES: "nor"
+              PAPERLESS_REDIS: "redis://redis-master"
+              PAPERLESS_FILENAME_FORMAT: "{created_year}/{correspondent}/{created_month}_{title}"
+              PAPERLESS_URL: "https://paperless-ngx.${SECRET_DEFAULT_DOMAIN}"
+              PAPERLESS_DBHOST: "postgres-v15-rw.cloudnative-pg.svc.cluster.local"
+              PAPERLESS_DBNAME: "paperless-ngx"
+              PAPERLESS_DBUSER: "paperless-ngx"
+              PAPERLESS_TIKA_ENABLED: "1"
+              PAPERLESS_TIKA_ENDPOINT: "http://localhost:9998"
+              PAPERLESS_TIKA_GOTENBERG_ENDPOINT: "http://localhost:3000"
+              PAPERLESS_CONSUMER_POLLING: 3600
+              PAPERLESS_CONSUMER_RECURSIVE: true
+              PAPERLESS_CONSUMPTION_DIR: /usr/src/paperless/consume
+            resources:
+              requests:
+                cpu: 100m
+                memory: 300Mi
+              limits:
+                memory: 4000Mi
+          tika:
+            image: 
+              repository: ghcr.io/paperless-ngx/tika
+              tag: 2.5.0-minimal
+          gotenberg:
+            image: 
+              repository: docker.io/gotenberg/gotenberg
+              tag: "7.8.1"
     service:
       main:
         ports:
@@ -70,49 +107,24 @@ spec:
             paths:
               - path: /
                 pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
-    env:
-      PAPERLESS_TIME_ZONE: "${TIMEZONE}"
-      PAPERLESS_OCR_LANGUAGE: "nor+eng"
-      PAPERLESS_OCR_LANGUAGES: "nor"
-      PAPERLESS_REDIS: "redis://redis-master"
-      PAPERLESS_FILENAME_FORMAT: "{created_year}/{correspondent}/{created_month}_{title}"
-      PAPERLESS_URL: "https://paperless-ngx.${SECRET_DEFAULT_DOMAIN}"
-      PAPERLESS_DBHOST: "postgres-v15-rw.cloudnative-pg.svc.cluster.local"
-      PAPERLESS_DBNAME: "paperless-ngx"
-      PAPERLESS_DBUSER: "paperless-ngx"
-      PAPERLESS_TIKA_ENABLED: "1"
-      PAPERLESS_TIKA_ENDPOINT: "http://localhost:9998"
-      PAPERLESS_TIKA_GOTENBERG_ENDPOINT: "http://localhost:3000"
-      PAPERLESS_CONSUMER_POLLING: 3600
-      PAPERLESS_CONSUMER_RECURSIVE: true
-      PAPERLESS_CONSUMPTION_DIR: /usr/src/paperless/consume
     persistence:
       config:
         enabled: true
         existingClaim: paperless-ngx-data
-        mountPath: /usr/src/paperless/data
+        globalMounts:
+          - path: /usr/src/paperless/data
       consume:
         enabled: true
         existingClaim: paperless-ngx-consume
-        mountPath: /usr/src/paperless/consume
+        globalMounts:
+          - path: /usr/src/paperless/consume
       media:
         enabled: true
         existingClaim: paperless-ngx-media
-        mountPath: /usr/src/paperless/media
-    podAnnotations:
-      backup.velero.io/backup-volumes: config,media
-    resources:
-      requests:
-        cpu: 100m
-        memory: 300Mi
-      limits:
-        memory: 4000Mi
-    sidecars:
-      tika:
-        image: ghcr.io/paperless-ngx/tika
-        tag: 2.5.0-minimal
-      gotenberg:
-        image: docker.io/gotenberg/gotenberg
-        tag: "7.8.1"
+        globalMounts:
+          - path: /usr/src/paperless/media
