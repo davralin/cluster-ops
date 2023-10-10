@@ -26,7 +26,6 @@ spec:
       namespace: node-feature-discovery
   values:
     fullnameOverride: *name
-    # Container really needs root.
     defaultPodOptions:
       affinity:
         nodeAffinity:
@@ -37,6 +36,7 @@ spec:
                     operator: In
                     values:
                       - "true"
+    # Container really needs root.
       #securityContext:
         #runAsUser: 1000
         #runAsGroup: 1000
