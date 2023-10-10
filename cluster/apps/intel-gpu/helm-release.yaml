@@ -2,14 +2,14 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: intel-gpu-plugin
+  name: &name intel-gpu-plugin
   namespace: intel-gpu
 spec:
   interval: 15m
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -25,30 +25,43 @@ spec:
     - name: node-feature-discovery
       namespace: node-feature-discovery
   values:
-    targetNamespace: intel-gpu
-    global:
-      nameOverride: intel-gpu-plugin
-    controller:
-      type: daemonset
-      strategy: RollingUpdate
-      rollingUpdate:
-        surge: 1
-        unavailable: 1
-    image:
-      repository: docker.io/intel/intel-gpu-plugin
-      tag: 0.28.0
-    args:
-      - -shared-dev-num
-      - "4"
+    fullnameOverride: *name
+    # Container really needs root.
+    defaultPodOptions:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: feature.node.kubernetes.io/custom-intel-gpu
+                    operator: In
+                    values:
+                      - "true"
+      #securityContext:
+        #runAsUser: 1000
+        #runAsGroup: 1000
+        #fsGroup: 1000
+        #fsGroupChangePolicy: "OnRootMismatch"
+    controllers:
+      main:
+        type: daemonset
+        containers:
+          main:
+            image:
+              repository: docker.io/intel/intel-gpu-plugin
+              tag: 0.28.0
+            args:
+              - -shared-dev-num
+              - "4"
+            probes:
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+              startup:
+                enabled: false
     service:
       main:
-        enabled: false
-    probes:
-      liveness:
-        enabled: false
-      readiness:
-        enabled: false
-      startup:
         enabled: false
     persistence:
       devfs:
@@ -56,24 +69,13 @@ spec:
         type: hostPath
         hostPath: /dev/dri
         hostPathType: Directory
-        readOnly: true
       sysfs:
         enabled: true
         type: hostPath
         hostPath: /sys/class/drm
         hostPathType: Directory
-        readOnly: true
       kubeletsockets:
         enabled: true
         type: hostPath
         hostPathType: Directory
         hostPath: /var/lib/kubelet/device-plugins
-    affinity:
-      nodeAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-          nodeSelectorTerms:
-            - matchExpressions:
-                - key: feature.node.kubernetes.io/custom-intel-gpu
-                  operator: In
-                  values:
-                    - "true"
