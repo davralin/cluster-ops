@@ -2,14 +2,14 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: squeezebox
+  name: &name squeezebox
   namespace: media
 spec:
   interval: 5m
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -24,16 +24,34 @@ spec:
     remediation:
       retries: 3
   values:
-    fullnameOverride: squeezebox
+    fullnameOverride: *name
     # App does root-things on first boot.
-    #podSecurityContext:
-      #runAsUser: 1000
-      #runAsGroup: 1000
-      #fsGroup: 1000
-      #fsGroupChangePolicy: "OnRootMismatch"
-    image:
-      repository: lmscommunity/logitechmediaserver
-      tag: 8.4.0@sha256:4d916294ec4b3cc8ce2292b8586fc4182394dd6f3cc876e08f764f4080b8707e
+    #defaultPodOptions:
+      #securityContext:
+        #runAsUser: 1000
+        #runAsGroup: 1000
+        #fsGroup: 1000
+        #fsGroupChangePolicy: "OnRootMismatch"
+    controllers:
+      main:
+        annotations:
+          backup.velero.io/backup-volumes: config
+        containers:
+          main:
+            image:
+              repository: lmscommunity/logitechmediaserver
+              tag: 8.4.0@sha256:4d916294ec4b3cc8ce2292b8586fc4182394dd6f3cc876e08f764f4080b8707e
+            env:
+              TZ: "${TIMEZONE}"
+              PGID: "1000"
+              PUID: "1000"
+            resources:
+              requests:
+                cpu: 100m
+                memory: 250Mi
+              limits:
+                cpu: 200m
+                memory: 500Mi
     service:
       main:
         type: LoadBalancer
@@ -63,28 +81,20 @@ spec:
             paths:
               - path: /
                 pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
-    env:
-      TZ: "${TIMEZONE}"
-      PGID: "1000"
-      PUID: "1000"
     persistence:
       config:
-        enabled: true
         existingClaim: squeezebox
       media:
         enabled: true
         existingClaim: media
-        mountPath: /music
-        subPath: audio/music
-        readOnly: true
-    podAnnotations:
-      backup.velero.io/backup-volumes: config
-    resources:
-      requests:
-        cpu: 100m
-        memory: 250Mi
-      limits:
-        cpu: 200m
-        memory: 500Mi
+        advancedMounts:
+          main:
+            main:
+              - path: /data
+                subPath: audio/music
+                readOnly: true

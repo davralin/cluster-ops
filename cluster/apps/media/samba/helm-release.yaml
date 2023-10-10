@@ -2,14 +2,14 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: samba
+  name: &name samba
   namespace: media
 spec:
   interval: 5m
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -24,17 +24,33 @@ spec:
     remediation:
       retries: 3
   values:
-    fullnameOverride: samba
+    fullnameOverride: *name
     # App listens on root-required ports
-    #podSecurityContext:
-      #runAsUser: 1000
-      #runAsGroup: 1000
-      #fsGroup: 1000
-      #fsGroupChangePolicy: "OnRootMismatch"
-    image:
-      repository: dperson/samba
-      tag: latest@sha256:e1d2a7366690749a7be06f72bdbf6a5a7d15726fc84e4e4f41e967214516edfd
-    args: ["-s music;/data"]
+    #defaultPodOptions:
+      #securityContext:
+        #runAsUser: 1000
+        #runAsGroup: 1000
+        #fsGroup: 1000
+        #fsGroupChangePolicy: "OnRootMismatch"
+    controllers:
+      main:
+        annotations:
+          backup.velero.io/backup-volumes: config
+        containers:
+          main:
+            image:
+              repository: dperson/samba
+              tag: latest@sha256:e1d2a7366690749a7be06f72bdbf6a5a7d15726fc84e4e4f41e967214516edfd
+            args: ["-s music;/data"]
+            env:
+              TZ: "${TIMEZONE}"
+            resources:
+              requests:
+                cpu: 100m
+                memory: 10Mi
+              limits:
+                cpu: 200m
+                memory: 50Mi
     service:
       main:
         type: LoadBalancer
@@ -52,19 +68,13 @@ spec:
             port: 445
             targetPort: 445
             protocol: TCP
-    env:
-      TZ: "${TIMEZONE}"
     persistence:
       media:
         enabled: true
         existingClaim: media
-        mountPath: /data
-        subPath: audio/music
-        readOnly: true
-    resources:
-      requests:
-        cpu: 100m
-        memory: 10Mi
-      limits:
-        cpu: 200m
-        memory: 50Mi
+        advancedMounts:
+          main:
+            main:
+              - path: /data
+                subPath: audio/music
+                readOnly: true

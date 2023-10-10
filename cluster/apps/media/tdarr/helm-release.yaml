@@ -2,14 +2,14 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: tdarr
+  name: &name tdarr
   namespace: media
 spec:
   interval: 5m
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -24,20 +24,36 @@ spec:
     remediation:
       retries: -1
   values:
-    fullnameOverride: tdarr
-    podSecurityContext:
-      runAsUser: 0
-      runAsGroup: 0
-      fsGroup: 0
-      capabilities:
-        add:
-          - CHOWN
-      supplementalGroups:
-        - 44
-        - 226
-    image:
-      repository: ghcr.io/haveagitgat/tdarr
-      tag: 2.13.01
+    fullnameOverride: *name
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 0
+        runAsGroup: 0
+        fsGroup: 0
+        capabilities:
+          add:
+            - CHOWN
+        supplementalGroups:
+          - 44
+          - 226
+        fsGroupChangePolicy: "OnRootMismatch"
+    controllers:
+      main:
+        annotations:
+          backup.velero.io/backup-volumes: config,server
+        containers:
+          main:
+            image:
+              repository: ghcr.io/haveagitgat/tdarr
+              tag: 2.13.01
+              env:
+                TZ: "${TIMEZONE}"
+                PUID: "1000"
+                PGID: "1000"
+              resources:
+                requests:
+                  cpu: 50m
+                  memory: 1200Mi
     service:
       main:
         ports:
@@ -62,32 +78,29 @@ spec:
             paths:
               - path: /
                 pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
-    env:
-      TZ: "${TIMEZONE}"
-      PUID: "1000"
-      PGID: "1000"
     persistence:
       config:
         enabled: true
         existingClaim: tdarr-configs
-        mountPath: /app/configs
+        globalMounts:
+          - path: /app/configs
       server:
         enabled: true
         existingClaim: tdarr-server
-        mountPath: /app/server
+        globalMounts:
+          - path: /app/server
       media:
         enabled: true
         existingClaim: media
-        subPath:
-          - path: .
-            mountPath: /data
-          - path: unsorted/tdarr
-            mountPath: /temp
-    podAnnotations:
-      backup.velero.io/backup-volumes: config,server
-    resources:
-      requests:
-        cpu: 50m
-        memory: 1200Mi
+        advancedMounts:
+          main:
+            main:
+              - path: /data
+                subPath: .
+              - path: /temp
+                subPath: unsorted/tdarr

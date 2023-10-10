@@ -2,14 +2,14 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: prowlarr
+  name: &name prowlarr
   namespace: media
 spec:
   interval: 5m
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -24,16 +24,31 @@ spec:
     remediation:
       retries: 3
   values:
-    fullnameOverride: prowlarr
-    hostname: prowlarr
-    podSecurityContext:
-      runAsUser: 1000
-      runAsGroup: 1000
-      fsGroup: 1000
-      fsGroupChangePolicy: "OnRootMismatch"
-    image:
-      repository: ghcr.io/onedr0p/prowlarr
-      tag: 1.8.6.3946@sha256:935800b74dc68885fe33381d3a9e2885bfb66809dc7225c58527e4e44dff7bd0
+    fullnameOverride: *name
+    defaultPodOptions:
+      hostname: *name
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+    controllers:
+      main:
+        annotations:
+          backup.velero.io/backup-volumes: config
+        containers:
+          main:
+            image:
+              repository: ghcr.io/onedr0p/prowlarr
+              tag: 1.8.6.3946@sha256:935800b74dc68885fe33381d3a9e2885bfb66809dc7225c58527e4e44dff7bd0
+            env:
+              TZ: "${TIMEZONE}"
+            resources:
+              requests:
+                cpu: 100m
+                memory: 200Mi
+              limits:
+                memory: 1000Mi
     service:
       main:
         ports:
@@ -54,19 +69,12 @@ spec:
             paths:
               - path: /
                 pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
-    env:
-      TZ: "${TIMEZONE}"
     persistence:
       config:
         enabled: true
         existingClaim: prowlarr
-    podAnnotations:
-      backup.velero.io/backup-volumes: config
-    resources:
-      requests:
-        cpu: 100m
-        memory: 200Mi
-      limits:
-        memory: 1000Mi

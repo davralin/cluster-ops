@@ -2,14 +2,14 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: tdarr-node
+  name: &name tdarr-node
   namespace: media
 spec:
   interval: 5m
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -24,22 +24,42 @@ spec:
     remediation:
       retries: 3
   values:
-    fullnameOverride: tdarr-node
-    podSecurityContext:
-      runAsUser: 0
-      runAsGroup: 0
-      fsGroup: 0
-      capabilities:
-        add:
-          - CHOWN
-      supplementalGroups:
-        - 44
-        - 226
-    controller:
-      type: daemonset
-    image:
-      repository: ghcr.io/haveagitgat/tdarr_node_acc
-      tag: 2.13.01
+    fullnameOverride: *name
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 0
+        runAsGroup: 0
+        fsGroup: 0
+        capabilities:
+          add:
+            - CHOWN
+        supplementalGroups:
+          - 44
+          - 226
+        fsGroupChangePolicy: "OnRootMismatch"
+    controllers:
+      main:
+        type: daemonset
+        containers:
+          main:
+            image:
+              repository: ghcr.io/haveagitgat/tdarr_node_acc
+              tag: 2.13.01
+            env:
+              TZ: "${TIMEZONE}"
+              PUID: "1000"
+              PGID: "1000"
+              serverIP: tdarr.media.svc.cluster.local
+              serverPort: 8266
+              ffmpegPath: "/usr/local/bin/ffmpeg"
+              nodeName:
+                valueFrom:
+                  fieldRef:
+                    fieldPath: spec.nodeName
+            resources:
+              requests:
+                memory: 600Mi
+                cpu: 2000m
     service:
       main:
         enabled: false
@@ -47,27 +67,14 @@ spec:
           enabled: false
           http:
             port: 8265
-    env:
-      TZ: "${TIMEZONE}"
-      PUID: "1000"
-      PGID: "1000"
-      serverIP: tdarr.media.svc.cluster.local
-      serverPort: 8266
-      ffmpegPath: "/usr/local/bin/ffmpeg"
-      nodeName:
-        valueFrom:
-          fieldRef:
-            fieldPath: spec.nodeName
     persistence:
       media:
         enabled: true
         existingClaim: media
-        subPath:
-          - path: .
-            mountPath: /data
-          - path: unsorted/tdarr
-            mountPath: /temp
-    resources:
-      requests:
-        memory: 600Mi
-        cpu: 2000m
+        advancedMounts:
+          main:
+            main:
+              - path: /data
+                subPath: .
+              - path: /temp
+                subPath: unsorted/tdarr

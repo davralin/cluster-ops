@@ -2,14 +2,14 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: radarr
+  name: &name radarr
   namespace: media
 spec:
   interval: 5m
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -24,16 +24,31 @@ spec:
     remediation:
       retries: 3
   values:
-    fullnameOverride: radarr
-    hostname: radarr
-    podSecurityContext:
-      runAsUser: 1000
-      runAsGroup: 1000
-      fsGroup: 1000
-      fsGroupChangePolicy: "OnRootMismatch"
-    image:
-      repository: ghcr.io/onedr0p/radarr
-      tag: 4.7.5.7809@sha256:2ad6f18b6065720d1960566fa224a0a31ad8f4671dd575b845edc6d88cafab19
+    fullnameOverride: *name
+    defaultPodOptions:
+      hostname: *name
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+    controllers:
+      main:
+        annotations:
+          backup.velero.io/backup-volumes: config
+        containers:
+          main:
+            image:
+              repository: ghcr.io/onedr0p/radarr
+              tag: 4.7.5.7809@sha256:2ad6f18b6065720d1960566fa224a0a31ad8f4671dd575b845edc6d88cafab19
+            env:
+              TZ: "${TIMEZONE}"
+            resources:
+              requests:
+                cpu: 100m
+                memory: 300Mi
+              limits:
+                memory: 1000Mi
     service:
       main:
         ports:
@@ -54,10 +69,11 @@ spec:
             paths:
               - path: /
                 pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
-    env:
-      TZ: "${TIMEZONE}"
     persistence:
       config:
         enabled: true
@@ -65,12 +81,5 @@ spec:
       media:
         enabled: true
         existingClaim: media
-        mountPath: /data
-    podAnnotations:
-      backup.velero.io/backup-volumes: config
-    resources:
-      requests:
-        cpu: 100m
-        memory: 300Mi
-      limits:
-        memory: 1000Mi
+        globalMounts:
+          - path: /data

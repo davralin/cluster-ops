@@ -2,14 +2,14 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: jellyfin
+  name: &name jellyfin
   namespace: media
 spec:
   interval: 5m
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -24,19 +24,36 @@ spec:
     remediation:
       retries: 3
   values:
-    fullnameOverride: jellyfin
-    podSecurityContext:
-      runAsUser: 1000
-      runAsGroup: 1000
-      fsGroup: 1000
-      fsGroupChangePolicy: "OnRootMismatch"
-      supplementalGroups:
-        - 44
-        - 109
-        - 100
-    image:
-      repository: ghcr.io/onedr0p/jellyfin
-      tag: 10.8.11@sha256:041977cb09d964ed4e00dec2bd0af3208f0121b8385a69617d30657596ffa292
+    fullnameOverride: *name
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+        supplementalGroups:
+          - 44
+          - 109
+          - 100
+    controllers:
+      main:
+        annotations:
+          backup.velero.io/backup-volumes: config
+        containers:
+          main:
+            image:
+              repository: ghcr.io/onedr0p/jellyfin
+              tag: 10.8.11@sha256:041977cb09d964ed4e00dec2bd0af3208f0121b8385a69617d30657596ffa292
+            env:
+              TZ: "${TIMEZONE}"
+            resources:
+              requests:
+                gpu.intel.com/i915: 1
+                memory: 1000Mi
+                cpu: 200m
+              limits:
+                gpu.intel.com/i915: 1
+                memory: 6000Mi
     service:
       main:
         ports:
@@ -57,10 +74,11 @@ spec:
             paths:
               - path: /
                 pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
-    env:
-      TZ: "${TIMEZONE}"
     persistence:
       config:
         enabled: true
@@ -68,18 +86,9 @@ spec:
       media:
         enabled: true
         existingClaim: media
-        mountPath: /data
+        globalMounts:
+          - path: /data
         readOnly: true
       transcode:
         enabled: true
         type: emptyDir
-    podAnnotations:
-      backup.velero.io/backup-volumes: config
-    resources:
-      requests:
-        gpu.intel.com/i915: 1
-        memory: 1000Mi
-        cpu: 200m
-      limits:
-        gpu.intel.com/i915: 1
-        memory: 6000Mi
