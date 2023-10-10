@@ -64,12 +64,6 @@ spec:
               POSTGRES_HOST: "postgres-v15-rw.cloudnative-pg.svc.cluster.local"
               POSTGRES_DB: "nextcloud"
               POSTGRES_USER: "nextcloud"
-            persistence:
-              config:
-                enabled: true
-                existingClaim: nextcloud
-                globalMounts:
-                  - path: /var/www/html
             resources:
               requests:
                 cpu: 200m
@@ -107,3 +101,9 @@ spec:
                   port: http
         tls:
           - secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
+    persistence:
+      config:
+        enabled: true
+        existingClaim: nextcloud
+        globalMounts:
+          - path: /var/www/html
