@@ -82,7 +82,7 @@ spec:
           tika:
             image: 
               repository: ghcr.io/paperless-ngx/tika
-              tag: 2.5.0-minimal
+              tag: 2.9.0-minimal
           gotenberg:
             image: 
               repository: docker.io/gotenberg/gotenberg
