@@ -82,9 +82,10 @@ spec:
           http:
             port: 3000
       ssh:
+        enabled: true
         type: LoadBalancer
-        externalTrafficPolicy: Local
         controller: main
+        externalTrafficPolicy: Local
         ports:
           ssh:
             enabled: true
@@ -106,6 +107,9 @@ spec:
             paths:
               - path: /
                 pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
     persistence:
