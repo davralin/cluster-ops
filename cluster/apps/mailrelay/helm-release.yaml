@@ -2,14 +2,14 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: exim
+  name: &name exim
   namespace: mailrelay
 spec:
   interval: 5m
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -24,25 +24,45 @@ spec:
     remediation:
       retries: 3
   valuesFrom:
-    - targetPath: env.SMARTHOST
+    - targetPath: controllers.main.containers.main.env.SMARTHOST
       kind: Secret
       name: mail-smarthost
       valuesKey: smarthost
-    - targetPath: env.SMTP_USERNAME
+    - targetPath: controllers.main.containers.main.env.SMTP_USERNAME
       kind: Secret
       name: mail-smarthost
       valuesKey: username
-    - targetPath: env.SMTP_PASSWORD
+    - targetPath: controllers.main.containers.main.env.SMTP_PASSWORD
       kind: Secret
       name: mail-smarthost
       valuesKey: password
   values:
-    fullnameOverride: exim
-    controller:
-      type: daemonset
-    image:
-      repository: devture/exim-relay
-      tag: 4.95-r0-4
+    fullnameOverride: *name
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 100
+        runAsGroup: 100
+        fsGroup: 100
+        fsGroupChangePolicy: "OnRootMismatch"
+    controllers:
+      main:
+        type: daemonset
+        annotations:
+          backup.velero.io/backup-volumes: config
+        containers:
+          main:
+            image:
+              repository: devture/exim-relay
+              tag: 4.96-r1-0
+            env:
+              HOSTNAME: "smtp.${SECRET_DEFAULT_DOMAIN}"
+            resources:
+              requests:
+                cpu: 50m
+                memory: 80Mi
+              limits:
+                cpu: 100m
+                memory: 128Mi
     service:
       main:
         type: LoadBalancer
@@ -55,12 +75,3 @@ spec:
             port: 25
             targetPort: 8025
             protocol: TCP
-    env:
-      HOSTNAME: "smtp.${SECRET_DEFAULT_DOMAIN}"
-    resources:
-      requests:
-        cpu: 50m
-        memory: 80Mi
-      limits:
-        cpu: 100m
-        memory: 128Mi

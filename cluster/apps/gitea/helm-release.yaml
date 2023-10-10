@@ -2,14 +2,14 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: gitea
+  name: &name gitea
   namespace: gitea
 spec:
   interval: 5m
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -24,24 +24,58 @@ spec:
     remediation:
       retries: 3
   valuesFrom:
-    - targetPath: env.GITEA__database__PASSWD
+    - targetPath: controllers.main.containers.main.env.GITEA__database__PASSWD
       kind: Secret
       name: gitea-config
       valuesKey: POSTGRES_PASSWORD
   values:
-    fullnameOverride: gitea
-    podSecurityContext:
-      runAsUser: 1000
-      runAsGroup: 1000
-      fsGroup: 1000
-      fsGroupChangePolicy: "OnRootMismatch"
-    securityContext:
-      capabilities:
-        add:
-          - SYS_CHROOT
-    image:
-      repository: gitea/gitea
-      tag: 1.20.5-rootless
+    fullnameOverride: *name
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+        capabilities:
+          add:
+            - SYS_CHROOT
+    controllers:
+      main:
+        annotations:
+          backup.velero.io/backup-volumes: config
+        containers:
+          main:
+            image:
+              repository: gitea/gitea
+              tag: 1.20.5-rootless
+            env:
+              TZ: "${TIMEZONE}"
+              USER_UID: 1000
+              USER_GID: 1000
+              GITEA__ACTIONS__ENABLED: "True"
+              GITEA__database__DB_TYPE: "postgres"
+              GITEA__database__HOST: "postgres-v15-rw.cloudnative-pg.svc.cluster.local:5432"
+              GITEA__database__NAME: "gitea"
+              GITEA__database__USER: "gitea"
+              GITEA__MAILER__ENABLED: "True"
+              GITEA__MAILER__PROTOCOL: "SMTP"
+              GITEA__MAILER__SMTP_ADDR: "exim.mailrelay.svc.cluster.local"
+              GITEA__MAILER__SMTP_PORT: "25"
+              GITEA__MAILER__FROM: "gitea@${SECRET_DEFAULT_DOMAIN}"
+              GITEA__REPOSITORY__ENABLE_PUSH_CREATE_USER: "True"
+              GITEA__REPOSITORY__DEFAULT_BRANCH: "main"
+              GITEA__SECURITY__INSTALL_LOCK: "True"
+              GITEA__SERVER__DOMAIN: "gitea.${SECRET_DEFAULT_DOMAIN}"
+              GITEA__SERVER__ROOT_URL: "https://gitea.${SECRET_DEFAULT_DOMAIN}"
+              GITEA__SERVER__SSH_DOMAIN: "ssh.${SECRET_DEFAULT_DOMAIN}"
+              GITEA__SERVER__SSH_PORT: 22
+            resources:
+              requests:
+                memory: 250Mi
+                cpu: 100m
+              limits:
+                memory: 500Mi
+                cpu: 500m
     service:
       main:
         ports:
@@ -50,6 +84,7 @@ spec:
       ssh:
         type: LoadBalancer
         externalTrafficPolicy: Local
+        controller: main
         ports:
           ssh:
             enabled: true
@@ -73,38 +108,9 @@ spec:
                 pathType: Prefix
         tls:
           - secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
-    env:
-      TZ: "${TIMEZONE}"
-      USER_UID: 1000
-      USER_GID: 1000
-      GITEA__ACTIONS__ENABLED: "True"
-      GITEA__database__DB_TYPE: "postgres"
-      GITEA__database__HOST: "postgres-v15-rw.cloudnative-pg.svc.cluster.local:5432"
-      GITEA__database__NAME: "gitea"
-      GITEA__database__USER: "gitea"
-      GITEA__MAILER__ENABLED: "True"
-      GITEA__MAILER__PROTOCOL: "SMTP"
-      GITEA__MAILER__SMTP_ADDR: "exim.mailrelay.svc.cluster.local"
-      GITEA__MAILER__SMTP_PORT: "25"
-      GITEA__MAILER__FROM: "gitea@${SECRET_DEFAULT_DOMAIN}"
-      GITEA__REPOSITORY__ENABLE_PUSH_CREATE_USER: "True"
-      GITEA__REPOSITORY__DEFAULT_BRANCH: "main"
-      GITEA__SECURITY__INSTALL_LOCK: "True"
-      GITEA__SERVER__DOMAIN: "gitea.${SECRET_DEFAULT_DOMAIN}"
-      GITEA__SERVER__ROOT_URL: "https://gitea.${SECRET_DEFAULT_DOMAIN}"
-      GITEA__SERVER__SSH_DOMAIN: "ssh.${SECRET_DEFAULT_DOMAIN}"
-      GITEA__SERVER__SSH_PORT: 22
     persistence:
       config:
         enabled: true
         existingClaim: gitea
-        mountPath: /var/lib/gitea
-    podAnnotations:
-      backup.velero.io/backup-volumes: config
-    resources:
-      requests:
-        memory: 250Mi
-        cpu: 100m
-      limits:
-        memory: 500Mi
-        cpu: 500m
+        globalMounts:
+          - path: /var/lib/gitea

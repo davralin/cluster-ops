@@ -2,14 +2,14 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: kuma
+  name: &name kuma
   namespace: kuma
 spec:
   interval: 5m
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -24,19 +24,29 @@ spec:
     remediation:
       retries: 3
   values:
-    fullnameOverride: kuma
-    #podSecurityContext:
-      #runAsUser: 1000
-      #runAsGroup: 1000
-      #fsGroup: 1000
-      #fsGroupChangePolicy: "OnRootMismatch"
-    #securityContext:
-      #capabilities:
-        #add:
-          #- SYS_CHROOT
-    image:
-      repository: louislam/uptime-kuma
-      tag: 1.23.3
+    fullnameOverride: *name
+    # Container binds to 80, which requires root, it also starts with chmod
+    #defaultPodOptions:
+      #securityContext:
+        #runAsUser: 1000
+        #runAsGroup: 1000
+        #fsGroup: 1000
+        #fsGroupChangePolicy: "OnRootMismatch"
+    controllers:
+      main:
+        annotations:
+          backup.velero.io/backup-volumes: config
+        containers:
+          main:
+            image:
+              repository: louislam/uptime-kuma
+              tag: 1.23.3
+            env:
+              TZ: "${TIMEZONE}"
+            resources:
+              requests:
+                cpu: 10m
+                memory: 30Mi
     service:
       main:
         ports:
@@ -57,18 +67,14 @@ spec:
             paths:
               - path: /
                 pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
-    env:
-      TZ: "${TIMEZONE}"
     persistence:
       config:
         enabled: true
         existingClaim: kuma
-        mountPath: /app/data
-    podAnnotations:
-      backup.velero.io/backup-volumes: config
-    resources:
-      requests:
-        cpu: 10m
-        memory: 30Mi
+        globalMounts:
+          - path: /app/data

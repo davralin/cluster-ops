@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: nextcloud
+  name: &name nextcloud
   namespace: nextcloud
 spec:
   interval: 5m
@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -24,27 +24,64 @@ spec:
   upgrade:
     remediation:
       retries: 3
+  valuesFrom:
+    - targetPath: controllers.main.containers.main.env.POSTGRES_PASSWORD
+      kind: Secret
+      name: nextcloud-postgresql-secret
+      valuesKey: password
   values:
-    fullnameOverride: nextcloud
+    fullnameOverride: *name
     # Container binds to 80, which requires root, it also starts with chmod
-    #podSecurityContext:
-      #runAsUser: 1000
-      #runAsGroup: 1000
-      #fsGroup: 1000
-      #fsGroupChangePolicy: "OnRootMismatch"
-    image:
-      repository: nextcloud
-      tag: 27.1.1-apache
+    #defaultPodOptions:
+      #securityContext:
+        #runAsUser: 1000
+        #runAsGroup: 1000
+        #fsGroup: 1000
+        #fsGroupChangePolicy: "OnRootMismatch"
+    controllers:
+      main:
+        annotations:
+          backup.velero.io/backup-volumes: config
+        containers:
+          main:
+            image:
+              repository: nextcloud
+              tag: 27.1.1-apache
+            probes:
+              startup:
+                spec:
+                  initialDelaySeconds: 30
+                  periodSeconds: 30
+            env:
+              TZ: "${TIMEZONE}"
+              REDIS_HOST: "redis-master"
+              SMTP_HOST: "exim.mailrelay.svc.cluster.local"
+              SMTP_PORT: "25"
+              SMTP_AUTHTYPE: "PLAIN"
+              MAIL_FROM_ADDRESS: "cloud@${SECRET_DEFAULT_DOMAIN}"
+              OVERWRITEPROTOCOL: "https"
+              OVERWRITEHOST: "cloud.${SECRET_DEFAULT_DOMAIN}"
+              POSTGRES_HOST: "postgres-v15-rw.cloudnative-pg.svc.cluster.local"
+              POSTGRES_DB: "nextcloud"
+              POSTGRES_USER: "nextcloud"
+            persistence:
+              config:
+                enabled: true
+                existingClaim: nextcloud
+                globalMounts:
+                  - path: /var/www/html
+            resources:
+              requests:
+                cpu: 200m
+                memory: 500Mi
+              limits:
+                cpu: 4000m
+                memory: 4000Mi
     service:
       main:
         ports:
           http:
             port: 80
-    probes:
-      startup:
-        spec:
-          initialDelaySeconds: 30
-          periodSeconds: 30
     ingress:
       main:
         enabled: true
@@ -65,36 +102,8 @@ spec:
             paths:
               - path: /
                 pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
-    env:
-      TZ: "${TIMEZONE}"
-      REDIS_HOST: "redis-master"
-      SMTP_HOST: "exim.mailrelay.svc.cluster.local"
-      SMTP_PORT: "25"
-      SMTP_AUTHTYPE: "PLAIN"
-      MAIL_FROM_ADDRESS: "cloud@${SECRET_DEFAULT_DOMAIN}"
-      OVERWRITEPROTOCOL: "https"
-      OVERWRITEHOST: "cloud.${SECRET_DEFAULT_DOMAIN}"
-      POSTGRES_HOST: "postgres-v15-rw.cloudnative-pg.svc.cluster.local"
-      POSTGRES_DB: "nextcloud"
-      POSTGRES_USER: "nextcloud"
-      POSTGRES_PASSWORD:
-        valueFrom:
-          secretKeyRef:
-            name: nextcloud-postgresql-secret
-            key: password
-    persistence:
-      config:
-        enabled: true
-        existingClaim: nextcloud
-        mountPath: /var/www/html
-    podAnnotations:
-      backup.velero.io/backup-volumes: config
-    resources:
-      requests:
-        cpu: 200m
-        memory: 500Mi
-      limits:
-        cpu: 4000m
-        memory: 4000Mi
