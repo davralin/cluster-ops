@@ -43,40 +43,40 @@ spec:
               tag: v0.13.3
             env:
               TZ: "${TIMEZONE}"
-            probes:
-              liveness:
-                enabled: true
-                custom: true
-                spec:
-                  initialDelaySeconds: 10
-                  periodSeconds: 10
-                  timeoutSeconds: 5
-                  failureThreshold: 10
-                  httpGet:
-                    path: /_dendrite/monitor/health
-                    port: http
-              readiness:
-                enabled: true
-                custom: true
-                spec:
-                  initialDelaySeconds: 10
-                  periodSeconds: 10
-                  timeoutSeconds: 5
-                  failureThreshold: 10
-                  httpGet:
-                    path: /_dendrite/monitor/health
-                    port: http
-              startup:
-                enabled: true
-                custom: true
-                spec:
-                  initialDelaySeconds: 5
-                  periodSeconds: 10
-                  timeoutSeconds: 5
-                  failureThreshold: 10
-                  httpGet:
-                    path: /_dendrite/monitor/up
-                    port: http
+            #probes:
+            #  liveness:
+            #    enabled: true
+            #    custom: true
+            #    spec:
+            #      initialDelaySeconds: 10
+            #      periodSeconds: 10
+            #      timeoutSeconds: 5
+            #      failureThreshold: 10
+            #      httpGet:
+            #        path: /_dendrite/monitor/health
+            #        port: http
+            #  readiness:
+            #    enabled: true
+            #    custom: true
+            #    spec:
+            #      initialDelaySeconds: 10
+            #      periodSeconds: 10
+            #      timeoutSeconds: 5
+            #      failureThreshold: 10
+            #      httpGet:
+            #        path: /_dendrite/monitor/health
+            #        port: http
+            #  startup:
+            #    enabled: true
+            #    custom: true
+            #    spec:
+            #      initialDelaySeconds: 5
+            #      periodSeconds: 10
+            #      timeoutSeconds: 5
+            #      failureThreshold: 10
+            #      httpGet:
+            #        path: /_dendrite/monitor/up
+            #        port: http
             resources:
               requests:
                 cpu: 300m
