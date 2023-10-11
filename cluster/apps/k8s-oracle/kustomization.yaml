@@ -6,7 +6,7 @@ resources:
   - ../cert-manager
   - ../chatbot-ui
   - ../cloudnative-pg
-  - ../cloudnative-pg/cluster_16_oracle
+  - ../cloudnative-pg/cluster-16-oracle
   - ../dendrite
   - ../haproxy/haproxy-ingress-daemonset
   - ../it-tools
