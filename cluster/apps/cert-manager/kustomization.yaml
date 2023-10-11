@@ -5,6 +5,6 @@ resources:
   - cloudflare-dns01-clusterissuer.yaml
   - helm-release.yaml
   - secret.yaml
-  - wildcard-internal-domain.yaml
-  - wildcard-private-domain.yaml
-  - wildcard-public-domain.yaml
+    #  - wildcard-internal-domain.yaml
+    #  - wildcard-private-domain.yaml
+    #  - wildcard-public-domain.yaml
