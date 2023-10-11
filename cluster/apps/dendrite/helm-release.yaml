@@ -193,12 +193,20 @@ spec:
         enabled: true
         type: secret
         name: dendrite-matrix-key
-        mountPath: /etc/dendrite/matrix_key.pem
-        subPath: "matrix_key.pem"
         defaultMode: 0600
+        advancedMounts:
+          main:
+            main:
+              - path: /etc/dendrite/matrix_key.pem
+                subPath: matrix_key.pem
+                readOnly: true
       dendrite-config:
         enabled: true
         type: secret
         name: dendrite-yaml
-        mountPath: "/etc/dendrite/dendrite.yaml"
-        subPath: "dendrite.yaml"
+        advancedMounts:
+          main:
+            main:
+              - path: /etc/dendrite/dendrite.yaml
+                subPath: dendrite.yaml
+                readOnly: true
