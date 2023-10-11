@@ -95,6 +95,6 @@ spec:
         advancedMounts:
           main:
             main:
-              - path: /data
+              - path: /music
                 subPath: audio/music
                 readOnly: true
