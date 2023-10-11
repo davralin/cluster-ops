@@ -2,14 +2,14 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: dendrite
+  name: &name dendrite
   namespace: dendrite
 spec:
   interval: 5m
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -24,15 +24,66 @@ spec:
     remediation:
       retries: 3
   values:
-    fullnameOverride: dendrite
-    #podSecurityContext:
-      #runAsUser: 1000
-      #runAsGroup: 1000
-      #fsGroup: 1000
-      #fsGroupChangePolicy: "OnRootMismatch"
-    image:
-      repository: ghcr.io/matrix-org/dendrite-monolith
-      tag: v0.13.3
+    fullnameOverride: *name
+    #defaultPodOptions:
+      #securityContext:
+        #runAsUser: 1000
+        #runAsGroup: 1000
+        #fsGroup: 1000
+        #fsGroupChangePolicy: "OnRootMismatch"
+    controllers:
+      main:
+        annotations:
+          backup.velero.io/backup-volumes: media
+          reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            image:
+              repository: ghcr.io/matrix-org/dendrite-monolith
+              tag: v0.13.3
+            env:
+              TZ: "${TIMEZONE}"
+            probes:
+              liveness:
+                enabled: true
+                custom: true
+                spec:
+                  initialDelaySeconds: 10
+                  periodSeconds: 10
+                  timeoutSeconds: 5
+                  failureThreshold: 10
+                  httpGet:
+                    path: /_dendrite/monitor/health
+                    port: http
+              readiness:
+                enabled: true
+                custom: true
+                spec:
+                  initialDelaySeconds: 10
+                  periodSeconds: 10
+                  timeoutSeconds: 5
+                  failureThreshold: 10
+                  httpGet:
+                    path: /_dendrite/monitor/health
+                    port: http
+              startup:
+                enabled: true
+                custom: true
+                spec:
+                  initialDelaySeconds: 5
+                  periodSeconds: 10
+                  timeoutSeconds: 5
+                  failureThreshold: 10
+                  httpGet:
+                    path: /_dendrite/monitor/up
+                    port: http
+            resources:
+              requests:
+                cpu: 300m
+                memory: 500Mi
+              limits:
+                cpu: 1
+                memory: 1Gi
     service:
       main:
         ports:
@@ -52,18 +103,36 @@ spec:
             paths:
               - path: /
                 pathType: Prefix
+                service:
+                  name: main
+                  port: http
               - path: /.well-known/matrix/server
                 pathType: Prefix
+                service:
+                  name: main
+                  port: http
               - path: /.well-known/matrix/client
                 pathType: Prefix
+                service:
+                  name: main
+                  port: http
           - host: "${SECRET_PUBLIC_DOMAIN}"
             paths:
               - path: /.well-known/matrix/
                 pathType: Prefix
+                service:
+                  name: main
+                  port: http
               - path: /.well-known/matrix/server
                 pathType: Prefix
+                service:
+                  name: main
+                  port: http
               - path: /.well-known/matrix/client
                 pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - secretName: "${SECRET_PUBLIC_DOMAIN_CERT}"
             hosts:
@@ -105,12 +174,11 @@ spec:
             logging:
               - type: std
                 level: debug
-    env:
-      TZ: "${TIMEZONE}"
     persistence:
       logs:
         enabled: true
-        mountPath: /var/dendrite-log
+        globalMounts:
+          - path: /var/dendrite-log
         type: emptyDir
       media:
         enabled: true
@@ -134,47 +202,3 @@ spec:
         name: dendrite-yaml
         mountPath: "/etc/dendrite/dendrite.yaml"
         subPath: "dendrite.yaml"
-    podAnnotations:
-      reloader.stakater.com/auto: "true"
-      backup.velero.io/backup-volumes: media
-    probes:
-      liveness:
-        enabled: true
-        custom: true
-        spec:
-          initialDelaySeconds: 10
-          periodSeconds: 10
-          timeoutSeconds: 5
-          failureThreshold: 10
-          httpGet:
-            path: /_dendrite/monitor/health
-            port: http
-      readiness:
-        enabled: true
-        custom: true
-        spec:
-          initialDelaySeconds: 10
-          periodSeconds: 10
-          timeoutSeconds: 5
-          failureThreshold: 10
-          httpGet:
-            path: /_dendrite/monitor/health
-            port: http
-      startup:
-        enabled: true
-        custom: true
-        spec:
-          initialDelaySeconds: 5
-          periodSeconds: 10
-          timeoutSeconds: 5
-          failureThreshold: 10
-          httpGet:
-            path: /_dendrite/monitor/up
-            port: http
-    resources:
-      requests:
-        cpu: 300m
-        memory: 500Mi
-      limits:
-        cpu: 1
-        memory: 1Gi
