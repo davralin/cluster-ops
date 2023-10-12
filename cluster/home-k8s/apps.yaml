@@ -9,7 +9,7 @@ spec:
   dependsOn:
     - name: monitoring
   path: ./cluster/apps/k8s-home
-  prune: true
+  prune: false
   sourceRef:
     kind: GitRepository
     name: flux-system
