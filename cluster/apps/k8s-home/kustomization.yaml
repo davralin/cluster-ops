@@ -10,6 +10,7 @@ resources:
   - ../chatbot-ui
   - ../cloudflareddns
   - ../cloudnative-pg
+  - ../cloudnative-pg/cluster15
   - ../epicgames-freegames
   - ../freshrss
   - ../gitea
