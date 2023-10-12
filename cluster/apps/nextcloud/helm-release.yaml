@@ -46,7 +46,7 @@ spec:
           main:
             image:
               repository: nextcloud
-              tag: 27.1.1-apache
+              tag: 27.1.2-apache
             probes:
               startup:
                 spec:
