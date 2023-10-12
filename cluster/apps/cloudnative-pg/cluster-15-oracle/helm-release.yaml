@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: cluster-16-oracle
+  name: cluster-15-oracle
   namespace: cloudnative-pg
 spec:
   interval: 15m
@@ -30,13 +30,13 @@ spec:
       - apiVersion: postgresql.cnpg.io/v1
         kind: Cluster
         metadata:
-          name: postgres-v16
+          name: postgres-v15
           namespace: cloudnative-pg
         spec:
           # using only 1 replica: very difficult to drain the node where postgres is running
           # using more than 1 replica: write amplification issues when leveraging replicated storage (e.g. ceph)
           instances: 1
-          imageName: ghcr.io/cloudnative-pg/postgresql:16.0
+          imageName: ghcr.io/cloudnative-pg/postgresql:15.4
           primaryUpdateStrategy: unsupervised
           storage:
             size: 10Gi
@@ -50,7 +50,7 @@ spec:
           #bootstrap:
             # use this to recover a net-new cluster from a backup
             #recovery:
-              #source: postgres-v16
+              #source: postgres-v15
             # # use this to 'migrate' from an existing cnpg cluster (e.g. "cluster-pg14") to the new cluster
             # initdb:
             #   import:
@@ -60,7 +60,7 @@ spec:
             #     roles:
             #       - "*"
             #     source:
-            #       externalCluster: cluster-pg15
+            #       externalCluster: cluster-pg14
           monitoring:
             enablePodMonitor: "${MONITORING_PROMETHEUS}"
           resources:
@@ -77,7 +77,7 @@ spec:
           #      maxParallel: 8
           #    destinationPath: s3://postgresql-${CLUSTER_NAME}
           #    endpointURL: "${S3_URL}"
-          #    serverName: postgres-v16
+          #    serverName: postgres-v15
           #    s3Credentials:
           #      accessKeyId:
           #        name: cloudnative-pg-secret
@@ -87,13 +87,13 @@ spec:
           #        key: minio-secret-key
           #externalClusters:
             # this represents the s3 backup to restore from. Must be same version.
-            #- name: postgres-v16
+            #- name: postgres-v15
             #  barmanObjectStore:
             #    wal:
             #      compression: bzip2
             #      maxParallel: 8
             #    destinationPath: s3://postgresql-${CLUSTER_NAME}
-            #    serverName: postgres-v16
+            #    serverName: postgres-v15
             #    endpointURL: "${S3_URL}"
             #    s3Credentials:
             #      accessKeyId:
@@ -115,11 +115,11 @@ spec:
       - apiVersion: postgresql.cnpg.io/v1
         kind: ScheduledBackup
         metadata:
-          name: postgres-v16
+          name: postgres-v15
           namespace: cloudnative-pg
         spec:
           schedule: "0 37 01 * * *"
           immediate: true
           backupOwnerReference: self
           cluster:
-            name: postgres-v16
+            name: postgres-v15
