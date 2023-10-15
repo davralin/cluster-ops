@@ -45,6 +45,7 @@ spec:
             env:
               TZ: "${TIMEZONE}"
               NC_DIR: "/nextcloud"
+              INIT_BACKUP: "true"
             resources:
               requests:
                 cpu: 200m
