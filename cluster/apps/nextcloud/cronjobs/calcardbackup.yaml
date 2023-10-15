@@ -35,9 +35,6 @@ spec:
         fsGroupChangePolicy: "OnRootMismatch"
     controllers:
       main:
-        type: cronjob
-        cronjob:
-          schedule: "20 15 * * *"
         containers:
           main:
             image:
