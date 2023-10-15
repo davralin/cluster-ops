@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - backup-ssh-key.yaml
   - backup-to-jottacloud.yaml
+  - calcardbackup.yaml
   - cron-curl.yaml
   - offsite-sync.yaml
   - onsite-sync.yaml
