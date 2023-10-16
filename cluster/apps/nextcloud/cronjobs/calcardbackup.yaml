@@ -44,6 +44,7 @@ spec:
               TZ: "${TIMEZONE}"
               NC_DIR: "/nextcloud"
               INIT_BACKUP: "true"
+              CALCARD_OPTS: "-r 20"
             resources:
               requests:
                 cpu: 100m
@@ -58,4 +59,11 @@ spec:
       nextcloud:
         enabled: true
         existingClaim: nextcloud
-        readOnly: true
+        advancedMounts:
+          main:
+            main:
+              - path: /nextcloud
+                subPath: .
+                readOnly: true
+              - path: /backup
+                subPath: calcardbackup
