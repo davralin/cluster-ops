@@ -69,22 +69,22 @@ spec:
               cpu: "1"
             limits:
               memory: "1Gi"
-          #backup:
-          #  retentionPolicy: 30d
-          #  barmanObjectStore:
-          #    wal:
-          #      compression: bzip2
-          #      maxParallel: 8
-          #    destinationPath: s3://postgresql-${CLUSTER_NAME}
-          #    endpointURL: "${S3_URL}"
-          #    serverName: postgres-v15
-          #    s3Credentials:
-          #      accessKeyId:
-          #        name: cloudnative-pg-secret
-          #        key: minio-access-key
-          #      secretAccessKey:
-          #        name: cloudnative-pg-secret
-          #        key: minio-secret-key
+          backup:
+            retentionPolicy: 30d
+            barmanObjectStore:
+              wal:
+                compression: bzip2
+                maxParallel: 8
+              destinationPath: s3://postgresql-${CLUSTER_NAME}
+              endpointURL: "${S3_URL}"
+              serverName: postgres-v15
+              s3Credentials:
+                accessKeyId:
+                  name: cloudnative-pg-s3-secret
+                  key: s3-access-key
+                secretAccessKey:
+                  name: cloudnative-pg-s3-secret
+                  key: s3-secret-key
           #externalClusters:
             # this represents the s3 backup to restore from. Must be same version.
             #- name: postgres-v15
@@ -97,11 +97,11 @@ spec:
             #    endpointURL: "${S3_URL}"
             #    s3Credentials:
             #      accessKeyId:
-            #        name: cloudnative-pg-secret
-            #        key: minio-access-key
+            #        name: cloudnative-pg-s3-secret
+            #        key: s3-access-key
             #      secretAccessKey:
-            #        name: cloudnative-pg-secret
-            #        key: minio-secret-key
+            #        name: cloudnative-pg-s3-secret
+            #        key: s3-secret-key
             # # this represents an existing cnpg cluster to migrate from (e.g. upgrading from postgres v14 to postgres v15)
             # - name: cluster-pg14
             #   connectionParameters:
@@ -110,7 +110,7 @@ spec:
             #     dbname: postgres
             #     sslmode: require
             #   password:
-            #     name: cloudnative-pg-secret
+            #     name: cloudnative-pg-s3-secret
             #     key: password
       - apiVersion: postgresql.cnpg.io/v1
         kind: ScheduledBackup
