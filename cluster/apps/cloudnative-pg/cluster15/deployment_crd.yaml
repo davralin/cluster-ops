@@ -75,11 +75,11 @@ spec:
         endpointURL: "${S3_URL}"
         s3Credentials:
           accessKeyId:
-            name: cloudnative-pg-secret
-            key: minio-access-key
+            name: cloudnative-pg-s3-secret
+            key: s3-access-key
           secretAccessKey:
-            name: cloudnative-pg-secret
-            key: minio-secret-key
+            name: cloudnative-pg-s3-secret
+            key: s3-secret-key
     # # this represents an existing cnpg cluster to migrate from (e.g. upgrading from postgres v14 to postgres v15)
     # - name: cluster-pg14
     #   connectionParameters:
