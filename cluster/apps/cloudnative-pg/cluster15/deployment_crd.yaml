@@ -58,11 +58,11 @@ spec:
       serverName: postgres-v15
       s3Credentials:
         accessKeyId:
-          name: cloudnative-pg-secret
-          key: minio-access-key
+          name: cloudnative-pg-s3-secret
+          key: s3-access-key
         secretAccessKey:
-          name: cloudnative-pg-secret
-          key: minio-secret-key
+          name: cloudnative-pg-s3-secret
+          key: s3-secret-key
   externalClusters:
     # this represents the s3 backup to restore from. Must be same version.
     - name: postgres-v15
