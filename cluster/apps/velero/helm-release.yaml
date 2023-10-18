@@ -129,7 +129,7 @@ spec:
     kubectl:
       image:
         repository: ghcr.io/onedr0p/kubernetes-kubectl
-        tag: 1.28.2
+        tag: 1.28.3
     schedules:
       daily-backup:
         schedule: "10 04 * * *"
