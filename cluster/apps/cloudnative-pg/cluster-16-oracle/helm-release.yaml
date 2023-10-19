@@ -1,0 +1,125 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: cluster-16-oracle
+  namespace: cloudnative-pg
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: raw
+      version: v0.3.2
+      sourceRef:
+        kind: HelmRepository
+        name: dysnix-charts
+        namespace: flux-system
+  targetNamespace: metallb-system
+  install:
+    createNamespace: true
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
+  dependsOn:
+    - name: cloudnative-pg
+      namespace: cloudnative-pg
+  values:
+    resources:
+      - apiVersion: postgresql.cnpg.io/v1
+        kind: Cluster
+        metadata:
+          name: postgres-v16
+          namespace: cloudnative-pg
+        spec:
+          # using only 1 replica: very difficult to drain the node where postgres is running
+          # using more than 1 replica: write amplification issues when leveraging replicated storage (e.g. ceph)
+          instances: 1
+          imageName: ghcr.io/cloudnative-pg/postgresql:16.0
+          primaryUpdateStrategy: unsupervised
+          storage:
+            size: 10Gi
+            storageClass: "${STORAGE_READWRITEONCE}"
+          managed:
+            roles:
+            - name: dendrite
+              login: true
+          superuserSecret:
+            name: cloudnative-pg-secret
+          bootstrap:
+            # use this to recover a net-new cluster from a backup
+            #recovery:
+              #source: postgres-v16
+            # # use this to 'migrate' from an existing cnpg cluster (e.g. "cluster-pg15") to the new cluster
+            initdb:
+               import:
+                 type: monolith
+                 databases:
+                   - "*"
+                 roles:
+                   - "*"
+                 source:
+                   externalCluster: cluster-pg15
+          monitoring:
+            enablePodMonitor: "${MONITORING_PROMETHEUS}"
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "1"
+            limits:
+              memory: "1Gi"
+          backup:
+            retentionPolicy: 30d
+            barmanObjectStore:
+              wal:
+                compression: bzip2
+                maxParallel: 8
+              destinationPath: s3://postgresql-${CLUSTER_NAME}
+              endpointURL: "${S3_URL}"
+              serverName: postgres-v16
+              s3Credentials:
+                accessKeyId:
+                  name: cloudnative-pg-s3-secret
+                  key: s3-access-key
+                secretAccessKey:
+                  name: cloudnative-pg-s3-secret
+                  key: s3-secret-key
+          externalClusters:
+            # this represents the s3 backup to restore from. Must be same version.
+            #- name: postgres-v16
+            #  barmanObjectStore:
+            #    wal:
+            #      compression: bzip2
+            #      maxParallel: 8
+            #    destinationPath: s3://postgresql-${CLUSTER_NAME}
+            #    serverName: postgres-v16
+            #    endpointURL: "${S3_URL}"
+            #    s3Credentials:
+            #      accessKeyId:
+            #        name: cloudnative-pg-s3-secret
+            #        key: s3-access-key
+            #      secretAccessKey:
+            #        name: cloudnative-pg-s3-secret
+            #        key: s3-secret-key
+            # this represents an existing cnpg cluster to migrate from (e.g. upgrading from postgres v14 to postgres v15)
+             - name: cluster-pg15
+               connectionParameters:
+                 host: postgres-v15-rw.cloudnative-pg.svc.cluster.local
+                 user: postgres
+                 dbname: postgres
+                 sslmode: require
+               password:
+                 name: cloudnative-pg-secret
+                 key: password
+      - apiVersion: postgresql.cnpg.io/v1
+        kind: ScheduledBackup
+        metadata:
+          name: postgres-v16
+          namespace: cloudnative-pg
+        spec:
+          schedule: "0 37 01 * * *"
+          immediate: true
+          backupOwnerReference: self
+          cluster:
+            name: postgres-v16
