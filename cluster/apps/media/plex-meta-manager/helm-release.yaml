@@ -144,6 +144,6 @@ spec:
       config:
         enabled: true
         type: configMap
-        name: config
+        name: plex-meta-manager-config
       temp:
         existingClaim: plex-meta-manager
