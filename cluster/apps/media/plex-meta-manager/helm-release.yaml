@@ -162,5 +162,12 @@ spec:
         enabled: true
         type: configMap
         name: plex-meta-manager-config
+        advancedMounts:
+          main:
+            main:
+              - path: /config/config.yml
+                subPath: config.yml
+              - path: /config/movies.yml
+                subPath: movies.yml
       temp:
         existingClaim: plex-meta-manager
