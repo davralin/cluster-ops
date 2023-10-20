@@ -2,6 +2,8 @@
 
 ## All credit goes to: https://github.com/bitnami/charts/issues/8025#issuecomment-964906018
 
+## Please note that I switched to using cloudnative-pg.io, which handles this much better - so I don't keep this guide up to date.
+
 ### This example is from upgrading from postgresql14 to 15.
 
 1. Update the helm-release
