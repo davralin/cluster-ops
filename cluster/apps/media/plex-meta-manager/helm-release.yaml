@@ -142,6 +142,8 @@ spec:
                 tmdb_collection: 1241
               The Lord of the Rings:
                 tmdb_collection: 119
+              Matrix:
+                tmdb_collection: 2344
               Mission Impossible:
                 tmdb_collection: 87359
               Pirates of the Carribean:
