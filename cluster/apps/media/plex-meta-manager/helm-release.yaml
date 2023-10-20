@@ -45,6 +45,91 @@ spec:
               requests:
                 cpu: 50m
                 memory: 100Mi
+    configMaps:
+      config:
+        enabled: true
+        data:
+          config.yml: |
+            libraries:
+              Movies:                        # These are names of libraries in your Plex
+                operations:
+                  delete_collections:
+                    configured: false
+                    managed: false
+                metadata_path:
+                - pmm: audio_language
+                  template_variables:
+                    include:
+                    - no
+                    name_format: <<key_name>>
+                    use_other: false
+                    use_separator: false
+                    sort_by: title.asc
+                - file: /config/movies.yml
+                overlay_path:
+                - remove_overlays: true
+            settings:
+              asset_directory: /temp/assets
+              asset_folders: true
+              assets_for_all: true
+              verify_ssl: false
+              cache: true
+              cache_expiration: 60
+              asset_depth: 0
+              create_asset_folders: false
+              prioritize_assets: false
+              dimensional_asset_rename: false
+              download_url_assets: false
+              show_missing_assets: true
+              show_missing_season_assets: false
+              show_missing_episode_assets: false
+              show_asset_not_needed: true
+              sync_mode: append
+              default_collection_order:
+              minimum_items: 1
+              item_refresh_delay: 0
+              delete_below_minimum: false
+              delete_not_scheduled: false
+              run_again_delay: 0
+              missing_only_released: false
+              only_filter_missing: false
+              show_unmanaged: true
+              show_unconfigured: true
+              show_filtered: false
+              show_options: false
+              show_missing: true
+              save_report: false
+              tvdb_language: default
+              ignore_ids:
+              ignore_imdb_ids:
+              playlist_sync_to_users: all
+              playlist_exclude_users:
+              playlist_report: true
+              custom_repo:
+              check_nightly: false
+            plex:                            # Can be individually specified per library as well; REQUIRED for the script to run
+              url: https://plex.media.svc.cluster.local:32400
+              token: "${SECRET_PLEX_TOKEN}"
+              timeout: 60
+              db_cache:
+              clean_bundles: false
+              empty_trash: false
+              optimize: false
+            tmdb:                            # REQUIRED for the script to run
+              apikey: xxxxx ################################
+              language: en
+              cache_expiration: 60
+              region: NO
+            webhooks:
+              changes:
+                https://discord.com/api/webhooks/
+              error:
+                https://discord.com/api/webhooks/
+              delete:
+                https://discord.com/api/webhooks/
+              version:
+              run_start:
+              run_end:
     service:
       main:
         enabled: false
@@ -56,5 +141,9 @@ spec:
             main:
               - path: /config
                 subPath: unsorted/pmm/
+      config:
+        enabled: true
+        type: configMap
+        name: config
       temp:
         existingClaim: plex-meta-manager
