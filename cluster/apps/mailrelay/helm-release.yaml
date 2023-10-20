@@ -41,7 +41,7 @@ spec:
     defaultPodOptions:
       securityContext:
         runAsUser: 100
-        runAsGroup: 100
+        runAsGroup: 101
         fsGroup: 100
         fsGroupChangePolicy: "OnRootMismatch"
     controllers:
