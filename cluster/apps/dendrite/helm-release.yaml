@@ -33,6 +33,7 @@ spec:
         #fsGroupChangePolicy: "OnRootMismatch"
     controllers:
       main:
+        replicas: 0
         annotations:
           backup.velero.io/backup-volumes: media
           reloader.stakater.com/auto: "true"
@@ -115,7 +116,7 @@ spec:
               well_known_server_name: "dendrite.${SECRET_PUBLIC_DOMAIN}:443"
               well_known_client_name: "https://dendrite.${SECRET_PUBLIC_DOMAIN}:443"
               database:
-                connection_string: postgresql://dendrite:${SECRET_DENDRITE_DB_PASSWD}@postgres-v15-rw.cloudnative-pg.svc.cluster.local/dendrite?sslmode=disable
+                connection_string: postgresql://dendrite:${SECRET_DENDRITE_DB_PASSWD}@postgres-v16-rw.cloudnative-pg.svc.cluster.local/dendrite?sslmode=disable
               cache:
                 max_size_estimated: 600mb
               report_stats:
