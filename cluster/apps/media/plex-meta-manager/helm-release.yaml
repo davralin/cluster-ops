@@ -141,7 +141,7 @@ spec:
             main:
               - path: /config
                 subPath: unsorted/pmm/
-      config:
+      configmap:
         enabled: true
         type: configMap
         name: plex-meta-manager-config
