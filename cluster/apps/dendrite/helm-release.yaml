@@ -33,7 +33,6 @@ spec:
         #fsGroupChangePolicy: "OnRootMismatch"
     controllers:
       main:
-        replicas: 1
         annotations:
           backup.velero.io/backup-volumes: media
           reloader.stakater.com/auto: "true"
