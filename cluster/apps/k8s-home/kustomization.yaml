@@ -11,6 +11,7 @@ resources:
   - ../cloudflareddns
   - ../cloudnative-pg
   - ../cloudnative-pg/cluster15
+  - ../cloudnative-pg/cluster-16
   - ../epicgames-freegames
   - ../freshrss
   - ../gitea
