@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - creative
   - mc-router
+  - oldworld
   - survival
   - backup-ssh-key.yaml
   - namespace.yaml
