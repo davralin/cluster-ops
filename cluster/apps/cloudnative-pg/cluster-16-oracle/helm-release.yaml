@@ -14,7 +14,7 @@ spec:
         kind: HelmRepository
         name: dysnix-charts
         namespace: flux-system
-  targetNamespace: metallb-system
+  targetNamespace: metallb-system # Lol, this is wrong
   install:
     createNamespace: true
     remediation:
