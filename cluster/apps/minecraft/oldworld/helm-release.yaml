@@ -61,7 +61,7 @@ spec:
       memory: 2G
       motd: "A retro Minecraft server"
       overrideServerProperties: true
-      downloadWorldUrl: "/oldworlds/survivalisland"
+      downloadWorldUrl: "/oldworlds/survivalisland/SurvivalIslandv1-1"
       rcon:
         enabled: true
     resources:
