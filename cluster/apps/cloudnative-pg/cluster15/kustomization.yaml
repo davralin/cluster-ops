@@ -4,4 +4,3 @@ kind: Kustomization
 resources:
   - deployment_crd.yaml
   - scheduled_backup.yaml
-  - secret.yaml
