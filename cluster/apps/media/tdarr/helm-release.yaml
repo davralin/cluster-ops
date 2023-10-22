@@ -45,7 +45,7 @@ spec:
           main:
             image:
               repository: ghcr.io/haveagitgat/tdarr
-              tag: 2.13.01
+              tag: 2.14.01
               env:
                 TZ: "${TIMEZONE}"
                 PUID: "1000"
