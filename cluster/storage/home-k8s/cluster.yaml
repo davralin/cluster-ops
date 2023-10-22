@@ -70,6 +70,8 @@ spec:
         useAllNodes: true
         useAllDevices: true
         encryptedDevice: true
+    cephBlockPoolsVolumeSnapshotClass:
+      enabled: true
     cephBlockPools:
       - name: ceph-blockpool
         spec:
@@ -92,6 +94,8 @@ spec:
             csi.storage.k8s.io/node-stage-secret-name: rook-csi-rbd-node
             csi.storage.k8s.io/node-stage-secret-namespace: rook-ceph
             csi.storage.k8s.io/fstype: ext4
+    cephFileSystemVolumeSnapshotClass:
+      enabled: true
     cephFileSystems:
       - name: ceph-filesystem
         spec:
