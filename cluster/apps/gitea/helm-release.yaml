@@ -41,7 +41,6 @@ spec:
             - SYS_CHROOT
     controllers:
       main:
-        replicas: 0
         annotations:
           backup.velero.io/backup-volumes: config
         containers:
