@@ -40,6 +40,7 @@ spec:
         #fsGroupChangePolicy: "OnRootMismatch"
     controllers:
       main:
+        replicas: 0
         annotations:
           backup.velero.io/backup-volumes: config
         containers:
@@ -61,7 +62,7 @@ spec:
               MAIL_FROM_ADDRESS: "cloud@${SECRET_DEFAULT_DOMAIN}"
               OVERWRITEPROTOCOL: "https"
               OVERWRITEHOST: "cloud.${SECRET_DEFAULT_DOMAIN}"
-              POSTGRES_HOST: "postgres-v15-rw.cloudnative-pg.svc.cluster.local"
+              POSTGRES_HOST: "postgres-v16-rw.cloudnative-pg.svc.cluster.local"
               POSTGRES_DB: "nextcloud"
               POSTGRES_USER: "nextcloud"
             resources:

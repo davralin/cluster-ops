@@ -50,6 +50,7 @@ spec:
         #fsGroupChangePolicy: "OnRootMismatch"
     controllers:
       main:
+        replicas: 0
         annotations:
           backup.velero.io/backup-volumes: config,media
         containers:
@@ -64,7 +65,7 @@ spec:
               PAPERLESS_REDIS: "redis://redis-master"
               PAPERLESS_FILENAME_FORMAT: "{created_year}/{correspondent}/{created_month}_{title}"
               PAPERLESS_URL: "https://paperless-ngx.${SECRET_DEFAULT_DOMAIN}"
-              PAPERLESS_DBHOST: "postgres-v15-rw.cloudnative-pg.svc.cluster.local"
+              PAPERLESS_DBHOST: "postgres-v16-rw.cloudnative-pg.svc.cluster.local"
               PAPERLESS_DBNAME: "paperless-ngx"
               PAPERLESS_DBUSER: "paperless-ngx"
               PAPERLESS_TIKA_ENABLED: "1"

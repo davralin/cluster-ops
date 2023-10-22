@@ -41,6 +41,7 @@ spec:
             - SYS_CHROOT
     controllers:
       main:
+        replicas: 0
         annotations:
           backup.velero.io/backup-volumes: config
         containers:
@@ -54,7 +55,7 @@ spec:
               USER_GID: 1000
               GITEA__ACTIONS__ENABLED: "True"
               GITEA__database__DB_TYPE: "postgres"
-              GITEA__database__HOST: "postgres-v15-rw.cloudnative-pg.svc.cluster.local:5432"
+              GITEA__database__HOST: "postgres-v16-rw.cloudnative-pg.svc.cluster.local:5432"
               GITEA__database__NAME: "gitea"
               GITEA__database__USER: "gitea"
               GITEA__MAILER__ENABLED: "True"
