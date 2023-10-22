@@ -40,16 +40,6 @@ spec:
             s3ForcePathStyle: true
             s3Url: "${S3_URL}"
             publicUrl: "${VELERO_S3_PUBLIC_URL}"
-        - name: velero-offsite
-          bucket: "velero-offsite"
-          default: false
-          provider: aws
-          accessMode: ReadOnly
-          config:
-            region: "${VELERO_S3_REGION}"
-            s3ForcePathStyle: true
-            s3Url: "${S3_URL}"
-            publicUrl: "${VELERO_S3_PUBLIC_URL}"
       resticTimeout: 6h
     initContainers:
       - name: velero-plugin-for-aws
