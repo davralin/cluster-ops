@@ -40,7 +40,7 @@ spec:
           main:
             image:
               repository: lmscommunity/logitechmediaserver
-              tag: 8.4.0@sha256:6271c131a029cb2daa4e93f71f3da340e501dd59ddb11c86b299e7e8142f8b18
+              tag: 8.4.0@sha256:c16b62b2eac24bce6f26a80f2342345d3b7210941a0c10712f168a5c2fbc24f7
             env:
               TZ: "${TIMEZONE}"
               PGID: "1000"
