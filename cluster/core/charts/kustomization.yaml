@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - appscode.yaml
   - awx.yaml
+  - backube.yaml
   - bitnami.yaml
   - bjw-s.yaml
   - botkube.yaml

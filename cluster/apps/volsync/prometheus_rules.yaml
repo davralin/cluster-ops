@@ -1,0 +1,58 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: volsync-prometheus-rules
+  namespace: volsync
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: raw
+      version: v0.3.2
+      sourceRef:
+        kind: HelmRepository
+        name: dysnix-charts
+        namespace: flux-system
+  targetNamespace: volsync
+  install:
+    createNamespace: true
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
+  dependsOn:
+    - name: volsync
+      namespace: volsync
+    - name: kube-prometheus-stack
+      namespace: monitoring
+  values:
+    resources:
+      - apiVersion: monitoring.coreos.com/v1
+        kind: PrometheusRule
+        metadata:
+          name: volsync-rules
+          namespace: volsync
+        spec:
+          groups:
+            - name: volsync.rules
+              rules:
+                - alert: VolSyncComponentAbsent
+                  annotations:
+                    summary: VolSync component has disappeared from Prometheus target discovery.
+                  expr: |
+                    absent(up{job="volsync-metrics"})
+                  for: 15m
+                  labels:
+                    severity: critical
+                - alert: VolSyncVolumeOutOfSync
+                  annotations:
+                    summary: >-
+                      {{ $labels.obj_namespace }}/{{ $labels.obj_name }} volume
+                      is out of sync.
+                  expr: |
+                    volsync_volume_out_of_sync == 1
+                  for: 15m
+                  labels:
+                    severity: critical

@@ -1,0 +1,27 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: &name volsync
+  namespace: volsync
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: volsync
+      version: 0.7.1
+      sourceRef:
+        kind: HelmRepository
+        name: backube-charts
+        namespace: flux-system
+      interval: 5m
+  targetNamespace: volsync
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  values:
+    fullnameOverride: *name
