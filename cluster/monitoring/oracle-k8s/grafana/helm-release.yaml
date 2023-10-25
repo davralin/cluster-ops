@@ -110,11 +110,6 @@ spec:
           #gnetId: 15549
           #revision: 1
           #datasource: Prometheus
-        # Ref: https://grafana.com/grafana/dashboards/9628
-        postgresql-dashboard:
-          gnetId: 9628
-          revision: 7
-          datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/11835
         redis-dashboard:
           gnetId: 11835
