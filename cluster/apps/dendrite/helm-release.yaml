@@ -40,7 +40,7 @@ spec:
           main:
             image:
               repository: ghcr.io/matrix-org/dendrite-monolith
-              tag: v0.13.3
+              tag: v0.13.4
             env:
               TZ: "${TIMEZONE}"
             resources:
