@@ -47,7 +47,7 @@ spec:
           name: sshd
           namespace: media
         spec:
-          sourcePVC: sshd
+          sourcePVC: sshkeys
           trigger:
             schedule: "04 01 * * *"
           restic:
