@@ -52,8 +52,15 @@ spec:
             schedule: "20 * * * *"
           restic:
             copyMethod: Snapshot
+            cacheCapacity: 8Gi
+            cacheStorageClassName: local-path
+            cacheAccessModes: ["ReadWriteOnce"]
             pruneIntervalDays: 7
             repository: radarr-volsync-secret
+            moverSecurityContext:
+              runAsUser: 1000
+              runAsGroup: 1000
+              fsGroup: 1000
             retain:
               daily: 7
               within: 3d
