@@ -5,3 +5,5 @@ resources:
   - helm-release-manage.yaml
   - helm-release.yaml
   - pvc.yaml
+  - volsync-manage.yaml
+  - volsync.yaml

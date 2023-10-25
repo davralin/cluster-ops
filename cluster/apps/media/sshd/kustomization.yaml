@@ -5,3 +5,4 @@ namespace: media
 resources:
   - helm-release.yaml
   - pvc.yaml
+  - volsync.yaml

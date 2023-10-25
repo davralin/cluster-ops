@@ -37,8 +37,6 @@ spec:
           - 100
     controllers:
       main:
-        annotations:
-          backup.velero.io/backup-volumes: config
         containers:
           main:
             image:

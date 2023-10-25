@@ -39,8 +39,6 @@ spec:
         fsGroupChangePolicy: "OnRootMismatch"
     controllers:
       main:
-        annotations:
-          backup.velero.io/backup-volumes: config,server
         containers:
           main:
             image:
