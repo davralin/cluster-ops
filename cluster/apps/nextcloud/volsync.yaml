@@ -29,10 +29,10 @@ spec:
   targetNamespace: nextcloud
   install:
     createNamespace: true
-    renextcloudtion:
+    remediation:
       retries: 5
   upgrade:
-    renextcloudtion:
+    remediation:
       retries: 5
   dependsOn:
     - name: volsync
