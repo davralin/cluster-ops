@@ -29,10 +29,10 @@ spec:
   targetNamespace: minecraft
   install:
     createNamespace: true
-    recreativetion:
+    remediation:
       retries: 5
   upgrade:
-    recreativetion:
+    remediation:
       retries: 5
   dependsOn:
     - name: volsync
