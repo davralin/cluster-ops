@@ -49,7 +49,7 @@ spec:
           - mountPath: /target
             name: plugins
       - name: velero-plugin-for-csi
-        image: velero/velero-plugin-for-csi:v0.6.0@sha256:fc07d1897a65d7728543b2fae9feddad087b5e7f45f45c3adaeda2ef4996fd50
+        image: velero/velero-plugin-for-csi:v0.6.1@sha256:4020778cc99e2ad1bfa92f7a908e307ebd0ce94ca382a34210ed9ea22e8c97e4
         imagePullPolicy: IfNotPresent
         volumeMounts:
           - mountPath: /target
