@@ -47,7 +47,7 @@ spec:
           name: minecraft-old-worlds
           namespace: minecraft
         spec:
-          sourcePVC: sshkeys
+          sourcePVC: old-worlds
           trigger:
             schedule: "04 01 * * *"
           restic:
