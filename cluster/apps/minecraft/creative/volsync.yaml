@@ -1,0 +1,63 @@
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: creative-volsync-secret
+  namespace: minecraft
+type: Opaque
+stringData:
+  RESTIC_REPOSITORY: "s3:${S3_URL}/volsync-${CLUSTER_NAME}/creative"
+  RESTIC_PASSWORD: "${SECRET_VOLSYNC_RESTIC_PWD}"
+  AWS_ACCESS_KEY_ID: "${SECRET_VOLSYNC_ACCESS_KEYS}"
+  AWS_SECRET_ACCESS_KEY: "${SECRET_VOLSYNC_SECRET_KEYS}"
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: creative-volsync
+  namespace: minecraft
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: raw
+      version: v0.3.2
+      sourceRef:
+        kind: HelmRepository
+        name: dysnix-charts
+        namespace: flux-system
+  targetNamespace: volsync
+  install:
+    createNamespace: true
+    recreativetion:
+      retries: 5
+  upgrade:
+    recreativetion:
+      retries: 5
+  dependsOn:
+    - name: volsync
+      namespace: volsync
+    - name: creative
+      namespace: minecraft
+  values:
+    resources:
+      - apiVersion: volsync.backube/v1alpha1
+        kind: ReplicationSource
+        metadata:
+          name: creative
+          namespace: minecraft
+        spec:
+          sourcePVC: creative-backup
+          trigger:
+            schedule: "04 01 * * *"
+          restic:
+            copyMethod: Snapshot
+            pruneIntervalDays: 7
+            repository: creative-volsync-secret
+            moverSecurityContext:
+              runAsUser: 1000
+              runAsGroup: 1000
+              fsGroup: 1000
+            retain:
+              daily: 7
+              within: 3d
