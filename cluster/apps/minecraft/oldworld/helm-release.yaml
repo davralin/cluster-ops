@@ -62,7 +62,7 @@ spec:
       memory: 2G
       motd: "A retro Minecraft server"
       overrideServerProperties: true
-      downloadWorldUrl: "/oldworlds/survivalisland/SurvivalIslandv1-1"
+      downloadWorldUrl: "/oldworlds/18world"
       rcon:
         enabled: true
     resources:
@@ -74,7 +74,7 @@ spec:
       ENFORCE_WHITELIST: "TRUE"
       REMOVE_OLD_MODS: "TRUE"
     serviceAnnotations:
-      mc-router.itzg.me/externalServerName: "survivalisland.${SECRET_DEFAULT_DOMAIN}"
+      mc-router.itzg.me/externalServerName: "18world.${SECRET_DEFAULT_DOMAIN}"
       reloader.stakater.com/auto: "true"
     persistence:
       dataDir:
