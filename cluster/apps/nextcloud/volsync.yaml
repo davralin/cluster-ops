@@ -48,6 +48,8 @@ spec:
           namespace: nextcloud
         spec:
           sourcePVC: nextcloud
+          storageClassName: "${STORAGE_READWRITEONCE}"
+          accessModes: "ReadWriteOnce"
           trigger:
             schedule: "04 01 * * *"
           restic:
