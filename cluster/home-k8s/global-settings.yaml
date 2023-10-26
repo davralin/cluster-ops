@@ -11,7 +11,6 @@ data:
   HAPROXY_WHITELIST: "10.0.0.0/8"
   STORAGE_READWRITEONCE: "ceph-block"
   STORAGE_READWRITEMANY: "ceph-filesystem"
-  STORAGE_TEMP: "local-path"
   MONITORING_PROMETHEUS: "True"
   VELERO_S3_REGION: "north-europe-1"
   S3_URL: "http://10.0.1.78:9000"
