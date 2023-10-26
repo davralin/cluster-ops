@@ -53,7 +53,7 @@ spec:
           restic:
             copyMethod: Direct
             cacheStorageClassName: "${STORAGE_TEMP}"
-            cacheAccessModes: "ReadWriteOnce"
+            cacheAccessModes: ["ReadWriteOnce"]
             pruneIntervalDays: 7
             repository: nextcloud-volsync-secret
             moverSecurityContext:
