@@ -48,12 +48,12 @@ spec:
           namespace: nextcloud
         spec:
           sourcePVC: nextcloud
-          storageClassName: "${STORAGE_TEMP}"
-          accessModes: "ReadWriteOnce"
           trigger:
             schedule: "04 01 * * *"
           restic:
             copyMethod: Direct
+            cacheStorageClassName: "${STORAGE_TEMP}"
+            cacheAccessModes: "ReadWriteOnce"
             pruneIntervalDays: 7
             repository: nextcloud-volsync-secret
             moverSecurityContext:
