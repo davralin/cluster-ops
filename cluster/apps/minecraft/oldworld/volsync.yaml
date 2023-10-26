@@ -47,7 +47,7 @@ spec:
           name: oldworld
           namespace: minecraft
         spec:
-          sourcePVC: old-worlds
+          sourcePVC: oldworlds
           trigger:
             schedule: "04 01 * * *"
           restic:

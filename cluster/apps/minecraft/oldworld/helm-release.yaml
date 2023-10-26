@@ -33,25 +33,19 @@ spec:
       name: minecraft-secrets
       valuesKey: ops
   values:
-    replicaCount: 1
+    replicaCount: 0
     extraVolumes:
       - volumeMounts:
           - name: fabric-mods
             mountPath: /mods
             readOnly: false
-          - name: old-worlds
+          - name: oldworld
             mountPath: /oldworlds
             readOnly: true
-          - name: oldworld
-            mountPath: /NEWoldworlds
-            readOnly: false
       - volumes:
          - name: fabric-mods
            persistentVolumeClaim:
              claimName: fabric-mods
-         - name: old-worlds
-           persistentVolumeClaim:
-             claimName: old-worlds
          - name: oldworld
            persistentVolumeClaim:
              claimName: oldworld

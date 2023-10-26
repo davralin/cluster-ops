@@ -11,16 +11,3 @@ spec:
   resources:
     requests:
       storage: 1Gi
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: old-worlds
-  namespace: minecraft
-spec:
-  storageClassName: "${STORAGE_READWRITEMANY}"
-  accessModes:
-    - ReadWriteMany
-  resources:
-    requests:
-      storage: 1200Mi
