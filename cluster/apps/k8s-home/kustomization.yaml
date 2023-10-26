@@ -22,6 +22,7 @@ resources:
   - ../kuma
   - ../libreddit
   - ../librespeed
+  - ../local-path-provisioner
   - ../mailrelay
   - ../media
   - ../metallb

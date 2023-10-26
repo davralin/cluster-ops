@@ -1,0 +1,29 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: local-path-provisioner
+  namespace: local-path-provisioner
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: local-path-provisioner
+      version: 0.0.25-dev
+      sourceRef:
+        kind: HelmRepository
+        name: dysnix-charts
+        namespace: flux-system
+      interval: 5m
+  targetNamespace: local-path-provisioner
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  values:
+    fullnameOverride: local-path-provisioner
+    storageClass:
+      defaultClass: false

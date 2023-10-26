@@ -12,7 +12,7 @@ resources:
   - ../it-tools
   - ../kubed
   - ../kuma
-  - ../local-path-provisioner
+  - ../local-path-storage
   - ../librespeed
   - ../metrics-server
   - ../reloader
