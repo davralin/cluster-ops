@@ -12,6 +12,4 @@ data:
   STORAGE_READWRITEONCE: "local-path"
   STORAGE_READWRITEMANY: "local-path"
   MONITORING_PROMETHEUS: "True"
-  VELERO_S3_REGION: "eu-stockholm-1"
   S3_URL: "https://axrgc2ikvehk.compat.objectstorage.eu-stockholm-1.oraclecloud.com"
-  VELERO_S3_PUBLIC_URL: "https://axrgc2ikvehk.compat.objectstorage.eu-stockholm-1.oraclecloud.com"
