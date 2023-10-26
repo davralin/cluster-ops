@@ -11,3 +11,4 @@ resources:
   - onsite-sync.yaml
   - pvc.yaml
   - secret.yaml
+  - volsync.yaml
