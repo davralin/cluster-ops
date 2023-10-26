@@ -4,7 +4,7 @@ kind: Kustomization
 resources:
   - creative
   - mc-router
-  #- oldworld
+  - oldworld
   - survival
   - backup-ssh-key.yaml
   - namespace.yaml
@@ -12,4 +12,3 @@ resources:
   - onsite-sync.yaml
   - pvc.yaml
   - secret.yaml
-  - volsync.yaml

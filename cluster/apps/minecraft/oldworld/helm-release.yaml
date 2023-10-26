@@ -33,6 +33,7 @@ spec:
       name: minecraft-secrets
       valuesKey: ops
   values:
+    replicaCount: 1
     extraVolumes:
       - volumeMounts:
           - name: fabric-mods
