@@ -42,6 +42,9 @@ spec:
           - name: old-worlds
             mountPath: /oldworlds
             readOnly: true
+          - name: oldworld
+            mountPath: /NEWoldworlds
+            readOnly: false
       - volumes:
          - name: fabric-mods
            persistentVolumeClaim:
@@ -49,6 +52,9 @@ spec:
          - name: old-worlds
            persistentVolumeClaim:
              claimName: old-worlds
+         - name: oldworld
+           persistentVolumeClaim:
+             claimName: oldworld
     minecraftServer:
       tz: "${TIMEZONE}"
       eula: true
@@ -58,7 +64,7 @@ spec:
       maxPlayers: 10
       levelSeed: 421112feedmekittens
       maxTickTime: -1
-      mode: oldworld
+      mode: creative
       memory: 2G
       motd: "A retro Minecraft server"
       overrideServerProperties: true
