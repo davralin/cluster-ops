@@ -30,7 +30,7 @@ spec:
                   name: survival-backup
                   readOnly: true
                 - mountPath: /minecraft/old_worlds
-                  name: old-worlds
+                  name: oldworlds
                   readOnly: true
                 - mountPath: /root/.ssh/id_ed25519
                   name: sshkey
