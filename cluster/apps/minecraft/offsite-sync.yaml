@@ -30,7 +30,7 @@ spec:
                   name: survival-backup
                   readOnly: true
                 - mountPath: /minecraft/old_worlds
-                  name: oldworlds
+                  name: oldworld
                   readOnly: true
                 - mountPath: /root/.ssh/id_ed25519
                   name: sshkey
@@ -43,9 +43,9 @@ spec:
             - name: fabric-mods
               persistentVolumeClaim:
                 claimName: fabric-mods
-            - name: oldworlds
+            - name: oldworld
               persistentVolumeClaim:
-                claimName: oldworlds
+                claimName: oldworld
             - name: survival-backup
               persistentVolumeClaim:
                 claimName: survival-backup
