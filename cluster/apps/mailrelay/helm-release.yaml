@@ -47,8 +47,6 @@ spec:
     controllers:
       main:
         type: daemonset
-        annotations:
-          backup.velero.io/backup-volumes: config
         containers:
           main:
             image:
