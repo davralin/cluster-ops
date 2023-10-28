@@ -59,8 +59,8 @@ spec:
               tag: 1.17.4
             env:
               PAPERLESS_TIME_ZONE: "${TIMEZONE}"
-              PAPERLESS_OCR_LANGUAGE: "nor+eng"
-              PAPERLESS_OCR_LANGUAGES: "nor"
+              #PAPERLESS_OCR_LANGUAGE: "nor+eng"
+              #PAPERLESS_OCR_LANGUAGES: "nor"
               PAPERLESS_REDIS: "redis://redis-master"
               PAPERLESS_FILENAME_FORMAT: "{created_year}/{correspondent}/{created_month}_{title}"
               PAPERLESS_URL: "https://paperless-ngx.${SECRET_DEFAULT_DOMAIN}"
