@@ -1,0 +1,33 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: snapshot-controller
+  namespace: snapshot-controller
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: snapshot-controller
+      version: 2.0.0
+      sourceRef:
+        kind: HelmRepository
+        name: piraeus-charts
+        namespace: flux-system
+      interval: 5m
+  targetNamespace: snapshot-controller
+  install:
+    crds: CreateReplace
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    crds: CreateReplace
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    volumeSnapshotClasses: []
+    serviceMonitor:
+      create: "${MONITORING_PROMETHEUS}"
