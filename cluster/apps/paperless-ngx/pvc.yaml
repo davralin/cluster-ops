@@ -37,3 +37,16 @@ spec:
   resources:
     requests:
       storage: 512Mi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: paperless-ngx-export
+  namespace: paperless-ngx
+spec:
+  storageClassName: "${STORAGE_READWRITEMANY}"
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 2Gi

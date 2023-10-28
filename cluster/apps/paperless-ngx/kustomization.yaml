@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - backup-ssh-key.yaml
   - daily-to-consume.yaml
+  - helm-release-exporter.yaml
   - helm-release-redis.yaml
   - helm-release.yaml
   - namespace.yaml
