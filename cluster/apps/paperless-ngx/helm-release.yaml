@@ -50,7 +50,6 @@ spec:
         #fsGroupChangePolicy: "OnRootMismatch"
     controllers:
       main:
-        replicas: 0
         containers:
           main:
             image:

@@ -47,7 +47,7 @@ spec:
           name: paperless-ngx
           namespace: paperless-ngx
         spec:
-          sourcePVC: paperless-ngx-media
+          sourcePVC: paperless-ngx-export
           trigger:
             schedule: "04 01 * * *"
           restic:
