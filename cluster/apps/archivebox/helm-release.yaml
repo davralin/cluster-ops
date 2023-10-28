@@ -74,7 +74,4 @@ spec:
     persistence:
       data:
         enabled: true
-        existingClaim: archivebox-temp
-      data2:
-        enabled: true
         existingClaim: archivebox

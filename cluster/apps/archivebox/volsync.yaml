@@ -51,7 +51,9 @@ spec:
           trigger:
             schedule: "04 01 * * *"
           restic:
-            copyMethod: Snapshot
+            copyMethod: Direct
+            cacheStorageClassName: "${STORAGE_READWRITEONCE}"
+            cacheAccessModes: ["ReadWriteOnce"]
             pruneIntervalDays: 7
             repository: archivebox-volsync-secret
             moverSecurityContext:
