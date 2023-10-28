@@ -56,7 +56,7 @@ spec:
         containers:
           main:
             command: ["/usr/local/bin/document_exporter"]
-            args: ["--compare-checksums --delete --use-filename-format --skip-checks --verbosity 3 /export/backup"]
+            args: ["--compare-checksums", "--delete", "--use-filename-format", "--skip-checks", "--verbosity", "3", "/export/backup"]
             image:
               repository: ghcr.io/paperless-ngx/paperless-ngx
               tag: 1.17.4
