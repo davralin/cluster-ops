@@ -62,20 +62,12 @@ spec:
               tag: 1.17.4
             env:
               PAPERLESS_TIME_ZONE: "${TIMEZONE}"
-              PAPERLESS_OCR_LANGUAGE: "nor+eng"
-              PAPERLESS_OCR_LANGUAGES: "nor"
               PAPERLESS_REDIS: "redis://redis-master"
               PAPERLESS_FILENAME_FORMAT: "{created_year}/{correspondent}/{created_month}_{title}"
               PAPERLESS_URL: "https://paperless-ngx.${SECRET_DEFAULT_DOMAIN}"
               PAPERLESS_DBHOST: "postgres-v16-rw.cloudnative-pg.svc.cluster.local"
               PAPERLESS_DBNAME: "paperless-ngx"
               PAPERLESS_DBUSER: "paperless-ngx"
-              PAPERLESS_TIKA_ENABLED: "1"
-              PAPERLESS_TIKA_ENDPOINT: "http://localhost:9998"
-              PAPERLESS_TIKA_GOTENBERG_ENDPOINT: "http://localhost:3000"
-              PAPERLESS_CONSUMER_POLLING: 3600
-              PAPERLESS_CONSUMER_RECURSIVE: true
-              PAPERLESS_CONSUMPTION_DIR: /usr/src/paperless/consume
             resources:
               requests:
                 cpu: 100m
@@ -94,11 +86,6 @@ spec:
         existingClaim: paperless-ngx-data
         globalMounts:
           - path: /usr/src/paperless/data
-      consume:
-        enabled: true
-        existingClaim: paperless-ngx-consume
-        globalMounts:
-          - path: /usr/src/paperless/consume
       media:
         enabled: true
         existingClaim: paperless-ngx-media
