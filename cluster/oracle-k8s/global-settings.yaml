@@ -11,5 +11,7 @@ data:
   HAPROXY_WHITELIST: "0.0.0.0/0"
   STORAGE_READWRITEONCE: "local-path"
   STORAGE_READWRITEMANY: "local-path"
+  VOLSYNC_READWRITEONCE: "Direct"
+  VOLSYNC_READWRITEMANY: "Direct"
   MONITORING_PROMETHEUS: "True"
   S3_URL: "https://axrgc2ikvehk.compat.objectstorage.eu-stockholm-1.oraclecloud.com"

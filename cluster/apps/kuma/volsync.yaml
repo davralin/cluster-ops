@@ -51,7 +51,7 @@ spec:
           trigger:
             schedule: "04 01 * * *"
           restic:
-            copyMethod: Snapshot
+            copyMethod: "${VOLSYNC_READWRITEMANY}"
             pruneIntervalDays: 7
             repository: kuma-volsync-secret
             moverSecurityContext:
