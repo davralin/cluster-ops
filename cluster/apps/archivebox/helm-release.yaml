@@ -75,3 +75,6 @@ spec:
       data:
         enabled: true
         existingClaim: archivebox
+      data2:
+        enabled: true
+        existingClaim: archivebox-temp
