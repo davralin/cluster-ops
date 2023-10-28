@@ -26,4 +26,3 @@ resources:
   - renovate.yaml
   - rook-ceph.yaml
   - stakater.yaml
-  - velero.yaml

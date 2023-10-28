@@ -144,10 +144,6 @@ spec:
           gnetId: 11314
           revision: 10
           datasource: Prometheus
-        # Ref: https://grafana.com/grafana/dashboards/15469
-        velero:
-          gnetId: 15469
-          revision: 1
         # Ref: https://grafana.com/grafana/dashboards/17251
         #wireguard:
           #gnetId: 17251

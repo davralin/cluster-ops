@@ -38,6 +38,5 @@ resources:
   - ../tailscale
   - ../tubearchivist
   - ../unifi
-  - ../velero
   - ../volsync
   - ../warrior
