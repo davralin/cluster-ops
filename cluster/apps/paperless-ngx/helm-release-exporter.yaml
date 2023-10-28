@@ -86,6 +86,11 @@ spec:
         existingClaim: paperless-ngx-data
         globalMounts:
           - path: /usr/src/paperless/data
+      consume:
+        enabled: true
+        existingClaim: paperless-ngx-consume
+        globalMounts:
+          - path: /usr/src/paperless/consume
       media:
         enabled: true
         existingClaim: paperless-ngx-media
