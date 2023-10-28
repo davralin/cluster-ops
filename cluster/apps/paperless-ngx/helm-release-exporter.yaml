@@ -52,13 +52,11 @@ spec:
       main:
         type: cronjob
         cronjob:
-          schedule: "05 * * * *"
+          schedule: "05 22 * * *"
         containers:
           main:
-            command: ["sleep"]
-            #command: ["/usr/local/bin/document_exporter"]
-            args: ["infinity"]
-            #args: ["--compare-checksums --delete --use-filename-format --skip-checks --verbosity 3 /export/backup"]
+            command: ["/usr/local/bin/document_exporter"]
+            args: ["--compare-checksums --delete --use-filename-format --skip-checks --verbosity 3 /export/backup"]
             image:
               repository: ghcr.io/paperless-ngx/paperless-ngx
               tag: 1.17.4
