@@ -28,6 +28,11 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    volumeSnapshotClasses: []
+    volumeSnapshotClasses:
+      - name: dummy
+        driver: rancher.io/local-path
+        annotations:
+          snapshot.storage.kubernetes.io/is-default-class: "true"
+        deletionPolicy: Delete
     serviceMonitor:
       create: "${MONITORING_PROMETHEUS}"
