@@ -34,7 +34,6 @@ spec:
     controllers:
       main:
         annotations:
-          backup.velero.io/backup-volumes: media
           reloader.stakater.com/auto: "true"
         containers:
           main:

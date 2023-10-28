@@ -1,0 +1,65 @@
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: backupbrowser-volsync-secret
+  namespace: jobs
+type: Opaque
+stringData:
+  RESTIC_REPOSITORY: "s3:${S3_URL}/volsync-${CLUSTER_NAME}/backupbrowser"
+  RESTIC_PASSWORD: "${SECRET_VOLSYNC_RESTIC_PWD}"
+  AWS_ACCESS_KEY_ID: "${SECRET_VOLSYNC_ACCESS_KEYS}"
+  AWS_SECRET_ACCESS_KEY: "${SECRET_VOLSYNC_SECRET_KEYS}"
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: backupbrowser-volsync
+  namespace: jobs
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: raw
+      version: v0.3.2
+      sourceRef:
+        kind: HelmRepository
+        name: dysnix-charts
+        namespace: flux-system
+  targetNamespace: jobs
+  install:
+    createNamespace: true
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
+  dependsOn:
+    - name: volsync
+      namespace: volsync
+    - name: backupbrowser
+      namespace: jobs
+  values:
+    resources:
+      - apiVersion: volsync.backube/v1alpha1
+        kind: ReplicationSource
+        metadata:
+          name: backupbrowser
+          namespace: jobs
+        spec:
+          sourcePVC: remotebackup
+          trigger:
+            schedule: "04 01 * * *"
+          restic:
+            copyMethod: Direct
+            cacheStorageClassName: "${STORAGE_READWRITEONCE}"
+            cacheAccessModes: ["ReadWriteOnce"]
+            pruneIntervalDays: 7
+            repository: backupbrowser-volsync-secret
+            moverSecurityContext:
+              runAsUser: 1000
+              runAsGroup: 1000
+              fsGroup: 1000
+            retain:
+              daily: 7
+              within: 3d

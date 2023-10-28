@@ -7,3 +7,4 @@ resources:
   - namespace.yaml
   - pvc.yaml
   - secrets.yaml
+  - volsync.yaml

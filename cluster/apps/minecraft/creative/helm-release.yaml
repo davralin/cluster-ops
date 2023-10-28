@@ -68,7 +68,6 @@ spec:
     serviceAnnotations:
       mc-router.itzg.me/externalServerName: "creative.${SECRET_DEFAULT_DOMAIN}"
     podAnnotations:
-      backup.velero.io/backup-volumes: backupdir,datadir
       reloader.stakater.com/auto: "true"
     persistence:
       dataDir:
