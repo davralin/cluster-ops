@@ -7,7 +7,7 @@ metadata:
 spec:
   storageClassName: "${STORAGE_READWRITEMANY}"
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteOnce #ReadWriteMany
   resources:
     requests:
       storage: 4Gi
