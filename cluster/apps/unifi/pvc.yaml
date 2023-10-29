@@ -11,3 +11,16 @@ spec:
   resources:
     requests:
       storage: 5Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: unifi-temp
+  namespace: unifi
+spec:
+  storageClassName: "${STORAGE_READWRITEMANY}"
+  accessModes:
+    - ReadWriteOnce #ReadWriteMany
+  resources:
+    requests:
+      storage: 5Gi

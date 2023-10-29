@@ -113,3 +113,6 @@ spec:
       unifi:
         enabled: true
         existingClaim: unifi
+      unifi2:
+        enabled: true
+        existingClaim: unifi-temp

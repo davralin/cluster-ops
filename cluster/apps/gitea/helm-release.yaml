@@ -116,3 +116,8 @@ spec:
         existingClaim: gitea
         globalMounts:
           - path: /var/lib/gitea
+      config2:
+        enabled: true
+        existingClaim: gitea-temp
+        globalMounts:
+          - path: /var/lib/gitea2
