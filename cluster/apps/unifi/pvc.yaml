@@ -5,9 +5,9 @@ metadata:
   name: unifi
   namespace: unifi
 spec:
-  storageClassName: "${STORAGE_READWRITEMANY}"
+  storageClassName: "${STORAGE_READWRITEMANY}" #"${STORAGE_READWRITEONCE}"
   accessModes:
-    - ReadWriteOnce #ReadWriteMany
+    - ReadWriteOnce
   resources:
     requests:
       storage: 5Gi
