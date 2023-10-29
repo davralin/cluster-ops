@@ -25,22 +25,22 @@ spec:
       retries: 3
   values:
     fullnameOverride: *name
-    #defaultPodOptions:
-      #securityContext:
-        #runAsUser: 999
-        #runAsGroup: 999
-        #fsGroup: 999
-        #fsGroupChangePolicy: "OnRootMismatch"
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 999
+        runAsGroup: 999
+        fsGroup: 999
+        fsGroupChangePolicy: "OnRootMismatch"
     controllers:
       main:
         containers:
           main:
             image:
-              repository: davralin/sleep
-              tag: latest
+              repository: jacobalberty/unifi
+              tag: v7.5.176
             env:
               TZ: "${TIMEZONE}"
-              RUNAS_UID0: "false"
+              RUNAS_UID0: "true"
               UNIFI_UID: "999"
               UNIFI_GID: "999"
               UNIFI_STDOUT: "true"
@@ -111,8 +111,5 @@ spec:
           - secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
     persistence:
       unifi:
-        enabled: true
-        existingClaim: unifi-temp
-      unifi2:
         enabled: true
         existingClaim: unifi
