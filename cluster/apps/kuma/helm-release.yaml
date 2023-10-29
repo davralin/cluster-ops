@@ -73,11 +73,11 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: kuma
+        existingClaim: kuma-temp
         globalMounts:
           - path: /app/data
       config2:
         enabled: true
-        existingClaim: kuma-temp
+        existingClaim: kuma
         globalMounts:
           - path: /app/data2
