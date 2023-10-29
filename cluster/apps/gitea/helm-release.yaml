@@ -113,11 +113,6 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: gitea-temp
-        globalMounts:
-          - path: /var/lib/gitea
-      config2:
-        enabled: true
         existingClaim: gitea
         globalMounts:
-          - path: /var/lib/gitea2
+          - path: /var/lib/gitea

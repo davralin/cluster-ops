@@ -11,16 +11,3 @@ spec:
   resources:
     requests:
       storage: 4Gi
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: gitea-temp
-  namespace: gitea
-spec:
-  storageClassName: "${STORAGE_READWRITEMANY}"
-  accessModes:
-    - ReadWriteOnce #ReadWriteMany
-  resources:
-    requests:
-      storage: 5Gi
