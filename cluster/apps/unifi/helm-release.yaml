@@ -40,7 +40,7 @@ spec:
               tag: v7.5.176
             env:
               TZ: "${TIMEZONE}"
-              RUNAS_UID0: "true"
+              RUNAS_UID0: "false"
               UNIFI_UID: "999"
               UNIFI_GID: "999"
               UNIFI_STDOUT: "true"
@@ -112,7 +112,7 @@ spec:
     persistence:
       unifi:
         enabled: true
-        existingClaim: unifi
+        existingClaim: unifi-temp
       unifi2:
         enabled: true
-        existingClaim: unifi-temp
+        existingClaim: unifi
