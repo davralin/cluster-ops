@@ -41,7 +41,10 @@ spec:
             readOnly: false
           - name: oldworld
             mountPath: /oldworlds
-            readOnly: true
+            readOnly: false
+          - name: oldworld-temp
+            mountPath: /oldworlds2
+            readOnly: false
       - volumes:
          - name: fabric-mods
            persistentVolumeClaim:
@@ -49,6 +52,9 @@ spec:
          - name: oldworld
            persistentVolumeClaim:
              claimName: oldworld
+         - name: oldworld-temp
+           persistentVolumeClaim:
+             claimName: oldworld-temp
     minecraftServer:
       tz: "${TIMEZONE}"
       eula: true
