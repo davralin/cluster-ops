@@ -5,12 +5,12 @@ metadata:
   name: gitea
   namespace: gitea
 spec:
-  storageClassName: "${STORAGE_READWRITEMANY}" #"${STORAGE_READWRITEONCE}"
+  storageClassName: "${STORAGE_READWRITEONCE}"
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 5Gi
+      storage: 4Gi
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim

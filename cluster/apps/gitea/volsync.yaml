@@ -51,9 +51,7 @@ spec:
           trigger:
             schedule: "04 01 * * *"
           restic:
-            copyMethod: Direct
-            cacheStorageClassName: "${STORAGE_READWRITEONCE}"
-            cacheAccessModes: ["ReadWriteOnce"]
+            copyMethod: Snapshot
             pruneIntervalDays: 7
             repository: gitea-volsync-secret
             moverSecurityContext:
