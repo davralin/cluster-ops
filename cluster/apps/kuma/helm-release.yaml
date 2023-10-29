@@ -76,3 +76,8 @@ spec:
         existingClaim: kuma
         globalMounts:
           - path: /app/data
+      config2:
+        enabled: true
+        existingClaim: kuma-temp
+        globalMounts:
+          - path: /app/temp
