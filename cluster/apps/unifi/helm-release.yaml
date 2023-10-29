@@ -40,7 +40,7 @@ spec:
               tag: v7.5.176
             env:
               TZ: "${TIMEZONE}"
-              RUNAS_UID0: "false"
+              RUNAS_UID0: "true"
               UNIFI_UID: "999"
               UNIFI_GID: "999"
               UNIFI_STDOUT: "true"
