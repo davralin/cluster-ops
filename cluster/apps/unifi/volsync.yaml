@@ -51,8 +51,7 @@ spec:
           trigger:
             schedule: "04 01 * * *"
           restic:
-            copyMethod: Snapshot #Direct
-            #copyMethod: Direct
+            copyMethod: Direct
             cacheStorageClassName: "${STORAGE_READWRITEONCE}"
             cacheAccessModes: ["ReadWriteOnce"]
             pruneIntervalDays: 7
