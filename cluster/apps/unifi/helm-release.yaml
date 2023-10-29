@@ -25,19 +25,19 @@ spec:
       retries: 3
   values:
     fullnameOverride: *name
-    defaultPodOptions:
-      securityContext:
-        runAsUser: 999
-        runAsGroup: 999
-        fsGroup: 999
-        fsGroupChangePolicy: "OnRootMismatch"
+    #defaultPodOptions:
+      #securityContext:
+        #runAsUser: 999
+        #runAsGroup: 999
+        #fsGroup: 999
+        #fsGroupChangePolicy: "OnRootMismatch"
     controllers:
       main:
         containers:
           main:
             image:
-              repository: jacobalberty/unifi
-              tag: v7.5.176
+              repository: davralin/sleep
+              tag: latest
             env:
               TZ: "${TIMEZONE}"
               RUNAS_UID0: "false"
