@@ -33,17 +33,16 @@ spec:
       name: minecraft-secrets
       valuesKey: ops
   values:
-    replicaCount: 0
     extraVolumes:
       - volumeMounts:
           - name: fabric-mods
             mountPath: /mods
             readOnly: false
           - name: oldworld
-            mountPath: /oldworlds
+            mountPath: /oldworlds2
             readOnly: false
           - name: oldworld-temp
-            mountPath: /oldworlds2
+            mountPath: /oldworlds
             readOnly: false
       - volumes:
          - name: fabric-mods
