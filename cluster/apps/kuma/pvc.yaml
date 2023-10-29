@@ -5,7 +5,7 @@ metadata:
   name: kuma
   namespace: kuma
 spec:
-  storageClassName: "${STORAGE_READWRITEMANY}"
+  storageClassName: "${STORAGE_READWRITEONCE}"
   accessModes:
     - ReadWriteOnce
   resources:
@@ -18,9 +18,9 @@ metadata:
   name: kuma-temp
   namespace: kuma
 spec:
-  storageClassName: "${STORAGE_READWRITEMANY}"
+  storageClassName: "${STORAGE_READWRITEONCE}"
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   resources:
     requests:
       storage: 4Gi
