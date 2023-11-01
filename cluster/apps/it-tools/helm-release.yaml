@@ -38,7 +38,7 @@ spec:
           main:
             image:
               repository: ghcr.io/corentinth/it-tools
-              tag: latest@sha256:fd8f07e43e4fa8934cd6675aff21d33b4aaaafb3177cd861723178898bd6d9e6
+              tag: latest@sha256:1945b434e302c4e333fdde4e324701981fbdad2754f445ca4082d911bf2ae860
             env:
               TZ: "${TIMEZONE}"
             resources:
