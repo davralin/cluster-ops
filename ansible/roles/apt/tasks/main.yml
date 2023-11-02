@@ -1,0 +1,45 @@
+---
+- name: sources.list
+  template:
+    src: sources.list.j2
+    dest: /etc/apt/sources.list
+    group: root
+    owner: root
+    mode: 0644
+  become: yes
+  notify:
+    - apt update
+
+- name: apt.conf
+  template:
+    src: apt.conf.j2
+    dest: /etc/apt/apt.conf
+    group: root
+    owner: root
+    mode: 0644
+  become: yes
+  notify:
+    - apt update
+
+- name: Flush handlers
+  meta: flush_handlers
+
+- name: Installing update-packages
+  apt:
+    name: "{{ apt_update_packages }}"
+    state: present
+  become: yes
+
+- name: Installing common packages
+  apt:
+    name: "{{ apt_packages }}"
+    state: present
+  become: yes
+  when: apt_packages is defined
+
+- name: Installing custom packages
+  apt:
+    name: "{{ apt_custom_packages }}"
+    state: present
+  become: yes
+  when: apt_custom_packages is defined

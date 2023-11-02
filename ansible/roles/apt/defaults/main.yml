@@ -1,0 +1,19 @@
+---
+apt_http_proxy: "DIRECT"
+apt_https_proxy: "DIRECT"
+apt_install_recommends: "false"
+apt_periodic_autocleaninterval: 7
+apt_periodic_unattended_upgrade: 1
+apt_periodic_update_package_lists: 1
+apt_recommends_important: "false"
+apt_repo_mirror: "http://ftp.no.debian.org/debian/"
+apt_repo_releasename: "{{ ansible_distribution_release }}"
+apt_repo_security_mirror: "http://security.debian.org/debian-security"
+apt_sandbox_seccomp: "true"
+apt_suggests_important: "false"
+apt_unattended_upgrade_automaticreboot: "true"
+apt_unattended_upgrade_mail: "root"
+apt_unattended_upgrade_mailonlyonerror: "true"
+apt_unattended_upgrade_minimalsteps: "true"
+apt_update_packages:
+  - unattended-upgrades

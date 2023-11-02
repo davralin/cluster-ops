@@ -1,0 +1,23 @@
+# main repo for {{ apt_repo_releasename }}
+deb {{ apt_repo_mirror }} {{ apt_repo_releasename }} main non-free-firmware
+
+# updates repo for {{ apt_repo_releasename }}
+deb {{ apt_repo_mirror }} {{ apt_repo_releasename }}-updates main non-free-firmware
+
+# security repo for {{ apt_repo_releasename }}
+deb {{ apt_repo_security_mirror }} {{ apt_repo_releasename }}-security main non-free-firmware
+
+{% if apt_repo_contrib is defined %}
+{% if apt_repo_contrib == True %}
+# contrib-repo for {{ apt_repo_releasename }}
+deb {{ apt_repo_mirror }} {{ apt_repo_releasename }} contrib
+{% endif %}
+{% endif %}
+
+{% if apt_repo_nonfree is defined %}
+{% if apt_repo_nonfree == True %}
+# nonfree-repo for {{ apt_repo_releasename }}
+deb {{ apt_repo_mirror }} {{ apt_repo_releasename }} non-free
+{% endif %}
+{% endif %}
+

@@ -1,0 +1,27 @@
+APT::Periodic::Update-Package-Lists "{{ apt_periodic_update_package_lists }}";
+APT::Periodic::Unattended-Upgrade "{{ apt_periodic_unattended_upgrade }}";
+Unattended-Upgrade::Origins-Pattern {
+      "o={{ apt_repo_releasename }},n=${distro_codename}";
+      "o={{ apt_repo_releasename }},n=${distro_codename}-updates";
+      "origin=Debian,archive=stable-updates";
+      "origin=Tailscale";
+};
+Unattended-Upgrade::Package-Blacklist {
+};
+Unattended-Upgrade::MinimalSteps "{{ apt_unattended_upgrade_minimalsteps }}";
+Unattended-Upgrade::Mail "{{ apt_unattended_upgrade_mail }}";
+Unattended-Upgrade::MailOnlyOnError "{{ apt_unattended_upgrade_mailonlyonerror }}";
+Unattended-Upgrade::Automatic-Reboot "{{ apt_unattended_upgrade_automaticreboot }}";
+{% if apt_dpkg_pre_install_command is defined %}
+DPkg::Pre-Install-Pkgs {"{{ apt_dpkg_pre_install_command }}";};
+{% endif %}
+{% if apt_dpkg_post_invoke is defined %}
+DPkg::Post-Invoke {"{{ apt_dpkg_post_invoke }}";};
+{% endif %}
+APT::Sandbox::Seccomp "{{ apt_sandbox_seccomp }}";
+APT::Install-Recommends "{{ apt_install_recommends }}";
+APT::AutoRemove::RecommendsImportant "{{ apt_recommends_important }}";
+APT::AutoRemove::SuggestsImportant "{{ apt_suggests_important }}";
+APT::Periodic::AutocleanInterval "{{ apt_periodic_autocleaninterval }}";
+Acquire::http::proxy "{{ apt_http_proxy }}";
+Acquire::https::proxy "{{ apt_https_proxy }}";
