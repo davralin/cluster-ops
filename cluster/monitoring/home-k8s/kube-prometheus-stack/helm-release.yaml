@@ -128,6 +128,7 @@ spec:
                   - tubearchivist.w.ot:9100
                   - nas.${SECRET_OFFSITE_DOMAIN}:9100
                   - relay.${SECRET_INTERNAL_DOMAIN}:9100
+                  - relay.${SECRET_INTERNAL_DOMAIN}:9035
                   - proxmox.${SECRET_PRIVATE_DOMAIN}:9100
         serviceMonitorSelectorNilUsesHelmValues: false
         podMonitorSelectorNilUsesHelmValues: false
