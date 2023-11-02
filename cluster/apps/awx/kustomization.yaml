@@ -6,4 +6,4 @@ resources:
   - helm-release.yaml
   - namespace.yaml
   - pvc.yaml
-  - secrets.yaml
+  #- secrets.yaml
