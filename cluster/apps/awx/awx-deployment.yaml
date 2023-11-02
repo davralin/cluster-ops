@@ -1,0 +1,18 @@
+---
+apiVersion: awx.ansible.com/v1beta1
+kind: AWX
+metadata:
+  name: awx
+  namespace: awx
+spec:
+  ingress_annotations: |
+    haproxy.org/whitelist: "${HAPROXY_WHITELIST}"
+    haproxy.org/response-set-header: |
+      Strict-Transport-Security "max-age=31536000"
+      X-Frame-Options "DENY"
+      X-Content-Type-Options "nosniff"
+      Referrer-Policy "no-referrer-when-downgrade"
+  postgres_configuration_secret: awx-secrets
+  ingress_type: ingress
+  ingress_tls_secret: "${SECRET_PRIVATE_DOMAIN_CERT}"
+  hostname: "awx.${SECRET_PRIVATE_DOMAIN}"

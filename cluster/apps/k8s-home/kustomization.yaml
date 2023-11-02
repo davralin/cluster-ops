@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - ../adguard
   - ../archivebox
+  - ../awx
   - ../botkube
   - ../cert-manager
   - ../changedetection
