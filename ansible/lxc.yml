@@ -1,5 +1,5 @@
 ---
-- hosts: lxc
+- hosts: LXC
 
   roles:
   - apt
