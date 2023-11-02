@@ -16,6 +16,7 @@ resources:
   - ../librespeed
   - ../metrics-server
   - ../reloader
+  - ../searxng
   - ../snowflake
   - ../tailscale
   - ../thelounge
