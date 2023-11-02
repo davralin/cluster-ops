@@ -37,8 +37,6 @@ spec:
   dependsOn:
     - name: volsync
       namespace: volsync
-    - name: oldworld
-      namespace: minecraft
   values:
     resources:
       - apiVersion: volsync.backube/v1alpha1
