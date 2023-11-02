@@ -1,0 +1,9 @@
+{% if item.sudoers is defined %}
+{% if item.sudoers == True %}
+{{ item.name }} ALL = (ALL) NOPASSWD: ALL
+{% else %}
+# Nothing defined
+{% endif %}
+{% else %}
+# Nothing defined
+{% endif %}

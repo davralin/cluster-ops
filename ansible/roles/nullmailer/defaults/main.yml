@@ -1,0 +1,6 @@
+---
+nullmailer_smarthost: "relay.example.com"
+nullmailer_domain: "example.com"
+nullmailer_adminaddr: "{{ ansible_hostname }}@{{ nullmailer_domain }}"
+nullmailer_defaultdomain: "{{ ansible_domain }}"
+nullmailer_remotes: "{{ nullmailer_smarthost }} smtp"

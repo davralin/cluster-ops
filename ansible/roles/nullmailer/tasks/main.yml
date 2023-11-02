@@ -1,0 +1,21 @@
+---
+- name: Installing relay-MTA (nullmailer)
+  apt:
+    name: "{{ packages }}"
+    state: present
+  become: yes
+  vars:
+    packages:
+      - nullmailer
+      - bsd-mailx
+
+- name: Configuring relay-MTA (nullmailer)
+  copy:
+    dest: '/etc/nullmailer/{{ item.dest }}'
+    content: '{{ item.content }}'
+  become: yes
+  loop:
+    - { dest: 'adminaddr', content: '{{ nullmailer_adminaddr|lower }}' }
+    - { dest: 'defaultdomain', content: '{{ nullmailer_defaultdomain|lower }}' }
+    - { dest: 'remotes', content: '{{ nullmailer_remotes|lower }}' }
+  notify: Restart nullmailer

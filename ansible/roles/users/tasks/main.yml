@@ -1,0 +1,42 @@
+---
+- name: Installing packages
+  apt:
+    name: "{{ users_packages }}"
+    state: present
+  become: yes
+
+- name: Manage user-accounts
+  user:
+    name: "{{ item.name }}"
+    comment: "{{ item.comment }}"
+    shell: "{{ item.shell | default('/bin/false') }}"
+    system: "{{ item.system | default('yes') }}"
+    createhome: "{{ item.createhome | default('no') }}"
+    password: "{{ item.password | default('*') }}"
+    groups: "{{ item.groups | default('') }}"
+    append: "{{ item.append | default('no') }}"
+    update_password: "{{ item.update_password | default('on_create') }}"
+  become: yes
+  with_items:
+    - "{{ local_users }}"
+
+- name: Enforce ssh-keys for managed user-accounts
+  authorized_key:
+    user: "{{ item.name }}"
+    exclusive: "{{ item.exclusive | default('yes') }}"
+    key: "{{ item.authorized_keys | default('') }}"
+  become: yes
+  with_items:
+    - "{{ local_users }}"
+
+- name: Enable unrestricted sudo
+  template:
+    src: sudoers.j2
+    dest: "/etc/sudoers.d/{{ item.name }}"
+    owner: root
+    group: root
+    mode: 0440
+    validate: /usr/sbin/visudo -cf  %s
+  become: yes
+  with_items:
+    - "{{ local_users }}"

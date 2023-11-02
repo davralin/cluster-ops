@@ -1,0 +1,9 @@
+---
+- name: Installing package
+  apt:
+    name: "{{ packages }}"
+    state: present
+  become: yes
+  vars:
+    packages:
+      - rsync
