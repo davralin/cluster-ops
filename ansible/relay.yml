@@ -1,0 +1,13 @@
+---
+- hosts: Relay
+
+  roles:
+  - apt
+  - apparmor
+    #  - profile
+    #  - hardening
+    #  - node_exporter
+  - nullmailer
+    #  - tailscale
+  - users
+    #  - tor
