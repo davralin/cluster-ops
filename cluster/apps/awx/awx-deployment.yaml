@@ -1,18 +1,46 @@
 ---
-apiVersion: awx.ansible.com/v1beta1
-kind: AWX
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
 metadata:
-  name: awx
+  name: awx-deployment
   namespace: awx
 spec:
-  ingress_annotations: |
-    haproxy.org/whitelist: "${HAPROXY_WHITELIST}"
-    haproxy.org/response-set-header: |
-      Strict-Transport-Security "max-age=31536000"
-      X-Frame-Options "DENY"
-      X-Content-Type-Options "nosniff"
-      Referrer-Policy "no-referrer-when-downgrade"
-  postgres_configuration_secret: awx-secrets
-  ingress_type: ingress
-  ingress_tls_secret: "${SECRET_PRIVATE_DOMAIN_CERT}"
-  hostname: "awx.${SECRET_PRIVATE_DOMAIN}"
+  interval: 15m
+  chart:
+    spec:
+      chart: raw
+      version: v0.3.2
+      sourceRef:
+        kind: HelmRepository
+        name: dysnix-charts
+        namespace: flux-system
+  targetNamespace: awx
+  install:
+    createNamespace: true
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
+  dependsOn:
+    - name: awx-operator
+      namespace: awx
+  values:
+    resources:
+      - apiVersion: awx.ansible.com/v1beta1
+        kind: AWX
+        metadata:
+          name: awx
+          namespace: awx
+        spec:
+          ingress_annotations: |
+            haproxy.org/whitelist: "${HAPROXY_WHITELIST}"
+            haproxy.org/response-set-header: |
+              Strict-Transport-Security "max-age=31536000"
+              X-Frame-Options "DENY"
+              X-Content-Type-Options "nosniff"
+              Referrer-Policy "no-referrer-when-downgrade"
+          postgres_configuration_secret: awx-secrets
+          ingress_type: ingress
+          ingress_tls_secret: "${SECRET_PRIVATE_DOMAIN_CERT}"
+          hostname: "awx.${SECRET_PRIVATE_DOMAIN}"
