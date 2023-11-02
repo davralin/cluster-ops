@@ -42,7 +42,7 @@ spec:
               TZ: "${TIMEZONE}"
               SEARXNG_BASE_URL: "https://searxng.${SECRET_DEFAULT_DOMAIN}"
               SEARXNG_URL: "https://searxng.${SECRET_DEFAULT_DOMAIN}"
-              SEARXNG_REDIS_URL: "redis-master"
+              SEARXNG_REDIS_URL: "redis://redis-master:6379"
             resources:
               requests:
                 cpu: 50m
