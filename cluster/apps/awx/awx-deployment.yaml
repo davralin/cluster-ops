@@ -44,3 +44,6 @@ spec:
           ingress_type: ingress
           ingress_tls_secret: "${SECRET_PRIVATE_DOMAIN_CERT}"
           hostname: "awx.${SECRET_PRIVATE_DOMAIN}"
+          extra_settings:
+            - setting: TOWER_URL_BASE
+              value: '"awx.${SECRET_PRIVATE_DOMAIN}"'
