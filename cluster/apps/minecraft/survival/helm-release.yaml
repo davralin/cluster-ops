@@ -32,6 +32,10 @@ spec:
       kind: Secret
       name: minecraft-secrets
       valuesKey: ops
+    - targetPath: mcbackup.resticEnvs.RESTIC_PASSWORD
+      kind: Secret
+      name: minecraft-secrets
+      valuesKey: restic_password
   values:
     extraVolumes:
       - volumeMounts:
@@ -76,7 +80,8 @@ spec:
     mcbackup:
       enabled: true
       pauseIfNoPlayers: true
-      linkLatest: true
+      backupMethod: restic
+      resticRepository: /backups
       pruneBackupsDays: 3
       persistence:
         backupDir:
