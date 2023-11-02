@@ -75,6 +75,8 @@ spec:
         existingClaim: survival
     mcbackup:
       enabled: true
+      pauseIfNoPlayers: true
+      linkLatest: true
       pruneBackupsDays: 3
       persistence:
         backupDir:
