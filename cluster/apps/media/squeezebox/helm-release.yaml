@@ -93,6 +93,9 @@ spec:
         advancedMounts:
           main:
             main:
-              - path: /music
+              - path: /music/artists
                 subPath: audio/music
+                readOnly: true
+              - path: /music/soundtracks
+                subPath: audio/soundtracks
                 readOnly: true
