@@ -25,6 +25,7 @@ resources:
   - ../librespeed
   - ../local-path-provisioner
   - ../mailrelay
+  - ../mailrise
   - ../media
   - ../metallb
   - ../metrics-server

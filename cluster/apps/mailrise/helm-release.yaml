@@ -1,0 +1,75 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: &name mailrise
+  namespace: mailrise
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: app-template
+      version: 2.0.3
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+      interval: 5m
+  targetNamespace: mailrise
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  values:
+    fullnameOverride: *name
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 999
+        runAsGroup: 999
+        fsGroup: 999
+        fsGroupChangePolicy: "OnRootMismatch"
+    controllers:
+      main:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            image:
+              repository: yoryan/mailrise
+              tag: 1.3.0
+            env:
+              TZ: "${TIMEZONE}"
+            resources:
+              requests:
+                cpu: 10m
+                memory: 10Mi
+              limits:
+                memory: 200Mi
+    service:
+      main:
+        ports:
+          http:
+            port: 8025
+    secrets:
+      conf:
+        enabled: true
+        stringData:
+          mailrise.conf: |
+            configs:
+              discord:
+                urls:
+                  - "${SECRET_MAILRISE_DISCORD}"
+    persistence:
+      mailrise-config:
+        enabled: true
+        type: secret
+        name: mailrise-conf
+        advancedMounts:
+          main:
+            main:
+              - path: /etc/mailrise.conf
+                subPath: mailrise.conf
+                readOnly: true
