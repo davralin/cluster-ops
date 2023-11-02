@@ -43,6 +43,8 @@ spec:
             storageClass: "${STORAGE_READWRITEONCE}"
           managed:
             roles:
+            - name: awx
+              login: true
             - name: freshrss
               login: true
             - name: gitea
