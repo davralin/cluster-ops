@@ -39,7 +39,7 @@ spec:
           main:
             image:
               repository: yoryan/mailrise
-              tag: 1.3.0
+              tag: 1.4.0
             env:
               TZ: "${TIMEZONE}"
             resources:
