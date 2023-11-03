@@ -1,0 +1,65 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: &name onsite-sync
+  namespace: paperless-ngx
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: app-template
+      version: 2.0.3
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+      interval: 5m
+  targetNamespace: paperless-ngx
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  values:
+    fullnameOverride: *name
+    #defaultPodOptions:
+      #securityContext:
+        #runAsUser: 1000
+        #runAsGroup: 1000
+        #fsGroup: 1000
+        #fsGroupChangePolicy: "OnRootMismatch"
+    controllers:
+      main:
+        type: cronjob
+        cronjob:
+          schedule: "45 */6 * * *"
+        containers:
+          main:
+            image:
+              repository: b2un0/rsync
+              tag: 1.0.1
+            command: ['/usr/bin/rsync']
+            args: ["--archive", "--delete", "--verbose", "-e", "ssh -o StrictHostKeyChecking=no", "/paperless-ngx/", "ansible@10.0.1.77:/opt/backup/paperless-ngx/"]
+    service:
+      main:
+        enabled: false
+    persistence:
+      paperless-ngx-export:
+        enabled: true
+        existingClaim: paperless-ngx-export
+        globalMounts:
+          - path: /paperless-ngx
+      sshkey:
+        enabled: true
+        type: secret
+        name: sshkey
+        defaultMode: 0600
+        advancedMounts:
+          main:
+            main:
+              - path: /root/.ssh/id_ed25519
+                subPath: id_ed25519
+                readOnly: true

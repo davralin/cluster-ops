@@ -1,0 +1,80 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: &name offsite-sync
+  namespace: minecraft
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: app-template
+      version: 2.0.3
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+      interval: 5m
+  targetNamespace: minecraft
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  values:
+    fullnameOverride: *name
+    #defaultPodOptions:
+      #securityContext:
+        #runAsUser: 1000
+        #runAsGroup: 1000
+        #fsGroup: 1000
+        #fsGroupChangePolicy: "OnRootMismatch"
+    controllers:
+      main:
+        type: cronjob
+        cronjob:
+          schedule: "47 */12 * * *"
+        containers:
+          main:
+            image:
+              repository: b2un0/rsync
+              tag: 1.0.1
+            command: ['/usr/bin/rsync']
+            args: ["--archive", "--delete", "--verbose", "-e", "ssh -o StrictHostKeyChecking=no", "/minecraft/", "user@nas.${SECRET_OFFSITE_DOMAIN}:/srv/backup/minecraft/"]
+    service:
+      main:
+        enabled: false
+    persistence:
+      creative-backup:
+        enabled: true
+        existingClaim: creative-backup
+        globalMounts:
+          - path: /minecraft/creative
+      fabric-mods:
+        enabled: true
+        existingClaim: fabric-mods
+        globalMounts:
+          - path: /minecraft/mods
+      survival-backup:
+        enabled: true
+        existingClaim: survival-backup
+        globalMounts:
+          - path: /minecraft/survival
+      oldworld:
+        enabled: true
+        existingClaim: oldworld
+        globalMounts:
+          - path: /minecraft/old_worlds
+      sshkey:
+        enabled: true
+        type: secret
+        name: sshkey
+        defaultMode: 0600
+        advancedMounts:
+          main:
+            main:
+              - path: /root/.ssh/id_ed25519
+                subPath: id_ed25519
+                readOnly: true

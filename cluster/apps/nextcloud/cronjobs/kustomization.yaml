@@ -6,7 +6,7 @@ resources:
   - backup-to-jottacloud.yaml
   - calcardbackup.yaml
   - cron-curl.yaml
-  - offsite-sync.yaml
-  - onsite-sync.yaml
+  - helm-offsite-sync.yaml
+  - helm-onsite-sync.yaml
   - pvc.yaml
   - rclone-backup.yaml
