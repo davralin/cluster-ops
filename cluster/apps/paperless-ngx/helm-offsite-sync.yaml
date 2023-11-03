@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: &name onsite-sync
+  name: &name offsite-sync
   namespace: paperless-ngx
 spec:
   interval: 5m
