@@ -4,10 +4,10 @@ kind: Kustomization
 resources:
   - helm-daily-imap-backup.yaml
   - helm-daily-sitebackup-from.yaml
+  - helm-onsite-sync.yaml
   - helm-release-backup.yaml
   - mbsync.yaml
   - namespace.yaml
-  - onsite-sync.yaml
   - pvc.yaml
   - sshkey.yaml
   - volsync.yaml
