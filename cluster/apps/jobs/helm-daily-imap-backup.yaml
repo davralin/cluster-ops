@@ -1,0 +1,70 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: &name daily-imap-backup
+  namespace: jobs
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: app-template
+      version: 2.0.3
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+      interval: 5m
+  targetNamespace: jobs
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  values:
+    fullnameOverride: *name
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+    controllers:
+      main:
+        type: cronjob
+        cronjob:
+          schedule: "14 04 * * *"
+        containers:
+          main:
+            image:
+              repository: jakewharton/mbsync
+              tag: 1.4.1
+            command: ['/usr/bin/mbsync']
+            args: ["-V", "-a", "-c", "/config/mbsync.rc"]
+            env:
+              TZ: "${TIMEZONE}"
+    service:
+      main:
+        enabled: false
+    persistence:
+      remotebackup:
+        enabled: true
+        existingClaim: remotebackup
+        advancedMounts:
+          main:
+            main:
+              - path: /mail
+                subPath: mail
+      mbsync:
+        enabled: true
+        type: secret
+        name: mbsync
+        defaultMode: 0600
+        advancedMounts:
+          main:
+            main:
+              - path: /config/mbsync.rc
+                subPath: mbsync.rc
+                readOnly: true
