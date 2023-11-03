@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: prowlarr
+  name: prowlarr-test
   namespace: media
 spec:
   storageClassName: "${STORAGE_READWRITEONCE}"
