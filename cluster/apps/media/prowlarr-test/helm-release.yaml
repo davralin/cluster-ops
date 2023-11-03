@@ -63,7 +63,7 @@ spec:
             X-Content-Type-Options "nosniff"
             Referrer-Policy "no-referrer-when-downgrade"
         hosts:
-          - host: "prowlarr-test.${SECRET_DEFAULT_DOMAIN}"-test
+          - host: "prowlarr-test.${SECRET_DEFAULT_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
