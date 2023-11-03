@@ -53,6 +53,8 @@ spec:
               login: true
             - name: paperless-ngx
               login: true
+            - name: prowlarr
+              login: true
           superuserSecret:
             name: cloudnative-pg-secret
           bootstrap:
