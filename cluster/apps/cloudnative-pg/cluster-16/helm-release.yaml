@@ -49,6 +49,8 @@ spec:
               login: true
             - name: gitea
               login: true
+            - name: invidious
+              login: true
             - name: nextcloud
               login: true
             - name: paperless-ngx

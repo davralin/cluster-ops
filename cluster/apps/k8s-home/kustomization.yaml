@@ -17,6 +17,7 @@ resources:
   - ../gitea
   - ../haproxy/haproxy-ingress
   - ../intel-gpu
+  - ../invidious
   - ../it-tools
   - ../jobs
   - ../kubed
