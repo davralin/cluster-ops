@@ -59,6 +59,12 @@ spec:
               login: true
             - name: prowlarr
               login: true
+            - name: sonarr
+              login: true
+            - name: radarr
+              login: true
+            - name: readarr
+              login: true
           superuserSecret:
             name: cloudnative-pg-secret
           bootstrap:
