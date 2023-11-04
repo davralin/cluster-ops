@@ -23,6 +23,11 @@ spec:
   upgrade:
     remediation:
       retries: 3
+  valuesFrom:
+    - targetPath: controllers.main.containers.main.env.LIDARR__POSTGRES_PASSWORD
+      kind: Secret
+      name: lidarr-config
+      valuesKey: POSTGRES_PASSWORD
   values:
     fullnameOverride: *name
     defaultPodOptions:
@@ -41,6 +46,12 @@ spec:
               tag: 1.4.5.3639@sha256:76b10a1b528a6994eb1d077643debf0217be0bf784f5144f4a907b4522c5ee63
             env:
               TZ: "${TIMEZONE}"
+              LIDARR__API_KEY: "${SECRET_LIDARR_API_KEY}"
+              LIDARR__POSTGRES_HOST: postgres-v16-rw.cloudnative-pg.svc.cluster.local
+              LIDARR__POSTGRES_PORT: "5432"
+              LIDARR__POSTGRES_USER: "lidarr"
+              LIDARR__POSTGRES_MAIN_DB: lidarr_main
+              LIDARR__POSTGRES_LOG_DB: lidarr_log
             resources:
               requests:
                 cpu: 100m

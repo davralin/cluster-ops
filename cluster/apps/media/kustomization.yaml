@@ -8,7 +8,6 @@ resources:
   - jellyfin
   - jellyplex-watched
   - lidarr
-  - lidarr-migrate
   - namespace.yaml
   - pvc.yaml
   - plex
