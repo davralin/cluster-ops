@@ -15,9 +15,12 @@ resources:
   - prowlarr
   - qbittorrent
   - radarr
+  - radarr-migrate
   - readarr
+  - readarr-migrate
   - samba
   - sonarr
+  - sonarr-migrate
   - squeezebox
   - sshd
   - tautulli
