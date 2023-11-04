@@ -23,6 +23,11 @@ spec:
   upgrade:
     remediation:
       retries: 3
+  valuesFrom:
+    - targetPath: controllers.main.containers.main.env.RADARR__POSTGRES_PASSWORD
+      kind: Secret
+      name: radarr-config
+      valuesKey: POSTGRES_PASSWORD
   values:
     fullnameOverride: *name
     defaultPodOptions:
@@ -41,6 +46,12 @@ spec:
               tag: 5.0.3.8127@sha256:0d9a584e18080bc5e6a597bc13d96455777539ee5ad27cf1c4c88940dbbf4cf9
             env:
               TZ: "${TIMEZONE}"
+              RADARR__API_KEY: "${SECRET_RADARR_API_KEY}"
+              RADARR__POSTGRES_HOST: postgres-v16-rw.cloudnative-pg.svc.cluster.local
+              RADARR__POSTGRES_PORT: "5432"
+              RADARR__POSTGRES_USER: "radarr"
+              RADARR__POSTGRES_MAIN_DB: radarr_main
+              RADARR__POSTGRES_LOG_DB: radarr_log
             resources:
               requests:
                 cpu: 100m

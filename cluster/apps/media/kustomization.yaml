@@ -15,7 +15,6 @@ resources:
   - prowlarr
   - qbittorrent
   - radarr
-  - radarr-migrate
   - readarr
   - readarr-migrate
   - samba
