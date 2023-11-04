@@ -13,7 +13,6 @@ resources:
   - plex
   - plex-meta-manager
   - prowlarr
-  - prowlarr-test
   - qbittorrent
   - radarr
   - readarr

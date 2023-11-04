@@ -23,6 +23,11 @@ spec:
   upgrade:
     remediation:
       retries: 3
+  valuesFrom:
+    - targetPath: controllers.main.containers.main.env.PROWLARR__POSTGRES_PASSWORD
+      kind: Secret
+      name: prowlarr-config
+      valuesKey: POSTGRES_PASSWORD
   values:
     fullnameOverride: *name
     defaultPodOptions:
@@ -41,6 +46,12 @@ spec:
               tag: 1.9.4.4039@sha256:2bca4ef529e801966f3b5f13efd27f605983dcd5b311dcbadabf54df22be9c5b
             env:
               TZ: "${TIMEZONE}"
+              PROWLARR__API_KEY: "${SECRET_PROWLARR_API_KEY}"
+              PROWLARR__POSTGRES_HOST: postgres-v16-rw.cloudnative-pg.svc.cluster.local
+              PROWLARR__POSTGRES_PORT: "5432"
+              PROWLARR__POSTGRES_USER: "prowlarr"
+              PROWLARR__POSTGRES_MAIN_DB: prowlarr_main
+              PROWLARR__POSTGRES_LOG_DB: prowlarr_log
             resources:
               requests:
                 cpu: 100m
@@ -75,4 +86,4 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: prowlarr
+        type: emptyDir
