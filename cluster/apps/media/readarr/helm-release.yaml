@@ -23,6 +23,11 @@ spec:
   upgrade:
     remediation:
       retries: 3
+  valuesFrom:
+    - targetPath: controllers.main.containers.main.env.READARR__POSTGRES_PASSWORD
+      kind: Secret
+      name: readarr-config
+      valuesKey: POSTGRES_PASSWORD
   values:
     fullnameOverride: *name
     defaultPodOptions:
@@ -41,6 +46,13 @@ spec:
               tag: 0.3.8.2267@sha256:b844031cf2e1ee3ac332ac5b64f1ba628157097748a405a3a11aea8c5c803561
             env:
               TZ: "${TIMEZONE}"
+              READARR__API_KEY: "${SECRET_READARR_API_KEY}"
+              READARR__POSTGRES_HOST: postgres-v16-rw.cloudnative-pg.svc.cluster.local
+              READARR__POSTGRES_PORT: "5432"
+              READARR__POSTGRES_USER: "readarr"
+              READARR__POSTGRES_MAIN_DB: readarr_main
+              READARR__POSTGRES_LOG_DB: readarr_log
+              READARR__POSTGRES_CACHE_DB: readarr_cache
             resources:
               requests:
                 cpu: 100m
