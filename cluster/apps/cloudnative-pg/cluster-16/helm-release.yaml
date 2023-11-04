@@ -51,6 +51,8 @@ spec:
               login: true
             - name: invidious
               login: true
+            - name: lidarr
+              login: true
             - name: nextcloud
               login: true
             - name: paperless-ngx

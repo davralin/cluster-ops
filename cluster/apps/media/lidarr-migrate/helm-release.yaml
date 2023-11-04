@@ -1,0 +1,94 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: &name lidarr-migrate
+  namespace: media
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: app-template
+      version: 2.0.3
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+      interval: 5m
+  targetNamespace: media
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  valuesFrom:
+    - targetPath: controllers.main.containers.main.env.LIDARR__POSTGRES_PASSWORD
+      kind: Secret
+      name: lidarr-config
+      valuesKey: POSTGRES_PASSWORD
+  values:
+    fullnameOverride: *name
+    defaultPodOptions:
+      hostname: *name
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+    controllers:
+      main:
+        containers:
+          main:
+            image:
+              repository: ghcr.io/onedr0p/lidarr
+              tag: 1.4.5.3639@sha256:76b10a1b528a6994eb1d077643debf0217be0bf784f5144f4a907b4522c5ee63
+            env:
+              TZ: "${TIMEZONE}"
+              LIDARR__API_KEY: "${SECRET_LIDARR_API_KEY}"
+              LIDARR__POSTGRES_HOST: postgres-v16-rw.cloudnative-pg.svc.cluster.local
+              LIDARR__POSTGRES_PORT: "5432"
+              LIDARR__POSTGRES_USER: "lidarr"
+              LIDARR__POSTGRES_MAIN_DB: lidarr_main
+              LIDARR__POSTGRES_LOG_DB: lidarr_log
+            resources:
+              requests:
+                cpu: 100m
+                memory: 300Mi
+              limits:
+                memory: 1000Mi
+    service:
+      main:
+        ports:
+          http:
+            port: 8686
+    ingress:
+      main:
+        enabled: true
+        annotations:
+          haproxy.org/whitelist: "${HAPROXY_WHITELIST}"
+          haproxy.org/response-set-header: |
+            Strict-Transport-Security "max-age=31536000"
+            X-Frame-Options "DENY"
+            X-Content-Type-Options "nosniff"
+            Referrer-Policy "no-referrer-when-downgrade"
+        hosts:
+          - host: "lidarr-migrate.${SECRET_DEFAULT_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+                service:
+                  name: main
+                  port: http
+        tls:
+          - secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
+    persistence:
+      config:
+        enabled: true
+        existingClaim: lidarr-migrate
+      media:
+        enabled: true
+        existingClaim: media
+        globalMounts:
+          - path: /data
