@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: readarr-migrate
+  name: readarr
   namespace: media
 spec:
   storageClassName: "${STORAGE_READWRITEONCE}"
