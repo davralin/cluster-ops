@@ -49,7 +49,7 @@ spec:
               RADARR__API_KEY: "${SECRET_RADARR_API_KEY}"
               RADARR__POSTGRES_HOST: postgres-v16-rw.cloudnative-pg.svc.cluster.local
               RADARR__POSTGRES_PORT: "5432"
-              RADARR__POSTGRES_USER: "RADARR"
+              RADARR__POSTGRES_USER: "radarr"
               RADARR__POSTGRES_MAIN_DB: radarr_main
               RADARR__POSTGRES_LOG_DB: radarr_log
             resources:

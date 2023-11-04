@@ -49,7 +49,7 @@ spec:
               READARR__API_KEY: "${SECRET_READARR_API_KEY}"
               READARR__POSTGRES_HOST: postgres-v16-rw.cloudnative-pg.svc.cluster.local
               READARR__POSTGRES_PORT: "5432"
-              READARR__POSTGRES_USER: "READARR"
+              READARR__POSTGRES_USER: "readarr"
               READARR__POSTGRES_MAIN_DB: readarr_main
               READARR__POSTGRES_LOG_DB: readarr_log
             resources:
