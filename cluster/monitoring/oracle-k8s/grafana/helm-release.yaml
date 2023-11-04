@@ -86,10 +86,10 @@ spec:
           revision: 3
           datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/12693
-        #haproxy2:
-          #gnetId: 12693
-          #revision: 5
-          #datasource: Prometheus
+        haproxy2:
+          gnetId: 12693
+          revision: 7
+          datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/13838
         kubernetes-overview:
           gnetId: 13838
@@ -103,7 +103,7 @@ spec:
         # Ref: https://grafana.com/grafana/dashboards/1860
         node-exporter-full:
           gnetId: 1860
-          revision: 31
+          revision: 33
           datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/15549
         #node-problem-detector:
