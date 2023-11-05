@@ -23,6 +23,11 @@ spec:
   upgrade:
     remediation:
       retries: 3
+  valuesFrom:
+    - targetPath: controllers.main.containers.main.env.SONARR__POSTGRES_PASSWORD
+      kind: Secret
+      name: sonarr-config
+      valuesKey: POSTGRES_PASSWORD
   values:
     fullnameOverride: *name
     defaultPodOptions:
@@ -41,6 +46,12 @@ spec:
               tag: 4.0.0.710@sha256:438f46db13f15df81159118a9f1d74ce7e2a46e9bd45024b2fa6aecae6036068
             env:
               TZ: "${TIMEZONE}"
+              SONARR__API_KEY: "${SECRET_SONARR_API_KEY}"
+              SONARR__POSTGRES_HOST: postgres-v16-rw.cloudnative-pg.svc.cluster.local
+              SONARR__POSTGRES_PORT: "5432"
+              SONARR__POSTGRES_USER: "sonarr"
+              SONARR__POSTGRES_MAIN_DB: sonarr_main
+              SONARR__POSTGRES_LOG_DB: sonarr_log
             resources:
               requests:
                 cpu: 200m

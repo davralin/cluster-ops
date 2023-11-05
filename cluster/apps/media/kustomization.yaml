@@ -18,7 +18,6 @@ resources:
   - readarr
   - samba
   - sonarr
-  - sonarr-migrate
   - squeezebox
   - sshd
   - tautulli
