@@ -3,7 +3,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - backup-ssh-key.yaml
-  - daily-to-consume.yaml
+  - helm-daily-to-consume.yaml
   - helm-offsite-sync.yaml
   - helm-onsite-sync.yaml
   - helm-release-exporter.yaml
