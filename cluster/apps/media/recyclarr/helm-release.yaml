@@ -1,0 +1,127 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: &name recyclarr
+  namespace: media
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: app-template
+      version: 2.0.3
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+      interval: 5m
+  targetNamespace: media
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  values:
+    fullnameOverride: *name
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+    controllers:
+      main:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            image:
+              repository: ghcr.io/recyclarr/recyclarr
+              tag: 6.0.2
+            env:
+              TZ: "${TIMEZONE}"
+            resources:
+              requests:
+                cpu: 10m
+                memory: 64M
+              limits:
+                memory: 128M
+    service:
+      main:
+        enabled: false
+    secrets:
+      yaml:
+        enabled: true
+        stringData:
+          recyclarr.yaml: |
+            ---
+            sonarr:
+              sonarr:
+                base_url: http://sonarr.media.svc.cluster.local
+                api_key: "${SECRET_SONARR_API_KEY}"
+
+                delete_old_custom_formats: true
+                replace_existing_custom_formats: true
+
+                custom_formats:
+                  - trash_ids:
+                      - 85c61753df5da1fb2aab6f2a47426b09  # BR-DISK
+                      - 9c11cd3f07101cdba90a2d81cf0e56b4  # LQ
+                      - fbcb31d8dabd2a319072b84fc0b7249c  # Extras
+                    quality_profiles:
+                      - name: Any
+                  - trash_ids:
+                      - 47435ece6b99a0b477caf360e79ba0bb  # x265 (HD)
+                    quality_profiles:
+                      - name: Any
+                        score: +1000
+
+                quality_definition:
+                  type: series
+                  preferred_ratio: 0.1
+            radarr:
+              radarr:
+                base_url: http://radarr.media.svc.cluster.local
+                api_key: "${SECRET_RADARR_API_KEY}"
+
+                delete_old_custom_formats: true
+                replace_existing_custom_formats: true
+
+                custom_formats:
+                  - trash_ids:
+                      - ed38b889b31be83fda192888e2286d83  # BR-DISK
+                      - 90cedc1fea7ea5d11298bebd3d1d3223  # EVO (no WEBDL)
+                      - 90a6f9a284dff5103f6346090e6280c8  # LQ
+                      - b8cd450cbfa689c0259a01d9e29ba3d6  # 3D
+                    quality_profiles:
+                      - name: Norwegian
+                      - name: Original-Language
+                  - trash_ids:
+                      - dc98083864ea246d05a42df0d05f81cc  # x265 (HD)
+                    quality_profiles:
+                      - name: Norwegian
+                        score: +1000
+                      - name: Original-Language
+                        score: +1000
+
+                quality_definition:
+                  type: movie
+                  preferred_ratio: 0.1
+    persistence:
+      config:
+        enabled: true
+        globalMounts:
+          - path: /config
+        type: emptyDir
+      recyclarr-config:
+        enabled: true
+        type: secret
+        name: recyclarr-yaml
+        advancedMounts:
+          main:
+            main:
+              - path: /config/recyclarr.yml
+                subPath: recyclarr.yaml
+                readOnly: true
