@@ -1,0 +1,73 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: &name backup-to-jottacloud
+  namespace: nextcloud
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: app-template
+      version: 2.0.3
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+      interval: 5m
+  targetNamespace: nextcloud
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  values:
+    fullnameOverride: *name
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+    controllers:
+      main:
+        type: cronjob
+        cronjob:
+          schedule: "27 05 * * *"
+        containers:
+          main:
+            image:
+              repository: rclone/rclone
+              tag: 1.64.2
+            command: ["/usr/local/bin/rclone-backup.sh"]
+    service:
+      main:
+        enabled: false
+    configMaps:
+      shell:
+        enabled: true
+        stringData:
+          dendrite.yaml: |
+            version: 2
+            global:
+    persistence:
+      nextcloud:
+        enabled: true
+        existingClaim: nextcloud
+        readOnly: true
+      config:
+        enabled: true
+        existingClaim: rcloneconfig
+      matrix-key:
+        enabled: true
+        type: configmap
+        name: backup-to-jottacloud-shell
+        defaultMode: 0755
+        advancedMounts:
+          main:
+            main:
+              - path: /usr/local/bin/rclone-backup.sh
+                subPath: rclone-backup.sh
+                readOnly: true

@@ -1,0 +1,55 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: &name daily-to-jottacloud
+  namespace: media
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: app-template
+      version: 2.0.3
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+      interval: 5m
+  targetNamespace: media
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  values:
+    fullnameOverride: *name
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+    controllers:
+      main:
+        type: cronjob
+        cronjob:
+          schedule: "14 01 * * *"
+        containers:
+          main:
+            image:
+              repository: rclone/rclone
+              tag: 1.64.2
+            args: ["sync", "--ignore-case", "--check-first", "--delete-before", "--verbose", "--jottacloud-hard-delete", "--delete-excluded", "/media/", "jottacloud-crypt:/media", "--exclude", "downloads/**", "--exclude", "unsorted/tdarr/**", "--exclude", "*TdarrCacheFile*"]
+    service:
+      main:
+        enabled: false
+    persistence:
+      media:
+        enabled: true
+        existingClaim: media
+        readOnly: true
+      config:
+        enabled: true
+        existingClaim: rcloneconfig
