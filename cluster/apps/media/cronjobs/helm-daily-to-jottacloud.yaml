@@ -35,6 +35,7 @@ spec:
       main:
         type: cronjob
         cronjob:
+          concurrencyPolicy: Replace
           schedule: "14 01 * * *"
         containers:
           main:
