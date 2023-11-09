@@ -4,7 +4,7 @@
   roles:
   - apt
   - apparmor
-    #  - profile
+  - profile
     #  - hardening
     #  - node_exporter
   - nullmailer

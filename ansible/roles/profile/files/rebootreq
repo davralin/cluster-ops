@@ -1,0 +1,3 @@
+if [ -f /var/run/reboot-required ]; then
+  /bin/echo "A reboot is required."
+fi

@@ -1,0 +1,8 @@
+---
+- name: Rebuild locales
+  command: "{{ item }}"
+  become: yes
+  loop:
+    - /usr/sbin/dpkg-reconfigure locales -f noninteractive
+    - /usr/sbin/locale-gen
+    - /usr/bin/localectl set-locale {{ profile_environment_locale }}

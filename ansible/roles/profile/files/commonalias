@@ -1,0 +1,23 @@
+# Alias definitions.
+# You may want to put all your additions into a separate file like
+# ~/.bash_aliases, instead of adding them here directly.
+# See /usr/share/doc/bash-doc/examples in the bash-doc package.
+
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
+
+# This is for aliases that can't be shared
+if [ -f ~/.bash_work ]; then
+    . ~/.bash_work
+fi
+
+# Common aliases
+alias ll='ls -l'
+alias la='ls -a'
+alias aptsh='/usr/bin/apt-cache show $1'
+alias aptsearch='/usr/bin/apt-cache search $1'
+alias sshk='/usr/bin/ssh-keygen -f ~/.ssh/known_hosts -R $1'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias cd..='cd ..'

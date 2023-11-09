@@ -1,0 +1,49 @@
+---
+- name: Installing packages
+  apt:
+    name: "{{ profile_packages }}"
+    state: present
+  become: yes
+
+- name: Set motd
+  copy:
+    dest: /etc/motd
+    content: "{{ profile_motd_content }}"
+    mode: 0644
+  become: yes
+
+- name: Populate profiles and bashrc
+  copy:
+    src: '{{ item.src }}'
+    dest: '{{ item.dest }}'
+    force: yes
+    mode: 0644
+  become: yes
+  loop:
+    - { src: 'bashrc', dest: '/etc/skel/.bashrc'}
+    - { src: 'bashrc', dest: '/root/.bashrc'}
+    - { src: 'bashrc', dest: '{{ ansible_user_dir }}/.bashrc'}
+    - { src: 'colors', dest: '/etc/profile.d/01_colors.sh'}
+    - { src: 'commonalias', dest: '/etc/profile.d/02_commonalias.sh'}
+    - { src: 'history', dest: '/etc/profile.d/03_history.sh'}
+    - { src: 'motd', dest: '/etc/profile.d/10_motd.sh'}
+    - { src: 'profile', dest: '/etc/profile'}
+    - { src: 'prompt', dest: '/etc/profile.d/04_prompt.sh'}
+    - { src: 'rebootreq', dest: '/etc/profile.d/99_rebootreq.sh'}
+
+- name: Set timezone
+  timezone:
+    name: "{{ profile_timezone }}"
+  become: yes
+
+- name: Set locales
+  debconf:
+    name: locales
+    question: "{{ item.question }}"
+    value: "{{ item.value }}"
+    vtype: "{{ item.vtype }}"
+  become: yes
+  loop:
+    - { question: 'locales/default_environment_locale', value: '{{ profile_environment_locale }}', vtype: 'select'}
+    - { question: 'locales/locales_to_be_generated', value: '{{ profile_locale }}', vtype: 'select'}
+  notify: Rebuild locales

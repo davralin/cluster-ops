@@ -12,7 +12,7 @@
     #  - node_exporter
   - nullmailer
     #  - power_mgmt
-    #  - profile
+  - profile
   - rsync
     #  - repository
     #  - smartd

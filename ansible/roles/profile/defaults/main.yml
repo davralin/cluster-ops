@@ -1,0 +1,10 @@
+---
+profile_locale: "en_US.UTF-8 UTF-8, nb_NO.UTF-8 UTF-8"
+profile_environment_locale: "en_US.UTF-8"
+profile_motd_content: ""
+profile_packages:
+  - bash
+  - bash-completion
+  - dbus
+  - locales
+profile_timezone: "Etc/UTC"

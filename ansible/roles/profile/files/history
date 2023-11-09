@@ -1,0 +1,10 @@
+# Don't put duplicate lines in the history and do not add lines that start with a space
+HISTCONTROL=erasedups:ignoredups:ignorespace
+
+# Causes bash to append to history instead of overwriting it so if you start a new terminal, you have old session history
+shopt -s histappend
+PROMPT_COMMAND='history -a'
+
+# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+HISTSIZE=10000
+HISTFILESIZE=20000

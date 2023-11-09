@@ -1,0 +1,11 @@
+# set variable identifying the chroot you work in (used in the prompt below)
+if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
+    debian_chroot=$(cat /etc/debian_chroot)
+fi
+
+# Actuall prompt
+if [[ $USER != "root" ]]; then
+  PS1="${debian_chroot:+($debian_chroot)}\[\033[32m\]\u\[\033[00m\]@\h\[\033[32m\]|\j\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\`if [[ \$? = "0" ]]; then echo "\\[\\033[32m\\]"; else echo "\\[\\033[31m\\]"; fi\` $ \[\033[00m\]"
+else
+  PS1="${debian_chroot:+($debian_chroot)}\[\033[31m\]\u\[\033[00m\]@\h\[\033[32m\]|\j\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\`if [[ \$? = "0" ]]; then echo "\\[\\033[32m\\]"; else echo "\\[\\033[31m\\]"; fi\` # \[\033[00m\]"
+fi

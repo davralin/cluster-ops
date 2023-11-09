@@ -1,0 +1,19 @@
+UptimeDays=$(/usr/bin/awk '{print int($1/86400)}' /proc/uptime)
+UptimeHours=$(/usr/bin/awk '{print int($1%86400/3600)}' /proc/uptime)
+UptimeMinutes=$(/usr/bin/awk '{print int(($1%3600)/60)}' /proc/uptime)
+CpuUtil=$(/usr/bin/top -bn1 | /usr/bin/grep "%Cpu(s)" | /usr/bin/head -n1 | /usr/bin/awk '{print 100 - $8}')
+CpuProc="$(/bin/cat /proc/cpuinfo |/usr/bin/grep -v ARM |/usr/bin/grep -v KVM |/usr/bin/grep -c processor)"
+ProcessCount="$(/bin/ps -A --no-headers | /usr/bin/wc -l)"
+ProcessMax="$(/bin/cat /proc/sys/kernel/pid_max)"
+/bin/echo -ne "Today is "; date
+if [ -f /sys/class/thermal/thermal_zone0/temp ]; then
+        temp=$(/bin/cat /sys/class/thermal/thermal_zone0/temp | /usr/bin/awk '{print $1/1000}' | /usr/bin/cut -f1 -d',')
+        /bin/echo -e "CPU Usage: ${CpuUtil}% average CPU usage over $CpuProc core(s) at $temp c"
+else
+        /bin/echo -e "CPU Usage: ${CpuUtil}% average CPU usage over $CpuProc core(s)"
+fi
+/usr/bin/free -m |/usr/bin/grep Mem | /usr/bin/awk '{print "Memory: Free: " $4 "mb," " Cached: " $7 "mb,"" Used: " $3 "mb," " Total: " $2 "mb"}'
+/bin/echo -e "Processes: $ProcessCount running processes of $ProcessMax maximum processes"
+/bin/echo -e "Uptime: ${UptimeDays} day(s), ${UptimeHours}h ${UptimeMinutes}m"
+/bin/cat /proc/loadavg | /usr/bin/awk '{print "Load Average: 1m:" $1 " 5m:"$2 " 15m:"$3}'
+/bin/echo "";

@@ -4,7 +4,7 @@
   roles:
   - apt
   - apparmor
-    #  - profile
+  - profile
     #  - lvm2
     #  - node_exporter
   - nullmailer
