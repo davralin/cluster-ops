@@ -9,7 +9,7 @@
     #  - hardening
     #  - lvm2
     #  - networking
-    #  - node_exporter
+  - node_exporter
   - nullmailer
     #  - power_mgmt
   - profile

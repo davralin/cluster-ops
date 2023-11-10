@@ -6,7 +6,7 @@
   - apparmor
   - profile
     #  - hardening
-    #  - node_exporter
+  - node_exporter
   - nullmailer
     #  - tailscale
   - users

@@ -6,7 +6,7 @@
   - apparmor
   - profile
     #  - lvm2
-    #  - node_exporter
+  - node_exporter
   - nullmailer
     #  - docker_compose
     #  - docker_io
