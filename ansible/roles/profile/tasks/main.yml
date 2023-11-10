@@ -31,11 +31,6 @@
     - { src: 'prompt', dest: '/etc/profile.d/04_prompt.sh'}
     - { src: 'rebootreq', dest: '/etc/profile.d/99_rebootreq.sh'}
 
-- name: Set timezone
-  community.general.timezone:
-    name: "{{ profile_timezone }}"
-  become: yes
-
 - name: Set locales
   debconf:
     name: locales

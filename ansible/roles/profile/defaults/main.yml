@@ -7,4 +7,3 @@ profile_packages:
   - bash-completion
   - dbus
   - locales
-profile_timezone: "Etc/UTC"
