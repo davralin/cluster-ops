@@ -11,7 +11,7 @@
     #  - networking
   - node_exporter
   - nullmailer
-    #  - power_mgmt
+  - power_mgmt
   - profile
   - rsync
     #  - repository

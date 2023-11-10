@@ -1,0 +1,8 @@
+---
+power_mgmt_packages:
+  - acpi
+  - dbus
+  - powermgmt-base
+  - powertop
+  - thermald
+  - tlp
