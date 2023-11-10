@@ -32,7 +32,7 @@
     - { src: 'rebootreq', dest: '/etc/profile.d/99_rebootreq.sh'}
 
 - name: Set timezone
-  timezone:
+  community.general.timezone:
     name: "{{ profile_timezone }}"
   become: yes
 
