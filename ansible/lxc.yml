@@ -3,6 +3,7 @@
 
   roles:
   - apt
+  - profile
   - nullmailer
   - rsync
   - users
