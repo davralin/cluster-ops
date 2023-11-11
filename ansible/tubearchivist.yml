@@ -7,7 +7,7 @@
   - kernel_hardening
   - profile
   - sshd
-  - lvm2
+    #  - lvm2
   - node_exporter
   - nullmailer
     #  - docker_compose
