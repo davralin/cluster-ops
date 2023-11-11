@@ -4,6 +4,7 @@
   roles:
   - apt
   - apparmor
+  - kernel_hardening
   - profile
   - lvm2
   - node_exporter

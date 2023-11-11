@@ -5,7 +5,7 @@
   - apt
   - apparmor
   - profile
-    #  - hardening
+  - kernel_hardening
   - node_exporter
   - nullmailer
     #  - tailscale

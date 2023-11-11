@@ -1,0 +1,125 @@
+---
+# These settings eliminate an entire class of security vulnerability:
+# time-of-check-time-of-use cross-privilege attacks using guessable
+# filenames (generally seen as "/tmp file race" vulnerabilities).
+hardening_sysctl_fs_protected_hardlinks: "1"
+hardening_sysctl_fs_protected_symlinks: "1"
+# Prevent core dumps with SUID. These are usually only
+# needed by developers and may contain sensitive information. | sysctl-31
+hardening_sysctl_fs_suid_dumpable: "0"
+# Amount of open file handles globally
+hardening_sysctl_fs_inotify_max_user_watches: "8192"
+# Need to document/figure out what this does
+hardening_sysctl_kernel_core_uses_pid: "1"
+# The kernel logs contain useful information for an attacker trying to exploit kernel vulnerabilities,such as sensitive memory addresses.
+# The kernel.dmesg_restrict flag was to forbid access to the logs without the CAP_SYS_ADMIN capability
+# (which only processes running as root have by default).
+hardening_sysctl_kernel_dmesg_restrict: "1"
+# When an attacker is trying to exploit the local kernel, it is often
+# helpful to be able to examine where in memory the kernel, modules,
+# and data structures live. As such, kernel addresses should be treated
+# as sensitive information.
+#
+# Many files and interfaces contain these addresses (e.g. /proc/kallsyms,
+# /proc/modules, etc), and this setting can censor the addresses. A value
+# of "0" allows all users to see the kernel addresses. A value of "1"
+# limits visibility to the root user, and "2" blocks even the root user.
+hardening_sysctl_kernel_kptr_restrict: "2"
+# Virtual memory regions protection | sysctl-32
+hardening_sysctl_kernel_randomize_va_space: "2"
+# Magic Sysrq should be disabled, but can also be set to a safe value if so
+# desired for physical machines. It can allow a safe reboot if the system hangs
+# and is a 'cleaner' alternative to hitting the reset button. | sysctl-30
+# The following values are permitted:
+# * **0**   - disable sysrq
+# * **1**   - enable sysrq completely
+# * **>1**  - bitmask of enabled sysrq functions:
+# * **2**   - control of console logging level
+# * **4**   - control of keyboard (SAK, unraw)
+# * **8**   - debugging dumps of processes etc.
+# * **16**  - sync command
+# * **32**  - remount read-only
+# * **64**  - signalling of processes (term, kill, oom-kill)
+# * **128** - reboot/poweroff
+# * **256** - nicing of all RT tasks
+hardening_sysctl_kernel_sysrq: "0"
+# The PTRACE system is used for debugging.  With it, a single user process
+# can attach to any other dumpable process owned by the same user.  In the
+# case of malicious software, it is possible to use PTRACE to access
+# credentials that exist in memory (re-using existing SSH connections,
+# extracting GPG agent information, etc).
+#
+# A PTRACE scope of "0" is the more permissive mode.  A scope of "1" limits
+# PTRACE only to direct child processes (e.g. "gdb name-of-program" and
+# "strace -f name-of-program" work, but gdb's "attach" and "strace -fp $PID"
+# do not).  The PTRACE scope is ignored when a user has CAP_SYS_PTRACE, so
+# "sudo strace -fp $PID" will work as before.  For more details see:
+# https://wiki.ubuntu.com/SecurityTeam/Roadmap/KernelHardening#ptrace
+#
+# For applications launching crash handlers that need PTRACE, exceptions can
+# be registered by the debugee by declaring in the segfault handler
+# specifically which process will be using PTRACE on the debugee:
+#   prctl(PR_SET_PTRACER, debugger_pid, 0, 0, 0);
+#
+# In general, PTRACE is not needed for the average running Ubuntu system.
+# To that end, the default is to set the PTRACE scope to "1".  This value
+# may not be appropriate for developers or servers with only admin accounts.
+hardening_sysctl_kernel_yama_ptrace_scope: "2"
+# The Linux kernel includes the ability to compile BPF/Seccomp rule sets to native code as a performance optimization.
+# The net.core.bpf_jit_enable flag should be set to 0 for a maximum level of security.
+# BPF/Seccomp compilation can be useful in specific domains, such as dynamic servers (e.g. orchestration platforms like Mesos and Kubernetes).
+# It is not usually useful for desktop users or for static servers.
+# A JIT compiler opens up the possibility for an attacker to perform a heap spraying attack, where they fill the kernel's heap with malicious code.
+# This code can then potentially be executed via another exploit, like an incorrect function pointer dereference.
+# The Spectre attacks, published early 2018, are prominent respective exploits.
+hardening_sysctl_net_core_bpf_jit_enable: "0"
+# log martian packets | sysctl-17
+hardening_sysctl_net_ipv4_conf_all_log_martians: "1"
+hardening_sysctl_net_ipv4_conf_default_log_martians: "1"
+# Disable IPv4 traffic forwarding. | sysctl-01
+hardening_sysctl_net_ipv4_ip_forward: 0
+# Disable IPv4/IPv6 traffic forwarding. | sysctl-19
+hardening_sysctl_net_ipv6_conf_all_forwarding: "0"
+hardening_sysctl_net_ipv4_conf_all_forwarding: "0"
+# For non-routers: don't send redirects, these settings are 0 | sysctl-16
+hardening_sysctl_net_ipv4_conf_all_send_redirects: "0"
+hardening_sysctl_net_ipv4_conf_default_send_redirects: "0"
+# Enable RFC-recommended source validation feature. | sysctl-02
+hardening_sysctl_net_ipv4_conf_all_rp_filter: "1"
+hardening_sysctl_net_ipv4_conf_default_rp_filter: "1"
+# Accepting source route can lead to malicious networking behavior,
+# so disable it if not needed. | sysctl-13
+hardening_sysctl_net_ipv4_conf_all_accept_source_route: "0"
+hardening_sysctl_net_ipv4_conf_default_accept_source_route: "0"
+# Protect against wrapping sequence numbers at gigabit speeds | sysctl-07
+hardening_sysctl_net_ipv4_tcp_timestamps: "0"
+# Turn on SYN-flood protections.  Starting with 2.6.26, there is no loss
+# of TCP functionality/features under normal conditions.  When flood
+# protections kick in under high unanswered-SYN load, the system
+# should remain more stable, with a trade off of some loss of TCP
+# functionality/features (e.g. TCP Window scaling).
+hardening_sysctl_net_ipv4_tcp_syncookies: "1"
+# Accepting redirects can lead to malicious networking behavior, so disable
+# it if not needed. | sysctl-13 | sysctl-14 | sysctl-15 | sysctl-20
+hardening_sysctl_net_ipv4_conf_all_secure_redirects: "0"
+hardening_sysctl_net_ipv4_conf_default_secure_redirects: "0"
+hardening_sysctl_net_ipv4_conf_all_accept_redirects: "0"
+hardening_sysctl_net_ipv4_conf_default_accept_redirects: "0"
+hardening_sysctl_net_ipv6_conf_all_accept_redirects: "0"
+hardening_sysctl_net_ipv6_conf_default_accept_redirects: "0"
+# Reduce the surface on SMURF attacks. | sysctl-04
+# Make sure to ignore ECHO broadcasts, which are only required in broad network analysis.
+hardening_sysctl_net_ipv4_icmp_echo_ignore_broadcasts: "1"
+# There is no reason to accept bogus error responses from ICMP, so ignore them instead. | sysctl-03
+hardening_sysctl_net_ipv4_icmp_ignore_bogus_error_responses: "1"
+# Limit the amount of traffic the system uses for ICMP. | sysctl-05
+hardening_sysctl_net_ipv4_icmp_ratelimit: "100"
+# Adjust the ICMP ratelimit to include ping, dst unreachable,
+# source quench, ime exceed, param problem, timestamp reply, information reply | sysctl-06
+hardening_sysctl_net_ipv4_icmp_ratemask: "88089"
+# RFC 1337 fix F1 | sysctl-10
+hardening_sysctl_net_ipv4_tcp_rfc1337: "1"
+# Protect the zero page of memory from userspace mmap to prevent kernel
+# NULL-dereference attacks against potential future kernel security
+# vulnerabilities.  (Added in kernel 2.6.23.)
+hardening_sysctl_vm_mmap_min_addr: "65536"

@@ -4,9 +4,9 @@
   roles:
   - apt
   - apparmor
+  - kernel_hardening
     #  - dnsmasq
     #  - firewalld
-    #  - hardening
   - lvm2
     #  - networking
   - node_exporter
