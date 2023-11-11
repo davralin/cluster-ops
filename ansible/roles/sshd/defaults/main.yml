@@ -1,0 +1,20 @@
+---
+# Default loglevel is info, which doesn't lits fingerprint for authorized keys.
+sshd_loglevel: "VERBOSE"
+# Don't allow agent forwarding by default, due to increased attack vector.
+# https://matrix.org/blog/2019/05/08/post-mortem-and-remediations-for-apr-11-security-incident#ssh
+sshd_agent_forwarding: "NO"
+# Don't allow SSH-tunneling by default.
+# This is a swiss-army of firewall-bypass and host-jumping-tool which should only be used when it
+# absolutely needs to be used.
+sshd_tcp_forwarding: "NO"
+# Don't allow X11-forwarding by default
+# The protocol isn't that secure, and you should make a concious decision about needing this or not.
+sshd_x11_forwarding: "NO"
+# Compression might allow for deduction-attacks.
+# https://github.com/CISOfy/lynis/issues/217
+# OS-default is "delayed"
+sshd_compression: "NO"
+# We don't want root-logins at all, but instead rely on dedicated users with sudo.
+# OS-default is "prohibit-password"
+sshd_root_login: "NO"

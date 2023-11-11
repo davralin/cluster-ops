@@ -4,6 +4,8 @@
   roles:
   - apt
   - apparmor
+  - profile
+  - sshd
   - kernel_hardening
     #  - dnsmasq
     #  - firewalld
@@ -12,7 +14,6 @@
   - node_exporter
   - nullmailer
   - power_mgmt
-  - profile
   - rsync
     #  - repository
     #  - smartd

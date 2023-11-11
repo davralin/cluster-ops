@@ -5,6 +5,7 @@
   - apt
   - apparmor
   - profile
+  - sshd
   - kernel_hardening
   - node_exporter
   - nullmailer

@@ -4,6 +4,7 @@
   roles:
   - apt
   - profile
+  - sshd
   - nullmailer
   - rsync
   - users
