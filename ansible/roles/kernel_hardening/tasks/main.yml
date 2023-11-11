@@ -51,11 +51,6 @@
     - { name: 'net.ipv6.conf.default.accept_redirects', value: '{{ hardening_sysctl_net_ipv6_conf_default_accept_redirects }}' }
     - { name: 'vm.mmap_min_addr', value: '{{ hardening_sysctl_vm_mmap_min_addr }}' }
 
-- name: Does installing the required collections work in a EE, I doubt it.
-  command: ansible-galaxy collection install community.general
-  become: yes
-  delegate_to: localhost
-
 - name: Blacklist unused kernel-modules
   copy:
     content: |
