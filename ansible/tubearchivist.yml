@@ -5,7 +5,7 @@
   - apt
   - apparmor
   - profile
-    #  - lvm2
+  - lvm2
   - node_exporter
   - nullmailer
     #  - docker_compose

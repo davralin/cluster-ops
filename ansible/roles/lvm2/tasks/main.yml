@@ -1,0 +1,36 @@
+---
+- name: Installing package
+  apt:
+    name: "{{ packages }}"
+    state: present
+  become: yes
+  vars:
+    packages:
+      - lvm2
+
+- name: Set root-lv-size if defined
+  lvol:
+    lv: root
+    vg: "{{ vg_name }}"
+    size: '{{ root_lv_size }}'
+    resizefs: yes
+  become: yes
+  when: root_lv_size is defined
+
+- name: Set home-lv-size if defined
+  lvol:
+    lv: home
+    vg: "{{ vg_name }}"
+    size: '{{ home_lv_size }}'
+    resizefs: yes
+  become: yes
+  when: home_lv_size is defined
+
+- name: Set var/log-lv-size if defined
+  lvol:
+    lv: varlog
+    vg: "{{ vg_name }}"
+    size: '{{ varlog_lv_size }}'
+    resizefs: yes
+  become: yes
+  when: varlog_lv_size is defined

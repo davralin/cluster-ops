@@ -7,7 +7,7 @@
     #  - dnsmasq
     #  - firewalld
     #  - hardening
-    #  - lvm2
+  - lvm2
     #  - networking
   - node_exporter
   - nullmailer
