@@ -67,6 +67,5 @@
       blacklist ticp
       blacklist udf
     dest: /etc/modprobe.d/blacklist-ansible.conf
-    state: present
   become: yes
   loop:
