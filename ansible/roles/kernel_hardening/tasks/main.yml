@@ -57,20 +57,21 @@
   delegate_to: localhost
 
 - name: Blacklist unused kernel-modules
-  kernel_blacklist:
-    name: "{{ item }}"
+  copy:
+    content: |
+      blacklist cramfs
+      blacklist dccp
+      blacklist firewire-core
+      blacklist freevxfs
+      blacklist hfs
+      blacklist hfsplus
+      blacklist jffs2
+      blacklist rds
+      blacklist sctp
+      blacklist squashfs
+      blacklist ticp
+      blacklist udf
+    dest: /etc/modprobe.d/blacklist-ansible.conf
     state: present
   become: yes
   loop:
-    - cramfs
-    - dccp
-    - firewire-core
-    - freevxfs
-    - hfs
-    - hfsplus
-    - jffs2
-    - rds
-    - sctp
-    - squashfs
-    - ticp
-    - udf
