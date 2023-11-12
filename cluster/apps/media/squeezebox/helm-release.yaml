@@ -38,7 +38,7 @@ spec:
           main:
             image:
               repository: lmscommunity/logitechmediaserver
-              tag: 8.4.0@sha256:3245e0c2f0769e1ddbb06fa0f85dbe6d83c8b377a8cbe562217749ce9a0d5240
+              tag: 8.4.0
             env:
               TZ: "${TIMEZONE}"
               PGID: "1000"
