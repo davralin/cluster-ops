@@ -52,20 +52,20 @@
     - { name: 'vm.mmap_min_addr', value: '{{ hardening_sysctl_vm_mmap_min_addr }}' }
 
 - name: Blacklist unused kernel-modules
-  copy:
-    content: |
-      blacklist cramfs
-      blacklist dccp
-      blacklist firewire-core
-      blacklist freevxfs
-      blacklist hfs
-      blacklist hfsplus
-      blacklist jffs2
-      blacklist rds
-      blacklist sctp
-      blacklist squashfs
-      blacklist ticp
-      blacklist udf
-    dest: /etc/modprobe.d/blacklist-ansible.conf
+  kernel_blacklist:
+    name: "{{ item }}"
+    state: present
   become: yes
   loop:
+    - cramfs
+    - dccp
+    - firewire-core
+    - freevxfs
+    - hfs
+    - hfsplus
+    - jffs2
+    - rds
+    - sctp
+    - squashfs
+    - ticp
+    - udf
