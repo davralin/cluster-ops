@@ -10,7 +10,7 @@
   - lvm2
   - node_exporter
   - nullmailer
-    #  - docker_compose
-    #  - docker_io
+  - docker_io
+  - docker_compose
     #  - tubearchivist-compose
   - users

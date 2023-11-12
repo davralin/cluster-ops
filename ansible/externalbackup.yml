@@ -11,9 +11,9 @@
   - node_exporter
   - nullmailer
   - power_mgmt
-    #  - mdadm
-    #  - docker_compose
-    #  - docker_io
+  - mdadm
+  - docker_io
+  - docker_compose
     #  - adguard_compose
     #  - certbot
     #  - haproxy

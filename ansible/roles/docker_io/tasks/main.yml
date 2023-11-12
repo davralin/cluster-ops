@@ -1,0 +1,9 @@
+---
+- name: Installing packages
+  apt:
+    name: "{{ packages }}"
+    state: present
+  become: yes
+  vars:
+    packages:
+      - docker.io
