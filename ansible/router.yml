@@ -9,7 +9,7 @@
   - kernel_hardening
     #  - dnsmasq
     #  - firewalld
-    #  - lvm2
+  - lvm2
     #  - networking
   - node_exporter
   - nullmailer
