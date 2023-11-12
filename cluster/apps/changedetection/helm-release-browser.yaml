@@ -44,7 +44,7 @@ spec:
               SCREEN_WIDTH: "1920"
               SCREEN_HEIGHT: "1024"
               SCREEN_DEPTH: "16"
-              ENABLE_DEBUGGER: "true"
+              ENABLE_DEBUGGER: "false"
               PREBOOT_CHROME: "true"
               CONNECTION_TIMEOUT: "300000"
               MAX_CONCURRENT_SESSIONS: "4"
