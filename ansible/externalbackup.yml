@@ -1,0 +1,26 @@
+---
+- hosts: ExternalBackup
+
+  roles:
+  - apt
+  - apparmor
+  - kernel_hardening
+  - profile
+  - sshd
+  - lvm2
+  - node_exporter
+  - nullmailer
+  - power_mgmt
+    #  - mdadm
+    #  - docker_compose
+    #  - docker_io
+    #  - adguard_compose
+    #  - certbot
+    #  - haproxy
+    #  - photoprism
+    #  - smartd
+    #  - samba
+    #  - tailscale
+    #  - watchtower
+    #  - zfsonlinux
+  - users
