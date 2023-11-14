@@ -80,6 +80,7 @@ spec:
       enabled: false
     kubeProxy:
       enabled: true
+      endpoints: []
       service:
         enabled: true
         port: 10249
