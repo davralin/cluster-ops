@@ -70,14 +70,12 @@ spec:
           - secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
     defaultRules:
       create: true
-      rules:
-        kubelet: false
     kubeControllerManager:
       enabled: false
     kubeEtcd:
       enabled: false
     kubelet:
-      enabled: false
+      enabled: true
     kubeProxy:
       enabled: true
       endpoints: []
