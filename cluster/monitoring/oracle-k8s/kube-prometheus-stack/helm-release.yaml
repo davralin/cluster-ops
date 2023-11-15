@@ -94,18 +94,7 @@ spec:
         selector:
           k8s-app: kube-proxy
     kubeScheduler:
-      enabled: true
-      endpoints: []
-      service:
-        enabled: true
-        port: 10259
-        targetPort: 10259
-        selector:
-          k8s-app: kube-scheduler
-      serviceMonitor:
-        enabled: true
-        https: true
-        insecureSkipVerify: true
+      enabled: false
     prometheus-node-exporter:
       fullnameOverride: node-exporter
     grafana:
