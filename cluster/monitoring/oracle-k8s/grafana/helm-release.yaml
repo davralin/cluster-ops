@@ -95,11 +95,6 @@ spec:
           gnetId: 13838
           revision: 2
           datasource: Prometheus
-        # Ref: https://grafana.com/grafana/dashboards/6739
-        k8s-pvc:
-          gnetId: 6739
-          revision: 1
-          datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/1860
         node-exporter-full:
           gnetId: 1860
