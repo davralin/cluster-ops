@@ -71,27 +71,13 @@ spec:
     defaultRules:
       create: true
     kubeControllerManager:
-      enabled: true
+      enabled: false
     kubeEtcd:
-      enabled: true
+      enabled: false
     kubelet:
       enabled: true
-      serviceMonitor:
-        metricRelabelings:
-          - action: replace
-            sourceLabels: ["node"]
-            targetLabel: instance
     kube-state-metrics:
-      metricLabelsAllowlist: ["persistentvolumeclaims=[*]"]
-      prometheus:
-        monitor:
-          enabled: true
-          relabelings:
-            - action: replace
-              regex: (.*)
-              replacement: $1
-              sourceLabels: ["__meta_kubernetes_pod_node_name"]
-              targetLabel: kubernetes_node
+      enabled: true
     kubeProxy:
       enabled: true
       endpoints: []
@@ -102,7 +88,7 @@ spec:
         selector:
           k8s-app: kube-proxy
     kubeScheduler:
-      enabled: true
+      enabled: false
     grafana:
       enabled: false
       forceDeployDashboards: true
