@@ -60,7 +60,7 @@ spec:
       config:
         enabled: true
         existingClaim: rcloneconfig
-      matrix-key:
+      backup-to-jottacloud-shell:
         enabled: true
         type: configMap
         name: backup-to-jottacloud-shell
