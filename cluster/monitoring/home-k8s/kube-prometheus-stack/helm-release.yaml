@@ -70,15 +70,12 @@ spec:
           - secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
     defaultRules:
       create: true
-      rules:
-        kubelet: false
-        kubeApiserverAvailability: false
     kubeControllerManager:
-      enabled: false
+      enabled: true
     kubeEtcd:
-      enabled: false
+      enabled: true
     kubelet:
-      enabled: false
+      enabled: true
     kubeProxy:
       enabled: true
       endpoints: []
@@ -89,9 +86,9 @@ spec:
         selector:
           k8s-app: kube-proxy
     kubeScheduler:
-      enabled: false
+      enabled: true
     grafana:
-      enabled: false
+      enabled: true
     prometheus:
       ingress:
         enabled: true
