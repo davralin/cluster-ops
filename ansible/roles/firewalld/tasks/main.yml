@@ -1,0 +1,6 @@
+---
+- name: Installing packages
+  apt:
+    name: "{{ firewalld_packages }}"
+    state: present
+  become: yes

@@ -1,0 +1,5 @@
+---
+firewalld_packages:
+  - firewalld
+firewalld_default_zone: "public"
+firewalld_default_interface: "{{ ansible_default_ipv4.interface }}"

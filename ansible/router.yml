@@ -8,7 +8,7 @@
   - sshd
   - kernel_hardening
     #  - dnsmasq
-    #  - firewalld
+  - firewalld
   - lvm2
     #  - networking
   - node_exporter
