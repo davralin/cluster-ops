@@ -71,9 +71,9 @@ spec:
     defaultRules:
       create: true
     kubeControllerManager:
-      enabled: true
+      enabled: false
     kubeEtcd:
-      enabled: true
+      enabled: false
     kubelet:
       enabled: true
       serviceMonitor:
@@ -102,7 +102,17 @@ spec:
         selector:
           k8s-app: kube-proxy
     kubeScheduler:
-      enabled: true
+      enabled: false
+    prometheus-node-exporter:
+      prometheus:
+        monitor:
+          relabelings:
+            - sourceLabels: [__meta_kubernetes_pod_node_name]
+              separator: ;
+              regex: ^(.*)$
+              targetLabel: nodename
+              replacement: $1
+              action: replace
     grafana:
       enabled: false
       forceDeployDashboards: true
