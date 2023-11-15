@@ -76,6 +76,22 @@ spec:
       enabled: true
     kubelet:
       enabled: true
+      serviceMonitor:
+        metricRelabelings:
+          - action: replace
+            sourceLabels: ["node"]
+            targetLabel: instance
+    kube-state-metrics:
+      metricLabelsAllowlist: ["persistentvolumeclaims=[*]"]
+      prometheus:
+        monitor:
+          enabled: true
+          relabelings:
+            - action: replace
+              regex: (.*)
+              replacement: $1
+              sourceLabels: ["__meta_kubernetes_pod_node_name"]
+              targetLabel: kubernetes_node
     kubeProxy:
       enabled: true
       endpoints: []
