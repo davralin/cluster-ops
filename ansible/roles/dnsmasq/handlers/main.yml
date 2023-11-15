@@ -1,0 +1,12 @@
+---
+- name: Test dnsmasq and restart
+  command: /usr/sbin/dnsmasq --test -7 /etc/dnsmasq.d,.dpkg-dist,.dpkg-old,.dpkg-new
+  become: yes
+  notify:
+    - 'Restart dnsmasq'
+
+- name: Restart dnsmasq
+  service:
+    name: 'dnsmasq'
+    state: 'restarted'
+  become: yes

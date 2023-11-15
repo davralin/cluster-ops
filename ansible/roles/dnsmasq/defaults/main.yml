@@ -1,0 +1,7 @@
+---
+dnsmasq_conf_dir: "/etc/dnsmasq.d"
+dnsmasq_cache_dir: "/var/lib/misc"
+dnsmasq_except_interface: "{{ ansible_default_ipv4.interface }}"
+dnsmasq_dhcp_option_dns: "0.0.0.0"
+dnsmasq_upstream_dns_1: "94.140.14.14"
+dnsmasq_upstream_dns_2: "94.140.15.15"

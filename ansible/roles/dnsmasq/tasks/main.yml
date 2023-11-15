@@ -1,0 +1,32 @@
+---
+- name: Installing packages
+  apt:
+    name: "{{ packages }}"
+    state: present
+  become: true
+  vars:
+    packages:
+      - dnsmasq
+
+- name: Deploying dnsmasq global-config
+  template:
+    src: dnsmasq.conf
+    dest: /etc/dnsmasq.conf
+    group: root
+    owner: root
+    mode: 0644
+  become: true
+  notify:
+    - Test dnsmasq and restart
+
+- name: Deploying dnsmasq extra-config
+  copy:
+    content: "{{ dnsmasq_extra_config }}"
+    dest: /etc/dnsmasq.d/extra.conf
+    group: root
+    owner: root
+    mode: 0644
+  become: true
+  notify:
+    - Test dnsmasq and restart
+  when: dnsmasq_extra_config is defined

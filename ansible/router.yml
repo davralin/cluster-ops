@@ -7,7 +7,7 @@
   - profile
   - sshd
   - kernel_hardening
-    #  - dnsmasq
+  - dnsmasq
   - firewalld
   - lvm2
   - networking
