@@ -73,7 +73,15 @@ spec:
     kubeControllerManager:
       enabled: false
     kubeEtcd:
-      enabled: false
+      enabled: true
+      endpoints:
+        - 10.0.1.67
+        - 10.0.1.68
+        - 10.0.1.69
+      service:
+        enabled: true
+        port: 2381
+        targetPort: 2381
     kubelet:
       enabled: true
     kube-state-metrics:
