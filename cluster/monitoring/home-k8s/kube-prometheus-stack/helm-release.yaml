@@ -88,7 +88,8 @@ spec:
     kubeScheduler:
       enabled: true
     grafana:
-      enabled: true
+      enabled: false
+      forceDeployDashboards: true
     prometheus:
       ingress:
         enabled: true
