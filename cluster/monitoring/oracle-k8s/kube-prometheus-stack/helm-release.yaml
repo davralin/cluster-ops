@@ -89,16 +89,27 @@ spec:
           k8s-app: kube-proxy
     kubeScheduler:
       enabled: false
+    nodeExporter:
+      serviceMonitor:
+        relabelings:
+          - action: replace
+            regex: (.*)
+            replacement: $1
+            sourceLabels:
+              - __meta_kubernetes_pod_node_name
+            targetLabel: kubernetes_node
     prometheus-node-exporter:
+      fullnameOverride: node-exporter
       prometheus:
         monitor:
+          enabled: true
           relabelings:
-            - sourceLabels: [__meta_kubernetes_pod_node_name]
-              separator: ;
-              regex: ^(.*)$
-              targetLabel: nodename
+            - action: replace
+              regex: (.*)
               replacement: $1
-              action: replace
+              sourceLabels:
+                - __meta_kubernetes_pod_node_name
+              targetLabel: kubernetes_node
     grafana:
       enabled: false
       forceDeployDashboards: true
