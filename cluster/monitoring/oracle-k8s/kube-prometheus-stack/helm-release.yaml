@@ -88,28 +88,20 @@ spec:
         selector:
           k8s-app: kube-proxy
     kubeScheduler:
-      enabled: false
-    nodeExporter:
+      enabled: true
+      endpoints: []
+      service:
+        enabled: true
+        port: 10259
+        targetPort: 10259
+        selector:
+          k8s-app: kube-scheduler
       serviceMonitor:
-        relabelings:
-          - action: replace
-            regex: (.*)
-            replacement: $1
-            sourceLabels:
-              - __meta_kubernetes_pod_node_name
-            targetLabel: kubernetes_node
+        enabled: true
+        https: true
+        insecureSkipVerify: true
     prometheus-node-exporter:
       fullnameOverride: node-exporter
-      prometheus:
-        monitor:
-          enabled: true
-          relabelings:
-            - action: replace
-              regex: (.*)
-              replacement: $1
-              sourceLabels:
-                - __meta_kubernetes_pod_node_name
-              targetLabel: kubernetes_node
     grafana:
       enabled: false
       forceDeployDashboards: true
@@ -128,7 +120,7 @@ spec:
         tls:
           - secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
       prometheusSpec:
-        retention: 10d
+        retention: 15d
         retentionSize: 30GB
         storageSpec: {}
         podMonitorSelectorNilUsesHelmValues: false
