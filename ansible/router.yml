@@ -10,7 +10,7 @@
     #  - dnsmasq
   - firewalld
   - lvm2
-    #  - networking
+  - networking
   - node_exporter
   - nullmailer
   - power_mgmt

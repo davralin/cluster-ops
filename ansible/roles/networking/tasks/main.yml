@@ -1,0 +1,14 @@
+---
+- name: Packages for bridging and/or bonding
+  apt:
+    name: "{{ networking_packages }}"
+    state: present
+  become: yes
+  when: network_devices is defined
+
+- name: Populate networking
+  template:
+    src: interfaces
+    dest: /etc/network/interfaces
+  become: yes
+  notify: Restart systemd-networking

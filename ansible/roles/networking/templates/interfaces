@@ -1,0 +1,59 @@
+# This file describes the network interfaces available on your system
+# and how to activate them. For more information, see interfaces(5).
+
+source /etc/network/interfaces.d/*
+
+# The loopback network interface
+auto lo
+iface lo inet loopback
+
+{% if network_devices is not defined %}
+# The primary network interface
+allow-hotplug {{ networking_default_interface }}
+iface {{ networking_default_interface }} inet static
+  address {{ networking_default_interface_address }}
+  netmask {{ networking_default_interface_netmask }}
+  network {{ networking_default_interface_network }}
+  broadcast {{ networking_default_interface_broadcast }}
+  gateway {{ networking_default_interface_gateway }}
+{% elif network_devices is defined %}
+# The network interfaces
+{% for i in network_devices %}
+
+auto {{ i.name }}
+allow-hotplug {{ i.name }}
+iface {{ i.name }} inet {{ i.type }}
+{% if i.ssid is defined %}
+  wpa-ssid "{{ i.ssid }}"
+{% endif %}
+{% if i.psk is defined %}
+  wpa-psk "{{ i.psk }}"
+{% endif %}
+{% if i.type == "static" %}
+  address {{ i.address }}
+  netmask {{ i.netmask }}
+{% if i.network is defined %}
+  network {{ i.network }}
+{% endif %}
+{% if i.broadcast is defined %}
+  broadcast {{ i.broadcast }}
+{% endif %}
+{% if i.gateway is defined %}
+  gateway {{ i.gateway }}
+{% endif %}
+{% if i.ports is defined %}
+  bridge_ports {{ i.ports }}
+{% endif %}
+{% if i.stp is defined %}
+  bridge_stp {{ i.stp }}
+{% endif %}
+{% if i.fd is defined %}
+  bridge_fd {{ i.fd }}
+{% endif %}
+{% if i.maxwait is defined %}
+  bridge_maxwait {{ i.maxwait }}
+{% endif %}
+
+{% endif %}
+{% endfor %}
+{% endif %}

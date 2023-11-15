@@ -1,0 +1,10 @@
+---
+networking_default_interface: "{{ ansible_default_ipv4.interface }}"
+networking_default_interface_address: "{{ ansible_default_ipv4.address }}"
+networking_default_interface_netmask: "{{ ansible_default_ipv4.netmask }}"
+networking_default_interface_network: "{{ ansible_default_ipv4.network }}"
+networking_default_interface_broadcast: "{{ ansible_default_ipv4.broadcast }}"
+networking_default_interface_gateway: "{{ ansible_default_ipv4.gateway }}"
+networking_packages:
+  - bridge-utils
+  - ifenslave
