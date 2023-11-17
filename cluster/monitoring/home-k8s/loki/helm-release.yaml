@@ -27,3 +27,11 @@ spec:
       retries: 3
   values:
     fullnameOverride: loki
+    backend:
+      replicas: 1
+    loki:
+      auth_enabled: false
+    read:
+      replicas: 1
+    write:
+      replicas: 1
