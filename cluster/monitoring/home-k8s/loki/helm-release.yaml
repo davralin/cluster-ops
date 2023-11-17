@@ -2,14 +2,14 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: loki
+  name: loki-stack
   namespace: monitoring
 spec:
   interval: 15m
   chart:
     spec:
-      chart: loki
-      version: 5.36.3
+      chart: loki-stack
+      version: 2.9.11
       sourceRef:
         kind: HelmRepository
         name: grafana-charts
@@ -27,13 +27,3 @@ spec:
       retries: 3
   values:
     fullnameOverride: loki
-    #backend:
-      #replicas: 1
-    loki:
-      auth_enabled: false
-    #read:
-      #replicas: 1
-    write:
-      persistence:
-        volumeClaimsEnabled: false
-      #replicas: 1
