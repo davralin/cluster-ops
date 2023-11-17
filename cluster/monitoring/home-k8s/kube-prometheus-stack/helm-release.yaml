@@ -97,6 +97,8 @@ spec:
           k8s-app: kube-proxy
     kubeScheduler:
       enabled: false
+    prometheus-node-exporter:
+      fullnameOverride: node-exporter
     grafana:
       enabled: false
       forceDeployDashboards: true
