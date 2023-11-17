@@ -38,7 +38,7 @@ spec:
           main:
             image:
               repository: louislam/uptime-kuma
-              tag: 1.23.4
+              tag: 1.23.5
             env:
               TZ: "${TIMEZONE}"
             resources:
