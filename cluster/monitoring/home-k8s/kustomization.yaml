@@ -5,4 +5,5 @@ resources:
   - ../alert-rules
   - grafana
   - kube-prometheus-stack
+  - loki
   - namespace.yaml
