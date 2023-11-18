@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: tor-controller
-      version: 0.1.14
+      version: 0.1.15
       sourceRef:
         kind: HelmRepository
         name: bugfest-charts
