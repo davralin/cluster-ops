@@ -67,11 +67,6 @@ spec:
       datasources.yaml:
         apiVersion: 1
         datasources:
-          - name: Loki
-            type: loki
-            access: proxy
-            url: http://loki-gateway:80
-            isDefault: false
           - name: Prometheus
             type: prometheus
             access: proxy
@@ -105,8 +100,6 @@ spec:
           gnetId: 12950
           revision: 2
           datasource: Prometheus
-        kubernetes-audit-dashboard:
-          url: https://raw.githubusercontent.com/WoodProgrammer/kubernetes-audit-dashboards/master/dashboard/dashboard.json
         # Ref: https://grafana.com/grafana/dashboards/13838
         kubernetes-overview:
           gnetId: 13838
