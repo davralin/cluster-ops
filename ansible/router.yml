@@ -9,6 +9,7 @@
   - kernel_hardening
   - dnsmasq
   - firewalld
+  - users
   - lvm2
   - networking
   - node_exporter
@@ -18,5 +19,4 @@
     #  - repository
     #  - smartd
     #  - tailscale
-  - users
     #  - wireguard
