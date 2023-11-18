@@ -61,7 +61,7 @@ spec:
           routes:
             - receiver: "healthchecksio"
               matchers:
-                - alertname = "Watchdog"
+                - alertname =~ "InfoInhibitor|Watchdog"
             - receiver: "healthchecksio"
               matchers:
                 - alertname ="AlertmanagerClusterFailedToSendAlerts"
