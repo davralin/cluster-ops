@@ -87,6 +87,8 @@ spec:
       create: true
     kubeControllerManager:
       enabled: true
+      endpoints:
+        - 10.0.0.188
     kubeEtcd:
       enabled: true
       endpoints:
@@ -110,6 +112,8 @@ spec:
           k8s-app: kube-proxy
     kubeScheduler:
       enabled: true
+      endpoints:
+        - 10.0.0.188
     prometheus-node-exporter:
       fullnameOverride: node-exporter
     grafana:
