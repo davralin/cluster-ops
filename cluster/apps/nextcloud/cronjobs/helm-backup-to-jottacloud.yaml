@@ -41,7 +41,7 @@ spec:
             image:
               repository: rclone/rclone
               tag: 1.64.2
-            command: ["/usr/local/bin/rclone-backup.sh"]
+            command: ["/config/rclone-backup.sh"]
     service:
       main:
         enabled: false
@@ -68,6 +68,6 @@ spec:
         advancedMounts:
           main:
             main:
-              - path: /usr/local/bin/rclone-backup.sh
+              - path: /config/rclone-backup.sh
                 subPath: rclone-backup.sh
                 readOnly: true
