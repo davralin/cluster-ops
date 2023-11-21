@@ -12,5 +12,5 @@
   - nullmailer
   - docker_io
   - docker_compose
-    #  - tubearchivist-compose
+  - tubearchivist-compose
   - users

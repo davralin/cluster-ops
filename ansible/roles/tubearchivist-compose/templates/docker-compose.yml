@@ -1,0 +1,53 @@
+version: '3.3'
+
+services:
+  tubearchivist:
+    container_name: tubearchivist
+    restart: unless-stopped
+    image: bbilly1/tubearchivist:{{ tubearchivist_compose_version }}
+    ports:
+      - 8000:8000
+    volumes:
+      - {{ tubearchivist_compose_config_path }}/media:/youtube
+      - {{ tubearchivist_compose_config_path }}/cache:/cache
+    environment:
+      - ES_URL=http://archivist-es:9200     # needs protocol e.g. http and port
+      - REDIS_HOST=archivist-redis          # don't add protocol
+      - HOST_UID=1000
+      - HOST_GID=1000
+      - TA_HOST={{ tubearchivist_ta_host }}
+      - TA_USERNAME={{ tubearchivist_ta_username }}
+      - TA_PASSWORD={{ tubearchivist_ta_password }}
+      - ELASTIC_PASSWORD={{ tubearchivist_elastic_password }}         # set password for Elasticsearch
+      - TZ=Europe/Oslo                 # set your time zone
+    depends_on:
+      - archivist-es
+      - archivist-redis
+  archivist-redis:
+    image: redis/redis-stack-server:{{ tubearchivist_compose_redis_version }}
+    container_name: archivist-redis
+    restart: unless-stopped
+    expose:
+      - "6379"
+    volumes:
+      - {{ tubearchivist_compose_config_path }}/redis:/data
+    depends_on:
+      - archivist-es
+  archivist-es:
+    image: elasticsearch:{{ tubearchivist_compose_elasticsearch_version }}
+    container_name: archivist-es
+    restart: unless-stopped
+    environment:
+      - "ELASTIC_PASSWORD={{ tubearchivist_elastic_password }}"       # matching Elasticsearch password
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - "xpack.security.enabled=true"
+      - "discovery.type=single-node"
+      - "path.repo=/usr/share/elasticsearch/data/snapshot"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - {{ tubearchivist_compose_config_path }}/es:/usr/share/elasticsearch/data    # check for permission error when using bind mount, see readme
+    expose:
+      - "9200"

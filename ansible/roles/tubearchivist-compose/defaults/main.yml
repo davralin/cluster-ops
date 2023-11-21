@@ -1,0 +1,10 @@
+---
+tubearchivist_compose_path: "/opt/tubearchivist"
+tubearchivist_compose_config_path: "{{ tubearchivist_compose_path }}/config"
+tubearchivist_compose_version: "v0.4.3"
+tubearchivist_compose_redis_version: "7.2.0-v2"
+tubearchivist_compose_elasticsearch_version: "8.11.1"
+tubearchivist_ta_host: "localhost"
+tubearchivist_ta_username: "username"
+tubearchivist_ta_password: "password"
+tubearchivist_elastic_password: "verysecret"

@@ -1,0 +1,22 @@
+---
+- name: Ensure path to compose-file
+  file:
+    path: "{{ tubearchivist_compose_path }}"
+    state: directory
+  become: yes
+
+- name: Ensure path to config-folder
+  file:
+    path: "{{ tubearchivist_compose_config_path }}"
+    state: directory
+  become: yes
+
+- name: Copy template-file
+  template:
+    src: docker-compose.yml
+    dest: "{{ tubearchivist_compose_path }}/docker-compose.yml"
+  become: yes
+  notify:
+    - Pull compose tubearchivist
+    - Down compose tubearchivist
+    - Up compose tubearchivist
