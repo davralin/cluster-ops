@@ -84,7 +84,7 @@ spec:
           gotenberg:
             image: 
               repository: docker.io/gotenberg/gotenberg
-              tag: "7.9.2"
+              tag: "7.10.0"
     service:
       main:
         ports:
