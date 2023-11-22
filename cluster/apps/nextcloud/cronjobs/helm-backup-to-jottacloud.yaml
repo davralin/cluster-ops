@@ -35,8 +35,7 @@ spec:
       main:
         type: cronjob
         cronjob:
-          #schedule: "27 05 * * *"
-          schedule: "*/5 * * * *"
+          schedule: "27 05 * * *"
         containers:
           main:
             image:
@@ -62,10 +61,11 @@ spec:
       config:
         enabled: true
         existingClaim: rcloneconfig
-      backup-to-jottacloud-shell:
-        enabled: true
-        type: configMap
-        name: backup-to-jottacloud-shell
-        defaultMode: 0755
-        globalMounts:
-          - path: /config/test
+      # I can't get this to work, so I just dropped the shell-script in the folder.
+      #backup-to-jottacloud-shell:
+      #  enabled: true
+      #  type: configMap
+      #  name: backup-to-jottacloud-shell
+      #  defaultMode: 0755
+      #  globalMounts:
+      #    - path: /config/test
