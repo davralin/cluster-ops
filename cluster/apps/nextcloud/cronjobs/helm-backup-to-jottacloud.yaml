@@ -67,9 +67,5 @@ spec:
         type: configMap
         name: backup-to-jottacloud-shell
         defaultMode: 0755
-        advancedMounts:
-          main:
-            main:
-              - path: /config/test
-                subPath: backup.sh
-                readOnly: true
+        globalMounts:
+          - path: /config/test
