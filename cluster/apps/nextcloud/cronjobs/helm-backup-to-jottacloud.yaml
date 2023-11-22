@@ -36,13 +36,14 @@ spec:
         type: cronjob
         cronjob:
           #schedule: "27 05 * * *"
-          schedule: "42 * * * *"
+          schedule: "*/5 * * * *"
         containers:
           main:
             image:
               repository: rclone/rclone
               tag: 1.64.2
-            command: ["/config/backup.sh"]
+            command: ["sleep"]
+            args: ["infinity"]
     service:
       main:
         enabled: false
