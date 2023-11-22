@@ -42,8 +42,9 @@ spec:
             image:
               repository: rclone/rclone
               tag: 1.64.2
-            command: ["sleep"]
-            args: ["infinity"]
+            command: ["/config/backup.sh"]
+            #command: ["sleep"]
+            #args: ["infinity"]
     service:
       main:
         enabled: false
