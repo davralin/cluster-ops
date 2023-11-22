@@ -43,8 +43,6 @@ spec:
               repository: rclone/rclone
               tag: 1.64.2
             command: ["/config/backup.sh"]
-            #command: ["sleep"]
-            #args: ["infinity"]
     service:
       main:
         enabled: false
@@ -72,6 +70,6 @@ spec:
         advancedMounts:
           main:
             main:
-              - path: /config/template_backup.sh
+              - path: /config/test
                 subPath: backup.sh
                 readOnly: true
