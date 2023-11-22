@@ -35,7 +35,8 @@ spec:
       main:
         type: cronjob
         cronjob:
-          schedule: "27 05 * * *"
+          #schedule: "27 05 * * *"
+          schedule: "35 * * * *"
         containers:
           main:
             image:
@@ -50,7 +51,8 @@ spec:
       shell:
         enabled: true
         stringData:
-          rclone-backup.sh: |
+          backup.sh: |
+            #!/bin/sh
             /usr/local/bin/rclone sync --check-first --delete-after --progress --jottacloud-hard-delete --backup-dir "jottacloud-crypt:/nextcloud/$(date -I)" /nextcloud/ jottacloud-crypt:/nextcloud/current
             /usr/local/bin/rclone sync --check-first --delete-after --progress --jottacloud-hard-delete --backup-dir "jottacloud-telia-crypt:/nextcloud/$(date -I)" /nextcloud/ jottacloud-telia-crypt:/nextcloud/current
     persistence:
@@ -69,6 +71,6 @@ spec:
         advancedMounts:
           main:
             main:
-              - path: /config/rclone-backup.sh
-                subPath: rclone-backup.sh
+              - path: /config/backup.sh
+                subPath: backup.sh
                 readOnly: true
