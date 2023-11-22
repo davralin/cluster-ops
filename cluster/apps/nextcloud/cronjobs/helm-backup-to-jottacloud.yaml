@@ -36,7 +36,7 @@ spec:
         type: cronjob
         cronjob:
           #schedule: "27 05 * * *"
-          schedule: "35 * * * *"
+          schedule: "41 * * * *"
         containers:
           main:
             image:
@@ -71,6 +71,6 @@ spec:
         advancedMounts:
           main:
             main:
-              - path: /config/backup.sh
+              - path: /config/template_backup.sh
                 subPath: backup.sh
                 readOnly: true
