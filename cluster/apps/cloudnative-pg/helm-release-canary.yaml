@@ -31,7 +31,7 @@ spec:
           main:
             image:
               repository:  ghcr.io/cloudnative-pg/postgresql
-              tag: 16.0
+              tag: 16.1
     service:
       main:
         enabled: false
