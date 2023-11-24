@@ -38,6 +38,7 @@ spec:
       valuesKey: ELASTIC_PASSWORD
   values:
     fullnameOverride: *name
+    # App needs root to work.
     #defaultPodOptions:
       #securityContext:
         #runAsUser: 1000
