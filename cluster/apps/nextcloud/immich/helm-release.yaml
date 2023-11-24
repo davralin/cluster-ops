@@ -23,6 +23,15 @@ spec:
   upgrade:
     remediation:
       retries: 3
+  valuesFrom:
+    - targetPath: controllers.main.containers.main.env.DB_PASSWORD
+      kind: Secret
+      name: immich-postgresql-secret
+      valuesKey: password
+    - targetPath: controllers.main.containers.microservices.env.DB_PASSWORD
+      kind: Secret
+      name: immich-postgresql-secret
+      valuesKey: password
   values:
     fullnameOverride: *name
     defaultPodOptions:
@@ -41,6 +50,10 @@ spec:
             command: [ "/usr/src/app/start.sh", "immich" ]
             env:
               TZ: "${TIMEZONE}"
+              REDIS_HOSTNAME: "redis-immich-master"
+              DB_HOSTNAME: "postgres-v16-rw.cloudnative-pg.svc.cluster.local"
+              DB_USERNAME: "immich"
+              DB_DATABASE: "immich"
             resources: []
           microservices:
             image:
@@ -49,6 +62,10 @@ spec:
             command: [ "/usr/src/app/start.sh", "microservices" ]
             env:
               TZ: "${TIMEZONE}"
+              REDIS_HOSTNAME: "redis-immich-master"
+              DB_HOSTNAME: "postgres-v16-rw.cloudnative-pg.svc.cluster.local"
+              DB_USERNAME: "immich"
+              DB_DATABASE: "immich"
             resources: []
           machine-learning:
             image:
@@ -91,4 +108,17 @@ spec:
                   port: http
         tls:
           - secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
-    persistence: []
+    persistence:
+      config:
+        enabled: true
+        existingClaim: nextcloud
+        advancedMounts:
+          main:
+            main:
+              - path: /mnt/nextcloud
+                readOnly: true
+                subPath: data/mikr/files/Bilder
+            microservices:
+              - path: /mnt/nextcloud
+                readOnly: true
+                subPath: data/mikr/files/Bilder
