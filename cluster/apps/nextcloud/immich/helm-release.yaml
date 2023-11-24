@@ -38,7 +38,7 @@ spec:
             image:
               repository: ghcr.io/immich-app/immich-server
               tag: v1.88.2
-            command: [ "start.sh", "immich" ]
+            command: [ "/usr/src/app/start.sh", "immich" ]
             env:
               TZ: "${TIMEZONE}"
             resources: []
@@ -46,7 +46,7 @@ spec:
             image:
               repository: ghcr.io/immich-app/immich-server
               tag: v1.88.2
-            command: [ "start.sh", "microservices" ]
+            command: [ "/usr/src/app/start.sh", "microservices" ]
             env:
               TZ: "${TIMEZONE}"
             resources: []
