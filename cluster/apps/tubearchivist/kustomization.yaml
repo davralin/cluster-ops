@@ -4,7 +4,7 @@ kind: Kustomization
 resources:
   - helm-release-elasticsearch.yaml
   - helm-release-redis-stack.yaml
-  #- helm-release.yaml
+  - helm-release.yaml
   - namespace.yaml
   - pvc.yaml
   - secret.yaml
