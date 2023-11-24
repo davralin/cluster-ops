@@ -67,6 +67,7 @@ spec:
               DB_USERNAME: "immich"
               DB_DATABASE_NAME: "immich"
               TYPESENSE_HOST: "localhost"
+              UPLOAD_LOCATION: "/upload"
             resources: []
           microservices:
             image:
@@ -80,6 +81,7 @@ spec:
               DB_USERNAME: "immich"
               DB_DATABASE_NAME: "immich"
               TYPESENSE_HOST: "localhost"
+              UPLOAD_LOCATION: "/upload"
             resources: []
           machine-learning:
             image:
@@ -135,6 +137,15 @@ spec:
               - path: /mnt/nextcloud
                 readOnly: true
                 subPath: data/mikr/files/Bilder
+      upload:
+        enabled: true
+        existingClaim: upload
+        advancedMounts:
+          main:
+            main:
+              - path: /upload
+            microservices:
+              - path: /upload
       typesense:
         enabled: true
         existingClaim: typesense
