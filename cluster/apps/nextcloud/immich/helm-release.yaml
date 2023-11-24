@@ -26,12 +26,24 @@ spec:
   valuesFrom:
     - targetPath: controllers.main.containers.main.env.DB_PASSWORD
       kind: Secret
-      name: immich-postgresql-secret
+      name: immich-secrets
       valuesKey: password
     - targetPath: controllers.main.containers.microservices.env.DB_PASSWORD
       kind: Secret
-      name: immich-postgresql-secret
+      name: immich-secrets
       valuesKey: password
+    - targetPath: controllers.main.containers.main.env.TYPESENSE_API_KEY
+      kind: Secret
+      name: immich-secrets
+      valuesKey: typesense_api_key
+    - targetPath: controllers.main.containers.microservices.env.TYPESENSE_API_KEY
+      kind: Secret
+      name: immich-secrets
+      valuesKey: typesense_api_key
+    - targetPath: controllers.main.containers.typesense.env.TYPESENSE_API_KEY
+      kind: Secret
+      name: immich-secrets
+      valuesKey: typesense_api_key
   values:
     fullnameOverride: *name
     defaultPodOptions:
@@ -54,7 +66,6 @@ spec:
               DB_HOSTNAME: "postgres-v16-rw.cloudnative-pg.svc.cluster.local"
               DB_USERNAME: "immich"
               DB_DATABASE_NAME: "immich"
-              TYPESENSE_API_KEY: "TYPESENSE_API_KEY"
             resources: []
           microservices:
             image:
@@ -67,7 +78,6 @@ spec:
               DB_HOSTNAME: "postgres-v16-rw.cloudnative-pg.svc.cluster.local"
               DB_USERNAME: "immich"
               DB_DATABASE_NAME: "immich"
-              TYPESENSE_API_KEY: "TYPESENSE_API_KEY"
             resources: []
           machine-learning:
             image:
@@ -82,7 +92,6 @@ spec:
               tag: 0.24.1@sha256:9bcff2b829f12074426ca044b56160ca9d777a0c488303469143dd9f8259d4dd
             env:
               TZ: "${TIMEZONE}"
-              TYPESENSE_API_KEY: "TYPESENSE_API_KEY"
               TYPESENSE_DATA_DIR: "/data"
               GLOG_minloglevel: "1"
             resources: []
@@ -131,3 +140,10 @@ spec:
           main:
             typesense:
               - path: /data
+      modelcache:
+        enabled: true
+        existingClaim: modelcache
+        advancedMounts:
+          main:
+            machine-learning:
+              - path: /cache
