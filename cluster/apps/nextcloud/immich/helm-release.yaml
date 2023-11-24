@@ -60,7 +60,7 @@ spec:
           typesense:
             image:
               repository: typesense/typesense
-              tag: 0.24.1@sha256:9bcff2b829f12074426ca044b56160ca9d777a0c488303469143dd9f8259d4dd
+              tag: 0.25.1@sha256:035ccfbc3fd8fb9085ea205fdcb62de63eaefdbebd710e88e57f978a30f2090d
             env:
               TZ: "${TIMEZONE}"
               TYPESENSE_API_KEY: "TYPESENSE_API_KEY"
