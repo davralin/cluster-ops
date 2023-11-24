@@ -124,3 +124,10 @@ spec:
               - path: /mnt/nextcloud
                 readOnly: true
                 subPath: data/mikr/files/Bilder
+      typesense:
+        enabled: true
+        existingClaim: typesense
+        advancedMounts:
+          main:
+            typesense:
+              - path: /data
