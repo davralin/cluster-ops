@@ -44,6 +44,9 @@ spec:
           ingress_type: ingress
           ingress_tls_secret: "${SECRET_PRIVATE_DOMAIN_CERT}"
           hostname: "awx.${SECRET_PRIVATE_DOMAIN}"
+          ee_images:
+            - name: personal-awx-ee
+              image: ghcr.io/davralin/awx-ee:latest
           extra_settings:
             - setting: TOWER_URL_BASE
               value: '"awx.${SECRET_PRIVATE_DOMAIN}"'
