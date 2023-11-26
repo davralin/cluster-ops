@@ -1,0 +1,17 @@
+---
+- name: Download k3s-install-script
+  get_url:
+    url: https://get.k3s.io
+    dest: /usr/local/bin/k3s_install
+    group: root
+    owner: root
+    mode: 0755
+  become: yes
+
+- name: Install k3s
+  command: /usr/local/bin/k3s_install
+  environment:
+    INSTALL_K3S_EXEC: "--disable=traefik,local-storage,metrics-server"
+    K3S_KUBECONFIG_MODE: "0644"
+  args:
+    creates: /etc/rancher/k3s/k3s.yaml
