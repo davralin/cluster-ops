@@ -1,0 +1,12 @@
+---
+- hosts: k3s
+
+  roles:
+  - apt
+  - apparmor
+  - profile
+  - sshd
+  - kernel_hardening
+  - nullmailer
+    #  - tailscale
+  - users
