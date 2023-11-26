@@ -30,12 +30,12 @@ spec:
       valuesKey: ELASTIC_PASSWORD
   values:
     fullnameOverride: *name
-    defaultPodOptions:
-      securityContext:
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
-        fsGroupChangePolicy: "OnRootMismatch"
+    #defaultPodOptions:
+      #securityContext:
+        #runAsUser: 1000
+        #runAsGroup: 1000
+        #fsGroup: 1000
+        #fsGroupChangePolicy: "OnRootMismatch"
     controllers:
       main:
         containers:
