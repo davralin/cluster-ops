@@ -28,4 +28,5 @@ spec:
       minecraft:
         type: LoadBalancer
     minecraftRouter:
-      useProxyProtocol: true
+      debug:
+        enabled: true
