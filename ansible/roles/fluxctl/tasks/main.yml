@@ -1,0 +1,15 @@
+---
+- name: Download flux-install-script
+  get_url:
+    url:  https://fluxcd.io/install.sh
+    dest: /usr/local/bin/flux_install
+    group: root
+    owner: root
+    mode: 0755
+  become: yes
+
+- name: Install flux
+  command: /usr/local/bin/flux_install
+  args:
+    creates: /usr/local/bin/flux
+  become: yes

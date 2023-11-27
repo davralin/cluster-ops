@@ -11,3 +11,4 @@
     #  - tailscale
   - users
   - k3s
+  - fluxctl
