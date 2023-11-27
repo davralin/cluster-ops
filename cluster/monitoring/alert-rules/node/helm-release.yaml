@@ -1,0 +1,67 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: node-rules
+  namespace: monitoring
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: raw
+      version: v0.3.2
+      sourceRef:
+        kind: HelmRepository
+        name: dysnix-charts
+        namespace: flux-system
+  targetNamespace: monitoring
+  install:
+    createNamespace: true
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
+  dependsOn:
+    - name: kube-prometheus-stack
+      namespace: monitoring
+  values:
+    resources:
+      - apiVersion: monitoring.coreos.com/v1
+        kind: PrometheusRule
+        metadata:
+          name: node-rules
+          namespace: monitoring
+          labels:
+            prometheus: k8s
+            role: alert-rules
+        spec:
+          groups:
+            - name: node.rules
+              rules:
+                - alert: InstanceDown
+                  expr: up == 0
+                  for: 5m
+                  labels:
+                    severity: critical
+                  annotations:
+                    description: '{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 5 minutes.'
+                    summary: 'Instance {{ $labels.instance }} down'
+                - alert: KubernetesHostHighCPUUsage
+                  expr: 100 - (avg by (instance) (irate(node_cpu_seconds_total{mode="idle"}[5m])) * 100) > 90
+                  for: 15m
+                  labels:
+                    #severity: warning
+                    context: node
+                  annotations:
+                    summary: High load on node
+                    description: "Node {{ $labels.instance }} has more than 90% CPU load"
+                - alert: KubernetesNodeDiskUsagePercentage
+                  expr: (100 - 100 * sum(node_filesystem_avail_bytes{device!~"tmpfs|by-uuid",fstype=~"xfs|ext4"} / node_filesystem_size_bytes{device!~"tmpfs|by-uuid",fstype=~"xfs|ext4"}) BY (instance,device)) > 85
+                  for: 5m
+                  labels:
+                    #severity: warning
+                    context: node
+                  annotations:
+                    description: Node disk usage above 85%
+                    summary: Disk usage on target {{ $labels.instance }} at 85%

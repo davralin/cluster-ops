@@ -1,0 +1,49 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: pod-rules
+  namespace: monitoring
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: raw
+      version: v0.3.2
+      sourceRef:
+        kind: HelmRepository
+        name: dysnix-charts
+        namespace: flux-system
+  targetNamespace: monitoring
+  install:
+    createNamespace: true
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
+  dependsOn:
+    - name: kube-prometheus-stack
+      namespace: monitoring
+  values:
+    resources:
+      - apiVersion: monitoring.coreos.com/v1
+        kind: PrometheusRule
+        metadata:
+          name: pod-rules
+          namespace: monitoring
+          labels:
+            prometheus: k8s
+            role: alert-rules
+        spec:
+          groups:
+            - name: pod.rules
+              rules:
+                - alert: KubernetesPodCrashLooping
+                  expr: increase(kube_pod_container_status_restarts_total[1m]) > 3
+                  for: 2m
+                  #labels:
+                    #severity: warning
+                  annotations:
+                    summary: Kubernetes pod crash looping (instance {{ $labels.instance }})
+                    description: "Pod {{ $labels.pod }} is crash looping\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
