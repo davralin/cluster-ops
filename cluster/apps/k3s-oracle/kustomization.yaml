@@ -1,0 +1,22 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../botkube
+  - ../cert-manager
+  - ../chatbot-ui
+  #- ../cloudnative-pg
+  #- ../cloudnative-pg/cluster-16-oracle
+  #- ../dendrite
+  - ../haproxy/haproxy-ingress-daemonset
+  - ../it-tools
+  - ../kubed
+  - ../kuma
+  - ../local-path-provisioner
+  - ../librespeed
+  - ../metrics-server
+  - ../reloader
+  - ../searxng
+  - ../snowflake
+  - ../tailscale
+  - ../thelounge
