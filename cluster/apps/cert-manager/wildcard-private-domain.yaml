@@ -1,19 +1,47 @@
 ---
-apiVersion: cert-manager.io/v1
-kind: Certificate
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
 metadata:
   name: wildcard-private-domain
   namespace: cert-manager
 spec:
-  secretName: "${SECRET_PRIVATE_DOMAIN_CERT}"
-  secretTemplate:
-    annotations:
-      kubed.appscode.com/sync: ""
-  issuerRef:
-    name: letsencrypt-prod
-    kind: ClusterIssuer
-  privateKey:
-    rotationPolicy: Always
-  dnsNames:
-    - "*.${SECRET_PRIVATE_DOMAIN}"
-    - "${SECRET_PRIVATE_DOMAIN}"
+  interval: 15m
+  chart:
+    spec:
+      chart: raw
+      version: v0.3.2
+      sourceRef:
+        kind: HelmRepository
+        name: dysnix-charts
+        namespace: flux-system
+  targetNamespace: cert-manager
+  install:
+    createNamespace: true
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
+  dependsOn:
+    - name: clusterissuer-letsencrypt-prod
+      namespace: cert-manager
+  values:
+    resources:
+      - apiVersion: cert-manager.io/v1
+        kind: Certificate
+        metadata:
+          name: wildcard-private-domain
+          namespace: cert-manager
+        spec:
+          secretName: "${SECRET_PRIVATE_DOMAIN_CERT}"
+          secretTemplate:
+            annotations:
+              kubed.appscode.com/sync: ""
+          issuerRef:
+            name: letsencrypt-prod
+            kind: ClusterIssuer
+          privateKey:
+            rotationPolicy: Always
+          dnsNames:
+            - "*.${SECRET_PRIVATE_DOMAIN}"
+            - "${SECRET_PRIVATE_DOMAIN}"
