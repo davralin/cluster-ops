@@ -7,6 +7,7 @@ resources:
   - helm-release.yaml
   - namespace.yaml
   - secret.yaml
+  - helm-wildcard-internal-domain.yaml
   - wildcard-internal-domain.yaml
   - wildcard-private-domain.yaml
   - wildcard-public-domain.yaml

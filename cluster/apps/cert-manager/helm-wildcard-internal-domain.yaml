@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: clusterissuer-letsencrypt-prod
+  name: wildcard-internal-domain
   namespace: cert-manager
 spec:
   interval: 15m
@@ -23,25 +23,25 @@ spec:
     remediation:
       retries: 5
   dependsOn:
-    - name: cert-manager
+    - name: clusterissuer-letsencrypt-prod
       namespace: cert-manager
   values:
     resources:
       - apiVersion: cert-manager.io/v1
-        kind: ClusterIssuer
+        kind: Certificate
         metadata:
-          name: letsencrypt-prod
+          name: wildcard-internal-domain
           namespace: cert-manager
         spec:
-          acme:
-            email: "${SECRET_CLOUDFLARE_EMAIL}"
-            server: https://acme-v02.api.letsencrypt.org/directory
-            privateKeySecretRef:
-              name: cloudflare-issuer-account-key
-            solvers:
-              - dns01:
-                  cloudflare:
-                    email: "${SECRET_CLOUDFLARE_EMAIL}"
-                    apiTokenSecretRef:
-                      name: cloudflare-api-token-secret
-                      key: api-token
+          secretName: "${SECRET_INTERNAL_DOMAIN_CERT}"
+          secretTemplate:
+            annotations:
+              kubed.appscode.com/sync: ""
+          issuerRef:
+            name: letsencrypt-prod
+            kind: ClusterIssuer
+          privateKey:
+            rotationPolicy: Always
+          dnsNames:
+            - "*.${SECRET_INTERNAL_DOMAIN}"
+            - "${SECRET_INTERNAL_DOMAIN}"
