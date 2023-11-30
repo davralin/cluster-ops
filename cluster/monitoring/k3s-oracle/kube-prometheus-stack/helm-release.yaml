@@ -85,6 +85,8 @@ spec:
           - secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
     defaultRules:
       create: true
+    kubeApiServer:
+      enabled: true
     kubeControllerManager:
       enabled: true
       endpoints:
@@ -97,13 +99,8 @@ spec:
       enabled: true
     kubeProxy:
       enabled: true
-      endpoints: []
-      service:
-        enabled: true
-        port: 10249
-        targetPort: 10249
-        selector:
-          k8s-app: kube-proxy
+      endpoints:
+        - 10.0.1.226
     kubeScheduler:
       enabled: true
       endpoints:
