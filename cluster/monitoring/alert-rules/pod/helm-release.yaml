@@ -47,3 +47,9 @@ spec:
                   annotations:
                     summary: Kubernetes pod crash looping (instance {{ $labels.instance }})
                     description: "Pod {{ $labels.pod }} is crash looping\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+                - alert: OOMKilled
+                  annotations:
+                    summary: Container {{ $labels.container }} in pod {{ $labels.namespace }}/{{ $labels.pod }} has been OOMKilled {{ $value }} times in the last 10 minutes.
+                  expr: (kube_pod_container_status_restarts_total - kube_pod_container_status_restarts_total offset 10m >= 1) and ignoring (reason) min_over_time(kube_pod_container_status_last_terminated_reason{reason="OOMKilled"}[10m]) == 1
+                  labels:
+                    severity: critical
