@@ -6,7 +6,7 @@ metadata:
   namespace: tubearchivist
 spec:
   type: ExternalName
-  externalName: 10.0.1.160
+  externalName: 10.0.1.76
   ports:
   - name: http
     port: 8000
