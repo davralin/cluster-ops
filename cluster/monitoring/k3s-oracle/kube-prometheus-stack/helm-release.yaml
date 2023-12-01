@@ -98,9 +98,7 @@ spec:
     kube-state-metrics:
       enabled: true
     kubeProxy:
-      enabled: true
-      endpoints:
-        - 10.0.1.226
+      enabled: false
     kubeScheduler:
       enabled: true
       endpoints:
