@@ -46,12 +46,6 @@ spec:
       valuesKey: typesense_api_key
   values:
     fullnameOverride: *name
-    defaultPodOptions:
-      securityContext:
-        runAsUser: 0
-        runAsGroup: 0
-        fsGroup: 0
-        fsGroupChangePolicy: "OnRootMismatch"
     controllers:
       main:
         containers:
