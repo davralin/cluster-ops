@@ -1,1 +1,3 @@
-## This is still in use, but I have it in a dedicated LXC on proxmox instead, while I deal with some other issues not related to TubeArchivist.
+## TubeArchivist
+
+This is still in use, but I have it on a dedicated host on Promox, while I sort out some stuff.

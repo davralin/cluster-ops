@@ -1,0 +1,26 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: tubearchivist
+  namespace: tubearchivist
+  annotations:
+    haproxy.org/response-set-header: |
+      Strict-Transport-Security "max-age=31536000"
+      X-Frame-Options "DENY"
+      X-Content-Type-Options "nosniff"
+      Referrer-Policy "no-referrer-when-downgrade"
+spec:
+  rules:
+  - host: tube.ralin.org
+    http:
+      paths:
+      - backend:
+          service:
+            name: tubearchivist
+            port:
+              number: 8000
+        path: /
+        pathType: Prefix
+  tls:
+  - secretName: wildcard-ralin-org-cert
