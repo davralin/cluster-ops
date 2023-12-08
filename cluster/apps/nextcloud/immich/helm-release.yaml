@@ -84,15 +84,6 @@ spec:
             env:
               TZ: "${TIMEZONE}"
             resources: []
-          typesense:
-            image:
-              repository: typesense/typesense
-              tag: 0.25.1@sha256:035ccfbc3fd8fb9085ea205fdcb62de63eaefdbebd710e88e57f978a30f2090d
-            env:
-              TZ: "${TIMEZONE}"
-              TYPESENSE_DATA_DIR: "/data"
-              GLOG_minloglevel: "1"
-            resources: []
     service:
       main:
         ports:
@@ -140,13 +131,6 @@ spec:
               - path: /upload
             microservices:
               - path: /upload
-      typesense:
-        enabled: true
-        existingClaim: typesense
-        advancedMounts:
-          main:
-            typesense:
-              - path: /data
       modelcache:
         enabled: true
         existingClaim: modelcache
