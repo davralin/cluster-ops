@@ -25,12 +25,12 @@ spec:
       retries: 3
   values:
     fullnameOverride: *name
-    #defaultPodOptions:
-      #securityContext:
-        #runAsUser: 1000
-        #runAsGroup: 1000
-        #fsGroup: 1000
-        #fsGroupChangePolicy: "OnRootMismatch"
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
     controllers:
       main:
         containers:
@@ -38,8 +38,6 @@ spec:
             image:
               repository: docker.io/bobokun/qbit_manage
               tag: develop@sha256:08877dbc636d21f1aaa58e72a85fdb40bac70ec4ccf2b9a37789143818a32fa1
-            command: ['/bin/sleep']
-            args: ["infinity"]
             env:
               TZ: "${TIMEZONE}"
             resources:
@@ -58,4 +56,5 @@ spec:
       media:
         enabled: true
         existingClaim: media
-        mountPath: /data
+        globalMounts:
+          - path: /data
