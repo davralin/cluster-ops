@@ -38,6 +38,8 @@ spec:
             image:
               repository: docker.io/bobokun/qbit_manage
               tag: v4.0.6
+            command: ['/bin/sleep']
+            args: ["infinity"]
             env:
               TZ: "${TIMEZONE}"
             resources:
