@@ -75,7 +75,7 @@ spec:
               repository: nextcloud
               tag: 28.0.0-apache
             command: ["/usr/bin/su"]
-            args: ["www-data", "-s", "/bin/bash", "-c", "'/var/www/html/occ upgrade'"]
+            args: ["www-data", "-s", "/bin/bash", "-c", "/var/www/html/occ upgrade"]
             env:
               TZ: "${TIMEZONE}"
               REDIS_HOST: "redis-master"
@@ -93,7 +93,7 @@ spec:
               repository: nextcloud
               tag: 28.0.0-apache
             command: ["/usr/bin/su"]
-            args: ["www-data", "-s", "/bin/bash", "-c", "'/var/www/html/occ app:update --all'"]
+            args: ["www-data", "-s", "/bin/bash", "-c", "/var/www/html/occ app:update --all"]
             env:
               TZ: "${TIMEZONE}"
               REDIS_HOST: "redis-master"
