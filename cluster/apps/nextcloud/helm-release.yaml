@@ -70,7 +70,7 @@ spec:
                 cpu: 4000m
                 memory: 4000Mi
         initContainers:
-          main:
+          occ-upgrade:
             image:
               repository: nextcloud
               tag: 28.0.0-apache
