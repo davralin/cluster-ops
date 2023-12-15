@@ -69,6 +69,25 @@ spec:
               limits:
                 cpu: 4000m
                 memory: 4000Mi
+        initContainers:
+          main:
+            image:
+              repository: nextcloud
+              tag: 28.0.0-apache
+            command: ["/usr/bin/su"]
+            args: ["www-data", "-s", "/bin/bash", "-c", "/var/www/html/occ", "upgrade"]
+            env:
+              TZ: "${TIMEZONE}"
+              REDIS_HOST: "redis-master"
+              SMTP_HOST: "exim.mailrelay.svc.cluster.local"
+              SMTP_PORT: "25"
+              SMTP_AUTHTYPE: "PLAIN"
+              MAIL_FROM_ADDRESS: "cloud@${SECRET_DEFAULT_DOMAIN}"
+              OVERWRITEPROTOCOL: "https"
+              OVERWRITEHOST: "cloud.${SECRET_DEFAULT_DOMAIN}"
+              POSTGRES_HOST: "postgres-v16-rw.cloudnative-pg.svc.cluster.local"
+              POSTGRES_DB: "nextcloud"
+              POSTGRES_USER: "nextcloud"
     service:
       main:
         ports:
