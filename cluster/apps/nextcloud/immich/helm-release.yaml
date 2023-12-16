@@ -52,7 +52,7 @@ spec:
           main:
             image:
               repository: ghcr.io/immich-app/immich-server
-              tag: v1.91.0
+              tag: v1.91.1
             command: [ "/usr/src/app/start.sh", "immich" ]
             env:
               TZ: "${TIMEZONE}"
@@ -66,7 +66,7 @@ spec:
           microservices:
             image:
               repository: ghcr.io/immich-app/immich-server
-              tag: v1.91.0
+              tag: v1.91.1
             command: [ "/usr/src/app/start.sh", "microservices" ]
             env:
               TZ: "${TIMEZONE}"
