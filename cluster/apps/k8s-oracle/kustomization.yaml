@@ -11,7 +11,6 @@ resources:
   - ../haproxy/haproxy-ingress-daemonset
   - ../it-tools
   - ../kubed
-  - ../kuma
   - ../local-path-storage
   - ../librespeed
   - ../metrics-server
