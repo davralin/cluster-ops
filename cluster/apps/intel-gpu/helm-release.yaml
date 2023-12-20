@@ -49,7 +49,7 @@ spec:
           main:
             image:
               repository: docker.io/intel/intel-gpu-plugin
-              tag: 0.28.0
+              tag: 0.29.0
             args:
               - -shared-dev-num
               - "4"
