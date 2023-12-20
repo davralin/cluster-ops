@@ -39,13 +39,23 @@ spec:
         containers:
           main:
             image:
-              repository: b2un0/rsync
-              tag: 1.0.1
-            command: ['/usr/bin/rsync']
-            args: ["--archive", "--delete", "--verbose", "-e", "ssh -o StrictHostKeyChecking=no", "/media/", "ansible@10.0.1.77:/opt/backup/media/"]
+              repository: ghcr.io/davralin/rsnapshot
+              tag: latest@sha256:4c44c98eec5c837cb7bc84bedc430a18e8afc6b9be35cc4a4a3e0ef2ec093814
+            command: ['/usr/bin/rsnapshot']
     service:
       main:
         enabled: false
+    secrets:
+      conf:
+        enabled: true
+        stringData:
+          rsnapshot.conf: |
+            cmd_cp  /bin/cp
+            cmd_rm  /bin/rm
+            cmd_rsync /usr/bin/rsync
+            retain  alpha 14
+            verbose 3
+            backup  /media/ ansible@10.0.1.77:/opt/backup/media/
     persistence:
       media:
         enabled: true
@@ -62,4 +72,14 @@ spec:
             main:
               - path: /root/.ssh/id_ed25519
                 subPath: id_ed25519
+                readOnly: true
+      rsnapshot-conf:
+        enabled: true
+        type: secret
+        name: rsnapshot-conf
+        advancedMounts:
+          main:
+            main:
+              - path: /etc/rsnapshot.conf
+                subPath: rsnapshot.conf
                 readOnly: true
