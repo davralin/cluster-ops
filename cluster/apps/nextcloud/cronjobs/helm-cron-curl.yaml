@@ -40,7 +40,7 @@ spec:
           main:
             image:
               repository: nextcloud
-              tag: 28.0.0-apache
+              tag: 28.0.1-apache
             command: ['/usr/bin/curl']
             args: ["--silent", "--show-error", "https://cloud.${SECRET_DEFAULT_DOMAIN}/cron.php"]
     service:

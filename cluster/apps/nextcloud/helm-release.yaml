@@ -44,7 +44,7 @@ spec:
           main:
             image:
               repository: nextcloud
-              tag: 28.0.0-apache
+              tag: 28.0.1-apache
             probes:
               startup:
                 spec:
@@ -73,7 +73,7 @@ spec:
           1-occ-upgrade:
             image:
               repository: nextcloud
-              tag: 28.0.0-apache
+              tag: 28.0.1-apache
             command: ["/usr/bin/su"]
             args: ["www-data", "-s", "/bin/bash", "-c", "/var/www/html/occ upgrade"]
             env:
@@ -91,7 +91,7 @@ spec:
           2-occ-app-upgrade:
             image:
               repository: nextcloud
-              tag: 28.0.0-apache
+              tag: 28.0.1-apache
             command: ["/usr/bin/su"]
             args: ["www-data", "-s", "/bin/bash", "-c", "/var/www/html/occ app:update --all"]
             env:
