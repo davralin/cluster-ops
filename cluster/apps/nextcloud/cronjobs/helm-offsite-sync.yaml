@@ -39,8 +39,8 @@ spec:
         containers:
           main:
             image:
-              repository: ghcr.io/davralin/rsnapshot
-              tag: latest@sha256:ed6e5c13846dd787e271cd24b080501c3f15c98856c0637b6872df19663e6fde
+              repository: ghcr.io/davralin/rsync
+              tag: latest@sha256:7ad41724393130779bcd157c8b414adc6ef5ab72877d6621cc1322dbb85dd371
             command: ['/usr/bin/rsync']
             args: ["--archive", "--delete", "--verbose", "-e", "ssh -o StrictHostKeyChecking=no", "/nextcloud/", "user@nas.${SECRET_OFFSITE_DOMAIN}:/srv/backup/nextcloud/"]
     service:
