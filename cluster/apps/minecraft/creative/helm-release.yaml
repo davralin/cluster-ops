@@ -50,7 +50,7 @@ spec:
       tz: "${TIMEZONE}"
       eula: true
       type: FABRIC
-      version: "1.20.2"
+      version: "1.20.4"
       difficulty: "easy"
       maxPlayers: 5
       levelSeed: 421112feedmekittens
