@@ -11,7 +11,7 @@
 - name: Install k3s
   command: /usr/local/bin/k3s_install
   environment:
-    INSTALL_K3S_EXEC: "--disable=traefik,local-storage,metrics-server --kube-controller-manager-arg bind-address=0.0.0.0 --kube-scheduler-arg bind-address=0.0.0.0"
+    INSTALL_K3S_EXEC: "--disable=traefik,local-storage,metrics-server --kube-controller-manager-arg bind-address=0.0.0.0 --kube-scheduler-arg bind-address=0.0.0.0 --tls-san {{ k3s_tls_san }}"
     K3S_KUBECONFIG_MODE: "0644"
   args:
     creates: /etc/rancher/k3s/k3s.yaml
