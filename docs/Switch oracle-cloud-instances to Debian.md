@@ -1,7 +1,108 @@
 # Switch oracle-cloud-instances to Debian
 
 
-Credits for this page:
+## This is the way:
+
+Credits:
+ - https://gist.github.com/ishad0w/10a536f82c79d3b890d04243634df806
+
+````bash
+#!/bin/bash
+echo -e "\nHost:"
+ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o LogLevel=ERROR -p 22 ubuntu@$1 \
+    'uname -a && arch && uptime && sudo touch /home/ubuntu/.hushlogin /root/.hushlogin'
+
+echo -e "\nAdding temporary SSH-key for Ubuntu root user..."
+ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o LogLevel=ERROR -p 22 ubuntu@$1 \
+    'sudo cat /home/ubuntu/.ssh/authorized_keys | sudo tee /root/.ssh/authorized_keys'
+
+echo -e "\nSystem trimming..."
+ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o LogLevel=ERROR -p 22 root@$1 -T <<'EOL'
+export DEBIAN_FRONTEND=noninteractive
+snap remove --purge oracle-cloud-agent && snap remove --purge core18
+apt-get purge -y linux-* lxc* lxd* vim* snapd* python*
+apt-get update && apt-get install -y lsof
+apt-get -y autoremove --purge
+apt-get -y autoclean
+rm -rf /var/log/* /var/lib/apt/* /var/cache/apt/*
+EOL
+
+echo -e "\nPreparing system..."
+ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o LogLevel=ERROR -p 22 root@$1 -T <<'EOL'
+cd /
+echo "Mounting tmpfs..."
+mount -t tmpfs -o size=700m tmpfs mnt && tar --one-file-system -c . | tar -C /mnt -x
+mount --make-private -o remount,rw /
+mount --move dev mnt/dev && mount --move proc mnt/proc
+mount --move run mnt/run && mount --move sys mnt/sys
+sed -i "/^[^#]/d;" mnt/etc/fstab
+echo "tmpfs / tmpfs defaults 0 0" >> mnt/etc/fstab
+cd mnt && mkdir old_root
+mount --make-private /
+sleep 2
+
+echo "Changing the root mount..."
+unshare -m
+pivot_root . old_root
+sleep 5
+
+echo "Starting SSH on 1022..."
+iptables -I INPUT -p tcp -m state --state NEW -m tcp --dport 1022 -j ACCEPT
+nohup /usr/sbin/sshd -D -p 1022 > /dev/null 2>&1 &
+EOL
+
+echo -e "\nFlashing the Debian image..."
+ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o LogLevel=ERROR -p 1022 root@$1 -T <<'EOL'
+echo "Arch is $(arch)..."
+
+IMAGEMIRROR="https://cloud.debian.org/images/cloud/bookworm"
+IMAGEVERSION="debian-12-genericcloud"
+IMAGEBUILD="20231004-1523"
+
+for i in agetty dbus-daemon atd iscsid rpcbind unattended-upgrades; do pkill $i; done; kill 1; umount -l /dev/sda1
+if [ $(arch) = "x86_64" ]
+    then curl -L $IMAGEMIRROR/$IMAGEBUILD/$IMAGEVERSION-amd64-$IMAGEBUILD.tar.xz | tar -OJxvf - disk.raw | dd of=/dev/sda bs=1M; 
+elif [ $(arch) = "aarch64" ]
+    then curl -L $IMAGEMIRROR/$IMAGEBUILD/$IMAGEVERSION-arm64-$IMAGEBUILD.tar.xz | tar -OJxvf - disk.raw | dd of=/dev/sda bs=1M; 
+else 
+    echo Unsported architecture!
+fi
+sleep 5
+
+echo "Syncing changes to the block storage..."
+sync
+sleep 5
+
+echo "Rebooting into Debian!"
+nohup sh -c 'echo "1" > /proc/sys/kernel/sysrq && sleep 5 && echo "b" > /proc/sysrq-trigger' > /dev/null 2>&1 &
+EOL
+
+echo -e "\nWaiting until Debian starts... (3 min)"
+sleep 180
+
+echo -e "\nAdding temporary SSH-key for Debian root user..."
+ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o LogLevel=ERROR -p 22 debian@$1 \
+    'sudo cat /home/debian/.ssh/authorized_keys | sudo tee /root/.ssh/authorized_keys'
+
+echo -e "\nDebian inititialisation..."
+ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o LogLevel=ERROR -p 22 root@$1 -T <<'EOL'
+export DEBIAN_FRONTEND=noninteractive
+echo "deb http://deb.debian.org/debian/ bookworm main contrib non-free non-free-firmware
+deb http://deb.debian.org/debian/ bookworm-updates main contrib non-free non-free-firmware
+deb http://deb.debian.org/debian/ bookworm-backports main contrib non-free non-free-firmware
+deb http://security.debian.org/debian-security/ bookworm-security main contrib non-free non-free-firmware" > /etc/apt/sources.list
+apt-get update && apt-get install -y locales-all
+rm -rf /root/.ssh/
+sync
+reboot
+EOL
+
+sleep 10
+echo -e "\nDone!"
+
+````
+
+Original credits for this page:
  - https://sj14.gitlab.io/post/2021/01-30-free-k8s-cloud-cluster/
  - https://serverfault.com/questions/528075/is-it-possible-to-on-line-shrink-a-ext4-volume-with-lvm
 
