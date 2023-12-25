@@ -14,6 +14,7 @@ resources:
   - ../kuma
   - ../local-path-provisioner
   - ../librespeed
+  - ../metallb/k3s-oracle
   - ../metrics-server
   - ../reloader
   - ../searxng
