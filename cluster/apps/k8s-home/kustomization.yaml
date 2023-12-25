@@ -28,7 +28,7 @@ resources:
   - ../mailrelay
   - ../mailrise
   - ../media
-  - ../metallb
+  - ../metallb/home-k8s
   - ../metrics-server
   - ../minecraft
   - ../nextcloud

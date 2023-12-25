@@ -23,18 +23,10 @@ spec:
     remediation:
       retries: 5
   dependsOn:
-    - name: metallb
+    - name: metallb-l2
       namespace: metallb-system
   values:
     resources:
-      - apiVersion: metallb.io/v1beta1
-        kind: L2Advertisement
-        metadata:
-          name: l2-ip
-          namespace: metallb-system
-        spec:
-          ipAddressPools:
-            - default-pool
       - apiVersion: metallb.io/v1beta1
         kind: IPAddressPool
         metadata:
