@@ -8,7 +8,7 @@ resources:
   #- ../cloudnative-pg
   #- ../cloudnative-pg/cluster-16-oracle
   #- ../dendrite
-  - ../haproxy/haproxy-ingress-daemonset
+  - ../haproxy/haproxy-ingress
   - ../it-tools
   - ../kubed
   - ../kuma
