@@ -38,6 +38,7 @@ spec:
                 message: |-
                   {{- range .Alerts }}
                     **{{ .Labels.alertname }} {{ if ne .Labels.severity "" }}({{ .Labels.severity | title }}){{ end }} **
+                    {{ if ne .Labels.namespace "" }}**Namespace:** {{ .Labels.namespace | title }} {{ end }} **
                     {{- if ne .Annotations.description "" }}
                       **Description:** {{ .Annotations.description }}
                     {{- else if ne .Annotations.message "" }}
@@ -47,7 +48,6 @@ spec:
                     {{- else }}
                       **Description:** N/A
                     {{- end }}
-                      **Namespace:** {{ .Labels.namespace }}
                   {{- end }}
           - name: "healthchecksio"
             webhook_configs:
