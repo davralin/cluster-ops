@@ -48,7 +48,6 @@ spec:
                       **Description:** N/A
                     {{- end }}
                       **Namespace:** {{ .Labels.namespace }}
-                      **Source:** {{ .Source }}
                   {{- end }}
           - name: "healthchecksio"
             webhook_configs:
