@@ -34,7 +34,7 @@ spec:
             discord_configs:
               - webhook_url: "${SECRET_DISCORD_ALERTMANAGER_URL}"
                 title: |-
-                  [{{ .Status | toUpper }}:{{ if eq .Status "firing" }}{{ .Alerts.Firing | len }}{{ else }}{{ .Alerts.Resolved | len }}{{ end }}]
+                  [{{ .Labels.alertname }} - {{ .Status | toUpper }}:{{ if eq .Status "firing" }}{{ .Alerts.Firing | len }}{{ else }}{{ .Alerts.Resolved | len }}{{ end }}]
                 message: |-
                   {{- range .Alerts }}
                     **{{ .Labels.alertname }} {{ if ne .Labels.severity "" }}({{ .Labels.severity | title }}){{ end }} **
@@ -47,6 +47,8 @@ spec:
                     {{- else }}
                       **Description:** N/A
                     {{- end }}
+                      **Namespace:** {{ .Labels.namespace }}
+                      **Source:** {{ .Source }}
                   {{- end }}
           - name: "healthchecksio"
             webhook_configs:

@@ -34,20 +34,22 @@ spec:
             discord_configs:
               - webhook_url: "${SECRET_DISCORD_ALERTMANAGER_URL}"
                 title: |-
-                  [{{ .Status | toUpper }}:{{ if eq .Status "firing" }}{{ .Alerts.Firing | len }}{{ else }}{{ .Alerts.Resolved | len }}{{ end }}]
-                #message: |-
-                #  {{- range .Alerts }}
-                #    **{{ .Labels.alertname }} {{ if ne .Labels.severity "" }}({{ .Labels.severity | title }}){{ end }} **
-                #    {{- if ne .Annotations.description "" }}
-                #      **Description:** {{ .Annotations.description }}
-                #    {{- else if ne .Annotations.message "" }}
-                #      **Message:** {{ .Annotations.message }}
-                #    {{- else if ne .Annotations.summary "" }}
-                #      **Summary:** {{ .Annotations.summary }}
-                #    {{- else }}
-                #      **Description:** N/A
-                #    {{- end }}
-                #  {{- end }}
+                  [{{ .Labels.alertname }} - {{ .Status | toUpper }}:{{ if eq .Status "firing" }}{{ .Alerts.Firing | len }}{{ else }}{{ .Alerts.Resolved | len }}{{ end }}]
+                message: |-
+                  {{- range .Alerts }}
+                    **{{ .Labels.alertname }} {{ if ne .Labels.severity "" }}({{ .Labels.severity | title }}){{ end }} **
+                    {{- if ne .Annotations.description "" }}
+                      **Description:** {{ .Annotations.description }}
+                    {{- else if ne .Annotations.message "" }}
+                      **Message:** {{ .Annotations.message }}
+                    {{- else if ne .Annotations.summary "" }}
+                      **Summary:** {{ .Annotations.summary }}
+                    {{- else }}
+                      **Description:** N/A
+                    {{- end }}
+                      **Namespace:** {{ .Labels.namespace }}
+                      **Source:** {{ .Source }}
+                  {{- end }}
           - name: "healthchecksio"
             webhook_configs:
               - send_resolved: true
