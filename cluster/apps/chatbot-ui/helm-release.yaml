@@ -37,7 +37,7 @@ spec:
           main:
             image:
               repository: ghcr.io/mckaywrigley/chatbot-ui
-              tag: main@sha256:21a5bef09094de2d91a82ab6e7f52d452f47cbf62fe78d6763ee2e4423d60578
+              tag: main@sha256:26c80c526c2089ac7b4c566fa4225423e0829aad7f6a13a70e8fedf06aa45df6
             env:
               OPENAI_API_KEY: "${SECRET_OPENAI_KEY}"
             resources:
