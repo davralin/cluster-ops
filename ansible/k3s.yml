@@ -5,10 +5,10 @@
   - apt
   - apparmor
   - profile
+  - users
   - sshd
   - kernel_hardening
   - nullmailer
-    #  - tailscale
-  - users
+  - tailscale
   - k3s
   - fluxctl

@@ -6,6 +6,7 @@
   - apparmor
   - kernel_hardening
   - profile
+  - users
   - sshd
   - lvm2
   - node_exporter
@@ -20,7 +21,6 @@
     #  - photoprism
     #  - smartd
     #  - samba
-    #  - tailscale
+  - tailscale
     #  - watchtower
     #  - zfsonlinux
-  - users

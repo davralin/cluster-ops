@@ -1,0 +1,32 @@
+---
+- name: Installing prerequsities
+  apt:
+    name: "{{ packages }}"
+    state: present
+  become: yes
+  vars:
+    packages:
+      - apt-transport-https
+      - ca-certificates
+
+- name: Adding gpg-key
+  get_url:
+    url: "https://pkgs.tailscale.com/stable/debian/{{ ansible_distribution_release }}.noarmor.gpg"
+    dest: /usr/share/keyrings/tailscale-archive-keyring.gpg
+  become: yes
+
+- name: Adding repo
+  apt_repository:
+    repo: "deb [signed-by=/usr/share/keyrings/tailscale-archive-keyring.gpg] https://pkgs.tailscale.com/stable/debian {{ ansible_distribution_release }} main"
+    filename: tailscale
+    state: present
+  become: yes
+
+- name: Installing packages
+  apt:
+    name: "{{ packages }}"
+    state: present
+  become: yes
+  vars:
+    packages:
+      - tailscale

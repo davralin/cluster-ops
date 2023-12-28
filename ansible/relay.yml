@@ -5,10 +5,10 @@
   - apt
   - apparmor
   - profile
+  - users
   - sshd
   - kernel_hardening
   - node_exporter
   - nullmailer
-    #  - tailscale
-  - users
+  - tailscale
     #  - tor

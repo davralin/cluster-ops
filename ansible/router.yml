@@ -5,11 +5,11 @@
   - apt
   - apparmor
   - profile
+  - users
   - sshd
   - kernel_hardening
   - dnsmasq
   - firewalld
-  - users
   - lvm2
   - networking
   - node_exporter
@@ -18,5 +18,5 @@
   - rsync
     #  - repository
     #  - smartd
-    #  - tailscale
+  - tailscale
     #  - wireguard
