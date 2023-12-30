@@ -23,15 +23,6 @@ spec:
   upgrade:
     remediation:
       retries: 3
-  valuesFrom:
-    - targetPath: controllers.main.containers.main.env.database_url
-      kind: Secret
-      name: invidious-config
-      valuesKey: database_url
-    - targetPath: controllers.main.containers.main.env.hmac_key
-      kind: Secret
-      name: invidious-config
-      valuesKey: hmac_key
   values:
     fullnameOverride: *name
     defaultPodOptions:
@@ -44,10 +35,11 @@ spec:
       main:
         replicas: 2
         strategy: RollingUpdate
-        annotations:
-          reloader.stakater.com/auto: "true"
         containers:
           main:
+            envFrom:
+              - secretRef:
+                  name: invidious-config
             image:
               repository: quay.io/invidious/invidious
               tag: latest@sha256:1ecee589b339adf85995eca1a262436dd79d7d27314e7f9e3ab9386147893d1e
@@ -55,10 +47,10 @@ spec:
               TZ: "${TIMEZONE}"
             resources:
               requests:
-                cpu: 10m
-                memory: 10Mi
+                cpu: 200m
+                memory: 256Mi
               limits:
-                memory: 200Mi
+                memory: 512Mi
     service:
       main:
         ports:
