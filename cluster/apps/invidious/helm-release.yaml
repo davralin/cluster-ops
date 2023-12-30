@@ -33,7 +33,7 @@ spec:
         fsGroupChangePolicy: "OnRootMismatch"
     controllers:
       main:
-        replicas: 2
+        replicas: 1
         strategy: RollingUpdate
         containers:
           main:
