@@ -33,7 +33,7 @@ spec:
         fsGroupChangePolicy: "OnRootMismatch"
     controllers:
       main:
-        replicas: 1
+        replicas: 2
         strategy: RollingUpdate
         containers:
           main:
@@ -45,7 +45,7 @@ spec:
               tag: latest@sha256:1ecee589b339adf85995eca1a262436dd79d7d27314e7f9e3ab9386147893d1e
             env:
               TZ: "${TIMEZONE}"
-              INVIDIOUS_PORT: 3000
+              INVIDIOUS_PORT: "3000" # https://github.com/iv-org/invidious/issues/2970
             resources:
               requests:
                 cpu: 200m
