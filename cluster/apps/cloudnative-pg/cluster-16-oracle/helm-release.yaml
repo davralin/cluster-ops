@@ -49,12 +49,12 @@ spec:
             name: cloudnative-pg-secret
           bootstrap:
             # use this to start all fresh
-            initdb:
-              database: invidious
-              owner: kemal
+            #initdb:
+              #database: invidious
+              #owner: kemal
             # use this to recover a net-new cluster from a backup
-            #recovery:
-              #source: postgres-v16
+            recovery:
+              source: postgres-v16
             # # use this to 'migrate' from an existing cnpg cluster (e.g. "cluster-pg15") to the new cluster
             #initdb:
             #   import:
