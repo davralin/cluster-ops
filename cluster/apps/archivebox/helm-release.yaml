@@ -38,7 +38,7 @@ spec:
           main:
             image:
               repository: archivebox/archivebox
-              tag: 0.7.1@sha256:52b4628e4d6302c90b2945cf55a13703a7b9a07ddfb43e678c78e7d1e441bf4f
+              tag: 0.7.1@sha256:05bc6888e13e0e0734a9f7101bd48f9342809e99b12a0eb9e40d1f5df879ed16
             args: ["server"]
             env:
               TZ: "${TIMEZONE}"
