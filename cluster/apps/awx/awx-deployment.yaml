@@ -46,7 +46,7 @@ spec:
           hostname: "awx.${SECRET_PRIVATE_DOMAIN}"
           ee_images:
             - name: personal-awx-ee
-              image: ghcr.io/davralin/awx-ee:latest
+              image: ghcr.io/davralin/awx-ee:awx
           extra_settings:
             - setting: TOWER_URL_BASE
               value: '"awx.${SECRET_PRIVATE_DOMAIN}"'
