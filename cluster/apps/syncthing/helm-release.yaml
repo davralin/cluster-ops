@@ -25,12 +25,12 @@ spec:
       retries: 3
   values:
     fullnameOverride: *name
-    defaultPodOptions:
-      securityContext:
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
-        fsGroupChangePolicy: "OnRootMismatch"
+    #defaultPodOptions:
+      #securityContext:
+        #runAsUser: 1000
+        #runAsGroup: 1000
+        #fsGroup: 1000
+        #fsGroupChangePolicy: "OnRootMismatch"
     controllers:
       main:
         containers:
@@ -40,8 +40,8 @@ spec:
               tag: 1.27.2
             env:
               TZ: "${TIMEZONE}"
-              PUID: 1000
-              PGID: 1000
+              PUID: 0
+              PGID: 0
             resources:
               requests:
                 memory: 75Mi
