@@ -51,8 +51,8 @@ spec:
         stringData:
           backup.sh: |
             #!/bin/sh
-            /usr/local/bin/rclone sync --check-first --delete-after --progress --jottacloud-hard-delete --backup-dir "jottacloud-crypt:/nextcloud/$(date -I)" /nextcloud/ jottacloud-crypt:/nextcloud/current
-            /usr/local/bin/rclone sync --check-first --delete-after --progress --jottacloud-hard-delete --backup-dir "jottacloud-telia-crypt:/nextcloud/$(date -I)" /nextcloud/ jottacloud-telia-crypt:/nextcloud/current
+            /usr/local/bin/rclone sync --exclude data/nextcloud.log --check-first --delete-after --progress --jottacloud-hard-delete --backup-dir "jottacloud-crypt:/nextcloud/$(date -I)" /nextcloud/ jottacloud-crypt:/nextcloud/current
+            /usr/local/bin/rclone sync --exclude data/nextcloud.log --check-first --delete-after --progress --jottacloud-hard-delete --backup-dir "jottacloud-telia-crypt:/nextcloud/$(date -I)" /nextcloud/ jottacloud-telia-crypt:/nextcloud/current
     persistence:
       nextcloud:
         enabled: true
