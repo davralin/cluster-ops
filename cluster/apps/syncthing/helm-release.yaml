@@ -89,11 +89,11 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: syncthing
+        existingClaim: syncthing-temp
         globalMounts:
           - path: /var/syncthing
       temp:
         enabled: true
-        existingClaim: syncthing-temp
+        existingClaim: syncthing
         globalMounts:
           - path: /var/syncthing2
