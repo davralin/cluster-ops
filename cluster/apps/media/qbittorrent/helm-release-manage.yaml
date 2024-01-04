@@ -37,7 +37,7 @@ spec:
           main:
             image:
               repository: docker.io/bobokun/qbit_manage
-              tag: v4.0.6
+              tag: v4.0.7
             env:
               TZ: "${TIMEZONE}"
             resources:
