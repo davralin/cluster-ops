@@ -51,7 +51,7 @@ spec:
           trigger:
             schedule: "04 07 * * *"
           restic:
-            copyMethod: Snapshot
+            copyMethod: Direct
             pruneIntervalDays: 7
             repository: syncthing-volsync-secret
             moverSecurityContext:

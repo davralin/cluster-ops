@@ -11,16 +11,3 @@ spec:
   resources:
     requests:
       storage: 120Gi
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: syncthing-temp
-  namespace: syncthing
-spec:
-  storageClassName: "${STORAGE_READWRITEMANY}"
-  accessModes:
-    - ReadWriteMany
-  resources:
-    requests:
-      storage: 100Gi
