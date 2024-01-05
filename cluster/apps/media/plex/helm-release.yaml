@@ -63,6 +63,9 @@ spec:
       config:
         enabled: true
         existingClaim: plex
+      config2:
+        enabled: true
+        existingClaim: plex-temp
       media:
         enabled: true
         existingClaim: media

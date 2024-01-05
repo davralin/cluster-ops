@@ -81,6 +81,9 @@ spec:
       config:
         enabled: true
         existingClaim: jellyfin
+      config2:
+        enabled: true
+        existingClaim: jellyfin-temp
       media:
         enabled: true
         existingClaim: media
