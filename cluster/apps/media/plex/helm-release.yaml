@@ -27,15 +27,14 @@ spec:
     fullnameOverride: *name
     defaultPodOptions:
       securityContext:
-        runAsUser: 0
-        runAsGroup: 0
-        fsGroup: 0
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"
         supplementalGroups:
           - 44
           - 109
           - 100
-          - 1000
     controllers:
       main:
         containers:
