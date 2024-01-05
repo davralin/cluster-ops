@@ -27,33 +27,35 @@ spec:
     fullnameOverride: *name
     defaultPodOptions:
       securityContext:
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
+        runAsUser: 0
+        runAsGroup: 0
+        fsGroup: 0
         fsGroupChangePolicy: "OnRootMismatch"
         supplementalGroups:
           - 44
           - 109
           - 100
+          - 1000
     controllers:
       main:
         containers:
           main:
             image:
-              repository: ghcr.io/onedr0p/jellyfin
-              tag: 10.8.11@sha256:926e2a9f6677a0c7b12feba29f36c954154869318d6a52df72f72ff9c74cf494
+              repository: ghcr.io/davralin/sleep #ghcr.io/onedr0p/jellyfin
+              tag: latest #10.8.11@sha256:926e2a9f6677a0c7b12feba29f36c954154869318d6a52df72f72ff9c74cf494
             env:
               TZ: "${TIMEZONE}"
             resources:
               requests:
-                gpu.intel.com/i915: 1
+                #gpu.intel.com/i915: 1
                 memory: 1000Mi
                 cpu: 200m
               limits:
-                gpu.intel.com/i915: 1
+                #gpu.intel.com/i915: 1
                 memory: 6000Mi
     service:
       main:
+        enabled: false
         ports:
           http:
             port: 8096
