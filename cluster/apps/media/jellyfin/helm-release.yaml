@@ -54,7 +54,6 @@ spec:
                 memory: 6000Mi
     service:
       main:
-        enabled: false
         ports:
           http:
             port: 8096
