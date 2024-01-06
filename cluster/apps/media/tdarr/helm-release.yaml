@@ -92,6 +92,9 @@ spec:
         existingClaim: tdarr-server
         globalMounts:
           - path: /app/server
+      migrate:
+        enabled: true
+        existingClaim: tdarr
       media:
         enabled: true
         existingClaim: media
