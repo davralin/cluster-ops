@@ -11,16 +11,3 @@ spec:
   resources:
     requests:
       storage: 5Gi
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: jellyfin-temp
-  namespace: media
-spec:
-  storageClassName: "${STORAGE_READWRITEMANY}"
-  accessModes:
-    - ReadWriteMany
-  resources:
-    requests:
-      storage: 10Gi
