@@ -84,17 +84,14 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: tdarr-configs
-        globalMounts:
-          - path: /app/configs
-      server:
-        enabled: true
-        existingClaim: tdarr-server
-        globalMounts:
-          - path: /app/server
-      migrate:
-        enabled: true
         existingClaim: tdarr
+        advancedMounts:
+          main:
+            main:
+              - path: /app/configs
+                subPath: config
+              - path: /app/server
+                subPath: server
       media:
         enabled: true
         existingClaim: media

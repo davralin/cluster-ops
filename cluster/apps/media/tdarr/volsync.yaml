@@ -47,11 +47,11 @@ spec:
           name: tdarr
           namespace: media
         spec:
-          sourcePVC: tdarr-server
+          sourcePVC: tdarr
           trigger:
             schedule: "04 22 * * *"
           restic:
-            copyMethod: Snapshot
+            copyMethod: Direct
             pruneIntervalDays: 7
             repository: tdarr-volsync-secret
             moverSecurityContext:

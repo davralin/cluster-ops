@@ -11,29 +11,3 @@ spec:
   resources:
     requests:
       storage: 4Gi
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: tdarr-configs
-  namespace: media
-spec:
-  storageClassName: "${STORAGE_READWRITEONCE}"
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 1Gi
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: tdarr-server
-  namespace: media
-spec:
-  storageClassName: "${STORAGE_READWRITEONCE}"
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 4Gi
