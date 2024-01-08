@@ -51,7 +51,7 @@ spec:
           trigger:
             schedule: "04 03 * * *"
           restic:
-            copyMethod: Snapshot
+            copyMethod: Direct
             pruneIntervalDays: 7
             repository: plex-volsync-secret
             moverSecurityContext:
