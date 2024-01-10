@@ -42,9 +42,9 @@ spec:
               OPENAI_API_KEY: "${SECRET_OPENAI_KEY}"
             resources:
               requests:
-                memory: 100Mi
-              limits:
                 memory: 200Mi
+              limits:
+                memory: 400Mi
     service:
       main:
         ports:
