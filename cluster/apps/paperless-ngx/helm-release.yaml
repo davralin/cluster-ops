@@ -85,6 +85,8 @@ spec:
             image: 
               repository: docker.io/gotenberg/gotenberg
               tag: "8.0.1"
+            command: ['/usr/bin/gotenberg']
+            args: ['--chromium-disable-javascript=true', '--chromium-allow-list=file:///tmp/.*']
     service:
       main:
         ports:
