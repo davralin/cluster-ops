@@ -64,7 +64,7 @@ spec:
             X-Content-Type-Options "nosniff"
             Referrer-Policy "no-referrer-when-downgrade"
         hosts:
-          - host: "bazarr.${SECRET_DEFAULT_DOMAIN}"
+          - host: "audiobookshelf.${SECRET_DEFAULT_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
