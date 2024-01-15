@@ -42,6 +42,7 @@ spec:
               TZ: "${TIMEZONE}"
               AUDIOBOOKSHELF_UID: 1000
               AUDIOBOOKSHELF_GID: 1000
+              PORT: 8080
               CONFIG_PATH: "/config"
               METADATA_PATH: "/config/metadata"
             resources:
@@ -52,7 +53,7 @@ spec:
       main:
         ports:
           http:
-            port: 80
+            port: 8080
     ingress:
       main:
         enabled: true
@@ -80,5 +81,9 @@ spec:
       media:
         enabled: true
         existingClaim: media
-        globalMounts:
-          - path: /audiobooks
+        advancedMounts:
+          main:
+            main:
+              - path: /audiobooks
+                subPath: audio/books
+                readOnly: true
