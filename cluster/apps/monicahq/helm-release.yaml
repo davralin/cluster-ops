@@ -1,0 +1,80 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: &name monicahq
+  namespace: monicahq
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: app-template
+      version: 2.5.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+      interval: 5m
+  targetNamespace: monicahq
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  values:
+    fullnameOverride: *name
+    # Container starts with chmod
+    #defaultPodOptions:
+      #securityContext:
+        #runAsUser: 1000
+        #runAsGroup: 1000
+        #fsGroup: 1000
+        #fsGroupChangePolicy: "OnRootMismatch"
+    controllers:
+      main:
+        containers:
+          main:
+            image:
+              repository: monica
+              tag: 4.0.0-apache@sha256:94511225f760a70ead57fb155f183f0025d2663f067564d8920e1f5789d30ebe
+            env:
+              MAIL_HOST: "exim.mailrelay.svc.cluster.local"
+              MAIL_PORT: 25
+              MAIL_ENCRYPTION: plain
+              MAIL_MAILER: smtp
+              APP_URL: https://monicahq.${SECRET_DEFAULT_DOMAIN}
+              APP_ENV: production
+            resources:
+              requests:
+                cpu: 25m
+                memory: 100Mi
+    service:
+      main:
+        ports:
+          http:
+            port: 80
+    ingress:
+      main:
+        enabled: true
+        annotations:
+          haproxy.org/response-set-header: |
+            Strict-Transport-Security "max-age=31536000"
+            X-Frame-Options "DENY"
+            X-Content-Type-Options "nosniff"
+            Referrer-Policy "no-referrer-when-downgrade"
+        hosts:
+          - host: "monicahq.${SECRET_DEFAULT_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+                service:
+                  name: main
+                  port: http
+        tls:
+          - secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
+    persistence:
+      config:
+        enabled: true
+        existingClaim: monicahq
