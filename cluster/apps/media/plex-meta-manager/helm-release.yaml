@@ -39,7 +39,7 @@ spec:
           main:
             image:
               repository: meisnate12/plex-meta-manager
-              tag: v1.19.1
+              tag: v1.20.0
             env:
               TZ: "${TIMEZONE}"
               PMM_READ_ONLY_CONFIG: "True"
@@ -136,24 +136,6 @@ spec:
             collections:
               Christopher Nolan:
                 tmdb_director: 525
-              The Fast and the Furious:
-                tmdb_collection: 9485
-              Harry Potter:
-                tmdb_collection: 1241
-              The Lord of the Rings:
-                tmdb_collection: 119
-              Matrix:
-                tmdb_collection: 2344
-              Mission Impossible:
-                tmdb_collection: 87359
-              Pirates of the Carribean:
-                tmdb_collection: 295
-              Terminator:
-                tmdb_collection: 528
-              Transformers:
-                tmdb_collection: 8650
-              X-Men:
-                tmdb_collection: 748
     service:
       main:
         enabled: false
