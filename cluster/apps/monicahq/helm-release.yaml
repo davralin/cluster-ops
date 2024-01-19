@@ -38,7 +38,7 @@ spec:
           main:
             image:
               repository: ghcr.io/monicahq/monica-next
-              tag: main@sha256:51a71a730621b382acb7e925c5512dcf1075dccd6714b7f66b809d98604582fe
+              tag: main@sha256:dc5f40fb072862bf585de04d1ace1e5ebe3ee4e3181085d2fe18e94c0d398e13
             env:
               MAIL_HOST: "exim.mailrelay.svc.cluster.local"
               MAIL_PORT: 25
