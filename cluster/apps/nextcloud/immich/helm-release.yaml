@@ -80,7 +80,7 @@ spec:
           machine-learning:
             image:
               repository: ghcr.io/immich-app/immich-machine-learning
-              tag: v1.92.1
+              tag: v1.93.0
             env:
               TZ: "${TIMEZONE}"
             resources: []
