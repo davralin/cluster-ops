@@ -38,7 +38,7 @@ spec:
           main:
             image:
               repository: monica
-              tag: 4.0.0-apache@sha256:94511225f760a70ead57fb155f183f0025d2663f067564d8920e1f5789d30ebe
+              tag: 4.0.0-apache@sha256:f0dfcad04ebd7e4108158542cc0cfae9687e9789b87d483387553acebaeb4c8a
             env:
               MAIL_HOST: "exim.mailrelay.svc.cluster.local"
               MAIL_PORT: 25
