@@ -67,8 +67,6 @@ spec:
                     use_other: false
                     use_separator: false
                     sort_by: title.asc
-                - file: /config/movies.yml
-                overlay_path:
                 - remove_overlays: true
             settings:
               asset_directory: /temp/assets
@@ -132,10 +130,6 @@ spec:
               version:
               run_start:
               run_end:
-          movies.yml: |
-            collections:
-              Christopher Nolan:
-                tmdb_director: 525
     service:
       main:
         enabled: false
@@ -149,7 +143,5 @@ spec:
             main:
               - path: /config/config.yml
                 subPath: config.yml
-              - path: /config/movies.yml
-                subPath: movies.yml
       temp:
         existingClaim: plex-meta-manager
