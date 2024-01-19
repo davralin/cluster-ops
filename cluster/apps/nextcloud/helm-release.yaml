@@ -70,7 +70,25 @@ spec:
                 cpu: 4000m
                 memory: 4000Mi
         initContainers:
-          1-occ-upgrade:
+          1-disable-maintenance-mode:
+            image:
+              repository: nextcloud
+              tag: 28.0.1-apache
+            command: ["/usr/bin/su"]
+            args: ["www-data", "-s", "/bin/bash", "-c", "/var/www/html/occ maintenance:mode --off"]
+            env:
+              TZ: "${TIMEZONE}"
+              REDIS_HOST: "redis-master"
+              SMTP_HOST: "exim.mailrelay.svc.cluster.local"
+              SMTP_PORT: "25"
+              SMTP_AUTHTYPE: "PLAIN"
+              MAIL_FROM_ADDRESS: "cloud@${SECRET_DEFAULT_DOMAIN}"
+              OVERWRITEPROTOCOL: "https"
+              OVERWRITEHOST: "cloud.${SECRET_DEFAULT_DOMAIN}"
+              POSTGRES_HOST: "postgres-v16-rw.cloudnative-pg.svc.cluster.local"
+              POSTGRES_DB: "nextcloud"
+              POSTGRES_USER: "nextcloud"
+          2-occ-upgrade:
             image:
               repository: nextcloud
               tag: 28.0.1-apache
@@ -88,7 +106,7 @@ spec:
               POSTGRES_HOST: "postgres-v16-rw.cloudnative-pg.svc.cluster.local"
               POSTGRES_DB: "nextcloud"
               POSTGRES_USER: "nextcloud"
-          2-occ-app-upgrade:
+          3-occ-app-upgrade:
             image:
               repository: nextcloud
               tag: 28.0.1-apache
