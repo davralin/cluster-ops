@@ -35,7 +35,7 @@ spec:
         spec:
           # using only 1 replica: very difficult to drain the node where postgres is running
           # using more than 1 replica: write amplification issues when leveraging replicated storage (e.g. ceph)
-          instances: 2
+          instances: 1
           imageName: ghcr.io/cloudnative-pg/postgresql:16.1
           primaryUpdateStrategy: unsupervised
           storage:
@@ -49,9 +49,9 @@ spec:
               login: true
             - name: gitea
               login: true
-            - name: immich
-              login: true
             - name: invidious
+              login: true
+            - name: jellystat
               login: true
             - name: lidarr
               login: true
