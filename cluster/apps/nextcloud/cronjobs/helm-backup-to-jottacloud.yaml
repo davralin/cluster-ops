@@ -40,7 +40,7 @@ spec:
           main:
             image:
               repository: rclone/rclone
-              tag: 1.65.1
+              tag: 1.65.2
             command: ["/config/backup.sh"]
     service:
       main:
