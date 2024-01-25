@@ -43,30 +43,30 @@ spec:
             storageClass: "${STORAGE_READWRITEONCE}"
           managed:
             roles:
-            - name: awx
-              login: true
-            - name: freshrss
-              login: true
-            - name: gitea
-              login: true
-            - name: invidious
-              login: true
-            - name: jellystat
-              login: true
-            - name: lidarr
-              login: true
-            - name: nextcloud
-              login: true
-            - name: paperless-ngx
-              login: true
-            - name: prowlarr
-              login: true
-            - name: sonarr
-              login: true
-            - name: radarr
-              login: true
-            - name: readarr
-              login: true
+              - name: awx
+                login: true
+              - name: freshrss
+                login: true
+              - name: gitea
+                login: true
+              - name: invidious
+                login: true
+              - name: jellystat
+                login: true
+              - name: lidarr
+                login: true
+              - name: nextcloud
+                login: true
+              - name: paperless-ngx
+                login: true
+              - name: prowlarr
+                login: true
+              - name: sonarr
+                login: true
+              - name: radarr
+                login: true
+              - name: readarr
+                login: true
           superuserSecret:
             name: cloudnative-pg-secret
           bootstrap:
