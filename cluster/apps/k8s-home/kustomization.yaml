@@ -37,6 +37,7 @@ resources:
   - ../peertube-headless-seeder
   - ../reloader
   - ../searxng
+  - ../securecodebox
   - ../syncthing
   - ../tailscale
   - ../tubearchivist
