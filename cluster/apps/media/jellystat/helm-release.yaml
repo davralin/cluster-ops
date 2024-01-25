@@ -1,0 +1,88 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: &name jellystat
+  namespace: media
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: app-template
+      version: 2.5.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+      interval: 5m
+  targetNamespace: media
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  valuesFrom:
+    - targetPath: controllers.main.containers.main.env.POSTGRES_PASSWORD
+      kind: Secret
+      name: jellystat-config
+      valuesKey: POSTGRES_PASSWORD
+    - targetPath: controllers.main.containers.main.env.JWT_SECRET
+      kind: Secret
+      name: jellystat-config
+      valuesKey: JWT_SECRET
+  values:
+    fullnameOverride: *name
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+    controllers:
+      main:
+        containers:
+          main:
+            image:
+              repository: cyfershepard/jellystat
+              tag: 1.0.9
+            env:
+              POSTGRES_USER: jellystat
+              POSTGRES_IP: postgres-v16-rw.cloudnative-pg.svc.cluster.local
+              POSTGRES_PORT: "5432"
+            resources:
+              requests:
+                cpu: 15m
+                memory: 350Mi
+              limits:
+                memory: 500Mi
+    service:
+      main:
+        ports:
+          http:
+            port: 3000
+    ingress:
+      main:
+        enabled: true
+        annotations:
+          haproxy.org/whitelist: "${HAPROXY_WHITELIST}"
+          haproxy.org/response-set-header: |
+            Strict-Transport-Security "max-age=31536000"
+            X-Frame-Options "DENY"
+            X-Content-Type-Options "nosniff"
+            Referrer-Policy "no-referrer-when-downgrade"
+        hosts:
+          - host: "jellystat.${SECRET_DEFAULT_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+                service:
+                  name: main
+                  port: http
+        tls:
+          - secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
+    persistence:
+      config:
+        enabled: true
+        existingClaim: jellystat

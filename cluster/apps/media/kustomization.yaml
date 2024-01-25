@@ -8,6 +8,7 @@ resources:
   - filebrowser
   - jellyfin
   - jellyplex-watched
+  - jellystat
   - lidarr
   - namespace.yaml
   - pvc.yaml
