@@ -51,7 +51,7 @@ spec:
           main:
             image:
               repository: bbilly1/tubearchivist
-              tag: v0.4.5
+              tag: v0.4.6
             env:
               TZ: "${TIMEZONE}"
               HOST_UID: 1000
