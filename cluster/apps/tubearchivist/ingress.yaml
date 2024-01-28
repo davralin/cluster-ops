@@ -2,7 +2,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: tubearchivist2
+  name: tubearchivist
   namespace: tubearchivist
   annotations:
     haproxy.org/response-set-header: |
@@ -17,7 +17,7 @@ spec:
       paths:
       - backend:
           service:
-            name: tubearchivist2
+            name: tubearchivist
             port:
               number: 8000
         path: /
