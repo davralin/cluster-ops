@@ -40,7 +40,7 @@ spec:
           main:
             image:
               repository: ghcr.io/davralin/rsync
-              tag: latest@sha256:deca1b8bbc4e51b86b06de5cad0e6994b77912be672cd8b94b3610102a662154
+              tag: latest@sha256:9765fb0ea0140d70e02186b8f54ae7333395e9cce3481db4690e525c5744eb6e
             command: ['/usr/bin/rsync']
             args: ["--archive", "--delete", "--verbose", "--rsync-path", "sudo rsync", "-e", "ssh -o StrictHostKeyChecking=no", "user@100.127.74.75:/srv/foreldre/", "/srv/"]
     service:
