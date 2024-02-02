@@ -41,13 +41,13 @@ spec:
               tag: latest@sha256:7c5a3544a80f34be99a3fcc5834080ac5e843d69905da430a40b74267e80c5e0
             env:
               #TZ: "${TIMEZONE}"
-              #SCREEN_WIDTH: "1920"
-              #SCREEN_HEIGHT: "1024"
-              #SCREEN_DEPTH: "16"
+              SCREEN_WIDTH: "1920"
+              SCREEN_HEIGHT: "1024"
+              SCREEN_DEPTH: "16"
               ENABLE_DEBUGGER: "true"
-              #TIMEOUT: "600000"
+              TIMEOUT: "600000"
               #DATA_DIR: "~/browserless-cache-123"
-              #CONCURRENT: "15"
+              CONCURRENT: "15"
             resources:
               requests:
                 cpu: 100m
