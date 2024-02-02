@@ -37,20 +37,17 @@ spec:
         containers:
           main:
             image:
-              repository: browserless/chrome
-              tag: 1-chrome-stable@sha256:efac47cfff3830d9a50b27d29f8bbb61949058ae336c823fbe9bd3c0d1debcc8
+              repository: ghcr.io/browserless/chrome
+              tag: latest@sha256:7c5a3544a80f34be99a3fcc5834080ac5e843d69905da430a40b74267e80c5e0
             env:
               TZ: "${TIMEZONE}"
               SCREEN_WIDTH: "1920"
               SCREEN_HEIGHT: "1024"
               SCREEN_DEPTH: "16"
               ENABLE_DEBUGGER: "false"
-              PREBOOT_CHROME: "true"
-              CONNECTION_TIMEOUT: "300000"
-              MAX_CONCURRENT_SESSIONS: "4"
-              CHROME_REFRESH_TIME: "600000"
-              DEFAULT_BLOCK_ADS: "true"
-              DEFAULT_STEALTH: "true"
+              TIMEOUT: "600000"
+              DATA_DIR: "~/browserless-cache-123"
+              CONCURRENT: "15"
             resources:
               requests:
                 cpu: 100m

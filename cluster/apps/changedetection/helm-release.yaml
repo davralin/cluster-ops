@@ -40,7 +40,9 @@ spec:
               tag: 0.45.13
             env:
               TZ: "${TIMEZONE}"
-              PLAYWRIGHT_DRIVER_URL: "ws://playwright-chrome:3000/?stealth=1&--disable-web-security=true&--user-data-dir=~/browserless-cache-123"
+              PLAYWRIGHT_DRIVER_URL: "ws://playwright-chrome:3000/?headless=false"
+              PUID: 1000
+              PGID: 1000
             resources:
               requests:
                 cpu: 10m
