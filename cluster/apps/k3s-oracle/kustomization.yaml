@@ -7,7 +7,6 @@ resources:
   - ../chatbot-ui
   - ../cloudnative-pg
   - ../cloudnative-pg/cluster-16-oracle
-  - ../config-syncer
   - ../haproxy/haproxy-ingress-daemonset
   - ../invidious
   - ../it-tools
