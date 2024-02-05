@@ -12,6 +12,7 @@ resources:
   - ../cloudflareddns
   - ../cloudnative-pg
   - ../cloudnative-pg/cluster-16
+  - ../config-syncer
   - ../epicgames-freegames
   - ../freshrss
   - ../gitea
@@ -19,7 +20,6 @@ resources:
   - ../intel-gpu
   - ../it-tools
   - ../jobs
-  - ../kubed
   - ../kuma
   - ../libreddit
   - ../librespeed

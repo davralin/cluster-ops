@@ -2,14 +2,14 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: kubed
+  name: config-syncer
   namespace: default
 spec:
   interval: 5m
   chart:
     spec:
-      chart: kubed
-      version: v0.13.2
+      chart: config-syncer
+      version: v0.14.6
       sourceRef:
         kind: HelmRepository
         name: appscode-charts
@@ -24,4 +24,4 @@ spec:
     remediation:
       retries: 3
   values:
-    fullnameOverride: kubed
+    fullnameOverride: config-syncer
