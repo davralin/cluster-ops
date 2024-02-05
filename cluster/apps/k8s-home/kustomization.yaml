@@ -12,7 +12,6 @@ resources:
   - ../cloudflareddns
   - ../cloudnative-pg
   - ../cloudnative-pg/cluster-16
-  - ../config-syncer
   - ../epicgames-freegames
   - ../freshrss
   - ../gitea
@@ -35,6 +34,7 @@ resources:
   - ../node-problem-detector
   - ../paperless-ngx
   - ../peertube-headless-seeder
+  - ../reflector
   - ../reloader
   - ../searxng
   - ../securecodebox

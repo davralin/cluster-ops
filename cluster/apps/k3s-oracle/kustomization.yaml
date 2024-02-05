@@ -16,6 +16,7 @@ resources:
   - ../local-path-provisioner
   - ../librespeed
   - ../metrics-server
+  - ../reflector
   - ../reloader
   - ../searxng
   - ../snowflake

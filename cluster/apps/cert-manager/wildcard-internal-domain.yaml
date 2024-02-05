@@ -36,7 +36,8 @@ spec:
           secretName: "${SECRET_INTERNAL_DOMAIN_CERT}"
           secretTemplate:
             annotations:
-              kubed.appscode.com/sync: ""
+              reflector.v1.k8s.emberstack.com/reflection-allowed: "true"
+              reflector.v1.k8s.emberstack.com/reflection-allowed-namespaces: ""
           issuerRef:
             name: letsencrypt-prod
             kind: ClusterIssuer

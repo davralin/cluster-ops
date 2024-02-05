@@ -2,17 +2,17 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: config-syncer
+  name: reflector
   namespace: default
 spec:
   interval: 5m
   chart:
     spec:
-      chart: config-syncer
-      version: v0.14.6
+      chart: reflector
+      version: 7.1.238
       sourceRef:
         kind: HelmRepository
-        name: appscode-charts
+        name: emberstack-charts
         namespace: flux-system
       interval: 5m
   targetNamespace: default
@@ -24,4 +24,4 @@ spec:
     remediation:
       retries: 3
   values:
-    fullnameOverride: config-syncer
+    fullnameOverride: reflector
