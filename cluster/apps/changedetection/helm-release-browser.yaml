@@ -38,7 +38,7 @@ spec:
           main:
             image:
               repository: ghcr.io/browserless/chrome
-              tag: latest@sha256:8d7332122891d7598231310153e073f452082d0fe5ff1c35a8a28e5fad9437e0
+              tag: latest@sha256:93a019ebcdc6691c3ca339875fb01073d0438676def06b4eaa7c6afaa1fa8e94
             env:
               SCREEN_WIDTH: "1920"
               SCREEN_HEIGHT: "1024"
