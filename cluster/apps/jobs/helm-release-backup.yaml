@@ -38,7 +38,7 @@ spec:
           main:
             image:
               repository: ghcr.io/davralin/sleep
-              tag: latest@sha256:ac318163a98b35ce98d93dec0f19d84ff269e61fb0c5bf55ac1e72f53dd51f45
+              tag: latest@sha256:6f52cc5a0edeedad89ceab8f626f06105c9db9ca2ca4fcf9dbad9f5a26b7f697
     service:
       main:
         enabled: false
