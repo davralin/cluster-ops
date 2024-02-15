@@ -141,15 +141,15 @@ spec:
         tls:
           - secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
       prometheusSpec:
-        retention: 10d
-        retentionSize: 39GB
+        retention: 31d
+        retentionSize: 99GB
         storageSpec:
           volumeClaimTemplate:
             spec:
               storageClassName: "${STORAGE_READWRITEONCE}"
               resources:
                 requests:
-                  storage: 40Gi
+                  storage: 100Gi
         additionalScrapeConfigs:
           - job_name: node-exporter
             scrape_interval: 1m
