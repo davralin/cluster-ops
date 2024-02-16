@@ -40,7 +40,7 @@ spec:
           main:
             image:
               repository: ghcr.io/davralin/rsync
-              tag: latest@sha256:68d821583ef9a95ce6c7a5557406d41bec7c6358b110a906004230d95513d029
+              tag: latest@sha256:cebabfe9ead9100c123d7478e8f463332dd7aad30c0dccfd19d8fc838be669c9
             command: ['/usr/bin/rsync']
             args: ["--archive", "--delete", "--verbose", "-e", "ssh -o StrictHostKeyChecking=no", "/media/", "ansible@10.0.1.77:/opt/backup/media/"]
     service:
