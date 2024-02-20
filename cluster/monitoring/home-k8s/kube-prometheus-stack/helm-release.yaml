@@ -150,6 +150,22 @@ spec:
               resources:
                 requests:
                   storage: 100Gi
+        additionalScrapeConfigs:
+          - job_name: node-exporter
+            scrape_interval: 1m
+            scrape_timeout: 10s
+            honor_timestamps: true
+            static_configs:
+              - targets:
+                  - adsb.${SECRET_INTERNAL_DOMAIN}:9100
+                  - home.${SECRET_PRIVATE_DOMAIN}:9100
+                  - mierin.w.ot:9100
+                  - tubearchivist.w.ot:9100
+                  - nas.${SECRET_PRIVATE_DOMAIN}:9100
+                  - nas.${SECRET_OFFSITE_DOMAIN}:9100
+                  - relay.${SECRET_INTERNAL_DOMAIN}:9100
+                  - relay.${SECRET_INTERNAL_DOMAIN}:9035
+                  #- proxmox.${SECRET_PRIVATE_DOMAIN}:9100
         scrapeConfigSelector: {}
         scrapeConfigNamespaceSelector: {}
         serviceMonitorSelectorNilUsesHelmValues: false
