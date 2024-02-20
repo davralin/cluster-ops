@@ -33,10 +33,7 @@ spec:
           name: machines
           namespace: monitoring
         spec:
-          scrape_interval: 1m
-          scrape_timeout: 10s
-          honor_timestamps: true
-          static_configs:
+          staticConfigs:
             - targets:
                 - adsb.${SECRET_INTERNAL_DOMAIN}:9100
                 - home.${SECRET_PRIVATE_DOMAIN}:9100
