@@ -54,7 +54,7 @@ spec:
               - send_resolved: true
                 url: "${SECRET_ALERTMANAGER_HEALTHCHECKS_IO}"
         route:
-          group_by: ["alertname", "job"]
+          group_by: ["..."]
           group_wait: 30s
           group_interval: 5m
           repeat_interval: 6h
@@ -127,6 +127,9 @@ spec:
         retention: 15d
         retentionSize: 30GB
         storageSpec: {}
+        scrapeConfigSelector: {}
+        scrapeConfigNamespaceSelector: {}
+        serviceMonitorSelectorNilUsesHelmValues: false
         podMonitorSelectorNilUsesHelmValues: false
         probeSelectorNilUsesHelmValues: false
         ruleSelectorNilUsesHelmValues: false
