@@ -150,6 +150,8 @@ spec:
               resources:
                 requests:
                   storage: 100Gi
+        scrapeConfigSelector: {}
+        scrapeConfigNamespaceSelector: {}
         serviceMonitorSelectorNilUsesHelmValues: false
         podMonitorSelectorNilUsesHelmValues: false
         probeSelectorNilUsesHelmValues: false
