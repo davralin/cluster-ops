@@ -43,7 +43,7 @@ spec:
           main:
             image:
               repository: ghcr.io/hotio/cloudflareddns
-              tag: latest@sha256:b9c754bbb8671e9e51c6612d37c9604601399660012eee651dd5b591c7a55700
+              tag: latest@sha256:2fb8cf0ec7ffadcaac4234c777621e3f530bd58b8e3d95614f909478658520b8
             env:
               TZ: "${TIMEZONE}"
               CF_HOSTS: "home.${SECRET_INTERNAL_DOMAIN};home.${SECRET_PRIVATE_DOMAIN}"
