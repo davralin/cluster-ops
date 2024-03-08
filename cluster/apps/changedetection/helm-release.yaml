@@ -37,7 +37,7 @@ spec:
           main:
             image:
               repository: ghcr.io/dgtlmoon/changedetection.io
-              tag: 0.45.15
+              tag: 0.45.16
             env:
               TZ: "${TIMEZONE}"
               PLAYWRIGHT_DRIVER_URL: "ws://playwright-chrome:3000/?headless=false"
