@@ -54,6 +54,7 @@ spec:
             copyMethod: Direct
             cacheStorageClassName: "${STORAGE_READWRITEONCE}"
             cacheAccessModes: ["ReadWriteOnce"]
+            cacheCapacity: 2Gi
             pruneIntervalDays: 7
             repository: nextcloud-volsync-secret
             moverSecurityContext:
