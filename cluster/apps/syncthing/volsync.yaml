@@ -52,6 +52,8 @@ spec:
             schedule: "04 07 * * *"
           restic:
             copyMethod: Direct
+            cacheStorageClassName: "${STORAGE_READWRITEONCE}"
+            cacheAccessModes: ["ReadWriteOnce"]
             pruneIntervalDays: 7
             repository: syncthing-volsync-secret
             moverSecurityContext:
