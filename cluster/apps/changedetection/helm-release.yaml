@@ -32,9 +32,9 @@ spec:
         fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"
     controllers:
-      main:
+      *name:
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/dgtlmoon/changedetection.io
               tag: 0.45.16
@@ -48,12 +48,13 @@ spec:
                 cpu: 10m
                 memory: 30Mi
     service:
-      main:
+      app:
+        controller: *name
         ports:
           http:
             port: 5000
     ingress:
-      main:
+      app:
         enabled: true
         annotations:
           haproxy.org/whitelist: "${HAPROXY_WHITELIST}"
@@ -63,15 +64,15 @@ spec:
             X-Content-Type-Options "nosniff"
             Referrer-Policy "no-referrer-when-downgrade"
         hosts:
-          - host: "changedetection.${SECRET_DEFAULT_DOMAIN}"
+          - host: &host "changedetection.${SECRET_DEFAULT_DOMAIN}"
             paths:
               - path: /
-                pathType: Prefix
                 service:
-                  name: main
+                  identifier: app
                   port: http
         tls:
-          - secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
+          - hosts:
+              - *host
     persistence:
       datastore:
         enabled: true
