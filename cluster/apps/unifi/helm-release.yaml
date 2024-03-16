@@ -93,7 +93,7 @@ spec:
         enabled: true
         annotations:
           haproxy.org/server-ssl: "true"
-          haproxy.org/whitelist: "${HAPROXY_WHITELIST}"
+          haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
           haproxy.org/response-set-header: |
             Strict-Transport-Security "max-age=31536000"
             X-Frame-Options "DENY"
