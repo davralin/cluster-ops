@@ -20,7 +20,6 @@ resources:
   - recyclarr
   - samba
   - sonarr
-  - squeezebox
   - sshd
   - tautulli
   - tdarr
