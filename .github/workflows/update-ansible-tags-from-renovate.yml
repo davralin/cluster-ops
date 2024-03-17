@@ -1,0 +1,32 @@
+name: update-ansible-tags-from-renovate
+
+on:
+  workflow_dispatch:
+  schedule:
+   - cron: '15 05 * * *'
+
+jobs:
+  update-ansible-tags-from-renovate:
+    runs-on: ubuntu-latest
+
+    permissions:
+      # Give the default GITHUB_TOKEN write permission to commit and push the
+      # added or changed files to the repository.
+      contents: write
+
+    steps:
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Start the updater
+        run: bash meta/update-ansible-tags-from-renovate.sh
+
+      - name: Auto-commit changes and push
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore(debian-stable-slim): Ensure we are running latest debian:stable-slim"
+          commit_author: Feed Updater <actions@github.com>
+          repository: ./
