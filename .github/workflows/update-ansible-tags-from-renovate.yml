@@ -27,6 +27,6 @@ jobs:
       - name: Auto-commit changes and push
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "chore(debian-stable-slim): Ensure we are running latest debian:stable-slim"
+          commit_message: "chore(renovate-updates): update ansible tags from renovate"
           commit_author: Feed Updater <actions@github.com>
           repository: ./
