@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.4
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -38,9 +38,9 @@ spec:
         #fsGroup: 1000
         #fsGroupChangePolicy: "OnRootMismatch"
     controllers:
-      main:
+      *name:
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/hotio/cloudflareddns
               tag: latest@sha256:d3db0622fbfb207dca6420dd40e671ca0c603070ccd889c55864cfa553233e78
@@ -52,5 +52,5 @@ spec:
               LOG_LEVEL: 3
               INTERVAL: 900
     service:
-      main:
+      app:
         enabled: false
