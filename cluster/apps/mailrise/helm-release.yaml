@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.4
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -32,11 +32,11 @@ spec:
         fsGroup: 999
         fsGroupChangePolicy: "OnRootMismatch"
     controllers:
-      main:
+      *name:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          main:
+          app:
             image:
               repository: yoryan/mailrise
               tag: 1.4.0
@@ -49,7 +49,8 @@ spec:
               limits:
                 memory: 200Mi
     service:
-      main:
+      app:
+        controller: *name
         ports:
           http:
             port: 8025
@@ -68,8 +69,8 @@ spec:
         type: secret
         name: mailrise-conf
         advancedMounts:
-          main:
-            main:
+          mailrise:
+            app:
               - path: /etc/mailrise.conf
                 subPath: mailrise.conf
                 readOnly: true

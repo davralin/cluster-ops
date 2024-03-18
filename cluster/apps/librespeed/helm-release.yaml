@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.4
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -33,9 +33,9 @@ spec:
         #fsGroup: 1000
         #fsGroupChangePolicy: "OnRootMismatch"
     controllers:
-      main:
+      *name:
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/linuxserver/librespeed
               tag: 5.3.0
@@ -51,12 +51,13 @@ spec:
               limits:
                 memory: 500Mi
     service:
-      main:
+      app:
+        controller: *name
         ports:
           http:
             port: 80
     ingress:
-      main:
+      app:
         enabled: true
         annotations:
           haproxy.org/response-set-header: |
@@ -65,12 +66,12 @@ spec:
             X-Content-Type-Options "nosniff"
             Referrer-Policy "no-referrer-when-downgrade"
         hosts:
-          - host: "speed.${SECRET_DEFAULT_DOMAIN}"
+          - host: &host "speed.${SECRET_DEFAULT_DOMAIN}"
             paths:
               - path: /
-                pathType: Prefix
                 service:
-                  name: main
+                  identifier: app
                   port: http
         tls:
-          - secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
+          - hosts:
+              - *host

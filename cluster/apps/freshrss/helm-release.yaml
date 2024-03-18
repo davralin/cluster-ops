@@ -49,6 +49,7 @@ spec:
                 memory: 30Mi
     service:
       app:
+        controller: *name
         ports:
           http:
             port: 80

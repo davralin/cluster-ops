@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.4
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -24,15 +24,15 @@ spec:
     remediation:
       retries: 3
   valuesFrom:
-    - targetPath: controllers.main.containers.main.env.SMARTHOST
+    - targetPath: controllers.exim.containers.app.env.SMARTHOST
       kind: Secret
       name: mail-smarthost
       valuesKey: smarthost
-    - targetPath: controllers.main.containers.main.env.SMTP_USERNAME
+    - targetPath: controllers.exim.containers.app.env.SMTP_USERNAME
       kind: Secret
       name: mail-smarthost
       valuesKey: username
-    - targetPath: controllers.main.containers.main.env.SMTP_PASSWORD
+    - targetPath: controllers.exim.containers.app.env.SMTP_PASSWORD
       kind: Secret
       name: mail-smarthost
       valuesKey: password
@@ -45,10 +45,10 @@ spec:
         fsGroup: 100
         fsGroupChangePolicy: "OnRootMismatch"
     controllers:
-      main:
+      *name:
         type: daemonset
         containers:
-          main:
+          app:
             image:
               repository: devture/exim-relay
               tag: 4.96-r1-0
@@ -62,7 +62,8 @@ spec:
                 cpu: 100m
                 memory: 128Mi
     service:
-      main:
+      app:
+        controller: *name
         type: LoadBalancer
         ports:
           http:

@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.4
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -24,7 +24,7 @@ spec:
     remediation:
       retries: 3
   valuesFrom:
-    - targetPath: controllers.main.containers.main.env.GITEA__database__PASSWD
+    - targetPath: controllers.gitea.containers.gitea.env.GITEA__database__PASSWD
       kind: Secret
       name: gitea-config
       valuesKey: POSTGRES_PASSWORD
@@ -40,9 +40,9 @@ spec:
           add:
             - SYS_CHROOT
     controllers:
-      main:
+      *name:
         containers:
-          main:
+          app:
             image:
               repository: gitea/gitea
               tag: 1.21.8-rootless
@@ -75,14 +75,15 @@ spec:
                 memory: 500Mi
                 cpu: 500m
     service:
-      main:
+      app:
+        controller: *name
         ports:
           http:
             port: 3000
       ssh:
         enabled: true
         type: LoadBalancer
-        controller: main
+        controller: *name
         externalTrafficPolicy: Local
         ports:
           ssh:
@@ -91,7 +92,7 @@ spec:
             targetPort: 2222
             protocol: TCP
     ingress:
-      main:
+      app:
         enabled: true
         annotations:
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
@@ -101,15 +102,15 @@ spec:
             X-Content-Type-Options "nosniff"
             Referrer-Policy "no-referrer-when-downgrade"
         hosts:
-          - host: "gitea.${SECRET_DEFAULT_DOMAIN}"
+          - host: &host "gitea.${SECRET_DEFAULT_DOMAIN}"
             paths:
               - path: /
-                pathType: Prefix
                 service:
-                  name: main
+                  identifier: app
                   port: http
         tls:
-          - secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
+          - hosts:
+              - *host
     persistence:
       config:
         enabled: true

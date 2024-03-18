@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.4
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -32,10 +32,10 @@ spec:
         fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"
     controllers:
-      main:
+      *name:
         replicas: 2
         containers:
-          main:
+          app:
             image:
               repository: libreddit/libreddit
               tag: latest@sha256:a62c62cd1774c16e9457dcdf98afe2875be13ca777873975d9ce864351fba52a
@@ -55,12 +55,13 @@ spec:
                 cpu: 200m
                 memory: 300Mi
     service:
-      main:
+      app:
+        controller: *name
         ports:
           http:
             port: 8080
     ingress:
-      main:
+      app:
         enabled: true
         annotations:
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
@@ -70,12 +71,12 @@ spec:
             X-Content-Type-Options "nosniff"
             Referrer-Policy "no-referrer-when-downgrade"
         hosts:
-          - host: "r.${SECRET_DEFAULT_DOMAIN}"
+          - host: &host "r.${SECRET_DEFAULT_DOMAIN}"
             paths:
               - path: /
-                pathType: Prefix
                 service:
-                  name: main
+                  identifier: app
                   port: http
         tls:
-          - secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
+          - hosts:
+              - *host
