@@ -39,6 +39,7 @@ resources:
   - ../searxng
   - ../securecodebox
   - ../syncthing
+  - ../thelounge
   - ../tubearchivist
   - ../unifi
   - ../volsync
