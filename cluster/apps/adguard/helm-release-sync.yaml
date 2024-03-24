@@ -23,6 +23,9 @@ spec:
   upgrade:
     remediation:
       retries: 3
+  dependsOn:
+    - name: adguard
+      namespace: adguard
   valuesFrom:
     - targetPath: controllers.main.containers.main.env.ORIGIN_URL
       kind: Secret
