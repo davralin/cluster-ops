@@ -24,7 +24,7 @@ spec:
     remediation:
       retries: 3
   valuesFrom:
-    - targetPath: controllers.gitea.containers.gitea.env.GITEA__database__PASSWD
+    - targetPath: controllers.gitea.containers.app.env.GITEA__database__PASSWD
       kind: Secret
       name: gitea-config
       valuesKey: POSTGRES_PASSWORD
@@ -36,9 +36,6 @@ spec:
         runAsGroup: 1000
         fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"
-        capabilities:
-          add:
-            - SYS_CHROOT
     controllers:
       *name:
         containers:
