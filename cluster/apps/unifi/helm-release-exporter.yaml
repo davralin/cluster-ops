@@ -62,6 +62,7 @@ spec:
             port: 9130
     serviceMonitor:
       app:
+        serviceName: *name
         enabled: "${MONITORING_PROMETHEUS}"
         endpoints:
           - port: http
