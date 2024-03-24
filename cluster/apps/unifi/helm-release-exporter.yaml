@@ -23,6 +23,9 @@ spec:
   upgrade:
     remediation:
       retries: 3
+  dependsOn:
+    - name: unifi
+      namespace: unifi
   values:
     fullnameOverride: *name
     defaultPodOptions:
