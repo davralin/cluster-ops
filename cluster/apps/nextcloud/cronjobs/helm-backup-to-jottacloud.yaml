@@ -45,7 +45,7 @@ spec:
     configMaps:
       shell:
         enabled: true
-        stringData:
+        data:
           backup.sh: |
             #!/bin/sh
             /usr/local/bin/rclone sync --exclude data/nextcloud.log --check-first --delete-after --progress --jottacloud-hard-delete --backup-dir "jottacloud-crypt:/nextcloud/$(date -I)" /nextcloud/ jottacloud-crypt:/nextcloud/current
