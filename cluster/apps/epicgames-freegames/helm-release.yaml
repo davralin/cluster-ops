@@ -24,19 +24,19 @@ spec:
     remediation:
       retries: 3
   valuesFrom:
-    - targetPath: controllers.main.containers.main.env.EMAIL
+    - targetPath: controllers.epicgames-free.containers.app.env.EMAIL
       kind: Secret
       name: epicgames-free-login
       valuesKey: EMAIL
-    - targetPath: controllers.main.containers.main.env.PASSWORD
+    - targetPath: controllers.epicgames-free.containers.app.env.PASSWORD
       kind: Secret
       name: epicgames-free-login
       valuesKey: PASSWORD
-    - targetPath: controllers.main.containers.main.env.TOTP
+    - targetPath: controllers.epicgames-free.containers.app.env.TOTP
       kind: Secret
       name: epicgames-free-login
       valuesKey: TOTP
-    - targetPath: controllers.main.containers.main.env.DISCORD_WEBHOOK
+    - targetPath: controllers.epicgames-free.containers.app.env.DISCORD_WEBHOOK
       kind: Secret
       name: epicgames-free-login
       valuesKey: WEBHOOK_URL
