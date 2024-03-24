@@ -31,6 +31,7 @@ spec:
     master:
       persistence:
         enabled: false
+      resourcesPreset: micro
     volumePermissions:
       enabled: true
     metrics:
