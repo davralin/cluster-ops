@@ -30,9 +30,6 @@ spec:
         runAsUser: 0
         runAsGroup: 0
         fsGroup: 0
-        capabilities:
-          add:
-            - CHOWN
         supplementalGroups:
           - 44
           - 226
