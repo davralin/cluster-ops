@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.4
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -34,9 +34,9 @@ spec:
         fsGroup: 0
         fsGroupChangePolicy: "OnRootMismatch"
     controllers:
-      main:
+      *name:
         containers:
-          main:
+          app:
             image:
               repository: waja/calcardbackup
               tag: 7.0.0-1
@@ -52,16 +52,13 @@ spec:
               limits:
                 cpu: 200m
                 memory: 100Mi
-    service:
-      main:
-        enabled: false
     persistence:
       nextcloud:
         enabled: true
         existingClaim: nextcloud
         advancedMounts:
-          main:
-            main:
+          *name:
+            app:
               - path: /nextcloud
                 subPath: .
                 readOnly: true

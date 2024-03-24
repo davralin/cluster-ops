@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.4
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -32,17 +32,14 @@ spec:
         fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"
     controllers:
-      main:
+      *name:
         type: cronjob
         cronjob:
           schedule: "*/4 * * * *"
         containers:
-          main:
+          app:
             image:
               repository: nextcloud
               tag: 28.0.3-apache
             command: ['/usr/bin/curl']
             args: ["--silent", "--show-error", "https://cloud.${SECRET_DEFAULT_DOMAIN}/cron.php"]
-    service:
-      main:
-        enabled: false
