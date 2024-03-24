@@ -52,3 +52,9 @@ spec:
       app:
         serviceName: *name
         enabled: "${MONITORING_PROMETHEUS}"
+        endpoints:
+          - port: http
+            scheme: http
+            path: /metrics
+            interval: 1m
+            scrapeTimeout: 5s
