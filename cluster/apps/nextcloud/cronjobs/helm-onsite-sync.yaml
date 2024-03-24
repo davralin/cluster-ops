@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.4
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -32,20 +32,17 @@ spec:
         #fsGroup: 1000
         #fsGroupChangePolicy: "OnRootMismatch"
     controllers:
-      main:
+      *name:
         type: cronjob
         cronjob:
           schedule: "45 */6 * * *"
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/davralin/rsync
               tag: latest@sha256:083d8d32d1f9530df29e9d58ce3c09de646cb987909af271e4271bc31603a191
             command: ['/usr/bin/rsync']
             args: ["--archive", "--delete", "--verbose", "-e", "ssh -o StrictHostKeyChecking=no", "/nextcloud/", "backup@nas.${SECRET_DEFAULT_DOMAIN}:/opt/backup/nextcloud/"]
-    service:
-      main:
-        enabled: false
     persistence:
       nextcloud:
         enabled: true
@@ -58,8 +55,8 @@ spec:
         name: sshkey
         defaultMode: 0600
         advancedMounts:
-          main:
-            main:
+          *name:
+            app:
               - path: /root/.ssh/id_ed25519
                 subPath: id_ed25519
                 readOnly: true
