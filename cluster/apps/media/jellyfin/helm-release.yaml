@@ -85,9 +85,12 @@ spec:
       media:
         enabled: true
         existingClaim: media
-        globalMounts:
-          - path: /data
-        readOnly: true
+        advancedMounts:
+          *name:
+            app:
+              - path: /data
+                subPath: .
+                readOnly: true
       transcode:
         enabled: true
         type: emptyDir
