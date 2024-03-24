@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.4
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -33,9 +33,9 @@ spec:
         fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"
     controllers:
-      main:
+      *name:
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/tailscale/tailscale
               tag: v1.62.0
@@ -59,7 +59,8 @@ spec:
     serviceAccount:
       name: tailscale
     service:
-      main:
+      app:
+        controller: *name
         ports:
           http:
             port: 45387

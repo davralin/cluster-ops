@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.4
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -24,7 +24,7 @@ spec:
     remediation:
       retries: 3
   valuesFrom:
-    - targetPath: controllers.main.containers.main.env.ELASTIC_PASSWORD
+    - targetPath: controllers.elasticsearch.containers.app.env.ELASTIC_PASSWORD
       kind: Secret
       name: tubearchivist-secrets
       valuesKey: ELASTIC_PASSWORD
@@ -37,9 +37,9 @@ spec:
         #fsGroup: 1000
         #fsGroupChangePolicy: "OnRootMismatch"
     controllers:
-      main:
+      *name:
         containers:
-          main:
+          app:
             image:
               repository: elasticsearch
               tag: 8.12.2
@@ -50,7 +50,8 @@ spec:
               ES_JAVA_OPTS: "-Xms512m -Xmx512m"
               path.repo: "/usr/share/elasticsearch/data/snapshot"
     service:
-      main:
+      app:
+        controller: *name
         ports:
           http:
             port: 9200

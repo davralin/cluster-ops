@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.4
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -32,9 +32,9 @@ spec:
         fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"
     controllers:
-      main:
+      *name:
         containers:
-          main:
+          app:
             image:
               repository: syncthing/syncthing
               tag: 1.27.4
@@ -50,13 +50,14 @@ spec:
                 memory: 300Mi
                 cpu: 500m
     service:
-      main:
+      app:
+        controller: *name
         ports:
           http:
             port: 8384
       transfer:
         type: LoadBalancer
-        controller: main
+        controller: *name
         ports:
           tcp-transfer:
             enabled: true
@@ -67,7 +68,7 @@ spec:
             port: 22000
             protocol: UDP
     ingress:
-      main:
+      app:
         enabled: true
         annotations:
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
@@ -77,15 +78,15 @@ spec:
             X-Content-Type-Options "nosniff"
             Referrer-Policy "no-referrer-when-downgrade"
         hosts:
-          - host: "syncthing.${SECRET_DEFAULT_DOMAIN}"
+          - host: &host "syncthing.${SECRET_DEFAULT_DOMAIN}"
             paths:
               - path: /
-                pathType: Prefix
                 service:
-                  name: main
+                  identifier: app
                   port: http
         tls:
-          - secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
+          - hosts:
+              - *host
     persistence:
       config:
         enabled: true

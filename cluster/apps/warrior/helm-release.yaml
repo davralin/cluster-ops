@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.4
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -32,9 +32,9 @@ spec:
         fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"
     controllers:
-      main:
+      *name:
         containers:
-          main:
+          app:
             image:
               repository: atdr.meo.ws/archiveteam/warrior-dockerfile
               tag: latest@sha256:1df66b037c4a8c915b380bde4ffd59ced214d809779a8c3cac07685a618ab7b5
@@ -50,12 +50,13 @@ spec:
                 cpu: 500m
                 memory: 1Gi
     service:
-      main:
+      app:
+        controller: *name
         ports:
           http:
             port: 8001
     ingress:
-      main:
+      app:
         enabled: true
         annotations:
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
@@ -65,15 +66,15 @@ spec:
             X-Content-Type-Options "nosniff"
             Referrer-Policy "no-referrer-when-downgrade"
         hosts:
-          - host: "warrior.${SECRET_DEFAULT_DOMAIN}"
+          - host: &host "warrior.${SECRET_DEFAULT_DOMAIN}"
             paths:
               - path: /
-                pathType: Prefix
                 service:
-                  name: main
+                  identifier: app
                   port: http
         tls:
-          - secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
+          - hosts:
+              - *host
     persistence:
       projects:
         enabled: true

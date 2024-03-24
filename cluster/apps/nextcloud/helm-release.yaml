@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.4
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -25,7 +25,7 @@ spec:
     remediation:
       retries: 3
   valuesFrom:
-    - targetPath: controllers.main.containers.main.env.POSTGRES_PASSWORD
+    - targetPath: controllers.nextcloud.containers.app.env.POSTGRES_PASSWORD
       kind: Secret
       name: nextcloud-postgresql-secret
       valuesKey: password
@@ -39,9 +39,9 @@ spec:
         #fsGroup: 1000
         #fsGroupChangePolicy: "OnRootMismatch"
     controllers:
-      main:
+      *name:
         containers:
-          main:
+          app:
             image:
               repository: nextcloud
               tag: 28.0.3-apache
@@ -125,12 +125,13 @@ spec:
               POSTGRES_DB: "nextcloud"
               POSTGRES_USER: "nextcloud"
     service:
-      main:
+      app:
+        controller: *name
         ports:
           http:
             port: 80
     ingress:
-      main:
+      app:
         enabled: true
         annotations:
           haproxy.org/backend-config-snippet: |
@@ -145,15 +146,15 @@ spec:
             X-Download-Options "NoOpen"
             Referrer-Policy "no-referrer-when-downgrade"
         hosts:
-          - host: "cloud.${SECRET_DEFAULT_DOMAIN}"
+          - host: &host "cloud.${SECRET_DEFAULT_DOMAIN}"
             paths:
               - path: /
-                pathType: Prefix
                 service:
-                  name: main
+                  identifier: app
                   port: http
         tls:
-          - secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
+          - hosts:
+              - *host
     persistence:
       config:
         enabled: true

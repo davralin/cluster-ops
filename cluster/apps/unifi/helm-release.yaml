@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.4
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -32,9 +32,9 @@ spec:
         fsGroup: 999
         fsGroupChangePolicy: "OnRootMismatch"
     controllers:
-      main:
+      *name:
         containers:
-          main:
+          app:
             image:
               repository: jacobalberty/unifi
               tag: v8.1.113
@@ -53,7 +53,8 @@ spec:
               limits:
                 memory: 1390M
     service:
-      main:
+      app:
+        controller: *name
         type: LoadBalancer
         externalTrafficPolicy: Local
         ports:
@@ -89,7 +90,7 @@ spec:
             port: 10001
             protocol: UDP
     ingress:
-      main:
+      app:
         enabled: true
         annotations:
           haproxy.org/server-ssl: "true"
@@ -100,15 +101,15 @@ spec:
             X-Content-Type-Options "nosniff"
             Referrer-Policy "no-referrer-when-downgrade"
         hosts:
-          - host: "unifi.${SECRET_DEFAULT_DOMAIN}"
+          - host: &host "unifi.${SECRET_DEFAULT_DOMAIN}"
             paths:
               - path: /
-                pathType: Prefix
                 service:
-                  name: main
+                  identifier: app
                   port: http
         tls:
-          - secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
+          - hosts:
+              - *host
     persistence:
       unifi:
         enabled: true

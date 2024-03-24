@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.4
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -24,19 +24,19 @@ spec:
     remediation:
       retries: 3
   valuesFrom:
-    - targetPath: controllers.main.containers.main.env.PAPERLESS_DBPASS
+    - targetPath: controllers.paperless-ngx.containers.app.env.PAPERLESS_DBPASS
       kind: Secret
       name: paperless-secrets
       valuesKey: postgresql-password
-    - targetPath: controllers.main.containers.main.env.PAPERLESS_ADMIN_USER
+    - targetPath: controllers.paperless-ngx.containers.app.env.PAPERLESS_ADMIN_USER
       kind: Secret
       name: paperless-secrets
       valuesKey: paperless-admin-user
-    - targetPath: controllers.main.containers.main.env.PAPERLESS_ADMIN_PASSWORD
+    - targetPath: controllers.paperless-ngx.containers.app.env.PAPERLESS_ADMIN_PASSWORD
       kind: Secret
       name: paperless-secrets
       valuesKey: paperless-admin-pw
-    - targetPath: controllers.main.containers.main.env.PAPERLESS_ADMIN_EMAIL
+    - targetPath: controllers.paperless-ngx.containers.app.env.PAPERLESS_ADMIN_EMAIL
       kind: Secret
       name: paperless-secrets
       valuesKey: paperless-admin-email
@@ -49,9 +49,9 @@ spec:
         #fsGroup: 1000
         #fsGroupChangePolicy: "OnRootMismatch"
     controllers:
-      main:
+      *name:
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/paperless-ngx/paperless-ngx
               tag: 2.6.3
@@ -88,12 +88,13 @@ spec:
             command: ['/usr/bin/gotenberg']
             args: ['--chromium-disable-javascript=true', '--chromium-allow-list=file:///tmp/.*']
     service:
-      main:
+      app:
+        controller: *name
         ports:
           http:
             port: 8000
     ingress:
-      main:
+      app:
         enabled: true
         annotations:
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
@@ -103,15 +104,15 @@ spec:
             X-Content-Type-Options "nosniff"
             Referrer-Policy "no-referrer-when-downgrade"
         hosts:
-          - host: "paperless-ngx.${SECRET_DEFAULT_DOMAIN}"
+          - host: &host "paperless-ngx.${SECRET_DEFAULT_DOMAIN}"
             paths:
               - path: /
-                pathType: Prefix
                 service:
-                  name: main
+                  identifier: app
                   port: http
         tls:
-          - secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
+          - hosts:
+              - *host
     persistence:
       config:
         enabled: true

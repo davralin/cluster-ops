@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.4
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -32,16 +32,17 @@ spec:
         fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"
     controllers:
-      main:
+      *name:
         containers:
-          main:
+          app:
             image:
               repository: redis/redis-stack-server
               tag: 7.2.0-v9
             env:
               TZ: "${TIMEZONE}"
     service:
-      main:
+      app:
+        controller: *name
         ports:
           http:
             port: 6379

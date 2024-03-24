@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.4
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -32,9 +32,9 @@ spec:
         fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"
     controllers:
-      main:
+      *name:
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/unpoller/unpoller
               tag: v2.10.0
@@ -52,12 +52,13 @@ spec:
               limits:
                 memory: 500Mi
     service:
-      main:
+      app:
+        controller: *name
         ports:
           http:
             port: 9130
     serviceMonitor:
-      main:
+      app:
         enabled: "${MONITORING_PROMETHEUS}"
         endpoints:
           - port: http
