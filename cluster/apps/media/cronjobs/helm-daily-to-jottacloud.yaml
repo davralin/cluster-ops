@@ -47,7 +47,12 @@ spec:
       media:
         enabled: true
         existingClaim: media
-        readOnly: true
+        advancedMounts:
+          *name:
+            app:
+              - path: /data
+                subPath: .
+                readOnly: true
       config:
         enabled: true
         existingClaim: rcloneconfig
