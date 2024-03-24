@@ -50,4 +50,5 @@ spec:
             port: 9000
     serviceMonitor:
       app:
+        controller: *name
         enabled: "${MONITORING_PROMETHEUS}"
