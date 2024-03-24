@@ -75,6 +75,3 @@ spec:
               limits:
                 cpu: 100m
                 memory: 50Mi
-    service:
-      app:
-        enabled: false

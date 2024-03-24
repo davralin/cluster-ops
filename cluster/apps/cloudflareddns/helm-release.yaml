@@ -51,6 +51,3 @@ spec:
               CF_RECORDTYPES: "A;A"
               LOG_LEVEL: 3
               INTERVAL: 900
-    service:
-      app:
-        enabled: false

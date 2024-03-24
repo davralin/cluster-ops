@@ -60,9 +60,6 @@ spec:
                 enabled: false
               startup:
                 enabled: false
-    service:
-      app:
-        enabled: false
     persistence:
       devfs:
         enabled: true

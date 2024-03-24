@@ -66,9 +66,6 @@ spec:
         controller: *name
         type: LoadBalancer
         ports:
-          http:
-            enabled: false
-            primary: false
           mail:
             primary: true
             port: 25
