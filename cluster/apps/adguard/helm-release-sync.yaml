@@ -27,27 +27,27 @@ spec:
     - name: adguard
       namespace: adguard
   valuesFrom:
-    - targetPath: controllers.main.containers.main.env.ORIGIN_URL
+    - targetPath: controllers.adguard-sync.containers.app.env.ORIGIN_URL
       kind: Secret
       name: adguard-sync-secret
       valuesKey: ORIGIN_URL
-    - targetPath: controllers.main.containers.main.env.ORIGIN_USERNAME
+    - targetPath: controllers.adguard-sync.containers.app.env.ORIGIN_USERNAME
       kind: Secret
       name: adguard-sync-secret
       valuesKey: USERNAME
-    - targetPath: controllers.main.containers.main.env.ORIGIN_PASSWORD
+    - targetPath: controllers.adguard-sync.containers.app.env.ORIGIN_PASSWORD
       kind: Secret
       name: adguard-sync-secret
       valuesKey: PASSWORD
-    - targetPath: controllers.main.containers.main.env.REPLICA1_USERNAME
+    - targetPath: controllers.adguard-sync.containers.app.env.REPLICA1_USERNAME
       kind: Secret
       name: adguard-sync-secret
       valuesKey: USERNAME
-    - targetPath: controllers.main.containers.main.env.REPLICA1_PASSWORD
+    - targetPath: controllers.adguard-sync.containers.app.env.REPLICA1_PASSWORD
       kind: Secret
       name: adguard-sync-secret
       valuesKey: PASSWORD
-    - targetPath: controllers.main.containers.main.env.REPLICA1_URL
+    - targetPath: controllers.adguard-sync.containers.app.env.REPLICA1_URL
       kind: Secret
       name: adguard-sync-secret
       valuesKey: REPLICA1_URL
