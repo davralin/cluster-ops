@@ -54,7 +54,12 @@ spec:
       nextcloud:
         enabled: true
         existingClaim: nextcloud
-        readOnly: true
+        advancedMounts:
+          *name:
+            app:
+              - path: /nextcloud
+                subPath: .
+                readOnly: true
       config:
         enabled: true
         existingClaim: rcloneconfig
