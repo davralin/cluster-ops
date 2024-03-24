@@ -33,7 +33,6 @@ resources:
   - ../node-feature-discovery
   - ../node-problem-detector
   - ../paperless-ngx
-  - ../peertube-headless-seeder
   - ../reflector
   - ../reloader
   - ../searxng
