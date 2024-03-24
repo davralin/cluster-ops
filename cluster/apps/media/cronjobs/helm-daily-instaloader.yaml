@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.4
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -32,25 +32,22 @@ spec:
         fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"
     controllers:
-      main:
+      *name:
         type: cronjob
         cronjob:
           schedule: "48 01 * * *"
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/davralin/instaloader
               tag: latest@sha256:de8f37afb934f31dbf56a9af3cf71685254de2d7951818b682d72c91f82a1c4b
             command: ['/media/instaloader.sh']
-    service:
-      main:
-        enabled: false
     persistence:
       media:
         enabled: true
         existingClaim: media
         advancedMounts:
-          main:
-            main:
+          *name:
+            app:
               - path: /media
                 subPath: images/instagram

@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.4
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -32,9 +32,9 @@ spec:
         fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"
     controllers:
-      main:
+      *name:
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/stuffanthings/qbit_manage
               tag: v4.0.9
@@ -47,9 +47,6 @@ spec:
               limits:
                 cpu: 100m
                 memory: 200Mi
-    service:
-      main:
-        enabled: false
     persistence:
       config:
         enabled: true

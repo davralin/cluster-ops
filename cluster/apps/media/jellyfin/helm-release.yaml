@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.4
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -36,9 +36,9 @@ spec:
           - 109
           - 100
     controllers:
-      main:
+      *name:
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/onedr0p/jellyfin
               tag: 10.8.11@sha256:926e2a9f6677a0c7b12feba29f36c954154869318d6a52df72f72ff9c74cf494
@@ -53,12 +53,13 @@ spec:
                 gpu.intel.com/i915: 1
                 memory: 6000Mi
     service:
-      main:
+      app:
+        controller: *name
         ports:
           http:
             port: 8096
     ingress:
-      main:
+      app:
         enabled: true
         annotations:
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
@@ -68,15 +69,15 @@ spec:
             X-Content-Type-Options "nosniff"
             Referrer-Policy "no-referrer-when-downgrade"
         hosts:
-          - host: "jellyfin.${SECRET_DEFAULT_DOMAIN}"
+          - host: &host "jellyfin.${SECRET_DEFAULT_DOMAIN}"
             paths:
               - path: /
-                pathType: Prefix
                 service:
-                  name: main
+                  identifier: app
                   port: http
         tls:
-          - secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
+          - hosts:
+              - *host
     persistence:
       config:
         enabled: true

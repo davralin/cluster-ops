@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.4
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -33,9 +33,9 @@ spec:
         #fsGroup: 1000
         #fsGroupChangePolicy: "OnRootMismatch"
     controllers:
-      main:
+      *name:
         containers:
-          main:
+          app:
             image:
               repository: dperson/samba
               tag: latest@sha256:e1d2a7366690749a7be06f72bdbf6a5a7d15726fc84e4e4f41e967214516edfd
@@ -50,12 +50,10 @@ spec:
                 cpu: 200m
                 memory: 50Mi
     service:
-      main:
+      app:
+        controller: *name
         type: LoadBalancer
         ports:
-          http:
-            enabled: false
-            primary: false
           nbt:
             primary: false
             port: 139
@@ -71,8 +69,8 @@ spec:
         enabled: true
         existingClaim: media
         advancedMounts:
-          main:
-            main:
+          *name:
+            app:
               - path: /data
                 subPath: audio/music
                 readOnly: true

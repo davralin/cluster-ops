@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.4
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -38,10 +38,10 @@ spec:
           - 226
         fsGroupChangePolicy: "OnRootMismatch"
     controllers:
-      main:
+      *name:
         type: daemonset
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/haveagitgat/tdarr_node_acc
               tag: 2.17.01
@@ -60,20 +60,13 @@ spec:
               requests:
                 memory: 600Mi
                 cpu: 2000m
-    service:
-      main:
-        enabled: false
-        ports:
-          enabled: false
-          http:
-            port: 8265
     persistence:
       media:
         enabled: true
         existingClaim: media
         advancedMounts:
-          main:
-            main:
+          *name:
+            app:
               - path: /data
                 subPath: .
               - path: /temp

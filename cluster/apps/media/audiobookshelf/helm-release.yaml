@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.4
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -32,9 +32,9 @@ spec:
         fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"
     controllers:
-      main:
+      *name:
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/advplyr/audiobookshelf
               tag: 2.8.1
@@ -50,12 +50,13 @@ spec:
                 cpu: 100m
                 memory: 100Mi
     service:
-      main:
+      app:
+        controller: *name
         ports:
           http:
             port: 8080
     ingress:
-      main:
+      app:
         enabled: true
         annotations:
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
@@ -65,15 +66,15 @@ spec:
             X-Content-Type-Options "nosniff"
             Referrer-Policy "no-referrer-when-downgrade"
         hosts:
-          - host: "audiobookshelf.${SECRET_DEFAULT_DOMAIN}"
+          - host: &host "audiobookshelf.${SECRET_DEFAULT_DOMAIN}"
             paths:
               - path: /
-                pathType: Prefix
                 service:
-                  name: main
+                  identifier: app
                   port: http
         tls:
-          - secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
+          - hosts:
+              - *host
     persistence:
       config:
         enabled: true
@@ -82,8 +83,8 @@ spec:
         enabled: true
         existingClaim: media
         advancedMounts:
-          main:
-            main:
+          *name:
+            app:
               - path: /audiobooks
                 subPath: audio/books
                 readOnly: true

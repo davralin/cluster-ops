@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.4
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -32,9 +32,9 @@ spec:
         fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"
     controllers:
-      main:
+      *name:
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/jsclayton/prometheus-plex-exporter
               tag: latest@sha256:ebb7c4cb360ab430b3db5011e4e35c8fbff60d5b32510c6f5d2fbd5a581b4511
@@ -43,10 +43,11 @@ spec:
               PLEX_SERVER: "http://plex.media.svc.cluster.local:32400"
               PLEX_TOKEN: "${SECRET_PLEX_TOKEN}"
     service:
-      main:
+      app:
+        controller: *name
         ports:
           http:
             port: 9000
     serviceMonitor:
-      main:
+      app:
         enabled: "${MONITORING_PROMETHEUS}"

@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.4
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -32,20 +32,17 @@ spec:
         fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"
     controllers:
-      main:
+      *name:
         type: cronjob
         cronjob:
           concurrencyPolicy: Replace
           schedule: "14 */6 * * *"
         containers:
-          main:
+          app:
             image:
               repository: rclone/rclone
               tag: 1.66.0
             args: ["sync", "--ignore-case", "--check-first", "--delete-before", "--verbose", "--jottacloud-hard-delete", "--delete-excluded", "/media/", "jottacloud-crypt:/media", "--exclude", "downloads/**", "--exclude", "unsorted/tdarr/**", "--exclude", "*TdarrCacheFile*"]
-    service:
-      main:
-        enabled: false
     persistence:
       media:
         enabled: true

@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.4
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -26,15 +26,12 @@ spec:
   values:
     fullnameOverride: *name
     controllers:
-      main:
+      *name:
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/davralin/sleep
               tag: latest@sha256:2afde85d3990f50d59d813d187b757ce9c66a1d2e7618ff5f589010c0d2f8abc
-    service:
-      main:
-        enabled: false
     persistence:
       data:
         enabled: true

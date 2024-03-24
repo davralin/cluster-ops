@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.4
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -24,7 +24,7 @@ spec:
     remediation:
       retries: 3
   valuesFrom:
-    - targetPath: controllers.main.containers.main.env.PROWLARR__POSTGRES_PASSWORD
+    - targetPath: controllers.prowlarr.containers.app.env.PROWLARR__POSTGRES_PASSWORD
       kind: Secret
       name: prowlarr-config
       valuesKey: POSTGRES_PASSWORD
@@ -38,9 +38,9 @@ spec:
         fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"
     controllers:
-      main:
+      *name:
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/onedr0p/prowlarr
               tag: 1.14.3.4333@sha256:7f90035619b4dbff6bff985181275300cd999be5d4f03fcaf359ef7068fc5e5e
@@ -59,12 +59,13 @@ spec:
               limits:
                 memory: 1000Mi
     service:
-      main:
+      app:
+        controller: *name
         ports:
           http:
             port: 9696
     ingress:
-      main:
+      app:
         enabled: true
         annotations:
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
@@ -74,15 +75,15 @@ spec:
             X-Content-Type-Options "nosniff"
             Referrer-Policy "no-referrer-when-downgrade"
         hosts:
-          - host: "prowlarr.${SECRET_DEFAULT_DOMAIN}"
+          - host: &host "prowlarr.${SECRET_DEFAULT_DOMAIN}"
             paths:
               - path: /
-                pathType: Prefix
                 service:
-                  name: main
+                  identifier: app
                   port: http
         tls:
-          - secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
+          - hosts:
+              - *host
     persistence:
       config:
         enabled: true

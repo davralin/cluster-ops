@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.4
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -24,7 +24,7 @@ spec:
     remediation:
       retries: 3
   valuesFrom:
-    - targetPath: controllers.main.containers.main.env.SONARR__POSTGRES_PASSWORD
+    - targetPath: controllers.sonarr.containers.app.env.SONARR__POSTGRES_PASSWORD
       kind: Secret
       name: sonarr-config
       valuesKey: POSTGRES_PASSWORD
@@ -38,9 +38,9 @@ spec:
         fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"
     controllers:
-      main:
+      *name:
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/onedr0p/sonarr-develop
               tag: 4.0.2.1367@sha256:9b5b9fa01709fca02bbc7fe3ccb97fb54df88fff64913747fdaf29d3d5cad608
@@ -59,12 +59,13 @@ spec:
               limits:
                 memory: 1000Mi
     service:
-      main:
+      app:
+        controller: *name
         ports:
           http:
             port: 8989
     ingress:
-      main:
+      app:
         enabled: true
         annotations:
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
@@ -74,15 +75,15 @@ spec:
             X-Content-Type-Options "nosniff"
             Referrer-Policy "no-referrer-when-downgrade"
         hosts:
-          - host: "sonarr.${SECRET_DEFAULT_DOMAIN}"
+          - host: &host "sonarr.${SECRET_DEFAULT_DOMAIN}"
             paths:
               - path: /
-                pathType: Prefix
                 service:
-                  name: main
+                  identifier: app
                   port: http
         tls:
-          - secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
+          - hosts:
+              - *host
     persistence:
       config:
         enabled: true
