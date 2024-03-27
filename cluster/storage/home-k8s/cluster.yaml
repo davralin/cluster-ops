@@ -31,7 +31,7 @@ spec:
       enabled: true
     monitoring:
       enabled: "${MONITORING_PROMETHEUS}"
-      createPrometheusRules: false #"${MONITORING_PROMETHEUS}"
+      createPrometheusRules: "${MONITORING_PROMETHEUS}"
     configOverride: |
       [global]
       bdev_enable_discard = true
