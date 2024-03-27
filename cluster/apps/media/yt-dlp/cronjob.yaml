@@ -16,7 +16,7 @@ spec:
           restartPolicy: Never
           containers:
             - name: yt-dlp
-              image: ghcr.io/davralin/youtube-dl:latest@sha256:b7e54390490dc8b9a36895719d1dd01d0bf8cae44555bd72ed34ab0ac9af4384
+              image: ghcr.io/davralin/youtube-dl:latest@sha256:9493cfdc9ca9cf0e5bf52d4385dcc066f5f90f3838d366111380be8b19da9026
               command: ["/bin/bash"]
               args: ["-c", "/usr/local/bin/start.sh"]
               env:
