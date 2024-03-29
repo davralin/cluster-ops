@@ -28,6 +28,9 @@ spec:
       eula: true
       version: "LATEST"
       gamemode: "creative"
+      playerIdleTimeout: 10
+      cheats: true
+      emitServerTelemetry: true
       difficulty: "easy"
       maxPlayers: 5
       levelSeed: 421112feedmekittens
