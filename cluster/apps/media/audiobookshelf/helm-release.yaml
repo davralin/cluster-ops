@@ -88,3 +88,5 @@ spec:
               - path: /audiobooks
                 subPath: audio/books
                 readOnly: true
+              - path: /podcasts
+                subPath: audio/podcasts
