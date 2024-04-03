@@ -32,6 +32,7 @@ resources:
   - ../nextcloud
   - ../node-feature-discovery
   - ../node-problem-detector
+  - ../ollama
   - ../paperless-ngx
   - ../reflector
   - ../reloader
