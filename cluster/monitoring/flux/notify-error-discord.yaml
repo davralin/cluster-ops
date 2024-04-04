@@ -24,4 +24,5 @@ spec:
       name: storage
     - kind: HelmRelease
       name: '*'
+      namespace: '*'
   suspend: false

@@ -12,4 +12,5 @@ spec:
   eventSources:
     - kind: HelmRelease
       name: '*'
+      namespace: '*'
   suspend: false
