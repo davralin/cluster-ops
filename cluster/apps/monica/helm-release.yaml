@@ -1,0 +1,93 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: &name monica
+  namespace: monica
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.0.4
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+      interval: 5m
+  targetNamespace: monica
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  dependsOn:
+    - name: mariadb
+      namespace: monica
+  valuesFrom:
+    - targetPath: controllers.monica.containers.app.env.DB_PASSWORD
+      kind: Secret
+      name: monica-config
+      valuesKey: MARIADB_PASSWORD
+    - targetPath: controllers.monica.containers.app.env.APP_KEY
+      kind: Secret
+      name: monica-config
+      valuesKey: MONICA_APP_KEY
+  values:
+    fullnameOverride: *name
+    controllers:
+      *name:
+        containers:
+          app:
+            image:
+              repository: monica
+              tag: 4.0.0-apache
+            env:
+              APP_ENV: production
+              APP_URL: &host "monica.${SECRET_DEFAULT_DOMAIN}"
+              APP_TRUSTED_PROXIES: "*"
+              DB_DATABASE: monica
+              DB_HOST: monica-mariadb
+              DB_USERNAME: monica
+              DEFAULT_MAX_UPLOAD_SIZE: 2000
+              DEFAULT_MAX_STORAGE_SIZE: 2048
+    service:
+      app:
+        controller: *name
+        ports:
+          http:
+            port: 80
+    ingress:
+      app:
+        enabled: true
+        annotations:
+          haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
+          haproxy.org/response-set-header: |
+            Strict-Transport-Security "max-age=31536000"
+            X-Frame-Options "DENY"
+            X-Content-Type-Options "nosniff"
+            Referrer-Policy "no-referrer-when-downgrade"
+          haproxy.org/backend-config-snippet: |
+            acl url_discovery path /.well-known/caldav /.well-known/carddav
+            http-request redirect location /dav/ code 301 if url_discovery
+        hosts:
+          - host: *host
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - *host
+    persistence:
+      config:
+        enabled: true
+        existingClaim: monica
+      storage:
+        enabled: true
+        existingClaim: monica-storage
+        globalMounts:
+          - path: /var/www/html/storage
