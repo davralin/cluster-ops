@@ -2,8 +2,8 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: &name libreddit
-  namespace: libreddit
+  name: &name redlib
+  namespace: redlib
 spec:
   interval: 5m
   chart:
@@ -15,7 +15,7 @@ spec:
         name: bjw-s-charts
         namespace: flux-system
       interval: 5m
-  targetNamespace: libreddit
+  targetNamespace: redlib
   install:
     createNamespace: true
     remediation:
@@ -37,16 +37,16 @@ spec:
         containers:
           app:
             image:
-              repository: libreddit/libreddit
-              tag: latest@sha256:a62c62cd1774c16e9457dcdf98afe2875be13ca777873975d9ce864351fba52a
+              repository: quay.io/redlib/redlib
+              tag: latest@sha256:7fa92bb9b5a281123ee86a0b77a443939c2ccdabba1c12595dcd671a84cd5a64
             env:
-              LIBREDDIT_DEFAULT_FRONT_PAGE: "default"
-              LIBREDDIT_DEFAULT_HIDE_HLS_NOTIFICATION: "on"
-              LIBREDDIT_DEFAULT_LAYOUT: "compact"
-              LIBREDDIT_DEFAULT_SHOW_NSFW: "on"
-              LIBREDDIT_DEFAULT_SUBSCRIPTIONS: "${SECRET_LIBREDDIT_SUBS}"
-              LIBREDDIT_DEFAULT_USE_HLS: "on"
-              LIBREDDIT_SFW_ONLY: "off"
+              REDLIB_DEFAULT_FRONT_PAGE: "default"
+              REDLIB_DEFAULT_HIDE_HLS_NOTIFICATION: "on"
+              REDLIB_DEFAULT_LAYOUT: "compact"
+              REDLIB_DEFAULT_SHOW_NSFW: "on"
+              REDLIB_DEFAULT_SUBSCRIPTIONS: "${SECRET_REDLIB_SUBS}"
+              REDLIB_DEFAULT_USE_HLS: "on"
+              REDLIB_SFW_ONLY: "off"
             resources:
               requests:
                 cpu: 50m

@@ -20,7 +20,6 @@ resources:
   - ../it-tools
   - ../jobs
   - ../kuma
-  - ../libreddit
   - ../librespeed
   - ../local-path-provisioner
   - ../mailrelay
@@ -34,6 +33,7 @@ resources:
   - ../node-problem-detector
   - ../ollama
   - ../paperless-ngx
+  - ../redlib
   - ../reflector
   - ../reloader
   - ../searxng
