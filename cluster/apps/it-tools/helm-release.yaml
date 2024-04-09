@@ -34,6 +34,7 @@ spec:
         #fsGroupChangePolicy: "OnRootMismatch"
     controllers:
       *name:
+        strategy: RollingUpdate
         containers:
           app:
             image:

@@ -34,6 +34,7 @@ spec:
     controllers:
       *name:
         replicas: 2
+        strategy: RollingUpdate
         containers:
           app:
             image:

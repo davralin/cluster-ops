@@ -33,6 +33,7 @@ spec:
         fsGroupChangePolicy: "OnRootMismatch"
     controllers:
       *name:
+        strategy: RollingUpdate
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
