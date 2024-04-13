@@ -14,6 +14,7 @@ resources:
   - ../local-path-provisioner
   - ../librespeed
   - ../metrics-server
+  - ../node-problem-detector
   - ../reflector
   - ../reloader
   - ../searxng
