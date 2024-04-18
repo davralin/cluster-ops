@@ -1,7 +1,7 @@
 ---
 tubearchivist_compose_path: "/opt/tubearchivist"
 tubearchivist_compose_config_path: "{{ tubearchivist_compose_path }}/config"
-tubearchivist_compose_version: "v0.4.6"
+tubearchivist_compose_version: "v0.4.7"
 tubearchivist_compose_redis_version: "7.2.0-v9"
 tubearchivist_compose_elasticsearch_version: "8.12.2"
 tubearchivist_ta_host: "localhost"
