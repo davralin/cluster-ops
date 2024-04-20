@@ -40,9 +40,10 @@ spec:
               tag: 0.45.20
             env:
               TZ: "${TIMEZONE}"
-              PLAYWRIGHT_DRIVER_URL: "ws://playwright-chrome:3000/?headless=false"
+              PLAYWRIGHT_DRIVER_URL: "ws://sockpuppetbrowser:3000"
               PUID: 1000
               PGID: 1000
+              BASE_URL: &host "changedetection.${SECRET_DEFAULT_DOMAIN}"
             resources:
               requests:
                 cpu: 10m
@@ -64,7 +65,7 @@ spec:
             X-Content-Type-Options "nosniff"
             Referrer-Policy "no-referrer-when-downgrade"
         hosts:
-          - host: &host "changedetection.${SECRET_DEFAULT_DOMAIN}"
+          - host: *host
             paths:
               - path: /
                 service:

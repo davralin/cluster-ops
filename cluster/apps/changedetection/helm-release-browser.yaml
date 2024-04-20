@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: &name playwright-chrome
+  name: &name sockpuppetbrowser
   namespace: changedetection
 spec:
   interval: 5m
@@ -38,15 +38,13 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/browserless/chrome
-              tag: latest@sha256:0c9a2c5f045c274653ef9589ff9f682a88e82b914b62be98c4eedb2925cc60de
+              repository: dgtlmoon/sockpuppetbrowser
+              tag: latest@sha256:b7f880ecb167abc73351bbfd27df99971f9267827765a6a9252cdd29d8c03835
             env:
               SCREEN_WIDTH: "1920"
               SCREEN_HEIGHT: "1024"
               SCREEN_DEPTH: "16"
-              ENABLE_DEBUGGER: "true"
-              TIMEOUT: "600000"
-              CONCURRENT: "15"
+              MAX_CONCURRENT_CHROME_PROCESSES: "10"
             resources:
               requests:
                 cpu: 100m
