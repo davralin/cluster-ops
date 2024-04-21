@@ -10,7 +10,6 @@ resources:
   - ../haproxy/haproxy-ingress-daemonset
   - ../invidious
   - ../it-tools
-  - ../kuma
   - ../local-path-provisioner
   - ../librespeed
   - ../metrics-server
