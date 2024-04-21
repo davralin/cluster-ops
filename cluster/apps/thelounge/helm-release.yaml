@@ -34,7 +34,6 @@ spec:
         #fsGroupChangePolicy: "OnRootMismatch"
     controllers:
       *name:
-        replicas: 0
         containers:
           app:
             image:
