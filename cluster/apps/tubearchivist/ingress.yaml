@@ -12,7 +12,7 @@ metadata:
       Referrer-Policy "no-referrer-when-downgrade"
 spec:
   rules:
-  - host: tube.ralin.org
+  - host: "tube.${SECRET_DEFAULT_DOMAIN}"
     http:
       paths:
       - backend:
@@ -23,4 +23,4 @@ spec:
         path: /
         pathType: Prefix
   tls:
-  - secretName: wildcard-ralin-org-cert
+  - secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
