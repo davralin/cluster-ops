@@ -52,6 +52,7 @@ spec:
             schedule: "04 01 * * *"
           restic:
             copyMethod: Snapshot
+            cacheCapacity: 2Gi
             pruneIntervalDays: 7
             repository: gitea-volsync-secret
             moverSecurityContext:
