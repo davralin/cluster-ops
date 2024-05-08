@@ -2,8 +2,8 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: &name archivebox
-  namespace: archivebox
+  name: &name hibiscus
+  namespace: hibiscus
 spec:
   interval: 5m
   chart:
@@ -15,7 +15,7 @@ spec:
         name: bjw-s-charts
         namespace: flux-system
       interval: 5m
-  targetNamespace: archivebox
+  targetNamespace: hibiscus
   install:
     createNamespace: true
     remediation:
@@ -25,21 +25,19 @@ spec:
       retries: 3
   values:
     fullnameOverride: *name
-    # App chown's on boot
-    #defaultPodOptions:
-      #securityContext:
-        #runAsUser: 1000
-        #runAsGroup: 1000
-        #fsGroup: 1000
-        #fsGroupChangePolicy: "OnRootMismatch"
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
     controllers:
       *name:
         containers:
           app:
             image:
-              repository: archivebox/archivebox
-              tag: dev@sha256:70c772d77f7cee3ca611e9dcfdbfd0f45055d16063f57491c2263dcb1a7093d0
-            args: ["server"]
+              repository: git.a71.su/andrew71/hibiscus
+              tag: latest@sha256:98d92db07b24c130a9e2c3d31b68cce6f76c7ff3054b23cb23e5afd1e32afa4f
             env:
               TZ: "${TIMEZONE}"
             resources:
@@ -51,7 +49,7 @@ spec:
         controller: *name
         ports:
           http:
-            port: 8000
+            port: 7101
     ingress:
       app:
         annotations:
@@ -62,7 +60,7 @@ spec:
             X-Content-Type-Options "nosniff"
             Referrer-Policy "no-referrer-when-downgrade"
         hosts:
-          - host: &host "archive.${SECRET_DEFAULT_DOMAIN}"
+          - host: &host "hibiscus.${SECRET_DEFAULT_DOMAIN}"
             paths:
               - path: /
                 service:
@@ -72,6 +70,13 @@ spec:
           - hosts:
               - *host
     persistence:
-      data:
+      config:
         enabled: true
-        existingClaim: archivebox
+        existingClaim: hibiscus
+        advancedMounts:
+          *name:
+            app:
+              - path: /data
+                subPath: data
+              - path: /config
+                subPath: config
