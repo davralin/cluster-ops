@@ -40,8 +40,8 @@ spec:
         containers:
           app:
             image:
-              repository: docker.io/jellyfin/jellyfin
-              tag: 10.8.13
+              repository: ghcr.io/jellyfin/jellyfin
+              tag: 10.9.0@sha256:aae4c5a14aab23df9025de14af9ef3243b0f571100fa664d57113810f78ad021
             env:
               TZ: "${TIMEZONE}"
             resources:
