@@ -27,7 +27,7 @@ spec:
     fullnameOverride: grafana
     image:
       repository: grafana/grafana
-      tag: 10.4.2
+      tag: 11.0.0
     replicas: 1
     env:
       GF_EXPLORE_ENABLED: true
