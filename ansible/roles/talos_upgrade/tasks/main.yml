@@ -1,0 +1,59 @@
+---
+- name: Get latest talosctl version
+  ansible.builtin.shell: 'curl -sL https://api.github.com/repos/siderolabs/talos/releases/latest | jq -r ".tag_name"'
+  register: talosctl_version
+  changed_when: false
+
+- name: Get latest kubectl version
+  ansible.builtin.command: 'curl -L -s https://dl.k8s.io/release/stable.txt'
+  register: kubectl_version
+  changed_when: false
+
+- name: Show talos-version
+  debug:
+    var: "{{ talosctl_version.stdout }}"
+
+- name: Show kubectl-version
+  debug:
+    var: "{{ kubectl_version.stdout }}"
+
+- name: Download latest talosctl
+  ansible.builtin.command: 'curl -Lo /usr/local/bin/talosctl https://github.com/siderolabs/talos/releases/download/{{ talosctl_version.stdout }}/talosctl-{{ ansible_system | lower }}-amd64'
+  become: yes
+  args:
+    creates: /usr/local/bin/talosctl
+
+- name: Download latest kubectl
+  ansible.builtin.command: 'curl -Lo /usr/local/bin/kubectl https://dl.k8s.io/release/{{ kubectl_version.stdout }}/bin/linux/amd64/kubectl'
+  become: yes
+  args:
+    creates: /usr/local/bin/kubectl
+
+- name: Determine hosts that needs upgrade
+  ansible.builtin.shell: "kubectl get nodes -o wide --no-headers | awk '{print $1, $9}' | grep -v {{ talosctl_version.stdout }}"
+  register: nodes_that_needs_upgrade
+  failed_when: false
+  changed_when: false
+
+- name: print
+  debug:
+    var: "{{ nodes_that_needs_upgrade.stdout }}"
+
+- name: Determine if cluster needs k8s-upgrade
+  ansible.builtin.shell: "kubectl get nodes -o wide --no-headers | awk '{print $1, $5}' | grep -v {{ kubectl_version.stdout }}"
+  register: cluster_that_needs_upgrade
+  failed_when: false
+  changed_when: false
+
+- name: print
+  debug:
+    var: "{{ cluster_that_needs_upgrade.stdout }}"
+
+- name: Get a control-plane-IP
+  ansible.builtin.shell: "/usr/local/bin/kubectl get nodes -o wide --no-headers | grep control-plane | awk '{print $6}' | head -n1"
+  changed_when: false
+  register: control_plane_ip
+
+- name: Upgrade cluster
+  ansible.builtin.command: '/usr/local/bin/talosctl upgrade-k8s --to "{{kubectl_version.stdout }}" -n {{ control_plane_ip.stdout }}'
+
