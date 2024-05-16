@@ -33,6 +33,7 @@ resources:
   - ../node-feature-discovery
   - ../node-problem-detector
   - ../ollama
+  - ../openwebui
   - ../paperless-ngx
   - ../redlib
   - ../reflector
