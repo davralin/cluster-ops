@@ -32,7 +32,6 @@ resources:
   - ../nextcloud
   - ../node-feature-discovery
   - ../node-problem-detector
-  - ../offsite-kuma
   - ../ollama
   - ../paperless-ngx
   - ../redlib
