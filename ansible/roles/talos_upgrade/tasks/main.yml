@@ -82,4 +82,4 @@
 
 - name: Upgrade nodes in cluster
   ansible.builtin.command: '/runner/talosctl --talosconfig /runner/talosconfig upgrade --image ghcr.io/siderolabs/installer:{{ talosctl_version.stdout }} --wait --stage --nodes {{ nodes_that_needs_upgrade.stdout }} --endpoints {{ control_plane_ip.stdout }}'
-  when: "'Hello world!' not in nodes_that_needs_upgrade.stdout"
+  when: nodes_that_needs_upgrade.stdout | length > 0
