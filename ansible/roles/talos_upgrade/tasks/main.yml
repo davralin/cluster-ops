@@ -18,24 +18,30 @@
     var: "{{ kubectl_version.stdout }}"
 
 - name: Download latest talosctl
-  ansible.builtin.command: 'curl -Lo /usr/local/bin/talosctl https://github.com/siderolabs/talos/releases/download/{{ talosctl_version.stdout }}/talosctl-{{ ansible_system | lower }}-amd64'
-  become: yes
+  ansible.builtin.command: 'curl -Lo /runner/talosctl https://github.com/siderolabs/talos/releases/download/{{ talosctl_version.stdout }}/talosctl-{{ ansible_system | lower }}-amd64'
   args:
-    creates: /usr/local/bin/talosctl
+    creates: /runner/talosctl
 
 - name: Download latest kubectl
-  ansible.builtin.command: 'curl -Lo /usr/local/bin/kubectl https://dl.k8s.io/release/{{ kubectl_version.stdout }}/bin/linux/amd64/kubectl'
-  become: yes
+  ansible.builtin.command: 'curl -Lo /runner/kubectl https://dl.k8s.io/release/{{ kubectl_version.stdout }}/bin/linux/amd64/kubectl'
   args:
-    creates: /usr/local/bin/kubectl
+    creates: /runner/kubectl
+
+- name: Set execute-bit for ctl's
+  ansible.builtin.file:
+    path: "{{ item }}"
+    mode: '0755'
+  loop:
+    - /runner/kubectl
+    - /runner/talosctl
 
 - name: Get a control-plane-IP
-  ansible.builtin.shell: "/usr/local/bin/kubectl get nodes -o wide --no-headers | grep control-plane | awk '{print $6}' | head -n1"
+  ansible.builtin.shell: "/runner/kubectl get nodes -o wide --no-headers | grep control-plane | awk '{print $6}' | head -n1"
   changed_when: false
   register: control_plane_ip
 
 - name: Determine if cluster needs k8s-upgrade
-  ansible.builtin.shell: "kubectl get nodes -o wide --no-headers | awk '{print $1, $5}' | grep -v {{ kubectl_version.stdout }}"
+  ansible.builtin.shell: "/runner/kubectl get nodes -o wide --no-headers | awk '{print $1, $5}' | grep -v {{ kubectl_version.stdout }}"
   register: cluster_that_needs_upgrade
   failed_when: false
   changed_when: false
@@ -45,11 +51,11 @@
     var: "{{ cluster_that_needs_upgrade.stdout }}"
 
 - name: Upgrade cluster
-  ansible.builtin.command: '/usr/local/bin/talosctl upgrade-k8s --to "{{kubectl_version.stdout }}" -n {{ control_plane_ip.stdout }}'
+  ansible.builtin.command: '/runner/talosctl upgrade-k8s --to "{{kubectl_version.stdout }}" -n {{ control_plane_ip.stdout }}'
   when: "'Hello world!' in cluster_that_needs_upgrade.stdout"
 
 - name: Determine if nodes needs upgrade
-  ansible.builtin.shell: "kubectl get nodes -o wide --no-headers | awk '{print $6, $9}' | grep -v {{ talosctl_version.stdout }} | cut -f1 -d' ' | head -n1"
+  ansible.builtin.shell: "/runner/kubectl get nodes -o wide --no-headers | awk '{print $6, $9}' | grep -v {{ talosctl_version.stdout }} | cut -f1 -d' ' | head -n1"
   register: nodes_that_needs_upgrade
   failed_when: false
   changed_when: false
@@ -59,7 +65,7 @@
     var: "{{ nodes_that_needs_upgrade.stdout }}"
 
 - name: Determine if cluster is ready for upgrade
-  ansible.builtin.command: "kubectl -n rook-ceph exec deploy/rook-ceph-tools -- ceph status"
+  ansible.builtin.command: "/runner/kubectl -n rook-ceph exec deploy/rook-ceph-tools -- ceph status"
   register: ceph_status
   changed_when: false
   retries: 10
@@ -67,5 +73,5 @@
   until: "'HEALTH_OK' in ceph_status.stdout"
 
 - name: Upgrade nodes in cluster
-  ansible.builtin.command: '/usr/local/bin/talosctl upgrade --image ghcr.io/siderolabs/installer:{{ talosctl_version.stdout }} --wait --stage --nodes {{ nodes_that_needs_upgrade.stdout }} --endpoints {{ control_plane_ip.stdout }}'
+  ansible.builtin.command: '/runner/talosctl upgrade --image ghcr.io/siderolabs/installer:{{ talosctl_version.stdout }} --wait --stage --nodes {{ nodes_that_needs_upgrade.stdout }} --endpoints {{ control_plane_ip.stdout }}'
   when: "'Hello world!' not in nodes_that_needs_upgrade.stdout"
