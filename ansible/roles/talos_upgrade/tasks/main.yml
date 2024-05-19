@@ -29,15 +29,10 @@
   args:
     creates: /usr/local/bin/kubectl
 
-- name: Determine hosts that needs upgrade
-  ansible.builtin.shell: "kubectl get nodes -o wide --no-headers | awk '{print $1, $9}' | grep -v {{ talosctl_version.stdout }}"
-  register: nodes_that_needs_upgrade
-  failed_when: false
+- name: Get a control-plane-IP
+  ansible.builtin.shell: "/usr/local/bin/kubectl get nodes -o wide --no-headers | grep control-plane | awk '{print $6}' | head -n1"
   changed_when: false
-
-- name: print
-  debug:
-    var: "{{ nodes_that_needs_upgrade.stdout }}"
+  register: control_plane_ip
 
 - name: Determine if cluster needs k8s-upgrade
   ansible.builtin.shell: "kubectl get nodes -o wide --no-headers | awk '{print $1, $5}' | grep -v {{ kubectl_version.stdout }}"
@@ -49,11 +44,28 @@
   debug:
     var: "{{ cluster_that_needs_upgrade.stdout }}"
 
-- name: Get a control-plane-IP
-  ansible.builtin.shell: "/usr/local/bin/kubectl get nodes -o wide --no-headers | grep control-plane | awk '{print $6}' | head -n1"
-  changed_when: false
-  register: control_plane_ip
-
 - name: Upgrade cluster
   ansible.builtin.command: '/usr/local/bin/talosctl upgrade-k8s --to "{{kubectl_version.stdout }}" -n {{ control_plane_ip.stdout }}'
+  when: "'Hello world!' in cluster_that_needs_upgrade.stdout"
 
+- name: Determine if nodes needs upgrade
+  ansible.builtin.shell: "kubectl get nodes -o wide --no-headers | awk '{print $6, $9}' | grep -v {{ talosctl_version.stdout }} | cut -f1 -d' ' | head -n1"
+  register: nodes_that_needs_upgrade
+  failed_when: false
+  changed_when: false
+
+- name: print
+  debug:
+    var: "{{ nodes_that_needs_upgrade.stdout }}"
+
+- name: Determine if cluster is ready for upgrade
+  ansible.builtin.command: "kubectl -n rook-ceph exec deploy/rook-ceph-tools -- ceph status"
+  register: ceph_status
+  changed_when: false
+  retries: 10
+  delay: 30
+  until: "'HEALTH_OK' in ceph_status.stdout"
+
+- name: Upgrade nodes in cluster
+  ansible.builtin.command: '/usr/local/bin/talosctl upgrade --image ghcr.io/siderolabs/installer:{{ talosctl_version.stdout }} --wait --stage --nodes {{ nodes_that_needs_upgrade.stdout }} --endpoints {{ control_plane_ip.stdout }}'
+  when: "'Hello world!' not in nodes_that_needs_upgrade.stdout"
