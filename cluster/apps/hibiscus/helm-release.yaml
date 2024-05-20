@@ -37,7 +37,7 @@ spec:
           app:
             image:
               repository: git.a71.su/andrew71/hibiscus
-              tag: latest@sha256:98d92db07b24c130a9e2c3d31b68cce6f76c7ff3054b23cb23e5afd1e32afa4f
+              tag: latest
             env:
               TZ: "${TIMEZONE}"
             resources:
