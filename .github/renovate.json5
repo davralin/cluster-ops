@@ -1,0 +1,37 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    "docker:enableMajor",
+    "replacements:k8s-registry-move",
+    ":automergeBranch",
+    ":disableRateLimiting",
+    ":dependencyDashboard",
+    ":semanticCommits",
+    ":skipStatusChecks",
+    ":timezone(Europe/Oslo)",
+    "github>davralin/home-ops//.github/renovate/autoMerge.json5",
+    "github>davralin/home-ops//.github/renovate/commitMessage.json5",
+    "github>davralin/home-ops//.github/renovate/semanticCommits.json5"
+  ],
+  "dependencyDashboardTitle": "Renovate Dashboard",
+  "suppressNotifications": ["prEditedNotification", "prIgnoreNotification"],
+  "onboarding": false,
+  "requireConfig": "ignored",
+  "ignorePaths": ["**/*.sops.*", "**/.archive/**", "**/resources/**"],
+  "flux": {
+    "fileMatch": [
+      "(^|/)cluster/.+\\.ya?ml(?:\\.j2)?$"
+    ]
+  },
+  "helm-values": {
+    "fileMatch": [
+      "(^|/)cluster/.+\\.ya?ml(?:\\.j2)?$"
+    ]
+  },
+  "cluster": {
+    "fileMatch": [
+      "(^|/)cluster/.+\\.ya?ml(?:\\.j2)?$"
+    ]
+  }
+}
