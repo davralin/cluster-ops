@@ -34,7 +34,7 @@ services:
     depends_on:
       - archivist-es
   archivist-es:
-    image: elasticsearch:8.12.2
+    image: elasticsearch:8.13.4
     container_name: archivist-es
     restart: unless-stopped
     environment:
