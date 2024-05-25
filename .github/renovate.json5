@@ -10,7 +10,8 @@
   "assigneesFromCodeOwners": true,
   "flux": {
     "fileMatch": [
-      "cluster/.+\\.yaml$"
+      "cluster/.+\\.yaml$",
+      "cluster/apps/media/prowlarr/helm-release.yaml"
     ]
   }
 }
