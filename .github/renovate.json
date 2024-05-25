@@ -10,12 +10,12 @@
   "assigneesFromCodeOwners": true,
   "helm-values": {
     "fileMatch": [
-      "(^|/)cluster/.+\\.ya?ml(?:\\.j2)?$"
+      "(^|/).+/cluster/.+\\.yaml$"
     ]
   },
   "kubernetes": {
     "fileMatch": [
-      "(^|/)cluster/.+\\.ya?ml(?:\\.j2)?$"
+      "(^|/)cluster/.+\\.yaml$"
     ]
   }
 }
