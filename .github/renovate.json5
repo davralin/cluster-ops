@@ -12,5 +12,10 @@
     "fileMatch": [
       "cluster/apps/media/prowlarr/.+\\.yaml$"
     ]
+  },
+  "kubernetes": {
+    "fileMatch": [
+      "cluster/.+\\.yaml$"
+    ]
   }
 }
