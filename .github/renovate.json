@@ -10,7 +10,7 @@
   "assigneesFromCodeOwners": true,
   "helm-values": {
     "fileMatch": [
-      "(^|/)cluster/.+\\.ya?ml$"
+      "(^|/)cluster/.*/helm[^/]*\\.ya?ml$"
     ]
   }
 }
