@@ -22,5 +22,15 @@
     "fileMatch": [
       "cluster/.+\\.yaml$"
     ]
-  }
+  },
+  "packageRules": [
+    {
+      "description": ["Auto-merge container digests updates for trusted containers"],
+      "matchDatasources": ["docker"],
+      "automerge": true,
+      "automergeType": "branch",
+      "matchUpdateTypes": ["digest"],
+      "matchPackagePatterns": ["ghcr.io/davralin"]
+    },
+  ]
 }
