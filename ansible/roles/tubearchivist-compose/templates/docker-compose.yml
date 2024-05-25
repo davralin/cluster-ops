@@ -34,7 +34,7 @@ services:
     depends_on:
       - archivist-es
   archivist-es:
-    image: elasticsearch:{{ tubearchivist_compose_elasticsearch_version }}
+    image: elasticsearch:8.12.2
     container_name: archivist-es
     restart: unless-stopped
     environment:
