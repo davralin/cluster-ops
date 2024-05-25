@@ -8,18 +8,18 @@ services:
     ports:
       - 8000:8000
     volumes:
-      - {{ tubearchivist_compose_config_path }}/media:/youtube
-      - {{ tubearchivist_compose_config_path }}/cache:/cache
+      - "{{ tubearchivist_compose_config_path }}/media:/youtube"
+      - "{{ tubearchivist_compose_config_path }}/cache:/cache"
     environment:
-      - ES_URL=http://archivist-es:9200     # needs protocol e.g. http and port
-      - REDIS_HOST=archivist-redis          # don't add protocol
+      - ES_URL=http://archivist-es:9200
+      - REDIS_HOST=archivist-redis
       - HOST_UID=1000
       - HOST_GID=1000
       - TA_HOST={{ tubearchivist_ta_host }}
       - TA_USERNAME={{ tubearchivist_ta_username }}
       - TA_PASSWORD={{ tubearchivist_ta_password }}
-      - ELASTIC_PASSWORD={{ tubearchivist_elastic_password }}         # set password for Elasticsearch
-      - TZ=Europe/Oslo                 # set your time zone
+      - ELASTIC_PASSWORD={{ tubearchivist_elastic_password }}
+      - TZ=Europe/Oslo
     depends_on:
       - archivist-es
       - archivist-redis
@@ -30,7 +30,7 @@ services:
     expose:
       - "6379"
     volumes:
-      - {{ tubearchivist_compose_config_path }}/redis:/data
+      - "{{ tubearchivist_compose_config_path }}/redis:/data"
     depends_on:
       - archivist-es
   archivist-es:
@@ -38,7 +38,7 @@ services:
     container_name: archivist-es
     restart: unless-stopped
     environment:
-      - "ELASTIC_PASSWORD={{ tubearchivist_elastic_password }}"       # matching Elasticsearch password
+      - "ELASTIC_PASSWORD={{ tubearchivist_elastic_password }}"
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
       - "xpack.security.enabled=true"
       - "discovery.type=single-node"
@@ -48,6 +48,6 @@ services:
         soft: -1
         hard: -1
     volumes:
-      - {{ tubearchivist_compose_config_path }}/es:/usr/share/elasticsearch/data    # check for permission error when using bind mount, see readme
+      - "{{ tubearchivist_compose_config_path }}/es:/usr/share/elasticsearch/data"
     expose:
       - "9200"
