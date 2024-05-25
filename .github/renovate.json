@@ -4,5 +4,10 @@
     "config:recommended"
   ],
   "dependencyDashboardTitle": "Renovate Dashboard",
-  "assigneesFromCodeOwners": true
+  "assigneesFromCodeOwners": true,
+  "helm-values": {
+    "fileMatch": [
+      "(^|/)cluster/.+\\.ya?ml(?:\\.j2)?$"
+    ]
+  }
 }
