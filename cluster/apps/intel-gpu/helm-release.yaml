@@ -43,7 +43,7 @@ spec:
         #fsGroup: 1000
         #fsGroupChangePolicy: "OnRootMismatch"
     controllers:
-      *name:
+      intel-gpu-plugin:
         type: daemonset
         containers:
           app:

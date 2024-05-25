@@ -32,7 +32,7 @@ spec:
         fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"
     controllers:
-      *name:
+      daily-imap-backup:
         type: cronjob
         cronjob:
           schedule: "14 04 * * *"
@@ -50,7 +50,7 @@ spec:
         enabled: true
         existingClaim: remotebackup
         advancedMounts:
-          *name:
+          daily-imap-backup:
             app:
               - path: /mail
                 subPath: mail
@@ -60,7 +60,7 @@ spec:
         name: mbsync
         defaultMode: 0600
         advancedMounts:
-          *name:
+          daily-imap-backup:
             app:
               - path: /config/mbsync.rc
                 subPath: mbsync.rc

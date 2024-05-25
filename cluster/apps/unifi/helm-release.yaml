@@ -32,7 +32,7 @@ spec:
         fsGroup: 999
         fsGroupChangePolicy: "OnRootMismatch"
     controllers:
-      *name:
+      unifi:
         containers:
           app:
             image:

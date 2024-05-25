@@ -32,7 +32,7 @@ spec:
         #fsGroup: 1000
         #fsGroupChangePolicy: "OnRootMismatch"
     controllers:
-      *name:
+      daily-sitebackup-from:
         type: cronjob
         cronjob:
           schedule: "32 07 * * *"
@@ -55,7 +55,7 @@ spec:
         name: sshkey
         defaultMode: 0600
         advancedMounts:
-          *name:
+          daily-sitebackup-from:
             app:
               - path: /root/.ssh/id_ed25519
                 subPath: id_ed25519

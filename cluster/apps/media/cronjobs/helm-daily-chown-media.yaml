@@ -32,7 +32,7 @@ spec:
         fsGroup: 0
         fsGroupChangePolicy: "OnRootMismatch"
     controllers:
-      *name:
+      daily-chown-media:
         type: cronjob
         cronjob:
           schedule: "14 04 * * *"

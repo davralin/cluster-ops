@@ -35,7 +35,7 @@ spec:
           - 226
         fsGroupChangePolicy: "OnRootMismatch"
     controllers:
-      *name:
+      tdarr-node:
         type: daemonset
         containers:
           app:
@@ -62,7 +62,7 @@ spec:
         enabled: true
         existingClaim: media
         advancedMounts:
-          *name:
+          tdarr-node:
             app:
               - path: /data
                 subPath: .

@@ -38,7 +38,7 @@ spec:
         fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"
     controllers:
-      *name:
+      lidarr:
         containers:
           app:
             image:

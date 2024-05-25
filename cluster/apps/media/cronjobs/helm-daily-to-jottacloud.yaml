@@ -32,7 +32,7 @@ spec:
         fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"
     controllers:
-      *name:
+      daily-to-jottacloud:
         type: cronjob
         cronjob:
           concurrencyPolicy: Replace
@@ -48,7 +48,7 @@ spec:
         enabled: true
         existingClaim: media
         advancedMounts:
-          *name:
+          daily-to-jottacloud:
             app:
               - path: /data
                 subPath: .

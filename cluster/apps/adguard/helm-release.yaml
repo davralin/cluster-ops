@@ -33,7 +33,7 @@ spec:
         #sGroup: 1000
         #fsGroupChangePolicy: "OnRootMismatch"
     controllers:
-      *name:
+      adguard:
         containers:
           app:
             image:

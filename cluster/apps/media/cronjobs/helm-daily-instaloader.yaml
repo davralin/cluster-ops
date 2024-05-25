@@ -32,7 +32,7 @@ spec:
         fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"
     controllers:
-      *name:
+      daily-instaloader:
         type: cronjob
         cronjob:
           schedule: "48 01 * * *"
@@ -47,7 +47,7 @@ spec:
         enabled: true
         existingClaim: media
         advancedMounts:
-          *name:
+          daily-instaloader:
             app:
               - path: /media
                 subPath: images/instagram

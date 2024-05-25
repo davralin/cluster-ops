@@ -32,7 +32,7 @@ spec:
         fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"
     controllers:
-      *name:
+      audiobookshelf:
         containers:
           app:
             image:
@@ -83,7 +83,7 @@ spec:
         enabled: true
         existingClaim: media
         advancedMounts:
-          *name:
+          audiobookshelf:
             app:
               - path: /audiobooks
                 subPath: audio/books

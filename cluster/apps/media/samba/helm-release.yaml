@@ -33,7 +33,7 @@ spec:
         #fsGroup: 1000
         #fsGroupChangePolicy: "OnRootMismatch"
     controllers:
-      *name:
+      samba:
         containers:
           app:
             image:
@@ -69,7 +69,7 @@ spec:
         enabled: true
         existingClaim: media
         advancedMounts:
-          *name:
+          samba:
             app:
               - path: /data
                 subPath: audio/music

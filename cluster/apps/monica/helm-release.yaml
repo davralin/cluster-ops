@@ -38,7 +38,7 @@ spec:
   values:
     fullnameOverride: *name
     controllers:
-      *name:
+      monica:
         containers:
           app:
             image:

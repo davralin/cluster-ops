@@ -32,7 +32,7 @@ spec:
         fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"
     controllers:
-      *name:
+      invidious:
         replicas: 2
         strategy: RollingUpdate
         containers:

@@ -38,7 +38,7 @@ spec:
         fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"
     controllers:
-      *name:
+      readarr:
         containers:
           app:
             image:

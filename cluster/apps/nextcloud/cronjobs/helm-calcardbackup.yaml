@@ -34,7 +34,7 @@ spec:
         fsGroup: 0
         fsGroupChangePolicy: "OnRootMismatch"
     controllers:
-      *name:
+      calcardbackup:
         containers:
           app:
             image:
@@ -57,7 +57,7 @@ spec:
         enabled: true
         existingClaim: nextcloud
         advancedMounts:
-          *name:
+          calcardbackup:
             app:
               - path: /nextcloud
                 subPath: .

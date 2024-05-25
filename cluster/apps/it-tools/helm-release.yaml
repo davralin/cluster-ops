@@ -33,7 +33,7 @@ spec:
         #fsGroup: 1000
         #fsGroupChangePolicy: "OnRootMismatch"
     controllers:
-      *name:
+      it-tools:
         strategy: RollingUpdate
         containers:
           app:

@@ -32,7 +32,7 @@ spec:
         fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"
     controllers:
-      *name:
+      backup-to-jottacloud:
         type: cronjob
         cronjob:
           schedule: "27 05 * * *"
@@ -55,7 +55,7 @@ spec:
         enabled: true
         existingClaim: nextcloud
         advancedMounts:
-          *name:
+          backup-to-jottacloud:
             app:
               - path: /nextcloud
                 subPath: .

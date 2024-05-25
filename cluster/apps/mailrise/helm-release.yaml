@@ -32,8 +32,9 @@ spec:
         fsGroup: 999
         fsGroupChangePolicy: "OnRootMismatch"
     controllers:
-      *name:
+      mailrise:
         strategy: RollingUpdate
+        replicas: 2
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
@@ -70,7 +71,7 @@ spec:
         type: secret
         name: mailrise-conf
         advancedMounts:
-          *name:
+          mailrise:
             app:
               - path: /etc/mailrise.conf
                 subPath: mailrise.conf

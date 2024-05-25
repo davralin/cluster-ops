@@ -32,7 +32,7 @@ spec:
         fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"
     controllers:
-      *name:
+      recyclarr:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
@@ -117,7 +117,7 @@ spec:
         type: secret
         name: recyclarr-yaml
         advancedMounts:
-          *name:
+          recyclarr:
             app:
               - path: /config/recyclarr.yml
                 subPath: recyclarr.yaml

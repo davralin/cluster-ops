@@ -45,7 +45,7 @@ spec:
         fsGroup: 100
         fsGroupChangePolicy: "OnRootMismatch"
     controllers:
-      *name:
+      exim:
         type: daemonset
         containers:
           app:

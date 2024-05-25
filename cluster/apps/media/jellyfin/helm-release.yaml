@@ -36,7 +36,7 @@ spec:
           - 109
           - 100
     controllers:
-      *name:
+      jellyfin:
         containers:
           app:
             image:
@@ -86,7 +86,7 @@ spec:
         enabled: true
         existingClaim: media
         advancedMounts:
-          *name:
+          jellyfin:
             app:
               - path: /data
                 subPath: .

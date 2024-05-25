@@ -60,7 +60,7 @@ spec:
         fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"
     controllers:
-      *name:
+      adguard-sync:
         containers:
           app:
             image:

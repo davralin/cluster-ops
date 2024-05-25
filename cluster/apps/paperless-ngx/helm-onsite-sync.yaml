@@ -32,7 +32,7 @@ spec:
         #fsGroup: 1000
         #fsGroupChangePolicy: "OnRootMismatch"
     controllers:
-      *name:
+      onsite-sync:
         type: cronjob
         cronjob:
           schedule: "45 */6 * * *"
@@ -55,7 +55,7 @@ spec:
         name: sshkey
         defaultMode: 0600
         advancedMounts:
-          *name:
+          onsite-sync:
             app:
               - path: /root/.ssh/id_ed25519
                 subPath: id_ed25519

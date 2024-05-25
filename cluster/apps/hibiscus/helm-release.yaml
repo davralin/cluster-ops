@@ -32,7 +32,7 @@ spec:
         fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"
     controllers:
-      *name:
+      hibiscus:
         containers:
           app:
             image:
@@ -74,7 +74,7 @@ spec:
         enabled: true
         existingClaim: hibiscus
         advancedMounts:
-          *name:
+          hibiscus:
             app:
               - path: /data
                 subPath: data

@@ -32,7 +32,7 @@ spec:
         fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"
     controllers:
-      *name:
+      warrior:
         containers:
           app:
             image:
@@ -48,7 +48,7 @@ spec:
                 memory: 500Mi
               limits:
                 cpu: 1000m
-                memory: 1Gi
+                memory: 2Gi
     service:
       app:
         controller: *name

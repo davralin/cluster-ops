@@ -27,7 +27,7 @@ spec:
   values:
     fullnameOverride: *name
     controllers:
-      *name:
+      cloudnative-pg-canary:
         containers:
           app:
             image:

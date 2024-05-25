@@ -50,7 +50,7 @@ spec:
         #fsGroup: 1000
         #fsGroupChangePolicy: "OnRootMismatch"
     controllers:
-      *name:
+      epicgames-free:
         containers:
           app:
             image:

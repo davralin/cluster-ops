@@ -41,7 +41,7 @@ spec:
         fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"
     controllers:
-      *name:
+      jellystat:
         containers:
           app:
             image:
