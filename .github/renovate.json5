@@ -13,6 +13,11 @@
       "cluster/.+\\.yaml$"
     ]
   },
+  "helm-values": {
+    "fileMatch": [
+      "cluster/.+\\.yaml$"
+    ]
+  },
   "kubernetes": {
     "fileMatch": [
       "cluster/.+\\.yaml$"
