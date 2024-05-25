@@ -3,5 +3,6 @@
   "extends": [
     "config:recommended"
   ],
-  "dependencyDashboardTitle": "Renovate Dashboard"
+  "dependencyDashboardTitle": "Renovate Dashboard",
+  "assigneesFromCodeOwners": true
 }
