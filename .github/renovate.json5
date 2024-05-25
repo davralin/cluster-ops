@@ -10,20 +10,7 @@
   "assigneesFromCodeOwners": true,
   "flux": {
     "fileMatch": [
-      "(^|/)cluster/.+\\.ya?ml(?:\\.j2)?$"
+      "cluster/.+\\.yaml$"
     ]
-  },
-  "customManagers": [
-    {
-      "customType": "regex",
-      "description": ["Process custom dependencies"],
-      "fileMatch": ["(^|/)cluster/.+\\.ya?ml(?:\\.j2)?$"],
-      "matchStrings": [
-        // # renovate: datasource=helm depName=cilium repository=https://helm.cilium.io
-        // version: 1.15.1
-        "datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( repository=(?<registryUrl>\\S+))?\\n.+: (&\\S+\\s)?(?<currentValue>\\S+)"
-      ],
-      "datasourceTemplate": "{{#if datasource}}{{{datasource}}}{{else}}github-releases{{/if}}"
-    }
-  ]
+  }
 }
