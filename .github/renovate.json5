@@ -72,16 +72,14 @@
     {
       "matchDatasources": ["helm"],
       "matchUpdateTypes": ["minor"],
-      "semanticCommitType": "feat",
-      "semanticCommitScope": "helm",
+      "commitMessagePrefix": "feat(helm): ",
       "commitMessageTopic": "{{depName}}",
       "commitMessageExtra": "( {{currentVersion}} → {{newVersion}} )"
     },
     {
       "matchDatasources": ["helm"],
       "matchUpdateTypes": ["patch"],
-      "semanticCommitType": "fix",
-      "semanticCommitScope": "helm",
+      "commitMessagePrefix": "fix(helm): ",
       "commitMessageTopic": "{{depName}}",
       "commitMessageExtra": "( {{currentVersion}} → {{newVersion}} )"
     },
@@ -95,16 +93,14 @@
     {
       "matchManagers": ["github-actions"],
       "matchUpdateTypes": ["minor"],
-      "semanticCommitType": "feat",
-      "semanticCommitScope": "github-action",
+      "commitMessagePrefix": "feat(github-action): ",
       "commitMessageTopic": "{{depName}}",
       "commitMessageExtra": "( {{currentVersion}} → {{newVersion}} )"
     },
     {
       "matchManagers": ["github-actions"],
       "matchUpdateTypes": ["patch"],
-      "semanticCommitType": "fix",
-      "semanticCommitScope": "github-action",
+      "commitMessagePrefix": "fix(github-action)!: ",
       "commitMessageTopic": "{{depName}}",
       "commitMessageExtra": "( {{currentVersion}} → {{newVersion}} )"
     }
