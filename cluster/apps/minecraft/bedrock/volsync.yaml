@@ -45,7 +45,7 @@ spec:
         kind: ReplicationSource
         metadata:
           name: bedrock
-          namespace: bedrock
+          namespace: minecraft
         spec:
           sourcePVC: bedrock
           trigger:
