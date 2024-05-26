@@ -38,7 +38,7 @@ spec:
     - name: volsync
       namespace: volsync
     - name: bedrock
-      namespace: bedrock
+      namespace: minecraft
   values:
     resources:
       - apiVersion: volsync.backube/v1alpha1
