@@ -8,6 +8,8 @@
   ],
   "dependencyDashboardTitle": "Renovate Dashboard",
   "assigneesFromCodeOwners": true,
+  // Since we don't have tests, and we want automerge enabled
+  "ignoreTests": true,
   "flux": {
     "fileMatch": [
       "cluster/.+\\.yaml$"
