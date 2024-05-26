@@ -42,7 +42,7 @@ spec:
           app:
             image:
               repository: gitea/gitea
-              tag: 1.21.8-rootless
+              tag: 1.21.11-rootless
             env:
               TZ: "${TIMEZONE}"
               USER_UID: 1000
