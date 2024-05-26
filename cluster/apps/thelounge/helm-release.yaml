@@ -38,7 +38,7 @@ spec:
           app:
             image:
               repository: thelounge/thelounge
-              tag: 4.4.1
+              tag: 4.4.3
             env:
               TZ: "${TIMEZONE}"
               THELOUNGE_HOME: "/config"
