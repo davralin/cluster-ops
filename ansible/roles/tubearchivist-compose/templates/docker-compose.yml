@@ -24,7 +24,7 @@ services:
       - archivist-es
       - archivist-redis
   archivist-redis:
-    image: redis/redis-stack-server:{{ tubearchivist_compose_redis_version }}
+    image: redis/redis-stack-server:7.2.0-v9
     container_name: archivist-redis
     restart: unless-stopped
     expose:
