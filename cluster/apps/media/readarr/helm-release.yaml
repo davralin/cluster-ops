@@ -43,7 +43,7 @@ spec:
           app:
             image:
               repository: ghcr.io/onedr0p/readarr-develop
-              tag: 0.3.20.2452@sha256:0a9941206dacb75a9415a196819af618140933cd91374932d2b93b95df9af42d
+              tag: 0.3.27.2538@sha256:6850caa980bfea336b6113c37f59c40a42f61ca2714d5b8f9c13b5933e33c0f2
             env:
               TZ: "${TIMEZONE}"
               READARR__API_KEY: "${SECRET_READARR_API_KEY}"
