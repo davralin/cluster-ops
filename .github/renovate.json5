@@ -44,24 +44,21 @@
     {
       "matchDatasources": ["docker"],
       "matchUpdateTypes": ["minor"],
-      "semanticCommitType": "feat",
-      "semanticCommitScope": "container",
+      "commitMessagePrefix": "feat(container): ",
       "commitMessageTopic": "{{depName}}",
-      "commitMessageExtra": "( {{currentVersion}} → {{newVersion}} )"
+      "commitMessageExtra": " ( {{currentVersion}} → {{newVersion}} )"
     },
     {
       "matchDatasources": ["docker"],
       "matchUpdateTypes": ["patch"],
-      "semanticCommitType": "fix",
-      "semanticCommitScope": "container",
+      "commitMessagePrefix": "fix(container): ",
       "commitMessageTopic": "{{depName}}",
-      "commitMessageExtra": "( {{currentVersion}} → {{newVersion}} )"
+      "commitMessageExtra": " ( {{currentVersion}} → {{newVersion}} )"
     },
     {
       "matchDatasources": ["docker"],
       "matchUpdateTypes": ["digest"],
-      "semanticCommitType": "chore",
-      "semanticCommitScope": "container",
+      "commitMessagePrefix": "chore(container): ",
       "commitMessageTopic": "{{depName}}",
       "commitMessageExtra": "( {{currentDigestShort}} → {{newDigestShort}} )"
     },
