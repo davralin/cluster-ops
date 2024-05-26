@@ -40,7 +40,7 @@ spec:
           app:
             image:
               repository: ghcr.io/davralin/rsync
-              tag: latest@sha256:083d8d32d1f9530df29e9d58ce3c09de646cb987909af271e4271bc31603a191
+              tag: latest@sha256:0a4d159c43aa6377639e5abf9afee89b988115a8fe542ec72c5350b004e93b12
             command: ['/usr/bin/rsync']
             args: ["--archive", "--delete", "--verbose", "-e", "ssh -o StrictHostKeyChecking=no", "/regular/", "backup@nas.${SECRET_DEFAULT_DOMAIN}:/opt/backup/regular/"]
     persistence:
