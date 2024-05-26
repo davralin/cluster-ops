@@ -15,7 +15,7 @@
   - mdadm
   - docker_io
   - docker_compose
-    #  - adguard_compose
+  - adguard_compose
     #  - certbot
     #  - haproxy
     #  - photoprism

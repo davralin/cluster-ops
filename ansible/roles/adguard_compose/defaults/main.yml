@@ -1,0 +1,6 @@
+---
+adguard_compose_path: "/opt/adguard"
+adguard_compose_config_path: "{{ adguard_compose_path }}/config"
+adguard_compose_work_path: "{{ adguard_compose_path }}/work"
+adguard_compose_ip_binding_dns: "53"
+adguard_compose_ip_binding_web: "80"

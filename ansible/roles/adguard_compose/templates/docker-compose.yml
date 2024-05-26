@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  adguard:
+    image: adguard/adguardhome:v0.107.50
+    ports:
+      - "{{ adguard_ip_binding_web }}:80"
+      - "{{ adguard_ip_binding_dns }}:53"
+      - "{{ adguard_ip_binding_dns }}:53/udp"
+    volumes:
+      - "{{ adguard_compose_config_path }}:/opt/adguardhome/conf"
+      - "{{ adguard_compose_work_path }}:/opt/adguardhome/work"
+    environment:
+      TZ: "Europe/Oslo"
+    restart: always

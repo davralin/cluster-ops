@@ -1,0 +1,18 @@
+---
+- name: Pull compose adguard
+  command: "docker-compose pull"
+  args:
+    chdir: "{{ adguard_compose_path }}"
+  become: true
+
+- name: Down compose adguard
+  command: "docker-compose down --remove-orphans --rmi all"
+  args:
+    chdir: "{{ adguard_compose_path }}"
+  become: true
+
+- name: Up compose adguard
+  command: "docker-compose up -d"
+  args:
+    chdir: "{{ adguard_compose_path }}"
+  become: true
