@@ -31,7 +31,7 @@ spec:
           app:
             image:
               repository: ghcr.io/open-webui/open-webui
-              tag: main@sha256:052057d6fabdc379d7a6151b35d687aef6472c231455ba58e249d2c4e5702353
+              tag: main@sha256:ac66dff226090b2fee972a3607c1aa25b5d2808419b5c30ad29033ffe0f681ca
             env:
               OLLAMA_BASE_URL: "https://ollama.${SECRET_PUBLIC_DOMAIN}"
     service:
