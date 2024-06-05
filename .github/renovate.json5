@@ -32,7 +32,7 @@
       "automerge": true,
       "automergeType": "branch",
       "matchUpdateTypes": ["digest"],
-      "matchPackagePatterns": ["ghcr.io/davralin", "ghcr.io/onedr0p", "ghcr.io/corentinth/it-tools", "ghcr.io/open-webui/open-webui"]
+      "matchPackagePatterns": ["ghcr.io/davralin", "ghcr.io/onedr0p", "ghcr.io/corentinth/it-tools"]
     },
     {
       "matchDatasources": ["docker"],
