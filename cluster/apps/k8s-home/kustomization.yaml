@@ -18,6 +18,7 @@ resources:
   - ../haproxy/haproxy-ingress
   - ../hibiscus
   - ../intel-gpu
+  - ../invidious
   - ../it-tools
   - ../jobs
   - ../kuma
