@@ -24,7 +24,7 @@ spec:
     remediation:
       retries: 3
   valuesFrom:
-    - targetPath: controllers.prowlarr.containers.app.env.PROWLARR__POSTGRES_PASSWORD
+    - targetPath: controllers.prowlarr.containers.app.env.PROWLARR__POSTGRES__PASSWORD
       kind: Secret
       name: prowlarr-config
       valuesKey: POSTGRES_PASSWORD
@@ -46,12 +46,15 @@ spec:
               tag: 1.18.0.4543@sha256:15873755424ad3de0cf074dcde9eb19440849d61a9c827a4a84291b56d3a6b9d
             env:
               TZ: "${TIMEZONE}"
-              PROWLARR__API_KEY: "${SECRET_PROWLARR_API_KEY}"
-              PROWLARR__POSTGRES_HOST: postgres-v16-rw.cloudnative-pg.svc.cluster.local
-              PROWLARR__POSTGRES_PORT: "5432"
-              PROWLARR__POSTGRES_USER: "prowlarr"
-              PROWLARR__POSTGRES_MAIN_DB: prowlarr_main
-              PROWLARR__POSTGRES_LOG_DB: prowlarr_log
+              PROWLARR__AUTH__APIKEY: "${SECRET_PROWLARR_API_KEY}"
+              PROWLARR__POSTGRES__HOST: postgres-v16-rw.cloudnative-pg.svc.cluster.local
+              PROWLARR__POSTGRES__PORT: "5432"
+              PROWLARR__POSTGRES__USER: "prowlarr"
+              PROWLARR__POSTGRES__MAINDB: prowlarr_main
+              PROWLARR__AUTH__METHOD: External
+              PROWLARR__AUTH__REQUIRED: DisabledForLocalAddresses
+              PROWLARR__LOG__DBENABLED: "False"
+              PROWLARR__LOG__LEVEL: info
             resources:
               requests:
                 cpu: 100m

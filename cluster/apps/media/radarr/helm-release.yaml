@@ -24,7 +24,7 @@ spec:
     remediation:
       retries: 3
   valuesFrom:
-    - targetPath: controllers.radarr.containers.app.env.RADARR__POSTGRES_PASSWORD
+    - targetPath: controllers.radarr.containers.app.env.RADARR__POSTGRES__PASSWORD
       kind: Secret
       name: radarr-config
       valuesKey: POSTGRES_PASSWORD
@@ -46,12 +46,15 @@ spec:
               tag: 5.6.0.8846@sha256:6d9fe01aab867098e79d1041f7b71eca5b668b8254944ab89c23eef26042570c
             env:
               TZ: "${TIMEZONE}"
-              RADARR__API_KEY: "${SECRET_RADARR_API_KEY}"
-              RADARR__POSTGRES_HOST: postgres-v16-rw.cloudnative-pg.svc.cluster.local
-              RADARR__POSTGRES_PORT: "5432"
-              RADARR__POSTGRES_USER: "radarr"
-              RADARR__POSTGRES_MAIN_DB: radarr_main
-              RADARR__POSTGRES_LOG_DB: radarr_log
+              RADARR__AUTH__APIKEY: "${SECRET_RADARR_API_KEY}"
+              RADARR__POSTGRES__HOST: postgres-v16-rw.cloudnative-pg.svc.cluster.local
+              RADARR__POSTGRES__PORT: "5432"
+              RADARR__POSTGRES__USER: "radarr"
+              RADARR__POSTGRES__MAINDB: radarr_main
+              RADARR__AUTH__METHOD: External
+              RADARR__AUTH__REQUIRED: DisabledForLocalAddresses
+              RADARR__LOG__DBENABLED: "False"
+              RADARR__LOG__LEVEL: info
             resources:
               requests:
                 cpu: 100m

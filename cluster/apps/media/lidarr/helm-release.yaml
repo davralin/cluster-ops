@@ -24,7 +24,7 @@ spec:
     remediation:
       retries: 3
   valuesFrom:
-    - targetPath: controllers.lidarr.containers.app.env.LIDARR__POSTGRES_PASSWORD
+    - targetPath: controllers.lidarr.containers.app.env.LIDARR__POSTGRES__PASSWORD
       kind: Secret
       name: lidarr-config
       valuesKey: POSTGRES_PASSWORD
@@ -46,12 +46,15 @@ spec:
               tag: 2.3.3.4204@sha256:6e097b835ea63ff43f6496668ba5c7ee6e5d3aff36a85c59e391cc7d8f43e05f
             env:
               TZ: "${TIMEZONE}"
-              LIDARR__API_KEY: "${SECRET_LIDARR_API_KEY}"
-              LIDARR__POSTGRES_HOST: postgres-v16-rw.cloudnative-pg.svc.cluster.local
-              LIDARR__POSTGRES_PORT: "5432"
-              LIDARR__POSTGRES_USER: "lidarr"
-              LIDARR__POSTGRES_MAIN_DB: lidarr_main
-              LIDARR__POSTGRES_LOG_DB: lidarr_log
+              RADARR__AUTH__APIKEY: "${SECRET_LIDARR_API_KEY}"
+              LIDARR__POSTGRES__HOST: postgres-v16-rw.cloudnative-pg.svc.cluster.local
+              LIDARR__POSTGRES__PORT: "5432"
+              LIDARR__POSTGRES__USER: "lidarr"
+              LIDARR__POSTGRES__MAIN_DB: lidarr_main
+              LIDARR__AUTH__METHOD: External
+              LIDARR__AUTH__REQUIRED: DisabledForLocalAddresses
+              LIDARR__LOG__DBENABLED: "False"
+              LIDARR__LOG__LEVEL: info
             resources:
               requests:
                 cpu: 100m

@@ -24,7 +24,7 @@ spec:
     remediation:
       retries: 3
   valuesFrom:
-    - targetPath: controllers.sonarr.containers.app.env.SONARR__POSTGRES_PASSWORD
+    - targetPath: controllers.sonarr.containers.app.env.SONARR__POSTGRES__PASSWORD
       kind: Secret
       name: sonarr-config
       valuesKey: POSTGRES_PASSWORD
@@ -46,12 +46,15 @@ spec:
               tag: 4.0.5.1710@sha256:5d97c1e4d7d386e3d9a887d87d65da2b0115c73cd002d7d633df21baa5a4122c
             env:
               TZ: "${TIMEZONE}"
-              SONARR__API_KEY: "${SECRET_SONARR_API_KEY}"
-              SONARR__POSTGRES_HOST: postgres-v16-rw.cloudnative-pg.svc.cluster.local
-              SONARR__POSTGRES_PORT: "5432"
-              SONARR__POSTGRES_USER: "sonarr"
-              SONARR__POSTGRES_MAIN_DB: sonarr_main
-              SONARR__POSTGRES_LOG_DB: sonarr_log
+              SONARR__AUTH__APIKEY: "${SECRET_SONARR_API_KEY}"
+              SONARR__POSTGRES__HOST: postgres-v16-rw.cloudnative-pg.svc.cluster.local
+              SONARR__POSTGRES__PORT: "5432"
+              SONARR__POSTGRES__USER: "sonarr"
+              SONARR__POSTGRES__MAINDB: sonarr_main
+              SONARR__AUTH__METHOD: External
+              SONARR__AUTH__REQUIRED: DisabledForLocalAddresses
+              SONARR__LOG__DBENABLED: "False"
+              SONARR__LOG__LEVEL: info
             resources:
               requests:
                 cpu: 200m
