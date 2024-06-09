@@ -36,8 +36,13 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/onedr0p/tautulli
-              tag: 2.13.4@sha256:633a57b2f8634feb67811064ec3fa52f40a70641be927fdfda6f5d91ebbd5d73
+              repository: ghcr.io/tautulli/tautulli
+              tag: v2.14.2@sha256:99eba3ba70f9e2531335279f472b3c8f120ebc0e938e42bd98037e35e11d130a
+            command: ["/usr/local/bin/python", "Tautulli.py"]
+            args: [
+              "--config", "/config/config.ini",
+              "--datadir", "/config"
+            ]
             env:
               TZ: "${TIMEZONE}"
             resources:
