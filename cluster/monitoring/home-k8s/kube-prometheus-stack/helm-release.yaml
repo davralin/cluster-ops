@@ -161,7 +161,7 @@ spec:
                   - home.${SECRET_PRIVATE_DOMAIN}:9100
                   - mierin.w.ot:9100
                   - tubearchivist.w.ot:9100
-                  #        - nas.${SECRET_PRIVATE_DOMAIN}:9100
+                  - nas.${SECRET_PRIVATE_DOMAIN}:9100
                   - nas.${SECRET_OFFSITE_DOMAIN}:9100
                   - prox1.${SECRET_PRIVATE_DOMAIN}:9100
                   - prox2.${SECRET_PRIVATE_DOMAIN}:9100
