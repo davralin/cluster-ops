@@ -1,0 +1,5 @@
+---
+- hosts: NAS
+
+  roles:
+  - apt
