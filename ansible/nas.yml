@@ -3,3 +3,4 @@
 
   roles:
   - adguard_compose
+  - immich_compose

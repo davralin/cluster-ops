@@ -1,0 +1,4 @@
+---
+immich_compose_path: "/opt/immich"
+immich_compose_config_path: "{{ immich_compose_path }}/config"
+immich_folder_album_creator_api_key: "changeme"

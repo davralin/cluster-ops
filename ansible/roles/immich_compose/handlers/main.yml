@@ -1,0 +1,6 @@
+---
+- name: Restart immich
+  ansible.builtin.systemd_service:
+    name: docker-immich.service
+    state: restarted
+  become: true
