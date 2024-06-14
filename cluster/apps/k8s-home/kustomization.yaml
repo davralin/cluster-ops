@@ -16,6 +16,7 @@ resources:
   - ../freshrss
   - ../gitea
   - ../haproxy/haproxy-ingress
+  - ../homeassistant
   - ../intel-gpu
   - ../invidious
   - ../it-tools
