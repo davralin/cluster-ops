@@ -24,7 +24,7 @@ spec:
     remediation:
       retries: 3
   valuesFrom:
-    - targetPath: controllers.readarr.containers.app.env.READARR__POSTGRES_PASSWORD
+    - targetPath: controllers.readarr.containers.app.env.READARR__POSTGRES___PASSWORD
       kind: Secret
       name: readarr-config
       valuesKey: POSTGRES_PASSWORD
@@ -43,16 +43,19 @@ spec:
           app:
             image:
               repository: ghcr.io/onedr0p/readarr-develop
-              tag: 0.3.27.2538@sha256:6850caa980bfea336b6113c37f59c40a42f61ca2714d5b8f9c13b5933e33c0f2
+              tag: 0.3.28.2554@sha256:4beda7d63d2cb014a860bf4f8fa367f9621e378675396b684d300f1e3a0380dc
             env:
               TZ: "${TIMEZONE}"
-              READARR__API_KEY: "${SECRET_READARR_API_KEY}"
-              READARR__POSTGRES_HOST: postgres-v16-rw.cloudnative-pg.svc.cluster.local
-              READARR__POSTGRES_PORT: "5432"
-              READARR__POSTGRES_USER: "readarr"
-              READARR__POSTGRES_MAIN_DB: readarr_main
-              READARR__POSTGRES_LOG_DB: readarr_log
-              READARR__POSTGRES_CACHE_DB: readarr_cache
+              READARR__AUTH__APIKEY: "${SECRET_READARR_API_KEY}"
+              READARR__POSTGRES__HOST: postgres-v16-rw.cloudnative-pg.svc.cluster.local
+              READARR__POSTGRES__PORT: "5432"
+              READARR__POSTGRES__USER: "readarr"
+              READARR__POSTGRES__MAIN_DB: readarr_main
+              READARR__POSTGRES__CACHE_DB: readarr_cache
+              READARR__AUTH__METHOD: External
+              READARR__AUTH__REQUIRED: DisabledForLocalAddresses
+              READARR__LOG__DBENABLED: "False"
+              READARR__LOG__LEVEL: info
             resources:
               requests:
                 cpu: 100m
