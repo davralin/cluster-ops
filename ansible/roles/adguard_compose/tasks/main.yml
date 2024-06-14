@@ -1,22 +1,20 @@
 ---
 - name: Ensure path to compose-file
-  file:
+  ansible.builtin.file:
     path: "{{ adguard_compose_path }}"
     state: directory
   become: true
 
 - name: Ensure path to config-folder
-  file:
+  ansible.builtin.file:
     path: "{{ adguard_compose_config_path }}"
     state: directory
   become: true
 
 - name: Copy template-file
-  template:
+  ansible.builtin.template:
     src: docker-compose.yml
     dest: "{{ adguard_compose_path }}/docker-compose.yml"
   become: true
   notify:
-    - Pull compose adguard
-    - Down compose adguard
-    - Up compose adguard
+    - Restart adguard

@@ -1,18 +1,6 @@
 ---
-- name: Pull compose adguard
-  command: "{{ adguard_compose_docker_compose_bin }} pull"
-  args:
-    chdir: "{{ adguard_compose_path }}"
-  become: true
-
-- name: Down compose adguard
-  command: "{{ adguard_compose_docker_compose_bin }} down --remove-orphans --rmi all"
-  args:
-    chdir: "{{ adguard_compose_path }}"
-  become: true
-
-- name: Up compose adguard
-  command: "{{ adguard_compose_docker_compose_bin }} up -d"
-  args:
-    chdir: "{{ adguard_compose_path }}"
+- name: Restart adguard
+  ansible.builtin.systemd_service:
+    name: docker-adguard.service
+    state: restarted
   become: true

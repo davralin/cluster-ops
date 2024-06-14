@@ -1,5 +1,4 @@
 ---
-adguard_compose_docker_compose_bin: "docker-compose"
 adguard_compose_path: "/opt/adguard"
 adguard_compose_config_path: "{{ adguard_compose_path }}/config"
 adguard_compose_work_path: "{{ adguard_compose_path }}/work"
