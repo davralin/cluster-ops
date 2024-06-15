@@ -16,7 +16,7 @@ services:
     #   file: hwaccel.transcoding.yml
     #   service: cpu # set to one of [nvenc, quicksync, rkmpp, vaapi, vaapi-wsl] for accelerated transcoding
     volumes:
-      - ${EXTERNAL_LIBRARY_LOCATION}:/mnt:ro
+      - ${EXTERNAL_PATH}:/usr/src/app/external:ro
       - ${UPLOAD_LOCATION}:/usr/src/app/upload
       - /etc/localtime:/etc/localtime:ro
     env_file:
@@ -74,7 +74,7 @@ services:
       environment:
         API_URL: http://immich_server:3001/api
         API_KEY: "{{ immich_folder_album_creator_api_key }}"
-        ROOT_PATH: /mnt
+        ROOT_PATH: /usr/src/app/external
         CRON_EXPRESSION: "40 * * * *"
         TZ: Europe/Oslo
 
