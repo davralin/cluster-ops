@@ -2,15 +2,4 @@
 - hosts: TubeArchivist
 
   roles:
-  - apt
-  - apparmor
-  - kernel_hardening
-  - profile
-  - sshd
-  - lvm2
-  - node_exporter
-  - nullmailer
-  - docker_io
-  - docker_compose
   - tubearchivist_compose
-  - users

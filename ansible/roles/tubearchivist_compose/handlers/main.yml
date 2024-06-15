@@ -1,18 +1,6 @@
 ---
-- name: Pull compose tubearchivist
-  command: "docker-compose pull"
-  args:
-    chdir: "{{ tubearchivist_compose_path }}"
-  become: yes
-
-- name: Down compose tubearchivist
-  command: "docker-compose down --remove-orphans --rmi all"
-  args:
-    chdir: "{{ tubearchivist_compose_path }}"
-  become: yes
-
-- name: Up compose tubearchivist
-  command: "docker-compose up -d"
-  args:
-    chdir: "{{ tubearchivist_compose_path }}"
-  become: yes
+- name: Restart tubearchivist
+  ansible.builtin.systemd_service:
+    name: docker-tubearchivist.service
+    state: restarted
+  become: true

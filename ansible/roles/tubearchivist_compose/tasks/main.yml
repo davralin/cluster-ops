@@ -1,22 +1,20 @@
 ---
 - name: Ensure path to compose-file
-  file:
+  ansible.builtin.file:
     path: "{{ tubearchivist_compose_path }}"
     state: directory
-  become: yes
+  become: true
 
 - name: Ensure path to config-folder
-  file:
+  ansible.builtin.file:
     path: "{{ tubearchivist_compose_config_path }}"
     state: directory
-  become: yes
+  become: true
 
 - name: Copy template-file
-  template:
+  ansible.builtin.template:
     src: docker-compose.yml
     dest: "{{ tubearchivist_compose_path }}/docker-compose.yml"
-  become: yes
+  become: true
   notify:
-    - Pull compose tubearchivist
-    - Down compose tubearchivist
-    - Up compose tubearchivist
+    - Restart tubearchivist
