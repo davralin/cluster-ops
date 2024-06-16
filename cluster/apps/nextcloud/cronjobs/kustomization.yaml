@@ -6,6 +6,6 @@ resources:
   - helm-backup-to-jottacloud.yaml
   - helm-calcardbackup.yaml
   - helm-cron-curl.yaml
-  - helm-offsite-sync.yaml
-  - helm-onsite-sync.yaml
+  #  - helm-offsite-sync.yaml
+  #  - helm-onsite-sync.yaml
   - pvc.yaml
