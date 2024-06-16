@@ -46,7 +46,7 @@ spec:
           app:
             image:
               repository: cyfershepard/jellystat
-              tag: 1.1.0
+              tag: 1.1.0@sha256:92d5cd58779828bb06df982ca735e8e15bb6ab9ba749c0965296946e30428641
             env:
               POSTGRES_USER: jellystat
               POSTGRES_IP: postgres-v16-rw.cloudnative-pg.svc.cluster.local
