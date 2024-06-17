@@ -7,4 +7,4 @@ resources:
   - helm-daily-instaloader.yaml
   - helm-daily-streamripper.yaml
   - helm-daily-to-jottacloud.yaml
-  #  - helm-onsite-sync.yaml
+  - helm-onsite-sync.yaml
