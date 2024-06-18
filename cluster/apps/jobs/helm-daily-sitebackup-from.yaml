@@ -42,7 +42,7 @@ spec:
               repository: ghcr.io/davralin/rsync
               tag: latest@sha256:c99c9b8abc046d497885355eecb46dfb58df9eee1a4921dfb3ed57fb4359182f
             command: ['/usr/bin/rsync']
-            args: ["--archive", "--delete", "--verbose", "--rsync-path", "sudo rsync", "-e", "ssh -o StrictHostKeyChecking=no", "backup@nas.${SECRET_OFFSITE_DOMAIN}:/opt/local", "/srv/"]
+            args: ["--archive", "--delete", "--verbose", "--rsync-path", "sudo rsync", "-e", "ssh -o StrictHostKeyChecking=no", "backup@nas.${SECRET_OFFSITE_DOMAIN}:/opt/local/", "/srv/"]
     persistence:
       sitebackup:
         enabled: true
