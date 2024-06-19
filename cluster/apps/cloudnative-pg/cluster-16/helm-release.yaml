@@ -98,7 +98,7 @@ spec:
                 compression: bzip2
                 maxParallel: 8
               destinationPath: s3://postgresql-${CLUSTER_NAME}
-              endpointURL: "${S3_URL}"
+              endpointURL: "${SECRET_S3_URL}"
               serverName: postgres-v16
               s3Credentials:
                 accessKeyId:
@@ -116,7 +116,7 @@ spec:
                   maxParallel: 8
                 destinationPath: s3://postgresql-${CLUSTER_NAME}
                 serverName: postgres-v16
-                endpointURL: "${S3_URL}"
+                endpointURL: "${SECRET_S3_URL}"
                 s3Credentials:
                   accessKeyId:
                     name: cloudnative-pg-s3-secret
