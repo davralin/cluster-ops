@@ -103,6 +103,12 @@
       "commitMessagePrefix": "fix(github-action)!: ",
       "commitMessageTopic": "{{depName}}",
       "commitMessageExtra": "( {{currentVersion}} → {{newVersion}} )"
+    },
+    {
+      "description": ["Custom versioning for minio"],
+      "matchDatasources": ["docker"],
+      "versioning": "regex:^RELEASE\\.(?<major>\\d+)-(?<minor>\\d+)-(?<patch>\\d+)T.*Z$",
+      "matchPackagePatterns": ["minio"]
     }
   ],
   "customManagers": [

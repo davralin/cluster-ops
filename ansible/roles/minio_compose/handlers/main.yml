@@ -1,0 +1,6 @@
+---
+- name: Restart minio
+  ansible.builtin.systemd_service:
+    name: docker-minio.service
+    state: restarted
+  become: true

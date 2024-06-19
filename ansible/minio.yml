@@ -1,0 +1,5 @@
+---
+- hosts: MinIO
+
+  roles:
+  - minio_compose

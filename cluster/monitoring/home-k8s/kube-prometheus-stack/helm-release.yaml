@@ -160,7 +160,7 @@ spec:
                   - adsb.${SECRET_INTERNAL_DOMAIN}:9100
                   - home.${SECRET_PRIVATE_DOMAIN}:9100
                   - mierin.w.ot:9100
-                  - tubearchivist.w.ot:9100
+                  - minio.${SECRET_PRIVATE_DOMAIN}:9100
                   - nas.${SECRET_PRIVATE_DOMAIN}:9100
                   - nas.${SECRET_OFFSITE_DOMAIN}:9100
                   - prox1.${SECRET_PRIVATE_DOMAIN}:9100
@@ -168,6 +168,7 @@ spec:
                   - relay.${SECRET_INTERNAL_DOMAIN}:9100
                   - relay.${SECRET_INTERNAL_DOMAIN}:9035
                   - ssh.${SECRET_PUBLIC_DOMAIN}:9100
+                  - tubearchivist.w.ot:9100
         scrapeConfigSelector: {}
         scrapeConfigNamespaceSelector: {}
         serviceMonitorSelectorNilUsesHelmValues: false

@@ -1,0 +1,17 @@
+---
+name: minio
+
+services:
+  minio:
+    image: quay.io/minio/minio:RELEASE.2024-06-13T22-53-53Z
+    ports:
+      - "{{ minio_compose_ip_binding_s3 }}:9000"
+      - "{{ minio_compose_ip_binding_web }}:9001"
+    volumes:
+      - "{{ minio_compose_data_path }}:/data"
+    environment:
+      MINIO_API_CORS_ALLOW_ORIGIN: "{{ minio_compose_url_web }},{{ minio_compose_url_s3 }}"
+      MINIO_BROWSER_REDIRECT_URL: "{{ minio_compose_url_web }}"
+      MINIO_UPDATE: "off"
+    restart: always
+    command: "server /data --console-address :9001"
