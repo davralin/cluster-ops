@@ -1,0 +1,68 @@
+---
+name: adsb
+
+services:
+  ultrafeeder:
+    image: ghcr.io/sdr-enthusiasts/docker-adsb-ultrafeeder:latest@sha256:396792637a4cf57a1046122cc45fb794fed0ed8d90399feb1d5f928470ad890f
+    hostname: ultrafeeder
+    ports:
+      - "{{ adsb_compose_ip_binding_ultrafeeder_web }}:80"
+      - "{{ adsb_compose_ip_binding_ultrafeeder_rtlport }}:30005"
+    devices:
+      - /dev/bus/usb:/dev/bus/usb
+    volumes:
+      - "{{ adsb_compose_config_path }}/autogain:/run/autogain"
+    environment:
+      TZ: "{{ adsb_compose_tz }}"
+      READSB_DEVICE_TYPE: "rtlsdr"
+      READSB_ALT: "{{ adsb_compose_altitude }}"
+      READSB_LAT: "{{ adsb_compose_latitude }}"
+      READSB_LON: "{{ adsb_compose_lontitude }}"
+      GRAPHS1090_DISABLE: "true"
+    restart: always
+  fr24feed:
+    image: ghcr.io/sdr-enthusiasts/docker-flightradar24:1.0.48-0@sha256:7b69b8692e1512aae6430726bf8a84c08a005d459ee0e25aaebed8a8d7f0e121
+    environment:
+      BEASTHOST: "{{ adsb_compose_beasthost }}"
+      FR24KEY: "{{ adsb_compose_fr24key }}"
+      MLAT: "yes"
+    restart: always
+  adsbhub:
+    image: ghcr.io/sdr-enthusiasts/docker-adsbhub:1.06@sha256:362a0f9f3fe89a58c19a3f7639422b301d0339e58b96e10be5be8600a7634b92
+    environment:
+      TZ: "{{ adsb_compose_tz }}"
+      SBSHOST: "{{ adsb_compose_beasthost }}"
+      LAT: "{{ adsb_compose_latitude }}"
+      LON: "{{ adsb_compose_lontitude }}"
+      CLIENTKEY: "{{ adsb_compose_adsbhub_clientkey }}"
+    restart: always
+  planefinder:
+    image: ghcr.io/sdr-enthusiasts/docker-planefinder:latest@sha256:bb1b25012f696f4749304591776cc4ef47a7bc6821f32b65c9291f0d2514a534
+    environment:
+      TZ: "{{ adsb_compose_tz }}"
+      BEASTHOST: "{{ adsb_compose_beasthost }}"
+      LAT: "{{ adsb_compose_latitude }}"
+      LONG: "{{ adsb_compose_lontitude }}"
+      SHARECODE: "{{ adsb_compose_planefinder_sharecode }}"
+    restart: always
+  opensky:
+    image: ghcr.io/sdr-enthusiasts/docker-opensky-network:2.1.7-1@sha256:492e831b5bb4430704ad387c113087924e232808454e1cbdfb5aa535002a75fc
+    environment:
+      TZ: "{{ adsb_compose_tz }}"
+      BEASTHOST: "{{ adsb_compose_beasthost }}"
+      ALT: "{{ adsb_compose_altitude }}"
+      LAT: "{{ adsb_compose_latitude }}"
+      LONG: "{{ adsb_compose_lontitude }}"
+      OPENSKY_USERNAME: "{{ adsb_compose_opensky_username }}"
+      OPENSKY_SERIAL: "-{{ adsb_compose_opensky_serial }}"
+    restart: always
+  piaware:
+    image: ghcr.io/sdr-enthusiasts/docker-piaware:v9.0.1@sha256:7f0a50a258888608e17d1a7701fdf7b90d1cccc2f9eba8a9f55c97101d77f33d
+    environment:
+      TZ: "{{ adsb_compose_tz }}"
+      BEASTHOST: "{{ adsb_compose_beasthost }}"
+      LAT: "{{ adsb_compose_latitude }}"
+      LON: "{{ adsb_compose_lontitude }}"
+      RECEIVER_TYPE: "relay"
+      FEEDER_ID: "{{ adsb_compose_piaware_feeder_id }}"
+    restart: always

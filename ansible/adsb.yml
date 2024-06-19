@@ -1,0 +1,5 @@
+---
+- hosts: ADSB
+
+  roles:
+  - adsb_compose
