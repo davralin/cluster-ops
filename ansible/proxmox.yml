@@ -1,0 +1,9 @@
+---
+- hosts: Proxmox
+
+  roles:
+  - apt
+  - profile
+  - node_exporter
+  - nullmailer
+  - users
