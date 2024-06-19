@@ -40,6 +40,6 @@ spec:
           app:
             image:
               repository: nextcloud
-              tag: 29.0.1-apache
+              tag: 29.0.2-apache
             command: ['/usr/bin/curl']
             args: ["--silent", "--show-error", "https://cloud.${SECRET_DEFAULT_DOMAIN}/cron.php"]
