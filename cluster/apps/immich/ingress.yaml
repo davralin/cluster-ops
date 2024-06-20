@@ -1,0 +1,26 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: immich
+  namespace: immich
+  annotations:
+    haproxy.org/response-set-header: |
+      Strict-Transport-Security "max-age=31536000"
+      X-Frame-Options "DENY"
+      X-Content-Type-Options "nosniff"
+      Referrer-Policy "no-referrer-when-downgrade"
+spec:
+  rules:
+  - host: "immich.${SECRET_DEFAULT_DOMAIN}"
+    http:
+      paths:
+      - backend:
+          service:
+            name: immich
+            port:
+              number: 3001
+        path: /
+        pathType: Prefix
+  tls:
+  - secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
