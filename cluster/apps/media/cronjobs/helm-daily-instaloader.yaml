@@ -40,7 +40,7 @@ spec:
           app:
             image:
               repository: ghcr.io/davralin/instaloader
-              tag: latest@sha256:fc41bdebc9521df33c62d540146491bec91da65859c0a7db5653049306c366a7
+              tag: latest@sha256:a0e787a79839c19f27644267fe868c50a1317ab481b9aa4a0e4f1628e650e3eb
             command: ['/media/instaloader.sh']
     persistence:
       media:
