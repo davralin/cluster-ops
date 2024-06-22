@@ -1,0 +1,76 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &name esphome
+  namespace: esphome
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.2.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+      interval: 5m
+  targetNamespace: esphome
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  values:
+    fullnameOverride: *name
+    controllers:
+      esphome:
+        containers:
+          app:
+            image:
+              repository: ghcr.io/esphome/esphome
+              tag: 2024.6.1
+            env:
+              TZ: "${TIMEZONE}"
+            resources:
+              requests:
+                memory: 250Mi
+                cpu: 100m
+    service:
+      app:
+        controller: *name
+        ports:
+          http:
+            port: 6052
+    ingress:
+      app:
+        enabled: true
+        annotations:
+          haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
+          haproxy.org/response-set-header: |
+            Strict-Transport-Security "max-age=31536000"
+            X-Frame-Options "DENY"
+            X-Content-Type-Options "nosniff"
+            Referrer-Policy "no-referrer-when-downgrade"
+        hosts:
+          - host: &host "esphome.${SECRET_DEFAULT_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - *host
+    persistence:
+      config:
+        enabled: true
+        existingClaim: esphome
+        globalMounts:
+          - path: /config
+      cache:
+        type: emptyDir
+        globalMounts:
+          - path: /config/.esphome
