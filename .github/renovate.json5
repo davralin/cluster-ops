@@ -40,6 +40,16 @@
       ]
     },
     {
+      "description": ["Auto-merge fix-updates for trusted containers"],
+      "matchDatasources": ["docker"],
+      "automerge": true,
+      "automergeType": "branch",
+      "matchUpdateTypes": ["patch"],
+      "matchPackagePatterns": [
+	      "ghcr.io/home-assistant/home-assistant"
+      ]
+    },
+    {
       "matchDatasources": ["docker"],
       "matchUpdateTypes": ["major"],
       "commitMessagePrefix": "feat(container)!: ",
