@@ -32,7 +32,12 @@
       "automerge": true,
       "automergeType": "branch",
       "matchUpdateTypes": ["digest"],
-      "matchPackagePatterns": ["ghcr.io/davralin", "ghcr.io/onedr0p", "ghcr.io/corentinth/it-tools"]
+      "matchPackagePatterns": [
+	      "ghcr.io/corentinth/it-tools",
+	      "ghcr.io/davralin",
+	      "ghcr.io/onedr0p",
+	      "ghcr.io/sdr-enthusiasts"
+      ]
     },
     {
       "matchDatasources": ["docker"],
