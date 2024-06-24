@@ -1,0 +1,80 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &name ersatztv
+  namespace: ersatztv
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.2.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+      interval: 5m
+  targetNamespace: ersatztv
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  values:
+    fullnameOverride: *name
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+    controllers:
+      ersatztv:
+        containers:
+          app:
+            image:
+              repository: jasongdove/ersatztv
+              tag: v0.8.6
+            env:
+              TZ: "${TIMEZONE}"
+              XDG_DATA_HOME: /config # https://github.com/ErsatzTV/ErsatzTV/issues/327
+            resources:
+              requests:
+                cpu: 11m
+                memory: 300M
+              limits:
+                memory: 1.2G
+                gpu.intel.com/i915: 1
+    service:
+      app:
+        controller: *name
+        ports:
+          http:
+            port: 8409
+    ingress:
+      app:
+        enabled: true
+        annotations:
+          haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
+          haproxy.org/response-set-header: |
+            Strict-Transport-Security "max-age=31536000"
+            X-Frame-Options "DENY"
+            X-Content-Type-Options "nosniff"
+            Referrer-Policy "no-referrer-when-downgrade"
+        hosts:
+          - host: &host "ersatztv.${SECRET_DEFAULT_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - *host
+    persistence:
+      config:
+        enabled: true
+        existingClaim: ersatztv
