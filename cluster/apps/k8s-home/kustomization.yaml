@@ -13,7 +13,6 @@ resources:
   - ../cloudnative-pg
   - ../cloudnative-pg/cluster-16
   - ../epicgames-freegames
-  - ../ersatztv
   - ../esphome
   - ../freshrss
   - ../gitea
