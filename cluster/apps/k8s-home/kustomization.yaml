@@ -38,6 +38,7 @@ resources:
   - ../ollama
   - ../openwebui
   - ../paperless-ngx
+  - ../pve-exporter
   - ../redlib
   - ../reflector
   - ../reloader
