@@ -6,7 +6,7 @@ metadata:
   namespace: immich
 spec:
   type: ExternalName
-  externalName: 10.0.1.75
+  externalName: 10.0.1.168
   ports:
   - name: http
     port: 3001
