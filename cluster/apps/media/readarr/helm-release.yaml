@@ -62,19 +62,6 @@ spec:
                 memory: 200Mi
               limits:
                 memory: 1000Mi
-            probes:
-              liveness: &probes
-                enabled: true
-                custom: true
-                spec:
-                  httpGet:
-                    path: /ping
-                    port: 8787
-                  initialDelaySeconds: 0
-                  periodSeconds: 10
-                  timeoutSeconds: 1
-                  failureThreshold: 3
-              readiness: *probes
     service:
       app:
         controller: *name
