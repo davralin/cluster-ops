@@ -1,6 +1,5 @@
 ---
-- hosts: NAS
+- hosts: AdGuard
 
   roles:
   - adguard_compose
-  - immich_compose

@@ -1,0 +1,5 @@
+---
+- hosts: Immich
+
+  roles:
+  - immich_compose
