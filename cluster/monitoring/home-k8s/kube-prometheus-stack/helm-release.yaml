@@ -62,7 +62,7 @@ spec:
           routes:
             - receiver: "healthchecksio"
               matchers:
-                - alertname =~ "InfoInhibitor|Watchdog|CephNodeNetworkPacketDrops|CephPGImbalance|CephNodeDiskspaceWarning"
+                - alertname =~ "InfoInhibitor|Watchdog|CephNodeNetworkPacketDrops|CephPGImbalance|CephNodeDiskspaceWarning|etcdMemberCommunicationSlow"
             - receiver: "healthchecksio"
               matchers:
                 - alertname ="AlertmanagerClusterFailedToSendAlerts|AlertmanagerFailedToSendAlerts"
