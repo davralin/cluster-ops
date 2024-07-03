@@ -40,7 +40,7 @@ spec:
           app:
             image:
               repository: ghcr.io/davralin/streamripper
-              tag: latest@sha256:b817d2c6f9d234af11cd7777316656b0841c0059dfb57e7ad9b33d6b1127cd72
+              tag: latest@sha256:bee677fb10fcd67c33a07253793b4f350537c1ba89db07e4f1459c387e09924a
             command: ['/media/streamripper.sh']
     persistence:
       media:
