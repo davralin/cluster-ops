@@ -51,6 +51,16 @@
       ]
     },
     {
+      "description": ["Auto-merge fix-updates for trusted helmers"],
+      "matchDatasources": ["helm"],
+      "automerge": true,
+      "automergeType": "branch",
+      "matchUpdateTypes": ["patch"],
+      "matchPackagePatterns": [
+	      "awx-operator"
+      ]
+    },
+    {
       "matchDatasources": ["docker"],
       "matchUpdateTypes": ["major"],
       "commitMessagePrefix": "feat(container)!: ",
