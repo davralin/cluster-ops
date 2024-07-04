@@ -57,7 +57,8 @@
       "automergeType": "branch",
       "matchUpdateTypes": ["patch"],
       "matchPackagePatterns": [
-	      "awx-operator"
+	      "awx-operator",
+	      "grafana"
       ]
     },
     {
