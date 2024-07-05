@@ -31,9 +31,12 @@ spec:
           app:
             image:
               repository: ghcr.io/open-webui/open-webui
-              tag: 0.3.7
+              tag: main@sha256:cecf06773cc0621dbe83c25fdeaf9c9bae33799cd7df14790a9b8ccf61b91764
             env:
               OLLAMA_BASE_URL: "http://ollama.ollama.svc.cluster.local:11434"
+              ENABLE_RAG_WEB_SEARCH: true
+              RAG_WEB_SEARCH_ENGINE: "searxng"
+              SEARXNG_QUERY_URL: "http://searxng.searxng.svc.cluster.local:8080/search?q=<query>"
     service:
       app:
         controller: *name
