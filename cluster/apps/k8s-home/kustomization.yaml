@@ -8,7 +8,6 @@ resources:
   - ../botkube
   - ../cert-manager
   - ../changedetection
-  - ../chatbot-ui
   - ../cloudflareddns
   - ../cloudnative-pg
   - ../cloudnative-pg/cluster-16
