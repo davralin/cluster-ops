@@ -38,12 +38,12 @@ spec:
           app:
             image:
               repository: docker.io/searxng/searxng
-              tag: 2023.11.1-b5a8ddfec
+              tag: latest@sha256:b3ef7c0516db06be81c74653e9aefe65fd62d1ebf46d17f3840105911d270e23
             env:
               TZ: "${TIMEZONE}"
               SEARXNG_BASE_URL: "https://searxng.${SECRET_DEFAULT_DOMAIN}"
               SEARXNG_URL: "https://searxng.${SECRET_DEFAULT_DOMAIN}"
-              SEARXNG_REDIS_URL: "redis://redis-master:6379"
+              SEARXNG_REDIS_URL: "redis://redis-master.searxng.svc.cluster.local:6379"
             resources:
               requests:
                 cpu: 50m
