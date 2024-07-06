@@ -45,6 +45,8 @@ spec:
             roles:
               - name: awx
                 login: true
+              - name: fireflyiii
+                login: true
               - name: freshrss
                 login: true
               - name: gitea
