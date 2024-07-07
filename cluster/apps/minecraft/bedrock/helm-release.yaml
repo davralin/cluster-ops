@@ -39,6 +39,7 @@ spec:
       enableLanVisibility: true
       serviceType: LoadBalancer
       externalTrafficPolicy: Local
+      loadBalancerIP: 10.0.1.40
     persistence:
       dataDir:
         enabled: true

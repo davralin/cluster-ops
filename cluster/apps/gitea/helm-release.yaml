@@ -82,6 +82,7 @@ spec:
         type: LoadBalancer
         controller: *name
         externalTrafficPolicy: Local
+        loadBalancerIP: 10.0.1.34
         ports:
           ssh:
             enabled: true

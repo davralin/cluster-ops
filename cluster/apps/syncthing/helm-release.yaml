@@ -57,6 +57,7 @@ spec:
             port: 8384
       transfer:
         type: LoadBalancer
+        loadBalancerIP: 10.0.1.33
         controller: *name
         ports:
           tcp-transfer:

@@ -51,6 +51,7 @@ spec:
         controller: *name
         type: LoadBalancer
         externalTrafficPolicy: Local
+        loadBalancerIP: 10.0.1.37
         ports:
           http:
             port: 80

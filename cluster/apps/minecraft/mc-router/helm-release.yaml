@@ -27,6 +27,8 @@ spec:
     services:
       minecraft:
         type: LoadBalancer
+        annotations:
+          metallb.universe.tf/loadBalancerIPs: "10.0.1.31"
     minecraftRouter:
       debug:
         enabled: true

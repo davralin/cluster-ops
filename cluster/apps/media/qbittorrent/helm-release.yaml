@@ -53,6 +53,7 @@ spec:
       bittorrent:
         enabled: true
         type: LoadBalancer
+        loadBalancerIP: 10.0.1.38
         controller: *name
         ports:
           bittorrent:
