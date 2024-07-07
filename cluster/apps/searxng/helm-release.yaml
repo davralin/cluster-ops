@@ -38,7 +38,7 @@ spec:
           app:
             image:
               repository: docker.io/searxng/searxng
-              tag: latest@sha256:b3ef7c0516db06be81c74653e9aefe65fd62d1ebf46d17f3840105911d270e23
+              tag: latest@sha256:6ceeb6b4499a637a102383f2d1a041fa934ee43770209325c7351b7e6321463e
             env:
               TZ: "${TIMEZONE}"
               SEARXNG_BASE_URL: "https://searxng.${SECRET_DEFAULT_DOMAIN}"
