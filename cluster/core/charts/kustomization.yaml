@@ -17,6 +17,7 @@ resources:
   - gitea.yaml
   - grafana.yaml
   - haproxytech.yaml
+  - immich.yaml
   - itzg.yaml
   - jetstack.yaml
   - metallb.yaml

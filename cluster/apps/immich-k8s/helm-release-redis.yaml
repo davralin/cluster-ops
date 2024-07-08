@@ -1,0 +1,40 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: redis
+  namespace: immich-k8s
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: redis
+      version: 19.6.1
+      sourceRef:
+        kind: HelmRepository
+        name: bitnami-charts
+        namespace: flux-system
+      interval: 5m
+  targetNamespace: immich-k8s
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  values:
+    fullnameOverride: redis
+    architecture: standalone
+    auth:
+      enabled: false
+    master:
+      persistence:
+        enabled: false
+      resourcesPreset: micro
+    volumePermissions:
+      enabled: true
+    metrics:
+      enabled: "${MONITORING_PROMETHEUS}"
+      serviceMonitor:
+        enabled: "${MONITORING_PROMETHEUS}"
