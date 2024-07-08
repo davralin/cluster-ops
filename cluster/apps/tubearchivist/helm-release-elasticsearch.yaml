@@ -42,7 +42,7 @@ spec:
           app:
             image:
               repository: elasticsearch
-              tag: 8.14.1
+              tag: 8.14.2
             env:
               TZ: "${TIMEZONE}"
               xpack.security.enabled: "true"
