@@ -40,7 +40,7 @@ spec:
           app:
             image:
               repository: ghcr.io/davralin/rsync
-              tag: latest@sha256:51e9dfd3d515dd99299e2c0c609a752dd306f86f8ef20b7beae452c024296408
+              tag: latest@sha256:2a9585685dbf89792163516f8e5b58ec6a2202a1d5c2bddef49460ea7d7b509e
             command: ['/usr/bin/rsync']
             args: ["--archive", "--delete", "--verbose", "-e", "ssh -o StrictHostKeyChecking=no", "/minecraft/", "backup@nas.${SECRET_OFFSITE_DOMAIN}:/opt/backup/minecraft/"]
     persistence:
