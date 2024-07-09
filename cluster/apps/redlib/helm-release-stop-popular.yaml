@@ -1,0 +1,76 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &name goaway
+  namespace: redlib
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.2.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+      interval: 5m
+  targetNamespace: redlib
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  values:
+    fullnameOverride: *name
+    # Listens on tcp/80
+    #defaultPodOptions:
+      #securityContext:
+        #runAsUser: 1000
+        #runAsGroup: 1000
+        #fsGroup: 1000
+        #fsGroupChangePolicy: "OnRootMismatch"
+    controllers:
+      goaway:
+        replicas: 1
+        strategy: RollingUpdate
+        containers:
+          goaway:
+            image:
+              repository: ghcr.io/davralin/go-away-container
+              tag: latest@sha256:abddb66222595faffe5e9373f872910f3c9561eafe00e5f4e3fbdce1f1bef9dd
+            resources:
+              requests:
+                cpu: 10m
+                memory: 15Mi
+              limits:
+                cpu: 10m
+                memory: 30Mi
+    service:
+      goaway:
+        controller: *name
+        ports:
+          http:
+            port: 80
+    ingress:
+      goaway:
+        enabled: true
+        annotations:
+          haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
+          haproxy.org/response-set-header: |
+            Strict-Transport-Security "max-age=31536000"
+            X-Frame-Options "DENY"
+            X-Content-Type-Options "nosniff"
+            Referrer-Policy "no-referrer-when-downgrade"
+        hosts:
+          - host: &host "r.${SECRET_DEFAULT_DOMAIN}"
+            paths:
+              - path: /r/popular
+                service:
+                  identifier: goaway
+                  port: http
+        tls:
+          - hosts:
+              - *host
