@@ -34,6 +34,10 @@ spec:
       DB_HOSTNAME: "postgres-v16-immich-rw"
       DB_USERNAME: "immich"
       DB_DATABASE_NAME: "immich"
+    image:
+      # quotes are required for regex
+      # datasource=github-releases depName=immich-app/immich
+      tag: "v1.107.2"
     immich:
       metrics:
         enabled: "${MONITORING_PROMETHEUS}"
