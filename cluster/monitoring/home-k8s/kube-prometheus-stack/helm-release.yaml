@@ -155,7 +155,7 @@ spec:
               storageClassName: "${STORAGE_READWRITEONCE}"
               resources:
                 requests:
-                  storage: 100Gi
+                  storage: 200Gi
         additionalScrapeConfigs:
           - job_name: node-exporter
             scrape_interval: 1m
