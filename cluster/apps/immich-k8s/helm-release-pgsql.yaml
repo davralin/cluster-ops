@@ -58,3 +58,19 @@ spec:
               shared_buffers: 512MB
             shared_preload_libraries:
               - "vectors.so"
+          backup:
+            retentionPolicy: 30d
+            barmanObjectStore:
+              wal:
+                compression: bzip2
+                maxParallel: 8
+              destinationPath: s3://postgresql-${CLUSTER_NAME}-immich
+              endpointURL: "${SECRET_S3_URL}"
+              serverName: &name
+              s3Credentials:
+                accessKeyId:
+                  name: immich-pg-secret
+                  key: s3-access-key
+                secretAccessKey:
+                  name: immich-pg-secret
+                  key: s3-secret-key
