@@ -26,13 +26,13 @@ spec:
   valuesFrom:
     - targetPath: env.DB_PASSWORD
       kind: Secret
-      name: postgres-v16-immich-app
+      name: immich-pg-secret
       valuesKey: password
   values:
     env:
       REDIS_HOSTNAME: "redis-master"
       DB_HOSTNAME: "postgres-v16-immich-rw"
-      DB_USERNAME: "immich"
+      DB_USERNAME: "postgres" #superuserSecret
       DB_DATABASE_NAME: "immich"
     image:
       # quotes are required for regex
