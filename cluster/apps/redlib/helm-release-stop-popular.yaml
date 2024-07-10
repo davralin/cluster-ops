@@ -39,8 +39,8 @@ spec:
         containers:
           goaway:
             image:
-              repository: ghcr.io/davralin/go-away-container
-              tag: latest@sha256:86854b1e8207d1009e7ec4cfdb1fe5172a20713ed32c9ee0691db6c8fa310f9d
+              repository: ghcr.io/davralin/go-away
+              tag: latest@sha256:ccdbb236b62b5b0d242d1d6d7f5223c74ab768541d57fc4bf9ce1de6ab494c9a
             resources:
               requests:
                 cpu: 10m
