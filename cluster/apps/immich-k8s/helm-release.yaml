@@ -35,9 +35,7 @@ spec:
       DB_USERNAME: "postgres" #superuserSecret
       DB_DATABASE_NAME: "immich"
     image:
-      # quotes are required for regex
-      # datasource=github-releases depName=immich-app/immich
-      tag: "v1.107.2"
+      tag: "v1.108.0"
     immich:
       metrics:
         enabled: "${MONITORING_PROMETHEUS}"
