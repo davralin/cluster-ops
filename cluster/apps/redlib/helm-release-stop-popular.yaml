@@ -59,7 +59,7 @@ spec:
         enabled: true
         annotations:
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
-          haproxy.org/path-rewrite: "/"
+          haproxy.org/path-rewrite: "/go-away.jpg"
           haproxy.org/response-set-header: |
             Strict-Transport-Security "max-age=31536000"
             X-Frame-Options "DENY"
