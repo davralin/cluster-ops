@@ -64,6 +64,14 @@ spec:
         ports:
           http:
             port: 8081
+      sonos-announce: #https://www.home-assistant.io/integrations/sonos/#advanced-use
+        type: LoadBalancer
+        controller: *name
+        externalTrafficPolicy: Local
+        loadBalancerIP: 10.0.1.43
+        ports:
+          sonos:
+            port: 1400
     ingress:
       app:
         enabled: true
