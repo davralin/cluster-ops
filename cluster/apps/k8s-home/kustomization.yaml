@@ -19,7 +19,6 @@ resources:
   - ../haproxy/haproxy-ingress
   - ../homeassistant
   - ../immich
-  - ../immich-k8s
   - ../intel-gpu
   - ../invidious
   - ../it-tools

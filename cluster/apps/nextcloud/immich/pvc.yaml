@@ -3,7 +3,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: immich
-  namespace: immich-k8s
+  namespace: nextcloud
 spec:
   storageClassName: "${STORAGE_READWRITEMANY}"
   accessModes:

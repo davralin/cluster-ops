@@ -3,7 +3,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: &name postgres-v16-immich
-  namespace: &namespace immich-k8s
+  namespace: &namespace nextcloud
 spec:
   interval: 15m
   chart:
