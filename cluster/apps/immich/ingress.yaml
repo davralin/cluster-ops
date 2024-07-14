@@ -12,7 +12,7 @@ metadata:
       Referrer-Policy "no-referrer-when-downgrade"
 spec:
   rules:
-  - host: "immich.${SECRET_DEFAULT_DOMAIN}"
+  - host: "immich2.${SECRET_DEFAULT_DOMAIN}"
     http:
       paths:
       - backend:

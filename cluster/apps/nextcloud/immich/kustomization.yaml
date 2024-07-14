@@ -4,6 +4,6 @@ kind: Kustomization
 resources:
   - helm-release-pgsql.yaml
   - helm-release-redis.yaml
-  #- helm-release.yaml
+  - helm-release.yaml
   - pvc.yaml
   - secret.yaml
