@@ -4,7 +4,7 @@ services:
   tubearchivist:
     container_name: tubearchivist
     restart: unless-stopped
-    image: bbilly1/tubearchivist:v0.4.8
+    image: bbilly1/tubearchivist:v0.4.9
     ports:
       - 8000:8000
     volumes:
@@ -39,7 +39,7 @@ services:
     restart: unless-stopped
     environment:
       - "ELASTIC_PASSWORD={{ tubearchivist_elastic_password }}"
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
       - "xpack.security.enabled=true"
       - "discovery.type=single-node"
       - "path.repo=/usr/share/elasticsearch/data/snapshot"

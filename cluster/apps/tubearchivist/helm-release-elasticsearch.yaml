@@ -47,7 +47,7 @@ spec:
               TZ: "${TIMEZONE}"
               xpack.security.enabled: "true"
               discovery.type: "single-node"
-              ES_JAVA_OPTS: "-Xms512m -Xmx512m"
+              ES_JAVA_OPTS: "-Xms1g -Xmx1g"
               path.repo: "/usr/share/elasticsearch/data/snapshot"
     service:
       app:
