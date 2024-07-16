@@ -1,0 +1,5 @@
+---
+- hosts: zigbee2mqtt
+
+  roles:
+  - zigbee2mqtt_compose

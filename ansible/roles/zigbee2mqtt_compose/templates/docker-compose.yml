@@ -1,0 +1,17 @@
+---
+name: zigbee2mqtt
+
+services:
+  zigbee2mqtt:
+    image: koenkk/zigbee2mqtt:1.39.0
+    ports:
+      - "{{ zigbee2mqtt_compose_ip_binding_web }}:8080"
+    volumes:
+      - "{{ zigbee2mqtt_compose_config_path }}:/app/data"
+      - /run/udev:/run/udev:ro
+    environment:
+      TZ: "Europe/Oslo"
+    restart: always
+    #devices:
+      # Make sure this matched your adapter location
+      #- /dev/serial/by-id/usb-Texas_Instruments_TI_CC2531_USB_CDC___0X00124B0018ED3DDF-if00:/dev/ttyACM0

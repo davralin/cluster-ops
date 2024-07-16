@@ -1,0 +1,4 @@
+---
+zigbee2mqtt_compose_path: "/opt/zigbee2mqtt"
+zigbee2mqtt_compose_config_path: "{{ zigbee2mqtt_compose_path }}/config"
+zigbee2mqtt_compose_ip_binding_web: "8080"
