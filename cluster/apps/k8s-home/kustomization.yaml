@@ -44,7 +44,6 @@ resources:
   - ../reflector
   - ../reloader
   - ../searxng
-  - ../securecodebox
   - ../syncthing
   - ../thelounge
   - ../tubearchivist
