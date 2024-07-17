@@ -41,9 +41,9 @@ spec:
       externalTrafficPolicy: Local
       loadBalancerIP: 10.0.1.40
     livenessProbe:
-      initialDelaySeconds: 600
+      initialDelaySeconds: 150
     readinessProbe:
-      initialDelaySeconds: 600
+      initialDelaySeconds: 150
     persistence:
       dataDir:
         enabled: true
