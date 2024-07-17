@@ -40,6 +40,10 @@ spec:
       serviceType: LoadBalancer
       externalTrafficPolicy: Local
       loadBalancerIP: 10.0.1.40
+    livenessProbe:
+      initialDelaySeconds: 600
+    readinessProbe:
+      initialDelaySeconds: 600
     persistence:
       dataDir:
         enabled: true
