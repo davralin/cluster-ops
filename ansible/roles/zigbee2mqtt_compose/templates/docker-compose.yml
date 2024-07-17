@@ -12,6 +12,5 @@ services:
     environment:
       TZ: "Europe/Oslo"
     restart: always
-    #devices:
-      # Make sure this matched your adapter location
-      #- /dev/serial/by-id/usb-Texas_Instruments_TI_CC2531_USB_CDC___0X00124B0018ED3DDF-if00:/dev/ttyACM0
+    devices:
+      - "{{ zigbee2mqtt_compose_usb_device_path }}:/dev/ttyACM0"
