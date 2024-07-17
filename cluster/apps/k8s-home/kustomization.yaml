@@ -51,3 +51,4 @@ resources:
   - ../unifi
   - ../volsync
   - ../warrior
+  - ../zigbee2mqtt
