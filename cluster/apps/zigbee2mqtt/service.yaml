@@ -6,7 +6,7 @@ metadata:
   namespace: zigbee2mqtt
 spec:
   type: ExternalName
-  externalName: 10.0.1.79
+  externalName: "nas.${SECRET_DEFAULT_DOMAIN}"
   ports:
   - name: http
     port: 8080
