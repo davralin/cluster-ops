@@ -95,7 +95,7 @@ spec:
         # Ref: https://grafana.com/grafana/dashboards/12693
         haproxy2:
           gnetId: 12693
-          revision: 7
+          revision: 8
           datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/12950
         hwmon:
@@ -115,7 +115,7 @@ spec:
         # Ref: https://grafana.com/grafana/dashboards/1860
         node-exporter-full:
           gnetId: 1860
-          revision: 36
+          revision: 37
           datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/15549
         node-problem-detector:
