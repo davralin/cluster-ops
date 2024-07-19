@@ -157,10 +157,10 @@ spec:
           datasource:
             - { name: DS_PROMETHEUS, value: Prometheus }
         # Ref: https://grafana.com/grafana/dashboards/17251
-        #wireguard:
-          #gnetId: 17251
-          #revision: 1
-          #datasource: Prometheus
+        wireguard:
+          gnetId: 17251
+          revision: 1
+          datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/7845
         zfs:
           gnetId: 7845
