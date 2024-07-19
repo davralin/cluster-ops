@@ -160,7 +160,8 @@ spec:
         wireguard:
           gnetId: 17251
           revision: 1
-          datasource: Prometheus
+          datasource:
+            - { name: DS_PROMETHEUS, value: Prometheus }
         # Ref: https://grafana.com/grafana/dashboards/7845
         zfs:
           gnetId: 7845
