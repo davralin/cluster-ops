@@ -164,7 +164,6 @@ spec:
             static_configs:
               - targets:
                   - adsb.${SECRET_INTERNAL_DOMAIN}:9100
-                  - router.w.ot:9100
                   - mierin.w.ot:9100
                   - mierin.w.ot:9153
                   - minio.${SECRET_PRIVATE_DOMAIN}:9100

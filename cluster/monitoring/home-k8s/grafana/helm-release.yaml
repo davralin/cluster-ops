@@ -86,7 +86,8 @@ spec:
         dnsmasq:
           gnetId: 18796
           revision: 1
-          datasource: Prometheus
+          datasource:
+            - { name: DS_PROMETHEUS, value: Prometheus }
         # Ref: https://grafana.com/grafana/dashboards/364
         haproxy-backend:
           gnetId: 364
