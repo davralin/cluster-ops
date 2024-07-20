@@ -60,7 +60,7 @@
 
 - name: Upgrade cluster
   ansible.builtin.command: '/runner/talosctl --talosconfig /runner/talosconfig upgrade-k8s --to "{{kubectl_version.stdout }}" -n {{ control_plane_ip.stdout }}'
-  when: "'Hello world!' in cluster_that_needs_upgrade.stdout"
+  when: "not ('Hello world!' in cluster_that_needs_upgrade.stdout)"
 
 - name: Determine if nodes needs upgrade
   ansible.builtin.shell: "/runner/kubectl --kubeconfig /runner/kubeconfig get nodes -o wide --no-headers | awk '{print $6, $9}' | grep -v {{ talosctl_version.stdout }} | cut -f1 -d' ' | head -n1"
