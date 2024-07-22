@@ -42,7 +42,7 @@ spec:
           app:
             image:
               repository: wardpearce/materialious
-              tag: latest@sha256:d6ae3a99ad5b25ff812445761132e1f85768618f384333fb6cff1c200cf778c7
+              tag: latest@sha256:d7309ba0a933430e5d28e9ceb196345c855d9f8db77ada790fd3c75121f1d679
             env:
               TZ: "${TIMEZONE}"
               VITE_DEFAULT_INVIDIOUS_INSTANCE: "https://y.${SECRET_DEFAULT_DOMAIN}"
