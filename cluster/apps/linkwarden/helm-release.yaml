@@ -46,7 +46,7 @@ spec:
           app:
             image:
               repository: ghcr.io/linkwarden/linkwarden
-              tag: v2.5.0@sha256:57d3467d3679b907df9aa3218c7e02d7e94bdf1188f18c286109723b8f804a4f
+              tag: v2.6.0@sha256:29451d800fc74f4fda6d607736ea0fa8b69798467994d7f76bedd6b2897e6602
             env:
               TZ: "${TIMEZONE}"
               NEXTAUTH_URL: "https://linkwarden.${SECRET_DEFAULT_DOMAIN}"
