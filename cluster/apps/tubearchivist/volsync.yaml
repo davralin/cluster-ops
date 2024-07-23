@@ -1,0 +1,252 @@
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: tubearchivist-cache-volsync-secret
+  namespace: tubearchivist
+type: Opaque
+stringData:
+  RESTIC_REPOSITORY: "s3:${SECRET_S3_URL}/volsync-${CLUSTER_NAME}/tubearchivist-cache"
+  RESTIC_PASSWORD: "${SECRET_VOLSYNC_RESTIC_PWD}"
+  AWS_ACCESS_KEY_ID: "${SECRET_VOLSYNC_ACCESS_KEYS}"
+  AWS_SECRET_ACCESS_KEY: "${SECRET_VOLSYNC_SECRET_KEYS}"
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: tubearchivist-cache-volsync
+  namespace: tubearchivist
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: raw
+      version: v0.3.2
+      sourceRef:
+        kind: HelmRepository
+        name: dysnix-charts
+        namespace: flux-system
+  targetNamespace: tubearchivist
+  install:
+    createNamespace: true
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
+  dependsOn:
+    - name: volsync
+      namespace: volsync
+    - name: tubearchivist
+      namespace: tubearchivist
+  values:
+    resources:
+      - apiVersion: volsync.backube/v1alpha1
+        kind: ReplicationSource
+        metadata:
+          name: tubearchivist-cache
+          namespace: tubearchivist
+        spec:
+          sourcePVC: cache
+          trigger:
+            schedule: "04 01 * * *"
+          restic:
+            copyMethod: Snapshot
+            pruneIntervalDays: 7
+            repository: tubearchivist-cache-volsync-secret
+            moverSecurityContext:
+              runAsUser: 1000
+              runAsGroup: 1000
+              fsGroup: 1000
+            retain:
+              daily: 7
+              within: 3d
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: tubearchivist-youtube-volsync-secret
+  namespace: tubearchivist
+type: Opaque
+stringData:
+  RESTIC_REPOSITORY: "s3:${SECRET_S3_URL}/volsync-${CLUSTER_NAME}/tubearchivist-youtube"
+  RESTIC_PASSWORD: "${SECRET_VOLSYNC_RESTIC_PWD}"
+  AWS_ACCESS_KEY_ID: "${SECRET_VOLSYNC_ACCESS_KEYS}"
+  AWS_SECRET_ACCESS_KEY: "${SECRET_VOLSYNC_SECRET_KEYS}"
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: tubearchivist-youtube-volsync
+  namespace: tubearchivist
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: raw
+      version: v0.3.2
+      sourceRef:
+        kind: HelmRepository
+        name: dysnix-charts
+        namespace: flux-system
+  targetNamespace: tubearchivist
+  install:
+    createNamespace: true
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
+  dependsOn:
+    - name: volsync
+      namespace: volsync
+    - name: tubearchivist
+      namespace: tubearchivist
+  values:
+    resources:
+      - apiVersion: volsync.backube/v1alpha1
+        kind: ReplicationSource
+        metadata:
+          name: tubearchivist-youtube
+          namespace: tubearchivist
+        spec:
+          sourcePVC: youtube
+          trigger:
+            schedule: "04 01 * * *"
+          restic:
+            copyMethod: Snapshot
+            pruneIntervalDays: 7
+            repository: tubearchivist-youtube-volsync-secret
+            moverSecurityContext:
+              runAsUser: 1000
+              runAsGroup: 1000
+              fsGroup: 1000
+            retain:
+              daily: 7
+              within: 3d
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: tubearchivist-redis-volsync-secret
+  namespace: tubearchivist
+type: Opaque
+stringData:
+  RESTIC_REPOSITORY: "s3:${SECRET_S3_URL}/volsync-${CLUSTER_NAME}/tubearchivist-redis"
+  RESTIC_PASSWORD: "${SECRET_VOLSYNC_RESTIC_PWD}"
+  AWS_ACCESS_KEY_ID: "${SECRET_VOLSYNC_ACCESS_KEYS}"
+  AWS_SECRET_ACCESS_KEY: "${SECRET_VOLSYNC_SECRET_KEYS}"
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: tubearchivist-redis-volsync
+  namespace: tubearchivist
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: raw
+      version: v0.3.2
+      sourceRef:
+        kind: HelmRepository
+        name: dysnix-charts
+        namespace: flux-system
+  targetNamespace: tubearchivist
+  install:
+    createNamespace: true
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
+  dependsOn:
+    - name: volsync
+      namespace: volsync
+    - name: redis-stack
+      namespace: tubearchivist
+  values:
+    resources:
+      - apiVersion: volsync.backube/v1alpha1
+        kind: ReplicationSource
+        metadata:
+          name: tubearchivist-redis
+          namespace: tubearchivist
+        spec:
+          sourcePVC: redis
+          trigger:
+            schedule: "04 01 * * *"
+          restic:
+            copyMethod: Snapshot
+            pruneIntervalDays: 7
+            repository: tubearchivist-redis-volsync-secret
+            moverSecurityContext:
+              runAsUser: 1000
+              runAsGroup: 1000
+              fsGroup: 1000
+            retain:
+              daily: 7
+              within: 3d
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: tubearchivist-elasticsearch-volsync-secret
+  namespace: tubearchivist
+type: Opaque
+stringData:
+  RESTIC_REPOSITORY: "s3:${SECRET_S3_URL}/volsync-${CLUSTER_NAME}/tubearchivist-elasticsearch"
+  RESTIC_PASSWORD: "${SECRET_VOLSYNC_RESTIC_PWD}"
+  AWS_ACCESS_KEY_ID: "${SECRET_VOLSYNC_ACCESS_KEYS}"
+  AWS_SECRET_ACCESS_KEY: "${SECRET_VOLSYNC_SECRET_KEYS}"
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: tubearchivist-elasticsearch-volsync
+  namespace: tubearchivist
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: raw
+      version: v0.3.2
+      sourceRef:
+        kind: HelmRepository
+        name: dysnix-charts
+        namespace: flux-system
+  targetNamespace: tubearchivist
+  install:
+    createNamespace: true
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
+  dependsOn:
+    - name: volsync
+      namespace: volsync
+    - name: tubearchivist
+      namespace: tubearchivist
+  values:
+    resources:
+      - apiVersion: volsync.backube/v1alpha1
+        kind: ReplicationSource
+        metadata:
+          name: tubearchivist-elasticsearch
+          namespace: tubearchivist
+        spec:
+          sourcePVC: elasticsearch
+          trigger:
+            schedule: "04 01 * * *"
+          restic:
+            copyMethod: Snapshot
+            pruneIntervalDays: 7
+            repository: tubearchivist-elasticsearch-volsync-secret
+            moverSecurityContext:
+              runAsUser: 1000
+              runAsGroup: 1000
+              fsGroup: 1000
+            retain:
+              daily: 7
+              within: 3d

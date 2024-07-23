@@ -53,13 +53,13 @@ spec:
               repository: bbilly1/tubearchivist
               tag: v0.4.9
             env:
-              TZ: "${TIMEZONE}"
+              ES_URL: "http://elasticsearch.tubearchivist.svc.cluster.local:9200"
+              REDIS_HOST: "redis-stack.tubearchivist.svc.cluster.local"
               HOST_UID: 1000
               HOST_GID: 1000
-              ES_URL: "http://elasticsearch.tubearchivist.svc.cluster.local:9200"
-              TA_HOST: "https://tube2.${SECRET_DEFAULT_DOMAIN}"
-              REDIS_HOST: "redis-stack.tubearchivist.svc.cluster.local"
+              TA_HOST: "tube.${SECRET_DEFAULT_DOMAIN}"
               ENABLE_CAST: "true"
+              TZ: "${TIMEZONE}"
             resources:
               requests:
                 memory: 1024Mi
@@ -81,7 +81,7 @@ spec:
             X-Content-Type-Options "nosniff"
             Referrer-Policy "no-referrer-when-downgrade"
         hosts:
-          - host: &host "tube2.${SECRET_DEFAULT_DOMAIN}"
+          - host: &host "tube.${SECRET_DEFAULT_DOMAIN}"
             paths:
               - path: /
                 service:

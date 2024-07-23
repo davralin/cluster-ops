@@ -178,7 +178,6 @@ spec:
                   - relay.${SECRET_INTERNAL_DOMAIN}:9035 # Tor
                   - ssh.${SECRET_PUBLIC_DOMAIN}:8404 # Haproxy
                   - ssh.${SECRET_PUBLIC_DOMAIN}:9100
-                  - tubearchivist.w.ot:9100
         scrapeConfigSelector: {}
         scrapeConfigNamespaceSelector: {}
         serviceMonitorSelectorNilUsesHelmValues: false

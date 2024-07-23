@@ -44,7 +44,6 @@ spec:
               repository: elasticsearch
               tag: 8.14.3
             env:
-              TZ: "${TIMEZONE}"
               xpack.security.enabled: "true"
               discovery.type: "single-node"
               ES_JAVA_OPTS: "-Xms1g -Xmx1g"
@@ -59,4 +58,5 @@ spec:
       config:
         enabled: true
         existingClaim: elasticsearch
-        mountPath: /usr/share/elasticsearch/data
+        globalMounts:
+          - path: /usr/share/elasticsearch/data
