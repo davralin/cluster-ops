@@ -27,5 +27,4 @@ resources:
   - prometheus.yaml
   - renovate.yaml
   - rook-ceph.yaml
-  - securecodebox.yaml
   - stakater.yaml
