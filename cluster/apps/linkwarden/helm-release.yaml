@@ -34,12 +34,12 @@ spec:
       valuesKey: NEXTAUTH_SECRET
   values:
     fullnameOverride: *name
-    defaultPodOptions:
-      securityContext:
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
-        fsGroupChangePolicy: "OnRootMismatch"
+    #defaultPodOptions:
+      #securityContext:
+        #runAsUser: 1000
+        #runAsGroup: 1000
+        #fsGroup: 1000
+        #fsGroupChangePolicy: "OnRootMismatch"
     controllers:
       linkwarden:
         containers:
@@ -50,7 +50,7 @@ spec:
             env:
               TZ: "${TIMEZONE}"
               NEXTAUTH_URL: "https://linkwarden.${SECRET_DEFAULT_DOMAIN}"
-              NEXT_PUBLIC_DISABLE_REGISTRATION: true
+              NEXT_PUBLIC_DISABLE_REGISTRATION: false
               NEXT_PUBLIC_CREDENTIALS_ENABLED: true
             resources:
               requests:
