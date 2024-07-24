@@ -43,6 +43,7 @@ resources:
   - ../reflector
   - ../reloader
   - ../searxng
+  - ../spegel/ks.yaml
   - ../syncthing
   - ../thelounge
   - ../tubearchivist
