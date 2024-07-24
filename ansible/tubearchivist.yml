@@ -1,5 +1,0 @@
----
-- hosts: TubeArchivist
-
-  roles:
-  - tubearchivist_compose

@@ -1,7 +1,0 @@
----
-tubearchivist_compose_path: "/opt/tubearchivist"
-tubearchivist_compose_config_path: "{{ tubearchivist_compose_path }}/config"
-tubearchivist_ta_host: "localhost"
-tubearchivist_ta_username: "username"
-tubearchivist_ta_password: "password"
-tubearchivist_elastic_password: "verysecret"
