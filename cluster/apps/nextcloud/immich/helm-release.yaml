@@ -35,6 +35,8 @@ spec:
       DB_USERNAME: "postgres" #superuserSecret
       DB_DATABASE_NAME: "immich"
     image:
+      # quotes are required for regex
+      # datasource=github-releases depName=immich-app/immich
       tag: "v1.109.2"
     immich:
       metrics:
