@@ -157,5 +157,26 @@
       "datasourceTemplate": "docker",
       "versioningTemplate": "redhat"
     }
-  ]
+  ],
+  "regexManagers": [
+    {
+      "fileMatch": [
+        ".*\\.yaml$",
+      ],
+      "matchStrings": [
+        "#\\s+renovate:\\s+depName=\"(?<depName>.*)\"\\n\\s+gnetId:\\s+(?<packageName>.*?)\\n\\s+revision:\\s+(?<currentValue>.*)"
+      ],
+      "versioningTemplate": "regex:^(?<major>\\d+)$",
+      "datasourceTemplate": "custom.grafana-dashboards"
+    },
+  ],
+  "customDatasources": {
+    "grafana-dashboards": {
+      "defaultRegistryUrlTemplate": "https://grafana.com/api/dashboards/{{packageName}}",
+      "format": "json",
+      "transformTemplates": [
+        "{\"releases\":[{\"version\": $string(revision)}]}"
+      ],
+    },
+  },
 }
