@@ -16,6 +16,7 @@ resources:
   - ../firefly-iii
   - ../freshrss
   - ../gitea
+  - ../hajimari
   - ../haproxy/haproxy-ingress
   - ../homeassistant
   - ../intel-gpu

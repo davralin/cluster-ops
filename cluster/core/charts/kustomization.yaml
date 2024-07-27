@@ -16,6 +16,7 @@ resources:
   - emberstack.yaml
   - gitea.yaml
   - grafana.yaml
+  - hajimari.yaml
   - haproxytech.yaml
   - immich.yaml
   - itzg.yaml
