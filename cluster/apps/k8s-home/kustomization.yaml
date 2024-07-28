@@ -13,7 +13,6 @@ resources:
   - ../cloudnative-pg/cluster-16
   - ../epicgames-freegames
   - ../esphome
-  - ../firefly-iii
   - ../freshrss
   - ../gitea
   - ../haproxy/haproxy-ingress
