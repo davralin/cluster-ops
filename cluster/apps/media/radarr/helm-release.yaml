@@ -77,9 +77,6 @@ spec:
             X-Frame-Options "DENY"
             X-Content-Type-Options "nosniff"
             Referrer-Policy "no-referrer-when-downgrade"
-          hajimari.io/enable: true
-          hajimari.io/icon: mdi:filmstrip
-          hajimari.io/group: Media
         hosts:
           - host: &host "radarr.${SECRET_DEFAULT_DOMAIN}"
             paths:
