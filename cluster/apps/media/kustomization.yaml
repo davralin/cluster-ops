@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - audiobookshelf
   - bazarr
+  - channeltube
   - cronjobs
   - filebrowser
   - jellyfin
