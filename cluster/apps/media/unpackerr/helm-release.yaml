@@ -38,7 +38,7 @@ spec:
           app:
             image:
               repository: ghcr.io/unpackerr/unpackerr
-              tag: 0.14.2@sha256:2b2105159bb7bbf20291ffd2023d96578dad236ed6cbbb6d0a5bc5d44f32d492
+              tag: 0.14.4@sha256:1b62f65a94276a517c711891ba8c52efa2bbaa77b168419656e9b3d63dd1da0b
             env:
               TZ: "${TIMEZONE}"
               UN_WEBSERVER_METRICS: true
