@@ -168,7 +168,6 @@ spec:
                   - mierin.w.ot:9100
                   - mierin.w.ot:9153 # DNSMasq
                   - mierin.w.ot:9586 # WireGuard
-                  - minio.${SECRET_PRIVATE_DOMAIN}:9100
                   - nas.${SECRET_PRIVATE_DOMAIN}:9100
                   - nas.${SECRET_OFFSITE_DOMAIN}:9100
                   - proxmox.${SECRET_PRIVATE_DOMAIN}:9100
