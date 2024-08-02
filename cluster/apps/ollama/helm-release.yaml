@@ -31,7 +31,7 @@ spec:
           app:
             image:
               repository: ollama/ollama
-              tag: 0.3.2
+              tag: 0.3.3
             env:
               TZ: "${TIMEZONE}"
     service:
