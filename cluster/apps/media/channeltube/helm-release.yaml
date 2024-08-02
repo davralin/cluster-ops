@@ -82,5 +82,8 @@ spec:
       media:
         enabled: true
         existingClaim: media
-        globalMounts:
-          - path: /channeltube/downloads/web
+        advancedMounts:
+          channeltube:
+            app:
+              - path: /channeltube/downloads
+                subPath: video/web
