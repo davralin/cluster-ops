@@ -60,7 +60,9 @@ spec:
                   "writethumbnail":true,
                   "postprocessors": [
                          {"key":"EmbedThumbnail"},
-                         {"key":"FFmpegMetadata"},
+                         {"key":"FFmpegMetadata","add_metadata":"True"},
+                         {"key":"FFmpegMetadata","add_infojson":"True"},
+                         {"key":"FFmpegMetadata","add_chapters":"True"},
                          {"key":"FFmpegEmbedSubtitle"},
                          {"key":"SponsorBlock"},
                          {"key":"ModifyChapters", "remove_sponsor_segments": [
@@ -74,8 +76,8 @@ spec:
                            "music_offtopic"
                            ]
                          }
-                       ]
-                     }
+                    ]
+                }
             resources:
               requests:
                 cpu: 100m
