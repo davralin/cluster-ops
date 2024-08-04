@@ -127,11 +127,6 @@ spec:
         #plex-dashboards:
         #url: "https://raw.githubusercontent.com/jsclayton/prometheus-plex-exporter/main/examples/dashboards/Media%20Server.json"
         #datasource: Prometheus
-        # Ref: https://grafana.com/grafana/dashboards/11835
-        redis-dashboard:
-          gnetId: 11835
-          revision: 1
-          datasource: Prometheus
         # Ref: https://gitlab.com/TheHolm/tor-node-grafana-dashboard/-/raw/main/tor_stats.json
         tor-dashboards:
           url: "https://gitlab.com/TheHolm/tor-node-grafana-dashboard/-/raw/main/tor_stats.json"
