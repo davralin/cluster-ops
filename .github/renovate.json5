@@ -37,7 +37,8 @@
 	      "ghcr.io/davralin",
 	      "ghcr.io/onedr0p",
 	      "ghcr.io/sdr-enthusiasts",
-	      "docker.io/redis"
+	      "docker.io/redis",
+	      "docker.io/searxng/searxng"
       ]
     },
     {
