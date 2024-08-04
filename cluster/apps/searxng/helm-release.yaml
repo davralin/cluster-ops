@@ -43,7 +43,7 @@ spec:
               TZ: "${TIMEZONE}"
               SEARXNG_BASE_URL: "https://searxng.${SECRET_DEFAULT_DOMAIN}"
               SEARXNG_URL: "https://searxng.${SECRET_DEFAULT_DOMAIN}"
-              SEARXNG_REDIS_URL: "redis://redis-master.searxng.svc.cluster.local:6379"
+              SEARXNG_REDIS_URL: "redis://valkey-master.searxng.svc.cluster.local:6379"
             resources:
               requests:
                 cpu: 50m
