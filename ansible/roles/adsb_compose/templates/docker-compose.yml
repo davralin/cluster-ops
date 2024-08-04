@@ -57,7 +57,7 @@ services:
       OPENSKY_SERIAL: "-{{ adsb_compose_opensky_serial }}"
     restart: always
   piaware:
-    image: ghcr.io/sdr-enthusiasts/docker-piaware:v9.0.1@sha256:8570758e78fd4b305505e303d52c072592a7a2a408928f2d3c868a86cc60e206
+    image: ghcr.io/sdr-enthusiasts/docker-piaware:v9.0.1@sha256:1cdefa4f0b836ad74c129cc44ac5d86d9856e7d3bc31eb018b860814ad1fe95a
     environment:
       TZ: "{{ adsb_compose_tz }}"
       BEASTHOST: "{{ adsb_compose_beasthost }}"
