@@ -8,6 +8,7 @@ resources:
   - helm-onsite-sync.yaml
   - helm-release-exporter.yaml
   - helm-release-redis.yaml
+  - helm-release-valkey.yaml
   - helm-release.yaml
   - namespace.yaml
   - pvc.yaml
