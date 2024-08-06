@@ -81,9 +81,6 @@ spec:
           - path: /channeltube/config
       media:
         enabled: true
-        existingClaim: media
-        advancedMounts:
-          channeltube:
-            app:
-              - path: /channeltube/downloads
-                subPath: video/web
+        existingClaim: channeltube-download
+        globalMounts:
+          - path: /channeltube/downloads
