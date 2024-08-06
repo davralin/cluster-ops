@@ -47,7 +47,7 @@ spec:
               OUTPUT_TEMPLATE: "%(title)s_-_[%(id)s].%(ext)s"
               YTDL_OPTIONS: |
                 {
-                  "format": "bestvideo[vcodec!*=av01]+bestaudio/best",
+                  "format": "bestvideo[height<=1080][vcodec!*=av01]+bestaudio/best",
                   "merge_output_format": "mkv",
                   "restrictfilenames": true,
                   "writesubtitles": true,
