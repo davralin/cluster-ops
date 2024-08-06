@@ -46,7 +46,7 @@ services:
       SHARECODE: "{{ adsb_compose_planefinder_sharecode }}"
     restart: always
   opensky:
-    image: ghcr.io/sdr-enthusiasts/docker-opensky-network:2.1.7-1@sha256:8944ddf09bcd688d6b41f87e11b73e442857db843200e98049f52094276ec86e
+    image: ghcr.io/sdr-enthusiasts/docker-opensky-network:2.1.7-1@sha256:c17d4154830995a65c9318290adecc31f1d5c89dae03f4f3f49c3a96c5190b13
     environment:
       TZ: "{{ adsb_compose_tz }}"
       BEASTHOST: "{{ adsb_compose_beasthost }}"
