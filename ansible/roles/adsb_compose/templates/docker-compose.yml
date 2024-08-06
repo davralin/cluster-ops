@@ -28,7 +28,7 @@ services:
       MLAT: "yes"
     restart: always
   adsbhub:
-    image: ghcr.io/sdr-enthusiasts/docker-adsbhub:1.06@sha256:a1f200256925ad50dd1e43852e49def96d3d738701231cac90c67760a55a7835
+    image: ghcr.io/sdr-enthusiasts/docker-adsbhub:1.06@sha256:ba879dc5507edf2b9b64f1a818a0c9537b215cf7314649926bd290122f9347fe
     environment:
       TZ: "{{ adsb_compose_tz }}"
       SBSHOST: "{{ adsb_compose_beasthost }}"
