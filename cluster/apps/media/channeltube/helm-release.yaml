@@ -38,7 +38,7 @@ spec:
           app:
             image:
               repository: thewicklowwolf/channeltube
-              tag: latest@sha256:f86be77e64aea7ce4d73fe41abcc9b6e8fabd87eb4c1d4de16d23e2c16211f63
+              tag: latest@sha256:6ca00e4847ebf155a2e6ac2e286575f485c53c6a013feefbba2bb5ae8206d70e
             env:
               TZ: "${TIMEZONE}"
             resources:
