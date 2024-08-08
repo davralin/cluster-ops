@@ -50,6 +50,7 @@ spec:
                   "format": "bestvideo[height<=1080][vcodec!*=av01]+bestaudio/best",
                   "merge_output_format": "mkv",
                   "restrictfilenames": true,
+                  "verbose": true,
                   "writesubtitles": true,
                   "subtitleslangs": [
                     "all",
@@ -74,7 +75,8 @@ spec:
                            "filler",
                            "interaction",
                            "music_offtopic"
-                           ]
+                           ],
+                        {"key":"Exec","exec_cmd":"echo 'Hello world'","when":"after_move"},
                          }
                     ]
                 }
