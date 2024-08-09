@@ -61,8 +61,8 @@ spec:
                   "postprocessors": [
                         {"key":"EmbedThumbnail"},
                         {"key":"FFmpegEmbedSubtitle"},
-                        {"key":"SponsorBlock"},
-                        {"key":"FFmpegMetadata","add_metadata":"True","add_infojson":"True","add_chapters":"True"}
+                        {"key":"FFmpegMetadata","add_metadata":"True","add_infojson":"True","add_chapters":"True"},
+                        {"key":"SponsorBlock"}
                   ]
                 }
             resources:
