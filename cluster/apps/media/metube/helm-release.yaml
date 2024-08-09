@@ -63,21 +63,6 @@ spec:
                         {"key":"EmbedThumbnail"},
                         {"key":"FFmpegMetadata","add_metadata":"True"},
                         {"key":"FFmpegMetadata","add_infojson":"True"},
-                        {"key":"FFmpegMetadata","add_chapters":"True"},
-                        {"key":"FFmpegEmbedSubtitle"},
-                        {"key":"SponsorBlock"},
-                        {"key":"ModifyChapters", "remove_sponsor_segments": [
-                          "sponsor",
-                          "intro",
-                          "outro",
-                          "selfpromo",
-                          "preview",
-                          "filler",
-                          "interaction",
-                          "music_offtopic"
-                          ]
-                        },
-                        {"key":"Exec","exec_cmd":"echo hello"}
                   ]
                 }
             resources:
