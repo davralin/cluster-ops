@@ -59,9 +59,6 @@ spec:
                   "clean_infojson":true,
                   "writethumbnail":true,
                   "postprocessors": [
-                        {"key":"EmbedThumbnail"},
-                        {"key":"FFmpegEmbedSubtitle"},
-                        {"key":"FFmpegMetadata","add_metadata":"True","add_infojson":"True","add_chapters":"True"},
                         {"key":"SponsorBlock"},
                         {"key":"ModifyChapters", "remove_sponsor_segments": [
                           "sponsor",
@@ -73,7 +70,10 @@ spec:
                           "interaction",
                           "music_offtopic"
                           ]
-                        }
+                        },
+                        {"key":"EmbedThumbnail"},
+                        {"key":"FFmpegEmbedSubtitle"},
+                        {"key":"FFmpegMetadata","add_metadata":"True","add_infojson":"True","add_chapters":"True"}
                   ]
                 }
             resources:
