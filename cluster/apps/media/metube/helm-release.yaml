@@ -62,7 +62,7 @@ spec:
                   "postprocessors": [
                         {"key":"EmbedThumbnail"},
                         {"key":"FFmpegMetadata","add_metadata":"True"},
-                        {"key":"FFmpegMetadata","add_infojson":"True"},
+                        {"key":"FFmpegMetadata","add_infojson":"True"}
                   ]
                 }
             resources:
