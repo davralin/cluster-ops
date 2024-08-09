@@ -45,9 +45,6 @@ spec:
                   mountPath: /usr/local/bin/cleanup.sh
                   subPath: cleanup.sh
                   readOnly: true
-                - name: media-sources
-                  mountPath: /batch
-                  readOnly: true
           volumes:
             - name: media
               persistentVolumeClaim:
@@ -62,10 +59,6 @@ spec:
               configMap:
                 defaultMode: 0755
                 name: media-run
-            - name: media-sources
-              configMap:
-                defaultMode: 0644
-                name: media-sources
             - name: media-rip-cleanup
               configMap:
                 defaultMode: 0755
