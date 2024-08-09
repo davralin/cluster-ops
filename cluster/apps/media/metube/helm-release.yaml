@@ -62,7 +62,7 @@ spec:
                         {"key":"SponsorBlock"},
                         {"key":"EmbedThumbnail"},
                         {"key":"FFmpegEmbedSubtitle"},
-                        {"key":"FFmpegSubtitlesConvertor","format":"srt"},
+                        {"key":"FFmpegSubtitlesConvertor","format":"srt","when":"before_dl"},
                         {"key":"FFmpegMetadata","add_metadata":"True","add_infojson":"True","add_chapters":"True"}
                   ]
                 }
