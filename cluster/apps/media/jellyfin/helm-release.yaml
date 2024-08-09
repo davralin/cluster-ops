@@ -94,8 +94,3 @@ spec:
       transcode:
         enabled: true
         type: emptyDir
-      channeltube:
-        enabled: true
-        existingClaim: channeltube-download
-        globalMounts:
-          - path: /channeltube

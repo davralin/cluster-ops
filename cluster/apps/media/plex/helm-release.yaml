@@ -74,8 +74,3 @@ spec:
               - path: /data
                 subPath: .
                 readOnly: true
-      channeltube:
-        enabled: true
-        existingClaim: channeltube-download
-        globalMounts:
-          - path: /channeltube
