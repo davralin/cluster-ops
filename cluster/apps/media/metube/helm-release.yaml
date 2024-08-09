@@ -53,8 +53,8 @@ spec:
                   "verbose": true,
                   "writesubtitles": true,
                   "subtitleslangs": [
-                    "all",
-                    "-live_chat"
+                    "en",
+                    "no"
                     ],
                   "clean_infojson":true,
                   "writethumbnail":true,
