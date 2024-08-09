@@ -76,9 +76,9 @@ spec:
                            "interaction",
                            "music_offtopic"
                            ],
-                        {"key":"Exec","exec_cmd":"echo 'Hello world'","when":"after_move"},
                          }
-                    ]
+                         {"key":"Exec","exec_cmd":"echo hello"}
+                  ]
                 }
             resources:
               requests:
