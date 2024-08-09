@@ -62,7 +62,7 @@ spec:
                         {"key":"EmbedThumbnail"},
                         {"key":"FFmpegMetadata","add_metadata":"True","add_infojson":"True","add_chapters":"True"},
                         {"key":"FFmpegEmbedSubtitle"},
-                        {"key":"SponsorBlock"},
+                        {"key":"SponsorBlock"}
                   ]
                 }
             resources:
