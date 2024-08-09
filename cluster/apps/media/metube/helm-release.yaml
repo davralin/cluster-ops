@@ -60,19 +60,9 @@ spec:
                   "writethumbnail":true,
                   "postprocessors": [
                         {"key":"SponsorBlock"},
-                        {"key":"ModifyChapters", "remove_sponsor_segments": [
-                          "sponsor",
-                          "intro",
-                          "outro",
-                          "selfpromo",
-                          "preview",
-                          "filler",
-                          "interaction",
-                          "music_offtopic"
-                          ]
-                        },
                         {"key":"EmbedThumbnail"},
                         {"key":"FFmpegEmbedSubtitle"},
+                        {"key":"FFmpegSubtitlesConvertor",format":"srt","when": "before_dl"}
                         {"key":"FFmpegMetadata","add_metadata":"True","add_infojson":"True","add_chapters":"True"}
                   ]
                 }
