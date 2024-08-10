@@ -62,7 +62,7 @@ spec:
               tag: 2.11.4
             env:
               PAPERLESS_TIME_ZONE: "${TIMEZONE}"
-              PAPERLESS_REDIS: "redis://redis-master"
+              PAPERLESS_REDIS: "redis://valkey-master"
               PAPERLESS_FILENAME_FORMAT: "{created_year}/{correspondent}/{created_month}_{title}"
               PAPERLESS_URL: "https://paperless-ngx.${SECRET_DEFAULT_DOMAIN}"
               PAPERLESS_DBHOST: "postgres-v16-rw.cloudnative-pg.svc.cluster.local"
