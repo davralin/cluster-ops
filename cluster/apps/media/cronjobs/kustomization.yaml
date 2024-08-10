@@ -7,6 +7,6 @@ resources:
   - helm-daily-chown-media.yaml
   - helm-daily-instaloader.yaml
   - helm-daily-streamripper.yaml
-  - helm-daily-web-ripper.yaml
   - helm-daily-to-jottacloud.yaml
+  - helm-daily-video-ripper.yaml
   - helm-onsite-sync.yaml

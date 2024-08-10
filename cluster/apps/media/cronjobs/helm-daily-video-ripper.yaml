@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &name daily-web-ripper
+  name: &name daily-video-ripper
   namespace: media
 spec:
   interval: 5m
@@ -32,7 +32,7 @@ spec:
         fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"
     controllers:
-      daily-web-ripper:
+      daily-video-ripper:
         type: cronjob
         cronjob:
           schedule: "59 06 * * *"
@@ -41,13 +41,13 @@ spec:
             image:
               repository: ghcr.io/davralin/youtube-dl
               tag: latest@sha256:889f7b88a2a422e698c08b19cd771a1e2ad5db358a8d77f735bc85f0c4448874
-            command: ['/media/webripper.sh']
+            command: ['/media/videoripper.sh']
     persistence:
       media:
         enabled: true
         existingClaim: media
         advancedMounts:
-          daily-web-ripper:
+          daily-video-ripper:
             app:
               - path: /media
-                subPath: video/web
+                subPath: video
