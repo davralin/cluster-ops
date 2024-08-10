@@ -30,7 +30,7 @@ spec:
       valuesKey: password
   values:
     env:
-      REDIS_HOSTNAME: "redis-master"
+      REDIS_HOSTNAME: "immich-valkey-master"
       DB_HOSTNAME: "postgres-v16-immich-rw"
       DB_USERNAME: "postgres" #superuserSecret
       DB_DATABASE_NAME: "immich"
