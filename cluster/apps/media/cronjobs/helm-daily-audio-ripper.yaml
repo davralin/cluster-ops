@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &name daily-podcast-ripper
+  name: &name daily-audio-ripper
   namespace: media
 spec:
   interval: 5m
@@ -32,7 +32,7 @@ spec:
         fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"
     controllers:
-      daily-podcast-ripper:
+      daily-audio-ripper:
         type: cronjob
         cronjob:
           schedule: "59 10 * * *"
@@ -41,13 +41,13 @@ spec:
             image:
               repository: ghcr.io/davralin/youtube-dl
               tag: latest@sha256:889f7b88a2a422e698c08b19cd771a1e2ad5db358a8d77f735bc85f0c4448874
-            command: ['/media/podcastripper.sh']
+            command: ['/media/audioripper.sh']
     persistence:
       media:
         enabled: true
         existingClaim: media
         advancedMounts:
-          daily-podcast-ripper:
+          daily-audio-ripper:
             app:
               - path: /media
-                subPath: audio/podcasts
+                subPath: audio

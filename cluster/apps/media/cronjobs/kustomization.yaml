@@ -3,9 +3,9 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - backup-ssh-key.yaml
+  - helm-daily-audio-ripper.yaml
   - helm-daily-chown-media.yaml
   - helm-daily-instaloader.yaml
-  - helm-daily-podcast-ripper.yaml
   - helm-daily-streamripper.yaml
   - helm-daily-web-ripper.yaml
   - helm-daily-to-jottacloud.yaml
