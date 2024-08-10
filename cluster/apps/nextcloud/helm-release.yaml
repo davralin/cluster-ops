@@ -52,7 +52,7 @@ spec:
                   periodSeconds: 30
             env:
               TZ: "${TIMEZONE}"
-              REDIS_HOST: "redis-master"
+              REDIS_HOST: "valkey-master"
               SMTP_HOST: "exim.mailrelay.svc.cluster.local"
               SMTP_PORT: "25"
               SMTP_AUTHTYPE: "PLAIN"
@@ -78,7 +78,7 @@ spec:
             args: ["www-data", "-s", "/bin/bash", "-c", "/var/www/html/occ maintenance:mode --off"]
             env:
               TZ: "${TIMEZONE}"
-              REDIS_HOST: "redis-master"
+              REDIS_HOST: "valkey-master"
               SMTP_HOST: "exim.mailrelay.svc.cluster.local"
               SMTP_PORT: "25"
               SMTP_AUTHTYPE: "PLAIN"
@@ -96,7 +96,7 @@ spec:
             args: ["www-data", "-s", "/bin/bash", "-c", "/var/www/html/occ upgrade"]
             env:
               TZ: "${TIMEZONE}"
-              REDIS_HOST: "redis-master"
+              REDIS_HOST: "valkey-master"
               SMTP_HOST: "exim.mailrelay.svc.cluster.local"
               SMTP_PORT: "25"
               SMTP_AUTHTYPE: "PLAIN"
@@ -114,7 +114,7 @@ spec:
             args: ["www-data", "-s", "/bin/bash", "-c", "/var/www/html/occ app:update --all"]
             env:
               TZ: "${TIMEZONE}"
-              REDIS_HOST: "redis-master"
+              REDIS_HOST: "valkey-master"
               SMTP_HOST: "exim.mailrelay.svc.cluster.local"
               SMTP_PORT: "25"
               SMTP_AUTHTYPE: "PLAIN"
