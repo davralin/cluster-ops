@@ -7,7 +7,6 @@ resources:
   - bitnami.yaml
   - bjw-s.yaml
   - botkube.yaml
-  - bugfest.yaml
   - ceph-csi.yaml
   - cloudnative-pg.yaml
   - deliveryhero.yaml
