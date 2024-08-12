@@ -1,6 +1,0 @@
----
-- name: Installing packages
-  apt:
-    name: "{{ power_mgmt_packages }}"
-    state: present
-  become: yes
