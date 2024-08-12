@@ -6,4 +6,5 @@
   - profile
   - node_exporter
   - nullmailer
+  - rsync
   - users
