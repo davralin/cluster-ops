@@ -5,9 +5,9 @@
     state: directory
   become: true
 
-- name: Ensure path to config-folder
+- name: Ensure path to data-folder
   ansible.builtin.file:
-    path: "{{ musicassistant_compose_config_path }}"
+    path: "{{ musicassistant_compose_data_path }}"
     state: directory
   become: true
 
