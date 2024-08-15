@@ -35,7 +35,7 @@ spec:
       daily-streamripper:
         type: cronjob
         cronjob:
-          schedule: "59 03 * * *"
+          schedule: "59 17 * * *"
         containers:
           app:
             image:
