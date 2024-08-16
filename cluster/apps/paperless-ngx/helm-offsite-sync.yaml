@@ -40,7 +40,7 @@ spec:
           app:
             image:
               repository: ghcr.io/davralin/rsync
-              tag: latest@sha256:9ef4d4529ad4787564eef1a4b3256a1b8ab1bb09317c1f23c5b5175e476194fa
+              tag: latest@sha256:1db98b8baea1fd7b8ea7a11842b4f4fee9beb7378871c80186cdb2665122f07e
             command: ['/usr/bin/rsync']
             args: ["--archive", "--delete", "--verbose", "-e", "ssh -o StrictHostKeyChecking=no", "/paperless-ngx/", "backup@nas.${SECRET_OFFSITE_DOMAIN}:/opt/backup/paperless-ngx/"]
     persistence:
