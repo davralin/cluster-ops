@@ -40,7 +40,7 @@ spec:
           goaway:
             image:
               repository: ghcr.io/davralin/go-away
-              tag: latest@sha256:bf48086878f7314cc0f0fc9ad2329f5042ea6562fd8d956042b2c59e2f4d0dfd
+              tag: latest@sha256:4ce6cb326553bf96e32cfa5b4ae099a18ab4b63c00e963b7febf3b2e54ada587
             resources:
               requests:
                 cpu: 10m
