@@ -7,5 +7,5 @@ resources:
   - helm-calcardbackup.yaml
   - helm-cron-curl.yaml
   - helm-offsite-sync.yaml
-  - helm-onsite-sync.yaml
+  #  - helm-onsite-sync.yaml
   - pvc.yaml
