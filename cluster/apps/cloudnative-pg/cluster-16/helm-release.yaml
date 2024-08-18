@@ -87,18 +87,21 @@ spec:
             #       externalCluster: cluster-pg15
           monitoring:
             enablePodMonitor: "${MONITORING_PROMETHEUS}"
+          postgresql:
+            parameters:
+              shared_buffers: "512MB"
           resources:
             requests:
-              memory: "1Gi"
+              memory: "2Gi"
               cpu: "1"
             limits:
-              memory: "2Gi"
+              memory: "4Gi"
           backup:
-            retentionPolicy: 30d
+            retentionPolicy: 14d
             barmanObjectStore:
               wal:
                 compression: bzip2
-                maxParallel: 8
+                maxParallel: 4
               destinationPath: s3://postgresql-${CLUSTER_NAME}
               endpointURL: "${SECRET_S3_URL}"
               serverName: postgres-v16
