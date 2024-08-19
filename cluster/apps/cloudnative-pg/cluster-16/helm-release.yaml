@@ -89,7 +89,8 @@ spec:
             enablePodMonitor: "${MONITORING_PROMETHEUS}"
           postgresql:
             parameters:
-              shared_buffers: "512MB"
+              max_connections: "300"
+              shared_buffers: 512MB
           resources:
             requests:
               memory: "2Gi"
