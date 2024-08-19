@@ -31,7 +31,7 @@ spec:
           app:
             image:
               repository: ghcr.io/open-webui/open-webui
-              tag: main@sha256:d1324580abc31c0e5a233be0f8199f3a315c3a52790025f819982a0512acc8fd
+              tag: main@sha256:5bf373c9885c3f5b8411a26f5d233aef11cb36056cc22077b7a6fcd7f62901ce
             env:
               OLLAMA_BASE_URL: "http://ollama.ollama.svc.cluster.local:11434"
               ENABLE_RAG_WEB_SEARCH: true
