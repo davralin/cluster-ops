@@ -48,7 +48,12 @@ spec:
         enabled: true
         existingClaim: nextcloud
         globalMounts:
-          - path: /nextcloud
+          - path: /nextcloud/data
+      calcardbackup:
+        enabled: true
+        existingClaim: calcardbackup
+        globalMounts:
+          - path: /nextcloud/calcardbackup
       sshkey:
         enabled: true
         type: secret

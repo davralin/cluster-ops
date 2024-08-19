@@ -56,11 +56,8 @@ spec:
       nextcloud:
         enabled: true
         existingClaim: nextcloud
-        advancedMounts:
-          calcardbackup:
-            app:
-              - path: /nextcloud
-                subPath: .
-                readOnly: true
-              - path: /backup
-                subPath: calcardbackup
+      calcardbackup:
+        enabled: true
+        existingClaim: calcardbackup
+        globalMounts:
+          - path: /backup

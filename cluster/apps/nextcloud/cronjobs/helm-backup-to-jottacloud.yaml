@@ -54,12 +54,13 @@ spec:
       nextcloud:
         enabled: true
         existingClaim: nextcloud
-        advancedMounts:
-          backup-to-jottacloud:
-            app:
-              - path: /nextcloud
-                subPath: .
-                readOnly: true
+        globalMounts:
+          - path: /nextcloud/data
+      calcardbackup:
+        enabled: true
+        existingClaim: calcardbackup
+        globalMounts:
+          - path: /nextcloud/calcardbackup
       config:
         enabled: true
         existingClaim: rcloneconfig
