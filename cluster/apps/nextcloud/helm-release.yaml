@@ -25,7 +25,7 @@ spec:
     remediation:
       retries: 3
   valuesFrom:
-    - targetPath: controllers.nextcloud.containers.app.env.POSTGRES_PASSWORD
+    - targetPath: controllers.nextcloud.containers.nextcloud.env.POSTGRES_PASSWORD
       kind: Secret
       name: nextcloud-postgresql-secret
       valuesKey: password
@@ -41,7 +41,7 @@ spec:
     controllers:
       nextcloud:
         containers:
-          app:
+          nextcloud:
             image:
               repository: nextcloud
               tag: 29.0.4-apache
@@ -125,13 +125,13 @@ spec:
               POSTGRES_DB: "nextcloud"
               POSTGRES_USER: "nextcloud"
     service:
-      app:
+      nextcloud:
         controller: *name
         ports:
           http:
             port: 80
     ingress:
-      app:
+      nextcloud:
         enabled: true
         annotations:
           haproxy.org/backend-config-snippet: |
@@ -150,7 +150,7 @@ spec:
             paths:
               - path: /
                 service:
-                  identifier: app
+                  identifier: nextcloud
                   port: http
         tls:
           - hosts:
