@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: valkey
-      version: 0.3.14
+      version: 0.3.15
       sourceRef:
         kind: HelmRepository
         name: bitnami-charts
