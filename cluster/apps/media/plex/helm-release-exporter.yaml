@@ -37,7 +37,7 @@ spec:
           app:
             image:
               repository: ghcr.io/jsclayton/prometheus-plex-exporter
-              tag: latest@sha256:ebb7c4cb360ab430b3db5011e4e35c8fbff60d5b32510c6f5d2fbd5a581b4511
+              tag: latest@sha256:18ef1b2197efbcb75bd7276380955760995f10a9fbe55106809a6fcff91c2940
             env:
               TZ: "${TIMEZONE}"
               PLEX_SERVER: "http://plex.media.svc.cluster.local:32400"
