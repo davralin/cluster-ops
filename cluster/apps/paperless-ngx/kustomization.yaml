@@ -5,7 +5,7 @@ resources:
   - backup-ssh-key.yaml
   - helm-daily-to-consume.yaml
   - helm-offsite-sync.yaml
-  #  - helm-onsite-sync.yaml
+  - helm-onsite-sync.yaml
   - helm-release-exporter.yaml
   - helm-release-valkey.yaml
   - helm-release.yaml
