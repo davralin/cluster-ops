@@ -48,5 +48,6 @@ resources:
   - ../tubearchivist
   - ../unifi
   - ../volsync
+  - ../wallos
   - ../warrior
   - ../zigbee2mqtt
