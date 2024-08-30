@@ -6,5 +6,5 @@ metadata:
   namespace: flux-system
 spec:
   interval: 2h
-  url: https://ansible.github.io/awx-operator/
+  url: https://ansible-community.github.io/awx-operator-helm/
   timeout: 3m
