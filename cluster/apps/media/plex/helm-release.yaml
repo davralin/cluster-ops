@@ -41,7 +41,7 @@ spec:
           app:
             image:
               repository: ghcr.io/onedr0p/plex
-              tag: 1.30.1.6562-915986d62@sha256:50315e766947f766b529d6b3ef50f4aef8cc0f96b6c7d9ec0cc3cdf1bdc428de
+              tag: 1.30.2.6563-3d4dc0cce@sha256:d0d3e5e75f5ed86843d123cd84bb1f54a0593ec26c908410548862607af880bf
             env:
               TZ: "${TIMEZONE}"
             resources:
@@ -65,6 +65,9 @@ spec:
       config:
         enabled: true
         existingClaim: plex-restore
+      config2:
+        enabled: true
+        existingClaim: plex
       media:
         enabled: true
         existingClaim: media
