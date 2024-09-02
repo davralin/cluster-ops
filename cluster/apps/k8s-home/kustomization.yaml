@@ -23,7 +23,6 @@ resources:
   - ../jobs
   - ../kuma
   - ../librespeed
-  - ../linkwarden
   - ../local-path-provisioner
   - ../mailrelay
   - ../mailrise
