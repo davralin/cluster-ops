@@ -11,36 +11,3 @@ spec:
   resources:
     requests:
       storage: 20Gi
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: plex-restore
-  namespace: media
-spec:
-  storageClassName: "${STORAGE_READWRITEMANY}"
-  accessModes:
-    - ReadWriteMany
-  resources:
-    requests:
-      storage: 20Gi
----
-apiVersion: volsync.backube/v1alpha1
-kind: ReplicationDestination
-metadata:
-  name: plex-restore
-  namespace: media
-spec:
-  trigger:
-    manual: restore-once
-  restic:
-    repository: plex-volsync-secret
-    destinationPVC: plex-restore
-    cacheStorageClassName: "${STORAGE_READWRITEONCE}"
-    cacheAccessModes: ["ReadWriteOnce"]
-    copyMethod: Direct
-    restoreAsOf: "2024-08-29T20:01:03-04:00"
-    moverSecurityContext:
-      runAsUser: 1000
-      runAsGroup: 1000
-      fsGroup: 1000
