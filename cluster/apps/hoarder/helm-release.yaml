@@ -51,9 +51,9 @@ spec:
               requests:
                 cpu: 50m
                 memory: 80Mi
-              limits:
-                cpu: 100m
-                memory: 128Mi
+              #limits:
+                #cpu: 100m
+                #memory: 128Mi
           chrome:
             image:
               repository: gcr.io/zenika-hub/alpine-chrome
@@ -69,9 +69,9 @@ spec:
               requests:
                 cpu: 50m
                 memory: 80Mi
-              limits:
-                cpu: 100m
-                memory: 128Mi
+              #limits:
+                #cpu: 100m
+                #memory: 128Mi
           meilisearch:
             image:
               repository: getmeili/meilisearch
@@ -85,9 +85,9 @@ spec:
               requests:
                 cpu: 50m
                 memory: 80Mi
-              limits:
-                cpu: 100m
-                memory: 128Mi
+              #limits:
+                #cpu: 100m
+                #memory: 128Mi
     service:
       app:
         controller: *name
