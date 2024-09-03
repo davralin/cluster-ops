@@ -58,7 +58,7 @@ spec:
             image:
               repository: gcr.io/zenika-hub/alpine-chrome
               tag: 124
-            command:
+            args:
               - --no-sandbox
               - --disable-gpu
               - --disable-dev-shm-usage
