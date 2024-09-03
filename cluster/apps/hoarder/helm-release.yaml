@@ -89,13 +89,23 @@ spec:
                 #cpu: 100m
                 #memory: 128Mi
     service:
-      app:
+      hoarder:
         controller: *name
         ports:
           http:
             port: 3000
+      chrome:
+        controller: *name
+        ports:
+          http:
+            port: 9222
+      meilisearch:
+        controller: *name
+        ports:
+          http:
+            port: 7700
     ingress:
-      app:
+      hoarder:
         enabled: true
         annotations:
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
@@ -109,7 +119,7 @@ spec:
             paths:
               - path: /
                 service:
-                  identifier: app
+                  identifier: hoarder
                   port: http
         tls:
           - hosts:
