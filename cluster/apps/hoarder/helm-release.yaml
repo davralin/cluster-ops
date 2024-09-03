@@ -39,8 +39,8 @@ spec:
               repository: ghcr.io/hoarder-app/hoarder
               tag: 0.16.0@sha256:6823c2a766d40f03bb3d2fe21adfc11589841e862ed0b5b4d0e3cced6ce91189
             env:
-              MEILI_ADDR: http://meilisearch:7700
-              BROWSER_WEB_URL: http://chrome:9222
+              MEILI_ADDR: http://hoarder-meilisearch:7700
+              BROWSER_WEB_URL: http://hoarder-chrome:9222
               # OPENAI_API_KEY: ...
               DATA_DIR: /data
               NEXTAUTH_SECRET: generated_secret
