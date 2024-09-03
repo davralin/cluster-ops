@@ -31,7 +31,7 @@ spec:
     master:
       persistence:
         enabled: false
-      resourcesPreset: medium
+      resourcesPreset: large
     volumePermissions:
       enabled: true
     metrics:
