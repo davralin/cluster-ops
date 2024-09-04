@@ -49,12 +49,15 @@ spec:
               NEXT_PUBLIC_SECRET: "my-super-duper-secret-string"
             resources:
               requests:
-                cpu: 50m
-                memory: 80Mi
-              #limits:
-                #cpu: 100m
-                #memory: 128Mi
+                cpu: 20m
+                memory: 300Mi
+              limits:
+                cpu: 100m
+                memory: 600Mi
           chrome:
+            securityContext:
+              runAsUser: 0
+              runAsGroup: 0
             image:
               repository: gcr.io/zenika-hub/alpine-chrome
               tag: 124
