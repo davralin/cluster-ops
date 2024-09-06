@@ -57,9 +57,9 @@ spec:
             resources:
               requests:
                 cpu: 5m
-                memory: 10M
+                memory: 20M
               limits:
-                memory: 10M
+                memory: 50M
     service:
       app:
         type: LoadBalancer
