@@ -89,7 +89,6 @@ spec:
         globalMounts:
           - path: /data
       cache:
-        enabled: true
         type: emptyDir
-        medium: Memory
-        mountPath: /tmp/unmanic
+        globalMounts:
+          - path: /tmp/unmanic
