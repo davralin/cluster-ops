@@ -41,7 +41,7 @@ spec:
           unmanic:
             image:
               repository: josh5/unmanic
-              tag: 0.2.8@sha256:8d3ceb79c4d03d25cfa245eda5b6615e9c145873ab9673a586eb73e8f111ee93
+              tag: latest@sha256:fc0b642d4b8f544efff271523c4b4d5a52cb1f8b9793981f694cebaea58199cc
             env:
               TZ: "${TIMEZONE}"
               PUID: "1000"
