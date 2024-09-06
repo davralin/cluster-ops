@@ -24,4 +24,5 @@ resources:
   - sshd
   - tautulli
   - tdarr
+  - unmanic
   - unpackerr
