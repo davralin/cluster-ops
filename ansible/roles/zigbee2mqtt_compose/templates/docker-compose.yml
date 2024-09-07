@@ -3,7 +3,7 @@ name: zigbee2mqtt
 
 services:
   zigbee2mqtt:
-    image: koenkk/zigbee2mqtt:1.40.0
+    image: koenkk/zigbee2mqtt:1.40.1
     ports:
       - "{{ zigbee2mqtt_compose_ip_binding_web }}:8080"
     volumes:
