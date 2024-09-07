@@ -48,8 +48,11 @@ spec:
               CHROME_USER_DATA_DIR: "/data/chrome-profile"
             resources:
               requests:
-                cpu: 50m
-                memory: 32Mi
+                cpu: 10m
+                memory: 300Mi
+              limits:
+                cpu: 200m
+                memory: 600Mi
     service:
       app:
         controller: *name

@@ -73,8 +73,8 @@ spec:
               CRON: '*/30 * * * *'
             resources:
               requests:
-                cpu: 50m
+                cpu: 25m
                 memory: 20Mi
               limits:
-                cpu: 100m
+                cpu: 50m
                 memory: 50Mi
