@@ -2,7 +2,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: zigbee2mqtt
+  name: zigbee2mqttold
   namespace: zigbee2mqtt
   annotations:
     haproxy.org/response-set-header: |
@@ -12,12 +12,12 @@ metadata:
       Referrer-Policy "no-referrer-when-downgrade"
 spec:
   rules:
-  - host: "zigbee2mqtt.${SECRET_DEFAULT_DOMAIN}"
+  - host: "zigbee2mqttold.${SECRET_DEFAULT_DOMAIN}"
     http:
       paths:
       - backend:
           service:
-            name: zigbee2mqtt
+            name: zigbee2mqttold
             port:
               number: 8080
         path: /
