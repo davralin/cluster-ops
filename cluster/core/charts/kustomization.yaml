@@ -13,6 +13,7 @@ resources:
   - descheduler.yaml
   - dysnix.yaml
   - emberstack.yaml
+  - emqx.yaml
   - gitea.yaml
   - grafana.yaml
   - haproxytech.yaml

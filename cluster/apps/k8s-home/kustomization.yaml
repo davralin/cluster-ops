@@ -11,6 +11,7 @@ resources:
   - ../cloudflareddns
   - ../cloudnative-pg
   - ../cloudnative-pg/cluster-16
+  - ../emqx
   - ../epicgames-freegames
   - ../esphome
   - ../freshrss
