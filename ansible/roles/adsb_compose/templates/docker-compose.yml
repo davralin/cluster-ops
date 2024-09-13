@@ -21,7 +21,7 @@ services:
       GRAPHS1090_DISABLE: "true"
     restart: always
   fr24feed:
-    image: ghcr.io/sdr-enthusiasts/docker-flightradar24:1.0.48-0@sha256:374690e3b5435ea970c8dc886d4b18b4cec35e08ab2e8ed965d7ff86089d7217
+    image: ghcr.io/sdr-enthusiasts/docker-flightradar24:1.0.48-0@sha256:ce13e1252e175bb008f0176d432655801c7e819436fd5678be29fe0b563ae42f
     environment:
       BEASTHOST: "{{ adsb_compose_beasthost }}"
       FR24KEY: "{{ adsb_compose_fr24key }}"
