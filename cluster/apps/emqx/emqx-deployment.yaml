@@ -43,3 +43,4 @@ spec:
                 metallb.universe.tf/loadBalancerIPs: "10.0.1.42"
             spec:
               type: LoadBalancer
+              externalTrafficPolicy: Local
