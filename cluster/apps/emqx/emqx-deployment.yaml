@@ -38,5 +38,8 @@ spec:
             spec:
               replicas: 3
           listenersServiceTemplate:
+            metadata:
+              annotations:
+                metallb.universe.tf/loadBalancerIPs: "10.0.1.42"
             spec:
               type: LoadBalancer

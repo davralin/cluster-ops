@@ -31,7 +31,6 @@ resources:
   - ../metallb/home-k8s
   - ../metrics-server
   - ../minecraft
-  - ../mosquitto
   - ../nextcloud
   - ../node-feature-discovery
   - ../node-problem-detector
