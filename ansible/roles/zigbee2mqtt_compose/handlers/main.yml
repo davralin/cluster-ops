@@ -1,6 +1,0 @@
----
-- name: Restart zigbee2mqtt
-  ansible.builtin.systemd_service:
-    name: docker-zigbee2mqtt.service
-    state: restarted
-  become: true
