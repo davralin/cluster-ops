@@ -22,7 +22,7 @@ jobs:
           fetch-depth: 0
 
       - name: Start the updater
-        run: bash meta/update-ansible-tags-from-renovate.sh
+        run: bash meta/immich-update-tags-from-ansible.sh
 
       - name: Auto-commit changes and push
         uses: stefanzweifel/git-auto-commit-action@v5
