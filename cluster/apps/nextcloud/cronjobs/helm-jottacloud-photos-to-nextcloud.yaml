@@ -1,0 +1,63 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &name jottacloud-photos-to-nextcloud
+  namespace: nextcloud
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.4.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+      interval: 5m
+  targetNamespace: nextcloud
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  values:
+    fullnameOverride: *name
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+    controllers:
+      jottacloud-photos-to-nextcloud:
+        type: cronjob
+        cronjob:
+          schedule: "45 02 * * *"
+        containers:
+          app:
+            image:
+              repository: rclone/rclone
+              tag: 1.68.0
+            command: ["/config/photos-to-nextcloud.sh"]
+    configMaps:
+      shell:
+        enabled: true
+        data:
+          photos-to-nextcloud.sh: |
+            #!/bin/sh
+            /usr/local/bin/rclone copy --progress --max-age 7d jottacloud-photos: nextcloud:uploaddir/
+    persistence:
+      config:
+        enabled: true
+        existingClaim: rcloneconfig
+      # I can't get this to work, so I just dropped the shell-script in the folder.
+      #backup-to-jottacloud-shell:
+      #  enabled: true
+      #  type: configMap
+      #  name: backup-to-jottacloud-shell
+      #  defaultMode: 0755
+      #  globalMounts:
+      #    - path: /config/test
