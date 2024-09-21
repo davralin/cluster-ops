@@ -163,7 +163,6 @@ spec:
             honor_timestamps: true
             static_configs:
               - targets:
-                  - adsb.${SECRET_INTERNAL_DOMAIN}:9100
                   - mierin.w.ot:8404 # Haproxy
                   - mierin.w.ot:9100
                   - mierin.w.ot:9153 # DNSMasq
