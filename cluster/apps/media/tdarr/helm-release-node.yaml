@@ -61,10 +61,5 @@ spec:
       media:
         enabled: true
         existingClaim: media
-        advancedMounts:
-          tdarr-node:
-            app:
-              - path: /data
-                subPath: .
-              - path: /temp
-                subPath: unsorted/tdarr
+        globalMounts:
+          - path: /data
