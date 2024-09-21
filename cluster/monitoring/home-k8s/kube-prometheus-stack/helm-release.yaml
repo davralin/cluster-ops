@@ -62,7 +62,7 @@ spec:
           routes:
             - receiver: "healthchecksio"
               matchers:
-                - alertname =~ "InfoInhibitor|Watchdog|NodeCPUHighUsage"
+                - alertname =~ "InfoInhibitor|Watchdog|CephNodeNetworkPacketDrops|NodeCPUHighUsage"
             - receiver: "healthchecksio"
               matchers:
                 - alertname ="AlertmanagerClusterFailedToSendAlerts|AlertmanagerFailedToSendAlerts"
