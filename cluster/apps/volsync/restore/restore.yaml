@@ -1,0 +1,20 @@
+---
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationDestination
+metadata:
+  name: datavol-dest
+  namespace: destination
+spec:
+  trigger:
+    manual: restore-once
+  restic:
+    repository: restic-repo
+    # Use an existing PVC, don't provision a new one
+    destinationPVC: datavol
+    copyMethod: Direct
+    cacheAccessModes: ["ReadWriteOnce"]
+    restoreAsOf: "2024-09-21T06:00:00+01:00"
+    moverSecurityContext:
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
