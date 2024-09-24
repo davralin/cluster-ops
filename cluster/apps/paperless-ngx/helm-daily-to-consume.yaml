@@ -40,7 +40,7 @@ spec:
           app:
             image:
               repository: rclone/rclone
-              tag: 1.68.0
+              tag: 1.68.1
             args: ["--config", "/consume/rclone.conf", "move", "--verbose", "nextcloud:Scans/", "/consume"]
     persistence:
       consume:
