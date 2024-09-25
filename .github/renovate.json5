@@ -57,6 +57,7 @@
       "matchUpdateTypes": ["patch"],
       "matchPackagePatterns": [
 	      "ghcr.io/esphome/esphome",
+	      "ghcr.io/cloudnative-pg/postgresql",
 	      "ghcr.io/home-assistant/home-assistant"
       ]
     },
