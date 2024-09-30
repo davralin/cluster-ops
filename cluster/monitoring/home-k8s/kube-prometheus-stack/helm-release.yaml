@@ -62,7 +62,7 @@ spec:
           routes:
             - receiver: "healthchecksio"
               matchers:
-                - alertname =~ "InfoInhibitor|Watchdog|CephNodeNetworkPacketDrops|CephPGImbalance|NodeCPUHighUsage|KubernetesHostHighCPUUsage|KubeCPUOvercommit"
+                - alertname =~ "InfoInhibitor|Watchdog|CephNodeNetworkPacketDrops|CephPGImbalance|NodeCPUHighUsage|KubernetesHostHighCPUUsage|KubeCPUOvercommit|NodeDiskIOSaturation"
             - receiver: "healthchecksio"
               matchers:
                 - alertname ="AlertmanagerClusterFailedToSendAlerts|AlertmanagerFailedToSendAlerts"
