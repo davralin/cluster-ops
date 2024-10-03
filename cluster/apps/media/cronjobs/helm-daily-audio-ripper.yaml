@@ -40,7 +40,7 @@ spec:
           app:
             image:
               repository: ghcr.io/davralin/youtube-dl
-              tag: latest@sha256:dd6a08631f0cda0788a3bc3eba7d9e77c501f8578dbe8220196d44a9fa0853b4
+              tag: latest@sha256:6790550dfd21d8d66da9883fc5506cb325739e2785b8c5da90813594eae1ff33
             command: ['/media/audioripper.sh']
     persistence:
       media:
