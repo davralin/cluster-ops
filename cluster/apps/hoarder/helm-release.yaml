@@ -41,7 +41,9 @@ spec:
             env:
               MEILI_ADDR: http://hoarder-meilisearch:7700
               BROWSER_WEB_URL: http://hoarder-chrome:9222
-              # OPENAI_API_KEY: ...
+              OLLAMA_BASE_URL: "ollama.ollama.svc.cluster.local:11434"
+              INFERENCE_TEXT_MODEL: "mistral"
+              INFERENCE_IMAGE_MODEL: "llava"
               DATA_DIR: /data
               NEXTAUTH_SECRET: generated_secret
               MEILI_MASTER_KEY: generated_secret
