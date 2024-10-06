@@ -39,7 +39,7 @@ spec:
           app:
             image:
               repository: dgtlmoon/sockpuppetbrowser
-              tag: latest@sha256:ea279c2194574153069dc65877cd14fa72a918930c6e9e53e301bf7dcce62f0c
+              tag: latest@sha256:1f5d0ecec4928bf1df33ade212ac80ae8e14a7d07bb51903ce96af73baeb00d2
             env:
               SCREEN_WIDTH: "1920"
               SCREEN_HEIGHT: "1024"
