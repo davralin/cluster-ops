@@ -42,7 +42,7 @@ spec:
                   name: invidious-config
             image:
               repository: quay.io/invidious/invidious
-              tag: latest@sha256:a95d807a24a9b9f956f4acb79d79c36a53817153553b08e1b1385bb588b0b079
+              tag: 2024.09.28-53e8a5d
             env:
               TZ: "${TIMEZONE}"
               INVIDIOUS_PORT: "3000" # https://github.com/iv-org/invidious/issues/2970

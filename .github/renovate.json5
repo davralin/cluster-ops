@@ -29,8 +29,10 @@
     {
       "description": ["Loose versioning for non-semver packages"],
       "matchDatasources": ["docker"],
-      "matchPackagePatterns": ["plex"],
-      "versioning": "loose"
+      "matchPackagePatterns": [
+        "invidious",
+        "plex"
+      ],
     },
     {
       "description": ["Auto-merge container digests updates for trusted containers"],
