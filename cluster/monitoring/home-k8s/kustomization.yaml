@@ -6,4 +6,5 @@ resources:
   - ../flux
   - grafana
   - kube-prometheus-stack
+  - uncomplicated-alert-receiver
   - namespace.yaml

@@ -53,6 +53,10 @@ spec:
             webhook_configs:
               - send_resolved: true
                 url: "${SECRET_ALERTMANAGER_HEALTHCHECKS_IO}"
+          - name: "uar"
+            webhook_configs:
+              - url: http://uncomplicated-alert-receiver.monitoring.svc.cluster.local:8080/alerts
+                send_resolved: false
         route:
           group_by: ["..."]
           group_wait: 30s
@@ -67,6 +71,10 @@ spec:
               matchers:
                 - alertname ="AlertmanagerClusterFailedToSendAlerts|AlertmanagerFailedToSendAlerts"
             - receiver: "Discord"
+              matchers:
+                - severity = "critical|warning"
+              continue: true
+            - receiver: "uar"
               matchers:
                 - severity = "critical|warning"
               continue: true
