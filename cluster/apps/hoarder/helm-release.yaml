@@ -82,7 +82,7 @@ spec:
           meilisearch:
             image:
               repository: getmeili/meilisearch
-              tag: v1.10.2
+              tag: v1.10.3
             env:
               NEXTAUTH_SECRET: generated_secret
               MEILI_MASTER_KEY: generated_secret
