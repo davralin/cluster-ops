@@ -37,6 +37,8 @@ spec:
       bdev_enable_discard = true
       bdev_async_discard = true
     cephClusterSpec:
+      skipUpgradeChecks: true
+      continueUpgradeAfterChecksEvenIfNotHealthy: true
       healthCheck:
         livenessProbe:
           mon:
@@ -103,7 +105,7 @@ spec:
               replicated:
                 size: 2
           metadataServer:
-            activeCount: 1
+            activeCount: 3
             activeStandby: true
         storageClass:
           enabled: true
