@@ -105,7 +105,7 @@ spec:
               replicated:
                 size: 2
           metadataServer:
-            activeCount: 1
+            activeCount: 3
             activeStandby: true
         storageClass:
           enabled: true
