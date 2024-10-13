@@ -29,7 +29,7 @@ spec:
       enabled: true
     service:
       type: LoadBalancer
-      externalTrafficPolicy: local
+      externalTrafficPolicy: Local
     ingress:
       dashboard:
         enabled: true
