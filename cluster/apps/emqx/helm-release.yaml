@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &name emqx-new
+  name: &name emqx
   namespace: emqx2
 spec:
   interval: 5m
@@ -28,8 +28,13 @@ spec:
     persistence:
       enabled: true
     service:
+      annotations:
+        metallb.universe.tf/loadBalancerIPs: 10.0.1.43
+        # io.cilium/lb-ipam-ips: 10.0.1.43
       type: LoadBalancer
       externalTrafficPolicy: Local
+    metrics:
+      enabled: "${MONITORING_PROMETHEUS}"
     ingress:
       dashboard:
         enabled: true
