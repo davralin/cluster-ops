@@ -37,7 +37,7 @@ spec:
           hoarder:
             image:
               repository: ghcr.io/hoarder-app/hoarder
-              tag: 0.17.1@sha256:359a84c721e3be1efc99eea594be2e632864131125c5800521eddf179b385f7a
+              tag: 0.18.0@sha256:a49249cd3d4966f1c41a2eb6d9b30e5564d769ffe65ee804859efd696159930b
             env:
               MEILI_ADDR: http://hoarder-meilisearch:7700
               BROWSER_WEB_URL: http://hoarder-chrome:9222
