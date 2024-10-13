@@ -5,9 +5,9 @@ metadata:
   name: archivebox
   namespace: archivebox
 spec:
-  storageClassName: "${STORAGE_READWRITEMANY}"
+  storageClassName: "${STORAGE_READWRITEONCE}"
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   resources:
     requests:
       storage: 2Gi
