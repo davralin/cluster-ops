@@ -46,6 +46,7 @@ spec:
             env:
               TZ: "${TIMEZONE}"
               INVIDIOUS_PORT: "3000" # https://github.com/iv-org/invidious/issues/2970
+              INVIDIOUS_SIGNATURE_SERVER: inv-sig-helper:12999
             resources:
               requests:
                 cpu: 200m
