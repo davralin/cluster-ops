@@ -4,5 +4,6 @@ kind: Kustomization
 resources:
   - emqx-deployment.yaml
   - helm-release-operator.yaml
+  - helm-release.yaml
   - ingress.yaml
   - namespace.yaml
