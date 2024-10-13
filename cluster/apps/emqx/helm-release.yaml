@@ -40,8 +40,8 @@ spec:
             X-Frame-Options "DENY"
             X-Content-Type-Options "nosniff"
             Referrer-Policy "no-referrer-when-downgrade"
-        path: /
         hosts:
           - &host "emqx2.${SECRET_DEFAULT_DOMAIN}"
         tls:
-          - *host
+          - hosts:
+              - *host
