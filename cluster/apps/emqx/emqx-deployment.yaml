@@ -33,7 +33,7 @@ spec:
           name: emqx
           namespace: emqx
         spec:
-          image: public.ecr.aws/emqx/emqx:5.8.0
+          image: public.ecr.aws/emqx/emqx:5.8.1
           coreTemplate:
             spec:
               replicas: 3
