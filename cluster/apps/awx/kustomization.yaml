@@ -5,4 +5,4 @@ resources:
   - awx-deployment.yaml
   - helm-release.yaml
   - namespace.yaml
-  - secrets.yaml
+  - secret.yaml
