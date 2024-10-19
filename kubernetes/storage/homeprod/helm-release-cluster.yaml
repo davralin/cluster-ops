@@ -82,8 +82,7 @@ spec:
             X-Content-Type-Options "nosniff"
             Referrer-Policy "no-referrer-when-downgrade"
         host:
-          #name: &host "ceph.${SECRET_DEFAULT_DOMAIN}"
-          name: &host "ceph.internal"
+          name: &host "ceph.${SECRET_DEFAULT_DOMAIN}"
         tls:
         - hosts:
             - *host
