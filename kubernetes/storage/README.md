@@ -1,3 +1,6 @@
+## Cleanup disks
+
+````yaml
 ---
 apiVersion: v1
 kind: Pod
@@ -13,3 +16,4 @@ spec:
     securityContext:
       privileged: true
     command: ["/bin/sh", "-c", "dd if=/dev/zero bs=1M count=100 oflag=direct of=<device>"]
+````
