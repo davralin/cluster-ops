@@ -3,7 +3,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: &name uncomplicated-alert-receiver
-  namespace: monitoring
+  namespace: flux-system
 spec:
   interval: 5m
   chart:

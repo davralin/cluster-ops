@@ -3,7 +3,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: kube-prometheus-stack
-  namespace: monitoring
+  namespace: flux-system
 spec:
   interval: 15m
   chart:
@@ -66,7 +66,7 @@ spec:
           routes:
             - receiver: "healthchecksio"
               matchers:
-                - alertname =~ "InfoInhibitor|Watchdog|CephNodeNetworkPacketDrops|CephPGImbalance|NodeCPUHighUsage|KubernetesHostHighCPUUsage|KubeCPUOvercommit|NodeDiskIOSaturation"
+                - alertname =~ "InfoInhibitor|Watchdog"
             - receiver: "healthchecksio"
               matchers:
                 - alertname ="AlertmanagerClusterFailedToSendAlerts|AlertmanagerFailedToSendAlerts"
@@ -115,14 +115,7 @@ spec:
     kube-state-metrics:
       enabled: true
     kubeProxy:
-      enabled: true
-      endpoints: []
-      service:
-        enabled: true
-        port: 10249
-        targetPort: 10249
-        selector:
-          k8s-app: kube-proxy
+      enabled: false
     kubeScheduler:
       enabled: true
       endpoints:
@@ -163,7 +156,7 @@ spec:
               storageClassName: "${STORAGE_READWRITEONCE}"
               resources:
                 requests:
-                  storage: 100Gi
+                  storage: 10Gi
         additionalScrapeConfigs:
           - job_name: node-exporter
             scrape_interval: 1m
