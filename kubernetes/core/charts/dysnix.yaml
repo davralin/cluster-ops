@@ -1,0 +1,10 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: dysnix-charts
+  namespace: flux-system
+spec:
+  interval: 2h
+  url: https://dysnix.github.io/charts
+  timeout: 3m

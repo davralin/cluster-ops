@@ -6,19 +6,8 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m0s
-  path: ./cluster/core
+  path: ./kubernetes/core/settings/homeprod
   prune: false
   sourceRef:
     kind: GitRepository
     name: github-davralin-cluster-ops
-  decryption:
-    provider: sops
-    secretRef:
-      name: sops-age
-  postBuild:
-    substitute: {}
-    substituteFrom:
-      - kind: ConfigMap
-        name: global-settings
-      - kind: Secret
-        name: global-settings
