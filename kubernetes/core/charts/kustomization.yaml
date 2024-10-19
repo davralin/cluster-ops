@@ -8,12 +8,14 @@ resources:
   - bjw-s.yaml
   - botkube.yaml
   - ceph-csi.yaml
+  - cilium.yaml
   - cloudnative-pg.yaml
   - deliveryhero.yaml
   - descheduler.yaml
   - dysnix.yaml
   - emberstack.yaml
   - emqx.yaml
+  - flux.yaml
   - fluxcd-community.yaml
   - gitea.yaml
   - grafana.yaml

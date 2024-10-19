@@ -4,4 +4,6 @@ kind: Kustomization
 resources:
   - global-settings-sops.yaml
   - global-settings.yaml
+  - helm-release.yaml
   - ../../charts
+  - ../../flux
