@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 data:
   TIMEZONE: "Europe/Oslo"
-  CLUSTER_NAME: "HomeProd"
+  CLUSTER_NAME: "homeprod"
   HAPROXY_WHITELIST: "10.0.0.0/8,100.64.0.0/10"
   STORAGE_READWRITEONCE: "ceph-block"
   STORAGE_READWRITEMANY: "ceph-filesystem"
