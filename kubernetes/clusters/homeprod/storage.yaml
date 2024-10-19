@@ -18,9 +18,10 @@ spec:
     secretRef:
       name: sops-age
   postBuild:
-    substitute: {}
     substituteFrom:
-      - kind: ConfigMap
-        name: global-settings
-      - kind: Secret
-        name: global-settings
+      - name: global-settings
+        kind: ConfigMap
+        optional: false
+      - name: global-settings
+        kind: Secret
+        optional: true
