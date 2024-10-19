@@ -11,3 +11,15 @@ spec:
   sourceRef:
     kind: GitRepository
     name: github-davralin-cluster-ops
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+  postBuild:
+    substituteFrom:
+      - name: global-settings
+        kind: ConfigMap
+        optional: false
+      - name: global-settings
+        kind: Secret
+        optional: true
