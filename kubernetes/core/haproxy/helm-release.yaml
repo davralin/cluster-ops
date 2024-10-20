@@ -41,7 +41,8 @@ spec:
       ingressClassResource:
         default: true
       defaultTLSSecret:
-        enabled: false
+        enabled: true
+        secret: "${SECRET_DEFAULT_DOMAIN_CERT}"
       autoscaling:
         enabled: true
       PodDisruptionBudget:
