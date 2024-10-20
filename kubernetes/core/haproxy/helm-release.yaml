@@ -3,7 +3,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: haproxy-controller
-  namespace: haproxy-controller
+  namespace: flux-system
 spec:
   interval: 5m
   chart:
@@ -26,19 +26,25 @@ spec:
   values:
     fullnameOverride: haproxy-controller
     controller:
-      kind: DaemonSet
+      replicaCount: 2
       logging:
         level: debug
       service:
+        type: LoadBalancer
+        annotations: |
+          io.cilium/lb-ipam-ips: 10.0.1.41
         enablePorts:
-          http: false
-          prometheus: true
+          stat: false
+          prometheus: false
+        externalTrafficPolicy: Local
       ingressClass: null
       ingressClassResource:
         default: true
       defaultTLSSecret:
         enabled: false
+      autoscaling:
+        enabled: true
+      PodDisruptionBudget:
+        enable: true
       serviceMonitor:
         enabled: "${MONITORING_PROMETHEUS}"
-    defaultBackend:
-      enabled: false

@@ -10,4 +10,5 @@ resources:
   - ../../charts
   - ../../cilium
   - ../../flux
+  - ../../haproxy
   - ../../reflector
