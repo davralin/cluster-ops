@@ -2,8 +2,8 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &name goaway
-  namespace: redlib
+  name: &name redlib
+  namespace: flux-system
 spec:
   interval: 5m
   chart:
@@ -25,41 +25,47 @@ spec:
       retries: 3
   values:
     fullnameOverride: *name
-    # Listens on tcp/80
-    #defaultPodOptions:
-      #securityContext:
-        #runAsUser: 1000
-        #runAsGroup: 1000
-        #fsGroup: 1000
-        #fsGroupChangePolicy: "OnRootMismatch"
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
     controllers:
-      goaway:
-        replicas: 1
+      redlib:
+        replicas: 2
         strategy: RollingUpdate
         containers:
-          goaway:
+          app:
             image:
-              repository: ghcr.io/davralin/go-away
-              tag: latest@sha256:c8532c4f120fb59e293f5ad30da4bb4cb67fb8d00cce63ff4483237a73e4b4e9
+              repository: quay.io/redlib/redlib
+              tag: latest@sha256:f07a1531d520121e1260bfd9d4b3dbadb26a8ad20a8a7b8639723907160839e4
+            env:
+              REDLIB_DEFAULT_FRONT_PAGE: "default"
+              REDLIB_DEFAULT_HIDE_HLS_NOTIFICATION: "on"
+              REDLIB_DEFAULT_LAYOUT: "compact"
+              REDLIB_DEFAULT_SHOW_NSFW: "on"
+              REDLIB_DEFAULT_SUBSCRIPTIONS: "${SECRET_REDLIB_SUBS}"
+              REDLIB_DEFAULT_USE_HLS: "on"
+              REDLIB_SFW_ONLY: "off"
             resources:
               requests:
-                cpu: 10m
-                memory: 15Mi
+                cpu: 50m
+                memory: 150Mi
               limits:
-                cpu: 10m
-                memory: 30Mi
+                cpu: 200m
+                memory: 300Mi
     service:
-      goaway:
+      app:
         controller: *name
         ports:
           http:
-            port: 80
+            port: 8080
     ingress:
-      goaway:
+      app:
         enabled: true
         annotations:
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
-          haproxy.org/path-rewrite: "/go-away.jpg"
           haproxy.org/response-set-header: |
             Strict-Transport-Security "max-age=31536000"
             X-Frame-Options "DENY"
@@ -68,9 +74,9 @@ spec:
         hosts:
           - host: &host "r.${SECRET_DEFAULT_DOMAIN}"
             paths:
-              - path: /r/popular
+              - path: /
                 service:
-                  identifier: goaway
+                  identifier: app
                   port: http
         tls:
           - hosts:

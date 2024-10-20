@@ -2,8 +2,8 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &name redlib
-  namespace: redlib
+  name: &name redlib-goaway
+  namespace: flux-system
 spec:
   interval: 5m
   chart:
@@ -32,40 +32,31 @@ spec:
         fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"
     controllers:
-      redlib:
-        replicas: 2
-        strategy: RollingUpdate
+      goaway:
         containers:
-          app:
+          goaway:
             image:
-              repository: quay.io/redlib/redlib
-              tag: latest@sha256:f07a1531d520121e1260bfd9d4b3dbadb26a8ad20a8a7b8639723907160839e4
-            env:
-              REDLIB_DEFAULT_FRONT_PAGE: "default"
-              REDLIB_DEFAULT_HIDE_HLS_NOTIFICATION: "on"
-              REDLIB_DEFAULT_LAYOUT: "compact"
-              REDLIB_DEFAULT_SHOW_NSFW: "on"
-              REDLIB_DEFAULT_SUBSCRIPTIONS: "${SECRET_REDLIB_SUBS}"
-              REDLIB_DEFAULT_USE_HLS: "on"
-              REDLIB_SFW_ONLY: "off"
+              repository: ghcr.io/davralin/go-away
+              tag: latest@sha256:37de2c66b1d6914aa92e94208ff93a6b31281fc431df1b69b8c97ad263c4cd3f
             resources:
               requests:
-                cpu: 50m
-                memory: 150Mi
+                cpu: 10m
+                memory: 15Mi
               limits:
-                cpu: 200m
-                memory: 300Mi
+                cpu: 10m
+                memory: 30Mi
     service:
-      app:
+      goaway:
         controller: *name
         ports:
           http:
             port: 8080
     ingress:
-      app:
+      goaway:
         enabled: true
         annotations:
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
+          haproxy.org/path-rewrite: "/go-away.jpg"
           haproxy.org/response-set-header: |
             Strict-Transport-Security "max-age=31536000"
             X-Frame-Options "DENY"
@@ -74,9 +65,9 @@ spec:
         hosts:
           - host: &host "r.${SECRET_DEFAULT_DOMAIN}"
             paths:
-              - path: /
+              - path: /r/popular
                 service:
-                  identifier: app
+                  identifier: goaway
                   port: http
         tls:
           - hosts:

@@ -4,4 +4,3 @@ kind: Kustomization
 resources:
   - helm-release-stop-popular.yaml
   - helm-release.yaml
-  - namespace.yaml
