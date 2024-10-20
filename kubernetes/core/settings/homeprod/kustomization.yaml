@@ -4,7 +4,8 @@ kind: Kustomization
 resources:
   - global-settings-sops.yaml
   - global-settings.yaml
-  - helm-release.yaml
+  - helm-release-cilium-lb-ipam.yaml
+  - helm-release-flux-gitrepo.yaml
   - ../../charts
   - ../../cilium
   - ../../flux
