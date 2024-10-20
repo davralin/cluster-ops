@@ -6,4 +6,5 @@ resources:
   - global-settings.yaml
   - helm-release.yaml
   - ../../charts
+  - ../../cilium
   - ../../flux
