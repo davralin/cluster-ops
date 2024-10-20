@@ -35,6 +35,7 @@ spec:
     ingressController:
       enabled: true
       default: true
+      loadbalancerMode: shared
     ipam:
       mode: kubernetes
     k8sServiceHost: localhost
