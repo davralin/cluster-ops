@@ -31,9 +31,6 @@ spec:
         runAsGroup: 1000
         fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"
-        allowPrivilegeEscalation: false
-        readOnlyRootFilesystem: true
-        capabilities: { drop: ["ALL"] }
     controllers:
       redlib:
         replicas: 2
@@ -51,6 +48,10 @@ spec:
               REDLIB_DEFAULT_SUBSCRIPTIONS: "${SECRET_REDLIB_SUBS}"
               REDLIB_DEFAULT_USE_HLS: "on"
               REDLIB_SFW_ONLY: "off"
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 50m

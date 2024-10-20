@@ -31,9 +31,6 @@ spec:
         runAsGroup: 1000
         fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"
-        allowPrivilegeEscalation: false
-        readOnlyRootFilesystem: true
-        capabilities: { drop: ["ALL"] }
     controllers:
       redlib-goaway:
         containers:
@@ -41,6 +38,10 @@ spec:
             image:
               repository: ghcr.io/davralin/go-away
               tag: latest@sha256:37de2c66b1d6914aa92e94208ff93a6b31281fc431df1b69b8c97ad263c4cd3f
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 10m
