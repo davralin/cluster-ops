@@ -2,8 +2,8 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: wildcard-internal-domain
-  namespace: cert-manager
+  name: wildcard-private-domain
+  namespace: flux-system
 spec:
   interval: 15m
   chart:
@@ -24,16 +24,16 @@ spec:
       retries: 5
   dependsOn:
     - name: clusterissuer-letsencrypt-prod
-      namespace: cert-manager
+      namespace: flux-system
   values:
     resources:
       - apiVersion: cert-manager.io/v1
         kind: Certificate
         metadata:
-          name: wildcard-internal-domain
+          name: wildcard-private-domain
           namespace: cert-manager
         spec:
-          secretName: "${SECRET_INTERNAL_DOMAIN_CERT}"
+          secretName: "${SECRET_PRIVATE_DOMAIN_CERT}"
           secretTemplate:
             annotations:
               reflector.v1.k8s.emberstack.com/reflection-allowed: "true"
@@ -45,5 +45,5 @@ spec:
           privateKey:
             rotationPolicy: Always
           dnsNames:
-            - "*.${SECRET_INTERNAL_DOMAIN}"
-            - "${SECRET_INTERNAL_DOMAIN}"
+            - "*.${SECRET_PRIVATE_DOMAIN}"
+            - "${SECRET_PRIVATE_DOMAIN}"
