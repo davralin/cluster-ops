@@ -30,6 +30,8 @@ spec:
       autoMount:
         enabled: false
       hostRoot: /sys/fs/cgroup
+    externalIPs:
+      enabled: true
     ingressController:
       enabled: true
     ipam:
