@@ -30,6 +30,8 @@ spec:
       autoMount:
         enabled: false
       hostRoot: /sys/fs/cgroup
+    ingressController:
+      enabled: true
     ipam:
       mode: kubernetes
     k8sServiceHost: localhost
@@ -37,9 +39,6 @@ spec:
     kubeProxyReplacement: true
     l2announcements:
       enabled: true
-    loadBalancer:
-      algorithm: maglev
-      mode: dsr
     hubble:
       enabled: true
       metrics:
@@ -74,6 +73,8 @@ spec:
               X-Content-Type-Options "nosniff"
               Referrer-Policy "no-referrer-when-downgrade"
           hosts: ["hubble.${SECRET_DEFAULT_DOMAIN}"]
+    monitor:
+      enabled: "${MONITORING_PROMETHEUS}"
     securityContext:
       capabilities:
         ciliumAgent:
