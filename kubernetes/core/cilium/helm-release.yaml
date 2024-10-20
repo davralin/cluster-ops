@@ -32,6 +32,8 @@ spec:
       hostRoot: /sys/fs/cgroup
     ingressController:
       enabled: true
+      service:
+        loadBalancerIP: 10.0.1.50
     ipam:
       mode: kubernetes
     k8sServiceHost: localhost
