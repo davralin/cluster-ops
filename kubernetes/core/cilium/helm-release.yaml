@@ -33,9 +33,7 @@ spec:
     externalIPs:
       enabled: true
     ingressController:
-      enabled: true
-      default: true
-      loadbalancerMode: shared
+      enabled: false
     ipam:
       mode: kubernetes
     k8sServiceHost: localhost
@@ -57,7 +55,7 @@ spec:
         serviceMonitor:
           enabled: "${MONITORING_PROMETHEUS}"
         dashboards:
-          enabled: true
+          enabled: "${MONITORING_PROMETHEUS}"
       relay:
         enabled: true
         rollOutPods: true
