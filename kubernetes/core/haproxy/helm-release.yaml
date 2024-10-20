@@ -31,7 +31,7 @@ spec:
         level: debug
       service:
         type: LoadBalancer
-        annotations: |
+        annotations:
           io.cilium/lb-ipam-ips: 10.0.1.41
         enablePorts:
           stat: false
