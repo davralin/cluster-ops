@@ -10,3 +10,4 @@ resources:
   - ../../charts
   - ../../cilium
   - ../../flux
+  - ../../reflector

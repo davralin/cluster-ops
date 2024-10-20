@@ -3,7 +3,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: reflector
-  namespace: default
+  namespace: flux-system
 spec:
   interval: 5m
   chart:
@@ -25,3 +25,8 @@ spec:
       retries: 3
   values:
     fullnameOverride: reflector
+    securityContext:
+      readOnlyRootFilesystem: false
+      allowPrivilegeEscalation: false
+      seccompProfile:
+        type: RuntimeDefault
