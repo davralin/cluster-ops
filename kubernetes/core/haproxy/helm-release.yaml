@@ -36,13 +36,14 @@ spec:
         enablePorts:
           stat: false
           prometheus: false
-        externalTrafficPolicy: Local
+        # For some yet to be determined reason, this setting reports all ports as Closed
+        # TODO: Figure out why, and fix it.
+        #externalTrafficPolicy: Local
       ingressClass: null
       ingressClassResource:
         default: true
       defaultTLSSecret:
-        enabled: true
-        secret: "${SECRET_DEFAULT_DOMAIN_CERT}"
+        enabled: false
       autoscaling:
         enabled: true
       PodDisruptionBudget:
