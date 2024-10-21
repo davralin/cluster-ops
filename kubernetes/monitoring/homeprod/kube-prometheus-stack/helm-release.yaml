@@ -25,6 +25,9 @@ spec:
     crds: CreateReplace
     remediation:
       retries: 3
+  dependsOn:
+    - name: rook-ceph-cluster
+      namespace: flux-system
   values:
     fullnameOverride: "kube-prom"
     alertmanager:
