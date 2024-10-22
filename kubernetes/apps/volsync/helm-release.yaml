@@ -28,3 +28,7 @@ spec:
     manageCRDs: true
     metrics:
       disableAuth: true
+    podSecurityContext:
+      runAsNonRoot: true
+      seccompProfile:
+        type: RuntimeDefault
