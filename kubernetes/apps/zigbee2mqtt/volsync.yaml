@@ -61,7 +61,7 @@ spec:
       #      retain:
       #        daily: 7
       #        within: 3d
-      #- apiVersion: volsync.backube/v1alpha1
+      - apiVersion: volsync.backube/v1alpha1
         kind: ReplicationDestination
         metadata:
           name: zigbee2mqtt
