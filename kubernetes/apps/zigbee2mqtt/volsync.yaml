@@ -37,27 +37,45 @@ spec:
   dependsOn:
     - name: volsync
       namespace: volsync
-    - name: zigbee2mqtt
-      namespace: zigbee2mqtt
+    #- name: zigbee2mqtt
+      #namespace: zigbee2mqtt
   values:
     resources:
-      - apiVersion: volsync.backube/v1alpha1
-        kind: ReplicationSource
+      #- apiVersion: volsync.backube/v1alpha1
+      #  kind: ReplicationSource
+      #  metadata:
+      #    name: zigbee2mqtt
+      #    namespace: zigbee2mqtt
+      #  spec:
+      #    sourcePVC: zigbee2mqtt
+      #    trigger:
+      #      schedule: "04 01 * * *"
+      #    restic:
+      #      copyMethod: Snapshot
+      #      pruneIntervalDays: 7
+      #      repository: zigbee2mqtt-volsync-secret
+      #      moverSecurityContext:
+      #        runAsUser: 1000
+      #        runAsGroup: 1000
+      #        fsGroup: 1000
+      #      retain:
+      #        daily: 7
+      #        within: 3d
+      #- apiVersion: volsync.backube/v1alpha1
+        kind: ReplicationDestination
         metadata:
           name: zigbee2mqtt
           namespace: zigbee2mqtt
         spec:
-          sourcePVC: zigbee2mqtt
           trigger:
-            schedule: "04 01 * * *"
+            manual: restore-once
           restic:
-            copyMethod: Snapshot
-            pruneIntervalDays: 7
             repository: zigbee2mqtt-volsync-secret
+            # Use an existing PVC, don't provision a new one
+            destinationPVC: zigbee2mqtt
+            copyMethod: Direct
+            cacheAccessModes: ["ReadWriteOnce"]
             moverSecurityContext:
               runAsUser: 1000
               runAsGroup: 1000
               fsGroup: 1000
-            retain:
-              daily: 7
-              within: 3d
