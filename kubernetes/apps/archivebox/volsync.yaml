@@ -36,28 +36,50 @@ spec:
       retries: 5
   dependsOn:
     - name: volsync
-      namespace: volsync
-    - name: archivebox
-      namespace: archivebox
+      namespace: flux-system
+    #- name: archivebox
+    #  namespace: flux-system
   values:
     resources:
+      #- apiVersion: volsync.backube/v1alpha1
+      #  kind: ReplicationSource
+      #  metadata:
+      #    name: archivebox
+      #    namespace: archivebox
+      #  spec:
+      #    sourcePVC: archivebox
+      #    trigger:
+      #      schedule: "04 01 * * *"
+      #    restic:
+      #      copyMethod: Snapshot
+      #      pruneIntervalDays: 7
+      #      repository: archivebox-volsync-secret
+      #      moverSecurityContext:
+      #        runAsUser: 1000
+      #        runAsGroup: 1000
+      #        fsGroup: 1000
+      #      retain:
+      #        daily: 7
+      #        within: 3d
       - apiVersion: volsync.backube/v1alpha1
-        kind: ReplicationSource
+        kind: ReplicationDestination
         metadata:
           name: archivebox
           namespace: archivebox
         spec:
-          sourcePVC: archivebox
           trigger:
-            schedule: "04 01 * * *"
+            manual: restore-once
           restic:
-            copyMethod: Snapshot
-            pruneIntervalDays: 7
             repository: archivebox-volsync-secret
+            # Use an existing PVC, don't provision a new one
+            destinationPVC: archivebox
+            copyMethod: Direct
+            cacheAccessModes: ["ReadWriteOnce"]
             moverSecurityContext:
               runAsUser: 1000
               runAsGroup: 1000
               fsGroup: 1000
-            retain:
-              daily: 7
-              within: 3d
+              fsGroupChangePolicy: "OnRootMismatch"
+              runAsNonRoot: true
+              seccompProfile:
+                type: RuntimeDefault

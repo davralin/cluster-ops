@@ -3,7 +3,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: &name archivebox
-  namespace: archivebox
+  namespace: flux-system
 spec:
   interval: 5m
   chart:
@@ -25,13 +25,15 @@ spec:
       retries: 3
   values:
     fullnameOverride: *name
-    # App chown's on boot
-    #defaultPodOptions:
-      #securityContext:
-        #runAsUser: 1000
-        #runAsGroup: 1000
-        #fsGroup: 1000
-        #fsGroupChangePolicy: "OnRootMismatch"
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
     controllers:
       archivebox:
         containers:
@@ -46,6 +48,10 @@ spec:
               PGID: 1000
               ONLY_NEW: False
               CHROME_USER_DATA_DIR: "/data/chrome-profile"
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 10m
