@@ -6,8 +6,7 @@ metadata:
   namespace: zigbee2mqtt
 type: Opaque
 stringData:
-  RESTIC_REPOSITORY: "s3:${SECRET_S3_URL}/volsync-home-k8s/zigbee2mqtt"
-  #RESTIC_REPOSITORY: "s3:${SECRET_S3_URL}/volsync-${CLUSTER_NAME}/zigbee2mqtt"
+  RESTIC_REPOSITORY: "s3:${SECRET_S3_URL}/volsync-${CLUSTER_NAME}/zigbee2mqtt"
   RESTIC_PASSWORD: "${SECRET_VOLSYNC_RESTIC_PWD}"
   AWS_ACCESS_KEY_ID: "${SECRET_VOLSYNC_ACCESS_KEYS}"
   AWS_SECRET_ACCESS_KEY: "${SECRET_VOLSYNC_SECRET_KEYS}"
@@ -38,44 +37,23 @@ spec:
   dependsOn:
     - name: volsync
       namespace: flux-system
-    #- name: zigbee2mqtt
-      #namespace: flux-system
+    - name: zigbee2mqtt
+      namespace: flux-system
   values:
     resources:
-      #- apiVersion: volsync.backube/v1alpha1
-      #  kind: ReplicationSource
-      #  metadata:
-      #    name: zigbee2mqtt
-      #    namespace: zigbee2mqtt
-      #  spec:
-      #    sourcePVC: zigbee2mqtt
-      #    trigger:
-      #      schedule: "04 01 * * *"
-      #    restic:
-      #      copyMethod: Snapshot
-      #      pruneIntervalDays: 7
-      #      repository: zigbee2mqtt-volsync-secret
-      #      moverSecurityContext:
-      #        runAsUser: 1000
-      #        runAsGroup: 1000
-      #        fsGroup: 1000
-      #      retain:
-      #        daily: 7
-      #        within: 3d
       - apiVersion: volsync.backube/v1alpha1
-        kind: ReplicationDestination
+        kind: ReplicationSource
         metadata:
           name: zigbee2mqtt
           namespace: zigbee2mqtt
         spec:
+          sourcePVC: zigbee2mqtt
           trigger:
-            manual: restore-once
+            schedule: "04 01 * * *"
           restic:
+            copyMethod: Snapshot
+            pruneIntervalDays: 7
             repository: zigbee2mqtt-volsync-secret
-            # Use an existing PVC, don't provision a new one
-            destinationPVC: zigbee2mqtt
-            copyMethod: Direct
-            cacheAccessModes: ["ReadWriteOnce"]
             moverSecurityContext:
               runAsUser: 1000
               runAsGroup: 1000
@@ -84,3 +62,6 @@ spec:
               runAsNonRoot: true
               seccompProfile:
                 type: RuntimeDefault
+            retain:
+              daily: 7
+              within: 3d
