@@ -34,6 +34,18 @@ spec:
       externalTrafficPolicy: Local
     metrics:
       enabled: "${MONITORING_PROMETHEUS}"
+    podSecurityContext:
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+      fsGroupChangePolicy: "OnRootMismatch"
+      runAsNonRoot: true
+      seccompProfile:
+        type: RuntimeDefault
+    containerSecurityContext:
+      allowPrivilegeEscalation: false
+      readOnlyRootFilesystem: true
+      capabilities: { drop: ["ALL"] }
     ingress:
       dashboard:
         enabled: true
