@@ -3,7 +3,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: &name emqx
-  namespace: emqx2
+  namespace: flux-system
 spec:
   interval: 5m
   chart:
@@ -15,7 +15,7 @@ spec:
         name: emqx-charts
         namespace: flux-system
       interval: 5m
-  targetNamespace: emqx2
+  targetNamespace: emqx
   install:
     createNamespace: true
     remediation:
@@ -29,8 +29,7 @@ spec:
       enabled: true
     service:
       annotations:
-        metallb.universe.tf/loadBalancerIPs: 10.0.1.43
-        # io.cilium/lb-ipam-ips: 10.0.1.43
+        io.cilium/lb-ipam-ips: 10.0.1.42
       type: LoadBalancer
       externalTrafficPolicy: Local
     metrics:
@@ -46,7 +45,7 @@ spec:
             X-Content-Type-Options "nosniff"
             Referrer-Policy "no-referrer-when-downgrade"
         hosts:
-          - &host "emqx2.${SECRET_DEFAULT_DOMAIN}"
+          - &host "emqx.${SECRET_DEFAULT_DOMAIN}"
         tls:
           - hosts:
               - *host
