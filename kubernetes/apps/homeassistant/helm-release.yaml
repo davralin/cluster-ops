@@ -25,6 +25,15 @@ spec:
       retries: 3
   values:
     fullnameOverride: *name
+    #defaultPodOptions:
+      #securityContext:
+        #runAsUser: 1000
+        #runAsGroup: 1000
+        #fsGroup: 1000
+        #fsGroupChangePolicy: "OnRootMismatch"
+        #runAsNonRoot: true
+        #seccompProfile:
+          #type: RuntimeDefault
     controllers:
       homeassistant:
         containers:
@@ -34,6 +43,10 @@ spec:
               tag: 2024.10.3
             env:
               TZ: "${TIMEZONE}"
+            #securityContext:
+              #allowPrivilegeEscalation: false
+              #readOnlyRootFilesystem: true
+              #capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 memory: 250Mi
@@ -53,6 +66,16 @@ spec:
               - --port
               - "8081"
               - "/config"
+            env:
+              TZ: "${TIMEZONE}"
+            #securityContext:
+              #allowPrivilegeEscalation: false
+              #readOnlyRootFilesystem: true
+              #capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                memory: 250Mi
+                cpu: 100m
     service:
       app:
         controller: *name
