@@ -3,7 +3,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: &name warrior
-  namespace: warrior
+  namespace: flux-system
 spec:
   interval: 5m
   chart:
@@ -31,6 +31,9 @@ spec:
         runAsGroup: 1000
         fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
     controllers:
       warrior:
         containers:
@@ -42,6 +45,11 @@ spec:
               TZ: "${TIMEZONE}"
               DOWNLOADER: "davralin"
               SELECTED_PROJECT: "auto"
+            securityContext:
+              allowPrivilegeEscalation: false
+              # Have not been able to figure out where some tmp/cache-files are placed.
+              readOnlyRootFilesystem: false
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 100m
@@ -75,7 +83,3 @@ spec:
         tls:
           - hosts:
               - *host
-    persistence:
-      projects:
-        enabled: true
-        existingClaim: warrior

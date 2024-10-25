@@ -17,4 +17,5 @@ resources:
   - ../redlib
   - ../searxng
   - ../volsync
+  - ../warrior
   - ../zigbee2mqtt
