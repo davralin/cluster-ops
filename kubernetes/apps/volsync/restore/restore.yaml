@@ -13,8 +13,12 @@ spec:
     destinationPVC: datavol
     copyMethod: Direct
     cacheAccessModes: ["ReadWriteOnce"]
-    restoreAsOf: "2024-09-21T06:00:00+01:00"
+    #restoreAsOf: "2024-09-21T06:00:00+01:00"
     moverSecurityContext:
       runAsUser: 1000
       runAsGroup: 1000
       fsGroup: 1000
+      fsGroupChangePolicy: "OnRootMismatch"
+      runAsNonRoot: true
+      seccompProfile:
+        type: RuntimeDefault
