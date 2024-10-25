@@ -3,7 +3,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: &name kuma
-  namespace: kuma
+  namespace: flux-system
 spec:
   interval: 5m
   chart:
@@ -32,6 +32,9 @@ spec:
         #runAsGroup: 1000
         #fsGroup: 1000
         #fsGroupChangePolicy: "OnRootMismatch"
+        #runAsNonRoot: true
+        #seccompProfile:
+          #type: RuntimeDefault
     controllers:
       kuma:
         containers:
@@ -41,6 +44,10 @@ spec:
               tag: 1.23.15
             env:
               TZ: "${TIMEZONE}"
+            #securityContext:
+              #allowPrivilegeEscalation: false
+              #readOnlyRootFilesystem: true
+              #capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 10m

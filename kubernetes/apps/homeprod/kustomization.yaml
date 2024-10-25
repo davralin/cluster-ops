@@ -8,6 +8,7 @@ resources:
   - ../emqx
   - ../epicgames-freegames
   - ../homeassistant
+  - ../kuma
   - ../librespeed
   - ../mailrelay
   - ../mailrise
