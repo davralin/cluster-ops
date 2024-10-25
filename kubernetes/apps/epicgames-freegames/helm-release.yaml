@@ -3,7 +3,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: &name epicgames-free
-  namespace: epicgames-free
+  namespace: flux-system
 spec:
   interval: 5m
   chart:
@@ -42,13 +42,15 @@ spec:
       valuesKey: WEBHOOK_URL
   values:
     fullnameOverride: *name
-    # Starts by linking in TZ
-    #defaultPodOptions:
-      #securityContext:
-        #runAsUser: 1000
-        #runAsGroup: 1000
-        #fsGroup: 1000
-        #fsGroupChangePolicy: "OnRootMismatch"
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
     controllers:
       epicgames-free:
         containers:
@@ -67,6 +69,10 @@ spec:
                 enabled: false
               startup:
                 enabled: false
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 10m
@@ -106,3 +112,8 @@ spec:
         existingClaim: epicgames-free
         globalMounts:
           - path: /usr/app/config
+      tmp:
+        enabled: true
+        type: emptyDir
+        globalMounts:
+          - path: /tmp
