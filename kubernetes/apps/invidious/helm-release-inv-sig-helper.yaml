@@ -3,7 +3,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: &name inv-sig-helper
-  namespace: invidious
+  namespace: flux-system
 spec:
   interval: 5m
   chart:
@@ -31,6 +31,9 @@ spec:
         runAsGroup: 1000
         fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
     controllers:
       inv-sig-helper:
         replicas: 1
@@ -44,6 +47,10 @@ spec:
             args:
               - --tcp
               - "0.0.0.0:12999"
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 50m
