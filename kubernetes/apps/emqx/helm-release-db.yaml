@@ -51,7 +51,7 @@ spec:
             # use this to start a new cluster
             initdb:
               database: emqx
-              owner: mqtt_user
+              owner: emqx
               secret:
                 name: emqx-basic-auth
             # use this to recover a net-new cluster from a backup
