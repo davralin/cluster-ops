@@ -42,15 +42,16 @@ spec:
       valuesKey: WEBHOOK_URL
   values:
     fullnameOverride: *name
-    defaultPodOptions:
-      securityContext:
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
-        fsGroupChangePolicy: "OnRootMismatch"
-        runAsNonRoot: true
-        seccompProfile:
-          type: RuntimeDefault
+    # https://github.com/claabs/epicgames-freegames-node/issues/228
+    #defaultPodOptions:
+      #securityContext:
+        #runAsUser: 1000
+        #runAsGroup: 1000
+        #fsGroup: 1000
+        #fsGroupChangePolicy: "OnRootMismatch"
+        #runAsNonRoot: true
+        #seccompProfile:
+          #type: RuntimeDefault
     controllers:
       epicgames-free:
         containers:
@@ -69,10 +70,11 @@ spec:
                 enabled: false
               startup:
                 enabled: false
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities: { drop: ["ALL"] }
+            # https://github.com/claabs/epicgames-freegames-node/issues/228
+            #securityContext:
+              #allowPrivilegeEscalation: false
+              #readOnlyRootFilesystem: true
+              #capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 10m
@@ -112,8 +114,3 @@ spec:
         existingClaim: epicgames-free
         globalMounts:
           - path: /usr/app/config
-      tmp:
-        enabled: true
-        type: emptyDir
-        globalMounts:
-          - path: /tmp
