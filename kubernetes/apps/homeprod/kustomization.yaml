@@ -7,6 +7,7 @@ resources:
   - ../cloudflareddns
   - ../emqx
   - ../epicgames-freegames
+  - ../librespeed
   - ../mailrelay
   - ../mailrise
   - ../nextcloud
