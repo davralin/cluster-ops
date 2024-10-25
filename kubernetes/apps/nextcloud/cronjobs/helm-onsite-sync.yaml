@@ -25,15 +25,15 @@ spec:
       retries: 3
   values:
     fullnameOverride: *name
-    defaultPodOptions:
-      securityContext:
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
-        fsGroupChangePolicy: "OnRootMismatch"
-        runAsNonRoot: true
-        seccompProfile:
-          type: RuntimeDefault
+    #defaultPodOptions:
+      #securityContext:
+        #runAsUser: 1000
+        #runAsGroup: 1000
+        #fsGroup: 1000
+        #fsGroupChangePolicy: "OnRootMismatch"
+        #runAsNonRoot: true
+        #seccompProfile:
+          #type: RuntimeDefault
     controllers:
       onsite-sync:
         type: cronjob
@@ -46,10 +46,10 @@ spec:
               tag: latest@sha256:96048571bc49b59d63779a09b2bc43810a6244eb0469bcd411700f5276acc411
             command: ['/usr/bin/rsync']
             args: ["--archive", "--delete", "--verbose", "-e", "ssh -o StrictHostKeyChecking=no", "backup@nas.${SECRET_DEFAULT_DOMAIN}:/opt/local/nextcloud/", "/nextcloud/"]
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities: { drop: ["ALL"] }
+            #securityContext:
+              #allowPrivilegeEscalation: false
+              #readOnlyRootFilesystem: true
+              #capabilities: { drop: ["ALL"] }
     persistence:
       nextcloud:
         enabled: true
