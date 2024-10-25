@@ -12,17 +12,17 @@
   "ignoreTests": true,
   "flux": {
     "fileMatch": [
-      "cluster/.+\\.yaml$"
+      "kubernetes/.+\\.yaml$"
     ]
   },
   "helm-values": {
     "fileMatch": [
-      "cluster/.+\\.yaml$"
+      "kubernetes/.+\\.yaml$"
     ]
   },
   "kubernetes": {
     "fileMatch": [
-      "cluster/.+\\.yaml$"
+      "kubernetes/.+\\.yaml$"
     ]
   },
   "packageRules": [
@@ -156,7 +156,7 @@
       "customType": "regex",
       "description": ["Process CloudnativePG Postgresql version"],
       "fileMatch": [
-        "cluster/.+\\.yaml$"
+        "kubernetes/.+\\.yaml$"
       ],
       "matchStrings": [
         "imageName: (?<depName>\\S+):(?<currentValue>.*\\-.*)"
