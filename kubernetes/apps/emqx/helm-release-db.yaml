@@ -14,7 +14,7 @@ spec:
         kind: HelmRepository
         name: dysnix-charts
         namespace: flux-system
-  targetNamespace: cloudnative-pg
+  targetNamespace: &namespace  emqx
   install:
     createNamespace: true
     remediation:
@@ -31,7 +31,7 @@ spec:
         kind: Cluster
         metadata:
           name: *name
-          namespace: emqx
+          namespace: *namespace
         spec:
           # using only 1 replica: very difficult to drain the node where postgres is running
           # using more than 1 replica: write amplification issues when leveraging replicated storage (e.g. ceph)
@@ -121,7 +121,7 @@ spec:
         kind: ScheduledBackup
         metadata:
           name: *name
-          namespace: emqx
+          namespace: *namespace
         spec:
           schedule: "0 37 01 * * *"
           immediate: true
