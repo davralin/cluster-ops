@@ -75,6 +75,12 @@ spec:
         config:
           osdsPerDevice: "1"
         nodes:
+          - name: mat
+            devices:
+              - name: /dev/disk/by-id/nvme-Samsung_SSD_970_EVO_Plus_2TB_S6P1NS0T208153T
+                config:
+                  osdsPerDevice: "2"
+              - name: /dev/disk/by-id/ata-MTFDDAK256TBN-1AR1ZABHA_UFZMN01ZR67Z4W
           - name: rand
             devices:
               - name: /dev/disk/by-id/nvme-WD_BLACK_SN850X_4000GB_23030Q803045
