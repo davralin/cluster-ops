@@ -43,7 +43,7 @@ spec:
             storageClass: "${STORAGE_READWRITEONCE}"
           managed:
             roles:
-              - name: invidious
+              - name: kemal
                 login: true
           superuserSecret:
             name: *name
@@ -51,7 +51,7 @@ spec:
             # use this to start a new cluster
             initdb:
               database: invidious
-              owner: invidious
+              owner: kemal
               secret:
                 name: invidious-basic-auth
             # use this to recover a net-new cluster from a backup

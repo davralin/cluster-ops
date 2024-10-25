@@ -7,4 +7,4 @@ resources:
   - helm-release-inv-sig-helper.yaml
   - helm-release.yaml
   - namespace.yaml
-#  - secret.yaml
+  - secret.yaml
