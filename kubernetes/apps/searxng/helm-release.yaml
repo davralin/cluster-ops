@@ -83,3 +83,12 @@ spec:
         tls:
           - hosts:
               - *host
+    persistence:
+      cache:
+        type: emptyDir
+        globalMounts:
+          - path: /etc/searxng
+      tmp:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp
