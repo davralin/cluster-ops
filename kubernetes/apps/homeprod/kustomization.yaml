@@ -15,5 +15,6 @@ resources:
   - ../mailrise
   - ../nextcloud
   - ../redlib
+  - ../searxng
   - ../volsync
   - ../zigbee2mqtt
