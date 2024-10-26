@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: valkey
-      version: 1.0.2
+      version: 2.0.0
       sourceRef:
         kind: HelmRepository
         name: bitnami-charts
@@ -28,7 +28,7 @@ spec:
     architecture: standalone
     auth:
       enabled: false
-    master:
+    primary:
       persistence:
         enabled: false
       resourcesPreset: large
