@@ -3,7 +3,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: &name openwebui
-  namespace: openwebui
+  namespace: flux-system
 spec:
   interval: 5m
   chart:
@@ -25,6 +25,15 @@ spec:
       retries: 3
   values:
     fullnameOverride: *name
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
     controllers:
       openwebui:
         containers:
@@ -37,6 +46,15 @@ spec:
               ENABLE_RAG_WEB_SEARCH: true
               RAG_WEB_SEARCH_ENGINE: "searxng"
               SEARXNG_QUERY_URL: "http://searxng.searxng.svc.cluster.local:8080/search?q=<query>"
+            securityContext:
+              allowPrivilegeEscalation: false
+              # start.sh: line 16: .webui_secret_key: Read-only file system
+              readOnlyRootFilesystem: false
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 200m
+                memory: 200Mi
     service:
       app:
         controller: *name

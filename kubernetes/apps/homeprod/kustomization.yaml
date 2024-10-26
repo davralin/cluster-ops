@@ -15,6 +15,8 @@ resources:
   - ../mailrelay
   - ../mailrise
   - ../nextcloud
+  - ../ollama
+  - ../openwebui
   - ../redlib
   - ../searxng
   - ../unifi

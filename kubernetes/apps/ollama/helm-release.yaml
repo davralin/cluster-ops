@@ -3,7 +3,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: &name ollama
-  namespace: ollama
+  namespace: flux-system
 spec:
   interval: 5m
   chart:
@@ -25,6 +25,15 @@ spec:
       retries: 3
   values:
     fullnameOverride: *name
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 0
+        runAsGroup: 0
+        fsGroup: 0
+        fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: false
+        seccompProfile:
+          type: RuntimeDefault
     controllers:
       ollama:
         containers:
@@ -34,6 +43,15 @@ spec:
               tag: 0.3.14
             env:
               TZ: "${TIMEZONE}"
+            securityContext:
+              allowPrivilegeEscalation: false
+              # Error: could not create directory mkdir /.ollama: read-only file system
+              readOnlyRootFilesystem: false
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 500m
+                memory: 600Mi
     service:
       app:
         controller: *name
