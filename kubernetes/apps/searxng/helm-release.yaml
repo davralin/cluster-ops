@@ -46,7 +46,7 @@ spec:
               TZ: "${TIMEZONE}"
               SEARXNG_BASE_URL: "https://searxng.${SECRET_DEFAULT_DOMAIN}"
               SEARXNG_URL: "https://searxng.${SECRET_DEFAULT_DOMAIN}"
-              SEARXNG_REDIS_URL: "redis://valkey-master.searxng.svc.cluster.local:6379"
+              SEARXNG_REDIS_URL: "redis://valkey-primary.searxng.svc.cluster.local:6379"
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
