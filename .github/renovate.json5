@@ -31,7 +31,8 @@
       "matchDatasources": ["docker"],
       "matchPackagePatterns": [
         "invidious",
-        "plex"
+        "plex",
+        "searxng"
       ],
     },
     {
