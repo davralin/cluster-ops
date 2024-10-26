@@ -26,12 +26,15 @@ spec:
   values:
     fullnameOverride: *name
     # Container binds to 80, which requires root, it also starts with chmod
-    #defaultPodOptions:
-      #securityContext:
-        #runAsUser: 1000
-        #runAsGroup: 1000
-        #fsGroup: 1000
-        #fsGroupChangePolicy: "OnRootMismatch"
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
     controllers:
       thelounge:
         containers:
@@ -42,6 +45,10 @@ spec:
             env:
               TZ: "${TIMEZONE}"
               THELOUNGE_HOME: "/config"
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 25m
