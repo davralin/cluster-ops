@@ -3,7 +3,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: &name it-tools
-  namespace: it-tools
+  namespace: flux-system
 spec:
   interval: 5m
   chart:
@@ -25,13 +25,15 @@ spec:
       retries: 3
   values:
     fullnameOverride: *name
-    # fails on startup due to missing permissions
-    #defaultPodOptions:
-      #securityContext:
-        #runAsUser: 1000
-        #runAsGroup: 1000
-        #fsGroup: 1000
-        #fsGroupChangePolicy: "OnRootMismatch"
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
     controllers:
       it-tools:
         strategy: RollingUpdate
@@ -42,6 +44,11 @@ spec:
               tag: latest@sha256:8b8128748339583ca951af03dfe02a9a4d7363f61a216226fc28030731a5a61f
             env:
               TZ: "${TIMEZONE}"
+            securityContext:
+              allowPrivilegeEscalation: false
+              # [emerg] 1#1: mkdir() "/var/cache/nginx/client_temp" failed (30: Read-only file system)
+              readOnlyRootFilesystem: false
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 50m
@@ -72,3 +79,14 @@ spec:
         tls:
           - hosts:
               - *host
+    persistence:
+      # [emerg] 1#1: mkdir() "/var/cache/nginx/client_temp" failed (13: Permission denied)
+      cache:
+        type: emptyDir
+        globalMounts:
+          - path: /var/cache/nginx/
+      # [emerg] 1#1: open() "/var/run/nginx.pid" failed (13: Permission denied)
+      run:
+        type: emptyDir
+        globalMounts:
+          - path: /var/run

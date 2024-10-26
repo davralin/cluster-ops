@@ -9,6 +9,7 @@ resources:
   - ../epicgames-freegames
   - ../homeassistant
   - ../invidious
+  - ../it-tools
   - ../kuma
   - ../librespeed
   - ../mailrelay
