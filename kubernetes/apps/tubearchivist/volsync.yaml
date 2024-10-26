@@ -6,7 +6,8 @@ metadata:
   namespace: tubearchivist
 type: Opaque
 stringData:
-  RESTIC_REPOSITORY: "s3:${SECRET_S3_URL}/volsync-${CLUSTER_NAME}/tubearchivist-cache"
+  RESTIC_REPOSITORY: "s3:${SECRET_S3_URL}/volsync-volsync-home-k8s/tubearchivist-cache"
+  #RESTIC_REPOSITORY: "s3:${SECRET_S3_URL}/volsync-${CLUSTER_NAME}/tubearchivist-cache"
   RESTIC_PASSWORD: "${SECRET_VOLSYNC_RESTIC_PWD}"
   AWS_ACCESS_KEY_ID: "${SECRET_VOLSYNC_ACCESS_KEYS}"
   AWS_SECRET_ACCESS_KEY: "${SECRET_VOLSYNC_SECRET_KEYS}"
@@ -36,9 +37,9 @@ spec:
       retries: 5
   dependsOn:
     - name: volsync
-      namespace: volsync
-    - name: tubearchivist
-      namespace: tubearchivist
+      namespace: flux-system
+    #- name: tubearchivist
+      #namespace: flux-system
   values:
     resources:
       - apiVersion: volsync.backube/v1alpha1
@@ -58,9 +59,36 @@ spec:
               runAsUser: 1000
               runAsGroup: 1000
               fsGroup: 1000
+              fsGroupChangePolicy: "OnRootMismatch"
+              runAsNonRoot: true
+              seccompProfile:
+                type: RuntimeDefault
             retain:
               daily: 7
               within: 3d
+      - apiVersion: volsync.backube/v1alpha1
+        kind: ReplicationDestination
+        metadata:
+          name: tubearchivist-cache
+          namespace: tubearchivist
+        spec:
+          trigger:
+            manual: restore-once
+          restic:
+            repository: tubearchivist-cache-volsync-secret
+            # Use an existing PVC, don't provision a new one
+            destinationPVC: tubearchivist-cache
+            copyMethod: Direct
+            cacheAccessModes: ["ReadWriteOnce"]
+            #restoreAsOf: "2024-09-21T06:00:00+01:00"
+            moverSecurityContext:
+              runAsUser: 1000
+              runAsGroup: 1000
+              fsGroup: 1000
+              fsGroupChangePolicy: "OnRootMismatch"
+              runAsNonRoot: true
+              seccompProfile:
+                type: RuntimeDefault
 ---
 apiVersion: v1
 kind: Secret
@@ -69,7 +97,8 @@ metadata:
   namespace: tubearchivist
 type: Opaque
 stringData:
-  RESTIC_REPOSITORY: "s3:${SECRET_S3_URL}/volsync-${CLUSTER_NAME}/tubearchivist-youtube"
+  RESTIC_REPOSITORY: "s3:${SECRET_S3_URL}/volsync-volsync-home-k8s/tubearhivist-youtube"
+  #RESTIC_REPOSITORY: "s3:${SECRET_S3_URL}/volsync-${CLUSTER_NAME}/tubearchivist-youtube"
   RESTIC_PASSWORD: "${SECRET_VOLSYNC_RESTIC_PWD}"
   AWS_ACCESS_KEY_ID: "${SECRET_VOLSYNC_ACCESS_KEYS}"
   AWS_SECRET_ACCESS_KEY: "${SECRET_VOLSYNC_SECRET_KEYS}"
@@ -99,9 +128,9 @@ spec:
       retries: 5
   dependsOn:
     - name: volsync
-      namespace: volsync
-    - name: tubearchivist
-      namespace: tubearchivist
+      namespace: flux-system
+    #- name: tubearchivist
+      #namespace: flux-system
   values:
     resources:
       - apiVersion: volsync.backube/v1alpha1
@@ -121,9 +150,36 @@ spec:
               runAsUser: 1000
               runAsGroup: 1000
               fsGroup: 1000
+              fsGroupChangePolicy: "OnRootMismatch"
+              runAsNonRoot: true
+              seccompProfile:
+                type: RuntimeDefault
             retain:
               daily: 7
               within: 3d
+      - apiVersion: volsync.backube/v1alpha1
+        kind: ReplicationDestination
+        metadata:
+          name: tubearchivist-youtube
+          namespace: tubearchivist
+        spec:
+          trigger:
+            manual: restore-once
+          restic:
+            repository: tubearchivist-youtube-volsync-secret
+            # Use an existing PVC, don't provision a new one
+            destinationPVC: tubearchivist-youtube
+            copyMethod: Direct
+            cacheAccessModes: ["ReadWriteOnce"]
+            #restoreAsOf: "2024-09-21T06:00:00+01:00"
+            moverSecurityContext:
+              runAsUser: 1000
+              runAsGroup: 1000
+              fsGroup: 1000
+              fsGroupChangePolicy: "OnRootMismatch"
+              runAsNonRoot: true
+              seccompProfile:
+                type: RuntimeDefault
 ---
 apiVersion: v1
 kind: Secret
@@ -132,7 +188,8 @@ metadata:
   namespace: tubearchivist
 type: Opaque
 stringData:
-  RESTIC_REPOSITORY: "s3:${SECRET_S3_URL}/volsync-${CLUSTER_NAME}/tubearchivist-redis"
+  RESTIC_REPOSITORY: "s3:${SECRET_S3_URL}/volsync-volsync-home-k8s/tubearhicist-redis"
+  #RESTIC_REPOSITORY: "s3:${SECRET_S3_URL}/volsync-${CLUSTER_NAME}/tubearchivist-redis"
   RESTIC_PASSWORD: "${SECRET_VOLSYNC_RESTIC_PWD}"
   AWS_ACCESS_KEY_ID: "${SECRET_VOLSYNC_ACCESS_KEYS}"
   AWS_SECRET_ACCESS_KEY: "${SECRET_VOLSYNC_SECRET_KEYS}"
@@ -162,9 +219,9 @@ spec:
       retries: 5
   dependsOn:
     - name: volsync
-      namespace: volsync
-    - name: redis-stack
-      namespace: tubearchivist
+      namespace: flux-system
+    #- name: redis-stack
+      #namespace: flux-system
   values:
     resources:
       - apiVersion: volsync.backube/v1alpha1
@@ -184,9 +241,36 @@ spec:
               runAsUser: 1000
               runAsGroup: 1000
               fsGroup: 1000
+              fsGroupChangePolicy: "OnRootMismatch"
+              runAsNonRoot: true
+              seccompProfile:
+                type: RuntimeDefault
             retain:
               daily: 7
               within: 3d
+      - apiVersion: volsync.backube/v1alpha1
+        kind: ReplicationDestination
+        metadata:
+          name: tubearchivist-redis
+          namespace: tubearchivist
+        spec:
+          trigger:
+            manual: restore-once
+          restic:
+            repository: tubearchivist-redis-volsync-secret
+            # Use an existing PVC, don't provision a new one
+            destinationPVC: tubearchivist-redis
+            copyMethod: Direct
+            cacheAccessModes: ["ReadWriteOnce"]
+            #restoreAsOf: "2024-09-21T06:00:00+01:00"
+            moverSecurityContext:
+              runAsUser: 1000
+              runAsGroup: 1000
+              fsGroup: 1000
+              fsGroupChangePolicy: "OnRootMismatch"
+              runAsNonRoot: true
+              seccompProfile:
+                type: RuntimeDefault
 ---
 apiVersion: v1
 kind: Secret
@@ -195,7 +279,8 @@ metadata:
   namespace: tubearchivist
 type: Opaque
 stringData:
-  RESTIC_REPOSITORY: "s3:${SECRET_S3_URL}/volsync-${CLUSTER_NAME}/tubearchivist-elasticsearch"
+  RESTIC_REPOSITORY: "s3:${SECRET_S3_URL}/volsync-volsync-home-k8s/tubearchivist-elasticsearch"
+  #RESTIC_REPOSITORY: "s3:${SECRET_S3_URL}/volsync-${CLUSTER_NAME}/tubearchivist-elasticsearch"
   RESTIC_PASSWORD: "${SECRET_VOLSYNC_RESTIC_PWD}"
   AWS_ACCESS_KEY_ID: "${SECRET_VOLSYNC_ACCESS_KEYS}"
   AWS_SECRET_ACCESS_KEY: "${SECRET_VOLSYNC_SECRET_KEYS}"
@@ -225,9 +310,9 @@ spec:
       retries: 5
   dependsOn:
     - name: volsync
-      namespace: volsync
-    - name: tubearchivist
-      namespace: tubearchivist
+      namespace: flux-system
+    #- name: tubearchivist
+      #namespace: flux-system
   values:
     resources:
       - apiVersion: volsync.backube/v1alpha1
@@ -247,6 +332,33 @@ spec:
               runAsUser: 1000
               runAsGroup: 1000
               fsGroup: 1000
+              fsGroupChangePolicy: "OnRootMismatch"
+              runAsNonRoot: true
+              seccompProfile:
+                type: RuntimeDefault
             retain:
               daily: 7
               within: 3d
+      - apiVersion: volsync.backube/v1alpha1
+        kind: ReplicationDestination
+        metadata:
+          name: tubearchivist-elasticsearch
+          namespace: tubearchivist
+        spec:
+          trigger:
+            manual: restore-once
+          restic:
+            repository: tubearchivist-elasticsearch-volsync-secret
+            # Use an existing PVC, don't provision a new one
+            destinationPVC: tubearchivist-elasticsearch
+            copyMethod: Direct
+            cacheAccessModes: ["ReadWriteOnce"]
+            #restoreAsOf: "2024-09-21T06:00:00+01:00"
+            moverSecurityContext:
+              runAsUser: 1000
+              runAsGroup: 1000
+              fsGroup: 1000
+              fsGroupChangePolicy: "OnRootMismatch"
+              runAsNonRoot: true
+              seccompProfile:
+                type: RuntimeDefault

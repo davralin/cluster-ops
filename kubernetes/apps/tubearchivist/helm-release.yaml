@@ -38,13 +38,15 @@ spec:
       valuesKey: ELASTIC_PASSWORD
   values:
     fullnameOverride: *name
-    # App needs root to work.
-    #defaultPodOptions:
-      #securityContext:
-        #runAsUser: 1000
-        #runAsGroup: 1000
-        #fsGroup: 1000
-        #fsGroupChangePolicy: "OnRootMismatch"
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
     controllers:
       tubearchivist:
         containers:
@@ -60,6 +62,10 @@ spec:
               TA_HOST: "tube.${SECRET_DEFAULT_DOMAIN}"
               ENABLE_CAST: "true"
               TZ: "${TIMEZONE}"
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 memory: 1024Mi

@@ -26,12 +26,15 @@ spec:
   values:
     fullnameOverride: *name
     # Listens on port 80
-    #defaultPodOptions:
-      #securityContext:
-        #runAsUser: 1000
-        #runAsGroup: 1000
-        #fsGroup: 1000
-        #fsGroupChangePolicy: "OnRootMismatch"
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
     controllers:
       wallos:
         containers:
@@ -45,6 +48,10 @@ spec:
               requests:
                 cpu: 50m
                 memory: 32Mi
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
     service:
       app:
         controller: *name

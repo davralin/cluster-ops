@@ -2,8 +2,8 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &name thelounge
-  namespace: thelounge
+  name: &name esphome
+  namespace: esphome
 spec:
   interval: 5m
   chart:
@@ -15,7 +15,7 @@ spec:
         name: bjw-s-charts
         namespace: flux-system
       interval: 5m
-  targetNamespace: thelounge
+  targetNamespace: esphome
   install:
     createNamespace: true
     remediation:
@@ -25,46 +25,53 @@ spec:
       retries: 3
   values:
     fullnameOverride: *name
-    # Container binds to 80, which requires root, it also starts with chmod
-    #defaultPodOptions:
-      #securityContext:
-        #runAsUser: 1000
-        #runAsGroup: 1000
-        #fsGroup: 1000
-        #fsGroupChangePolicy: "OnRootMismatch"
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
     controllers:
-      thelounge:
+      esphome:
         containers:
           app:
             image:
-              repository: thelounge/thelounge
-              tag: 4.4.3
+              repository: ghcr.io/esphome/esphome
+              tag: 2024.10.2
             env:
               TZ: "${TIMEZONE}"
-              THELOUNGE_HOME: "/config"
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
-                cpu: 25m
-                memory: 250Mi
+                cpu: 10m
+                memory: 100Mi
               limits:
+                cpu: 1
                 memory: 500Mi
     service:
       app:
         controller: *name
         ports:
           http:
-            port: 9000
+            port: 6052
     ingress:
       app:
         enabled: true
         annotations:
+          haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
           haproxy.org/response-set-header: |
             Strict-Transport-Security "max-age=31536000"
             X-Frame-Options "DENY"
             X-Content-Type-Options "nosniff"
             Referrer-Policy "no-referrer-when-downgrade"
         hosts:
-          - host: &host "thelounge.${SECRET_DEFAULT_DOMAIN}"
+          - host: &host "esphome.${SECRET_DEFAULT_DOMAIN}"
             paths:
               - path: /
                 service:
@@ -76,4 +83,10 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: thelounge
+        existingClaim: esphome
+        globalMounts:
+          - path: /config
+      cache:
+        type: emptyDir
+        globalMounts:
+          - path: /config/.esphome
