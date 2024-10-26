@@ -3,7 +3,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: &name unpoller
-  namespace: unifi
+  namespace: flux-system
 spec:
   interval: 5m
   chart:
@@ -25,7 +25,7 @@ spec:
       retries: 3
   dependsOn:
     - name: unifi
-      namespace: unifi
+      namespace: flux-system
   values:
     fullnameOverride: *name
     defaultPodOptions:
@@ -34,6 +34,9 @@ spec:
         runAsGroup: 1000
         fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
     controllers:
       unpoller:
         containers:
@@ -48,6 +51,10 @@ spec:
               UP_UNIFI_DEFAULT_USER: unifipoller
               UP_UNIFI_DEFAULT_PASS: 1nternalUseOnly
               UP_INFLUXDB_DISABLE: true
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 10m

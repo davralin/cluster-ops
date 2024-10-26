@@ -17,6 +17,7 @@ resources:
   - ../nextcloud
   - ../redlib
   - ../searxng
+  - ../unifi
   - ../volsync
   - ../warrior
   - ../zigbee2mqtt
