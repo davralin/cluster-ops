@@ -3,7 +3,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: &name wallos
-  namespace: wallos
+  namespace: flux-system
 spec:
   interval: 5m
   chart:
@@ -25,26 +25,35 @@ spec:
       retries: 3
   values:
     fullnameOverride: *name
-    # Listens on port 80
-    #defaultPodOptions:
-      #securityContext:
-        #runAsUser: 1000
-        #runAsGroup: 1000
-        #fsGroup: 1000
-        #fsGroupChangePolicy: "OnRootMismatch"
+    # Listens on port 80, chown's around
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 0
+        runAsGroup: 0
+        fsGroup: 0
+        fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: false
+        seccompProfile:
+          type: RuntimeDefault
     controllers:
       wallos:
         containers:
           app:
             image:
               repository: bellamy/wallos
-              tag: 2.31.0
+              tag: 2.31.1
             env:
               TZ: "${TIMEZONE}"
             resources:
               requests:
                 cpu: 50m
                 memory: 32Mi
+            securityContext:
+              allowPrivilegeEscalation: false
+              # /var/www/html/startup.sh: line 3: can't create /var/log/startup.log: Read-only file system
+              readOnlyRootFilesystem: false
+              # ERROR: [pool www] failed to setgid(82): Operation not permitted (1)
+              #capabilities: { drop: ["ALL"] }
     service:
       app:
         controller: *name
