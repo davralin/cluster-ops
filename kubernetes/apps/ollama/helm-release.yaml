@@ -2,8 +2,8 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &name openwebui
-  namespace: openwebui
+  name: &name ollama
+  namespace: flux-system
 spec:
   interval: 5m
   chart:
@@ -15,7 +15,7 @@ spec:
         name: bjw-s-charts
         namespace: flux-system
       interval: 5m
-  targetNamespace: openwebui
+  targetNamespace: ollama
   install:
     createNamespace: true
     remediation:
@@ -25,27 +25,43 @@ spec:
       retries: 3
   values:
     fullnameOverride: *name
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 0
+        runAsGroup: 0
+        fsGroup: 0
+        fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: false
+        seccompProfile:
+          type: RuntimeDefault
     controllers:
-      openwebui:
+      ollama:
         containers:
           app:
             image:
-              repository: ghcr.io/open-webui/open-webui
-              tag: main@sha256:95e477dac2b0a4109c7944491ad0e81b4febb5701f72ee9b087a4e431f903733
+              repository: ollama/ollama
+              tag: 0.3.14
             env:
-              OLLAMA_BASE_URL: "http://ollama.ollama.svc.cluster.local:11434"
-              ENABLE_RAG_WEB_SEARCH: true
-              RAG_WEB_SEARCH_ENGINE: "searxng"
-              SEARXNG_QUERY_URL: "http://searxng.searxng.svc.cluster.local:8080/search?q=<query>"
+              TZ: "${TIMEZONE}"
+            securityContext:
+              allowPrivilegeEscalation: false
+              # Error: could not create directory mkdir /.ollama: read-only file system
+              readOnlyRootFilesystem: false
+              capabilities: { drop: ["ALL"] }
+            resources:
+              # This is obviously only to handle it being idle
+              requests:
+                cpu: 500m
+                memory: 600Mi
     service:
       app:
         controller: *name
         ports:
           http:
-            port: 8080
+            port: 11434
     ingress:
       app:
-        enabled: true
+        enabled: false
         annotations:
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
           haproxy.org/response-set-header: |
@@ -54,7 +70,7 @@ spec:
             X-Content-Type-Options "nosniff"
             Referrer-Policy "no-referrer-when-downgrade"
         hosts:
-          - host: &host "openwebui.${SECRET_DEFAULT_DOMAIN}"
+          - host: &host "ollama.${SECRET_DEFAULT_DOMAIN}"
             paths:
               - path: /
                 service:
@@ -66,6 +82,6 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: openwebui
+        existingClaim: ollama
         globalMounts:
-          - path: /app/backend/data
+          - path: /root/.ollama
