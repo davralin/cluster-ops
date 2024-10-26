@@ -1,0 +1,95 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &name changedetection
+  namespace: flux-system
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.5.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+      interval: 5m
+  targetNamespace: changedetection
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  values:
+    fullnameOverride: *name
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+    controllers:
+      changedetection:
+        containers:
+          app:
+            image:
+              repository: ghcr.io/dgtlmoon/changedetection.io
+              tag: 0.47.03
+            env:
+              TZ: "${TIMEZONE}"
+              PLAYWRIGHT_DRIVER_URL: "ws://sockpuppetbrowser:3000"
+              PUID: 1000
+              PGID: 1000
+              BASE_URL: &host "changedetection.${SECRET_DEFAULT_DOMAIN}"
+            securityContext:
+              allowPrivilegeEscalation: false
+              # changedetectionio.update_worker:run:479 - EROFS: read-only file system, mkdtemp '/tmp/playwright-artifacts-KF7JSJ'
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 10m
+                memory: 200Mi
+              limits:
+                cpu: 200m
+                memory: 400Mi
+    service:
+      app:
+        controller: *name
+        ports:
+          http:
+            port: 5000
+    ingress:
+      app:
+        enabled: true
+        annotations:
+          haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
+          haproxy.org/response-set-header: |
+            Strict-Transport-Security "max-age=31536000"
+            X-Frame-Options "DENY"
+            X-Content-Type-Options "nosniff"
+            Referrer-Policy "no-referrer-when-downgrade"
+        hosts:
+          - host: *host
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - *host
+    persistence:
+      datastore:
+        enabled: true
+        existingClaim: changedetection
+      tmp:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp

@@ -30,12 +30,15 @@ spec:
       valuesKey: ELASTIC_PASSWORD
   values:
     fullnameOverride: *name
-    #defaultPodOptions:
-      #securityContext:
-        #runAsUser: 1000
-        #runAsGroup: 1000
-        #fsGroup: 1000
-        #fsGroupChangePolicy: "OnRootMismatch"
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
     controllers:
       elasticsearch:
         containers:
@@ -48,6 +51,10 @@ spec:
               discovery.type: "single-node"
               ES_JAVA_OPTS: "-Xms1g -Xmx1g"
               path.repo: "/usr/share/elasticsearch/data/snapshot"
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
     service:
       app:
         controller: *name
