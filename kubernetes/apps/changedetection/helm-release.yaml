@@ -3,7 +3,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: &name changedetection
-  namespace: changedetection
+  namespace: flux-system
 spec:
   interval: 5m
   chart:
@@ -31,6 +31,9 @@ spec:
         runAsGroup: 1000
         fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
     controllers:
       changedetection:
         containers:
@@ -44,6 +47,11 @@ spec:
               PUID: 1000
               PGID: 1000
               BASE_URL: &host "changedetection.${SECRET_DEFAULT_DOMAIN}"
+            securityContext:
+              allowPrivilegeEscalation: false
+              # changedetectionio.update_worker:run:479 - EROFS: read-only file system, mkdtemp '/tmp/playwright-artifacts-KF7JSJ'
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 10m
@@ -81,3 +89,7 @@ spec:
       datastore:
         enabled: true
         existingClaim: changedetection
+      tmp:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp
