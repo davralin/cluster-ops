@@ -3,10 +3,12 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - ../archivebox
+  - ../changedetection
   - ../cloudnative-pg
   - ../cloudflareddns
   - ../emqx
   - ../epicgames-freegames
+  - ../esphome
   - ../homeassistant
   - ../invidious
   - ../it-tools
@@ -19,7 +21,11 @@ resources:
   - ../openwebui
   - ../redlib
   - ../searxng
+  - ../syncthing
+  - ../thelounge
+  - ../tubearchivist
   - ../unifi
   - ../volsync
+  - ../wallos
   - ../warrior
   - ../zigbee2mqtt
