@@ -5,6 +5,7 @@ resources:
   - ../archivebox
   - ../changedetection
   - ../cloudnative-pg
+  - ../cluster-16
   - ../cloudflareddns
   - ../emqx
   - ../epicgames-freegames

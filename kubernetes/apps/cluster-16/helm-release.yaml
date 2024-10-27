@@ -24,7 +24,7 @@ spec:
       retries: 5
   dependsOn:
     - name: cloudnative-pg
-      namespace: cloudnative-pg
+      namespace: flux-system
   values:
     resources:
       - apiVersion: postgresql.cnpg.io/v1
@@ -101,7 +101,7 @@ spec:
               wal:
                 compression: bzip2
                 maxParallel: 4
-              destinationPath: s3://postgresql-${CLUSTER_NAME}
+              destinationPath: s3://postgresql-home-k8s
               endpointURL: "${SECRET_S3_URL}"
               serverName: postgres-v16
               s3Credentials:
@@ -118,7 +118,7 @@ spec:
                 wal:
                   compression: bzip2
                   maxParallel: 8
-                destinationPath: s3://postgresql-${CLUSTER_NAME}
+                destinationPath: s3://postgresql-home-k8s
                 serverName: postgres-v16
                 endpointURL: "${SECRET_S3_URL}"
                 s3Credentials:
@@ -138,14 +138,3 @@ spec:
              #  password:
              #    name: cloudnative-pg-secret
              #    key: password
-      - apiVersion: postgresql.cnpg.io/v1
-        kind: ScheduledBackup
-        metadata:
-          name: postgres-v16
-          namespace: cloudnative-pg
-        spec:
-          schedule: "0 37 01 * * *"
-          immediate: true
-          backupOwnerReference: self
-          cluster:
-            name: postgres-v16
