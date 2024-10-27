@@ -3,7 +3,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: &name calcardbackup
-  namespace: nextcloud
+  namespace: flux-system
 spec:
   interval: 5m
   timeout: 30m
@@ -27,12 +27,15 @@ spec:
   values:
     fullnameOverride: *name
     defaultPodOptions:
-      # App runs as root, as it contains a cron-manager
       securityContext:
+      # App runs as root, as it contains a cron-manager
         runAsUser: 0
         runAsGroup: 0
         fsGroup: 0
         fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: false
+        seccompProfile:
+          type: RuntimeDefault
     controllers:
       calcardbackup:
         containers:
@@ -45,6 +48,10 @@ spec:
               NC_DIR: "/nextcloud"
               INIT_BACKUP: "true"
               CALCARD_OPTS: "-r 20"
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 100m

@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &name onsite-sync
+  name: &name offsite-sync
   namespace: nextcloud
 spec:
   interval: 5m
@@ -32,17 +32,21 @@ spec:
         #fsGroup: 1000
         #fsGroupChangePolicy: "OnRootMismatch"
     controllers:
-      onsite-sync:
+      offsite-sync:
         type: cronjob
         cronjob:
-          schedule: "45 */6 * * *"
+          schedule: "13 */12 * * *"
         containers:
           app:
             image:
               repository: ghcr.io/davralin/rsync
               tag: latest@sha256:96048571bc49b59d63779a09b2bc43810a6244eb0469bcd411700f5276acc411
             command: ['/usr/bin/rsync']
-            args: ["--archive", "--delete", "--verbose", "-e", "ssh -o StrictHostKeyChecking=no", "/nextcloud/", "backup@nas.${SECRET_DEFAULT_DOMAIN}:/opt/local/nextcloud/"]
+            args: ["--archive", "--delete", "--verbose", "-e", "ssh -o StrictHostKeyChecking=no", "/nextcloud/", "backup@nas.${SECRET_OFFSITE_DOMAIN}:/opt/backup/nextcloud/"]
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
     persistence:
       nextcloud:
         enabled: true
@@ -60,7 +64,7 @@ spec:
         name: sshkey
         defaultMode: 0600
         advancedMounts:
-          onsite-sync:
+          offsite-sync:
             app:
               - path: /root/.ssh/id_ed25519
                 subPath: id_ed25519

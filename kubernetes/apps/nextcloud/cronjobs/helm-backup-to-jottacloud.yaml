@@ -2,8 +2,8 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &name backup-to-jottacloud
-  namespace: nextcloud
+  name: &name nextcloud-backup-to-jottacloud
+  namespace: flux-system
 spec:
   interval: 5m
   chart:
@@ -31,6 +31,9 @@ spec:
         runAsGroup: 1000
         fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
     controllers:
       backup-to-jottacloud:
         type: cronjob
@@ -42,6 +45,10 @@ spec:
               repository: rclone/rclone
               tag: 1.68.1
             command: ["/config/backup.sh"]
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
     configMaps:
       shell:
         enabled: true
@@ -64,11 +71,14 @@ spec:
       config:
         enabled: true
         existingClaim: rcloneconfig
-      # I can't get this to work, so I just dropped the shell-script in the folder.
-      #backup-to-jottacloud-shell:
-      #  enabled: true
-      #  type: configMap
-      #  name: backup-to-jottacloud-shell
-      #  defaultMode: 0755
-      #  globalMounts:
-      #    - path: /config/test
+      backup-to-jottacloud-shell:
+        enabled: true
+        type: configMap
+        name: shell
+        defaultMode: 0755
+        advancedMounts:
+          backup-to-jottacloud:
+            app:
+              - path: /config/backup.sh
+                subPath: backup.sh
+                readOnly: true

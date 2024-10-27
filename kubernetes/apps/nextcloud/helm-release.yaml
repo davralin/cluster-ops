@@ -3,7 +3,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: &name nextcloud
-  namespace: nextcloud
+  namespace: flux-system
 spec:
   interval: 5m
   timeout: 60m
@@ -31,13 +31,15 @@ spec:
       valuesKey: password
   values:
     fullnameOverride: *name
-    # Container binds to 80, which requires root, it also starts with chmod
-    #defaultPodOptions:
-      #securityContext:
-        #runAsUser: 1000
-        #runAsGroup: 1000
-        #fsGroup: 1000
-        #fsGroupChangePolicy: "OnRootMismatch"
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 0
+        runAsGroup: 0
+        fsGroup: 0
+        fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: false
+        seccompProfile:
+          type: RuntimeDefault
     controllers:
       nextcloud:
         containers:
@@ -52,16 +54,22 @@ spec:
                   periodSeconds: 30
             env:
               TZ: "${TIMEZONE}"
-              REDIS_HOST: "valkey-master"
+              REDIS_HOST: "valkey-primary"
               SMTP_HOST: "exim.mailrelay.svc.cluster.local"
               SMTP_PORT: "25"
               SMTP_AUTHTYPE: "PLAIN"
               MAIL_FROM_ADDRESS: "cloud@${SECRET_DEFAULT_DOMAIN}"
               OVERWRITEPROTOCOL: "https"
               OVERWRITEHOST: "cloud.${SECRET_DEFAULT_DOMAIN}"
-              POSTGRES_HOST: "postgres-v16-rw.cloudnative-pg.svc.cluster.local"
+              POSTGRES_HOST: "nextcloud-postgres-v17-rw.nextcloud.svc.cluster.local"
               POSTGRES_DB: "nextcloud"
               POSTGRES_USER: "nextcloud"
+            securityContext:
+              allowPrivilegeEscalation: false
+              # /entrypoint.sh: 111: cannot create /usr/local/etc/php/conf.d/redis-session.ini: Read-only file system
+              readOnlyRootFilesystem: false
+              # su: cannot set groups: Operation not permitted
+              #capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 200m
@@ -78,16 +86,22 @@ spec:
             args: ["www-data", "-s", "/bin/bash", "-c", "/var/www/html/occ maintenance:mode --off"]
             env:
               TZ: "${TIMEZONE}"
-              REDIS_HOST: "valkey-master"
+              REDIS_HOST: "valkey-primary"
               SMTP_HOST: "exim.mailrelay.svc.cluster.local"
               SMTP_PORT: "25"
               SMTP_AUTHTYPE: "PLAIN"
               MAIL_FROM_ADDRESS: "cloud@${SECRET_DEFAULT_DOMAIN}"
               OVERWRITEPROTOCOL: "https"
               OVERWRITEHOST: "cloud.${SECRET_DEFAULT_DOMAIN}"
-              POSTGRES_HOST: "postgres-v16-rw.cloudnative-pg.svc.cluster.local"
+              POSTGRES_HOST: "nextcloud-postgres-v17-rw.nextcloud.svc.cluster.local"
               POSTGRES_DB: "nextcloud"
               POSTGRES_USER: "nextcloud"
+            securityContext:
+              allowPrivilegeEscalation: false
+              # /entrypoint.sh: 111: cannot create /usr/local/etc/php/conf.d/redis-session.ini: Read-only file system
+              readOnlyRootFilesystem: false
+              # su: cannot set groups: Operation not permitted
+              #capabilities: { drop: ["ALL"] }
           2-occ-upgrade:
             image:
               repository: nextcloud
@@ -96,16 +110,22 @@ spec:
             args: ["www-data", "-s", "/bin/bash", "-c", "/var/www/html/occ upgrade"]
             env:
               TZ: "${TIMEZONE}"
-              REDIS_HOST: "valkey-master"
+              REDIS_HOST: "valkey-primary"
               SMTP_HOST: "exim.mailrelay.svc.cluster.local"
               SMTP_PORT: "25"
               SMTP_AUTHTYPE: "PLAIN"
               MAIL_FROM_ADDRESS: "cloud@${SECRET_DEFAULT_DOMAIN}"
               OVERWRITEPROTOCOL: "https"
               OVERWRITEHOST: "cloud.${SECRET_DEFAULT_DOMAIN}"
-              POSTGRES_HOST: "postgres-v16-rw.cloudnative-pg.svc.cluster.local"
+              POSTGRES_HOST: "nextcloud-postgres-v17-rw.nextcloud.svc.cluster.local"
               POSTGRES_DB: "nextcloud"
               POSTGRES_USER: "nextcloud"
+            securityContext:
+              allowPrivilegeEscalation: false
+              # /entrypoint.sh: 111: cannot create /usr/local/etc/php/conf.d/redis-session.ini: Read-only file system
+              readOnlyRootFilesystem: false
+              # su: cannot set groups: Operation not permitted
+              #capabilities: { drop: ["ALL"] }
           3-occ-app-upgrade:
             image:
               repository: nextcloud
@@ -114,16 +134,22 @@ spec:
             args: ["www-data", "-s", "/bin/bash", "-c", "/var/www/html/occ app:update --all"]
             env:
               TZ: "${TIMEZONE}"
-              REDIS_HOST: "valkey-master"
+              REDIS_HOST: "valkey-primary"
               SMTP_HOST: "exim.mailrelay.svc.cluster.local"
               SMTP_PORT: "25"
               SMTP_AUTHTYPE: "PLAIN"
               MAIL_FROM_ADDRESS: "cloud@${SECRET_DEFAULT_DOMAIN}"
               OVERWRITEPROTOCOL: "https"
               OVERWRITEHOST: "cloud.${SECRET_DEFAULT_DOMAIN}"
-              POSTGRES_HOST: "postgres-v16-rw.cloudnative-pg.svc.cluster.local"
+              POSTGRES_HOST: "nextcloud-postgres-v17-rw.nextcloud.svc.cluster.local"
               POSTGRES_DB: "nextcloud"
               POSTGRES_USER: "nextcloud"
+            securityContext:
+              allowPrivilegeEscalation: false
+              # /entrypoint.sh: 111: cannot create /usr/local/etc/php/conf.d/redis-session.ini: Read-only file system
+              readOnlyRootFilesystem: false
+              # su: cannot set groups: Operation not permitted
+              #capabilities: { drop: ["ALL"] }
     service:
       nextcloud:
         controller: *name
