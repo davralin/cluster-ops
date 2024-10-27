@@ -3,7 +3,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: &name freshrss
-  namespace: freshrss
+  namespace: flux-system
 spec:
   interval: 5m
   chart:
@@ -25,13 +25,16 @@ spec:
       retries: 3
   values:
     fullnameOverride: *name
-    # Container binds to 80, which requires root, it also starts with chmod
-    #defaultPodOptions:
-      #securityContext:
-        #runAsUser: 1000
-        #runAsGroup: 1000
-        #fsGroup: 1000
-        #fsGroupChangePolicy: "OnRootMismatch"
+    defaultPodOptions:
+      securityContext:
+        # s6-overlay-suexec: warning: unable to gain root privileges (is the suid bit set?)
+        runAsUser: 0
+        runAsGroup: 0
+        fsGroup: 0
+        fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: false
+        seccompProfile:
+          type: RuntimeDefault
     controllers:
       freshrss:
         containers:
@@ -43,6 +46,12 @@ spec:
               TZ: "${TIMEZONE}"
               PUID: 1000
               PGID: 1000
+            securityContext:
+              allowPrivilegeEscalation: false
+              # s6-rmrf: fatal: unable to remove /run/s6: Read-only file system
+              readOnlyRootFilesystem: false
+              # chown: changing ownership of '/app': Operation not permitted
+              #capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 10m

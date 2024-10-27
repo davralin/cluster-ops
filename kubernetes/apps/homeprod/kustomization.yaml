@@ -10,6 +10,7 @@ resources:
   - ../emqx
   - ../epicgames-freegames
   - ../esphome
+  - ../freshrss
   - ../homeassistant
   - ../invidious
   - ../it-tools
