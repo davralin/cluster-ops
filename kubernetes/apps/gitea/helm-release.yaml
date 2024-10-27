@@ -3,7 +3,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: &name gitea
-  namespace: gitea
+  namespace: flux-system
 spec:
   interval: 5m
   chart:
@@ -27,7 +27,7 @@ spec:
     - targetPath: controllers.gitea.containers.app.env.GITEA__database__PASSWD
       kind: Secret
       name: gitea-config
-      valuesKey: POSTGRES_PASSWORD
+      valuesKey: POSTGRESQL_PASSWORD
   values:
     fullnameOverride: *name
     defaultPodOptions:
@@ -36,6 +36,9 @@ spec:
         runAsGroup: 1000
         fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
     controllers:
       gitea:
         containers:
@@ -49,7 +52,7 @@ spec:
               USER_GID: 1000
               GITEA__ACTIONS__ENABLED: "True"
               GITEA__database__DB_TYPE: "postgres"
-              GITEA__database__HOST: "postgres-v16-rw.cloudnative-pg.svc.cluster.local:5432"
+              GITEA__database__HOST: "gitea-postgres-v17-rw.gitea.svc.cluster.local:5432"
               GITEA__database__NAME: "gitea"
               GITEA__database__USER: "gitea"
               GITEA__MAILER__ENABLED: "True"
@@ -64,6 +67,11 @@ spec:
               GITEA__SERVER__ROOT_URL: "https://gitea.${SECRET_DEFAULT_DOMAIN}"
               GITEA__SERVER__SSH_DOMAIN: "ssh.${SECRET_DEFAULT_DOMAIN}"
               GITEA__SERVER__SSH_PORT: 22
+            securityContext:
+              allowPrivilegeEscalation: false
+              # mkdir: can't create directory '/tmp/gitea': Read-only file system
+              readOnlyRootFilesystem: false
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 memory: 250Mi

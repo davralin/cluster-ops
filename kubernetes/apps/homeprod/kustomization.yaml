@@ -11,6 +11,7 @@ resources:
   - ../epicgames-freegames
   - ../esphome
   - ../freshrss
+  - ../gitea
   - ../homeassistant
   - ../invidious
   - ../it-tools
