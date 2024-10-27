@@ -26,6 +26,8 @@ spec:
     crds: CreateReplace
   values:
     fullnameOverride: node-feature-discovery
+    prometheus:
+      enable: "${MONITORING_PROMETHEUS}"
     master:
       annotations:
         reloader.stakater.com/auto: "true"

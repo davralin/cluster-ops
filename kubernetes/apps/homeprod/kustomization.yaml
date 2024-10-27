@@ -20,6 +20,8 @@ resources:
   - ../mailrelay
   - ../mailrise
   - ../nextcloud
+  - ../node-feature-discovery
+  - ../node-problem-detector
   - ../ollama
   - ../openwebui
   - ../redlib
