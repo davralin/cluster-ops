@@ -3,7 +3,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: &name tubearchivist
-  namespace: tubearchivist
+  namespace: flux-system
 spec:
   interval: 5m
   chart:
@@ -38,13 +38,15 @@ spec:
       valuesKey: ELASTIC_PASSWORD
   values:
     fullnameOverride: *name
-    # App needs root to work.
-    #defaultPodOptions:
-      #securityContext:
-        #runAsUser: 1000
-        #runAsGroup: 1000
-        #fsGroup: 1000
-        #fsGroupChangePolicy: "OnRootMismatch"
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 0
+        runAsGroup: 0
+        fsGroup: 0
+        fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: false
+        seccompProfile:
+          type: RuntimeDefault
     controllers:
       tubearchivist:
         containers:
@@ -53,13 +55,19 @@ spec:
               repository: bbilly1/tubearchivist
               tag: v0.4.10
             env:
-              ES_URL: "http://elasticsearch.tubearchivist.svc.cluster.local:9200"
-              REDIS_HOST: "redis-stack.tubearchivist.svc.cluster.local"
+              ES_URL: "http://tubearchivist-elasticsearch.tubearchivist.svc.cluster.local:9200"
+              REDIS_HOST: "tubearchivist-redis-stack.tubearchivist.svc.cluster.local"
               HOST_UID: 1000
               HOST_GID: 1000
               TA_HOST: "tube.${SECRET_DEFAULT_DOMAIN}"
               ENABLE_CAST: "true"
               TZ: "${TIMEZONE}"
+            securityContext:
+              allowPrivilegeEscalation: false
+              # OSError: [Errno 30] Read-only file system: '/app/staticfiles'
+              readOnlyRootFilesystem: false
+              # Unsure why, but something doesn't listen without it
+              #capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 memory: 1024Mi

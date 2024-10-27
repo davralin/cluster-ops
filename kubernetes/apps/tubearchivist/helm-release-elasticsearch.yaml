@@ -2,8 +2,8 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &name elasticsearch
-  namespace: tubearchivist
+  name: &name tubearchivist-elasticsearch
+  namespace: flux-system
 spec:
   interval: 5m
   chart:
@@ -24,20 +24,23 @@ spec:
     remediation:
       retries: 3
   valuesFrom:
-    - targetPath: controllers.elasticsearch.containers.app.env.ELASTIC_PASSWORD
+    - targetPath: controllers.tubearchivist-elasticsearch.containers.app.env.ELASTIC_PASSWORD
       kind: Secret
       name: tubearchivist-secrets
       valuesKey: ELASTIC_PASSWORD
   values:
     fullnameOverride: *name
-    #defaultPodOptions:
-      #securityContext:
-        #runAsUser: 1000
-        #runAsGroup: 1000
-        #fsGroup: 1000
-        #fsGroupChangePolicy: "OnRootMismatch"
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
     controllers:
-      elasticsearch:
+      tubearchivist-elasticsearch:
         containers:
           app:
             image:
@@ -48,6 +51,15 @@ spec:
               discovery.type: "single-node"
               ES_JAVA_OPTS: "-Xms1g -Xmx1g"
               path.repo: "/usr/share/elasticsearch/data/snapshot"
+            securityContext:
+              allowPrivilegeEscalation: false
+              # java.nio.file.FileSystemException: /usr/share/elasticsearch/config/elasticsearch.keystore.tmp: Read-only file system
+              readOnlyRootFilesystem: false
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                memory: 75Mi
+                cpu: 100m
     service:
       app:
         controller: *name
