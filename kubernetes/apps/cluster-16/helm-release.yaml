@@ -95,22 +95,22 @@ spec:
               cpu: "1"
             limits:
               memory: "4Gi"
-          backup:
-            retentionPolicy: 14d
-            barmanObjectStore:
-              wal:
-                compression: bzip2
-                maxParallel: 4
-              destinationPath: s3://postgresql-home-k8s
-              endpointURL: "${SECRET_S3_URL}"
-              serverName: postgres-v16
-              s3Credentials:
-                accessKeyId:
-                  name: cloudnative-pg-s3-secret
-                  key: s3-access-key
-                secretAccessKey:
-                  name: cloudnative-pg-s3-secret
-                  key: s3-secret-key
+          backup: {}
+          #  retentionPolicy: 14d
+          #  barmanObjectStore:
+          #    wal:
+          #      compression: bzip2
+          #      maxParallel: 4
+          #    destinationPath: s3://postgresql-home-k8s
+          #    endpointURL: "${SECRET_S3_URL}"
+          #    serverName: postgres-v16
+          #    s3Credentials:
+          #      accessKeyId:
+          #        name: cloudnative-pg-s3-secret
+          #        key: s3-access-key
+          #      secretAccessKey:
+          #        name: cloudnative-pg-s3-secret
+          #        key: s3-secret-key
           externalClusters:
             # this represents the s3 backup to restore from. Must be same version.
             - name: postgres-v16
