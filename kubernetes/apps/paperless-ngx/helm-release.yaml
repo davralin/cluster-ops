@@ -3,7 +3,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: &name paperless-ngx
-  namespace: paperless-ngx
+  namespace: flux-system
 spec:
   interval: 5m
   chart:
@@ -42,27 +42,31 @@ spec:
       valuesKey: paperless-admin-email
   values:
     fullnameOverride: *name
-    #defaultPodOptions:
-      #securityContext:
-        #runAsUser: 1000
-        #runAsGroup: 1000
-        #fsGroup: 1000
-        #fsGroupChangePolicy: "OnRootMismatch"
+    defaultPodOptions:
+      securityContext:
+      # E: List directory /var/lib/apt/lists/partial is missing. - Acquire (13: Permission denied)
+        runAsUser: 0
+        runAsGroup: 0
+        fsGroup: 0
+        fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: false
+        seccompProfile:
+          type: RuntimeDefault
     controllers:
       paperless-ngx:
         containers:
           app:
             image:
               repository: ghcr.io/paperless-ngx/paperless-ngx
-              tag: 2.12.1
+              tag: 2.13.0
             env:
               PAPERLESS_TIME_ZONE: "${TIMEZONE}"
               PAPERLESS_OCR_LANGUAGE: "nor+eng"
               PAPERLESS_OCR_LANGUAGES: "nor"
-              PAPERLESS_REDIS: "redis://valkey-master"
+              PAPERLESS_REDIS: "redis://valkey-primary"
               PAPERLESS_FILENAME_FORMAT: "{created_year}/{correspondent}/{created_month}_{title}"
               PAPERLESS_URL: "https://paperless-ngx.${SECRET_DEFAULT_DOMAIN}"
-              PAPERLESS_DBHOST: "postgres-v16-rw.cloudnative-pg.svc.cluster.local"
+              PAPERLESS_DBHOST: "paperless-ngx-postgres-v17-rw.paperless-ngx.svc.cluster.local"
               PAPERLESS_DBNAME: "paperless-ngx"
               PAPERLESS_DBUSER: "paperless-ngx"
               PAPERLESS_TIKA_ENABLED: "1"
@@ -71,6 +75,12 @@ spec:
               PAPERLESS_CONSUMER_POLLING: 3600
               PAPERLESS_CONSUMER_RECURSIVE: true
               PAPERLESS_CONSUMPTION_DIR: /usr/src/paperless/consume
+            securityContext:
+              allowPrivilegeEscalation: false
+              # E: List directory /var/lib/apt/lists/partial is missing. - Acquire (30: Read-only file system)
+              readOnlyRootFilesystem: false
+              # E: setgroups 65534 failed - setgroups (1: Operation not permitted)
+              #capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 100m
@@ -81,12 +91,21 @@ spec:
             image: 
               repository: ghcr.io/paperless-ngx/tika
               tag: 2.9.1-minimal
+            securityContext:
+              allowPrivilegeEscalation: false
+              # java.util.concurrent.ExecutionException: java.nio.file.FileSystemException: /tmp/apache-tika-server-forked-tmp-14715358992636831581: Read-only file system
+              readOnlyRootFilesystem: false
+              capabilities: { drop: ["ALL"] }
           gotenberg:
             image: 
               repository: docker.io/gotenberg/gotenberg
               tag: "8.12.0"
             command: ['/usr/bin/gotenberg']
             args: ['--chromium-disable-javascript=true', '--chromium-allow-list=file:///tmp/.*']
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
     service:
       app:
         controller: *name
@@ -116,16 +135,22 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: paperless-ngx-data
-        globalMounts:
-          - path: /usr/src/paperless/data
-      consume:
+        existingClaim: paperless-ngx
+        advancedMounts:
+          paperless-ngx:
+            app:
+              - path: /usr/src/paperless/data
+                subPath: data
+              - path: /usr/src/paperless/consume
+                subPath: consume
+              - path: /usr/src/paperless/media
+                subPath: media
+      export:
         enabled: true
-        existingClaim: paperless-ngx-consume
-        globalMounts:
-          - path: /usr/src/paperless/consume
-      media:
-        enabled: true
-        existingClaim: paperless-ngx-media
-        globalMounts:
-          - path: /usr/src/paperless/media
+        existingClaim: paperless-ngx-export
+        advancedMounts:
+          paperless-ngx:
+            app:
+              - path: /export
+                subPath: .
+                readOnly: true

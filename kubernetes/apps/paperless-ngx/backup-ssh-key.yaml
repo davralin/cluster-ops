@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Secret
+type: Opaque
+metadata:
+    name: sshkey
+    namespace: paperless-ngx
+data:
+    id_ed25519: ENC[AES256_GCM,data:W9OB2M+67tzvMaiJ7g4/nx19G1YnVGuHfCgLnNQ7t4Xz8v8nvZ/TnQOxeuivVZv5r89X6POEmUhm3U1+MToSBO/1eedbAdnigqx1MvOcumTnelno+i01Wqnk2w2SBDE1Eyh+himEx/okEa+K2xkxlWHd5rXs2fNJTGoWOfTCmedKBpNUepY4O80SPSJjl8rOdJoarmTW5d3foGMK2TzEv6zrVrNb+HUYzMCzuIqGpSLkv5pmNFGiQwHqP6Wg3r467T35Rix+uOCa/S3fhO/HI8y2xcg+cjfpjTTMWGVaEHso2U2JYhj6eJuUc6Dem1hOVOJFL+39Yw9eCmfzzkankE+O2QxnsWOMsyArI/uneeuIqAKfRy9dv+3BRD3rDfzL1oWpjaLa186O6AIfoiXHBrzUipiSF/gA3+Vt9PlEIGlYf7TOpaBeXOfM8qm7tX/dqUobnuDSZ7rw5AQ75Axba2RO9AWFHa07WxnaodROoQjuEretL04hHb2RpYxbrOfeSlliz5C5n2D7d/BQrPmrQLIb1XDTDxYpFaSfshNOycEvcxOX/kYwutPJmjZzOLce/ZSQPw1sSV/esN/e1M3eetM9vWzV6oqCkGnvx3hX18AA+mBl3UbCUfRRBznTBXfAEE/T+FvyTSE/7RqMWcxKLA0R5aQHBEH53GfzmOGKuov0zxAyxf+iSnTaUEOEUiyclgrApyE3Z/+zQlwmlI+AoccfQ/E=,iv:oDfdAezXUAGWqYot3+zTv99RafLlM3GW+HOXAFX3Tyc=,tag:UHvcu4a3frdcdR8SdeMSbQ==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age13s49lz9hcwqdlgyyde5zr2ynryc5jsydmyvpvhx0klqd0ylkkq0szd3xtm
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBvdW1POEsyaERTT1U4VERy
+            MFZPd2J2dkxiTDFydE95TTFNTGVXWk5CMkhNCnFRS3dLWi9MYUhQMjdhdi9YUWls
+            RkxRbnNWcG1LOHVPT3NCSTR0dGtsMWsKLS0tIDNHbS9PZnhoOGlKVnZNakpSb0tK
+            VkdpRkw2MmNzQkJDaUx3ci96NEtoaFkKQ4ydSsvor0UB9C7bombVtRvwoiZ9hxuB
+            QU4iue9jIUM9w4HTH7dR0kJ3uQpeskbCYrH8FXS27K11s7y/+6tSsQ==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-10-28T00:06:44Z"
+    mac: ENC[AES256_GCM,data:jhjLZC7C1xbBITc1RpotfQntRLkRENUdW9KjhBSrmb0lbhzlHcf5PF7WVqR1AkghdW4hZ6v44Ho/Q8a+VOk+NawRoeIPRHNT1QrDIA7HYyJQfGjK7mnA6T5j5fdV5K30C+sa0yzmDhnY3YcuiXF8tDh10fuCZRXpHetZzTnq7zw=,iv:5dKww4G3CDMde8g0+tdPE/9sJPZBkyppubZ+x4OwTec=,tag:JD/Tm6RQKK1Eioq8QGuSnw==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData)$
+    version: 3.9.1
