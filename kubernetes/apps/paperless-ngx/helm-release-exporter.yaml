@@ -3,7 +3,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: &name paperless-ngx-exporter
-  namespace: paperless-ngx
+  namespace: flux-system
 spec:
   interval: 5m
   chart:
@@ -42,12 +42,16 @@ spec:
       valuesKey: paperless-admin-email
   values:
     fullnameOverride: *name
-    #defaultPodOptions:
-      #securityContext:
-        #runAsUser: 1000
-        #runAsGroup: 1000
-        #fsGroup: 1000
-        #fsGroupChangePolicy: "OnRootMismatch"
+    defaultPodOptions:
+      securityContext:
+      # E: List directory /var/lib/apt/lists/partial is missing. - Acquire (13: Permission denied)
+        runAsUser: 0
+        runAsGroup: 0
+        fsGroup: 0
+        fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: false
+        seccompProfile:
+          type: RuntimeDefault
     controllers:
       paperless-ngx-exporter:
         type: cronjob
@@ -59,15 +63,22 @@ spec:
             args: ["--compare-checksums", "--delete", "--use-filename-format", "--skip-checks", "--verbosity", "3", "/export/backup"]
             image:
               repository: ghcr.io/paperless-ngx/paperless-ngx
-              tag: 2.12.1
+              tag: 2.13.0
             env:
               PAPERLESS_TIME_ZONE: "${TIMEZONE}"
-              PAPERLESS_REDIS: "redis://valkey-master"
+              PAPERLESS_REDIS: "redis://valkey-primary"
+              # Changing this breaks app-template:
               PAPERLESS_FILENAME_FORMAT: "{created_year}/{correspondent}/{created_month}_{title}"
               PAPERLESS_URL: "https://paperless-ngx.${SECRET_DEFAULT_DOMAIN}"
-              PAPERLESS_DBHOST: "postgres-v16-rw.cloudnative-pg.svc.cluster.local"
+              PAPERLESS_DBHOST: "paperless-ngx-postgres-v17-rw.paperless-ngx.svc.cluster.local"
               PAPERLESS_DBNAME: "paperless-ngx"
               PAPERLESS_DBUSER: "paperless-ngx"
+            securityContext:
+              allowPrivilegeEscalation: false
+              # E: List directory /var/lib/apt/lists/partial is missing. - Acquire (30: Read-only file system)
+              readOnlyRootFilesystem: false
+              # E: setgroups 65534 failed - setgroups (1: Operation not permitted)
+              #capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 100m
@@ -77,19 +88,16 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: paperless-ngx-data
-        globalMounts:
-          - path: /usr/src/paperless/data
-      consume:
-        enabled: true
-        existingClaim: paperless-ngx-consume
-        globalMounts:
-          - path: /usr/src/paperless/consume
-      media:
-        enabled: true
-        existingClaim: paperless-ngx-media
-        globalMounts:
-          - path: /usr/src/paperless/media
+        existingClaim: paperless-ngx
+        advancedMounts:
+          paperless-ngx-exporter:
+            app:
+              - path: /usr/src/paperless/data
+                subPath: data
+              - path: /usr/src/paperless/consume
+                subPath: consume
+              - path: /usr/src/paperless/media
+                subPath: media
       export:
         enabled: true
         existingClaim: paperless-ngx-export
