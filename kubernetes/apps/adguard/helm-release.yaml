@@ -3,7 +3,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: &name adguard
-  namespace: adguard
+  namespace: flux-system
 spec:
   interval: 5m
   chart:
@@ -26,12 +26,16 @@ spec:
   values:
     fullnameOverride: *name
     # Containers listens on tcp/53 and tcp/80
-    #defaultPodOptions:
-      #securityContext:
-        #runAsUser: 1000
-        #runAsGroup: 1000
-        #sGroup: 1000
-        #fsGroupChangePolicy: "OnRootMismatch"
+    defaultPodOptions:
+      securityContext:
+        # [fatal] writing config file: open /opt/adguardhome/conf/.AdGuardHome.yaml7437003519424238868: permission denied
+        runAsUser: 0
+        runAsGroup: 0
+        fsGroup: 0
+        fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: false
+        seccompProfile:
+          type: RuntimeDefault
     controllers:
       adguard:
         containers:
@@ -41,6 +45,11 @@ spec:
               tag: v0.107.53
             env:
               TZ: "${TIMEZONE}"
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              # exec /opt/adguardhome/AdGuardHome: operation not permitted
+              #capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 memory: 300Mi
@@ -88,10 +97,10 @@ spec:
       config:
         enabled: true
         existingClaim: adguard
-        globalMounts:
-          - path: /opt/adguardhome/conf
-      data:
-        enabled: true
-        existingClaim: adguard-data
-        globalMounts:
-          - path: /opt/adguardhome/work
+        advancedMounts:
+          adguard:
+            app:
+              - path: /opt/adguardhome/conf
+                subPath: conf
+              - path: /opt/adguardhome/work
+                subPath: work

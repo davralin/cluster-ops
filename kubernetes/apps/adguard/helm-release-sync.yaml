@@ -3,7 +3,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: &name adguard-sync
-  namespace: adguard
+  namespace: flux-system
 spec:
   interval: 5m
   chart:
@@ -59,6 +59,9 @@ spec:
         runAsGroup: 1000
         fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
     controllers:
       adguard-sync:
         containers:
@@ -71,6 +74,10 @@ spec:
               TZ: "${TIMEZONE}"
               API_PORT: '0'
               CRON: '*/30 * * * *'
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 25m
