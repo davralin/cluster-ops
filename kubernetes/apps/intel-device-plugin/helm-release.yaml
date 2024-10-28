@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &name intel-device-plugin-gpu
+  name: &name intel-device-plugins-gpu
   namespace: flux-system
 spec:
   interval: 5m
@@ -27,6 +27,8 @@ spec:
       retries: 3
   dependsOn:
     - name: intel-device-plugin-operator
+      namespace: flux-system
+    - name: node-feature-discovery
       namespace: flux-system
   values:
     name: intel-gpu-plugin
