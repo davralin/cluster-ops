@@ -45,6 +45,8 @@ spec:
             roles:
               - name: freshrss
                 login: true
+                passwordSecret:
+                  name: freshrss-basic-auth
           superuserSecret:
             name: *name
           bootstrap:
