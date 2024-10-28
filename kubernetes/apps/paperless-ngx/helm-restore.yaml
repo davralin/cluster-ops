@@ -1,0 +1,69 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &name paperless-ngx-restore
+  namespace: paperless-ngx
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.5.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+      interval: 5m
+  targetNamespace: paperless-ngx
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  values:
+    fullnameOverride: *name
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 0
+        runAsGroup: 0
+        fsGroup: 0
+        fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: false
+        seccompProfile:
+          type: RuntimeDefault
+    controllers:
+      onsite-sync:
+        type: cronjob
+        cronjob:
+          schedule: "45 */6 * * *"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/davralin/rsync
+              tag: latest@sha256:96048571bc49b59d63779a09b2bc43810a6244eb0469bcd411700f5276acc411
+            command: ['/usr/bin/rsync']
+            args: ["--archive", "--delete", "--verbose", "-e", "ssh -o StrictHostKeyChecking=no", "backup@nas.${SECRET_DEFAULT_DOMAIN}:/opt/local/paperless-ngx/", "/paperless-ngx/backup/"]
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+    persistence:
+      paperless-ngx-export:
+        enabled: true
+        existingClaim: paperless-ngx-export
+        globalMounts:
+          - path: /paperless-ngx
+      sshkey:
+        enabled: true
+        type: secret
+        name: sshkey
+        defaultMode: 0600
+        advancedMounts:
+          onsite-sync:
+            app:
+              - path: /root/.ssh/id_ed25519
+                subPath: id_ed25519
+                readOnly: true
