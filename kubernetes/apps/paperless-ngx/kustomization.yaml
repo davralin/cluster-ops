@@ -4,8 +4,11 @@ kind: Kustomization
 resources:
   - backup-ssh-key.yaml
   - database-secret.yaml
+  # TODO
   #- helm-daily-to-consume.yaml
+  # TODO
   #- helm-offsite-sync.yaml
+  # TODO
   #- helm-onsite-sync.yaml
   - helm-release-db-v17.yaml
   - helm-release-exporter.yaml
