@@ -65,7 +65,7 @@ spec:
           group_wait: 30s
           group_interval: 5m
           repeat_interval: 6h
-          receiver: "uar"
+          receiver: "Discord"
           routes:
             - receiver: "healthchecksio"
               matchers:
@@ -73,7 +73,7 @@ spec:
             - receiver: "healthchecksio"
               matchers:
                 - alertname ="AlertmanagerClusterFailedToSendAlerts|AlertmanagerFailedToSendAlerts"
-            - receiver: "uar"
+            - receiver: "Discord"
               matchers:
                 - severity = "critical|warning"
               continue: true
