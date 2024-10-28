@@ -26,6 +26,7 @@ resources:
   - ../openwebui
   - ../paperless-ngx
   - ../redlib
+  - ../reloader
   - ../searxng
   - ../syncthing
   - ../thelounge
