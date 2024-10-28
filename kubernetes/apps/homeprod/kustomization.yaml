@@ -24,6 +24,7 @@ resources:
   - ../node-problem-detector
   - ../ollama
   - ../openwebui
+  - ../paperless-ngx
   - ../redlib
   - ../searxng
   - ../syncthing
