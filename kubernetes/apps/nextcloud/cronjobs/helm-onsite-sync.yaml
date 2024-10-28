@@ -43,7 +43,7 @@ spec:
           app:
             image:
               repository: ghcr.io/davralin/rsync
-              tag: latest@sha256:96048571bc49b59d63779a09b2bc43810a6244eb0469bcd411700f5276acc411
+              tag: latest@sha256:679c8ba52efddb2cdda4f6546823f1d40306bb6ca6d3af0e392b53dafa146061
             command: ['/usr/bin/rsync']
             args: ["--archive", "--delete", "--verbose", "-e", "ssh -o StrictHostKeyChecking=no", "/nextcloud/", "backup@nas.${SECRET_DEFAULT_DOMAIN}:/opt/local/nextcloud/"]
             securityContext:
