@@ -45,6 +45,8 @@ spec:
             roles:
               - name: gitea
                 login: true
+                passwordSecret:
+                  name: gitea-basic-auth
           superuserSecret:
             name: *name
           bootstrap:

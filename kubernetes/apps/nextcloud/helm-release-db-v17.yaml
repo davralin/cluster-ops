@@ -45,6 +45,8 @@ spec:
             roles:
               - name: nextcloud
                 login: true
+                passwordSecret:
+                  name: nextcloud-basic-auth
           superuserSecret:
             name: *name
           bootstrap:

@@ -45,6 +45,8 @@ spec:
             roles:
               - name: paperless-ngx
                 login: true
+                passwordSecret:
+                  name: paperless-ngx-basic-auth
           superuserSecret:
             name: *name
           bootstrap:
