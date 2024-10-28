@@ -44,7 +44,7 @@ spec:
           custom:
             - name: "intel-gpu"
               labels:
-                custom-intel-gpu: "true"
+                intel.feature.node.kubernetes.io/gpu: "true"
               matchFeatures:
                 - feature: pci.device
                   matchExpressions:
