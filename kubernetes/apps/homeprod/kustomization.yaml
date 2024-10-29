@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - ../adguard
   - ../archivebox
+  - ../awx
   - ../changedetection
   - ../cloudnative-pg
   - ../cluster-16
