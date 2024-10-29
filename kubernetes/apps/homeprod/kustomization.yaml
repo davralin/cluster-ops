@@ -21,6 +21,7 @@ resources:
   - ../librespeed
   - ../mailrelay
   - ../mailrise
+  - ../media
   - ../nextcloud
   - ../node-feature-discovery
   - ../node-problem-detector

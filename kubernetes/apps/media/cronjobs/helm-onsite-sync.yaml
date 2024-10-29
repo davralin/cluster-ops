@@ -2,8 +2,8 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &name onsite-sync
-  namespace: media
+  name: &name media-onsite-sync
+  namespace: flux-system
 spec:
   interval: 5m
   chart:
@@ -25,12 +25,15 @@ spec:
       retries: 3
   values:
     fullnameOverride: *name
-    #defaultPodOptions:
-      #securityContext:
-        #runAsUser: 1000
-        #runAsGroup: 1000
-        #fsGroup: 1000
-        #fsGroupChangePolicy: "OnRootMismatch"
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
     controllers:
       onsite-sync:
         type: cronjob
@@ -40,9 +43,14 @@ spec:
           app:
             image:
               repository: ghcr.io/davralin/rsync
-              tag: latest@sha256:96048571bc49b59d63779a09b2bc43810a6244eb0469bcd411700f5276acc411
+              tag: latest@sha256:7620d3b48e614f4809d5e7b0addf5f80cbdb3074c8981ba5659fbb3fcea6bf56
             command: ['/usr/bin/rsync']
-            args: ["--archive", "--delete", "--verbose", "-e", "ssh -o StrictHostKeyChecking=no", "/media/", "backup@nas.${SECRET_DEFAULT_DOMAIN}:/opt/local/media/"]
+            args: ["--archive", "--delete", "--exclude=video/", "--verbose", "-e", "ssh -o StrictHostKeyChecking=no", "backup@nas.${SECRET_DEFAULT_DOMAIN}:/opt/local/media/", "/media/"]
+            #args: ["--archive", "--delete", "--verbose", "-e", "ssh -o StrictHostKeyChecking=no", "/media/", "backup@nas.${SECRET_DEFAULT_DOMAIN}:/opt/local/media/"]
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
     persistence:
       media:
         enabled: true
@@ -57,6 +65,6 @@ spec:
         advancedMounts:
           onsite-sync:
             app:
-              - path: /root/.ssh/id_ed25519
+              - path: /home/user/.ssh/id_ed25519
                 subPath: id_ed25519
                 readOnly: true
