@@ -2,8 +2,8 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &name offsite-sync
-  namespace: nextcloud
+  name: &name nextcloud-offsite-sync
+  namespace: flux-system
 spec:
   interval: 5m
   chart:
@@ -25,12 +25,15 @@ spec:
       retries: 3
   values:
     fullnameOverride: *name
-    #defaultPodOptions:
-      #securityContext:
-        #runAsUser: 1000
-        #runAsGroup: 1000
-        #fsGroup: 1000
-        #fsGroupChangePolicy: "OnRootMismatch"
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
     controllers:
       offsite-sync:
         type: cronjob
@@ -66,6 +69,6 @@ spec:
         advancedMounts:
           offsite-sync:
             app:
-              - path: /root/.ssh/id_ed25519
+              - path: /home/user/.ssh/id_ed25519
                 subPath: id_ed25519
                 readOnly: true
