@@ -2,8 +2,8 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &name offsite-sync
-  namespace: paperless-ngx
+  name: &name paperless-ngx-offsite-sync
+  namespace: flux-system
 spec:
   interval: 5m
   chart:
@@ -25,12 +25,15 @@ spec:
       retries: 3
   values:
     fullnameOverride: *name
-    #defaultPodOptions:
-      #securityContext:
-        #runAsUser: 1000
-        #runAsGroup: 1000
-        #fsGroup: 1000
-        #fsGroupChangePolicy: "OnRootMismatch"
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
     controllers:
       offsite-sync:
         type: cronjob
@@ -43,10 +46,14 @@ spec:
               tag: latest@sha256:7620d3b48e614f4809d5e7b0addf5f80cbdb3074c8981ba5659fbb3fcea6bf56
             command: ['/usr/bin/rsync']
             args: ["--archive", "--delete", "--verbose", "-e", "ssh -o StrictHostKeyChecking=no", "/paperless-ngx/backup/", "backup@nas.${SECRET_OFFSITE_DOMAIN}:/opt/backup/paperless-ngx/"]
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
     persistence:
-      paperless-ngx-export:
+      paperless-ngx:
         enabled: true
-        existingClaim: paperless-ngx-export
+        existingClaim: paperless-ngx
         globalMounts:
           - path: /paperless-ngx
       sshkey:
@@ -57,6 +64,6 @@ spec:
         advancedMounts:
           offsite-sync:
             app:
-              - path: /root/.ssh/id_ed25519
+              - path: /home/user/.ssh/id_ed25519
                 subPath: id_ed25519
                 readOnly: true
