@@ -5,7 +5,7 @@ resources:
   #- audiobookshelf
   #- bazarr
   - cronjobs
-  #- filebrowser
+  - filebrowser
   #- jellyfin
   #- jellyplex-watched
   #- jellystat
