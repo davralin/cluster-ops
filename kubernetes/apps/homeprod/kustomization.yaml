@@ -23,6 +23,7 @@ resources:
   - ../mailrelay
   - ../mailrise
   - ../media
+  - ../minecraft
   - ../nextcloud
   - ../node-feature-discovery
   - ../node-problem-detector

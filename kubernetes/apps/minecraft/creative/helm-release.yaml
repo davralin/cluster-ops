@@ -2,8 +2,8 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: creative
-  namespace: minecraft
+  name: &name minecraft-creative
+  namespace: flux-system
 spec:
   interval: 5m
   chart:

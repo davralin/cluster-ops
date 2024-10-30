@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Secret
+type: Opaque
+metadata:
+    name: sshkey
+    namespace: minecraft
+data:
+    id_ed25519: ENC[AES256_GCM,data:yGM06uIjfKEBiBb8BNR6x32kotltNa5JePteGHF2LyJCuctBnGz2k1T1QssgDs7Rwdj7lyulXl0nI30vnQHVVCtQXKUZ02jNMYhVZ/4/KDm0lD9Xth8cUXkKJ8rgUJv10fa00frIA9jMyUy8/IHpgea2Kbyd2yALnEUvwPnJW1H74AAQ/Dl9Uzh3jGdxBFTA4cwGvzM8JhyjhB4LQtyY4LWb0uj48wl/mlC8ZKXXDVEyP1bRb5nvlBq6ahdRIxFFXZdwCoUEwG5GwVJ60j8XlmzrN9o9oA33d2MBB+aO40qe3gcF5kHev43gXFYSSxLjMV+8Vi+m7GKGTl3ha0GGQEArmVCzqi4MwckZCzyCYTm1/Xc8RQt47goSIx5FuXHkf9jvvSlmqFVOvN9WH40wY8/mNGc4KDZZTkQ2sAYw5t8PEhp+geRp6u6D7yaEj7eOcUYryolpigqeGhTsTNILz0cqgbMa9cF74USm4A3FWfYZiUVcVk4dwpJx6LdxeHv7GP6eiG0u/XLiQfroplMLUA3qU/zRvy8VXDEIZMtGUpRWZq+enEQj6A76wd0DCaJNJLJ0SGarLWM2Sj1QIbjzWeVZ/1SRczGtIz3Gqxd5WcUePf3idLsLzIHfPVdUHAJIxOH3CLNkkv+lFyZl2SZ2GA9kPvM9wr7aN8LtkDOZ64mQz8Ls9WBXeDWr8C1+/vTInzEIIAFNYma0+VdvCsKMmuH8o8o=,iv:WROvvwzr26F2ieTZiTvCH7TLi6/3f7wt3/0loah9gIQ=,tag:PPRyjTwZVLlyA38qzW4NEA==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age13s49lz9hcwqdlgyyde5zr2ynryc5jsydmyvpvhx0klqd0ylkkq0szd3xtm
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSAvSU5BNlBMWGh0dHlsWEdz
+            NmNyVW9iSENQN0NtajlqMzJiS2VkZjlzeVhBCmN1bTNHMDNEZTI4ZWk2a1U4OGIv
+            akhRZU1SVWJmK2pBb0FNMVE0NXNiMU0KLS0tIE8rWlA1QVJoNG9qU2F5MC9MeEpG
+            b2JzUWFIaXJGYjI0OFRTNU9UUGV1U0UK9XUNVrtyBK6XnkALVS8+acroE46n0Y4k
+            t1/UzFtZuInIchUMf/Rkxr8l6x62xj6g2jjFwMC6iUr7fnYg1y1VnA==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-10-29T21:51:21Z"
+    mac: ENC[AES256_GCM,data:JJKfKsXPTvtkSneOph37gET9O8+qqjvuMry+H1NzAQHcqKjK47cZUh2IAaNxjWMxvUqpw0X3o8e/thtkNLo90eCQVGR43vdgMN4XFgvs6a4b1kxKUlBgGvtBefWIBCBueqUN2colM46QCAVt4ehyaqsMs6b5O8ltPSeGD8Ny8P8=,iv:lJ4M1R82923/9PJFgIr6+jKnTYzb/mAuIzNeyogNXUs=,tag:pkaMkEvzFwuT4Xw8p9MR5g==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData)$
+    version: 3.9.1

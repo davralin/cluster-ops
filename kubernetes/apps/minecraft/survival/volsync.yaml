@@ -6,7 +6,7 @@ metadata:
   namespace: minecraft
 type: Opaque
 stringData:
-  RESTIC_REPOSITORY: "s3:${SECRET_S3_URL}/volsync-${CLUSTER_NAME}/survival"
+  RESTIC_REPOSITORY: "s3:${SECRET_S3_URL}/volsync-${CLUSTER_NAME}/minecraft-survival"
   RESTIC_PASSWORD: "${SECRET_VOLSYNC_RESTIC_PWD}"
   AWS_ACCESS_KEY_ID: "${SECRET_VOLSYNC_ACCESS_KEYS}"
   AWS_SECRET_ACCESS_KEY: "${SECRET_VOLSYNC_SECRET_KEYS}"
@@ -36,9 +36,9 @@ spec:
       retries: 5
   dependsOn:
     - name: volsync
-      namespace: volsync
-    - name: survival
-      namespace: minecraft
+      namespace: flux-system
+    - name: minecraft-survival
+      namespace: flux-system
   values:
     resources:
       - apiVersion: volsync.backube/v1alpha1
@@ -47,19 +47,21 @@ spec:
           name: survival
           namespace: minecraft
         spec:
-          sourcePVC: survival-backup
+          sourcePVC: survival
           trigger:
-            schedule: "04 01 * * *"
+            schedule: "02 04 * * *"
           restic:
-            copyMethod: Direct
-            cacheStorageClassName: "${STORAGE_READWRITEONCE}"
-            cacheAccessModes: ["ReadWriteOnce"]
+            copyMethod: Snapshot
             pruneIntervalDays: 7
             repository: survival-volsync-secret
             moverSecurityContext:
               runAsUser: 1000
               runAsGroup: 1000
               fsGroup: 1000
+              fsGroupChangePolicy: "OnRootMismatch"
+              runAsNonRoot: true
+              seccompProfile:
+                type: RuntimeDefault
             retain:
               daily: 7
               within: 3d

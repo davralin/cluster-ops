@@ -2,8 +2,8 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: oldworld
-  namespace: minecraft
+  name: &name minecraft-oldworld
+  namespace: flux-system
 spec:
   interval: 5m
   chart:
