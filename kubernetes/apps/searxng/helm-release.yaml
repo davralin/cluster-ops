@@ -49,7 +49,8 @@ spec:
               SEARXNG_REDIS_URL: "redis://valkey-primary.searxng.svc.cluster.local:6379"
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
+              # WARNING:searx.botdetection.config: missing config file: /etc/searxng/limiter.toml
+              readOnlyRootFilesystem: false
               capabilities: { drop: ["ALL"] }
             resources:
               requests:
