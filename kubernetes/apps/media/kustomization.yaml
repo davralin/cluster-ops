@@ -2,7 +2,7 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  #- audiobookshelf
+  - audiobookshelf
   #- bazarr
   - cronjobs
   - filebrowser
@@ -19,7 +19,7 @@ resources:
   #- radarr
   #- readarr
   #- recyclarr
-  #- samba
+  - samba
   #- sonarr
   #- sshd
   #- tautulli
