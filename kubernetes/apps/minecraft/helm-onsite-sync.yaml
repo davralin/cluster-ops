@@ -2,8 +2,8 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &name onsite-sync
-  namespace: minecraft
+  name: &name minecraft-onsite-sync
+  namespace: flux-system
 spec:
   interval: 5m
   chart:
@@ -25,12 +25,15 @@ spec:
       retries: 3
   values:
     fullnameOverride: *name
-    #defaultPodOptions:
-      #securityContext:
-        #runAsUser: 1000
-        #runAsGroup: 1000
-        #fsGroup: 1000
-        #fsGroupChangePolicy: "OnRootMismatch"
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
     controllers:
       onsite-sync:
         type: cronjob
@@ -42,7 +45,11 @@ spec:
               repository: ghcr.io/davralin/rsync
               tag: latest@sha256:7620d3b48e614f4809d5e7b0addf5f80cbdb3074c8981ba5659fbb3fcea6bf56
             command: ['/usr/bin/rsync']
-            args: ["--archive", "--delete", "--verbose", "-e", "ssh -o StrictHostKeyChecking=no", "/minecraft/", "backup@nas.${SECRET_DEFAULT_DOMAIN}:/opt/local/minecraft/"]
+            args: ["--archive", "--delete", "--verbose", "-e", "ssh -o StrictHostKeyChecking=no", "backup@nas.${SECRET_DEFAULT_DOMAIN}:/opt/local/minecraft/", "/minecraft/"]
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
     persistence:
       creative-backup:
         enabled: true
