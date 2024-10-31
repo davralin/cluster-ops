@@ -75,6 +75,12 @@ spec:
         config:
           osdsPerDevice: "1"
         nodes:
+          - name: aviendha
+            devices:
+              - name: /dev/disk/by-id/nvme-WD_BLACK_SN850X_4000GB_23030Q802996
+                config:
+                  osdsPerDevice: "2"
+              - name: /dev/disk/by-id/ata-Samsung_SSD_870_QVO_8TB_S5SSNF0W507912Z
           - name: mat
             devices:
               - name: /dev/disk/by-id/nvme-Samsung_SSD_970_EVO_Plus_2TB_S6P1NS0T208153T
