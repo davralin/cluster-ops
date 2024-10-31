@@ -93,15 +93,6 @@ spec:
                 config:
                   osdsPerDevice: "2"
               - name: /dev/disk/by-id/ata-SAMSUNG_MZ7PC128HAFU-000H1_S0U2NSACA14970
-          - name: talos-cp-1
-            devices:
-              - name: /dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive-scsi1
-          - name: talos-cp-2
-            devices:
-              - name: /dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive-scsi1
-          - name: talos-cp-3
-            devices:
-              - name: /dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive-scsi1
     ingress:
       dashboard:
         annotations:
