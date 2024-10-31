@@ -2,7 +2,8 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - awx-deployment.yaml
+  # TODO
+  #- awx-deployment.yaml
   - database-secret.yaml
   - helm-release-db-v17.yaml
   - helm-release.yaml
