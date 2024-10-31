@@ -24,7 +24,7 @@ spec:
       retries: 5
   dependsOn:
     - name: awx-operator
-      namespace: awx
+      namespace: flux-system
   values:
     resources:
       - apiVersion: awx.ansible.com/v1beta1
