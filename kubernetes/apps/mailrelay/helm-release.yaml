@@ -60,7 +60,8 @@ spec:
               HOSTNAME: "smtp.${SECRET_DEFAULT_DOMAIN}"
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
+              # Failed to create directory "/var/spool/exim/input": Read-only file system
+              readOnlyRootFilesystem: false
               capabilities: { drop: ["ALL"] }
             resources:
               requests:
