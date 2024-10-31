@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &name daily-to-consume
+  name: &name paperless-ngx-daily-to-consume
   namespace: paperless-ngx
 spec:
   interval: 5m
@@ -31,6 +31,9 @@ spec:
         runAsGroup: 1000
         fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
     controllers:
       daily-to-consume:
         type: cronjob
@@ -42,6 +45,10 @@ spec:
               repository: rclone/rclone
               tag: 1.68.1
             args: ["--config", "/consume/rclone.conf", "move", "--verbose", "nextcloud:Scans/", "/consume"]
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
     persistence:
       consume:
         enabled: true
