@@ -4,5 +4,4 @@ kind: Kustomization
 resources:
   - helm-release.yaml
   - pvc.yaml
-  # TODO
-  #- volsync.yaml
+  - volsync.yaml
