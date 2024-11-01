@@ -32,6 +32,9 @@ spec:
         runAsGroup: 1000
         fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
     controllers:
       metube:
         containers:
@@ -66,6 +69,10 @@ spec:
                         {"key":"FFmpegMetadata","add_metadata":"True","add_infojson":"True","add_chapters":"True"}
                   ]
                 }
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 100m

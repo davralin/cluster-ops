@@ -10,7 +10,7 @@ resources:
   #- jellyplex-watched
   #- jellystat
   #- lidarr
-  #- metube
+  - metube
   - namespace.yaml
   - pvc.yaml
   #- plex
