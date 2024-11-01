@@ -31,7 +31,7 @@ spec:
   values:
     env:
       REDIS_HOSTNAME: "immich-valkey-primary"
-      DB_HOSTNAME: "immich-postgres-v17-rw"
+      DB_HOSTNAME: "immich-postgres-v16-rw"
       DB_USERNAME: "postgres" #superuserSecret
       DB_DATABASE_NAME: "immich"
     image:
