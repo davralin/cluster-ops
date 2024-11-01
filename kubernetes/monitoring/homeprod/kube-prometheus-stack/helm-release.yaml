@@ -72,7 +72,7 @@ spec:
                 - alertname =~ "InfoInhibitor|Watchdog"
             - receiver: "healthchecksio"
               matchers:
-                - alertname ="AlertmanagerClusterFailedToSendAlerts|AlertmanagerFailedToSendAlerts"
+                - alertname ="AlertmanagerClusterFailedToSendAlerts|AlertmanagerFailedToSendAlerts|CephPGImbalance|CephNodeNetworkPacketDrops"
             - receiver: "Discord"
               matchers:
                 - severity = "critical|warning"
