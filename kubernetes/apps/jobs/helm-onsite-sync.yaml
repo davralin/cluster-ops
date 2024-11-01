@@ -2,8 +2,8 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &name daily-sitebackup-from
-  namespace: jobs
+  name: &name jobs-onsite-sync
+  namespace: flux-system
 spec:
   interval: 5m
   chart:
@@ -25,37 +25,49 @@ spec:
       retries: 3
   values:
     fullnameOverride: *name
-    #defaultPodOptions:
-      #securityContext:
-        #runAsUser: 1000
-        #runAsGroup: 1000
-        #fsGroup: 1000
-        #fsGroupChangePolicy: "OnRootMismatch"
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
     controllers:
-      daily-sitebackup-from:
+      onsite-sync:
         type: cronjob
         cronjob:
-          schedule: "32 07 * * *"
+          schedule: "29 */12 * * *"
         containers:
           app:
             image:
               repository: ghcr.io/davralin/rsync
               tag: latest@sha256:96048571bc49b59d63779a09b2bc43810a6244eb0469bcd411700f5276acc411
             command: ['/usr/bin/rsync']
-            args: ["--archive", "--delete", "--verbose", "--rsync-path", "sudo rsync", "-e", "ssh -o StrictHostKeyChecking=no", "backup@nas.${SECRET_OFFSITE_DOMAIN}:/opt/local/", "/srv/"]
+            args: ["--archive", "--delete", "--verbose", "-e", "ssh -o StrictHostKeyChecking=no", "/regular/", "backup@nas.${SECRET_DEFAULT_DOMAIN}:/opt/local/regular/"]
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
     persistence:
+      remotebackup:
+        enabled: true
+        existingClaim: remotebackup
+        globalMounts:
+          - path: /regular/remote
       sitebackup:
         enabled: true
         existingClaim: sitebackup
         globalMounts:
-          - path: /srv
+          - path: /regular/site
       sshkey:
         enabled: true
         type: secret
         name: sshkey
         defaultMode: 0600
         advancedMounts:
-          daily-sitebackup-from:
+          onsite-sync:
             app:
               - path: /root/.ssh/id_ed25519
                 subPath: id_ed25519

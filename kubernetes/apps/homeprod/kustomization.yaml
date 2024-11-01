@@ -18,6 +18,7 @@ resources:
   - ../intel-device-plugin
   - ../invidious
   - ../it-tools
+  - ../jobs
   - ../kuma
   - ../librespeed
   - ../mailrelay

@@ -3,7 +3,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: &name backupbrowser
-  namespace: jobs
+  namespace: flux-system
 spec:
   interval: 5m
   chart:
@@ -25,13 +25,15 @@ spec:
       retries: 3
   values:
     fullnameOverride: *name
-    # Need this as root
-    #defaultPodOptions:
-      #securityContext:
-        #runAsUser: 1000
-        #runAsGroup: 1000
-        #fsGroup: 1000
-        #fsGroupChangePolicy: "OnRootMismatch"
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
     controllers:
       backupbrowser:
         containers:
@@ -39,6 +41,10 @@ spec:
             image:
               repository: ghcr.io/davralin/sleep
               tag: latest@sha256:3f3fb51424d424e9babbd808d7a97bf326e5821c30332b4144df8da0834db49c
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
     persistence:
       data:
         enabled: true

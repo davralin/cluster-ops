@@ -5,7 +5,8 @@ resources:
   - helm-backup.yaml
   - helm-daily-imap-backup.yaml
   - helm-daily-sitebackup-from.yaml
-  - helm-onsite-sync.yaml
+  # TODO
+  #- helm-onsite-sync.yaml
   - mbsync.yaml
   - namespace.yaml
   - pvc.yaml
