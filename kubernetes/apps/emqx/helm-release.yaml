@@ -31,7 +31,9 @@ spec:
       annotations:
         io.cilium/lb-ipam-ips: 10.0.1.42
       type: LoadBalancer
-      externalTrafficPolicy: Local
+      # For some yet to be determined reason, this setting reports all ports as Closed
+      # TODO: Figure out why, and fix it.
+      #externalTrafficPolicy: Local
     metrics:
       enabled: "${MONITORING_PROMETHEUS}"
     podSecurityContext:

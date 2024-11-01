@@ -38,7 +38,9 @@ spec:
       serverName: "BEDR0CK"
       enableLanVisibility: true
       serviceType: LoadBalancer
-      externalTrafficPolicy: Local
+      # For some yet to be determined reason, this setting reports all ports as Closed
+      # TODO: Figure out why, and fix it.
+      #externalTrafficPolicy: Local
       loadBalancerIP: 10.0.1.40
     livenessProbe:
       initialDelaySeconds: 150

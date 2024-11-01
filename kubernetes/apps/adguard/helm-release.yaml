@@ -59,7 +59,9 @@ spec:
       app:
         controller: *name
         type: LoadBalancer
-        externalTrafficPolicy: Local
+        # For some yet to be determined reason, this setting reports all ports as Closed
+        # TODO: Figure out why, and fix it.
+        #externalTrafficPolicy: Local
         loadBalancerIP: 10.0.1.37
         ports:
           http:

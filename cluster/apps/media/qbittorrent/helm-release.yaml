@@ -61,7 +61,9 @@ spec:
             port: 9500
             protocol: TCP
             targetPort: 9500
-        externalTrafficPolicy: Local
+        # For some yet to be determined reason, this setting reports all ports as Closed
+        # TODO: Figure out why, and fix it.
+        #externalTrafficPolicy: Local
     ingress:
       app:
         enabled: true
