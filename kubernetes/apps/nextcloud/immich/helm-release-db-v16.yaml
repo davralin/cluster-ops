@@ -81,9 +81,6 @@ spec:
             limits:
               memory: "512Mi"
           postgresql:
-            parameters:
-              max_connections: "300"
-              shared_buffers: 512MB
             shared_preload_libraries:
               - "vectors.so"
           backup:

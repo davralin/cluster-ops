@@ -36,9 +36,9 @@ spec:
       retries: 5
   dependsOn:
     - name: volsync
-      namespace: volsync
+      namespace: flux-system
     - name: immich
-      namespace: nextcloud
+      namespace: flux-system
   values:
     resources:
       - apiVersion: volsync.backube/v1alpha1
@@ -61,6 +61,10 @@ spec:
               runAsUser: 1000
               runAsGroup: 1000
               fsGroup: 1000
+              fsGroupChangePolicy: "OnRootMismatch"
+              runAsNonRoot: true
+              seccompProfile:
+                type: RuntimeDefault
             retain:
               daily: 31
               within: 3d

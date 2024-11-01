@@ -30,14 +30,14 @@ spec:
       valuesKey: password
   values:
     env:
-      REDIS_HOSTNAME: "immich-valkey-master"
-      DB_HOSTNAME: "postgres-v16-immich-rw"
+      REDIS_HOSTNAME: "immich-valkey-primary"
+      DB_HOSTNAME: "immich-postgres-v17-rw"
       DB_USERNAME: "postgres" #superuserSecret
       DB_DATABASE_NAME: "immich"
     image:
-      # quotes are required for regex
-      # datasource=github-releases depName=immich-app/immich
-      tag: "v1.117.0"
+      # TODO
+      # Need to make renovate pick this up
+      tag: "v1.119.1"
     immich:
       metrics:
         enabled: "${MONITORING_PROMETHEUS}"
@@ -55,13 +55,6 @@ spec:
           existingClaim: nextcloud
           readOnly: true
     server:
-      probes:
-        liveness:
-          spec:
-            initialDelaySeconds: 120
-        readiness:
-          spec:
-            initialDelaySeconds: 120
       persistence:
         external:
           enabled: true
