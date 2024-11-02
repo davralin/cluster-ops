@@ -43,11 +43,7 @@ spec:
             storageClass: "${STORAGE_READWRITEONCE}"
           managed:
             roles:
-              - name: jellystat
-                login: true
               - name: lidarr
-                login: true
-              - name: prowlarr
                 login: true
               - name: sonarr
                 login: true
