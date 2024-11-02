@@ -1,0 +1,68 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &name qbit-manage
+  namespace: flux-system
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.5.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+      interval: 5m
+  targetNamespace: media
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  values:
+    fullnameOverride: *name
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+    controllers:
+      qbit-manage:
+        containers:
+          app:
+            image:
+              repository: ghcr.io/stuffanthings/qbit_manage
+              tag: v4.1.12
+            env:
+              TZ: "${TIMEZONE}"
+              QBT_CONFIG: "/config/config.yml"
+              QBT_DEBUG: true
+              QBT_TRACE: true
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 50m
+                memory: 100Mi
+              limits:
+                cpu: 100m
+                memory: 200Mi
+    persistence:
+      config:
+        enabled: true
+        existingClaim: qbit-manage
+      media:
+        enabled: true
+        existingClaim: media
+        globalMounts:
+          - path: /data
