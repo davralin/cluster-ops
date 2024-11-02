@@ -1,0 +1,105 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &name radarr
+  namespace: flux-system
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.5.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+      interval: 5m
+  targetNamespace: media
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  valuesFrom:
+    - targetPath: controllers.radarr.containers.app.env.RADARR__POSTGRES__PASSWORD
+      kind: Secret
+      name: radarr-config
+      valuesKey: POSTGRES_PASSWORD
+  values:
+    fullnameOverride: *name
+    defaultPodOptions:
+      hostname: *name
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+    controllers:
+      radarr:
+        containers:
+          app:
+            image:
+              repository: ghcr.io/onedr0p/radarr
+              tag: 5.12.2.9335@sha256:d7ab75d9280e9067c9c7b4e3fc6366c030a5090dc842785d098f5967417cbac9
+            env:
+              TZ: "${TIMEZONE}"
+              RADARR__AUTH__APIKEY: "${SECRET_RADARR_API_KEY}"
+              RADARR__POSTGRES__HOST: postgres-v17-rw.media.svc.cluster.local
+              RADARR__POSTGRES__PORT: "5432"
+              RADARR__POSTGRES__USER: "radarr"
+              RADARR__POSTGRES__MAINDB: radarr_main
+              RADARR__AUTH__METHOD: External
+              RADARR__AUTH__REQUIRED: DisabledForLocalAddresses
+              RADARR__LOG__DBENABLED: "False"
+              RADARR__LOG__LEVEL: info
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 100m
+                memory: 300Mi
+              limits:
+                memory: 1000Mi
+    service:
+      app:
+        controller: *name
+        ports:
+          http:
+            port: 7878
+    ingress:
+      app:
+        enabled: true
+        annotations:
+          haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
+          haproxy.org/response-set-header: |
+            Strict-Transport-Security "max-age=31536000"
+            X-Frame-Options "DENY"
+            X-Content-Type-Options "nosniff"
+            Referrer-Policy "no-referrer-when-downgrade"
+        hosts:
+          - host: &host "radarr.${SECRET_DEFAULT_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - *host
+    persistence:
+      config:
+        enabled: true
+        existingClaim: radarr
+      media:
+        enabled: true
+        existingClaim: media
+        globalMounts:
+          - path: /data

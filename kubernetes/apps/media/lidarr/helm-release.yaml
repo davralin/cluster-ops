@@ -1,0 +1,105 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &name lidarr
+  namespace: flux-system
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.5.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+      interval: 5m
+  targetNamespace: media
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  valuesFrom:
+    - targetPath: controllers.lidarr.containers.app.env.LIDARR__POSTGRES__PASSWORD
+      kind: Secret
+      name: lidarr-config
+      valuesKey: POSTGRES_PASSWORD
+  values:
+    fullnameOverride: *name
+    defaultPodOptions:
+      hostname: *name
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+    controllers:
+      lidarr:
+        containers:
+          app:
+            image:
+              repository: ghcr.io/onedr0p/lidarr
+              tag: 2.4.3.4248@sha256:fcf7417a7dfa9967a78d668904c62888272bd6dd814b4b9c4500618f51be6b86
+            env:
+              TZ: "${TIMEZONE}"
+              RADARR__AUTH__APIKEY: "${SECRET_LIDARR_API_KEY}"
+              LIDARR__POSTGRES__HOST: postgres-v17-rw.media.svc.cluster.local
+              LIDARR__POSTGRES__PORT: "5432"
+              LIDARR__POSTGRES__USER: "lidarr"
+              LIDARR__POSTGRES__MAIN_DB: lidarr_main
+              LIDARR__AUTH__METHOD: External
+              LIDARR__AUTH__REQUIRED: DisabledForLocalAddresses
+              LIDARR__LOG__DBENABLED: "False"
+              LIDARR__LOG__LEVEL: info
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 100m
+                memory: 300Mi
+              limits:
+                memory: 1000Mi
+    service:
+      app:
+        controller: *name
+        ports:
+          http:
+            port: 8686
+    ingress:
+      app:
+        enabled: true
+        annotations:
+          haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
+          haproxy.org/response-set-header: |
+            Strict-Transport-Security "max-age=31536000"
+            X-Frame-Options "DENY"
+            X-Content-Type-Options "nosniff"
+            Referrer-Policy "no-referrer-when-downgrade"
+        hosts:
+          - host: &host "lidarr.${SECRET_DEFAULT_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - *host
+    persistence:
+      config:
+        enabled: true
+        existingClaim: lidarr
+      media:
+        enabled: true
+        existingClaim: media
+        globalMounts:
+          - path: /data
