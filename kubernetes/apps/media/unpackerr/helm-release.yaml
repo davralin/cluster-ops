@@ -1,0 +1,88 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &name unpackerr
+  namespace: flux-system
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.5.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+      interval: 5m
+  targetNamespace: media
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  values:
+    fullnameOverride: *name
+    defaultPodOptions:
+      hostname: *name
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+    controllers:
+      unpackerr:
+        containers:
+          app:
+            image:
+              repository: ghcr.io/unpackerr/unpackerr
+              tag: 0.14.5@sha256:dc72256942ce50d1c8a1aeb5aa85b6ae2680a36eefd2182129d8d210fce78044
+            env:
+              TZ: "${TIMEZONE}"
+              UN_WEBSERVER_METRICS: true
+              UN_WEBSERVER_LOG_FILE: /logs/webserver.log
+              UN_ACTIVITY: true
+              UN_LIDARR_0_URL: http://lidarr.media.svc.cluster.local:8686
+              UN_LIDARR_0_API_KEY: "${SECRET_LIDARR_API_KEY}"
+              UN_SONARR_0_URL: http://sonarr.media.svc.cluster.local:8989
+              UN_SONARR_0_API_KEY: "${SECRET_SONARR_API_KEY}"
+              UN_RADARR_0_URL: http://radarr.media.svc.cluster.local:7878
+              UN_RADARR_0_API_KEY: "${SECRET_RADARR_API_KEY}"
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 100m
+                memory: 300Mi
+              limits:
+                memory: 1000Mi
+    service:
+      app:
+        controller: *name
+        ports:
+          http:
+            port: 5656
+    serviceMonitor:
+      app:
+        serviceName: unpackerr
+        endpoints:
+          - port: http
+            scheme: http
+            path: /metrics
+            interval: 1m
+            scrapeTimeout: 10s
+    persistence:
+      logs:
+        type: emptyDir
+      media:
+        enabled: true
+        existingClaim: media
+        globalMounts:
+          - path: /data
