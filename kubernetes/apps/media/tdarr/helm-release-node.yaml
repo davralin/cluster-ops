@@ -2,8 +2,8 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &name daily-chown-media
-  namespace: media
+  name: &name tdarr-node
+  namespace: flux-system
 spec:
   interval: 5m
   chart:
@@ -34,23 +34,39 @@ spec:
         runAsNonRoot: true
         seccompProfile:
           type: RuntimeDefault
+        supplementalGroups:
+          - 44
+          - 226
     controllers:
-      daily-chown-media:
-        type: cronjob
-        cronjob:
-          schedule: "14 04 * * *"
+      tdarr-node:
+        type: daemonset
         containers:
           app:
             image:
-              repository: busybox
-              tag: 1.37.0
-            command: ['/bin/chown']
-            args: ["-R", "1000:1000", "/media"]
+              repository: ghcr.io/haveagitgat/tdarr_node
+              tag: 2.27.02
+            env:
+              TZ: "${TIMEZONE}"
+              PUID: "1000"
+              PGID: "1000"
+              serverIP: tdarr.media.svc.cluster.local
+              serverPort: 8266
+              ffmpegPath: "/usr/local/bin/ffmpeg"
+              nodeName:
+                valueFrom:
+                  fieldRef:
+                    fieldPath: spec.nodeName
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                memory: 600Mi
+                cpu: 2000m
     persistence:
       media:
         enabled: true
         existingClaim: media
+        globalMounts:
+          - path: /data

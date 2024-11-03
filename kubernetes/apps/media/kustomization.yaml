@@ -3,26 +3,28 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - audiobookshelf
-  #- bazarr
+  - bazarr
   - cronjobs
+  - database
   - filebrowser
-  #- jellyfin
+  - jellyfin
+  # TODO
   #- jellyplex-watched
-  #- jellystat
-  #- lidarr
+  - jellystat
+  - lidarr
   - metube
   - namespace.yaml
   - pvc.yaml
-  #- plex
-  #- prowlarr
-  #- qbittorrent
-  #- radarr
-  #- readarr
-  #- recyclarr
+  - plex
+  - prowlarr
+  - qbittorrent
+  - radarr
+  - readarr
+  - recyclarr
   # TODO
   #- samba
-  #- sonarr
-  #- sshd
-  #- tautulli
-  #- tdarr
-  #- unpackerr
+  - sonarr
+  - sshd
+  - tautulli
+  - tdarr
+  - unpackerr

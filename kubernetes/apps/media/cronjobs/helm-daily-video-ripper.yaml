@@ -2,8 +2,8 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &name daily-chown-media
-  namespace: media
+  name: &name daily-video-ripper
+  namespace: flux-system
 spec:
   interval: 5m
   chart:
@@ -35,17 +35,16 @@ spec:
         seccompProfile:
           type: RuntimeDefault
     controllers:
-      daily-chown-media:
+      daily-video-ripper:
         type: cronjob
         cronjob:
-          schedule: "14 04 * * *"
+          schedule: "59 06 * * *"
         containers:
           app:
             image:
-              repository: busybox
-              tag: 1.37.0
-            command: ['/bin/chown']
-            args: ["-R", "1000:1000", "/media"]
+              repository: ghcr.io/davralin/youtube-dl
+              tag: latest@sha256:4d2057e51300d6b7806b3f91a879550ece611c4fb4ee7291b2f55b293bab96b5
+            command: ['/media/videoripper.sh']
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -54,3 +53,8 @@ spec:
       media:
         enabled: true
         existingClaim: media
+        advancedMounts:
+          daily-video-ripper:
+            app:
+              - path: /media
+                subPath: video
