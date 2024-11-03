@@ -2,8 +2,8 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &name daily-chown-media
-  namespace: media
+  name: &name qbit-manage
+  namespace: flux-system
 spec:
   interval: 5m
   chart:
@@ -35,22 +35,34 @@ spec:
         seccompProfile:
           type: RuntimeDefault
     controllers:
-      daily-chown-media:
-        type: cronjob
-        cronjob:
-          schedule: "14 04 * * *"
+      qbit-manage:
         containers:
           app:
             image:
-              repository: busybox
-              tag: 1.37.0
-            command: ['/bin/chown']
-            args: ["-R", "1000:1000", "/media"]
+              repository: ghcr.io/stuffanthings/qbit_manage
+              tag: v4.1.12
+            env:
+              TZ: "${TIMEZONE}"
+              QBT_CONFIG: "/config/config.yml"
+              QBT_DEBUG: true
+              QBT_TRACE: true
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 50m
+                memory: 100Mi
+              limits:
+                cpu: 100m
+                memory: 200Mi
     persistence:
+      config:
+        enabled: true
+        existingClaim: qbit-manage
       media:
         enabled: true
         existingClaim: media
+        globalMounts:
+          - path: /data

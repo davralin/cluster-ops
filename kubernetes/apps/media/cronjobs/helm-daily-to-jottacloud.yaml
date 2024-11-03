@@ -2,8 +2,8 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &name daily-chown-media
-  namespace: media
+  name: &name daily-to-jottacloud
+  namespace: flux-system
 spec:
   interval: 5m
   chart:
@@ -35,17 +35,17 @@ spec:
         seccompProfile:
           type: RuntimeDefault
     controllers:
-      daily-chown-media:
+      daily-to-jottacloud:
         type: cronjob
         cronjob:
-          schedule: "14 04 * * *"
+          concurrencyPolicy: Replace
+          schedule: "14 */6 * * *"
         containers:
           app:
             image:
-              repository: busybox
-              tag: 1.37.0
-            command: ['/bin/chown']
-            args: ["-R", "1000:1000", "/media"]
+              repository: rclone/rclone
+              tag: 1.68.1
+            args: ["sync", "--ignore-case", "--check-first", "--delete-before", "--verbose", "--jottacloud-hard-delete", "--delete-excluded", "/data/", "jottacloud-crypt:/media", "--exclude", "downloads/**", "--exclude", "unsorted/tdarr/**", "--exclude", "*TdarrCacheFile*"]
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -54,3 +54,12 @@ spec:
       media:
         enabled: true
         existingClaim: media
+        advancedMounts:
+          daily-to-jottacloud:
+            app:
+              - path: /data
+                subPath: .
+                readOnly: true
+      config:
+        enabled: true
+        existingClaim: rcloneconfig

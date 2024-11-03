@@ -2,8 +2,8 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &name daily-chown-media
-  namespace: media
+  name: &name daily-instaloader
+  namespace: flux-system
 spec:
   interval: 5m
   chart:
@@ -35,17 +35,16 @@ spec:
         seccompProfile:
           type: RuntimeDefault
     controllers:
-      daily-chown-media:
+      daily-instaloader:
         type: cronjob
         cronjob:
-          schedule: "14 04 * * *"
+          schedule: "48 01 * * *"
         containers:
           app:
             image:
-              repository: busybox
-              tag: 1.37.0
-            command: ['/bin/chown']
-            args: ["-R", "1000:1000", "/media"]
+              repository: ghcr.io/davralin/instaloader
+              tag: latest@sha256:ee389b0c5644442bbe17d75e9d91ccd0519bd0b524a1570f671eb01188d7b292
+            command: ['/media/instaloader.sh']
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -54,3 +53,8 @@ spec:
       media:
         enabled: true
         existingClaim: media
+        advancedMounts:
+          daily-instaloader:
+            app:
+              - path: /media
+                subPath: images/instagram
