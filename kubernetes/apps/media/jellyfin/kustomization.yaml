@@ -5,4 +5,5 @@ resources:
   # TODO
   #- helm-release.yaml
   - pvc.yaml
-  - volsync.yaml
+  # TODO
+  #- volsync.yaml
