@@ -4,8 +4,7 @@ kind: Kustomization
 resources:
   - helm-backup.yaml
   - helm-daily-imap-backup.yaml
-  # TODO
-  #- helm-daily-sitebackup-from.yaml
+  - helm-daily-sitebackup-from.yaml
   # TODO
   #- helm-onsite-sync.yaml
   - mbsync.yaml
