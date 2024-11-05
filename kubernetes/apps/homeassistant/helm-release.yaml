@@ -45,7 +45,8 @@ spec:
               TZ: "${TIMEZONE}"
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
+              # s6-rmrf: fatal: unable to remove /run/s6: Read-only file system
+              readOnlyRootFilesystem: false
               capabilities: { drop: ["ALL"] }
             resources:
               requests:
@@ -70,7 +71,8 @@ spec:
               TZ: "${TIMEZONE}"
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
+              # fixuid: open /var/run/fixuid.ran: read-only file system
+              readOnlyRootFilesystem: false
               capabilities: { drop: ["ALL"] }
             resources:
               requests:
