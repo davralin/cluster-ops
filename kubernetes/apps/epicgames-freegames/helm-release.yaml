@@ -45,11 +45,12 @@ spec:
     # https://github.com/claabs/epicgames-freegames-node/issues/228
     defaultPodOptions:
       securityContext:
-        runAsUser: 65534
-        runAsGroup: 65534
-        fsGroup: 65534
+        # mkdir: cannot create directory '/nonexistent': Permission denied
+        runAsUser: 0
+        runAsGroup: 0
+        fsGroup: 0
         fsGroupChangePolicy: "OnRootMismatch"
-        runAsNonRoot: true
+        runAsNonRoot: false
         seccompProfile:
           type: RuntimeDefault
     controllers:
