@@ -46,7 +46,8 @@ spec:
               TZ: "${TIMEZONE}"
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
+              # 10-listen-on-ipv6-by-default.sh: info: can not modify /etc/nginx/conf.d/default.conf (read-only file system?)
+              readOnlyRootFilesystem: false
               capabilities: { drop: ["ALL"] }
             resources:
               requests:
