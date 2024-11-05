@@ -73,10 +73,10 @@ spec:
             resources:
               requests:
                 cpu: 200m
-                memory: 500Mi
+                memory: 400Mi
               limits:
-                cpu: 4000m
-                memory: 4000Mi
+                cpu: 800m
+                memory: 1000Mi
         initContainers:
           1-disable-maintenance-mode:
             image:
