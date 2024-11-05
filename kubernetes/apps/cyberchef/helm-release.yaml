@@ -60,7 +60,7 @@ spec:
         controller: *name
         ports:
           http:
-            port: 80
+            port: 8000
     ingress:
       app:
         enabled: true
