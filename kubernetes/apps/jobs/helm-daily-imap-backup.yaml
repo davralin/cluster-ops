@@ -25,6 +25,15 @@ spec:
       retries: 3
   values:
     fullnameOverride: *name
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
     controllers:
       daily-imap-backup:
         type: cronjob
@@ -40,10 +49,6 @@ spec:
             env:
               TZ: "${TIMEZONE}"
             securityContext:
-              runAsUser: 1000
-              runAsGroup: 1000
-              fsGroup: 1000
-              fsGroupChangePolicy: "OnRootMismatch"
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
