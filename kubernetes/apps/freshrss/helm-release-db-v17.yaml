@@ -75,10 +75,10 @@ spec:
             enablePodMonitor: "${MONITORING_PROMETHEUS}"
           resources:
             requests:
-              memory: "128Mi"
+              memory: "256Mi"
               cpu: "200m"
             limits:
-              memory: "256Mi"
+              memory: "512Mi"
           backup:
             retentionPolicy: 7d
             barmanObjectStore:
