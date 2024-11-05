@@ -8,8 +8,7 @@ resources:
   - database
   - filebrowser
   - jellyfin
-  # TODO
-  #- jellyplex-watched
+  - jellyplex-watched
   - jellystat
   - lidarr
   - metube
@@ -21,8 +20,7 @@ resources:
   - radarr
   - readarr
   - recyclarr
-  # TODO
-  #- samba
+  - samba
   - sonarr
   - sshd
   - tautulli
