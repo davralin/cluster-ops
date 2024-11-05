@@ -73,7 +73,8 @@ spec:
             # https://github.com/claabs/epicgames-freegames-node/issues/228
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
+              # ERROR: EROFS: read-only file system, open '/tmp/config.json'
+              readOnlyRootFilesystem: false
               capabilities: { drop: ["ALL"] }
             resources:
               requests:
