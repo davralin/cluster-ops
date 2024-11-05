@@ -46,7 +46,8 @@ spec:
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-              capabilities: { drop: ["ALL"] }
+              # chown: changing ownership of '/app/data/lost+found': Operation not permitted
+              #capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 10m
