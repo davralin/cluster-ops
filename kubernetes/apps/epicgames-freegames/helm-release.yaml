@@ -43,15 +43,15 @@ spec:
   values:
     fullnameOverride: *name
     # https://github.com/claabs/epicgames-freegames-node/issues/228
-    #defaultPodOptions:
-      #securityContext:
-        #runAsUser: 1000
-        #runAsGroup: 1000
-        #fsGroup: 1000
-        #fsGroupChangePolicy: "OnRootMismatch"
-        #runAsNonRoot: true
-        #seccompProfile:
-          #type: RuntimeDefault
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 65534
+        runAsGroup: 65534
+        fsGroup: 65534
+        fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
     controllers:
       epicgames-free:
         containers:
@@ -71,10 +71,10 @@ spec:
               startup:
                 enabled: false
             # https://github.com/claabs/epicgames-freegames-node/issues/228
-            #securityContext:
-              #allowPrivilegeEscalation: false
-              #readOnlyRootFilesystem: true
-              #capabilities: { drop: ["ALL"] }
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 10m
