@@ -25,16 +25,15 @@ spec:
       retries: 3
   values:
     fullnameOverride: *name
-    # Container binds to 80, which requires root, it also starts with chmod
-    #defaultPodOptions:
-      #securityContext:
-        #runAsUser: 1000
-        #runAsGroup: 1000
-        #fsGroup: 1000
-        #fsGroupChangePolicy: "OnRootMismatch"
-        #runAsNonRoot: true
-        #seccompProfile:
-          #type: RuntimeDefault
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
     controllers:
       librespeed:
         strategy: RollingUpdate
@@ -48,10 +47,10 @@ spec:
               PUID: 1000
               PGID: 1000
               CUSTOM_RESULTS: false
-            #securityContext:
-              #allowPrivilegeEscalation: false
-              #readOnlyRootFilesystem: true
-              #capabilities: { drop: ["ALL"] }
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 25m
