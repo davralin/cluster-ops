@@ -64,6 +64,6 @@ spec:
         advancedMounts:
           daily-sitebackup-from:
             app:
-              - path: /root/.ssh/id_ed25519
+              - path: /home/user/.ssh/id_ed25519
                 subPath: id_ed25519
                 readOnly: true
