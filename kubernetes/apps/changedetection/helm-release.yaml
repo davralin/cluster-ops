@@ -40,7 +40,7 @@ spec:
           app:
             image:
               repository: ghcr.io/dgtlmoon/changedetection.io
-              tag: 0.47.05
+              tag: 0.47.06
             env:
               TZ: "${TIMEZONE}"
               PLAYWRIGHT_DRIVER_URL: "ws://sockpuppetbrowser:3000"
