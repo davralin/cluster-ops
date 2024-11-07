@@ -37,7 +37,7 @@ spec:
     image:
       # TODO
       # Need to make renovate pick this up
-      tag: "v1.119.1"
+      tag: "v1.120.0"
     immich:
       metrics:
         enabled: "${MONITORING_PROMETHEUS}"
