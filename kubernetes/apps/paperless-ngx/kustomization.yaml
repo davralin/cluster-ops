@@ -6,8 +6,7 @@ resources:
   - database-secret.yaml
   - helm-daily-to-consume.yaml
   - helm-offsite-sync.yaml
-  # TODO
-  #- helm-onsite-sync.yaml
+  - helm-onsite-sync.yaml
   - helm-release-db-v17.yaml
   - helm-release-exporter.yaml
   - helm-release-valkey.yaml
