@@ -60,8 +60,7 @@ spec:
       app:
         controller: *name
         type: LoadBalancer
-        # For some yet to be determined reason, this setting reports all ports as Closed
-        # TODO: Figure out why, and fix it.
+        # https://github.com/davralin/cluster-ops/issues/4533
         #externalTrafficPolicy: Local
         loadBalancerIP: 10.0.1.32
         ports:

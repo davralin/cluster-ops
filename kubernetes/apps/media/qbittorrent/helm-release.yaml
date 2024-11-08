@@ -68,8 +68,7 @@ spec:
             port: 9500
             protocol: TCP
             targetPort: 9500
-        # For some yet to be determined reason, this setting reports all ports as Closed
-        # TODO: Figure out why, and fix it.
+        # https://github.com/davralin/cluster-ops/issues/4533
         #externalTrafficPolicy: Local
     ingress:
       app:
