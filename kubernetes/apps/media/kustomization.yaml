@@ -20,7 +20,8 @@ resources:
   - radarr
   - readarr
   - recyclarr
-  - samba
+  # TODO
+  #- samba
   - sonarr
   - sshd
   - tautulli
