@@ -8,7 +8,7 @@ resources:
   - helm-release-db-v17.yaml
   - helm-release-filebrowser.yaml
   - helm-release-valkey.yaml
-  #- helm-release.yaml
+  - helm-release.yaml
   - namespace.yaml
   - pvc.yaml
   - secret.yaml
