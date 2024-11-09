@@ -49,7 +49,7 @@ spec:
               tag: 2.4.3.4248@sha256:fcf7417a7dfa9967a78d668904c62888272bd6dd814b4b9c4500618f51be6b86
             env:
               TZ: "${TIMEZONE}"
-              RADARR__AUTH__APIKEY: "${SECRET_LIDARR_API_KEY}"
+              LIDARR__AUTH__APIKEY: "${SECRET_LIDARR_API_KEY}"
               LIDARR__POSTGRES__HOST: media-postgres-v17-rw.media.svc.cluster.local
               LIDARR__POSTGRES__PORT: "5432"
               LIDARR__POSTGRES__USER: "lidarr"
@@ -70,12 +70,34 @@ spec:
                 memory: 300Mi
               limits:
                 memory: 1000Mi
+          exportarr:
+            dependsOn: app
+            args: ['lidarr']
+            image:
+              repository: ghcr.io/onedr0p/exportarr
+              tag: v2.0.1@sha256:727e7bc8f2f0934a2117978c59f4476b954018b849a010ea6cfb380bd6539644
+            env:
+              PORT: &metrics 9707
+              URL: http://lidarr
+              API_KEY: "${SECRET_LIDARR_API_KEY}"
+    serviceMonitor:
+      metrics:
+        enabled: true
+        serviceName: lidarr
+        endpoints:
+          - port: metrics
+            scheme: http
+            path: /metrics
+            interval: 15m
+            scrapeTimeout: 2m
     service:
       app:
         controller: *name
         ports:
           http:
             port: 8686
+          metrics:
+            port: *metrics
     ingress:
       app:
         enabled: true

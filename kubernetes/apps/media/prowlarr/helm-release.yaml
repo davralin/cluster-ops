@@ -69,12 +69,34 @@ spec:
                 memory: 200Mi
               limits:
                 memory: 1000Mi
+          exportarr:
+            dependsOn: app
+            args: ['prowlarr']
+            image:
+              repository: ghcr.io/onedr0p/exportarr
+              tag: v2.0.1@sha256:727e7bc8f2f0934a2117978c59f4476b954018b849a010ea6cfb380bd6539644
+            env:
+              PORT: &metrics 9707
+              URL: http://prowlarr
+              API_KEY: "${SECRET_PROWLARR_API_KEY}"
+    serviceMonitor:
+      metrics:
+        enabled: true
+        serviceName: prowlarr
+        endpoints:
+          - port: metrics
+            scheme: http
+            path: /metrics
+            interval: 15m
+            scrapeTimeout: 2m
     service:
       app:
         controller: *name
         ports:
           http:
             port: 9696
+          metrics:
+            port: *metrics
     ingress:
       app:
         enabled: true
