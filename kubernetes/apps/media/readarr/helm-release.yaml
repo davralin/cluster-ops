@@ -81,6 +81,10 @@ spec:
               PORT: &metrics 9707
               URL: http://readarr
               API_KEY: "${SECRET_READARR_API_KEY}"
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
     serviceMonitor:
       metrics:
         enabled: true
