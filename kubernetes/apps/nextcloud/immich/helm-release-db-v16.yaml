@@ -39,7 +39,7 @@ spec:
           imageName: ghcr.io/tensorchord/cloudnative-pgvecto.rs:16.4-v0.3.0
           primaryUpdateStrategy: unsupervised
           storage:
-            size: 10Gi
+            size: 20Gi
             storageClass: "${STORAGE_READWRITEONCE}"
           managed:
             roles:
@@ -51,31 +51,31 @@ spec:
           superuserSecret:
             name: *name
           bootstrap:
-            # use this to start a new cluster
-            initdb:
-              database: immich
-              owner: immich
-              secret:
-                name: immich-basic-auth
-              dataChecksums: true
-              postInitApplicationSQL:
-                - ALTER SYSTEM SET search_path TO "$user", public, vectors;
-                - SET search_path TO "$user", public, vectors;
-                - CREATE EXTENSION IF NOT EXISTS "vectors";
-                - CREATE EXTENSION IF NOT EXISTS "cube";
-                - CREATE EXTENSION IF NOT EXISTS "earthdistance";
-                - ALTER SCHEMA vectors OWNER TO "immich";
-                - GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA vectors TO "immich";
-                - GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO "immich";
-                # - CREATE EXTENSION IF NOT EXISTS "vector";
-                # - ALTER ROLE "immich" WITH "superuser";
-            # # use this to recover a net-new cluster from a backup
-            #recovery:
-            #  source: *name
+            ## use this to start a new cluster
+            #initdb:
             #  database: immich
             #  owner: immich
             #  secret:
             #    name: immich-basic-auth
+            #  dataChecksums: true
+            #  postInitApplicationSQL:
+            #    - ALTER SYSTEM SET search_path TO "$user", public, vectors;
+            #    - SET search_path TO "$user", public, vectors;
+            #    - CREATE EXTENSION IF NOT EXISTS "vectors";
+            #    - CREATE EXTENSION IF NOT EXISTS "cube";
+            #    - CREATE EXTENSION IF NOT EXISTS "earthdistance";
+            #    - ALTER SCHEMA vectors OWNER TO "immich";
+            #    - GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA vectors TO "immich";
+            #    - GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO "immich";
+            #    # - CREATE EXTENSION IF NOT EXISTS "vector";
+            #    # - ALTER ROLE "immich" WITH "superuser";
+             # use this to recover a net-new cluster from a backup
+            recovery:
+              source: *name
+              database: immich
+              owner: immich
+              secret:
+                name: immich-basic-auth
             # # use this to 'migrate' from an existing cnpg cluster (e.g. "immich-postgres-v15") to the new cluster
             #initdb:
             #  database: immich
@@ -92,8 +92,8 @@ spec:
             requests:
               memory: "256Mi"
               cpu: "400m"
-            #limits:
-              #memory: "512Mi"
+            limits:
+              memory: "512Mi"
           postgresql:
             shared_preload_libraries:
               - "vectors.so"

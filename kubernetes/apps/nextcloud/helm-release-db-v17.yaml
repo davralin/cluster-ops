@@ -35,7 +35,7 @@ spec:
         spec:
           # using only 1 replica: very difficult to drain the node where postgres is running
           # using more than 1 replica: write amplification issues when leveraging replicated storage (e.g. ceph)
-          instances: 1
+          instances: 2
           imageName: ghcr.io/cloudnative-pg/postgresql:17.0-31
           primaryUpdateStrategy: unsupervised
           storage:
@@ -51,18 +51,18 @@ spec:
             name: *name
           bootstrap:
             # use this to start a new cluster
-            #initdb:
-            #  database: nextcloud
-            #  owner: nextcloud
-            #  secret:
-            #    name: nextcloud-basic-auth
-            # use this to recover a net-new cluster from a backup
-            recovery:
-              source: *name
+            initdb:
               database: nextcloud
               owner: nextcloud
               secret:
-                name: immich-basic-auth
+                name: nextcloud-basic-auth
+            ## use this to recover a net-new cluster from a backup
+            #recovery:
+            #  source: *name
+            #  database: nextcloud
+            #  owner: nextcloud
+            #  secret:
+            #    name: immich-basic-auth
             # # use this to 'migrate' from an existing cnpg cluster (e.g. "nextcloud-postgres-v16") to the new cluster
             #initdb:
             #  database: nextcloud
@@ -79,8 +79,8 @@ spec:
             requests:
               memory: "256Mi"
               cpu: "400m"
-            limits:
-              memory: "512Mi"
+            #limits:
+              #memory: "512Mi"
           backup:
             retentionPolicy: 7d
             barmanObjectStore:
