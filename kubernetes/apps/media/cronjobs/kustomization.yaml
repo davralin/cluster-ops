@@ -4,7 +4,8 @@ kind: Kustomization
 resources:
   - backup-ssh-key.yaml
   - helm-daily-audio-ripper.yaml
-  - helm-daily-chown-media.yaml
+  # TODO
+  #- helm-daily-chown-media.yaml
   - helm-daily-instaloader.yaml
   - helm-daily-streamripper.yaml
   # TODO
