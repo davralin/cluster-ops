@@ -46,7 +46,7 @@ spec:
           app:
             image:
               repository: ghcr.io/joryirving/readarr-develop
-              tag: 0.4.0.2634@sha256:f5d36c4f849e3cb27b616199d7443d36e1eb10ac3d1765a503e3c62c4b700228
+              tag: 0.4.3.2665@sha256:591278c270e599abd4d9032ebb4bf1497bff46c1c61023f2e5d57896be4a6899
             env:
               TZ: "${TIMEZONE}"
               READARR__AUTH__APIKEY: "${SECRET_READARR_API_KEY}"
