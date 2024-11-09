@@ -127,10 +127,6 @@ spec:
           gnetId: 15549
           revision: 1
           datasource: Prometheus
-        # Ref: https://github.com/onedr0p/exportarr
-        radarr:
-          url: https://raw.githubusercontent.com/onedr0p/exportarr/refs/heads/master/examples/grafana/dashboard.json
-          datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/11315
         unifi-poller-client-insights:
           gnetId: 11315
