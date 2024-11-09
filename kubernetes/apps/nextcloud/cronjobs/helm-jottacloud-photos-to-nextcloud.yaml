@@ -66,7 +66,7 @@ spec:
         name: shell
         defaultMode: 0755
         advancedMounts:
-          backup-to-jottacloud:
+          jottacloud-photos-to-nextcloud:
             app:
               - path: photos-to-nextcloud.sh
                 subPath: photos-to-nextcloud.sh
