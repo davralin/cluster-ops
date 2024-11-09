@@ -53,7 +53,7 @@ spec:
           app:
             image:
               repository: bbilly1/tubearchivist
-              tag: v0.4.10
+              tag: v0.4.11
             env:
               ES_URL: "http://tubearchivist-elasticsearch.tubearchivist.svc.cluster.local:9200"
               REDIS_HOST: "tubearchivist-redis-stack.tubearchivist.svc.cluster.local"
