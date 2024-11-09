@@ -35,7 +35,7 @@ spec:
         spec:
           # using only 1 replica: very difficult to drain the node where postgres is running
           # using more than 1 replica: write amplification issues when leveraging replicated storage (e.g. ceph)
-          instances: 1
+          instances: 2
           imageName: ghcr.io/tensorchord/cloudnative-pgvecto.rs:16.4-v0.3.0
           primaryUpdateStrategy: unsupervised
           storage:
@@ -92,8 +92,8 @@ spec:
             requests:
               memory: "256Mi"
               cpu: "400m"
-            limits:
-              memory: "512Mi"
+            #limits:
+              #memory: "512Mi"
           postgresql:
             shared_preload_libraries:
               - "vectors.so"
