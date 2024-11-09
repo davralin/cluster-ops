@@ -51,6 +51,21 @@ spec:
               requests:
                 cpu: 200m
                 memory: 200Mi
+          subcleaner:
+            image:
+              repository: registry.k8s.io/git-sync/git-sync
+              tag: v4.3.0
+            args:
+              - --repo=https://github.com/KBlixt/subcleaner
+              - --ref=master
+              - --period=24h
+              - --root=/addons
+            resources:
+              requests:
+                cpu: 10m
+                memory: 10M
+              limits:
+                memory: 128M
     service:
       app:
         controller: *name
