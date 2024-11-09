@@ -7,8 +7,7 @@ resources:
   #- helm-backup-to-jottacloud.yaml
   - helm-calcardbackup.yaml
   - helm-cron-curl.yaml
-  # TODO
-  #- helm-jottacloud-photos-to-nextcloud.yaml
+  - helm-jottacloud-photos-to-nextcloud.yaml
   - helm-offsite-sync.yaml
   - helm-onsite-sync.yaml
   - pvc.yaml

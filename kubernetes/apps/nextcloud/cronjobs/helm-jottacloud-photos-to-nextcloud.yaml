@@ -55,16 +55,19 @@ spec:
         data:
           photos-to-nextcloud.sh: |
             #!/bin/sh
-            /usr/local/bin/rclone copy --progress --max-age 7d jottacloud-photos: nextcloud:uploaddir/
+            /usr/local/bin/rclone copy --progress --max-age 31d jottacloud-photos: nextcloud:uploaddir/
     persistence:
       config:
         enabled: true
         existingClaim: rcloneconfig
-      # I can't get this to work, so I just dropped the shell-script in the folder.
-      #backup-to-jottacloud-shell:
-      #  enabled: true
-      #  type: configMap
-      #  name: backup-to-jottacloud-shell
-      #  defaultMode: 0755
-      #  globalMounts:
-      #    - path: /config/test
+      jottacloud-photos-to-nextcloud-shell:
+        enabled: true
+        type: configMap
+        name: shell
+        defaultMode: 0755
+        advancedMounts:
+          backup-to-jottacloud:
+            app:
+              - path: photos-to-nextcloud.sh
+                subPath: photos-to-nextcloud.sh
+                readOnly: true
