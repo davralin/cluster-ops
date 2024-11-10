@@ -27,18 +27,19 @@ spec:
     fullnameOverride: *name
     defaultPodOptions:
       securityContext:
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
+        runAsUser: 0
+        runAsGroup: 0
+        fsGroup: 0
         fsGroupChangePolicy: "OnRootMismatch"
-        runAsNonRoot: true
+        runAsNonRoot: false
         seccompProfile:
           type: RuntimeDefault
     controllers:
       daily-sitebackup-from:
         type: cronjob
         cronjob:
-          schedule: "32 07 * * *"
+          #schedule: "32 07 * * *"
+          schedule: "32 * * * *"
         containers:
           app:
             image:
@@ -48,7 +49,7 @@ spec:
             args: ["--archive", "--delete", "--verbose", "--rsync-path", "sudo rsync", "-e", "ssh -o StrictHostKeyChecking=no", "backup@nas.${SECRET_OFFSITE_DOMAIN}:/opt/local/", "/srv/"]
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
+              readOnlyRootFilesystem: false
               # rsync: [generator] failed to set times on "/srv/.": Operation not permitted (1)
               #capabilities: { drop: ["ALL"] }
     persistence:
@@ -56,7 +57,7 @@ spec:
         enabled: true
         existingClaim: sitebackup
         globalMounts:
-          - path: /srv
+          - path: /home/user/backup
       sshkey:
         enabled: true
         type: secret
