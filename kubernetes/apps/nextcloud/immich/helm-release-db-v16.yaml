@@ -39,7 +39,7 @@ spec:
           imageName: ghcr.io/tensorchord/cloudnative-pgvecto.rs:16.4-v0.3.0
           primaryUpdateStrategy: unsupervised
           storage:
-            size: 20Gi
+            size: 10Gi
             storageClass: "${STORAGE_READWRITEONCE}"
           managed:
             roles:
@@ -67,8 +67,8 @@ spec:
                 - ALTER SCHEMA vectors OWNER TO "immich";
                 - GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA vectors TO "immich";
                 - GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO "immich";
-                # - CREATE EXTENSION IF NOT EXISTS "vector";
-                # - ALTER ROLE "immich" WITH "superuser";
+                - CREATE EXTENSION IF NOT EXISTS "vector";
+                - ALTER ROLE "immich" WITH "superuser";
             # # use this to recover a net-new cluster from a backup
             #recovery:
             #  source: *name
