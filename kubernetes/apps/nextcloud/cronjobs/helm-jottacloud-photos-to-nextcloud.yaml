@@ -55,7 +55,7 @@ spec:
         data:
           photos-to-nextcloud.sh: |
             #!/bin/sh
-            /usr/local/bin/rclone copy --progress --max-age 31d jottacloud-photos: nextcloud:uploaddir/
+            /usr/local/bin/rclone copy --progress --max-age 31d jottacloud-photos: nextcloud:InstantUpload/
     persistence:
       config:
         enabled: true
@@ -63,7 +63,7 @@ spec:
       jottacloud-photos-to-nextcloud-shell:
         enabled: true
         type: configMap
-        name: shell
+        name: jottacloud-photos-to-nextcloud-shell
         defaultMode: 0755
         advancedMounts:
           jottacloud-photos-to-nextcloud:
