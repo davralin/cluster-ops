@@ -69,5 +69,5 @@ spec:
           jottacloud-photos-to-nextcloud:
             app:
               - path: photos-to-nextcloud.sh
-                subPath: /config/photos-to-nextcloud.sh
+                subPath: config/photos-to-nextcloud.sh
                 readOnly: true
