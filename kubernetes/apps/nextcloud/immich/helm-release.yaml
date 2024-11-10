@@ -28,11 +28,14 @@ spec:
       kind: Secret
       name: immich-pg-secret
       valuesKey: password
+    - targetPath: env.DB_USERNAME
+      kind: Secret
+      name: immich-pg-secret
+      valuesKey: username
   values:
     env:
       REDIS_HOSTNAME: "immich-valkey-primary"
       DB_HOSTNAME: "immich-postgres-v16-rw"
-      DB_USERNAME: "immich"
       DB_DATABASE_NAME: "immich"
     image:
       # TODO
