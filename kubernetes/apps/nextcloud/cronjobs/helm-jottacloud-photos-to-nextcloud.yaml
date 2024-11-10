@@ -38,13 +38,15 @@ spec:
       jottacloud-photos-to-nextcloud:
         type: cronjob
         cronjob:
-          schedule: "45 02 * * *"
+          schedule: "45 * * * *"
+          #schedule: "45 02 * * *"
         containers:
           app:
             image:
               repository: rclone/rclone
               tag: 1.68.1
-            command: ["/bin/sleep infinity"]
+            command: ["/bin/sleep"]
+            args: ["infinity"]
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
