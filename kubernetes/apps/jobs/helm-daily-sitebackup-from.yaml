@@ -49,7 +49,8 @@ spec:
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-              capabilities: { drop: ["ALL"] }
+              # rsync: [generator] failed to set times on "/srv/.": Operation not permitted (1)
+              #capabilities: { drop: ["ALL"] }
     persistence:
       sitebackup:
         enabled: true
