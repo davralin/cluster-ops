@@ -46,7 +46,7 @@ spec:
               repository: ghcr.io/davralin/rsync
               tag: latest@sha256:7620d3b48e614f4809d5e7b0addf5f80cbdb3074c8981ba5659fbb3fcea6bf56
             command: ['/usr/bin/rsync']
-            args: ["--archive", "--delete", "--verbose", "--rsync-path", "sudo rsync", "-e", "ssh -o StrictHostKeyChecking=no", "backup@nas.${SECRET_OFFSITE_DOMAIN}:/opt/local/", "/srv/"]
+            args: ["--archive", "--delete", "--verbose", "--rsync-path", "sudo rsync", "-e", "ssh -o StrictHostKeyChecking=no", "backup@nas.${SECRET_OFFSITE_DOMAIN}:/opt/local/", "/home/user/backup/"]
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: false
@@ -66,6 +66,6 @@ spec:
         advancedMounts:
           daily-sitebackup-from:
             app:
-              - path: /home/user/.ssh/id_ed25519
+              - path: /root/.ssh/id_ed25519
                 subPath: id_ed25519
                 readOnly: true
