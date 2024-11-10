@@ -56,6 +56,7 @@ spec:
             webhook_configs:
               - send_resolved: true
                 url: "${SECRET_ALERTMANAGER_HEALTHCHECKS_IO}"
+          - name: "null"
         route:
           group_by: ["..."]
           group_wait: 30s
@@ -66,13 +67,19 @@ spec:
             - receiver: "healthchecksio"
               matchers:
                 - alertname =~ "InfoInhibitor|Watchdog"
+              continue: false
             - receiver: "healthchecksio"
               matchers:
-                - alertname ="AlertmanagerClusterFailedToSendAlerts|AlertmanagerFailedToSendAlerts|CephPGImbalance|CephNodeNetworkPacketDrops"
+                - alertname ="AlertmanagerClusterFailedToSendAlerts|AlertmanagerFailedToSendAlerts"
+              continue: false
+            - receiver: "null"
+              matchers:
+                - alertname ="CephNodeNetworkPacketDrops"
+              continue: false
             - receiver: "Discord"
               matchers:
                 - severity = "critical|warning"
-              continue: true
+              continue: false
       ingress:
         enabled: true
         pathType: Prefix
