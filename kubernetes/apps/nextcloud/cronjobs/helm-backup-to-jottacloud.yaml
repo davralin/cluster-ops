@@ -82,5 +82,5 @@ spec:
           backup-to-jottacloud:
             app:
               - path: backup.sh
-                subPath: /config/backup.sh
+                subPath: config/backup.sh
                 readOnly: true
