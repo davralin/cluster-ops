@@ -74,11 +74,11 @@ spec:
       backup-to-jottacloud-shell:
         enabled: true
         type: configMap
-        name: shell
+        name: backup-to-jottacloud-shell
         defaultMode: 0755
         advancedMounts:
           backup-to-jottacloud:
             app:
-              - path: /config/backup.sh
-                subPath: backup.sh
+              - path: backup.sh
+                subPath: /config/backup.sh
                 readOnly: true
