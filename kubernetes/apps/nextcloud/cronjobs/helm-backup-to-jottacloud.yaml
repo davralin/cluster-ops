@@ -44,9 +44,7 @@ spec:
             image:
               repository: rclone/rclone
               tag: 1.68.1
-            #command: ["/config/backup.sh"]
-            command: ["/bin/sleep"]
-            args: ["infinity"]
+            command: ["/backup.sh"]
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
