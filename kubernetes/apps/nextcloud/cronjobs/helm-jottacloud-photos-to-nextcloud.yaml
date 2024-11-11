@@ -38,7 +38,8 @@ spec:
       jottacloud-photos-to-nextcloud:
         type: cronjob
         cronjob:
-          schedule: "45 02 * * *"
+          #schedule: "45 02 * * *"
+          schedule: "*/10 * * * *"
         containers:
           app:
             image:
@@ -71,5 +72,5 @@ spec:
           jottacloud-photos-to-nextcloud:
             app:
               - path: photos-to-nextcloud.sh
-                subPath: config/photos-to-nextcloud.sh
+                subPath: photos-to-nextcloud.sh
                 readOnly: true
