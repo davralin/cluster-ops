@@ -8,6 +8,7 @@ resources:
   - oldworld
   - survival
   - backup-ssh-key.yaml
+  - helm-release-filebrowser.yaml
   - helm-offsite-sync.yaml
   - helm-onsite-sync.yaml
   - namespace.yaml
