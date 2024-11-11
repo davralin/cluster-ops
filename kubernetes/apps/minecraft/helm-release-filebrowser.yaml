@@ -35,4 +35,4 @@ spec:
     persistence:
       data:
         enabled: true
-        existingClaim: mods
+        existingClaim: fabric-mods
