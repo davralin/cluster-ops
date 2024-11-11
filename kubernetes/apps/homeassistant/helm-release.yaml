@@ -93,6 +93,9 @@ spec:
         ports:
           http:
             port: 56320
+          dns:
+            port: 5353
+            protocol: UDP
       code:
         controller: *name
         ports:
