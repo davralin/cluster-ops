@@ -84,6 +84,15 @@ spec:
         ports:
           http:
             port: 8123
+      homekit:
+        controller: *name
+        type: LoadBalancer
+        # https://github.com/davralin/cluster-ops/issues/4533
+        #externalTrafficPolicy: Local
+        #loadBalancerIP: 10.0.1.30
+        ports:
+          http:
+            port: 56320
       code:
         controller: *name
         ports:
