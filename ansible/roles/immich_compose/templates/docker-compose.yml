@@ -44,7 +44,7 @@ services:
 
   redis:
     container_name: immich_redis
-    image: docker.io/redis:7.4-alpine@sha256:bcc5b7efad8518cd4646c8c095fd165f530bd31b88df33e8cb0625bcd1c68d52
+    image: docker.io/redis:7.4-alpine@sha256:be113c8e5689dd5391c4c082972bb651ab739e63c285ad4938efe9cffbce7320
     healthcheck:
       test: redis-cli ping || exit 1
     restart: always
