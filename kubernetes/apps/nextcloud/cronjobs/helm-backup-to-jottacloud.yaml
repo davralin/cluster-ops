@@ -74,7 +74,7 @@ spec:
       backup-to-jottacloud-shell:
         enabled: true
         type: configMap
-        name: backup-to-jottacloud-shell
+        name: nextcloud-backup-to-jottacloud-shell
         defaultMode: 0755
         advancedMounts:
           backup-to-jottacloud:
