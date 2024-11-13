@@ -74,7 +74,7 @@ spec:
               continue: false
             - receiver: "null"
               matchers:
-                - alertname ="CephNodeNetworkPacketDrops"
+                - alertname ="CephNodeNetworkPacketDrops|CephPGImbalance"
               continue: false
             - receiver: "Discord"
               matchers:
