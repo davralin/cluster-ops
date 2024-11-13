@@ -40,7 +40,7 @@ spec:
           goaway:
             image:
               repository: ghcr.io/davralin/go-away
-              tag: latest@sha256:eff5bac957315eb099b581de1cd0a410465980de91db3616be2e5b783fef2ed0
+              tag: latest@sha256:8c6afe0b9c8f1913f8ebea9f2df8405ce0d7be37f0b868b3700c83b8ad3c2ca8
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
