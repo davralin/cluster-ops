@@ -69,6 +69,8 @@ spec:
       config:
         enabled: true
         existingClaim: sshkeys
+        globalMounts:
+          - path: /home/user/ssh
       media:
         enabled: true
         existingClaim: media
