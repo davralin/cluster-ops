@@ -27,11 +27,12 @@ spec:
     fullnameOverride: *name
     defaultPodOptions:
       securityContext:
-        runAsUser: 33
-        runAsGroup: 33
-        fsGroup: 33
+      # https://github.com/librespeed/speedtest/issues/663
+        runAsUser: 0
+        runAsGroup: 0
+        fsGroup: 0
         fsGroupChangePolicy: "OnRootMismatch"
-        runAsNonRoot: true
+        runAsNonRoot: false
         seccompProfile:
           type: RuntimeDefault
     controllers:
