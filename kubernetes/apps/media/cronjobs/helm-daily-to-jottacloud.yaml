@@ -44,7 +44,7 @@ spec:
           app:
             image:
               repository: rclone/rclone
-              tag: 1.68.1
+              tag: 1.68.2
             args: ["sync", "--ignore-case", "--check-first", "--delete-before", "--verbose", "--jottacloud-hard-delete", "--delete-excluded", "/data/", "jottacloud-crypt:/media", "--exclude", "downloads/**", "--exclude", "unsorted/tdarr/**", "--exclude", "*TdarrCacheFile*"]
             securityContext:
               allowPrivilegeEscalation: false
