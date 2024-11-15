@@ -27,12 +27,11 @@ spec:
     fullnameOverride: *name
     defaultPodOptions:
       securityContext:
-        # s6-overlay-suexec: warning: unable to gain root privileges (is the suid bit set?)
-        runAsUser: 0
-        runAsGroup: 0
-        fsGroup: 0
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"
-        runAsNonRoot: false
+        runAsNonRoot: true
         seccompProfile:
           type: RuntimeDefault
     controllers:
@@ -41,30 +40,28 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/linuxserver/librespeed
-              tag: 5.4.20240804
+              repository: ghcr.io/librespeed/speedtest
+              tag: 5.4.1@sha256:0e0d9c8c2e5aa362164cf0bf25a48a606b5701f6bc7fa1695975b687aaec26a9
             env:
-              TZ: "${TIMEZONE}"
-              PUID: 1000
-              PGID: 1000
-              CUSTOM_RESULTS: false
+              MODE: standalone
+              WEBPORT: 8080
             securityContext:
               allowPrivilegeEscalation: false
-              # s6-rmrf: fatal: unable to remove /run/s6: Read-only file system
-              readOnlyRootFilesystem: false
+              readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
             resources:
               requests:
-                cpu: 25m
-                memory: 250Mi
+                cpu: 10m
+                memory: 100Mi
               limits:
-                memory: 500Mi
+                cpu: 200m
+                memory: 300Mi
     service:
       app:
         controller: *name
         ports:
           http:
-            port: 80
+            port: 8080
     ingress:
       app:
         enabled: true
