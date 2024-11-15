@@ -6,6 +6,8 @@ resources:
   - helm-daily-audio-ripper.yaml
   # TODO
   #- helm-daily-chown-media.yaml
+  # TODO
+  #- helm-daily-delete-trash.yaml
   - helm-daily-instaloader.yaml
   - helm-daily-streamripper.yaml
   # TODO
