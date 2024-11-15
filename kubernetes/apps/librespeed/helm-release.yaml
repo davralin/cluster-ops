@@ -47,7 +47,8 @@ spec:
               WEBPORT: 8080
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
+              # cp: cannot create regular file '/var/www/html/speedtest.js': Read-only file system
+              readOnlyRootFilesystem: false
               capabilities: { drop: ["ALL"] }
             resources:
               requests:
