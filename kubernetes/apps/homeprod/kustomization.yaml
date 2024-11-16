@@ -37,7 +37,6 @@ resources:
   - ../searxng
   - ../syncthing
   - ../thelounge
-  - ../tubearchivist
   - ../unifi
   - ../volsync
   - ../wallos
