@@ -35,6 +35,7 @@ resources:
   - ../redlib
   - ../reloader
   - ../searxng
+  - ../spegel
   - ../syncthing
   - ../thelounge
   - ../unifi
