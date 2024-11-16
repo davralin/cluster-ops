@@ -8,7 +8,6 @@ resources:
   #- helm-daily-delete-trash.yaml
   - helm-daily-instaloader.yaml
   - helm-daily-streamripper.yaml
-  # TODO
-  #- helm-daily-to-jottacloud.yaml
+  - helm-daily-to-jottacloud.yaml
   - helm-daily-video-ripper.yaml
   - helm-onsite-sync.yaml
