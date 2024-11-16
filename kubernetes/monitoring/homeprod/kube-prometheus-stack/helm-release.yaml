@@ -62,24 +62,20 @@ spec:
           group_wait: 30s
           group_interval: 5m
           repeat_interval: 6h
-          receiver: "Discord"
+          receiver: "null"
           routes:
             - receiver: "healthchecksio"
               matchers:
                 - alertname =~ "InfoInhibitor|Watchdog"
-              continue: false
             - receiver: "healthchecksio"
               matchers:
                 - alertname ="AlertmanagerClusterFailedToSendAlerts|AlertmanagerFailedToSendAlerts"
-              continue: false
             - receiver: "null"
               matchers:
                 - alertname ="CephNodeNetworkPacketDrops|CephPGImbalance"
-              continue: false
             - receiver: "Discord"
               matchers:
                 - severity = "critical|warning"
-              continue: false
       ingress:
         enabled: true
         pathType: Prefix
