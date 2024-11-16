@@ -32,6 +32,7 @@ spec:
         runAsGroup: 1000
         fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"
+        supplementalGroups: [10000]
         runAsNonRoot: true
         seccompProfile:
           type: RuntimeDefault
@@ -44,6 +45,7 @@ spec:
               tag: v2024.10.30@sha256:b7b407edef530ccd49d4b0a1503d964227c11f330e05dfcfc8c1456d77ffafd5
             env:
               TZ: "${TIMEZONE}"
+              TZ_DATA_DIR: /tmp/elixir_tz_data
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -80,19 +82,13 @@ spec:
               - *host
     persistence:
       config:
-        enabled: true
         existingClaim: pinchflat
-      downloads:
-        enabled: true
-        type: emptyDir
+      #downloads:
+        #type: emptyDir
       tmp:
-        enabled: true
         type: emptyDir
       media:
-        enabled: true
         existingClaim: media
-        advancedMounts:
-          pinchflat:
-            app:
-              - path: /media
-                subPath: video/web/YouTube
+        globalMounts:
+          - path: /downloads
+            subPath: video/web/YouTube
