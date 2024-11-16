@@ -55,7 +55,7 @@ spec:
         data:
           photos-to-nextcloud.sh: |
             #!/bin/sh
-            /usr/local/bin/rclone copy --progress --max-age 70d jottacloud-photos: nextcloud:InstantUpload/
+            /usr/local/bin/rclone copy --progress --max-age 14d jottacloud-photos: nextcloud:InstantUpload/
     persistence:
       config:
         enabled: true
