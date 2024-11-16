@@ -45,7 +45,7 @@ spec:
               repository: busybox
               tag: 1.37.0
             command: ['/bin/rm']
-            args: ["-rf", "/media/.Trash100"]
+            args: ["-rf", "/media/.Trash-1000"]
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
