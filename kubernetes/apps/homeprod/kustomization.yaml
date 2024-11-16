@@ -5,6 +5,7 @@ resources:
   - ../adguard
   - ../archivebox
   - ../awx
+  - ../botkube
   - ../changedetection
   - ../cloudnative-pg
   - ../cyberchef
