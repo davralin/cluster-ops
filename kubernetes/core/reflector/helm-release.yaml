@@ -5,7 +5,7 @@ metadata:
   name: reflector
   namespace: flux-system
 spec:
-  interval: 5m
+  interval: 30m
   chart:
     spec:
       chart: reflector
@@ -14,7 +14,7 @@ spec:
         kind: HelmRepository
         name: emberstack-charts
         namespace: flux-system
-      interval: 5m
+      interval: 30m
   targetNamespace: default
   install:
     createNamespace: true

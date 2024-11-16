@@ -5,7 +5,7 @@ metadata:
   name: botkube
   namespace: flux-system
 spec:
-  interval: 5m
+  interval: 30m
   chart:
     spec:
       chart: botkube
@@ -14,7 +14,7 @@ spec:
         kind: HelmRepository
         name: botkube-charts
         namespace: flux-system
-      interval: 5m
+      interval: 30m
   targetNamespace: botkube
   install:
     createNamespace: true

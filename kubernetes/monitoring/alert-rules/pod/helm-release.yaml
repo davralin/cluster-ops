@@ -5,7 +5,7 @@ metadata:
   name: pod-rules
   namespace: flux-system
 spec:
-  interval: 15m
+  interval: 30m
   chart:
     spec:
       chart: raw
@@ -14,6 +14,7 @@ spec:
         kind: HelmRepository
         name: dysnix-charts
         namespace: flux-system
+      interval: 30m
   targetNamespace: monitoring
   install:
     createNamespace: true

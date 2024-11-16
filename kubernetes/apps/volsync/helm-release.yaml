@@ -5,7 +5,7 @@ metadata:
   name: &name volsync
   namespace: flux-system
 spec:
-  interval: 5m
+  interval: 30m
   chart:
     spec:
       chart: volsync
@@ -14,7 +14,7 @@ spec:
         kind: HelmRepository
         name: backube-charts
         namespace: flux-system
-      interval: 5m
+      interval: 30m
   targetNamespace: volsync
   install:
     createNamespace: true

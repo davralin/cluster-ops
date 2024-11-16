@@ -5,7 +5,7 @@ metadata:
   name: &name sockpuppetbrowser
   namespace: flux-system
 spec:
-  interval: 5m
+  interval: 30m
   timeout: 30m
   chart:
     spec:
@@ -15,7 +15,7 @@ spec:
         kind: HelmRepository
         name: bjw-s-charts
         namespace: flux-system
-      interval: 5m
+      interval: 30m
   targetNamespace: changedetection
   install:
     createNamespace: true

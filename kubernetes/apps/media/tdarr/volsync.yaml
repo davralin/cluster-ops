@@ -18,7 +18,7 @@ metadata:
   name: tdarr-volsync
   namespace: media
 spec:
-  interval: 15m
+  interval: 30m
   chart:
     spec:
       chart: raw
@@ -27,6 +27,7 @@ spec:
         kind: HelmRepository
         name: dysnix-charts
         namespace: flux-system
+      interval: 30m
   targetNamespace: media
   install:
     createNamespace: true

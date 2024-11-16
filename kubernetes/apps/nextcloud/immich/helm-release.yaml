@@ -5,7 +5,7 @@ metadata:
   name: &name immich
   namespace: flux-system
 spec:
-  interval: 5m
+  interval: 30m
   chart:
     spec:
       chart: immich
@@ -14,7 +14,7 @@ spec:
         kind: HelmRepository
         name: immich-charts
         namespace: flux-system
-      interval: 5m
+      interval: 30m
   targetNamespace: nextcloud
   install:
     createNamespace: true

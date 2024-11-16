@@ -5,7 +5,7 @@ metadata:
   name: haproxy-controller
   namespace: flux-system
 spec:
-  interval: 5m
+  interval: 30m
   chart:
     spec:
       chart: kubernetes-ingress
@@ -14,7 +14,7 @@ spec:
         kind: HelmRepository
         name: haproxytech-charts
         namespace: flux-system
-      interval: 5m
+      interval: 30m
   targetNamespace: haproxy-controller
   install:
     createNamespace: true

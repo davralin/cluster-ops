@@ -5,7 +5,7 @@ metadata:
   name: valkey-searxng
   namespace: flux-system
 spec:
-  interval: 5m
+  interval: 30m
   chart:
     spec:
       chart: valkey
@@ -14,7 +14,7 @@ spec:
         kind: HelmRepository
         name: bitnami-charts
         namespace: flux-system
-      interval: 5m
+      interval: 30m
   targetNamespace: searxng
   install:
     createNamespace: true

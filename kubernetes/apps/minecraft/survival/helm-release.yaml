@@ -5,7 +5,7 @@ metadata:
   name: &name minecraft-survival
   namespace: flux-system
 spec:
-  interval: 5m
+  interval: 30m
   chart:
     spec:
       chart: minecraft
@@ -14,7 +14,7 @@ spec:
         kind: HelmRepository
         name: itzg-charts
         namespace: flux-system
-      interval: 5m
+      interval: 30m
   targetNamespace: minecraft
   install:
     createNamespace: true

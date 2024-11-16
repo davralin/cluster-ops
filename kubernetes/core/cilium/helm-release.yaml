@@ -5,7 +5,7 @@ metadata:
   name: cilium
   namespace: flux-system
 spec:
-  interval: 15m
+  interval: 30m
   chart:
     spec:
       chart: cilium
@@ -14,7 +14,7 @@ spec:
         kind: HelmRepository
         name: cilium-charts
         namespace: flux-system
-      interval: 15m
+      interval: 30m
   targetNamespace: kube-system
   install:
     createNamespace: true

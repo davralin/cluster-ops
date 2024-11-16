@@ -5,7 +5,7 @@ metadata:
   name: github-davralin-cluster-ops
   namespace: flux-system
 spec:
-  interval: 15m
+  interval: 30m
   chart:
     spec:
       chart: flux2-sync
@@ -14,7 +14,7 @@ spec:
         kind: HelmRepository
         name: flux-charts
         namespace: flux-system
-      interval: 15m
+      interval: 30m
   targetNamespace: flux-system
   install:
     createNamespace: true

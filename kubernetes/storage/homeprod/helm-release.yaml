@@ -5,7 +5,7 @@ metadata:
   name: rook-ceph
   namespace: flux-system
 spec:
-  interval: 15m
+  interval: 30m
   chart:
     spec:
       chart: rook-ceph
@@ -14,7 +14,7 @@ spec:
         kind: HelmRepository
         name: rook-ceph-charts
         namespace: flux-system
-      interval: 15m
+      interval: 30m
   targetNamespace: rook-ceph
   install:
     createNamespace: true

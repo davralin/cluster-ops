@@ -5,7 +5,7 @@ metadata:
   name: awx-operator
   namespace: flux-system
 spec:
-  interval: 5m
+  interval: 30m
   chart:
     spec:
       chart: awx-operator
@@ -14,7 +14,7 @@ spec:
         kind: HelmRepository
         name: awx-charts
         namespace: flux-system
-      interval: 5m
+      interval: 30m
   targetNamespace: awx
   install:
     createNamespace: true
