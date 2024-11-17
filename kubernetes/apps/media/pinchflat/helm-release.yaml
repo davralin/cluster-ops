@@ -89,4 +89,4 @@ spec:
         existingClaim: media
         globalMounts:
           - path: /downloads
-            subPath: video/web/YouTube
+            subPath: video/youtube
