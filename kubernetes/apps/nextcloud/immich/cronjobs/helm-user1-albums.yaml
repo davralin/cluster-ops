@@ -1,0 +1,63 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &name immich-user1-albums
+  namespace: flux-system
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.5.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+      interval: 30m
+  targetNamespace: nextcloud
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  dependsOn:
+    - name: immich
+      namespace: flux-system
+  values:
+    fullnameOverride: *name
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+    controllers:
+      immich-user1-albums:
+        type: cronjob
+        cronjob:
+          schedule: "29 02 * * *"
+        containers:
+          app:
+            envFrom:
+              - secretRef:
+                  name: immich-user1-secret
+            image:
+              repository: ghcr.io/salvoxia/immich-folder-album-creator
+              tag: 0.15.0@sha256:0454e88b26298abe2ae546f64dd16c40357352b853712d1200b1d002df8198a8
+            command: ["/script/immich_auto_album.sh"]
+            env:
+              TZ: "${TIMEZONE}"
+              CRON_EXPRESSION: "37 13 * * *"
+              SYNC_MODE: 1 # Delete empty albums
+              SHARE_ROLE: viewer
+              UNATTENDED: 1
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
