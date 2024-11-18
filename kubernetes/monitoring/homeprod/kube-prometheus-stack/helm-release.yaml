@@ -62,7 +62,7 @@ spec:
           group_wait: 30s
           group_interval: 30m
           repeat_interval: 6h
-          receiver: "null"
+          receiver: "Discord"
           routes:
             - receiver: "healthchecksio"
               matchers:
@@ -73,9 +73,6 @@ spec:
             - receiver: "null"
               matchers:
                 - alertname ="CephNodeNetworkPacketDrops|CephPGImbalance"
-            - receiver: "Discord"
-              matchers:
-                - severity = "critical|warning"
       ingress:
         enabled: true
         pathType: Prefix
