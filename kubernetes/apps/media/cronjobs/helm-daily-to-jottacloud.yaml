@@ -38,14 +38,14 @@ spec:
       daily-to-jottacloud:
         type: cronjob
         cronjob:
-          concurrencyPolicy: Replace
-          schedule: "14 */6 * * *"
+          #concurrencyPolicy: Replace
+          schedule: "14 * * * *"
         containers:
           app:
             image:
               repository: rclone/rclone
               tag: 1.68.2
-            args: ["sync", "--ignore-case", "--check-first", "--delete-before", "--verbose", "--jottacloud-hard-delete", "--delete-excluded", "/data/", "jottacloud-crypt:/media", "--exclude", "downloads/**", "--exclude", "unsorted/tdarr/**", "--exclude", "*TdarrCacheFile*"]
+            args: ["sync", "--ignore-case", "--check-first", "--delete-before", "--verbose", "--jottacloud-hard-delete", "--delete-excluded", "/data/", "jottacloud-crypt:/media", "--exclude", "downloads/**", "--exclude", "unsorted/tdarr/**", "--exclude", "*TdarrCacheFile*", "--exclude", "video/youtube/**"]
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
