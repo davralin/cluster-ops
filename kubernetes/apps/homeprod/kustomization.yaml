@@ -22,6 +22,8 @@ resources:
   - ../jobs
   - ../kuma
   - ../librespeed
+  - ../librespeed-test
+  - ../librespeed-test-alpine
   - ../mailrelay
   - ../mailrise
   - ../media
