@@ -8,6 +8,5 @@ resources:
   - helm-cron-curl.yaml
   - helm-jottacloud-photos-to-nextcloud.yaml
   - helm-offsite-sync.yaml
-  # TODO
-  #- helm-onsite-sync.yaml
+  - helm-onsite-sync.yaml
   - pvc.yaml

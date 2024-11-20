@@ -10,5 +10,4 @@ resources:
   - helm-daily-streamripper.yaml
   - helm-daily-to-jottacloud.yaml
   - helm-daily-video-ripper.yaml
-  # TODO
-  #- helm-onsite-sync.yaml
+  - helm-onsite-sync.yaml
