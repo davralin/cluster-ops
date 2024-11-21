@@ -40,7 +40,8 @@ spec:
           ingress:
           - fromEndpoints:
             - matchLabels:
-                {}
+                name: kubernetes-ingress
+                namespace: haproxy-controller
           egress:
           - fromEndpoints:
             - matchLabels:
