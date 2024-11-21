@@ -36,8 +36,12 @@ spec:
         spec:
           endpointSelector:
             matchLabels:
-              component: openwebui
-          egress:
-          - {}
+              {}
           ingress:
-          - {}
+          - fromEndpoints:
+            - matchLabels:
+                {}
+          egress:
+          - fromEndpoints:
+            - matchLabels:
+                {}
