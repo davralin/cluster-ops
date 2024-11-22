@@ -52,7 +52,9 @@ spec:
               RAG_WEB_SEARCH_ENGINE: "searxng"
               SEARXNG_QUERY_URL: "http://searxng.searxng.svc.cluster.local:8080/search?q=<query>"
               OPENAI_API_KEY: "${SECRET_OPENAI_KEY}"
+              WEBUI_URL: "https://openwebui.${SECRET_DEFAULT_DOMAIN}"
               CORS_ALLOW_ORIGIN: "https://openwebui.${SECRET_DEFAULT_DOMAIN}"
+              DATA_DIR: /app/backend/data
             securityContext:
               allowPrivilegeEscalation: false
               # start.sh: line 16: .webui_secret_key: Read-only file system
