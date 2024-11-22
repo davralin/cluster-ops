@@ -93,7 +93,7 @@ spec:
               - name: /dev/disk/by-id/nvme-Samsung_SSD_970_EVO_Plus_2TB_S6P1NS0T208153T
                 config:
                   osdsPerDevice: "2"
-              - name: /dev/disk/by-id/ata-MTFDDAK256TBN-1AR1ZABHA_UFZMN01ZR67Z4W
+              #- name: /dev/disk/by-id/ata-MTFDDAK256TBN-1AR1ZABHA_UFZMN01ZR67Z4W
           - name: min
             devices:
               - name: /dev/disk/by-id/nvme-Samsung_SSD_970_EVO_Plus_2TB_S6P1NS0T209438H
@@ -105,7 +105,7 @@ spec:
               - name: /dev/disk/by-id/nvme-WD_BLACK_SN850X_4000GB_23030Q803045
                 config:
                   osdsPerDevice: "2"
-              - name: /dev/disk/by-id/ata-SAMSUNG_MZ7PC128HAFU-000H1_S0U2NSACA14970
+              #- name: /dev/disk/by-id/ata-SAMSUNG_MZ7PC128HAFU-000H1_S0U2NSACA14970
     ingress:
       dashboard:
         annotations:
