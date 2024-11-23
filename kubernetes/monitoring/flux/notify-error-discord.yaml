@@ -15,14 +15,11 @@ spec:
     - kind: Kustomization
       name: core
     - kind: Kustomization
-      name: flux-system
-    - kind: Kustomization
-      name: flux-monitoring
+      name: github-davralin-cluster-ops
     - kind: Kustomization
       name: monitoring
     - kind: Kustomization
       name: storage
     - kind: HelmRelease
       name: '*'
-      namespace: '*'
   suspend: false
