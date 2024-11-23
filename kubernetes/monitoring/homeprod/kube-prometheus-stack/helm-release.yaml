@@ -119,6 +119,12 @@ spec:
         - 10.0.1.67
         - 10.0.1.68
         - 10.0.1.69
+    nodeExporter:
+      operatingSystems:
+        aix:
+          enabled: false
+        darwin:
+          enabled: false
     prometheus-node-exporter:
       fullnameOverride: node-exporter
       prometheus:
