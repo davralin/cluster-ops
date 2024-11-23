@@ -66,12 +66,15 @@ spec:
             - receiver: "healthchecksio"
               matchers:
                 - alertname =~ "InfoInhibitor|Watchdog"
+              continue: false
             - receiver: "healthchecksio"
               matchers:
                 - alertname ="AlertmanagerClusterFailedToSendAlerts|AlertmanagerFailedToSendAlerts"
+              continue: false
             - receiver: "healthchecksio"
               matchers:
                 - alertname ="CephNodeNetworkPacketDrops|CephPGImbalance"
+              continue: false
       ingress:
         enabled: true
         pathType: Prefix
