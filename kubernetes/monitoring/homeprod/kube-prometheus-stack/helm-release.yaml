@@ -29,7 +29,7 @@ spec:
     - name: rook-ceph-cluster
       namespace: flux-system
   values:
-    fullnameOverride: "kube-prom"
+    fullnameOverride: ""
     alertmanager:
       config:
         receivers:
@@ -108,6 +108,7 @@ spec:
       enabled: true
     kube-state-metrics:
       enabled: true
+      namespaceOverride: ""
     kubeProxy:
       enabled: false
     kubeScheduler:
