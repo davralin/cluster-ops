@@ -52,6 +52,7 @@ spec:
                       **Description:** N/A
                     {{- end }}
                   {{- end }}
+          - name: "dummy"
           - name: "healthchecksio"
             webhook_configs:
               - send_resolved: true
@@ -60,20 +61,20 @@ spec:
           group_by: ["..."]
           group_wait: 30s
           group_interval: 5m
-          repeat_interval: 6h
+          repeat_interval: 12h
           receiver: "Discord"
           routes:
             - receiver: "healthchecksio"
               matchers:
-                - alertname =~ "InfoInhibitor|Watchdog"
+                - alertname =~ "Watchdog"
               continue: false
-            - receiver: "healthchecksio"
+            - receiver: "dummy"
               matchers:
-                - alertname ="AlertmanagerClusterFailedToSendAlerts|AlertmanagerFailedToSendAlerts|CephPGImbalance|CephNodeNetworkPacketDrops"
+                - alertname =~ "InfoInhibitor"
               continue: false
-            - receiver: "Discord"
+            - receiver: "dummy"
               matchers:
-                - severity = "critical|warning"
+                - alertname ="CephPGImbalance|CephNodeNetworkPacketDrops"
               continue: false
       ingress:
         enabled: true
