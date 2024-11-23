@@ -59,7 +59,7 @@ spec:
         route:
           group_by: ["..."]
           group_wait: 30s
-          group_interval: 30m
+          group_interval: 5m
           repeat_interval: 6h
           receiver: "Discord"
           routes:
@@ -69,11 +69,11 @@ spec:
               continue: false
             - receiver: "healthchecksio"
               matchers:
-                - alertname ="AlertmanagerClusterFailedToSendAlerts|AlertmanagerFailedToSendAlerts"
+                - alertname ="AlertmanagerClusterFailedToSendAlerts|AlertmanagerFailedToSendAlerts|CephPGImbalance|CephNodeNetworkPacketDrops"
               continue: false
-            - receiver: "healthchecksio"
+            - receiver: "Discord"
               matchers:
-                - alertname ="CephNodeNetworkPacketDrops|CephPGImbalance"
+                - severity = "critical|warning"
               continue: false
       ingress:
         enabled: true
