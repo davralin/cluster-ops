@@ -53,7 +53,8 @@ spec:
               allowPrivilegeEscalation: false
               # s6-rmrf: fatal: unable to remove /run/s6: Read-only file system
               readOnlyRootFilesystem: false
-              capabilities: { drop: ["ALL"] }
+              # s6-applyuidgid: fatal: unable to set supplementary group list: Operation not permitted
+              #capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 50m
