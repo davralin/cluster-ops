@@ -4,6 +4,6 @@ kind: Kustomization
 resources:
   # TODO
   #- helm-release-node.yaml
-  #- helm-release.yaml
+  - helm-release.yaml
   - pvc.yaml
   - volsync.yaml
