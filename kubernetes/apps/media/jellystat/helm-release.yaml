@@ -19,10 +19,10 @@ spec:
   install:
     createNamespace: true
     remediation:
-      retries: 3
+      retries: 10
   upgrade:
     remediation:
-      retries: 3
+      retries: 10
   valuesFrom:
     - targetPath: controllers.jellystat.containers.app.env.POSTGRES_PASSWORD
       kind: Secret

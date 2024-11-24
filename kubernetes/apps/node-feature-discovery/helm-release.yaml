@@ -20,10 +20,10 @@ spec:
     createNamespace: true
     crds: CreateReplace
     remediation:
-      retries: 3
+      retries: 10
   upgrade:
     remediation:
-      retries: 3
+      retries: 10
     crds: CreateReplace
   values:
     fullnameOverride: *name
