@@ -41,6 +41,9 @@ spec:
     controllers:
       tdarr-node:
         type: daemonset
+        pod:
+          nodeSelector:
+            intel.feature.node.kubernetes.io/gpu: "true"
         containers:
           app:
             image:
@@ -65,8 +68,11 @@ spec:
               #capabilities: { drop: ["ALL"] }
             resources:
               requests:
+                gpu.intel.com/i915: 1
                 memory: 600Mi
-                cpu: 2000m
+              limits:
+                gpu.intel.com/i915: 1
+                memory: 2000Mi
     persistence:
       media:
         enabled: true
