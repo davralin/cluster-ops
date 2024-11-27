@@ -27,6 +27,7 @@ resources:
   - ../mailrise
   - ../media
   - ../minecraft
+  - ../netbox
   - ../nextcloud
   - ../node-feature-discovery
   - ../node-problem-detector
