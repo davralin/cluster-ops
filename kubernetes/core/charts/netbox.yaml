@@ -7,5 +7,5 @@ metadata:
 spec:
   type: oci
   interval: 2h
-  url: oci://ghcr.io/netbox-community/netbox-chart/netbox
+  url: oci://ghcr.io/netbox-community/netbox-chart
   timeout: 3m
