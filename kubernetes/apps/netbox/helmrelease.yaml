@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: netbox
-      version: v4.1.7
+      version: 5.0.0-beta.147
       sourceRef:
         kind: HelmRepository
         name: netbox-charts
@@ -35,3 +35,19 @@ spec:
             topologyKey: kubernetes.io/hostname
     redis:
       enabled: false
+    ingress:
+      enabled: true
+      annotations:
+        haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
+        haproxy.org/response-set-header: |
+          Strict-Transport-Security "max-age=31536000"
+          X-Frame-Options "DENY"
+          X-Content-Type-Options "nosniff"
+          Referrer-Policy "no-referrer-when-downgrade"
+      hosts:
+        - host: &host "netbox.${SECRET_DEFAULT_DOMAIN}"
+          paths:
+            - /
+      tls:
+        - hosts:
+            - *host
