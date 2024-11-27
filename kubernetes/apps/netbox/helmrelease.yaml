@@ -24,17 +24,12 @@ spec:
     remediation:
       retries: 10
   values:
-    affinity:
-      podAntiAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-          - labelSelector:
-              matchLabels:
-                app.kubernetes.io/instance: netbox
-                app.kubernetes.io/name: netbox
-                app.kubernetes.io/component: netbox
-            topologyKey: kubernetes.io/hostname
     redis:
       enabled: false
+    tasksRedis:
+      host: valkey-primary.netbox.svc.cluster.local
+    cachingRedis:
+      host: valkey-primary.netbox.svc.cluster.local
     ingress:
       enabled: true
       annotations:
