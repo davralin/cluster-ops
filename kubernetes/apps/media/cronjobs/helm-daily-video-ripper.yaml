@@ -43,7 +43,7 @@ spec:
           app:
             image:
               repository: ghcr.io/davralin/youtube-dl
-              tag: latest@sha256:3dc6505274bcb978279b182cff305adb1c7f4e956d5478df1481b644108ae245
+              tag: latest@sha256:ac3c834e48d4b70b9ebf11d67e8b8dc3cd42c9f20ed12fa44df1e08ddef32293
             command: ['/media/videoripper.sh']
             securityContext:
               allowPrivilegeEscalation: false
