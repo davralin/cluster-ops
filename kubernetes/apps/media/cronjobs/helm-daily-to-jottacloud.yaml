@@ -38,8 +38,8 @@ spec:
       daily-to-jottacloud:
         type: cronjob
         cronjob:
-          #concurrencyPolicy: Replace
-          schedule: "14 * * * *"
+          concurrencyPolicy: Replace
+          schedule: "14 07 * * *"
         containers:
           app:
             image:
