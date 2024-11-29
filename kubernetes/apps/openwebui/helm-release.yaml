@@ -8,11 +8,11 @@ spec:
   interval: 30m
   chart:
     spec:
-      chart: open-webui
-      version: 4.0.5
+      chart: app-template
+      version: 3.5.1
       sourceRef:
         kind: HelmRepository
-        name: openwebui-charts
+        name: bjw-s-charts
         namespace: flux-system
       interval: 30m
   targetNamespace: openwebui
@@ -23,41 +23,79 @@ spec:
   upgrade:
     remediation:
       retries: 10
+  valuesFrom:
+    - targetPath: controllers.openwebui.containers.app.env.WEBUI_SECRET_KEY
+      kind: Secret
+      name: openwebui-secrets
+      valuesKey: WEBUI_SECRET_KEY
   values:
-    nameOverride: *name
-    ollama:
-      enabled: false
-    pipelines:
-      enabled: false
-    tika:
-      enabled: true
-    ollamaUrls: ["http://ollama.ollama.svc.cluster.local.:11434"]
+    fullnameOverride: *name
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+    controllers:
+      openwebui:
+        containers:
+          app:
+            image:
+              repository: ghcr.io/open-webui/open-webui
+              tag: 0.4.6@sha256:01fe71e722088474496064ff781631698898cd9cbf37a7a7a7a89da3e3dc975e
+            env:
+              OLLAMA_BASE_URL: "http://10.0.1.228:11434"
+              ENABLE_RAG_WEB_SEARCH: true
+              RAG_WEB_SEARCH_ENGINE: "searxng"
+              SEARXNG_QUERY_URL: "http://searxng.searxng.svc.cluster.local:8080/search?q=<query>"
+              OPENAI_API_KEY: "${SECRET_OPENAI_KEY}"
+              WEBUI_URL: "https://openwebui.${SECRET_DEFAULT_DOMAIN}"
+              CORS_ALLOW_ORIGIN: "https://openwebui.${SECRET_DEFAULT_DOMAIN}"
+              DATA_DIR: /app/backend/data
+            securityContext:
+              allowPrivilegeEscalation: false
+              # start.sh: line 16: .webui_secret_key: Read-only file system
+              readOnlyRootFilesystem: false
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 100m
+                memory: 600Mi
+              limits:
+                cpu: 200m
+                memory: 800Mi
+    service:
+      app:
+        controller: *name
+        ports:
+          http:
+            port: 8080
     ingress:
-      enabled: true
-      annotations:
-        haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
-        haproxy.org/response-set-header: |
-          Strict-Transport-Security "max-age=31536000"
-          X-Frame-Options "DENY"
-          X-Content-Type-Options "nosniff"
-          Referrer-Policy "no-referrer-when-downgrade"
-      host: &host "openwebui.${SECRET_DEFAULT_DOMAIN}"
-      tls: true
+      app:
+        enabled: true
+        annotations:
+          haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
+          haproxy.org/response-set-header: |
+            Strict-Transport-Security "max-age=31536000"
+            X-Frame-Options "DENY"
+            X-Content-Type-Options "nosniff"
+            Referrer-Policy "no-referrer-when-downgrade"
+        hosts:
+          - host: &host "openwebui.${SECRET_DEFAULT_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - *host
     persistence:
-      enabled: true
-      existingClaim: openwebui
-    extraEnvVars:
-      - name: OLLAMA_BASE_URL
-        value: "http://10.0.1.228:11434"
-      - name: ENABLE_RAG_WEB_SEARCH
-        value: true
-      - name: RAG_WEB_SEARCH_ENGINE
-        value: "searxng"
-      - name: SEARXNG_QUERY_URL
-        value: "http://searxng.searxng.svc.cluster.local:8080/search?q=<query>"
-      - name: OPENAI_API_KEY
-        value: "${SECRET_OPENAI_KEY}"
-      - name: WEBUI_URL
-        value: "https://openwebui.${SECRET_DEFAULT_DOMAIN}"
-      - name: CORS_ALLOW_ORIGIN
-        value: "https://openwebui.${SECRET_DEFAULT_DOMAIN}"
+      config:
+        enabled: true
+        existingClaim: openwebui
+        globalMounts:
+          - path: /app/backend/data

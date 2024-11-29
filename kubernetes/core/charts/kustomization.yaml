@@ -27,7 +27,6 @@ resources:
   - metrics-server.yaml
   - netbox.yaml
   - node-feature-discovery.yaml
-  - openwebui.yaml
   - piraeus.yaml
   - prometheus.yaml
   - renovate.yaml
