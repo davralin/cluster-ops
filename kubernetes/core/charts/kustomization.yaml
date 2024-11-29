@@ -25,7 +25,6 @@ resources:
   - itzg.yaml
   - jetstack.yaml
   - metrics-server.yaml
-  - netbox.yaml
   - node-feature-discovery.yaml
   - piraeus.yaml
   - prometheus.yaml
