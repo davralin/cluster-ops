@@ -15,6 +15,7 @@ resources:
   - ../esphome
   - ../freshrss
   - ../gitea
+  - ../hoarder
   - ../homeassistant
   - ../intel-device-plugin
   - ../invidious

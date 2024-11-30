@@ -1,0 +1,189 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &name hoarder
+  namespace: flux-system
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.5.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+      interval: 30m
+  targetNamespace: hoarder
+  install:
+    createNamespace: true
+    remediation:
+      retries: 10
+  upgrade:
+    remediation:
+      retries: 10
+  valuesFrom:
+    - targetPath: controllers.hoarder.containers.hoarder.env.NEXTAUTH_SECRET
+      kind: Secret
+      name: hoarder-secrets
+      valuesKey: NEXTAUTH_SECRET
+    - targetPath: controllers.hoarder.containers.hoarder.env.MEILI_MASTER_KEY
+      kind: Secret
+      name: hoarder-secrets
+      valuesKey: MEILI_MASTER_KEY
+    - targetPath: controllers.hoarder.containers.meilisearch.env.MEILI_MASTER_KEY
+      kind: Secret
+      name: hoarder-secrets
+      valuesKey: MEILI_MASTER_KEY
+  values:
+    fullnameOverride: *name
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+    controllers:
+      hoarder:
+        containers:
+          hoarder:
+            image:
+              repository: ghcr.io/hoarder-app/hoarder
+              tag: 0.19.0@sha256:237430c1c8117ada68a2d6c37487e5c234a306f43c244670689e6cabd2cffce2
+            env:
+              BROWSER_WEB_URL: http://hoarder-chrome:9222
+              CRAWLER_VIDEO_DOWNLOAD: true
+              DATA_DIR: /data
+              INFERENCE_IMAGE_MODEL: "llava"
+              INFERENCE_TEXT_MODEL: "llama3.2:3b"
+              MEILI_ADDR: http://hoarder-meilisearch:7700
+              NEXTAUTH_URL: &host "hoarder.${SECRET_DEFAULT_DOMAIN}"
+              OLLAMA_BASE_URL: "http://ollama.ollama.svc.cluster.local:11434"
+              INFERENCE_JOB_TIMEOUT_SEC: 299
+            securityContext:
+              # s6-overlay-suexec: warning: unable to gain root privileges (is the suid bit set?)
+              runAsUser: 0
+              runAsGroup: 0
+              fsGroup: 0
+              runAsNonRoot: false
+              allowPrivilegeEscalation: false
+              # s6-rmrf: fatal: unable to remove /run/s6: Read-only file system
+              readOnlyRootFilesystem: false
+              # throw new TypeError('Cannot open database because the directory does not exist');
+              # s6-rc: warning: unable to start service init-db-migration: command exited 1
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 10m
+                memory: 256Mi
+              limits:
+                memory: 750Mi
+          chrome:
+            image:
+              repository: gcr.io/zenika-hub/alpine-chrome
+              tag: 124
+            command:
+              - chromium-browser
+              - --headless
+              - --no-sandbox
+              - --disable-gpu
+              - --disable-dev-shm-usage
+              - --remote-debugging-address=0.0.0.0
+              - --remote-debugging-port=9222
+              - --hide-scrollbars
+            securityContext:
+              # ERROR:zygote_host_impl_linux.cc(274)] Failed to adjust OOM score of renderer with pid 26: Permission denied (13)
+              runAsUser: 0
+              runAsGroup: 0
+              fsGroup: 0
+              runAsNonRoot: false
+              allowPrivilegeEscalation: false
+              # ERROR:platform_shared_memory_region_posix.cc(214)] Creating shared memory in /tmp/.org.chromium.Chromium.XXXXXX failed: Read-only file system (30)
+              readOnlyRootFilesystem: false
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 10m
+                memory: 100Mi
+              limits:
+                cpu: 200m
+                memory: 300Mi
+          meilisearch:
+            image:
+              repository: getmeili/meilisearch
+              tag: v1.11.3@sha256:6f8f1fc29d1ff67b4d8d503bb4e0a69b55c8d42600decafde951344218193a27
+            env:
+              MEILI_NO_ANALYTICS: "true"
+            securityContext:
+              # ERROR meilisearch: error=Permission denied (os error 13)
+              runAsUser: 0
+              runAsGroup: 0
+              fsGroup: 0
+              fsGroupChangePolicy: "OnRootMismatch"
+              runAsNonRoot: false
+              allowPrivilegeEscalation: false
+              # ERROR meilisearch: error=Read-only file system (os error 30)
+              readOnlyRootFilesystem: false
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 128Mi
+    service:
+      hoarder:
+        controller: *name
+        ports:
+          http:
+            port: 3000
+      chrome:
+        controller: *name
+        ports:
+          http:
+            port: 9222
+      meilisearch:
+        controller: *name
+        ports:
+          http:
+            port: 7700
+    ingress:
+      hoarder:
+        enabled: true
+        annotations:
+          haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
+          haproxy.org/response-set-header: |
+            Strict-Transport-Security "max-age=31536000"
+            X-Frame-Options "DENY"
+            X-Content-Type-Options "nosniff"
+            Referrer-Policy "no-referrer-when-downgrade"
+        hosts:
+          - host: *host
+            paths:
+              - path: /
+                service:
+                  identifier: hoarder
+                  port: http
+        tls:
+          - hosts:
+              - *host
+    persistence:
+      config:
+        existingClaim: hoarder
+        advancedMounts:
+          hoarder:
+            hoarder:
+              - path: /data
+                subPath: data
+            meilisearch:
+              - path: /meili_data
+                subPath: meili_data
+      cache:
+        type: emptyDir
+        advancedMounts:
+          hoarder:
+            hoarder:
+              - path: /app/apps/web/.next/cache
