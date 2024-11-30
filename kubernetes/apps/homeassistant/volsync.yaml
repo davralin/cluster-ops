@@ -59,9 +59,9 @@ spec:
             pruneIntervalDays: 7
             repository: homeassistant-volsync-secret
             moverSecurityContext:
-              runAsUser: 0
-              runAsGroup: 9
-              fsGroup: 0
+              runAsUser: 1000
+              runAsGroup: 1000
+              fsGroup: 1000
               fsGroupChangePolicy: "OnRootMismatch"
               runAsNonRoot: false
               seccompProfile:
