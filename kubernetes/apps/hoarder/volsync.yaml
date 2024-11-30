@@ -59,9 +59,9 @@ spec:
             pruneIntervalDays: 7
             repository: hoarder-volsync-secret
             moverSecurityContext:
-              runAsUser: 1000
-              runAsGroup: 1000
-              fsGroup: 1000
+              runAsUser: 0
+              runAsGroup: 0
+              fsGroup: 0
               fsGroupChangePolicy: "OnRootMismatch"
               runAsNonRoot: false
               seccompProfile:
