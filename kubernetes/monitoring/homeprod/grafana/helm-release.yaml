@@ -119,8 +119,9 @@ spec:
           datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/1860
         node-exporter-full:
+          # renovate: depName="Node Exporter Full"
           gnetId: 1860
-          revision: 37
+          revision: 36
           datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/15549
         node-problem-detector:

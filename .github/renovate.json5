@@ -4,7 +4,8 @@
     "config:recommended",
     "docker:enableMajor",
     ":automergeBranch",
-    ":disableRateLimiting"
+    ":disableRateLimiting",
+    "github>onedr0p/home-ops//.github/renovate/grafanaDashboards.json5"
   ],
   "dependencyDashboardTitle": "Renovate Dashboard",
   "assigneesFromCodeOwners": true,
