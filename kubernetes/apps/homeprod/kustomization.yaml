@@ -34,7 +34,6 @@ resources:
   - ../ollama
   - ../openwebui
   - ../paperless-ngx
-  - ../redlib
   - ../reloader
   - ../searxng
   - ../spegel
