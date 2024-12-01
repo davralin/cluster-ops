@@ -75,41 +75,48 @@ spec:
     dashboards:
       default:
         # Ref: https://grafana.com/grafana/dashboards/2842
-        ceph-overview:
+        ceph-cluster:
+          # renovate: depName="Ceph Cluster"
           gnetId: 2842
-          revision: 17
+          revision: 16
           datasource: Prometheus
         cert-manager:
           url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/cert-manager/dashboards/cert-manager.json
           datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/18796
         dnsmasq:
+        # renovate: depName="Dnsmasq"
           gnetId: 18796
           revision: 1
           datasource:
             - { name: DS_PROMETHEUS, value: Prometheus }
         # Ref: https://grafana.com/grafana/dashboards/364
         haproxy-backend:
+        # renovate: depName="HAproxy Backend | HAproxy"
           gnetId: 364
           revision: 3
           datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/12693
         haproxy2:
+        # renovate: depName="HAProxy 2 Full"
           gnetId: 12693
           revision: 8
           datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/12950
         hwmon:
+        # renovate: depName="hwmon"
           gnetId: 12950
           revision: 2
           datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/13838
         kubernetes-overview:
+        # renovate: depName="Kubernetes Overview"
           gnetId: 13838
           revision: 2
           datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/6739
         k8s-pvc:
+        # renovate: depName="Kubernetes Persistence Volumes"
           gnetId: 6739
           revision: 1
           datasource: Prometheus
@@ -125,38 +132,53 @@ spec:
           datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/15549
         node-problem-detector:
+        # renovate: depName="Node Problem Detector"
           gnetId: 15549
           revision: 1
           datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/11315
         unifi-poller-client-insights:
+        # renovate: depName="UniFi-Poller: Client Insights - Prometheus"
           gnetId: 11315
           revision: 9
           datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/11311
         unifi-poller-network-sites:
+        # renovate: depName="UniFi-Poller: Network Sites - Prometheus"
           gnetId: 11311
           revision: 5
           datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/11314
         unifi-poller-uap-insights:
+        # renovate: depName="UniFi-Poller: UAP Insights - Prometheus"
           gnetId: 11314
           revision: 10
           datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/18817
         unpackerr:
+        # renovate: depName="Unpackerr"
           gnetId: 18817
           revision: 1
           datasource:
             - { name: DS_PROMETHEUS, value: Prometheus }
+        # Ref: https://grafana.com/grafana/dashboards/21356
+        volsync:
+          # renovate: depName="VolSync Dashboard"
+          gnetId: 21356
+          revision: 3
+          datasource:
+            - { name: DS_PROMETHEUS, value: Prometheus }
+            - { name: VAR_REPLICATIONDESTNAME, value: .*-dst }
         # Ref: https://grafana.com/grafana/dashboards/17251
         wireguard:
+        # renovate: depName="Wireguard"
           gnetId: 17251
           revision: 1
           datasource:
             - { name: DS_PROMETHEUS, value: Prometheus }
         # Ref: https://grafana.com/grafana/dashboards/7845
         zfs:
+        # renovate: depName="zfs"
           gnetId: 7845
           revision: 4
           datasource: Prometheus
