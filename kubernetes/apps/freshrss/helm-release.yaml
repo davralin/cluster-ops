@@ -49,7 +49,8 @@ spec:
               allowPrivilegeEscalation: false
               # Fatal Error Unable to create lock file: Read-only file system (30)
               readOnlyRootFilesystem: false
-              capabilities: { drop: ["ALL"] }
+              # (1)Operation not permitted: AH02156: setgid: unable to set group id to Group 33
+              #capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 10m
