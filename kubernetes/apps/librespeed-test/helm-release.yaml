@@ -47,8 +47,7 @@ spec:
               WEBPORT: 8080
             securityContext:
               allowPrivilegeEscalation: false
-              # This can't be done just yet
-              readOnlyRootFilesystem: false
+              readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
             resources:
               requests:
