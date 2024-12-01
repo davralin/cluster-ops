@@ -82,3 +82,8 @@ spec:
         tls:
           - hosts:
               - *host
+    persistence:
+      wwwdata:
+        type: emptyDir
+        globalMounts:
+          - path: /var/www/html/
