@@ -352,7 +352,7 @@ spec:
                   ((ceph_osd_numpg > 0) - on (job) group_left avg(ceph_osd_numpg > 0) by (job)) /
                   on (job) group_left avg(ceph_osd_numpg > 0) by (job)
                 ) * on (ceph_daemon) group_left(hostname) ceph_osd_metadata > 0.30
-              for: 5m
+              for: 24h
               labels:
                 oid: 1.3.6.1.4.1.50495.1.2.1.4.5
                 severity: warning
