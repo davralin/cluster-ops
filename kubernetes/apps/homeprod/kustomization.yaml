@@ -21,6 +21,7 @@ resources:
   - ../invidious
   - ../it-tools
   - ../jobs
+  - ../kubevirt
   - ../kuma
   - ../librespeed
   - ../librespeed-test
