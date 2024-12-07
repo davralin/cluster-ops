@@ -114,6 +114,12 @@ spec:
           gnetId: 13838
           revision: 2
           datasource: Prometheus
+        # Ref: https://grafana.com/grafana/dashboards/11748
+        kubevirt-vm-info:
+        # renovate: depName="KubeVirt VM Info"
+          gnetId: 11748
+          revision: 1
+          datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/6739
         k8s-pvc:
         # renovate: depName="Kubernetes Persistence Volumes"
