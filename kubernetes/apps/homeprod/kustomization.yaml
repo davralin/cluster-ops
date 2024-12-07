@@ -22,6 +22,7 @@ resources:
   - ../it-tools
   - ../jobs
   - ../kubevirt
+  - ../kubevirt-cdi
   - ../kuma
   - ../librespeed
   - ../librespeed-test
