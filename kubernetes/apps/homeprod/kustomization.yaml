@@ -37,7 +37,6 @@ resources:
   - ../paperless-ngx
   - ../reloader
   - ../searxng
-  - ../spegel
   - ../syncthing
   - ../thelounge
   - ../unifi
