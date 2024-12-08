@@ -41,7 +41,7 @@ spec:
           app:
             image:
               repository: ghcr.io/davralin/speedtest
-              tag: latest@sha256:f58ad639e334f5f43d0c3744abaccc9da4ab6987f1c034dcb3e85192f565d412
+              tag: latest@sha256:86fd635045d04c24b466ac3821558735fceff94cb8a92527e992515b74a57804
             env:
               MODE: standalone
               WEBPORT: 8080
