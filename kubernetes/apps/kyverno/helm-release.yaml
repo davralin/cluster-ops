@@ -40,6 +40,11 @@ spec:
     cleanupController:
       serviceMonitor:
         enabled: "${MONITORING_PROMETHEUS}"
+      clusterRole:
+        extraResources:
+          - apiGroups: ["*"]
+            resources: ["*"]
+            verbs: ["delete", "get", "list", "watch"]
     reportsController:
       serviceMonitor:
         enabled: "${MONITORING_PROMETHEUS}"
