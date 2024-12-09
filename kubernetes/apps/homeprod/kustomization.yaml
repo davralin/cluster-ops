@@ -24,6 +24,7 @@ resources:
   - ../kubevirt
   - ../kubevirt-cdi
   - ../kuma
+  - ../kyverno
   - ../librespeed
   - ../librespeed-test
   - ../mailrelay
