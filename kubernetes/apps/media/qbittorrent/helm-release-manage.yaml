@@ -23,6 +23,9 @@ spec:
   upgrade:
     remediation:
       retries: 10
+  dependsOn:
+    - name: qbittorrent
+      namespace: flux-system
   values:
     fullnameOverride: *name
     defaultPodOptions:
