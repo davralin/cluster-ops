@@ -142,6 +142,10 @@ spec:
           gnetId: 15549
           revision: 1
           datasource: Prometheus
+        # Ref: https://github.com/esanchezm/prometheus-qbittorrent-exporter
+        qbittorrent:
+          url: https://raw.githubusercontent.com/esanchezm/prometheus-qbittorrent-exporter/master/grafana/dashboard.json
+          datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/11315
         unifi-poller-client-insights:
         # renovate: depName="UniFi-Poller: Client Insights - Prometheus"
