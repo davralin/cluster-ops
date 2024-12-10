@@ -22,7 +22,7 @@ resources:
   - ../it-tools
   - ../jobs
   - ../kubevirt
-  - ../kubevirt-cdi
+  #- ../kubevirt-cdi
   - ../kuma
   - ../kyverno
   - ../librespeed

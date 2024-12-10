@@ -74,7 +74,7 @@ spec:
               continue: false
             - receiver: "dummy"
               matchers:
-                - alertname ="CephPGImbalance|CephNodeNetworkPacketDrops|KubeClientCertificateExpiration"
+                - alertname ="CephPGImbalance|CephNodeNetworkPacketDrops"
               continue: false
       ingress:
         enabled: true
