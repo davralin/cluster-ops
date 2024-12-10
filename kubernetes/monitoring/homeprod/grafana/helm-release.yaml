@@ -36,21 +36,25 @@ spec:
       GF_DATE_FORMATS_FULL_DATE: "MMM Do, YYYY hh:mm:ss a"
     adminPassword: "${SECRET_GRAFANA_PASSWORD}"
     grafana.ini:
-      server:
-        root_url: "https://grafana.${SECRET_DEFAULT_DOMAIN}"
+      analytics:
+        check_for_updates: false
+        check_for_plugin_updates: false
+        reporting_enabled: false
+      auth.basic:
+        disable_login_form: false
+      grafana_net:
+        url: https://grafana.net
+      log:
+        mode: console
+      news:
+        news_feed_enabled: false
       paths:
         data: /var/lib/grafana/data
         logs: /var/log/grafana
         plugins: /var/lib/grafana/plugins
         provisioning: /etc/grafana/provisioning
-      analytics:
-        check_for_updates: false
-      log:
-        mode: console
-      grafana_net:
-        url: https://grafana.net
-      auth.basic:
-        disable_login_form: false
+      server:
+        root_url: "https://grafana.${SECRET_DEFAULT_DOMAIN}"
     dashboardProviders:
       dashboardproviders.yaml:
         apiVersion: 1
