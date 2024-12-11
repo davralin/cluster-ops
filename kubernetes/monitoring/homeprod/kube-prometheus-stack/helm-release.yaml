@@ -72,10 +72,6 @@ spec:
               matchers:
                 - alertname =~ "InfoInhibitor"
               continue: false
-            - receiver: "dummy"
-              matchers:
-                - alertname ="CephPGImbalance|CephNodeNetworkPacketDrops"
-              continue: false
       ingress:
         enabled: true
         pathType: Prefix
