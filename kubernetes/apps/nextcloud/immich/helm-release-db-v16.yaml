@@ -89,9 +89,8 @@ spec:
             requests:
               memory: "256Mi"
               cpu: "400m"
-            limits:
+            #limits:
               #memory: "512Mi"
-              memory: "2Gi"
           postgresql:
             shared_preload_libraries:
               - "vectors.so"
