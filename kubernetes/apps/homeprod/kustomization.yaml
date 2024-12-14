@@ -21,8 +21,8 @@ resources:
   - ../invidious
   - ../it-tools
   - ../jobs
-  #- ../kubevirt
-  #- ../kubevirt-cdi
+  - ../kubevirt
+  - ../kubevirt-cdi
   - ../kuma
   - ../kyverno
   - ../librespeed
