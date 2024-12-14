@@ -6,4 +6,3 @@ resources:
   - namespace.yaml
   #- networkpolicy.yaml
   - pvc.yaml
-  - volsync.yaml
