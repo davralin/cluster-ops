@@ -31,7 +31,6 @@ spec:
           name: kubevirt
           namespace: kubevirt
         spec:
-          certificateRotateStrategy: {}
           configuration:
             developerConfiguration:
               featureGates:
