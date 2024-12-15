@@ -51,17 +51,17 @@ spec:
           superuserSecret:
             name: *name
           bootstrap:
-            # use this to start a new cluster
-            initdb:
-              database: mealie
-              owner: mealie
-              secret:
-                name: mealie-basic-auth
-            # use this to recover a net-new cluster from a backup
-            #recovery:
-            #  source: *name
+            ## use this to start a new cluster
+            #initdb:
             #  database: mealie
             #  owner: mealie
+            #  secret:
+            #    name: mealie-basic-auth
+            # use this to recover a net-new cluster from a backup
+            recovery:
+              source: *name
+              database: mealie
+              owner: mealie
             # # use this to 'migrate' from an existing cnpg cluster (e.g. "mealie-postgres-v16") to the new cluster
             #initdb:
             #  database: mealie
