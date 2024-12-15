@@ -12,6 +12,7 @@ resources:
   - jellystat
   - lidarr
   - metube
+  - multiscrobbler
   - namespace.yaml
   - pinchflat
   - pvc.yaml
