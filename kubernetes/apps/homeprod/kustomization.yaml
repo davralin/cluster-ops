@@ -29,6 +29,7 @@ resources:
   - ../librespeed-test
   - ../mailrelay
   - ../mailrise
+  - ../mealie
   - ../media
   - ../minecraft
   - ../nextcloud
