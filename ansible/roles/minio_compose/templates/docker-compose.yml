@@ -3,7 +3,7 @@ name: minio
 
 services:
   minio:
-    image: quay.io/minio/minio:RELEASE.2024-11-07T00-52-20Z
+    image: quay.io/minio/minio:RELEASE.2024-12-13T22-19-12Z
     ports:
       - "{{ minio_compose_ip_binding_s3 }}:9000"
       - "{{ minio_compose_ip_binding_web }}:9001"
