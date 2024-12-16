@@ -31,6 +31,12 @@ spec:
           name: kubevirt
           namespace: kubevirt
         spec:
+          certificateRotateStrategy:
+            selfSigned:
+              ca:
+                renewBefore: 48h
+              server:
+                renewBefore: 48h
           configuration:
             developerConfiguration:
               featureGates:
