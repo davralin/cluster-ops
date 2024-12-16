@@ -28,11 +28,12 @@ spec:
     defaultPodOptions:
       hostname: *name
       securityContext:
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
+        # s6-overlay-suexec: warning: unable to gain root privileges (is the suid bit set?)
+        runAsUser: 0
+        runAsGroup: 0
+        fsGroup: 0
         fsGroupChangePolicy: "OnRootMismatch"
-        runAsNonRoot: true
+        runAsNonRoot: false
         seccompProfile:
           type: RuntimeDefault
     controllers:
@@ -47,8 +48,10 @@ spec:
               BASE_URL: "https://multiscrobbler.${SECRET_DEFAULT_DOMAIN}"
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities: { drop: ["ALL"] }
+              # s6-rmrf: fatal: unable to remove /run/s6: Read-only file system
+              readOnlyRootFilesystem: false
+              # s6-overlay-suexec: warning: unable to gain root privileges (is the suid bit set?)
+              #capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 50m
