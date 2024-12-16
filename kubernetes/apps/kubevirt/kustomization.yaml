@@ -4,4 +4,4 @@ kind: Kustomization
 resources:
   - kubevirt-operator.yaml
   - helm-release-kubevirt.yaml
-  #- testvm.yaml
+  - testvm.yaml
