@@ -32,6 +32,14 @@ spec:
       kind: Secret
       name: multiscrobbler-secrets
       valuesKey: LASTFM_SECRET
+    - targetPath: controllers.multiscrobbler.containers.app.env.SPOTIFY_CLIENT_ID
+      kind: Secret
+      name: multiscrobbler-secrets
+      valuesKey: SPOTIFY_CLIENT_ID
+    - targetPath: controllers.multiscrobbler.containers.app.env.SPOTIFY_CLIENT_SECRET
+      kind: Secret
+      name: multiscrobbler-secrets
+      valuesKey: SPOTIFY_CLIENT_SECRET
   values:
     fullnameOverride: *name
     defaultPodOptions:
@@ -62,6 +70,7 @@ spec:
               PLEX_USERS_ALLOW: "${SECRET_PLEX_USER}"
               PLEX_TOKEN: "${SECRET_PLEX_TOKEN}"
               LASTFM_REDIRECT_URI: "https://multiscrobbler.${SECRET_DEFAULT_DOMAIN}/lastfm/callback"
+              SPOTIFY_REDIRECT_URI: "https://multiscrobbler.${SECRET_DEFAULT_DOMAIN}/spotify/callback"
             securityContext:
               allowPrivilegeEscalation: false
               # s6-rmrf: fatal: unable to remove /run/s6: Read-only file system
