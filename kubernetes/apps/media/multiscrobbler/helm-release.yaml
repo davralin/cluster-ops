@@ -23,6 +23,15 @@ spec:
   upgrade:
     remediation:
       retries: 10
+  valuesFrom:
+    - targetPath: controllers.multiscrobbler.containers.app.env.LASTFM_API_KEY
+      kind: Secret
+      name: multiscrobbler-secrets
+      valuesKey: LASTFM_API_KEY
+    - targetPath: controllers.multiscrobbler.containers.app.env.LASTFM_SECRET
+      kind: Secret
+      name: multiscrobbler-secrets
+      valuesKey: LASTFM_SECRET
   values:
     fullnameOverride: *name
     defaultPodOptions:
@@ -52,6 +61,7 @@ spec:
               PLEX_URL: "http://plex.media.svc.cluster.local:32400"
               PLEX_USERS_ALLOW: "${SECRET_PLEX_USER}"
               PLEX_TOKEN: "${SECRET_PLEX_TOKEN}"
+              LASTFM_REDIRECT_URI: "https://multiscrobbler.${SECRET_DEFAULT_DOMAIN}/lastfm/callback"
             securityContext:
               allowPrivilegeEscalation: false
               # s6-rmrf: fatal: unable to remove /run/s6: Read-only file system
