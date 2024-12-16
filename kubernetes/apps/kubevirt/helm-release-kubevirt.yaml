@@ -36,6 +36,7 @@ spec:
               ca:
                 renewBefore: 48h
               server:
+                duration: 72h
                 renewBefore: 48h
           configuration:
             developerConfiguration:
