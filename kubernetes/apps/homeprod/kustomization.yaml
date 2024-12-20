@@ -42,6 +42,7 @@ resources:
   - ../reloader
   - ../searxng
   - ../syncthing
+  - ../technitium
   - ../thelounge
   - ../unifi
   - ../volsync
