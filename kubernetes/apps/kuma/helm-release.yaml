@@ -41,7 +41,7 @@ spec:
           app:
             image:
               repository: louislam/uptime-kuma
-              tag: 1.23.15
+              tag: 1.23.16
             env:
               TZ: "${TIMEZONE}"
             securityContext:
