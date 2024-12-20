@@ -45,7 +45,8 @@ spec:
               DNS_SERVER_DOMAIN: "${SECRET_DEFAULT_DOMAIN}"
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
+              #  Error! Read-only file system : '/tmp/'
+              readOnlyRootFilesystem: false
               capabilities: { drop: ["ALL"] }
             resources:
               requests:
