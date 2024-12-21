@@ -45,6 +45,7 @@ spec:
             env:
               TZ: "${TIMEZONE}"
               DOMAIN: "https://freshrss.${SECRET_DEFAULT_DOMAIN}"
+              CRON_MIN: 18,48
             securityContext:
               allowPrivilegeEscalation: false
               # Fatal Error Unable to create lock file: Read-only file system (30)
