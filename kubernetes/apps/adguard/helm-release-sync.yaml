@@ -25,7 +25,6 @@ spec:
       retries: 10
   dependsOn:
     - name: adguard
-      namespace: adguard
   valuesFrom:
     - targetPath: controllers.adguard-sync.containers.app.env.ORIGIN_URL
       kind: Secret
