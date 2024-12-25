@@ -71,7 +71,7 @@ spec:
                 spec:
                   httpGet:
                     path: /ping
-                    port: 9696
+                    port: 8686
                   initialDelaySeconds: 50
                   periodSeconds: 10
                   timeoutSeconds: 10
