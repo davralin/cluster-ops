@@ -1,0 +1,88 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &name minecraft-bedrock-creative
+  namespace: flux-system
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: minecraft
+      version: 4.23.6
+      sourceRef:
+        kind: HelmRepository
+        name: itzg-charts
+        namespace: flux-system
+      interval: 30m
+  targetNamespace: minecraft
+  install:
+    createNamespace: true
+    remediation:
+      retries: 10
+  upgrade:
+    remediation:
+      retries: 10
+  valuesFrom:
+    - targetPath: minecraftServer.whitelist
+      kind: Secret
+      name: minecraft-secrets
+      valuesKey: whitelist
+    - targetPath: minecraftServer.ops
+      kind: Secret
+      name: minecraft-secrets
+      valuesKey: ops
+    - targetPath: mcbackup.resticEnvs.RESTIC_PASSWORD
+      kind: Secret
+      name: minecraft-secrets
+      valuesKey: restic_password
+  values:
+    extraVolumes:
+      - volumeMounts:
+          - name: fabric-mods
+            mountPath: /mods
+            readOnly: false
+      - volumes:
+         - name: fabric-mods
+           persistentVolumeClaim:
+             claimName: fabric-mods
+    minecraftServer:
+      tz: "${TIMEZONE}"
+      eula: true
+      type: FABRIC
+      version: "1.21.4"
+      difficulty: "easy"
+      maxPlayers: 4
+      levelSeed: 421112feedmekittens
+      maxTickTime: -1
+      mode: creative
+      memory: 3G
+      motd: "A Bedrock-Creative Minecraft Server"
+      overrideServerProperties: true
+      rcon:
+        enabled: true
+      removeOldMods: true
+      serviceType: LoadBalancer
+    resources:
+      requests:
+        memory: 3G
+    extraEnv:
+      ENABLE_AUTOPAUSE: "FALSE"
+      USE_AIKAR_FLAGS: true
+      ENFORCE_WHITELIST: "TRUE"
+    podAnnotations:
+      reloader.stakater.com/auto: "true"
+    persistence:
+      dataDir:
+        enabled: true
+        existingClaim: bedrock-creative
+    mcbackup:
+      enabled: true
+      pauseIfNoPlayers: true
+      backupMethod: restic
+      resticRepository: /backups
+      pruneBackupsDays: 3
+      persistence:
+        backupDir:
+          enabled: true
+          existingClaim: bedrock-creative-backup
