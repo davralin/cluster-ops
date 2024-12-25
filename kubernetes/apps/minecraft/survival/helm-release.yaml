@@ -61,6 +61,7 @@ spec:
       overrideServerProperties: true
       rcon:
         enabled: true
+      removeOldMods: true
     resources:
       requests:
         memory: 3G
@@ -68,7 +69,6 @@ spec:
       ENABLE_AUTOPAUSE: "FALSE"
       USE_AIKAR_FLAGS: true
       ENFORCE_WHITELIST: "TRUE"
-      REMOVE_OLD_MODS: "TRUE"
     serviceAnnotations:
       mc-router.itzg.me/externalServerName: "survival.${SECRET_DEFAULT_DOMAIN}"
     podAnnotations:

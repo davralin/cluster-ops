@@ -64,6 +64,7 @@ spec:
       downloadWorldUrl: "/oldworlds/18world"
       rcon:
         enabled: true
+      removeOldMods: true
     resources:
       requests:
         memory: 2G
@@ -71,7 +72,6 @@ spec:
       ENABLE_AUTOPAUSE: "FALSE"
       USE_AIKAR_FLAGS: true
       ENFORCE_WHITELIST: "TRUE"
-      REMOVE_OLD_MODS: "TRUE"
     serviceAnnotations:
       mc-router.itzg.me/externalServerName: "18world.${SECRET_DEFAULT_DOMAIN}"
       reloader.stakater.com/auto: "true"
