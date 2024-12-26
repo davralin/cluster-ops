@@ -49,7 +49,8 @@ spec:
               allowPrivilegeEscalation: false
               # /opt/ai-dock/bin/init.sh: line 485: /var/log/timing_data: Read-only file system
               readOnlyRootFilesystem: false
-              capabilities: { drop: ["ALL"] }
+              # sudo: PERM_SUDOERS: setresuid(-1, 1, -1): Operation not permitted
+              #capabilities: { drop: ["ALL"] }
             resources:
               # This is obviously only to handle it being idle
               requests:
