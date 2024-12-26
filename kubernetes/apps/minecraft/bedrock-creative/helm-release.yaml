@@ -37,19 +37,10 @@ spec:
       name: minecraft-secrets
       valuesKey: restic_password
   values:
-    extraVolumes:
-      - volumeMounts:
-          - name: fabric-mods
-            mountPath: /mods
-            readOnly: false
-      - volumes:
-         - name: fabric-mods
-           persistentVolumeClaim:
-             claimName: fabric-mods
     minecraftServer:
       tz: "${TIMEZONE}"
       eula: true
-      type: FABRIC
+      type: PAPER
       version: "1.21.4"
       difficulty: "easy"
       maxPlayers: 4
