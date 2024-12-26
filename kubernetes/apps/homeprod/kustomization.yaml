@@ -8,7 +8,6 @@ resources:
   - ../botkube
   - ../changedetection
   - ../cloudnative-pg
-  - ../comfyui
   - ../cyberchef
   - ../cloudflareddns
   - ../emqx
