@@ -60,7 +60,7 @@ spec:
     extraEnv:
       ENABLE_AUTOPAUSE: "FALSE"
       USE_AIKAR_FLAGS: true
-      ENFORCE_WHITELIST: "TRUE"
+      ENFORCE_WHITELIST: "FALSE"
     podAnnotations:
       reloader.stakater.com/auto: "true"
     persistence:
