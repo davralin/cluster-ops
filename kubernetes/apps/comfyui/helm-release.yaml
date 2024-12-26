@@ -45,6 +45,9 @@ spec:
             env:
               TZ: "${TIMEZONE}"
               PROVISIONING_SCRIPT: "https://raw.githubusercontent.com/ai-dock/comfyui/main/config/provisioning/flux.sh"
+              CF_QUICK_TUNNELS: false
+              SERVICEPORTAL_URL: "https://comfyui.${SECRET_DEFAULT_DOMAIN}"
+              WEB_ENABLE_AUTH: false
             securityContext:
               allowPrivilegeEscalation: false
               # /opt/ai-dock/bin/init.sh: line 485: /var/log/timing_data: Read-only file system
@@ -61,7 +64,7 @@ spec:
         controller: *name
         ports:
           http:
-            port: 8188
+            port: 1111
     ingress:
       app:
         enabled: true
