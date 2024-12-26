@@ -58,22 +58,24 @@ spec:
     service:
       app:
         controller: *name
-        type: LoadBalancer
-        # https://github.com/davralin/cluster-ops/issues/4533
-        #externalTrafficPolicy: Local
-        loadBalancerIP: 10.0.1.37
         ports:
           http:
             port: 80
-            protocol: HTTP
-          dns-tcp:
-            enabled: true
-            port: 53
-            protocol: TCP
-          dns-udp:
-            enabled: true
-            port: 53
-            protocol: UDP
+      #dns:
+      #  controller: *name
+      #  type: LoadBalancer
+      #  # https://github.com/davralin/cluster-ops/issues/4533
+      #  #externalTrafficPolicy: Local
+      #  loadBalancerIP: 10.0.1.37
+      #  ports:
+      #    dns-tcp:
+      #      enabled: true
+      #      port: 53
+      #      protocol: TCP
+      #    dns-udp:
+      #      enabled: true
+      #      port: 53
+      #      protocol: UDP
     ingress:
       app:
         enabled: true
