@@ -27,11 +27,12 @@ spec:
     fullnameOverride: *name
     defaultPodOptions:
       securityContext:
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
+        # /opt/ai-dock/bin/env-store: line 18: /opt/ai-dock/etc/environment.sh: Permission denied
+        runAsUser: 0
+        runAsGroup: 0
+        fsGroup: 0
         fsGroupChangePolicy: "OnRootMismatch"
-        runAsNonRoot: true
+        runAsNonRoot: false
         seccompProfile:
           type: RuntimeDefault
     controllers:
@@ -46,7 +47,8 @@ spec:
               PROVISIONING_SCRIPT: "https://raw.githubusercontent.com/ai-dock/comfyui/main/config/provisioning/flux.sh"
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
+              # /opt/ai-dock/bin/init.sh: line 485: /var/log/timing_data: Read-only file system
+              readOnlyRootFilesystem: false
               capabilities: { drop: ["ALL"] }
             resources:
               # This is obviously only to handle it being idle
