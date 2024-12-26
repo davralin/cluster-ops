@@ -64,7 +64,7 @@ spec:
             port: 8188
     ingress:
       app:
-        enabled: false
+        enabled: true
         annotations:
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
           haproxy.org/response-set-header: |
