@@ -52,7 +52,7 @@ spec:
       overrideServerProperties: true
       rcon:
         enabled: true
-      removeOldMods: true
+      removeOldMods: false
       serviceType: LoadBalancer
     resources:
       requests:
