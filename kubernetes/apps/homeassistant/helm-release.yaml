@@ -26,6 +26,7 @@ spec:
   values:
     fullnameOverride: *name
     defaultPodOptions:
+      dnsPolicy: ClusterFirstWithHostNet
       securityContext:
         runAsUser: 0
         runAsGroup: 0
