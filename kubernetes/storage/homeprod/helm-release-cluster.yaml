@@ -65,6 +65,9 @@ spec:
       mgr:
         count: 2
       resources:
+        osd:
+          requests:
+            cpu: 100m # This is fake news
         prepareosd:
           limits:
             memory: "1Gi"
