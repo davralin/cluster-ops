@@ -64,6 +64,12 @@ spec:
               # System.IO.IOException: Read-only file system
               readOnlyRootFilesystem: false
               capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 10m
+                memory: 300Mi
+              limits:
+                memory: 600Mi
             probes:
               liveness: &probes
                 enabled: true
@@ -77,12 +83,6 @@ spec:
                   timeoutSeconds: 10
                   failureThreshold: 3
               readiness: *probes
-            resources:
-              requests:
-                cpu: 100m
-                memory: 300Mi
-              limits:
-                memory: 1000Mi
           exportarr:
             dependsOn: app
             args: ['lidarr']
@@ -97,6 +97,12 @@ spec:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 10m
+                memory: 50Mi
+              limits:
+                memory: 100Mi
     serviceMonitor:
       metrics:
         enabled: true

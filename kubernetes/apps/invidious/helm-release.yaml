@@ -56,10 +56,10 @@ spec:
               capabilities: { drop: ["ALL"] }
             resources:
               requests:
-                cpu: 200m
-                memory: 300Mi
+                cpu: 10m
+                memory: 200Mi
               limits:
-                memory: 600Mi
+                memory: 400Mi
     service:
       app:
         controller: *name

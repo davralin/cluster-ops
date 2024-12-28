@@ -53,10 +53,9 @@ spec:
               capabilities: { drop: ["ALL"] }
             resources:
               requests:
-                cpu: 100m
-                memory: 50Mi
+                cpu: 10m
+                memory: 20Mi
               limits:
-                cpu: 200m
                 memory: 100Mi
     persistence:
       nextcloud:

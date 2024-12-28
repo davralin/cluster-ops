@@ -46,8 +46,10 @@ spec:
               TZ: "${TIMEZONE}"
             resources:
               requests:
-                cpu: 50m
-                memory: 32Mi
+                cpu: 10m
+                memory: 60Mi
+              limits:
+                memory: 120Mi
             securityContext:
               allowPrivilegeEscalation: false
               # /var/www/html/startup.sh: line 3: can't create /var/log/startup.log: Read-only file system

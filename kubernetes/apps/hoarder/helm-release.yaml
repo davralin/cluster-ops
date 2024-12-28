@@ -79,7 +79,7 @@ spec:
             resources:
               requests:
                 cpu: 10m
-                memory: 256Mi
+                memory: 306Mi
               limits:
                 memory: 750Mi
           chrome:
@@ -108,10 +108,9 @@ spec:
             resources:
               requests:
                 cpu: 10m
-                memory: 100Mi
+                memory: 200Mi
               limits:
-                cpu: 200m
-                memory: 300Mi
+                memory: 400Mi
           meilisearch:
             image:
               repository: getmeili/meilisearch
@@ -132,6 +131,7 @@ spec:
             resources:
               requests:
                 cpu: 10m
+                memory: 50Mi
               limits:
                 memory: 128Mi
     service:

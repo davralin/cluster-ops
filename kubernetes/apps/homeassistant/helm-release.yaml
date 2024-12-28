@@ -50,8 +50,10 @@ spec:
               capabilities: { drop: ["ALL"] }
             resources:
               requests:
-                memory: 250Mi
                 cpu: 100m
+                memory: 800Mi
+              limits:
+                memory: 1536Mi
           code:
             dependsOn: app
             image:
@@ -76,8 +78,10 @@ spec:
               capabilities: { drop: ["ALL"] }
             resources:
               requests:
-                memory: 250Mi
-                cpu: 100m
+                cpu: 10m
+                memory: 200Mi
+              limits:
+                memory: 400Mi
     service:
       app:
         controller: *name

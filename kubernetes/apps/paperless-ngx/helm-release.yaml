@@ -84,10 +84,10 @@ spec:
               #capabilities: { drop: ["ALL"] }
             resources:
               requests:
-                cpu: 100m
-                memory: 300Mi
+                cpu: 50m
+                memory: 1Gi
               limits:
-                memory: 4000Mi
+                memory: 2Gi
           tika:
             image: 
               repository: ghcr.io/paperless-ngx/tika
@@ -97,6 +97,12 @@ spec:
               # java.util.concurrent.ExecutionException: java.nio.file.FileSystemException: /tmp/apache-tika-server-forked-tmp-14715358992636831581: Read-only file system
               readOnlyRootFilesystem: false
               capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 10m
+                memory: 400Mi
+              limits:
+                memory: 800Mi
           gotenberg:
             image: 
               repository: docker.io/gotenberg/gotenberg
@@ -107,6 +113,12 @@ spec:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 10m
+                memory: 50Mi
+              limits:
+                memory: 100Mi
     service:
       app:
         controller: *name

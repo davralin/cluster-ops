@@ -111,8 +111,8 @@ spec:
             enablePodMonitor: "${MONITORING_PROMETHEUS}"
           resources:
             requests:
-              memory: "512Mi"
               cpu: "400m"
+              memory: "512Mi"
             limits:
               memory: "768Mi"
           backup:

@@ -65,10 +65,10 @@ spec:
               capabilities: { drop: ["ALL"] }
             resources:
               requests:
-                cpu: 100m
-                memory: 300Mi
+                cpu: 10m
+                memory: 200Mi
               limits:
-                memory: 1000Mi
+                memory: 400Mi
           exportarr:
             dependsOn: app
             args: ['radarr']
@@ -83,6 +83,12 @@ spec:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 10m
+                memory: 50Mi
+              limits:
+                memory: 100Mi
             probes:
               liveness: &probes
                 enabled: true

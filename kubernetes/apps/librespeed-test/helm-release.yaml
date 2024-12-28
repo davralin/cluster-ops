@@ -52,10 +52,9 @@ spec:
             resources:
               requests:
                 cpu: 10m
-                memory: 100Mi
+                memory: 50Mi
               limits:
-                cpu: 200m
-                memory: 300Mi
+                memory: 100Mi
     service:
       app:
         controller: *name

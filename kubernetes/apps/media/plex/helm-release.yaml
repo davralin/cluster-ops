@@ -53,12 +53,12 @@ spec:
               capabilities: { drop: ["ALL"] }
             resources:
               requests:
+                cpu: 1
+                memory: 2Gi
                 gpu.intel.com/i915: 1
-                memory: 1000Mi
-                cpu: 1000m
               limits:
+                memory: 3Gi
                 gpu.intel.com/i915: 1
-                memory: 2000Mi
     service:
       app:
         controller: *name

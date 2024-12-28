@@ -78,10 +78,10 @@ spec:
               readiness: *probes
             resources:
               requests:
-                cpu: 100m
+                cpu: 10m
                 memory: 200Mi
               limits:
-                memory: 1000Mi
+                memory: 400Mi
           exportarr:
             dependsOn: app
             args: ['prowlarr']
@@ -96,6 +96,12 @@ spec:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 10m
+                memory: 50Mi
+              limits:
+                memory: 100Mi
     serviceMonitor:
       metrics:
         enabled: true
