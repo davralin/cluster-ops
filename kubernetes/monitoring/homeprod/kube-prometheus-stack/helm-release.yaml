@@ -166,10 +166,10 @@ spec:
             honor_timestamps: true
             static_configs:
               - targets:
-                  - mierin.w.ot:8404 # Haproxy
-                  - mierin.w.ot:9100
-                  - mierin.w.ot:9153 # DNSMasq
-                  - mierin.w.ot:9586 # WireGuard
+                  - 10.0.1.1:8404 # Haproxy
+                  - 10.0.1.1:9100
+                  - 10.0.1.1:9153 # DNSMasq
+                  - 10.0.1.1:9586 # WireGuard
                   - nas.${SECRET_PRIVATE_DOMAIN}:9100
                   - nas.${SECRET_OFFSITE_DOMAIN}:9100
                   - proxmox.${SECRET_PRIVATE_DOMAIN}:9100
