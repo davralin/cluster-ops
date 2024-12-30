@@ -48,7 +48,8 @@ spec:
               allowPrivilegeEscalation: false
               # s6-rmrf: fatal: unable to remove /run/s6: Read-only file system
               readOnlyRootFilesystem: false
-              capabilities: { drop: ["ALL"] }
+              # Needs chown
+              #capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 100m
@@ -76,7 +77,8 @@ spec:
               allowPrivilegeEscalation: false
               # fixuid: open /var/run/fixuid.ran: read-only file system
               readOnlyRootFilesystem: false
-              capabilities: { drop: ["ALL"] }
+              # Needs chown
+              #capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 10m
