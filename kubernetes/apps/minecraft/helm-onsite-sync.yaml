@@ -51,6 +51,11 @@ spec:
               readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
     persistence:
+      bedrock-creative-backup:
+        enabled: true
+        existingClaim: bedrock-creative-backup
+        globalMounts:
+          - path: /minecraft/bedrock-creative
       creative-backup:
         enabled: true
         existingClaim: creative-backup
