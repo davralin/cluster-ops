@@ -47,7 +47,7 @@ spec:
       levelSeed: 421112feedmekittens
       maxTickTime: -1
       mode: creative
-      memory: 4G
+      memory: 6G
       motd: "A Bedrock-Creative Minecraft Server"
       overrideServerProperties: true
       rcon:
@@ -56,10 +56,9 @@ spec:
       serviceType: LoadBalancer
     resources:
       requests:
-        memory: 4G
+        memory: 6G
     extraEnv:
       ENABLE_AUTOPAUSE: "FALSE"
-      USE_AIKAR_FLAGS: true
       ENFORCE_WHITELIST: "FALSE"
     podAnnotations:
       reloader.stakater.com/auto: "true"
