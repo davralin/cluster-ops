@@ -9,6 +9,7 @@ resources:
   - ../changedetection
   - ../cloudnative-pg
   - ../cyberchef
+  - ../dawarich
   - ../cloudflareddns
   - ../emqx
   - ../epicgames-freegames
