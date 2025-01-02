@@ -107,7 +107,7 @@ spec:
         port: 2381
         targetPort: 2381
     kubelet:
-      enabled: true
+      enabled: false
     kube-state-metrics:
       enabled: true
     kubeProxy:
