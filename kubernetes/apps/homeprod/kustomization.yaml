@@ -46,6 +46,7 @@ resources:
   - ../technitium
   - ../thelounge
   - ../unifi
+  - ../velero
   - ../volsync
   - ../wallos
   - ../warrior
