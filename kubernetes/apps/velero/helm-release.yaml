@@ -28,7 +28,7 @@ spec:
       extraEnvVars:
         TZ: "${TIMEZONE}"
       backupStorageLocation:
-        - name: default
+        - name: minio-nas
           bucket: "velero-${CLUSTER_NAME}"
           provider: aws
           default: true
@@ -53,7 +53,7 @@ spec:
           aws_secret_access_key = ${SECRET_VELERO_SECRET_KEYS}
     schedules:
       daily-backup:
-        schedule: "0 6 * * *"
+        schedule: "*/5 * * * *"
         template:
           ttl: "168h"
     metrics:
