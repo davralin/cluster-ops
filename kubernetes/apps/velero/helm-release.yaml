@@ -33,6 +33,7 @@ spec:
           provider: aws
           default: true
           config:
+            region: norway-east
             s3ForcePathStyle: true
             s3Url: "${SECRET_S3_URL}"
             publicUrl: "${SECRET_S3_PUBLIC_URL}"
