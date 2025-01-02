@@ -29,6 +29,5 @@ resources:
   - node-feature-discovery.yaml
   - piraeus.yaml
   - prometheus.yaml
-  - renovate.yaml
   - rook-ceph.yaml
   - stakater.yaml
