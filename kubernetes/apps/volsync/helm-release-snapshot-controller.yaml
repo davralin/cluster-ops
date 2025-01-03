@@ -29,5 +29,10 @@ spec:
     keepHistory: false
   values:
     controller:
+      image:
+        tag: v5.0.0
       serviceMonitor:
         create: "${MONITORING_PROMETHEUS}"
+    webhook:
+      image:
+        tag: v5.0.0
