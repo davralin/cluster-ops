@@ -26,6 +26,9 @@ spec:
   values:
     replicas: 1
     kind: Deployment
+    podSecurityContext:
+      seccompProfile:
+        type: RuntimeDefault
     deschedulerPolicyAPIVersion: descheduler/v1alpha2
     deschedulerPolicy:
       profiles:
