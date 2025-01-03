@@ -107,7 +107,7 @@ spec:
         port: 2381
         targetPort: 2381
     kubelet:
-      enabled: false
+      enabled: true
     kube-state-metrics:
       enabled: true
     kubeProxy:
@@ -126,12 +126,6 @@ spec:
           enabled: false
     prometheus-node-exporter:
       fullnameOverride: node-exporter
-      prometheus:
-        monitor:
-          relabelings:
-            - sourceLabels: [__meta_kubernetes_pod_node_name]
-              action: replace
-              targetLabel: instance
     grafana:
       enabled: false
       forceDeployDashboards: true
