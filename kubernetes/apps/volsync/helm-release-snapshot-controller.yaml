@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: snapshot-controller
-      version: 3.0.6
+      version: 4.0.0
       sourceRef:
         kind: HelmRepository
         name: piraeus-charts
@@ -29,10 +29,5 @@ spec:
     keepHistory: false
   values:
     controller:
-      image:
-        tag: v5.0.0
       serviceMonitor:
         create: "${MONITORING_PROMETHEUS}"
-    webhook:
-      image:
-        tag: v5.0.0
