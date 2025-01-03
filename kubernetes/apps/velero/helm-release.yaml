@@ -53,7 +53,7 @@ spec:
           aws_secret_access_key = ${SECRET_VELERO_SECRET_KEYS}
     schedules:
       daily-backup:
-        schedule: "*/5 * * * *"
+        schedule: "04 01 * * *"
         template:
           ttl: "168h"
     metrics:
