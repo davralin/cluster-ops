@@ -4,6 +4,5 @@ kind: Kustomization
 resources:
   - helm-release-cluster.yaml
   - helm-release-monitoring.yaml
-  - helm-release-snapshot-controller.yaml
   - helm-release.yaml
   - namespace.yaml
