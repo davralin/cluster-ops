@@ -43,7 +43,7 @@ spec:
           app:
             image:
               repository: ghcr.io/stuffanthings/qbit_manage
-              tag: v4.1.14
+              tag: v4.1.15
             env:
               TZ: "${TIMEZONE}"
               QBT_CONFIG: "/config/config.yml"
