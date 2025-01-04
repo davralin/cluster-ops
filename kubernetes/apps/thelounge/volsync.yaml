@@ -52,7 +52,7 @@ spec:
           trigger:
             schedule: "04 01 * * *"
           restic:
-            copyMethod: "${VOLSYNC_READWRITEONCE}"
+            copyMethod: Direct
             pruneIntervalDays: 7
             repository: thelounge-volsync-secret
             moverSecurityContext:
