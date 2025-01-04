@@ -52,7 +52,7 @@ spec:
           trigger:
             schedule: "04 01 * * *"
           restic:
-            copyMethod: Snapshot
+            copyMethod: Direct
             pruneIntervalDays: 7
             repository: mealie-volsync-secret
             moverSecurityContext:

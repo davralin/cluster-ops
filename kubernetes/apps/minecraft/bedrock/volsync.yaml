@@ -52,7 +52,7 @@ spec:
           trigger:
             schedule: "02 04 * * *"
           restic:
-            copyMethod: Snapshot
+            copyMethod: Direct
             pruneIntervalDays: 7
             repository: bedrock-volsync-secret
             moverSecurityContext:
