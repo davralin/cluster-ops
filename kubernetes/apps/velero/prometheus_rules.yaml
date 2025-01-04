@@ -15,7 +15,7 @@ spec:
         name: dysnix-charts
         namespace: flux-system
       interval: 30m
-  targetNamespace: volsync
+  targetNamespace: velero
   install:
     createNamespace: true
     remediation:
