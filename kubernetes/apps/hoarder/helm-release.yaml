@@ -53,7 +53,7 @@ spec:
           hoarder:
             image:
               repository: ghcr.io/hoarder-app/hoarder
-              tag: 0.20.0@sha256:d09c79e8fec1651252d25d6c4d7f723c72548bd9a070136251c901aa36d571e3
+              tag: 0.21.0@sha256:0fa320ade5d8f93195155e6df9f73f2ebd4176fe23210723a2d940c4715088f3
             env:
               BROWSER_WEB_URL: http://hoarder-chrome:9222
               CRAWLER_VIDEO_DOWNLOAD: true
