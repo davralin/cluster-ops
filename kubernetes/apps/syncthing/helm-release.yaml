@@ -40,7 +40,7 @@ spec:
           app:
             image:
               repository: syncthing/syncthing
-              tag: 1.28.1
+              tag: 1.29.0
             env:
               TZ: "${TIMEZONE}"
               PUID: 1000
