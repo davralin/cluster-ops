@@ -70,6 +70,7 @@ spec:
       enabled: true
       pauseIfNoPlayers: true
       backupMethod: restic
+      excludes: "*.jar,cache,logs,lost+found"
       resticRepository: /backups
       pruneBackupsDays: 3
       persistence:
