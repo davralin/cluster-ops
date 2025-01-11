@@ -51,8 +51,8 @@ spec:
             resources:
               # This is obviously only to handle it being idle
               requests:
-                cpu: 500m
-                memory: 600Mi
+                cpu: 200m
+                memory: 2Gi # To make sure there's some headroom
     service:
       app:
         controller: *name
