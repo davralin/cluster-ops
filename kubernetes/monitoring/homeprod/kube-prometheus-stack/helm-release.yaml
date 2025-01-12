@@ -18,18 +18,23 @@ spec:
   targetNamespace: monitoring
   install:
     createNamespace: true
-    crds: CreateReplace
+    crds: Skip
     remediation:
-      retries: 10
+      retries: 3
   upgrade:
-    crds: CreateReplace
+    crds: Skip
     remediation:
       retries: 10
   dependsOn:
+    - name: kube-prometheus-stack-crds
+      namespace: flux-system
     - name: rook-ceph-cluster
       namespace: flux-system
   values:
     fullnameOverride: "kube-prom"
+    crds:
+      enabled: false
+    cleanPrometheusOperatorObjectNames: true
     alertmanager:
       config:
         receivers:
@@ -162,10 +167,10 @@ spec:
             honor_timestamps: true
             static_configs:
               - targets:
-                  - 10.0.1.1:8404 # Haproxy
-                  - 10.0.1.1:9100
-                  - 10.0.1.1:9153 # DNSMasq
-                  - 10.0.1.1:9586 # WireGuard
+                  - mierin:8404 # Haproxy
+                  - mierin:9100
+                  - mierin:9153 # DNSMasq
+                  - mierin:9586 # WireGuard
                   - nas.${SECRET_PRIVATE_DOMAIN}:9100
                   - nas.${SECRET_OFFSITE_DOMAIN}:9100
                   - proxmox.${SECRET_PRIVATE_DOMAIN}:9100
@@ -177,3 +182,90 @@ spec:
         ruleSelectorNilUsesHelmValues: false
         serviceMonitorSelector: {}
         serviceMonitorNamespaceSelector: {}
+    additionalPrometheusRulesMap:
+      dockerhub-rules:
+        groups:
+          - name: dockerhub
+            rules:
+              - alert: DockerhubRateLimitRisk
+                annotations:
+                  summary: Kubernetes cluster Dockerhub rate limit risk
+                expr: count(time() - container_last_seen{image=~"(docker.io).*",container!=""} < 30) > 100
+                labels:
+                  severity: critical
+      node-rules:
+        groups:
+          - name: node
+            rules:
+              - alert: InstanceDown
+                expr: up == 0
+                for: 5m
+                labels:
+                  severity: critical
+                annotations:
+                  description: '{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 5 minutes.'
+                  summary: 'Instance {{ $labels.instance }} down'
+              - alert: KubernetesHostHighCPUUsage
+                expr: 100 - (avg by (instance) (irate(node_cpu_seconds_total{mode="idle"}[5m])) * 100) > 90
+                for: 15m
+                labels:
+                  context: node
+                annotations:
+                  summary: High load on node
+                  description: "Node {{ $labels.instance }} has more than 90% CPU load"
+              - alert: KubernetesNodeDiskUsagePercentage
+                expr: (100 - 100 * sum(node_filesystem_avail_bytes{device!~"tmpfs|by-uuid",fstype=~"xfs|ext4"} / node_filesystem_size_bytes{device!~"tmpfs|by-uuid",fstype=~"xfs|ext4"}) BY (instance,device)) > 85
+                for: 5m
+                labels:
+                  context: node
+                annotations:
+                  description: Node disk usage above 85%
+                  summary: Disk usage on target {{ $labels.instance }} at 85%
+      oom-rules:
+        groups:
+          - name: oom
+            rules:
+              - alert: OomKilled
+                annotations:
+                  summary: Container {{ $labels.container }} in pod {{ $labels.namespace }}/{{ $labels.pod }} has been OOMKilled {{ $value }} times in the last 10 minutes.
+                expr: (kube_pod_container_status_restarts_total - kube_pod_container_status_restarts_total offset 10m >= 1) and ignoring (reason) min_over_time(kube_pod_container_status_last_terminated_reason{reason="OOMKilled"}[10m]) == 1
+                labels:
+                  severity: critical
+      pod-rules:
+        groups:
+          - name: pod
+            rules:
+              - alert: KubernetesPodCrashLooping
+                expr: increase(kube_pod_container_status_restarts_total[1m]) > 3
+                for: 2m
+                annotations:
+                  summary: Kubernetes pod crash looping (instance {{ $labels.instance }})
+                  description: "Pod {{ $labels.pod }} is crash looping\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+              - alert: OOMKilled
+                annotations:
+                  summary: Container {{ $labels.container }} in pod {{ $labels.namespace }}/{{ $labels.pod }} has been OOMKilled {{ $value }} times in the last 10 minutes.
+                expr: (kube_pod_container_status_restarts_total - kube_pod_container_status_restarts_total offset 10m >= 1) and ignoring (reason) min_over_time(kube_pod_container_status_last_terminated_reason{reason="OOMKilled"}[10m]) == 1
+                labels:
+                  severity: critical
+      pvc-rules:
+        groups:
+          - name: pvc
+            rules:
+              - alert: KubernetesVolumeAlmostOutOfDiskSpace
+                expr: kubelet_volume_stats_available_bytes / kubelet_volume_stats_capacity_bytes * 100 < 10
+                for: 10m
+                labels:
+                  severity: critical
+                annotations:
+                  summary: Kubernetes Volume almost out of disk space (instance {{ $labels.instance }})
+                  description: "Volume is almost full (< 10% left)\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+      zfs-rules:
+        groups:
+          - name: zfs
+            rules:
+              - alert: ZfsUnexpectedPoolState
+                annotations:
+                  summary: ZFS pool {{$labels.zpool}} on {{$labels.instance}} is in a unexpected state {{$labels.state}}
+                expr: node_zfs_zpool_state{state!="online"} > 0
+                labels:
+                  severity: critical
