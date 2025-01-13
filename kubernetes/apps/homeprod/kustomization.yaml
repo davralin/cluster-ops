@@ -9,7 +9,6 @@ resources:
   - ../changedetection
   - ../cloudnative-pg
   - ../cyberchef
-  - ../dawarich
   - ../descheduler
   - ../cloudflareddns
   - ../emqx
