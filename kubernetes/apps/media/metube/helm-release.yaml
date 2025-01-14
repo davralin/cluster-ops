@@ -41,7 +41,7 @@ spec:
           app:
             image:
               repository: ghcr.io/alexta69/metube
-              tag: 2025-01-13@sha256:0c5c0c800ec11b8c32382ae6c84ac1581b41da850595a56b357f5628f5227ebe
+              tag: 2025-01-14@sha256:95ebfd8cb10f61b480b5bf5d1c85b452763a52536b6371194a1e187a32ac99ed
             env:
               TZ: "${TIMEZONE}"
               DOWNLOAD_DIR: "/downloads"
