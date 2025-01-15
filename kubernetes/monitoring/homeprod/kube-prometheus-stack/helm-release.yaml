@@ -36,6 +36,10 @@ spec:
       enabled: false
     cleanPrometheusOperatorObjectNames: true
     alertmanager:
+      alertmanagerSpec:
+        alertmanagerConfiguration:
+          name: alertmanager
+      externalUrl: https://alertmanager.${SECRET_DEFAULT_DOMAIN}
       ingress:
         enabled: true
         pathType: Prefix
