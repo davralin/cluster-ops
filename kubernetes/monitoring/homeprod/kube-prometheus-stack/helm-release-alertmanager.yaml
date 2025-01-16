@@ -38,7 +38,7 @@ spec:
             groupBy: ["alertname", "job"]
             groupInterval: 10m
             groupWait: 1m
-            receiver: discord
+            receiver: "Discord"
             repeatInterval: 12h
             routes:
               - receiver: "dummy"
@@ -46,7 +46,7 @@ spec:
                   - name: alertname
                     value: InfoInhibitor
                     matchType: =
-              - receiver: healthchecksio
+              - receiver: "healthchecksio"
                 groupInterval: 5m
                 groupWait: 0s
                 repeatInterval: 5m
@@ -54,7 +54,7 @@ spec:
                   - name: alertname
                     value: Watchdog
                     matchType: =
-              - receiver: discord
+              - receiver: "Discord"
                 matchers:
                   - name: severity
                     value: critical
