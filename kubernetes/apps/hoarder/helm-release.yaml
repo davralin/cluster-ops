@@ -120,6 +120,7 @@ spec:
               tag: v1.12.4@sha256:fc14d07dc2808b915f8ef60b1164de0bbb575ac5f3bc281316db22421ef69afb
             env:
               MEILI_NO_ANALYTICS: "true"
+              MEILI_ENV: production
             securityContext:
               # ERROR meilisearch: error=Permission denied (os error 13)
               runAsUser: 0
@@ -136,7 +137,7 @@ spec:
                 cpu: 10m
                 memory: 50Mi
               limits:
-                memory: 128Mi
+                memory: 512Mi
     service:
       hoarder:
         controller: *name
