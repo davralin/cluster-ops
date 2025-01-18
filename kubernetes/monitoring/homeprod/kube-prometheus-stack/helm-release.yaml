@@ -31,6 +31,7 @@ spec:
     - name: rook-ceph-cluster
       namespace: flux-system
   values:
+    fullnameOverride: "kube-prom"
     crds:
       enabled: false
     cleanPrometheusOperatorObjectNames: true
