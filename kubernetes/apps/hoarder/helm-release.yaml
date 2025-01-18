@@ -113,7 +113,7 @@ spec:
                 cpu: 10m
                 memory: 200Mi
               limits:
-                memory: 400Mi
+                memory: 1Gi
           meilisearch:
             image:
               repository: getmeili/meilisearch
