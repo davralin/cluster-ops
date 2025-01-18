@@ -31,7 +31,6 @@ spec:
     - name: rook-ceph-cluster
       namespace: flux-system
   values:
-    fullnameOverride: "kube-prom"
     crds:
       enabled: false
     cleanPrometheusOperatorObjectNames: true
@@ -39,6 +38,8 @@ spec:
       alertmanagerSpec:
         alertmanagerConfiguration:
           name: alertmanager
+          global:
+            resolveTimeout: 5m
       externalUrl: https://alertmanager.${SECRET_DEFAULT_DOMAIN}
       ingress:
         enabled: true
@@ -54,40 +55,42 @@ spec:
          - "alertmanager.${SECRET_DEFAULT_DOMAIN}"
         tls:
           - secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
-    defaultRules:
-      create: true
-      rules:
-        kubelet: false
     kubeApiServer:
       enabled: false # Disabled because of kubevirt KubeClientCertificateExpiration
+      serviceMonitor:
+        selector:
+          k8s-app: kube-apiserver
     kubeControllerManager:
-      enabled: true
-      endpoints:
-        - 10.0.1.67
-        - 10.0.1.68
-        - 10.0.1.69
-    kubeEtcd:
-      enabled: true
-      endpoints:
-        - 10.0.1.67
-        - 10.0.1.68
-        - 10.0.1.69
       service:
-        enabled: true
-        port: 2381
-        targetPort: 2381
+        selector:
+          k8s-app: kube-controller-manager
+    kubeEtcd:
+      service:
+        selector:
+          k8s-app: kube-controller-manager
     kubelet:
       enabled: true
     kube-state-metrics:
-      enabled: true
+      fullnameOverride: kube-state-metrics
+      metricLabelsAllowlist:
+        - pods=[*]
+        - deployments=[*]
+        - persistentvolumeclaims=[*]
+      prometheus:
+        monitor:
+          enabled: true
+          relabelings:
+            - action: replace
+              regex: (.*)
+              replacement: $1
+              sourceLabels: ["__meta_kubernetes_pod_node_name"]
+              targetLabel: kubernetes_node
     kubeProxy:
       enabled: false
     kubeScheduler:
-      enabled: true
-      endpoints:
-        - 10.0.1.67
-        - 10.0.1.68
-        - 10.0.1.69
+      service:
+        selector:
+          k8s-app: kube-scheduler
     nodeExporter:
       operatingSystems:
         aix:
@@ -96,6 +99,15 @@ spec:
           enabled: false
     prometheus-node-exporter:
       fullnameOverride: node-exporter
+      prometheus:
+        monitor:
+          enabled: true
+          relabelings:
+            - action: replace
+              regex: (.*)
+              replacement: $1
+              sourceLabels: ["__meta_kubernetes_pod_node_name"]
+              targetLabel: kubernetes_node
     grafana:
       enabled: false
       forceDeployDashboards: true
@@ -114,6 +126,15 @@ spec:
         tls:
           - secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
       prometheusSpec:
+        podMonitorSelectorNilUsesHelmValues: false
+        probeSelectorNilUsesHelmValues: false
+        ruleSelectorNilUsesHelmValues: false
+        scrapeConfigSelectorNilUsesHelmValues: false
+        serviceMonitorSelectorNilUsesHelmValues: false
+        enableAdminAPI: true
+        walCompression: true
+        enableFeatures:
+          - memory-snapshot-on-shutdown
         retention: 31d
         retentionSize: 40GB
         storageSpec:
@@ -123,14 +144,6 @@ spec:
               resources:
                 requests:
                   storage: 50Gi
-        scrapeConfigSelector: {}
-        scrapeConfigNamespaceSelector: {}
-        serviceMonitorSelectorNilUsesHelmValues: false
-        podMonitorSelectorNilUsesHelmValues: false
-        probeSelectorNilUsesHelmValues: false
-        ruleSelectorNilUsesHelmValues: false
-        serviceMonitorSelector: {}
-        serviceMonitorNamespaceSelector: {}
     additionalPrometheusRulesMap:
       dockerhub-rules:
         groups:
