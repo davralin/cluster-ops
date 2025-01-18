@@ -55,7 +55,7 @@ spec:
               repository: ghcr.io/hoarder-app/hoarder
               tag: 0.21.0@sha256:0fa320ade5d8f93195155e6df9f73f2ebd4176fe23210723a2d940c4715088f3
             env:
-              BROWSER_WEB_URL: http://hoarder-chrome:9222
+              BROWSER_WEB_URL: http://hoarder-chrome.hoarder.svc.cluster.local:9222
               CRAWLER_VIDEO_DOWNLOAD: true
               CRAWLER_FULL_PAGE_SCREENSHOT: true
               CRAWLER_FULL_PAGE_ARCHIVE: true
@@ -63,7 +63,7 @@ spec:
               DATA_DIR: /data
               INFERENCE_IMAGE_MODEL: "llava"
               INFERENCE_TEXT_MODEL: "llama3.2:3b"
-              MEILI_ADDR: http://hoarder-meilisearch:7700
+              MEILI_ADDR: http://hoarder-meilisearch.hoarder.svc.cluster.local:7700
               NEXTAUTH_URL: &host "hoarder.${SECRET_DEFAULT_DOMAIN}"
               OLLAMA_BASE_URL: "http://ollama.ollama.svc.cluster.local:11434"
               INFERENCE_JOB_TIMEOUT_SEC: 299
