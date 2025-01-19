@@ -76,6 +76,9 @@ spec:
         - pods=[*]
         - deployments=[*]
         - persistentvolumeclaims=[*]
+      networkPolicy:
+        enabled: true
+        flavor: cilium
       prometheus:
         monitor:
           enabled: true
