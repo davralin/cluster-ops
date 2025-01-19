@@ -112,6 +112,12 @@ spec:
           gnetId: 12950
           revision: 2
           datasource: Prometheus
+        # Ref: https://grafana.com/grafana/dashboards/13332
+        kube-state-metrics-v2:
+        # renovate: depName="kube-state-metrics-v2"
+          gnetId: 13332
+          revision: 12
+          datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/13838
         kubernetes-overview:
         # renovate: depName="Kubernetes Overview"
