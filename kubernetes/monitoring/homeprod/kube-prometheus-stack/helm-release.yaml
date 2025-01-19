@@ -77,11 +77,6 @@ spec:
               matchers:
                 - alertname =~ "InfoInhibitor"
               continue: false
-      alertmanagerSpec:
-        alertmanagerConfiguration:
-          name: alertmanager
-          global:
-            resolveTimeout: 5m
       externalUrl: https://alertmanager.${SECRET_DEFAULT_DOMAIN}
       ingress:
         enabled: true
@@ -97,6 +92,9 @@ spec:
          - "alertmanager.${SECRET_DEFAULT_DOMAIN}"
         tls:
           - secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
+    defaultRules:
+      rules:
+        kubelet: false
     kubeApiServer:
       enabled: false # Disabled because of kubevirt KubeClientCertificateExpiration
       serviceMonitor:
