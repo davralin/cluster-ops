@@ -72,7 +72,6 @@ spec:
     kubelet:
       enabled: true
     kube-state-metrics:
-      fullnameOverride: kube-state-metrics
       metricLabelsAllowlist:
         - pods=[*]
         - deployments=[*]
