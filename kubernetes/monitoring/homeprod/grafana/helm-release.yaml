@@ -78,6 +78,12 @@ spec:
             isDefault: true
     dashboards:
       default:
+        # Ref: https://grafana.com/grafana/dashboards/20338
+        blackbox-exporter-ICMP:
+          # renovate: depName="Blackbox exporter - ICMP"
+          gnetId: 20338
+          revision: 3
+          datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/2842
         ceph-cluster:
           # renovate: depName="Ceph Cluster"

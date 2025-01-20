@@ -42,7 +42,8 @@ spec:
           targets:
             staticConfig:
               static:
-                - 10.0.1.99 # Kjeller
-                - 10.0.1.97 # Kjokken
-                - 10.0.1.95 # Tak
-                - 10.0.1.163 # Zigbee
+                - kjellerap.internal
+                - kjokkenap.internal
+                - takap.internal
+                - SLZB-06P7.internal
+                - somneo.internal
