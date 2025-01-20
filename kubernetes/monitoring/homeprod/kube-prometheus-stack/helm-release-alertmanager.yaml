@@ -28,7 +28,7 @@ spec:
       namespace: flux-system
   values:
     resources:
-      - apiVersion: monitoring.coreos.com/v1alpha1
+      - apiVersion: monitoring.coreos.com/v1
         kind: AlertmanagerConfig
         metadata:
           name: alertmanager
