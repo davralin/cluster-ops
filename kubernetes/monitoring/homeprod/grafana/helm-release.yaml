@@ -83,7 +83,8 @@ spec:
           # renovate: depName="Blackbox exporter - ICMP"
           gnetId: 20338
           revision: 3
-          datasource: Prometheus
+          datasource:
+            - { name: DS_PROMETHEUS, value: Prometheus }
         # Ref: https://grafana.com/grafana/dashboards/2842
         ceph-cluster:
           # renovate: depName="Ceph Cluster"
