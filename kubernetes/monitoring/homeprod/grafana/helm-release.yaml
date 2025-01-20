@@ -78,8 +78,15 @@ spec:
             isDefault: true
     dashboards:
       default:
+        # Ref: https://grafana.com/grafana/dashboards/13659
+        blackbox-exporter-http:
+          # renovate: depName="Blackbox Exporter (HTTP prober)"
+          gnetId: 13659
+          revision: 1
+          datasource:
+            - { name: DS_PROMETHEUS, value: Prometheus }
         # Ref: https://grafana.com/grafana/dashboards/20338
-        blackbox-exporter-ICMP:
+        blackbox-exporter-icmp:
           # renovate: depName="Blackbox exporter - ICMP"
           gnetId: 20338
           revision: 3
