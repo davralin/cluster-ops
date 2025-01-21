@@ -36,6 +36,8 @@ spec:
       enabled: false
     cleanPrometheusOperatorObjectNames: true
     alertmanager:
+      alertmanagerSpec:
+        logLevel: debug
       config:
         receivers:
           - name: "Discord"
