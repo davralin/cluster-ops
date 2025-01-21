@@ -28,7 +28,7 @@ spec:
       namespace: flux-system
   values:
     resources:
-      - apiVersion: monitoring.coreos.com/v1
+      - apiVersion: monitoring.coreos.com/v1alpha1
         kind: ScrapeConfig
         metadata:
           name: &name node-exporter
@@ -45,7 +45,7 @@ spec:
             - action: replace
               targetLabel: job
               replacement: *name
-      - apiVersion: monitoring.coreos.com/v1
+      - apiVersion: monitoring.coreos.com/v1alpha1
         kind: ScrapeConfig
         metadata:
           name: &name haproxy-node-exporter
@@ -59,7 +59,7 @@ spec:
             - action: replace
               targetLabel: job
               replacement: *name
-      - apiVersion: monitoring.coreos.com/v1
+      - apiVersion: monitoring.coreos.com/v1alpha1
         kind: ScrapeConfig
         metadata:
           name: &name dnsmasq-node-exporter
@@ -73,7 +73,7 @@ spec:
             - action: replace
               targetLabel: job
               replacement: *name
-      - apiVersion: monitoring.coreos.com/v1
+      - apiVersion: monitoring.coreos.com/v1alpha1
         kind: ScrapeConfig
         metadata:
           name: &name wireguard-node-exporter
