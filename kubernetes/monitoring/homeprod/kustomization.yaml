@@ -7,4 +7,5 @@ resources:
   - grafana
   - kube-prometheus-stack
   - metrics-server
+  - smartctl-exporter
   - namespace.yaml

@@ -1,0 +1,36 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: smartctl-exporter
+  namespace: flux-system
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: prometheus-smartctl-exporter
+      version: 0.13.0
+      sourceRef:
+        kind: HelmRepository
+        name: prometheus-community-charts
+        namespace: flux-system
+      interval: 30m
+  targetNamespace: monitoring
+  install:
+    createNamespace: true
+    remediation:
+      retries: 10
+  upgrade:
+    remediation:
+      retries: 10
+  values:
+    fullnameOverride: smartctl-exporter
+    serviceMonitor:
+      enabled: "${MONITORING_PROMETHEUS}"
+      relabelings:
+        # replaces other node identifiers with hostname
+        - sourceLabels: ["node"]
+          targetLabel: instance
+          action: replace
+    prometheusRules:
+      enabled: "${MONITORING_PROMETHEUS}"

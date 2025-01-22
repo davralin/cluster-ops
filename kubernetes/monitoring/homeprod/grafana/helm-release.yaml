@@ -176,6 +176,13 @@ spec:
         qbittorrent:
           url: https://raw.githubusercontent.com/esanchezm/prometheus-qbittorrent-exporter/master/grafana/dashboard.json
           datasource: Prometheus
+        # Ref: https://grafana.com/grafana/dashboards/22604-smartctl-exporter-dashboard/
+        smartctl_exporter_dashboard:
+        # renovate: depName="SMARTctl Exporter Dashboard"
+          gnetId: 22604
+          revision: 2
+          datasource:
+            - { name: DS_PROMETHEUS, value: Prometheus }
         # Ref: https://grafana.com/grafana/dashboards/11315
         unifi-poller-client-insights:
         # renovate: depName="UniFi-Poller: Client Insights - Prometheus"
