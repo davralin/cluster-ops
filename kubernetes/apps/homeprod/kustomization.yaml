@@ -14,6 +14,7 @@ resources:
   - ../emqx
   - ../epicgames-freegames
   - ../esphome
+  - ../formbricks
   - ../freshrss
   - ../gitea
   - ../hoarder
