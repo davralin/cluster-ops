@@ -52,16 +52,16 @@ spec:
             name: *name
           bootstrap:
             # use this to start a new cluster
-            initdb:
-              database: formbricks
-              owner: formbricks
-              secret:
-                name: formbricks-basic-auth
-            # use this to recover a net-new cluster from a backup
-            #recovery:
-            #  source: *name
+            #initdb:
             #  database: formbricks
             #  owner: formbricks
+            #  secret:
+            #    name: formbricks-basic-auth
+            # use this to recover a net-new cluster from a backup
+            recovery:
+              source: *name
+              database: formbricks
+              owner: formbricks
             # # use this to 'migrate' from an existing cnpg cluster (e.g. "formbricks-postgres-v16") to the new cluster
             #initdb:
             #  database: formbricks
