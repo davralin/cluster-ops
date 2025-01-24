@@ -1,0 +1,106 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &name lidatube
+  namespace: flux-system
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.6.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+      interval: 30m
+  targetNamespace: media
+  install:
+    createNamespace: true
+    remediation:
+      retries: 10
+  upgrade:
+    remediation:
+      retries: 10
+  values:
+    fullnameOverride: *name
+    defaultPodOptions:
+      hostname: *name
+      securityContext:
+        # chown: /lidatube/.git/FETCH_HEAD: Operation not permitted
+        runAsUser: 0
+        runAsGroup: 0
+        fsGroup: 0
+        fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: false
+        seccompProfile:
+          type: RuntimeDefault
+    controllers:
+      lidatube:
+        containers:
+          app:
+            image:
+              repository: thewicklowwolf/lidatube
+              tag: 0.2.14@sha256:0afa24f2d91b2e96a3e9d9352d7a01f104a6720c59d6a77f48f96a34f2c1b267
+            env:
+              TZ: "${TIMEZONE}"
+              lidarr_api_key: "${SECRET_LIDARR_API_KEY}"
+              lidarr_address: "http://lidarr.media.svc.cluster.local:8686"
+            securityContext:
+              allowPrivilegeEscalation: false
+              # mkdir: can't create directory '/lidatube/cache': Read-only file system
+              readOnlyRootFilesystem: false
+              # chown: /lidatube/.git/FETCH_HEAD: Operation not permitted
+              #capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 10m
+                memory: 300Mi
+              limits:
+                memory: 600Mi
+    service:
+      app:
+        controller: *name
+        ports:
+          http:
+            port: 5000
+    ingress:
+      app:
+        enabled: true
+        annotations:
+          haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
+          haproxy.org/response-set-header: |
+            Strict-Transport-Security "max-age=31536000"
+            X-Frame-Options "DENY"
+            X-Content-Type-Options "nosniff"
+            Referrer-Policy "no-referrer-when-downgrade"
+        hosts:
+          - host: &host "lidatube.${SECRET_DEFAULT_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - *host
+    persistence:
+      cache:
+        type: emptyDir
+        globalMounts:
+          - path: /lidatube/cache
+      config:
+        enabled: true
+        existingClaim: lidatube
+        globalMounts:
+          - path: /lidatube/config
+      media:
+        existingClaim: media
+        globalMounts:
+          - path: /lidatube/downloads
+            subPath: audio/music/
+      pipcache:
+        type: emptyDir
+        globalMounts:
+          - path: /.cache/pip

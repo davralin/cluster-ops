@@ -11,3 +11,16 @@ spec:
   resources:
     requests:
       storage: 10Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: lidatube
+  namespace: media
+spec:
+  storageClassName: "${STORAGE_READWRITEONCE}"
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
