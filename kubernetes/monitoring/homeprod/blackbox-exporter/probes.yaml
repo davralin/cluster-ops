@@ -53,7 +53,7 @@ spec:
           name: services
           namespace: monitoring
         spec:
-          module: icmp
+          module: http_2xx
           prober:
             url: blackbox-exporter.monitoring.svc.cluster.local:9115
           targets:
