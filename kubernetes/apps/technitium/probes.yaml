@@ -43,3 +43,16 @@ spec:
             staticConfig:
               static:
                 - "https://technitium.${SECRET_DEFAULT_DOMAIN}"
+      - apiVersion: monitoring.coreos.com/v1
+        kind: Probe
+        metadata:
+          name: dnsmonitoring
+          namespace: technitium
+        spec:
+          module: dns
+          prober:
+            url: blackbox-exporter.monitoring.svc.cluster.local:9115
+          targets:
+            staticConfig:
+              static:
+                - "10.0.1.32"

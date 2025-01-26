@@ -52,6 +52,12 @@ spec:
         add: ["NET_RAW"]
     config:
       modules:
+        dns:
+          prober: dns
+          timeout: 5s
+          dns:
+            query_name: "example.com"
+            query_type: "A"
         http_2xx:
           prober: http
           timeout: 5s
