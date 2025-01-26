@@ -63,4 +63,16 @@ spec:
                 - "https://bilder.${SECRET_OFFSITE_DOMAIN}"
                 - "http://minio.${SECRET_DEFAULT_DOMAIN}:9001"
                 - "http://nas.${SECRET_DEFAULT_DOMAIN}:8095"
+      - apiVersion: monitoring.coreos.com/v1
+        kind: Probe
+        metadata:
+          name: proxmox
+          namespace: monitoring
+        spec:
+          module: http_4xx_insecure
+          prober:
+            url: blackbox-exporter.monitoring.svc.cluster.local:9115
+          targets:
+            staticConfig:
+              static:
                 - "https://proxmox.${SECRET_DEFAULT_DOMAIN}:8006"
