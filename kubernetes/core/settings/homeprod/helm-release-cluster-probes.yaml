@@ -36,7 +36,7 @@ spec:
           name: urlmonitoring
           namespace: kube-system
         spec:
-          module: http_4xx
+          module: http_4xx_insecure
           prober:
             url: blackbox-exporter.monitoring.svc.cluster.local:9115
           targets:
