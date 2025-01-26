@@ -76,3 +76,16 @@ spec:
             staticConfig:
               static:
                 - "https://proxmox.${SECRET_DEFAULT_DOMAIN}:8006"
+      - apiVersion: monitoring.coreos.com/v1
+        kind: Probe
+        metadata:
+          name: dnsmonitoring
+          namespace: monitoring
+        spec:
+          module: dns
+          prober:
+            url: blackbox-exporter.monitoring.svc.cluster.local:9115
+          targets:
+            staticConfig:
+              static:
+                - "adguard.${SECRET_OFFSITE_DOMAIN}"
