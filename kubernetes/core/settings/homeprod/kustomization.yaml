@@ -5,6 +5,7 @@ resources:
   - global-settings-sops.yaml
   - global-settings.yaml
   - helm-release-cilium-lb-ipam.yaml
+  - helm-release-cluster-probes.yaml
   - helm-release-flux-gitrepo.yaml
   - ../../cert-manager
   - ../../charts
