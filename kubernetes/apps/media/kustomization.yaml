@@ -13,7 +13,6 @@ resources:
   - lidarr
   - metube
   - multiscrobbler
-  - namespace.yaml
   - pinchflat
   - pvc.yaml
   - plex
@@ -27,3 +26,5 @@ resources:
   - tautulli
   - tdarr
   - unpackerr
+  - namespace.yaml
+  - probes.yaml

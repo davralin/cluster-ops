@@ -5,4 +5,5 @@ resources:
   - helm-release.yaml
   - namespace.yaml
   - pvc.yaml
+  - probes.yaml
   - volsync.yaml

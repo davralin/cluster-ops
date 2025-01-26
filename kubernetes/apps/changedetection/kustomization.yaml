@@ -5,5 +5,6 @@ resources:
   - helm-release.yaml
   - helm-release-browser.yaml
   - namespace.yaml
+  - probes.yaml
   - pvc.yaml
   - volsync.yaml
