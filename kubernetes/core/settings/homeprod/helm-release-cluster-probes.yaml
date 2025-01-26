@@ -43,3 +43,17 @@ spec:
             staticConfig:
               static:
                 - "https://homeprod.internal:6443"
+      - apiVersion: monitoring.coreos.com/v1
+        kind: Probe
+        metadata:
+          name: dnsmonitoring
+          namespace: kube-system
+        spec:
+          module: dns_a
+          prober:
+            url: blackbox-exporter.monitoring.svc.cluster.local:9115
+          targets:
+            staticConfig:
+              static:
+                - "homeprod.internal"
+                - "dummy.internal"
