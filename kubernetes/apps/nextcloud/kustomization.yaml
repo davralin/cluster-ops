@@ -9,6 +9,7 @@ resources:
   - helm-release-valkey.yaml
   - helm-release.yaml
   - namespace.yaml
+  - probes.yaml
   - pvc.yaml
   - secret.yaml
   - volsync.yaml
