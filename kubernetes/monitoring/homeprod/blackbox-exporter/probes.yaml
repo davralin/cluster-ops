@@ -69,7 +69,7 @@ spec:
           name: proxmox
           namespace: monitoring
         spec:
-          module: http_4xx_insecure
+          module: http_2xx_insecure
           prober:
             url: blackbox-exporter.monitoring.svc.cluster.local:9115
           targets:
