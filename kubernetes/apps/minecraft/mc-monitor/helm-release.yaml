@@ -43,8 +43,11 @@ spec:
               repository: itzg/mc-monitor
               tag: 0.15.1@sha256:b5dcae2e638ab7061a8eae13e91e411ba0f5cc07581fb7a9e9cd4cfd4c7be0d7
             args: [
+              "export-for-prometheus",
               "-servers",
-              "minecraft-minecraft-bedrock-creative-minecraft"
+              "minecraft-minecraft-bedrock-creative-minecraft:25565",
+              "minecraft-minecraft-creative-minecraft:25565",
+              "minecraft-minecraft-survival-minecraft:25565"
               ]
             env:
               TZ: "${TIMEZONE}"
