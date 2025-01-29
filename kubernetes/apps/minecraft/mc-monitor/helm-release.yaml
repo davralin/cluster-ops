@@ -63,13 +63,13 @@ spec:
         controller: *name
         ports:
           http:
-            port: &metricsport 8080
+            port: 8080
     serviceMonitor:
       metrics:
         enabled: true
         serviceName: *name
         endpoints:
-          - port: *metricsport
+          - port: http
             scheme: http
             path: /metrics
             interval: 5m
