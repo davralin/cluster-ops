@@ -117,7 +117,7 @@ spec:
           meilisearch:
             image:
               repository: getmeili/meilisearch
-              tag: v1.12.7@sha256:9ec94d00dbcb3cb465d315e69a9149f3a4d6b67e0efeff1367828d5d746eb4d3
+              tag: v1.12.8@sha256:c9fac23131cca4db95173d41cc50fd5639121ee381795528fdd7522d7978a7b8
             env:
               MEILI_NO_ANALYTICS: "true"
               MEILI_ENV: production
