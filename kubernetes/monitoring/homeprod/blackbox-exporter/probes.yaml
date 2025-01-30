@@ -38,7 +38,7 @@ spec:
         spec:
           module: icmp
           prober:
-            url: blackbox-exporter.monitoring.svc.cluster.local:9115
+            url: "${BLACKBOX_EXPORTER_URL}"
           targets:
             staticConfig:
               static:
@@ -55,7 +55,7 @@ spec:
         spec:
           module: http_2xx
           prober:
-            url: blackbox-exporter.monitoring.svc.cluster.local:9115
+            url: "${BLACKBOX_EXPORTER_URL}"
           targets:
             staticConfig:
               static:
@@ -71,7 +71,7 @@ spec:
         spec:
           module: http_2xx_insecure
           prober:
-            url: blackbox-exporter.monitoring.svc.cluster.local:9115
+            url: "${BLACKBOX_EXPORTER_URL}"
           targets:
             staticConfig:
               static:
@@ -84,7 +84,7 @@ spec:
         spec:
           module: dns
           prober:
-            url: blackbox-exporter.monitoring.svc.cluster.local:9115
+            url: "${BLACKBOX_EXPORTER_URL}"
           targets:
             staticConfig:
               static:

@@ -11,3 +11,4 @@ data:
   STORAGE_READWRITEONCE: "ceph-block"
   STORAGE_READWRITEMANY: "ceph-filesystem"
   MONITORING_PROMETHEUS: "True"
+  BLACKBOX_EXPORTER_URL: "blackbox-exporter.monitoring.svc.cluster.local:9115"
