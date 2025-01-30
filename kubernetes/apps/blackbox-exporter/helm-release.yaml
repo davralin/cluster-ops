@@ -45,6 +45,7 @@ spec:
         - secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
           hosts:
             - "blackbox.${SECRET_DEFAULT_DOMAIN}"
+    replicas: 2
     securityContext:
       readOnlyRootFilesystem: true
       allowPrivilegeEscalation: false
