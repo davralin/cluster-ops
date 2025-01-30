@@ -15,7 +15,7 @@ spec:
         name: dysnix-charts
         namespace: flux-system
       interval: 30m
-  targetNamespace: blackbox-exporter
+  targetNamespace: monitoring
   install:
     createNamespace: true
     remediation:
@@ -34,7 +34,7 @@ spec:
         kind: Probe
         metadata:
           name: devices
-          namespace: blackbox-exporter
+          namespace: monitoring
         spec:
           module: icmp
           prober:
@@ -51,7 +51,7 @@ spec:
         kind: Probe
         metadata:
           name: services
-          namespace: blackbox-exporter
+          namespace: monitoring
         spec:
           module: http_2xx
           prober:
@@ -67,7 +67,7 @@ spec:
         kind: Probe
         metadata:
           name: proxmox
-          namespace: blackbox-exporter
+          namespace: monitoring
         spec:
           module: http_2xx_insecure
           prober:
@@ -80,7 +80,7 @@ spec:
         kind: Probe
         metadata:
           name: dnsmonitoring
-          namespace: blackbox-exporter
+          namespace: monitoring
         spec:
           module: dns
           prober:

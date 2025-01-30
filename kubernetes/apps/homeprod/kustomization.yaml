@@ -5,7 +5,6 @@ resources:
   - ../adguard
   - ../archivebox
   - ../awx
-  - ../blackbox-exporter
   - ../botkube
   - ../changedetection
   - ../cloudnative-pg
