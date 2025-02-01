@@ -44,15 +44,15 @@
       "automergeType": "branch",
       "matchUpdateTypes": ["digest"],
       "matchPackagePatterns": [
-	      "docker.io/redis",
-	      "docker.io/searxng/searxng",
+        "docker.io/redis",
+        "docker.io/searxng/searxng",
         "ghcr.io/alexta69/metube",
-	      "ghcr.io/corentinth/it-tools",
-	      "ghcr.io/davralin",
-	      "ghcr.io/joryirving",
-	      "ghcr.io/onedr0p",
-	      "ghcr.io/sdr-enthusiasts",
-	      "quay.io/redlib/redlib"
+        "ghcr.io/corentinth/it-tools",
+        "ghcr.io/davralin",
+        "ghcr.io/joryirving",
+        "ghcr.io/onedr0p",
+        "ghcr.io/sdr-enthusiasts",
+        "quay.io/redlib/redlib"
       ]
     },
     {
