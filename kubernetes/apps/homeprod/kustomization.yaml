@@ -41,7 +41,6 @@ resources:
   - ../ollama
   - ../openwebui
   - ../paperless-ngx
-  - ../readeck
   - ../reloader
   - ../searxng
   - ../syncthing
