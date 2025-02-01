@@ -54,7 +54,7 @@ spec:
               requests:
                 memory: 400Mi
               limits:
-                memory: 1000Mi
+                memory: 2Gi
     service:
       app:
         controller: *name
