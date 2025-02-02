@@ -58,6 +58,8 @@ spec:
               requests:
                 cpu: 10m
                 memory: 200Mi
+              limits:
+                memory: 600Mi
             probes:
               liveness:
                 enabled: true
