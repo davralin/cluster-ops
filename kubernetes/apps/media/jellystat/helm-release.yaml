@@ -49,7 +49,7 @@ spec:
           app:
             image:
               repository: cyfershepard/jellystat
-              tag: 1.1.2@sha256:51a23529a6da006bcbeb9f1929c639d151d624ff94aae6e7bd651dd4550e91d2
+              tag: 1.1.3@sha256:782352b63079533edf4f529c6f452f06484dfb28204fe3c272eac7ff5db03e0e
             env:
               POSTGRES_USER: jellystat
               POSTGRES_IP: media-postgres-v17-rw.media.svc.cluster.local
