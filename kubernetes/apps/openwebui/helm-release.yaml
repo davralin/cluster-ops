@@ -24,6 +24,10 @@ spec:
     remediation:
       retries: 10
   valuesFrom:
+    - targetPath: controllers.openwebui.containers.app.env.DATABASE_URL
+      kind: Secret
+      name: openwebui-secrets
+      valuesKey: DATABASE_URL
     - targetPath: controllers.openwebui.containers.app.env.WEBUI_SECRET_KEY
       kind: Secret
       name: openwebui-secrets
