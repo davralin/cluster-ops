@@ -60,6 +60,7 @@ spec:
               CRAWLER_FULL_PAGE_SCREENSHOT: true
               CRAWLER_FULL_PAGE_ARCHIVE: true
               CRAWLER_JOB_TIMEOUT_SEC: 120
+              CRAWLER_STORE_SCREENSHOT: true
               DATA_DIR: /data
               INFERENCE_IMAGE_MODEL: "llava"
               INFERENCE_TEXT_MODEL: "llama3.2:3b"
