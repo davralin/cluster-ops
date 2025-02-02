@@ -78,8 +78,8 @@ spec:
                     path: /health/readiness
                     port: 4000
                   initialDelaySeconds: 5
-                  periodSeconds: 30
-                  timeoutSeconds: 10
+                  periodSeconds: 5
+                  timeoutSeconds: 3
                   failureThreshold: 3
     service:
       app:
