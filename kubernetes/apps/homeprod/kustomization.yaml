@@ -30,6 +30,7 @@ resources:
   - ../kyverno
   - ../librespeed
   - ../librespeed-test
+  - ../litellm
   - ../mailrelay
   - ../mailrise
   - ../mealie

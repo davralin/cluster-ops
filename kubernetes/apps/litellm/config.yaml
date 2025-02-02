@@ -1,0 +1,13 @@
+model_list:
+  - model_name: ollama_chat/deepseek-r1:1.5b
+    litellm_params:
+      model: ollama/deepseek-r1:1.5b
+      api_base: http://ollama.ollama.svc.cluster.local:11434
+  - model_name: ollama_chat/deepseek-r1:7b
+    litellm_params:
+      model: ollama/deepseek-r1:7b
+      api_base: http://ollama.ollama.svc.cluster.local:11434
+  - model_name: ollama_chat/llama3.2:3b
+    litellm_params:
+      model: ollama/llama3.2:3b
+      api_base: http://ollama.ollama.svc.cluster.local:11434
