@@ -40,7 +40,7 @@ spec:
           app:
             image:
               repository: jacobalberty/unifi
-              tag: v9.0.108
+              tag: v9.0.114
             env:
               TZ: "${TIMEZONE}"
               RUNAS_UID0: "true"
