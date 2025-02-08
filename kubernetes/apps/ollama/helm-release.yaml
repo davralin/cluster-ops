@@ -36,6 +36,7 @@ spec:
           type: RuntimeDefault
     controllers:
       ollama:
+        type: daemonset
         containers:
           app:
             image:
