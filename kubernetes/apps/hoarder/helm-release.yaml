@@ -63,10 +63,11 @@ spec:
               CRAWLER_STORE_SCREENSHOT: true
               DATA_DIR: /data
               INFERENCE_IMAGE_MODEL: "llava"
-              INFERENCE_TEXT_MODEL: "llama3.2:3b"
+              INFERENCE_TEXT_MODEL: "deepseek-r1:7b"
               MEILI_ADDR: http://hoarder-meilisearch.hoarder.svc.cluster.local:7700
               NEXTAUTH_URL: &host "hoarder.${SECRET_DEFAULT_DOMAIN}"
-              OLLAMA_BASE_URL: "http://ollama.ollama.svc.cluster.local:11434"
+              OPENAI_API_KEY: "sk-1234"
+              OPENAI_BASE_URL: "http://litellm.litellm.svc.cluster.local:4000/v1"
               INFERENCE_JOB_TIMEOUT_SEC: 299
             securityContext:
               # s6-overlay-suexec: warning: unable to gain root privileges (is the suid bit set?)
