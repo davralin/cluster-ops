@@ -167,11 +167,11 @@ spec:
           revision: 1
           datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/7587-prometheus-blackbox-exporter/
-        prometheus_blackbox_exporter:
+        #prometheus_blackbox_exporter:
         # renovate: depName="Prometheus Blackbox Exporter"
-          gnetId: 7587
-          revision: 3
-          datasource: Prometheus
+          #gnetId: 7587
+          #revision: 3
+          #datasource: Prometheus
         # Ref: https://github.com/esanchezm/prometheus-qbittorrent-exporter
         qbittorrent:
           url: https://raw.githubusercontent.com/esanchezm/prometheus-qbittorrent-exporter/master/grafana/dashboard.json
