@@ -5726,7 +5726,7 @@ spec:
         - name: PULL_POLICY
           value: IfNotPresent
         - name: MONITORING_NAMESPACE
-        image: quay.io/kubevirt/cdi-operator:v1.61.0
+        image: quay.io/kubevirt/cdi-operator:v1.61.1
         imagePullPolicy: IfNotPresent
         name: cdi-operator
         ports:
