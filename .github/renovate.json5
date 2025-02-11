@@ -31,7 +31,6 @@
       "matchDatasources": ["docker"],
       "versioning": "loose",
       "matchPackagePatterns": [
-        "invidious",
         "metube",
         "plex",
         "searxng"

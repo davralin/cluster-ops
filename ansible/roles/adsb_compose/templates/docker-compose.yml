@@ -37,7 +37,7 @@ services:
       CLIENTKEY: "{{ adsb_compose_adsbhub_clientkey }}"
     restart: always
   planefinder:
-    image: ghcr.io/sdr-enthusiasts/docker-planefinder:latest@sha256:f3a27cb36d16f2b3ca3083e64be0f4383e0b053461567e5dd8beccfbf2c712dc
+    image: ghcr.io/sdr-enthusiasts/docker-planefinder:latest@sha256:bc826b388df4ace93ba439a1fa5696135355599be5717769ee6de73483b6aad6
     environment:
       TZ: "{{ adsb_compose_tz }}"
       BEASTHOST: "{{ adsb_compose_beasthost }}"
@@ -57,7 +57,7 @@ services:
       OPENSKY_SERIAL: "-{{ adsb_compose_opensky_serial }}"
     restart: always
   piaware:
-    image: ghcr.io/sdr-enthusiasts/docker-piaware:v9.0.1@sha256:6a6b640722d391e267e224c8d89888cd00aa0722781acff5a422b4ceba4d6a7d
+    image: ghcr.io/sdr-enthusiasts/docker-piaware:v9.0.1@sha256:5b9a5d2dde4e80fcf8395ccb20acfdba04fc09cfd2af7794519fad154b244a04
     environment:
       TZ: "{{ adsb_compose_tz }}"
       BEASTHOST: "{{ adsb_compose_beasthost }}"
