@@ -53,6 +53,8 @@ spec:
           Referrer-Policy "no-referrer-when-downgrade"
       hosts:
         - host: &host "falco.${SECRET_DEFAULT_DOMAIN}"
+          paths:
+            - path: /
       tls:
         - hosts:
             - *host
@@ -67,6 +69,8 @@ spec:
           Referrer-Policy "no-referrer-when-downgrade"
       hosts:
         - host: &host "falco-ui.${SECRET_DEFAULT_DOMAIN}"
+          paths:
+            - path: /
       tls:
         - hosts:
             - *host
