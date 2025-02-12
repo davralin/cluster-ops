@@ -62,5 +62,3 @@ spec:
          # block set to true will append a privileged initContainer using the
         # iptables to block the sensitive metadata server at the provided ip.
         blockWithIptables: false
-      storage:
-        type: none
