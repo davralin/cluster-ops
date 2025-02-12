@@ -15,6 +15,7 @@ resources:
   - ../emqx
   - ../epicgames-freegames
   - ../esphome
+  - ../falco
   - ../formbricks
   - ../freshrss
   - ../gitea
