@@ -165,7 +165,8 @@ spec:
         # renovate: depName="Node Problem Detector"
           gnetId: 15549
           revision: 1
-          datasource: Prometheus
+          datasource:
+            - { name: DS_PROMETHEUS, value: Prometheus }
         # Ref: https://grafana.com/grafana/dashboards/7587-prometheus-blackbox-exporter/
         prometheus_blackbox_exporter:
         # renovate: depName="Prometheus Blackbox Exporter"
