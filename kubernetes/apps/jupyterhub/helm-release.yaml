@@ -35,6 +35,7 @@ spec:
               drop: ["ALL"]
             seccompProfile:
               type: RuntimeDefault
+          services_enabled: true
     ingress:
       enabled: true
       annotations:
