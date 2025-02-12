@@ -4,5 +4,5 @@ kind: Kustomization
 resources:
   #- helm-release-exporter.yaml
   #- helm-release-sidekick.yaml
-  - helm-release.yaml
+  #- helm-release.yaml
   - namespace.yaml
