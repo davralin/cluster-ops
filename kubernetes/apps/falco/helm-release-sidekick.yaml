@@ -43,7 +43,7 @@ spec:
       discord:
         webhookurl: "${SECRET_DISCORD_FALCO_URL}"
     ingress:
-      enabled: true
+      enabled: false
       annotations:
         haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
         haproxy.org/response-set-header: |
