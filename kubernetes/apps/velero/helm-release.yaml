@@ -67,7 +67,7 @@ spec:
     kubectl:
       image:
         repository: registry.k8s.io/kubectl
-        tag: v1.32.1
+        tag: v1.32.2
     deployNodeAgent: true
     nodeAgent:
       podVolumePath: /var/lib/kubelet/pods
