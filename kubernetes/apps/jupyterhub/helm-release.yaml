@@ -54,6 +54,9 @@ spec:
       tls:
         - hosts:
             - *host
+    prePuller:
+      continuous:
+        enabled: false
     proxy:
       service:
         type: ClusterIP
