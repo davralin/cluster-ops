@@ -40,7 +40,7 @@ spec:
         containers:
           app:
             image:
-              repository: bellamy/wallos
+              repository: ghcr.io/ellite/wallos
               tag: 2.45.2
             env:
               TZ: "${TIMEZONE}"
