@@ -67,15 +67,15 @@ spec:
         blockWithIptables: false
       profileList:
         - display_name: "scipy notebook"
-          description: "jupyter/scipy-notebook"
+          description: "quay.io/jupyter/scipy-notebook"
           kubespawner_override:
-            image: jupyter/pyspark-notebook:latest
+            image: quay.io/jupyter/pyspark-notebook:latest
         - display_name: "tensorflow notebook"
-          description: "jupyter/tensorflow-notebook"
+          description: "quay.io/jupyter/tensorflow-notebook"
           kubespawner_override:
-            image: jupyter/tensorflow-notebook:latest
+            image: quay.io/jupyter/tensorflow-notebook:latest
           default: true
         - display_name: "pytorch notebook"
-          description: "jupyter/pytorch-notebook"
+          description: "quay.io/jupyter/pytorch-notebook"
           kubespawner_override:
-            image: jupyter/pytorch-notebook:latest
+            image: quay.io/jupyter/pytorch-notebook:latest
