@@ -62,6 +62,17 @@ spec:
          # block set to true will append a privileged initContainer using the
         # iptables to block the sensitive metadata server at the provided ip.
         blockWithIptables: false
-      image:
-        name: jupyter/pyspark-notebook
-        tag: latest
+      profileList:
+        - display_name: "scipy notebook"
+          description: "jupyter/scipy-notebook"
+          kubespawner_override:
+            image: jupyter/pyspark-notebook:latest
+        - display_name: "tensorflow notebook"
+          description: "jupyter/tensorflow-notebook"
+          kubespawner_override:
+            image: jupyter/tensorflow-notebook:latest
+          default: true
+        - display_name: "pytorch notebook"
+          description: "jupyter/pytorch-notebook"
+          kubespawner_override:
+            image: jupyter/pytorch-notebook:latest
