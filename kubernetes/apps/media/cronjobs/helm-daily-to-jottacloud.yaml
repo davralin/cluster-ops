@@ -43,8 +43,8 @@ spec:
         containers:
           app:
             image:
-              repository: rclone/rclone
-              tag: 1.69.0
+              repository: ghcr.io/rclone/rclone
+              tag: 1.69.1
             args: ["sync", "--ignore-case", "--check-first", "--delete-before", "--verbose", "--jottacloud-hard-delete", "--delete-excluded", "/data/", "jottacloud-crypt:/media", "--exclude", "downloads/**", "--exclude", "unsorted/tdarr/**", "--exclude", "*TdarrCacheFile*", "--exclude", "video/youtube/**"]
             securityContext:
               allowPrivilegeEscalation: false
