@@ -39,9 +39,9 @@ spec:
           services_enabled: true
           uid: 1000
       networkPolicy:
-              egress:
-                - ports:
-                    - port: 6443
+        egress:
+          - ports:
+              - port: 6443
     ingress:
       enabled: true
       annotations:
