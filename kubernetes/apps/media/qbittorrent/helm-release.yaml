@@ -59,7 +59,7 @@ spec:
               tag: v1.6.0@sha256:b987d19693a5b2fe7314b22009c6302e084ec801fcf96afaf14065b4cdafc842
             env:
               EXPORTER_PORT: 8000
-              QBITTORRENT_HOST: qbittorrent-app.media.svc.cluster.local
+              QBITTORRENT_HOST: "localhost"
               QBITTORRENT_PORT: 8080
               EXPORTER_LOG_LEVEL: "DEBUG"
             securityContext:
