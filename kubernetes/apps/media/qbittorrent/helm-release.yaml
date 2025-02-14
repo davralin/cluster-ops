@@ -102,8 +102,8 @@ spec:
         endpoints:
           - port: http
             scheme: http
-            path: /metrics
-            interval: 30s
+            path: /
+            interval: 1m
             scrapeTimeout: 10s
     ingress:
       app:
