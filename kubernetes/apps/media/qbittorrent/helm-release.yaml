@@ -61,6 +61,7 @@ spec:
               EXPORTER_PORT: 8000
               QBITTORRENT_HOST: qbittorrent-app.media.svc.cluster.local
               QBITTORRENT_PORT: 8080
+              EXPORTER_LOG_LEVEL: "DEBUG"
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
