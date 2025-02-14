@@ -83,44 +83,12 @@ spec:
                   timeoutSeconds: 10
                   failureThreshold: 3
               readiness: *probes
-          exportarr:
-            dependsOn: app
-            args: ['lidarr']
-            image:
-              repository: ghcr.io/onedr0p/exportarr
-              tag: v2.0.1@sha256:727e7bc8f2f0934a2117978c59f4476b954018b849a010ea6cfb380bd6539644
-            env:
-              PORT: &metrics 9707
-              URL: http://lidarr:8686
-              API_KEY: "${SECRET_LIDARR_API_KEY}"
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities: { drop: ["ALL"] }
-            resources:
-              requests:
-                cpu: 10m
-                memory: 50Mi
-              limits:
-                memory: 100Mi
-    serviceMonitor:
-      metrics:
-        enabled: true
-        serviceName: lidarr
-        endpoints:
-          - port: metrics
-            scheme: http
-            path: /metrics
-            interval: 30m
-            scrapeTimeout: 2m
     service:
       app:
         controller: *name
         ports:
           http:
             port: 8686
-          metrics:
-            port: *metrics
     ingress:
       app:
         enabled: true
