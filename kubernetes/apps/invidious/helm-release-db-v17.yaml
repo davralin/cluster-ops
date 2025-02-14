@@ -77,7 +77,7 @@ spec:
               memory: "128Mi"
               cpu: "200m"
             limits:
-              memory: "256Mi"
+              memory: "1Gi"
           backup:
             retentionPolicy: 7d
             barmanObjectStore:

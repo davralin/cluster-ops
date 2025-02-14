@@ -90,7 +90,7 @@ spec:
               cpu: "400m"
               memory: "256Mi"
             limits:
-              memory: "700Mi"
+              memory: "1Gi"
           postgresql:
             shared_preload_libraries:
               - "vectors.so"
