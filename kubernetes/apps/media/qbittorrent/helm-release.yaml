@@ -98,7 +98,7 @@ spec:
             port: 8000
     serviceMonitor:
       exporter:
-        serviceName: exporter
+        serviceName: qbittorrent-exporter
         endpoints:
           - port: http
             scheme: http
