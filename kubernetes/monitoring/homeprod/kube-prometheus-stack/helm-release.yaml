@@ -181,15 +181,15 @@ spec:
         walCompression: true
         enableFeatures:
           - memory-snapshot-on-shutdown
-        retention: 31d
-        retentionSize: 40GB
+        retention: 60d
+        retentionSize: 80GB
         storageSpec:
           volumeClaimTemplate:
             spec:
               storageClassName: "${STORAGE_READWRITEONCE}"
               resources:
                 requests:
-                  storage: 50Gi
+                  storage: 100Gi
     additionalPrometheusRulesMap:
       dockerhub-rules:
         groups:
