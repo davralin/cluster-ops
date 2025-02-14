@@ -78,6 +78,7 @@ services:
         SYNC_MODE: "1"
         CRON_EXPRESSION: "40 * * * *"
         TZ: Europe/Oslo
+        RUN_IMMEDIATELY: "true"
 
 volumes:
   model-cache:
