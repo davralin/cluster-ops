@@ -181,13 +181,16 @@ spec:
           hoarder:
             hoarder:
               - path: /data
-                subPath: data
-            meilisearch:
-              - path: /meili_data
-                subPath: meili_data
       cache:
         type: emptyDir
         advancedMounts:
           hoarder:
             hoarder:
               - path: /app/apps/web/.next/cache
+      meilisearch:
+        existingClaim: meilisearch
+        advancedMounts:
+          hoarder:
+            meilisearch:
+              - path: /meili_data
+                subPath: meili_data
