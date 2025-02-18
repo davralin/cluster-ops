@@ -38,8 +38,3 @@ spec:
       create: "${MONITORING_PROMETHEUS}"
     prometheusRules:
       enabled: "${MONITORING_PROMETHEUS}"
-    healthChecks:
-      livenessProbe:
-        probesPort: 9376
-      readinessProbe:
-        probesPort: 9376
