@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: kyverno
+  name: &name kyverno
   namespace: flux-system
 spec:
   interval: 30m
@@ -28,7 +28,7 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    fullnameOverride: "kyverno"
+    fullnameOverride: *name
     grafana:
       enabled: "${MONITORING_PROMETHEUS}"
     admissionController:
