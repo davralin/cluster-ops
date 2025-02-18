@@ -42,8 +42,8 @@ spec:
         enabled: "${MONITORING_PROMETHEUS}"
       clusterRole:
         extraResources:
-          - apiGroups: ["*"]
-            resources: ["*"]
+          - apiGroups: ["apps"]
+            resources: ["replicasets"]
             verbs: ["delete", "get", "list", "watch"]
     reportsController:
       serviceMonitor:
