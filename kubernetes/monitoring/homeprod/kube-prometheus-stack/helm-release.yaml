@@ -189,7 +189,7 @@ spec:
               storageClassName: "${STORAGE_READWRITEONCE}"
               resources:
                 requests:
-                  storage: 120Gi
+                  storage: 200Gi
     additionalPrometheusRulesMap:
       dockerhub-rules:
         groups:
