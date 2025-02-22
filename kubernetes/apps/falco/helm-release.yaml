@@ -36,3 +36,40 @@ spec:
     grafana:
       dashboards:
         enabled: "${MONITORING_PROMETHEUS}"
+    falcosidekick:
+      enabled: true
+      #fullnameOverride: *name
+      grafana:
+        dashboards:
+          enabled: "${MONITORING_PROMETHEUS}"
+      prometheusRules:
+        enabled: "${MONITORING_PROMETHEUS}"
+      serviceMonitor:
+        create: "${MONITORING_PROMETHEUS}"
+      config:
+        discord:
+          webhookurl: "${SECRET_DISCORD_FALCO_URL}"
+        loki:
+          grafanaDashboard:
+            enabled: false
+      webui:
+        enabled: true
+        ingress:
+          enabled: true
+          annotations:
+            haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
+            haproxy.org/response-set-header: |
+              Strict-Transport-Security "max-age=31536000"
+              X-Frame-Options "DENY"
+              X-Content-Type-Options "nosniff"
+              Referrer-Policy "no-referrer-when-downgrade"
+          hosts:
+            - host: &host "falco.${SECRET_DEFAULT_DOMAIN}"
+              paths:
+                - path: /
+                  service:
+                    identifier: app
+                    port: http
+          tls:
+            - hosts:
+                - *host
