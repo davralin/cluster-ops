@@ -38,7 +38,7 @@ spec:
         enabled: "${MONITORING_PROMETHEUS}"
     falcosidekick:
       enabled: true
-      #fullnameOverride: *name
+      fullnameOverride: *name
       grafana:
         dashboards:
           enabled: "${MONITORING_PROMETHEUS}"
@@ -46,6 +46,7 @@ spec:
         enabled: "${MONITORING_PROMETHEUS}"
       serviceMonitor:
         create: "${MONITORING_PROMETHEUS}"
+      replicaCount: 1
       config:
         discord:
           webhookurl: "${SECRET_DISCORD_FALCO_URL}"
@@ -73,3 +74,4 @@ spec:
           tls:
             - hosts:
                 - *host
+        replicaCount: 1
