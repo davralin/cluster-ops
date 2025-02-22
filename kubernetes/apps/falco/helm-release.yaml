@@ -38,7 +38,7 @@ spec:
         enabled: "${MONITORING_PROMETHEUS}"
     falcosidekick:
       enabled: true
-      fullnameOverride: ""
+      fullnameOverride: "sidekick"
       grafana:
         dashboards:
           enabled: "${MONITORING_PROMETHEUS}"
