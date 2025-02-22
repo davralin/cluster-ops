@@ -66,3 +66,4 @@ spec:
         tls:
           - hosts:
               - *host
+      url: "http://falcosidekick-ui.falco.svc.cluster.local:2802"
