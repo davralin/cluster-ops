@@ -79,4 +79,6 @@ spec:
             - hosts:
                 - *host
         replicaCount: 1
+        redis:
+          storageEnabled: false
     tty: true
