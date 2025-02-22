@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - bedrock
   - bedrock-creative
+  - bedrock-survival
   - creative
   - mc-monitor
   - mc-router

@@ -1,0 +1,79 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &name minecraft-bedrock-survival
+  namespace: flux-system
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: minecraft
+      version: 4.23.7
+      sourceRef:
+        kind: HelmRepository
+        name: itzg-charts
+        namespace: flux-system
+      interval: 30m
+  targetNamespace: minecraft
+  install:
+    createNamespace: true
+    remediation:
+      retries: 10
+  upgrade:
+    remediation:
+      retries: 10
+  valuesFrom:
+    - targetPath: minecraftServer.whitelist
+      kind: Secret
+      name: minecraft-secrets
+      valuesKey: whitelist
+    - targetPath: minecraftServer.ops
+      kind: Secret
+      name: minecraft-secrets
+      valuesKey: ops
+    - targetPath: mcbackup.resticEnvs.RESTIC_PASSWORD
+      kind: Secret
+      name: minecraft-secrets
+      valuesKey: restic_password
+  values:
+    minecraftServer:
+      tz: "${TIMEZONE}"
+      eula: true
+      type: PAPER
+      version: "1.21.3"
+      difficulty: "easy"
+      maxPlayers: 4
+      levelSeed: 421112feedmekittens
+      maxTickTime: -1
+      mode: survival
+      memory: 6G
+      motd: "A Bedrock-survival Minecraft Server"
+      overrideServerProperties: true
+      rcon:
+        enabled: true
+      removeOldMods: false
+      serviceType: LoadBalancer
+    resources:
+      requests:
+        memory: 6G
+    extraEnv:
+      ENABLE_AUTOPAUSE: "FALSE"
+      ENFORCE_WHITELIST: "FALSE"
+    podAnnotations:
+      reloader.stakater.com/auto: "true"
+    persistence:
+      dataDir:
+        enabled: true
+        existingClaim: bedrock-survival
+    mcbackup:
+      enabled: true
+      pauseIfNoPlayers: true
+      backupMethod: restic
+      excludes: "*.jar,cache,logs,lost+found"
+      resticRepository: /backups
+      pruneBackupsDays: 3
+      persistence:
+        backupDir:
+          enabled: true
+          existingClaim: bedrock-survival-backup
