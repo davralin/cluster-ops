@@ -36,6 +36,10 @@ spec:
     grafana:
       dashboards:
         enabled: "${MONITORING_PROMETHEUS}"
+    falco:
+      http_output:
+        enabled: true
+        url: "http://sidekick.falco.svc.cluster.local:2801/"
     falcosidekick:
       enabled: true
       fullnameOverride: "sidekick"
