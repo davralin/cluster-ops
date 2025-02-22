@@ -40,6 +40,18 @@ spec:
       http_output:
         enabled: true
         url: "http://sidekick.falco.svc.cluster.local:2801/"
+    falcoctl:
+      artifact:
+        install:
+          enabled: true
+        follow:
+          enabled: true
+      config:
+        artifact:
+          install:
+            refs: [falco-rules:latest, falco-incubating-rules:latest, k8saudit-rules:latest]
+          follow:
+            refs: [falco-rules:latest, falco-incubating-rules:latest, k8saudit-rules:latest]
     falcosidekick:
       enabled: true
       fullnameOverride: "sidekick"
