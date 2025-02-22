@@ -54,8 +54,6 @@ spec:
       config:
         discord:
           webhookurl: "${SECRET_DISCORD_FALCO_URL}"
-          icon: "https://images.seeklogo.com/logo-png/44/1/the-falco-project-logo-png_seeklogo-447024.png"
-          minimumpriority: "debug"
         loki:
           grafanaDashboard:
             enabled: false
@@ -80,6 +78,5 @@ spec:
           tls:
             - hosts:
                 - *host
-        loglevel: debug
         replicaCount: 1
     tty: true
