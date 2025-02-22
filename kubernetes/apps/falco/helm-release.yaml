@@ -74,5 +74,6 @@ spec:
           tls:
             - hosts:
                 - *host
+        loglevel: debug
         replicaCount: 1
     tty: true
