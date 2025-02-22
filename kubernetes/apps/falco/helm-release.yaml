@@ -75,3 +75,4 @@ spec:
             - hosts:
                 - *host
         replicaCount: 1
+    tty: true
