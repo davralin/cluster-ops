@@ -34,7 +34,7 @@ spec:
     fullnameOverride: *name
     grafana:
       dashboards:
-        enabled: "${MONITORING_PROMETHEUS}"
+        enabled: false #"${MONITORING_PROMETHEUS}"
     prometheusRules:
       enabled: "${MONITORING_PROMETHEUS}"
     serviceMonitor:
