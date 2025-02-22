@@ -34,7 +34,7 @@ spec:
     fullnameOverride: *name
     grafana:
       dashboards:
-        enabled: false #"${MONITORING_PROMETHEUS}"
+        enabled: "${MONITORING_PROMETHEUS}"
     prometheusRules:
       enabled: "${MONITORING_PROMETHEUS}"
     serviceMonitor:
@@ -42,6 +42,9 @@ spec:
     config:
       discord:
         webhookurl: "${SECRET_DISCORD_FALCO_URL}"
+      loki:
+        grafanaDashboard:
+          enabled: false
     webui:
       enabled: true
       ingress:

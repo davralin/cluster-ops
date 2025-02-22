@@ -35,4 +35,4 @@ spec:
       create: "${MONITORING_PROMETHEUS}"
     grafana:
       dashboards:
-        enabled: false #"${MONITORING_PROMETHEUS}"
+        enabled: "${MONITORING_PROMETHEUS}"
