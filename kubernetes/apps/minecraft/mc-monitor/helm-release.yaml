@@ -46,7 +46,11 @@ spec:
               "export-for-prometheus",
               "-servers",
               "minecraft-minecraft-bedrock-creative-minecraft:25565",
+              "-servers",
+              "minecraft-minecraft-bedrock-survival-minecraft:25565",
+              "-servers",
               "minecraft-minecraft-creative-minecraft:25565",
+              "-servers",
               "minecraft-minecraft-survival-minecraft:25565"
               ]
             env:
