@@ -118,6 +118,7 @@ spec:
         metadata:
           name: enforce-flux-only
         spec:
+          background: false
           validationFailureAction: Audit
           rules:
             - name: block-non-flux-changes
