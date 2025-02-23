@@ -113,10 +113,12 @@ spec:
             and not k8s_containers
             and not user_known_contact_k8s_api_server_activities
             and not (k8s.ns.name = "awx" and (container.name = "awx-manager" or container.name = "awx-task"))
+            and not (k8s.ns.name = "cloudnative-pg" and container.name = "manager")
             and not (k8s.ns.name = "flux-system" and container.image.repository = "ghcr.io/fluxcd/helm-controller")
             and not (k8s.ns.name = "flux-system" and container.image.repository = "ghcr.io/fluxcd/kustomization-controller")
             and not (k8s.ns.name = "flux-system" and container.image.repository = "ghcr.io/fluxcd/notification-controller")
             and not (k8s.ns.name = "flux-system" and container.image.repository = "ghcr.io/fluxcd/source-controller")
+            and not (k8s.ns.name = "kubevirt" and (container.name = "virt-controller" or container.name = "virt-operator"))
             and not (k8s.ns.name = "kyverno" and container.image.repository = "ghcr.io/kyverno/reports-controller")
             and not (k8s.ns.name = "monitoring" and (container.name = "grafana-sc-dashboard" or container.name = "grafana-sc-datasources"))
             and not (k8s.ns.name = "node-problem-detector" and container.name = "node-problem-detector")
