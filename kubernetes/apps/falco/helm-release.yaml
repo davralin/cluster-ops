@@ -115,6 +115,7 @@ spec:
             and not (k8s.ns.name = "awx" and container.name = "awx-task")
             and not (k8s.ns.name = "monitoring" and (container.name = "grafana-sc-dashboard" or container.name = "grafana-sc-datasources"))
             and not (k8s.ns.name = "node-problem-detector" and container.name = "node-problem-detector")
+            and not (k8s.ns.name = "velero" and container.name = "velero")
           output: Unexpected connection to K8s API Server from container (connection=%fd.name lport=%fd.lport rport=%fd.rport fd_type=%fd.type fd_proto=%fd.l4proto evt_type=%evt.type user=%user.name user_uid=%user.uid user_loginuid=%user.loginuid process=%proc.name proc_exepath=%proc.exepath parent=%proc.pname command=%proc.cmdline terminal=%proc.tty %container.info)
           priority: NOTICE
           tags: [maturity_stable, container, network, k8s, mitre_discovery, T1565]
@@ -160,6 +161,7 @@ spec:
             and not run_by_appdynamics
             and not user_shell_container_exclusions
             and not (container.image.repository = "ghcr.io/cloudnative-pg/postgresql" and container.name = "postgres")
+            and not (container.image.repository = "ghcr.io/tensorchord/cloudnative-pgvecto.rs" and container.name = "postgres")
           output: Shell spawned by untrusted binary (parent_exe=%proc.pexe parent_exepath=%proc.pexepath pcmdline=%proc.pcmdline gparent=%proc.aname[2] ggparent=%proc.aname[3] aname[4]=%proc.aname[4] aname[5]=%proc.aname[5] aname[6]=%proc.aname[6] aname[7]=%proc.aname[7] evt_type=%evt.type user=%user.name user_uid=%user.uid user_loginuid=%user.loginuid process=%proc.name proc_exepath=%proc.exepath parent=%proc.pname command=%proc.cmdline terminal=%proc.tty exe_flags=%evt.arg.flags %container.info)
           priority: NOTICE
           tags: [maturity_stable, host, container, process, shell, mitre_execution, T1059.004]
@@ -177,7 +179,7 @@ spec:
             and evt.rawres in (0, 1, 2)
             and fd.type in ("ipv4", "ipv6")
             and not user_known_stand_streams_redirect_activities
-            and not (container.image.repository = "ghcr.io/davalin/sshd" and proc.exepath = "/usr/sbin/sshd")
+            and not (k8s.ns.name = "media" and container.image.repository = "ghcr.io/davalin/sshd")
           output: Redirect stdout/stdin to network connection (gparent=%proc.aname[2] ggparent=%proc.aname[3] gggparent=%proc.aname[4] fd.sip=%fd.sip connection=%fd.name lport=%fd.lport rport=%fd.rport fd_type=%fd.type fd_proto=%fd.l4proto evt_type=%evt.type user=%user.name user_uid=%user.uid user_loginuid=%user.loginuid process=%proc.name proc_exepath=%proc.exepath parent=%proc.pname command=%proc.cmdline terminal=%proc.tty %container.info)
           priority: NOTICE
           tags: [maturity_stable, container, network, process, mitre_execution, T1059]
