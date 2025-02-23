@@ -113,23 +113,23 @@ spec:
                             issuer: "https://token.actions.githubusercontent.com"
                             rekor:
                               url: https://rekor.sigstore.dev
-      - apiVersion: kyverno.io/v1
-        kind: ClusterPolicy
-        metadata:
-          name: enforce-flux-only
-        spec:
-          background: false
-          validationFailureAction: Audit
-          rules:
-            - name: block-non-flux-changes
-              match:
-                resources:
-                  kinds:
-                    - "*"
-              validate:
-                message: "Only Flux is allowed to manage resources"
-                deny:
-                  conditions:
-                    - key: "{{ request.userInfo.username }}"
-                      operator: NotEquals
-                      value: "system:serviceaccount:flux-system:flux"
+      #- apiVersion: kyverno.io/v1
+      #  kind: ClusterPolicy
+      #  metadata:
+      #    name: enforce-flux-only
+      #  spec:
+      #    background: false
+      #    validationFailureAction: Audit
+      #    rules:
+      #      - name: block-non-flux-changes
+      #        match:
+      #          resources:
+      #            kinds:
+      #              - "*"
+      #        validate:
+      #          message: "Only Flux is allowed to manage resources"
+      #          deny:
+      #            conditions:
+      #              - key: "{{ request.userInfo.username }}"
+      #                operator: NotEquals
+      #                value: "system:serviceaccount:flux-system:flux"
