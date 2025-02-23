@@ -26,7 +26,6 @@ spec:
   values:
     fullnameOverride: reflector
     securityContext:
-      readOnlyRootFilesystem: false
       allowPrivilegeEscalation: false
       seccompProfile:
         type: RuntimeDefault
