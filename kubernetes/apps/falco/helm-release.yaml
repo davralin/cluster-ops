@@ -113,6 +113,7 @@ spec:
             and not k8s_containers
             and not user_known_contact_k8s_api_server_activities
             and not (k8s.ns.name = "awx" and container.name = "awx-task")
+            and not (k8s.ns.name = "flux-system" and container.image.repository = "ghcr.io/fluxcd/notification-controller")
             and not (k8s.ns.name = "monitoring" and (container.name = "grafana-sc-dashboard" or container.name = "grafana-sc-datasources"))
             and not (k8s.ns.name = "node-problem-detector" and container.name = "node-problem-detector")
             and not (k8s.ns.name = "velero" and container.name = "velero")
