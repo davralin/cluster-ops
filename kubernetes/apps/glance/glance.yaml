@@ -1,0 +1,50 @@
+pages:
+  - name: Home
+    columns:
+      - size: small
+        widgets:
+          - type: clock
+            hour-format: 24h
+            timezones:
+              - timezone: "${TIMEZONE}"
+                label: Oslo
+
+          - type: calendar
+
+          - type: weather
+            location: Oslo, Norway
+            hour-format: 24h
+
+      - size: full
+        widgets:
+          - type: hacker-news
+
+          - type: videos
+            channels:
+              - UCTy2dAv9b1K1XWon_aL_ewQ # Siderolabs
+
+          - type: reddit
+            subreddit: selfhosted
+
+      - size: small
+        widgets:
+          - type: rss
+            limit: 10
+            collapse-after: 3
+            cache: 10m
+            feeds:
+              - url: https://www.nrk.no/toppsaker.rss
+
+          - type: releases
+            show-source-icon: true
+            repositories:
+              - glanceapp/glance
+              - siderolabs/talos
+
+          - type: markets
+            markets:
+              - symbol: SPY
+                name: S&P 500
+              - symbol: BTC-USD
+                name: Bitcoin
+                chart-link: https://www.tradingview.com/chart/?symbol=INDEX:BTCUSD

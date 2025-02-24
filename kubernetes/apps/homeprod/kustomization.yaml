@@ -19,6 +19,7 @@ resources:
   - ../formbricks
   - ../freshrss
   - ../gitea
+  - ../glance
   - ../hoarder
   - ../homeassistant
   - ../intel-device-plugin
