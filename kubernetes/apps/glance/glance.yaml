@@ -1,6 +1,25 @@
 pages:
   - name: Home
     columns:
+      - size: full
+        widgets:
+          - type: releases
+            show-source-icon: true
+            collapse-after: -1
+            limit: 60
+            repositories:
+              - cilium/cilium
+              - falcosecurity/falco
+              - fluxcd/flux2
+              - glanceapp/glance
+              - haproxytech/kubernetes-ingress
+              - kubernetes-sigs/gateway-api
+              - kubernetes-sigs/metrics-server
+              - kubernetes-sigs/node-feature-discovery
+              - rook/rook
+              - siderolabs/talos
+              - squidfunk/mkdocs-material
+
       - size: small
         widgets:
           - type: clock
@@ -15,36 +34,7 @@ pages:
             location: Oslo, Norway
             hour-format: 24h
 
-      - size: full
-        widgets:
-          - type: hacker-news
-
-          - type: videos
-            channels:
-              - UCTy2dAv9b1K1XWon_aL_ewQ # Siderolabs
-
-          - type: reddit
-            subreddit: selfhosted
-
-      - size: small
-        widgets:
           - type: rss
-            limit: 10
-            collapse-after: 3
-            cache: 10m
+            cache: 20m
             feeds:
               - url: https://www.nrk.no/toppsaker.rss
-
-          - type: releases
-            show-source-icon: true
-            repositories:
-              - glanceapp/glance
-              - siderolabs/talos
-
-          - type: markets
-            markets:
-              - symbol: SPY
-                name: S&P 500
-              - symbol: BTC-USD
-                name: Bitcoin
-                chart-link: https://www.tradingview.com/chart/?symbol=INDEX:BTCUSD
