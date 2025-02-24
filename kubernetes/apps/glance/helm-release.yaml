@@ -67,7 +67,7 @@ spec:
             X-Content-Type-Options "nosniff"
             Referrer-Policy "no-referrer-when-downgrade"
         hosts:
-          - host: "glance.${SECRET_DEFAULT_DOMAIN}"
+          - host: &host "glance.${SECRET_DEFAULT_DOMAIN}"
             paths:
               - path: /
                 service:
