@@ -27,6 +27,10 @@ spec:
     global:
       fullnameOverride: *name
     authentik:
+      email:
+        host: exim.mailrelay.svc.cluster.local
+        port: 25
+        from: "Authentik <authentik@${SECRET_DEFAULT_DOMAIN}>"
       redis:
         host: "valkey-primary.authentik.svc.cluster.local"
       secret_key: "yolo"
