@@ -24,7 +24,8 @@ spec:
     remediation:
       retries: 10
   values:
-    fullnameOverride: *name
+    global:
+      fullnameOverride: *name
     authentik:
       redis:
         host: "valkey-primary.authentik.svc.cluster.local"
