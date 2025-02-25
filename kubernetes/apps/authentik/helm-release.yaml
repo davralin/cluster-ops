@@ -29,6 +29,7 @@ spec:
     authentik:
       redis:
         host: "valkey-primary.authentik.svc.cluster.local"
+      secret_key: "yolo"
     server:
       metrics:
         serviceMonitor:
