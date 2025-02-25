@@ -46,7 +46,7 @@ spec:
           app:
             image:
               repository: ghcr.io/onedr0p/sonarr
-              tag: 4.0.13.2932@sha256:5b04da7c3c5abcfffaddb96cd1b6fbb09312d93f0dacc2624f811c4b6a48ea03
+              tag: 4.0.13.2932@sha256:b2217e5c81155ba002e0497932c2de197b8f5c1ac9c9fff7210e9a6381caab41
             env:
               TZ: "${TIMEZONE}"
               SONARR__AUTH__APIKEY: "${SECRET_SONARR_API_KEY}"
