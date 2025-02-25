@@ -45,6 +45,7 @@
       "matchPackagePatterns": [
         "docker.io/redis",
         "docker.io/searxng/searxng",
+        "docker.io/tensorchord/pgvecto-rs",
         "ghcr.io/alexta69/metube",
         "ghcr.io/corentinth/it-tools",
         "ghcr.io/davralin",
