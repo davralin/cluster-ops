@@ -33,6 +33,7 @@ spec:
       name: authentik-config
       valuesKey: secret_key
   values:
+    fullnameOverride: *name
     global:
       fullnameOverride: *name
     authentik:
