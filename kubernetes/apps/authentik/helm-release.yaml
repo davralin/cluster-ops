@@ -45,7 +45,9 @@ spec:
         host: authentik-postgres-v17-rw.authentik.svc.cluster.local
       redis:
         host: "valkey-primary.authentik.svc.cluster.local"
-      secret_key: "yolo"
+    prometheus:
+      rules:
+        enabled: "${MONITORING_PROMETHEUS}"
     server:
       metrics:
         serviceMonitor:
