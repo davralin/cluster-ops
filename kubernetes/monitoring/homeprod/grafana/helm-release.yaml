@@ -108,6 +108,11 @@ spec:
           revision: 1
           datasource:
             - { name: DS_PROMETHEUS, value: Prometheus }
+        # Ref: https://grafana.com/grafana/dashboards/18796
+        flux_cluster_stats:
+        # renovate: depName="Flux Cluster Stats"
+          gnetId: 14936
+          revision: 1
         # Ref: https://grafana.com/grafana/dashboards/364
         haproxy-backend:
         # renovate: depName="HAproxy Backend | HAproxy"
