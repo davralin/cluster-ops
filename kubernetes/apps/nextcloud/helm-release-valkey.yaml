@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &name nextcloud-valkey
+  name: nextcloud-valkey
   namespace: flux-system
 spec:
   interval: 30m
@@ -24,7 +24,7 @@ spec:
     remediation:
       retries: 10
   values:
-    fullnameOverride: *name
+    fullnameOverride: valkey
     architecture: standalone
     auth:
       enabled: false
