@@ -36,6 +36,7 @@ spec:
     fullnameOverride: *name
     global:
       fullnameOverride: *name
+      addPrometheusAnnotations: "${MONITORING_PROMETHEUS}"
     authentik:
       email:
         host: exim.mailrelay.svc.cluster.local
