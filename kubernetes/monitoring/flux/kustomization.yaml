@@ -5,3 +5,4 @@ resources:
   - discord-notifications.yaml
   - helm-info-discord.yaml
   - notify-error-discord.yaml
+  - prometheus-metrics.yaml
