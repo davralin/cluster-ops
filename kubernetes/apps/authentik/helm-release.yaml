@@ -32,14 +32,14 @@ spec:
       metrics:
         serviceMonitor:
           enabled: "${MONITORING_PROMETHEUS}"
-      securityContext:
+      containerSecurityContext:
         allowPrivilegeEscalation: false
         capabilities: { drop: ["ALL"] }
         runAsNonRoot: true
     redis:
       enabled: false
     worker:
-      securityContext:
+      containerSecurityContext:
         allowPrivilegeEscalation: false
         capabilities: { drop: ["ALL"] }
         runAsNonRoot: true
