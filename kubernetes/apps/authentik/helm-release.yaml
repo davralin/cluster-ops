@@ -36,6 +36,8 @@ spec:
         allowPrivilegeEscalation: false
         capabilities: { drop: ["ALL"] }
         runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
     redis:
       enabled: false
     worker:
@@ -43,3 +45,5 @@ spec:
         allowPrivilegeEscalation: false
         capabilities: { drop: ["ALL"] }
         runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
