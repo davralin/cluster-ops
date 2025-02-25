@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - ../adguard
   - ../archivebox
+  - ../authentik
   - ../awx
   - ../blackbox-exporter
   - ../botkube
