@@ -25,8 +25,17 @@ spec:
       retries: 10
   values:
     fullnameOverride: *name
+    global:
+      securityContext:
+        allowPrivilegeEscalation: false
+        capabilities: { drop: ["ALL"] }
+        runAsNonRoot: true
     authentik:
       redis:
         host: "valkey-primary.authentik.svc.cluster.local"
+    server:
+      metrics:
+        serviceMonitor:
+          enabled: "${MONITORING_PROMETHEUS}"
     redis:
       enabled: false
