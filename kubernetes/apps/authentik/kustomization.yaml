@@ -5,4 +5,5 @@ resources:
   - database-secret.yaml
   - helm-release-db-v17.yaml
   - helm-release-valkey.yaml
+  - helm-release.yaml
   - namespace.yaml
