@@ -10,5 +10,5 @@ data:
   HAPROXY_WHITELIST: "10.0.0.0/8,100.64.0.0/10"
   STORAGE_READWRITEONCE: "ceph-block"
   STORAGE_READWRITEMANY: "ceph-filesystem"
-  MONITORING_PROMETHEUS: "True"
+  MONITORING_PROMETHEUS: "true"
   BLACKBOX_EXPORTER_URL: "blackbox-exporter.blackbox-exporter.svc.cluster.local:9115"
