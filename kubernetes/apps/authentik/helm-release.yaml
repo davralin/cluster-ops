@@ -50,7 +50,7 @@ spec:
       rules:
         enabled: "${MONITORING_PROMETHEUS}"
     server:
-      prometheus:
+      metrics:
         serviceMonitor:
           enabled: "${MONITORING_PROMETHEUS}"
       containerSecurityContext:
