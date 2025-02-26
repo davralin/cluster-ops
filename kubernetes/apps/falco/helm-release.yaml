@@ -115,7 +115,7 @@ spec:
             and not (k8s.ns.name = "awx" and (container.name = "awx-ee" or container.name = "awx-manager" or container.name = "awx-task"))
             and not (k8s.ns.name = "cloudnative-pg" and container.name = "manager")
             and not (k8s.ns.name = "flux-system" and container.image.repository = "ghcr.io/fluxcd/helm-controller")
-            and not (k8s.ns.name = "flux-system" and container.image.repository = "ghcr.io/fluxcd/kustomization-controller")
+            and not (k8s.ns.name = "flux-system" and container.image.repository = "ghcr.io/fluxcd/kustomize-controller")
             and not (k8s.ns.name = "flux-system" and container.image.repository = "ghcr.io/fluxcd/notification-controller")
             and not (k8s.ns.name = "flux-system" and container.image.repository = "ghcr.io/fluxcd/source-controller")
             and not (k8s.ns.name = "intel-gpu" and container.image.repository = "docker.io/intel/intel-deviceplugin-operator")
