@@ -122,6 +122,7 @@ spec:
             and not (k8s.ns.name = "intel-gpu" and container.image.repository = "docker.io/intel/intel-deviceplugin-operator")
             and not (k8s.ns.name = "kubevirt" and (container.name = "virt-controller" or container.name = "virt-operator"))
             and not (k8s.ns.name = "kyverno" and container.image.repository = "ghcr.io/kyverno/cleanup-controller")
+            and not (k8s.ns.name = "kyverno" and container.image.repository = "ghcr.io/kyverno/kyverno")
             and not (k8s.ns.name = "kyverno" and container.image.repository = "ghcr.io/kyverno/reports-controller")
             and not (k8s.ns.name = "monitoring" and container.name = "grafana-sc-dashboard")
             and not (k8s.ns.name = "monitoring" and container.name = "grafana-sc-datasources")
