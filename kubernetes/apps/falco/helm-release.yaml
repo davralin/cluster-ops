@@ -144,6 +144,7 @@ spec:
             Tuning suggestions include looking at the duration of the parent process (proc.ppid.duration) to define your
             long-running app processes. Checking for newer fields such as proc.vpgid.name and proc.vpgid.exe instead of the
             direct parent process being a non-shell application could make the rule more robust.
+            This rule is tailored to my lab
           condition: >
             spawned_process
             and shell_procs
@@ -189,6 +190,7 @@ spec:
             noise in the system, and can be adjusted using the user_known_stand_streams_redirect_activities template
             macro. Tuning can be performed similarly to existing detections based on process lineage or container images,
             and/or it can be limited to interactive tty (tty != 0).
+            This rule is tailored to my lab
           condition: >
             dup
             and container
@@ -204,6 +206,7 @@ spec:
             Detect new packet socket at the device driver (OSI Layer 2) level in a container. Packet socket could be used for ARP Spoofing
             and privilege escalation (CVE-2020-14386) by an attacker. Noise can be reduced by using the user_known_packet_socket_binaries
             template list.
+            This rule is tailored to my lab
           condition: >
             evt.type=socket and evt.dir=>
             and container
