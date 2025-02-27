@@ -12,4 +12,5 @@ resources:
   - ../../cilium
   - ../../flux
   - ../../haproxy
+  - ../../prometheus-crd
   - ../../reflector
