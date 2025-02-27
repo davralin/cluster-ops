@@ -44,14 +44,24 @@ spec:
     hubble:
       enabled: true
       metrics:
+        enableOpenMetrics: true
         enabled:
-          - dns:query
+          - dns
           - drop
           - tcp
           - flow
           - port-distribution
           - icmp
-          - http
+          - httpV2:
+              exemplars: true
+              labelsContext:
+                - source_ip
+                - source_namespace
+                - source_workload
+                - destination_ip
+                - destination_namespace
+                - destination_workload
+                - traffic_direction
         serviceMonitor:
           enabled: "${MONITORING_PROMETHEUS}"
         dashboards:
@@ -76,6 +86,11 @@ spec:
               Referrer-Policy "no-referrer-when-downgrade"
           hosts: ["hubble.${SECRET_DEFAULT_DOMAIN}"]
     monitor:
+      enabled: "${MONITORING_PROMETHEUS}"
+    operator:
+      prometheus:
+        enabled: "${MONITORING_PROMETHEUS}"
+    prometheus:
       enabled: "${MONITORING_PROMETHEUS}"
     securityContext:
       capabilities:
