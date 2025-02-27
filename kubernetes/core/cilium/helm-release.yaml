@@ -25,11 +25,18 @@ spec:
     crds: CreateReplace
     remediation:
       retries: 10
+  dependsOn:
+    - name: kube-prometheus-stack-crds
+      namespace: flux-system
   values:
     cgroup:
       autoMount:
         enabled: false
       hostRoot: /sys/fs/cgroup
+    envoy:
+      prometheus:
+        serviceMonitor:
+            enabled: "${MONITORING_PROMETHEUS}"
     externalIPs:
       enabled: true
     ingressController:
@@ -90,8 +97,12 @@ spec:
     operator:
       prometheus:
         enabled: "${MONITORING_PROMETHEUS}"
+        serviceMonitor:
+          enabled: "${MONITORING_PROMETHEUS}"
     prometheus:
       enabled: "${MONITORING_PROMETHEUS}"
+      serviceMonitor:
+          enabled: "${MONITORING_PROMETHEUS}"
     securityContext:
       capabilities:
         ciliumAgent:
