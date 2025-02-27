@@ -9,7 +9,7 @@ spec:
   dependsOn:
     - name: core
   path: ./kubernetes/apps/homeprod
-  prune: true
+  prune: false
   sourceRef:
     kind: GitRepository
     name: github-davralin-cluster-ops
