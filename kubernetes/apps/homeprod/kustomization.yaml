@@ -20,7 +20,6 @@ resources:
   - ../freshrss
   - ../gitea
   - ../glance
-  - ../hoarder
   - ../homeassistant
   - ../intel-device-plugin
   - ../invidious
