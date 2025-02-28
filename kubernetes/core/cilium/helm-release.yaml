@@ -51,7 +51,6 @@ spec:
     hubble:
       enabled: true
       metrics:
-        enableOpenMetrics: true
         enabled:
           - dns
           - drop
