@@ -159,6 +159,7 @@ spec:
       nextcloud:
         enabled: true
         annotations:
+          haproxy.org/ssl-redirect-port: "443"
           haproxy.org/backend-config-snippet: |
             acl url_discovery path /.well-known/caldav /.well-known/carddav
             http-request redirect location /remote.php/dav/ code 301 if url_discovery
