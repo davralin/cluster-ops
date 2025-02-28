@@ -13,7 +13,6 @@ resources:
   - lidarr
   - metube
   - multiscrobbler
-  - pinchflat
   - pvc.yaml
   - plex
   - prowlarr
