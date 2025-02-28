@@ -64,7 +64,7 @@ spec:
             ---
             sonarr:
               sonarr:
-                base_url: http://sonarr.media.svc.cluster.local
+                base_url: http://sonarr.media.svc.cluster.local:8989
                 api_key: "${SECRET_SONARR_API_KEY}"
 
                 delete_old_custom_formats: true
@@ -88,7 +88,7 @@ spec:
                   preferred_ratio: 0.1
             radarr:
               radarr:
-                base_url: http://radarr.media.svc.cluster.local
+                base_url: http://radarr.media.svc.cluster.local:7878
                 api_key: "${SECRET_RADARR_API_KEY}"
 
                 delete_old_custom_formats: true
