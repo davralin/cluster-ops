@@ -15,7 +15,7 @@ spec:
         name: grafana-charts
         namespace: flux-system
       interval: 30m
-  targetNamespace: promtail
+  targetNamespace: *name
   install:
     createNamespace: true
     remediation:
