@@ -49,13 +49,13 @@ spec:
              claimName: mods
     minecraftServer:
       extraPorts:
-        - name: geyser
-          containerPort: 19132
+        - name: geysermc
+          containerPort: 25565
           protocol: UDP
           service:
             enabled: true
             embedded: true
-            port: 19132
+            port: 25565
       tz: "${TIMEZONE}"
       eula: true
       type: PAPER
