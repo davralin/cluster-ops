@@ -36,7 +36,7 @@ spec:
     envoy:
       prometheus:
         serviceMonitor:
-            enabled: "${MONITORING_PROMETHEUS}"
+            enabled: false #"${MONITORING_PROMETHEUS}"
     externalIPs:
       enabled: true
     ingressController:
@@ -60,15 +60,15 @@ spec:
           - icmp
           - http
         serviceMonitor:
-          enabled: "${MONITORING_PROMETHEUS}"
+          enabled: false #"${MONITORING_PROMETHEUS}"
         dashboards:
-          enabled: "${MONITORING_PROMETHEUS}"
+          enabled: false #"${MONITORING_PROMETHEUS}"
       relay:
         enabled: true
         rollOutPods: true
         prometheus:
           serviceMonitor:
-            enabled: "${MONITORING_PROMETHEUS}"
+            enabled: false #"${MONITORING_PROMETHEUS}"
       ui:
         enabled: true
         rollOutPods: true
@@ -83,16 +83,16 @@ spec:
               Referrer-Policy "no-referrer-when-downgrade"
           hosts: ["hubble.${SECRET_DEFAULT_DOMAIN}"]
     monitor:
-      enabled: "${MONITORING_PROMETHEUS}"
+      enabled: false #"${MONITORING_PROMETHEUS}"
     operator:
       prometheus:
-        enabled: "${MONITORING_PROMETHEUS}"
+        enabled: false #"${MONITORING_PROMETHEUS}"
         serviceMonitor:
-          enabled: "${MONITORING_PROMETHEUS}"
+          enabled: false #"${MONITORING_PROMETHEUS}"
     prometheus:
-      enabled: "${MONITORING_PROMETHEUS}"
+      enabled: false #"${MONITORING_PROMETHEUS}"
       serviceMonitor:
-          enabled: "${MONITORING_PROMETHEUS}"
+          enabled: false #"${MONITORING_PROMETHEUS}"
     securityContext:
       capabilities:
         ciliumAgent:
