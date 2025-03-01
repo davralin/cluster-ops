@@ -47,6 +47,12 @@ spec:
          - name: plugins
            persistentVolumeClaim:
              claimName: mods
+    extraPorts:
+      - name: geyser
+        containerPort: 19132
+        protocol: UDP
+        service:
+          embedded: true
     minecraftServer:
       tz: "${TIMEZONE}"
       eula: true
