@@ -44,7 +44,7 @@ spec:
         containers:
           app:
             image:
-              repository: docker.gitea.com/gitea/gitea
+              repository: docker.gitea.com/gitea
               tag: 1.23.4-rootless
             env:
               TZ: "${TIMEZONE}"
