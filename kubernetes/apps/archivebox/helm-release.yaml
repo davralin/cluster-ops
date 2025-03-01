@@ -41,7 +41,7 @@ spec:
           archivebox:
             image:
               repository: ghcr.io/archivebox/archivebox
-              tag: 0.8.5rc51
+              tag: dev@sha256:cec01d4a9c9211395802cfd2ed30b9263edc428ad19ca503999270b66bc94c71
             args: ["server"]
             env:
               TZ: "${TIMEZONE}"
