@@ -56,9 +56,9 @@ spec:
             pruneIntervalDays: 7
             repository: archivebox-volsync-secret
             moverSecurityContext:
-              runAsUser: 1000
-              runAsGroup: 1000
-              fsGroup: 1000
+              runAsUser: 911
+              runAsGroup: 911
+              fsGroup: 911
               fsGroupChangePolicy: "OnRootMismatch"
               runAsNonRoot: true
               seccompProfile:
