@@ -41,7 +41,7 @@ spec:
           init:
             image:
               repository: ghcr.io/archivebox/archivebox
-              tag: dev@sha256:cec01d4a9c9211395802cfd2ed30b9263edc428ad19ca503999270b66bc94c71
+              tag: 0.7.3 #dev@sha256:cec01d4a9c9211395802cfd2ed30b9263edc428ad19ca503999270b66bc94c71
             args: ["init"]
             env:
               TZ: "${TIMEZONE}"
@@ -64,7 +64,7 @@ spec:
           archivebox:
             image:
               repository: ghcr.io/archivebox/archivebox
-              tag: dev@sha256:cec01d4a9c9211395802cfd2ed30b9263edc428ad19ca503999270b66bc94c71
+              tag: 0.7.3 #dev@sha256:cec01d4a9c9211395802cfd2ed30b9263edc428ad19ca503999270b66bc94c71
             args: ["server"]
             env:
               TZ: "${TIMEZONE}"
