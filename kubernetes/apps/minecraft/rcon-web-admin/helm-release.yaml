@@ -39,5 +39,5 @@ spec:
       tls:
         - hosts:
             - *host
-  rconWeb:
-    password: admin
+    rconWeb:
+      password: admin
