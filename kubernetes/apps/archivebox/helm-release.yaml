@@ -38,7 +38,7 @@ spec:
     controllers:
       archivebox:
         containers:
-          app:
+          archivebox:
             image:
               repository: ghcr.io/archivebox/archivebox
               tag: 0.8.5rc51
@@ -61,13 +61,13 @@ spec:
               limits:
                 memory: 2Gi
     service:
-      app:
+      archivebox:
         controller: *name
         ports:
           http:
             port: 8000
     ingress:
-      app:
+      archivebox:
         annotations:
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
           haproxy.org/ssl-redirect-port: "443"
@@ -81,7 +81,7 @@ spec:
             paths:
               - path: /
                 service:
-                  identifier: app
+                  identifier: archivebox
                   port: http
         tls:
           - hosts:
