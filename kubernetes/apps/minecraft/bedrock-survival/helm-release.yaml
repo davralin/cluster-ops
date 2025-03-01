@@ -53,7 +53,9 @@ spec:
           containerPort: 19132
           protocol: UDP
           service:
+            enabled: true
             embedded: true
+            port: 19132
       tz: "${TIMEZONE}"
       eula: true
       type: PAPER
