@@ -25,5 +25,8 @@ spec:
       retries: 10
   values:
     fullnameOverride: *name
+    config:
+      clients:
+        - url: http://loki-headless.monitoring.svc.cluster.local:3100/loki/api/v1/push
     serviceMonitor:
       enabled: "${MONITORING_PROMETHEUS}"
