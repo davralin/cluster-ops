@@ -35,16 +35,17 @@ spec:
   values:
     extraVolumes:
       - volumeMounts:
-          - name: fabric-mods
+          - name: mods
             mountPath: /mods
+            subPath: mods
             readOnly: false
           - name: oldworld
             mountPath: /oldworlds
             readOnly: true
       - volumes:
-         - name: fabric-mods
+         - name: mods
            persistentVolumeClaim:
-             claimName: fabric-mods
+             claimName: mods
          - name: oldworld
            persistentVolumeClaim:
              claimName: oldworld
