@@ -37,6 +37,16 @@ spec:
       name: minecraft-secrets
       valuesKey: restic_password
   values:
+    extraVolumes:
+      - volumeMounts:
+          - name: plugins
+            mountPath: /plugins
+            subPath: plugins
+            readOnly: false
+      - volumes:
+         - name: plugins
+           persistentVolumeClaim:
+             claimName: mods
     minecraftServer:
       tz: "${TIMEZONE}"
       eula: true
