@@ -126,7 +126,7 @@ spec:
             and not (k8s.ns.name = "kyverno" and container.image.repository = "ghcr.io/kyverno/cleanup-controller")
             and not (k8s.ns.name = "kyverno" and container.image.repository = "ghcr.io/kyverno/kyverno")
             and not (k8s.ns.name = "kyverno" and container.image.repository = "ghcr.io/kyverno/reports-controller")
-            and not (k8s.ns.name = "loki" and container.name = "loki-0")
+            and not (k8s.ns.name = "loki" and k8s.pod.name = "loki-0")
             and not (k8s.ns.name = "monitoring" and container.name = "grafana-sc-dashboard")
             and not (k8s.ns.name = "monitoring" and container.name = "grafana-sc-datasources")
             and not (k8s.ns.name = "monitoring" and container.name = "kube-state-metrics")
