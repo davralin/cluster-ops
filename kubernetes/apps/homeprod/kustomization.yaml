@@ -7,7 +7,6 @@ resources:
   - ../authentik
   - ../awx
   - ../blackbox-exporter
-  - ../botkube
   - ../changedetection
   - ../cloudnative-pg
   - ../cyberchef
