@@ -58,7 +58,7 @@ spec:
           - flow
           - port-distribution
           - icmp
-          - http
+          - httpV2
         serviceMonitor:
           enabled: "${MONITORING_PROMETHEUS}"
         dashboards:
