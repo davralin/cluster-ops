@@ -76,6 +76,13 @@ spec:
             access: proxy
             url: http://kube-prom-prometheus:9090
             isDefault: true
+          - name: Loki
+            type: loki
+            uid: loki
+            access: proxy
+            url: http://loki-headless.loki.svc.cluster.local:3100
+            jsonData:
+              maxLines: 250
     dashboards:
       default:
         # Ref: https://grafana.com/grafana/dashboards/13659
