@@ -38,5 +38,3 @@ spec:
       resourcesPreset: large
     sentinel:
       enabled: true
-    volumePermissions:
-      enabled: true
