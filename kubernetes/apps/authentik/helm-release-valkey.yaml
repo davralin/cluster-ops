@@ -25,16 +25,18 @@ spec:
       retries: 10
   values:
     fullnameOverride: valkey
-    architecture: standalone
+    architecture: replication
     auth:
       enabled: false
+    metrics:
+      enabled: "${MONITORING_PROMETHEUS}"
+      serviceMonitor:
+        enabled: "${MONITORING_PROMETHEUS}"
     primary:
       persistence:
         enabled: false
       resourcesPreset: large
+    sentinel:
+      enabled: true
     volumePermissions:
       enabled: true
-    metrics:
-      enabled: false
-      serviceMonitor:
-        enabled: false
