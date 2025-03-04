@@ -36,5 +36,8 @@ spec:
       persistence:
         enabled: false
       resourcesPreset: large
+    replica:
+      persistence:
+        enabled: false
     sentinel:
       enabled: true
