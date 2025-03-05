@@ -45,7 +45,7 @@ spec:
       postgresql:
         host: authentik-postgres-v17-rw.authentik.svc.cluster.local
       redis:
-        host: "valkey.authentik.svc.cluster.local"
+        host: "valkey-primary.authentik.svc.cluster.local"
     prometheus:
       rules:
         enabled: "${MONITORING_PROMETHEUS}"
