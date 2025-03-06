@@ -17,7 +17,6 @@ resources:
   - falco.yaml
   - flux.yaml
   - fluxcd-community.yaml
-  - gitea.yaml
   - grafana.yaml
   - haproxytech.yaml
   - immich.yaml
