@@ -41,7 +41,7 @@ spec:
       serverName: "BEDR0CK"
       enableLanVisibility: true
       serviceType: LoadBalancer
-      externalTrafficPolicy: Local
+      #externalTrafficPolicy: Local
       loadBalancerIP: 10.0.1.40
     livenessProbe:
       initialDelaySeconds: 150

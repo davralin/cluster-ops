@@ -90,7 +90,7 @@ spec:
             port: 9500
             protocol: TCP
             targetPort: 9500
-        externalTrafficPolicy: Local
+        #externalTrafficPolicy: Local
       exporter:
         controller: *name
         ports:

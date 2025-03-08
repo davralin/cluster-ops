@@ -63,7 +63,7 @@ spec:
       dns:
         controller: *name
         type: LoadBalancer
-        externalTrafficPolicy: Local
+        #externalTrafficPolicy: Local
         ports:
           dns-tcp:
             enabled: true

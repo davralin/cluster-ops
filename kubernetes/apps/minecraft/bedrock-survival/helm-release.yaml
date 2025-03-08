@@ -72,7 +72,7 @@ spec:
         enabled: true
       removeOldMods: false
       serviceType: LoadBalancer
-      externalTrafficPolicy: Local
+      #externalTrafficPolicy: Local
     resources:
       requests:
         memory: 6G
