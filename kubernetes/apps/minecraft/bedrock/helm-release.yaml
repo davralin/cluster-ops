@@ -41,8 +41,7 @@ spec:
       serverName: "BEDR0CK"
       enableLanVisibility: true
       serviceType: LoadBalancer
-      # https://github.com/davralin/cluster-ops/issues/4533
-      #externalTrafficPolicy: Local
+      externalTrafficPolicy: Local
       loadBalancerIP: 10.0.1.40
     livenessProbe:
       initialDelaySeconds: 150

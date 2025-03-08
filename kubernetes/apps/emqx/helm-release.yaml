@@ -31,8 +31,7 @@ spec:
       annotations:
         io.cilium/lb-ipam-ips: 10.0.1.42
       type: LoadBalancer
-      # https://github.com/davralin/cluster-ops/issues/4533
-      #externalTrafficPolicy: Local
+      externalTrafficPolicy: Local
     metrics:
       enabled: "${MONITORING_PROMETHEUS}"
     podSecurityContext:

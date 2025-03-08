@@ -36,8 +36,7 @@ spec:
         enablePorts:
           stat: false
           prometheus: false
-        # https://github.com/davralin/cluster-ops/issues/4533
-        #externalTrafficPolicy: Local
+        externalTrafficPolicy: Local
       ingressClass: null
       ingressClassResource:
         default: true

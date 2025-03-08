@@ -48,6 +48,8 @@ spec:
     kubeProxyReplacement: true
     l2announcements:
       enabled: true
+    loadBalancer:
+      mode: hybrid
     hubble:
       enabled: true
       metrics:

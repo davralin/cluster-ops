@@ -64,8 +64,7 @@ spec:
       #dns:
       #  controller: *name
       #  type: LoadBalancer
-      #  # https://github.com/davralin/cluster-ops/issues/4533
-      #  #externalTrafficPolicy: Local
+      #  externalTrafficPolicy: Local
       #  loadBalancerIP: 10.0.1.37
       #  ports:
       #    dns-tcp:
