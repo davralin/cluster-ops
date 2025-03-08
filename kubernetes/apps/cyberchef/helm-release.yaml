@@ -38,7 +38,7 @@ spec:
       cyberchef:
         strategy: RollingUpdate
         containers:
-          app:
+          cyberchef:
             image:
               repository: docker.io/mpepping/cyberchef
               tag: v10.19.4@sha256:91e04eaaa1ba1eac6b8e410d6f7b340e1ea0450d48ccbb52ec67ce6faa3672c5
@@ -56,13 +56,13 @@ spec:
               limits:
                 memory: 100M
     service:
-      app:
+      cyberchef:
         controller: *name
         ports:
           http:
             port: 8000
     ingress:
-      app:
+      cyberchef:
         enabled: true
         annotations:
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
@@ -77,7 +77,7 @@ spec:
             paths:
               - path: /
                 service:
-                  identifier: app
+                  identifier: cyberchef
                   port: http
         tls:
           - hosts:

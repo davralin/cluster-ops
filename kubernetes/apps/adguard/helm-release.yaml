@@ -39,7 +39,7 @@ spec:
     controllers:
       adguard:
         containers:
-          app:
+          adguard:
             image:
               repository: adguard/adguardhome
               tag: v0.107.57
@@ -56,7 +56,7 @@ spec:
               limits:
                 memory: 2Gi
     service:
-      app:
+      adguard:
         controller: *name
         ports:
           http:
@@ -76,7 +76,7 @@ spec:
       #      port: 53
       #      protocol: UDP
     ingress:
-      app:
+      adguard:
         enabled: true
         annotations:
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
@@ -91,7 +91,7 @@ spec:
             paths:
               - path: /
                 service:
-                  identifier: app
+                  identifier: adguard
                   port: http
         tls:
           - hosts:
@@ -102,7 +102,7 @@ spec:
         existingClaim: adguard
         advancedMounts:
           adguard:
-            app:
+            adguard:
               - path: /opt/adguardhome/conf
                 subPath: conf
               - path: /opt/adguardhome/work

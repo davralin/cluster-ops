@@ -38,7 +38,7 @@ spec:
     controllers:
       esphome:
         containers:
-          app:
+          esphome:
             image:
               repository: ghcr.io/esphome/esphome
               tag: 2025.2.2
@@ -57,13 +57,13 @@ spec:
               limits:
                 memory: 2048Mi
     service:
-      app:
+      esphome:
         controller: *name
         ports:
           http:
             port: 6052
     ingress:
-      app:
+      esphome:
         enabled: true
         annotations:
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
@@ -78,7 +78,7 @@ spec:
             paths:
               - path: /
                 service:
-                  identifier: app
+                  identifier: esphome
                   port: http
         tls:
           - hosts:

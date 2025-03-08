@@ -24,7 +24,7 @@ spec:
     remediation:
       retries: 10
   valuesFrom:
-    - targetPath: controllers.cloudflareddns.containers.app.env.CLOUDFLARE_API_TOKEN
+    - targetPath: controllers.cloudflareddns.containers.cloudflareddns.env.CLOUDFLARE_API_TOKEN
       kind: Secret
       name: cloudflare-api-token-secret
       valuesKey: CLOUDFLARE_API_TOKEN
@@ -42,7 +42,7 @@ spec:
     controllers:
       cloudflareddns:
         containers:
-          app:
+          cloudflareddns:
             image:
               repository: favonia/cloudflare-ddns
               tag: 1.15.1@sha256:a4e2089b3531eec8c9328c7a9a586f80e8d67dcd94856e0b596b7896e1de3f62

@@ -38,7 +38,7 @@ spec:
     controllers:
       sockpuppetbrowser:
         containers:
-          app:
+          sockpuppetbrowser:
             image:
               repository: dgtlmoon/sockpuppetbrowser
               tag: latest@sha256:c8c005516dd73b866d34509561b08d8c86485f9b89b87186a80609de12978270
@@ -59,7 +59,7 @@ spec:
               limits:
                 memory: 1000Mi
     service:
-      app:
+      sockpuppetbrowser:
         controller: *name
         ports:
           http:

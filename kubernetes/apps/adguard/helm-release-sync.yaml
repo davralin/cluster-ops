@@ -26,27 +26,27 @@ spec:
   dependsOn:
     - name: adguard
   valuesFrom:
-    - targetPath: controllers.adguard-sync.containers.app.env.ORIGIN_URL
+    - targetPath: controllers.adguard-sync.containers.adguard-sync.env.ORIGIN_URL
       kind: Secret
       name: adguard-sync-secret
       valuesKey: ORIGIN_URL
-    - targetPath: controllers.adguard-sync.containers.app.env.ORIGIN_USERNAME
+    - targetPath: controllers.adguard-sync.containers.adguard-sync.env.ORIGIN_USERNAME
       kind: Secret
       name: adguard-sync-secret
       valuesKey: USERNAME
-    - targetPath: controllers.adguard-sync.containers.app.env.ORIGIN_PASSWORD
+    - targetPath: controllers.adguard-sync.containers.adguard-sync.env.ORIGIN_PASSWORD
       kind: Secret
       name: adguard-sync-secret
       valuesKey: PASSWORD
-    - targetPath: controllers.adguard-sync.containers.app.env.REPLICA1_USERNAME
+    - targetPath: controllers.adguard-sync.containers.adguard-sync.env.REPLICA1_USERNAME
       kind: Secret
       name: adguard-sync-secret
       valuesKey: USERNAME
-    - targetPath: controllers.adguard-sync.containers.app.env.REPLICA1_PASSWORD
+    - targetPath: controllers.adguard-sync.containers.adguard-sync.env.REPLICA1_PASSWORD
       kind: Secret
       name: adguard-sync-secret
       valuesKey: PASSWORD
-    - targetPath: controllers.adguard-sync.containers.app.env.REPLICA1_URL
+    - targetPath: controllers.adguard-sync.containers.adguard-sync.env.REPLICA1_URL
       kind: Secret
       name: adguard-sync-secret
       valuesKey: REPLICA1_URL
@@ -64,7 +64,7 @@ spec:
     controllers:
       adguard-sync:
         containers:
-          app:
+          adguard-sync:
             image:
               repository: ghcr.io/bakito/adguardhome-sync
               tag: v0.7.1

@@ -37,7 +37,7 @@ spec:
     controllers:
       changedetection:
         containers:
-          app:
+          changedetection:
             image:
               repository: ghcr.io/dgtlmoon/changedetection.io
               tag: 0.49.3
@@ -59,13 +59,13 @@ spec:
               limits:
                 memory: 400Mi
     service:
-      app:
+      changedetection:
         controller: *name
         ports:
           http:
             port: 5000
     ingress:
-      app:
+      changedetection:
         enabled: true
         annotations:
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
@@ -80,7 +80,7 @@ spec:
             paths:
               - path: /
                 service:
-                  identifier: app
+                  identifier: changedetection
                   port: http
         tls:
           - hosts:

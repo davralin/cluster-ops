@@ -24,19 +24,19 @@ spec:
     remediation:
       retries: 10
   valuesFrom:
-    - targetPath: controllers.epicgames-free.containers.app.env.EMAIL
+    - targetPath: controllers.epicgames-free.containers.epicgames-free.env.EMAIL
       kind: Secret
       name: epicgames-free-login
       valuesKey: EMAIL
-    - targetPath: controllers.epicgames-free.containers.app.env.PASSWORD
+    - targetPath: controllers.epicgames-free.containers.epicgames-free.env.PASSWORD
       kind: Secret
       name: epicgames-free-login
       valuesKey: PASSWORD
-    - targetPath: controllers.epicgames-free.containers.app.env.TOTP
+    - targetPath: controllers.epicgames-free.containers.epicgames-free.env.TOTP
       kind: Secret
       name: epicgames-free-login
       valuesKey: TOTP
-    - targetPath: controllers.epicgames-free.containers.app.env.DISCORD_WEBHOOK
+    - targetPath: controllers.epicgames-free.containers.epicgames-free.env.DISCORD_WEBHOOK
       kind: Secret
       name: epicgames-free-login
       valuesKey: WEBHOOK_URL
@@ -56,7 +56,7 @@ spec:
     controllers:
       epicgames-free:
         containers:
-          app:
+          epicgames-free:
             image:
               repository: ghcr.io/claabs/epicgames-freegames-node
               tag: debian@sha256:a08ad15d7f54a90583f7279ac66232845dfec032762eee78d70cce5822645e8e
@@ -85,13 +85,13 @@ spec:
               limits:
                 memory: 2000Mi
     service:
-      app:
+      epicgames-free:
         controller: *name
         ports:
           http:
             port: 3000
     ingress:
-      app:
+      epicgames-free:
         enabled: true
         annotations:
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
@@ -106,7 +106,7 @@ spec:
             paths:
               - path: /
                 service:
-                  identifier: app
+                  identifier: epicgames-free
                   port: http
         tls:
           - hosts:
