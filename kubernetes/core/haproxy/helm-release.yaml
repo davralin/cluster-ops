@@ -26,7 +26,7 @@ spec:
   values:
     fullnameOverride: haproxy-controller
     controller:
-      replicaCount: 2
+      replicaCount: 1
       logging:
         level: debug
       service:
