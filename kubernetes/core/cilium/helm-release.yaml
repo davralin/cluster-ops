@@ -48,8 +48,8 @@ spec:
     kubeProxyReplacement: true
     l2announcements:
       enabled: true
-    loadBalancer:
-      mode: hybrid
+    #loadBalancer:
+      #mode: hybrid
     hubble:
       enabled: true
       metrics:
@@ -95,6 +95,7 @@ spec:
       enabled: "${MONITORING_PROMETHEUS}"
       serviceMonitor:
           enabled: "${MONITORING_PROMETHEUS}"
+    routingMode: native
     securityContext:
       capabilities:
         ciliumAgent:
