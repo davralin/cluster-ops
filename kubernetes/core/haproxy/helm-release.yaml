@@ -26,7 +26,7 @@ spec:
   values:
     fullnameOverride: haproxy-controller
     controller:
-      replicaCount: 1
+      kind: DaemonSet
       logging:
         level: debug
       service:
