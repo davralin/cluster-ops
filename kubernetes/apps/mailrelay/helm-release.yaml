@@ -24,15 +24,15 @@ spec:
     remediation:
       retries: 10
   valuesFrom:
-    - targetPath: controllers.exim.containers.app.env.SMARTHOST
+    - targetPath: controllers.exim.containers.exim.env.SMARTHOST
       kind: Secret
       name: mail-smarthost
       valuesKey: smarthost
-    - targetPath: controllers.exim.containers.app.env.SMTP_USERNAME
+    - targetPath: controllers.exim.containers.exim.env.SMTP_USERNAME
       kind: Secret
       name: mail-smarthost
       valuesKey: username
-    - targetPath: controllers.exim.containers.app.env.SMTP_PASSWORD
+    - targetPath: controllers.exim.containers.exim.env.SMTP_PASSWORD
       kind: Secret
       name: mail-smarthost
       valuesKey: password
@@ -51,7 +51,7 @@ spec:
       exim:
         type: daemonset
         containers:
-          app:
+          exim:
             image:
               repository: devture/exim-relay
               tag: 4.96-r1-0
@@ -69,7 +69,7 @@ spec:
               limits:
                 memory: 100Mi
     service:
-      app:
+      exim:
         controller: *name
         type: LoadBalancer
         externalTrafficPolicy: Local
