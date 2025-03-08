@@ -9,7 +9,6 @@ resources:
   - mc-monitor
   - mc-router
   - oldworld
-  - rcon-web-admin
   - survival
   - backup-ssh-key.yaml
   - helm-release-filebrowser.yaml
