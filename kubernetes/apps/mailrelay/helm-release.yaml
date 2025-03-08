@@ -49,8 +49,7 @@ spec:
           type: RuntimeDefault
     controllers:
       exim:
-        type: deployment
-        replicas: 2
+        type: daemonset
         containers:
           app:
             image:
