@@ -13,4 +13,6 @@ spec:
     - kind: HelmRelease
       name: '*'
       namespace: '*'
+  exclusionList:
+    - "*etcdserver: leader changed"
   suspend: false

@@ -22,4 +22,6 @@ spec:
       name: storage
     - kind: HelmRelease
       name: '*'
+  exclusionList:
+    - "*etcdserver: leader changed"
   suspend: false
