@@ -24,7 +24,7 @@ spec:
     remediation:
       retries: 10
   valuesFrom:
-    - targetPath: controllers.sonarr.containers.app.env.SONARR__POSTGRES__PASSWORD
+    - targetPath: controllers.sonarr.containers.sonarr.env.SONARR__POSTGRES__PASSWORD
       kind: Secret
       name: sonarr-config
       valuesKey: POSTGRES_PASSWORD
@@ -43,7 +43,7 @@ spec:
     controllers:
       sonarr:
         containers:
-          app:
+          sonarr:
             image:
               repository: ghcr.io/onedr0p/sonarr
               tag: 4.0.13.2932@sha256:b2217e5c81155ba002e0497932c2de197b8f5c1ac9c9fff7210e9a6381caab41
@@ -83,13 +83,13 @@ spec:
               limits:
                 memory: 400Mi
     service:
-      app:
+      sonarr:
         controller: *name
         ports:
           http:
             port: 8989
     ingress:
-      app:
+      sonarr:
         enabled: true
         annotations:
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
@@ -104,7 +104,7 @@ spec:
             paths:
               - path: /
                 service:
-                  identifier: app
+                  identifier: sonarr
                   port: http
         tls:
           - hosts:

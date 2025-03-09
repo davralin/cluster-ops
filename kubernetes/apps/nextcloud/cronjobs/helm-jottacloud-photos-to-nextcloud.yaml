@@ -40,7 +40,7 @@ spec:
         cronjob:
           schedule: "45 02 * * *"
         containers:
-          app:
+          jottacloud-photos-to-nextcloud:
             image:
               repository: ghcr.io/rclone/rclone
               tag: 1.69.1
@@ -67,7 +67,7 @@ spec:
         defaultMode: 0755
         advancedMounts:
           jottacloud-photos-to-nextcloud:
-            app:
+            jottacloud-photos-to-nextcloud:
               - path: photos-to-nextcloud.sh
                 subPath: photos-to-nextcloud.sh
                 readOnly: true

@@ -38,7 +38,7 @@ spec:
       mc-monitor:
         replicas: 1
         containers:
-          app:
+          mc-monitor:
             image:
               repository: itzg/mc-monitor
               tag: 0.15.3@sha256:bde5a8b9ef2f121517d0ca885dabc928cdbe84c895a6133a6e7af62841928d9c
@@ -66,7 +66,7 @@ spec:
               limits:
                 memory: 100Mi
     service:
-      app:
+      mc-monitor:
         controller: *name
         ports:
           http:

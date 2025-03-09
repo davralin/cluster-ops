@@ -24,19 +24,19 @@ spec:
     remediation:
       retries: 10
   valuesFrom:
-    - targetPath: controllers.multiscrobbler.containers.app.env.LASTFM_API_KEY
+    - targetPath: controllers.multiscrobbler.containers.multiscrobbler.env.LASTFM_API_KEY
       kind: Secret
       name: multiscrobbler-secrets
       valuesKey: LASTFM_API_KEY
-    - targetPath: controllers.multiscrobbler.containers.app.env.LASTFM_SECRET
+    - targetPath: controllers.multiscrobbler.containers.multiscrobbler.env.LASTFM_SECRET
       kind: Secret
       name: multiscrobbler-secrets
       valuesKey: LASTFM_SECRET
-    - targetPath: controllers.multiscrobbler.containers.app.env.SPOTIFY_CLIENT_ID
+    - targetPath: controllers.multiscrobbler.containers.multiscrobbler.env.SPOTIFY_CLIENT_ID
       kind: Secret
       name: multiscrobbler-secrets
       valuesKey: SPOTIFY_CLIENT_ID
-    - targetPath: controllers.multiscrobbler.containers.app.env.SPOTIFY_CLIENT_SECRET
+    - targetPath: controllers.multiscrobbler.containers.multiscrobbler.env.SPOTIFY_CLIENT_SECRET
       kind: Secret
       name: multiscrobbler-secrets
       valuesKey: SPOTIFY_CLIENT_SECRET
@@ -56,7 +56,7 @@ spec:
     controllers:
       multiscrobbler:
         containers:
-          app:
+          multiscrobbler:
             image:
               repository: ghcr.io/foxxmd/multi-scrobbler
               tag: 0.9.1@sha256:41a3c79371fb4fda5f88e2d6443de2fe7db1905dd6edfac2dd0bd83877f8f354
@@ -84,13 +84,13 @@ spec:
               limits:
                 memory: 700Mi
     service:
-      app:
+      multiscrobbler:
         controller: *name
         ports:
           http:
             port: 9078
     ingress:
-      app:
+      multiscrobbler:
         enabled: true
         annotations:
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
@@ -105,7 +105,7 @@ spec:
             paths:
               - path: /
                 service:
-                  identifier: app
+                  identifier: multiscrobbler
                   port: http
         tls:
           - hosts:

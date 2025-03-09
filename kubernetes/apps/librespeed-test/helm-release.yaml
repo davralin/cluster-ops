@@ -38,7 +38,7 @@ spec:
       librespeed-test:
         strategy: RollingUpdate
         containers:
-          app:
+          librespeed-test:
             image:
               repository: ghcr.io/davralin/speedtest
               tag: latest@sha256:5b46f01eabafb7dfb0a3871e0cef7f93dffbe7cd6f6497699c21b4327e959d84
@@ -56,13 +56,13 @@ spec:
               limits:
                 memory: 100Mi
     service:
-      app:
+      librespeed-test:
         controller: *name
         ports:
           http:
             port: 8080
     ingress:
-      app:
+      librespeed-test:
         enabled: true
         annotations:
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
@@ -77,7 +77,7 @@ spec:
             paths:
               - path: /
                 service:
-                  identifier: app
+                  identifier: librespeed-test
                   port: http
         tls:
           - hosts:

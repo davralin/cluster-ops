@@ -38,7 +38,7 @@ spec:
     controllers:
       homeassistant:
         containers:
-          app:
+          homeassistant:
             image:
               repository: ghcr.io/home-assistant/home-assistant
               tag: 2025.3.1
@@ -57,7 +57,7 @@ spec:
               limits:
                 memory: 1536Mi
           code:
-            dependsOn: app
+            dependsOn: homeassistant
             image:
               repository: ghcr.io/coder/code-server
               tag: 4.97.2
@@ -86,7 +86,7 @@ spec:
               limits:
                 memory: 400Mi
     service:
-      app:
+      homeassistant:
         controller: *name
         ports:
           http:
@@ -97,7 +97,7 @@ spec:
           http:
             port: 8081
     ingress:
-      app:
+      homeassistant:
         enabled: true
         annotations:
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
@@ -112,7 +112,7 @@ spec:
             paths:
               - path: /
                 service:
-                  identifier: app
+                  identifier: homeassistant
                   port: http
         tls:
           - hosts:

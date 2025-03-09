@@ -24,19 +24,19 @@ spec:
     remediation:
       retries: 10
   valuesFrom:
-    - targetPath: controllers.paperless-ngx-exporter.containers.app.env.PAPERLESS_DBPASS
+    - targetPath: controllers.paperless-ngx-exporter.containers.exporter.env.PAPERLESS_DBPASS
       kind: Secret
       name: paperless-secrets
       valuesKey: postgresql-password
-    - targetPath: controllers.paperless-ngx-exporter.containers.app.env.PAPERLESS_ADMIN_USER
+    - targetPath: controllers.paperless-ngx-exporter.containers.exporter.env.PAPERLESS_ADMIN_USER
       kind: Secret
       name: paperless-secrets
       valuesKey: paperless-admin-user
-    - targetPath: controllers.paperless-ngx-exporter.containers.app.env.PAPERLESS_ADMIN_PASSWORD
+    - targetPath: controllers.paperless-ngx-exporter.containers.exporter.env.PAPERLESS_ADMIN_PASSWORD
       kind: Secret
       name: paperless-secrets
       valuesKey: paperless-admin-pw
-    - targetPath: controllers.paperless-ngx-exporter.containers.app.env.PAPERLESS_ADMIN_EMAIL
+    - targetPath: controllers.paperless-ngx-exporter.containers.exporter.env.PAPERLESS_ADMIN_EMAIL
       kind: Secret
       name: paperless-secrets
       valuesKey: paperless-admin-email
@@ -58,7 +58,7 @@ spec:
         cronjob:
           schedule: "05 22 * * *"
         containers:
-          app:
+          exporter:
             command: ["/usr/local/bin/document_exporter"]
             args: ["--compare-checksums", "--delete", "--use-filename-format", "--skip-checks", "--verbosity", "3", "/export/backup"]
             image:
@@ -91,7 +91,7 @@ spec:
         existingClaim: paperless-ngx
         advancedMounts:
           paperless-ngx-exporter:
-            app:
+            exporter:
               - path: /usr/src/paperless/data
                 subPath: data
               - path: /usr/src/paperless/consume

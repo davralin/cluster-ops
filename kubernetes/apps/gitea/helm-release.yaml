@@ -24,7 +24,7 @@ spec:
     remediation:
       retries: 10
   valuesFrom:
-    - targetPath: controllers.gitea.containers.app.env.GITEA__database__PASSWD
+    - targetPath: controllers.gitea.containers.gitea.env.GITEA__database__PASSWD
       kind: Secret
       name: gitea-config
       valuesKey: POSTGRESQL_PASSWORD
@@ -42,7 +42,7 @@ spec:
     controllers:
       gitea:
         containers:
-          app:
+          gitea:
             image:
               repository: docker.gitea.com/gitea
               tag: 1.23.5-rootless
@@ -79,7 +79,7 @@ spec:
               limits:
                 memory: 600Mi
     service:
-      app:
+      gitea:
         controller: *name
         ports:
           http:
@@ -97,7 +97,7 @@ spec:
             targetPort: 2222
             protocol: TCP
     ingress:
-      app:
+      gitea:
         enabled: true
         annotations:
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
@@ -112,7 +112,7 @@ spec:
             paths:
               - path: /
                 service:
-                  identifier: app
+                  identifier: gitea
                   port: http
         tls:
           - hosts:

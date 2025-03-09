@@ -39,7 +39,7 @@ spec:
     controllers:
       lidatube:
         containers:
-          app:
+          lidatube:
             image:
               repository: thewicklowwolf/lidatube
               tag: 0.2.16@sha256:104314735b0589d543c1664a9a981ccc7e536c5add8805c8bb683f6ae8ccc89f
@@ -60,13 +60,13 @@ spec:
               limits:
                 memory: 1Gi
     service:
-      app:
+      lidatube:
         controller: *name
         ports:
           http:
             port: 5000
     ingress:
-      app:
+      lidatube:
         enabled: true
         annotations:
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
@@ -81,7 +81,7 @@ spec:
             paths:
               - path: /
                 service:
-                  identifier: app
+                  identifier: lidatube
                   port: http
         tls:
           - hosts:

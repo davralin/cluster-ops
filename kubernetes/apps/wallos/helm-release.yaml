@@ -38,7 +38,7 @@ spec:
     controllers:
       wallos:
         containers:
-          app:
+          wallos:
             image:
               repository: ghcr.io/ellite/wallos
               tag: 2.46.1
@@ -57,13 +57,13 @@ spec:
               # ERROR: [pool www] failed to setgid(82): Operation not permitted (1)
               #capabilities: { drop: ["ALL"] }
     service:
-      app:
+      wallos:
         controller: *name
         ports:
           http:
             port: 80
     ingress:
-      app:
+      wallos:
         annotations:
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
           haproxy.org/ssl-redirect-port: "443"
@@ -77,7 +77,7 @@ spec:
             paths:
               - path: /
                 service:
-                  identifier: app
+                  identifier: wallos
                   port: http
         tls:
           - hosts:
@@ -88,7 +88,7 @@ spec:
         existingClaim: wallos
         advancedMounts:
           wallos:
-            app:
+            wallos:
               - path: /var/www/html/db
                 subPath: db
               - path: /var/www/html/images/uploads/logos

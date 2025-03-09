@@ -40,7 +40,7 @@ spec:
         cronjob:
           schedule: "59 10 * * *"
         containers:
-          app:
+          daily-audio-ripper:
             image:
               repository: ghcr.io/davralin/youtube-dl
               tag: latest@sha256:82a9124b3a4c430bc3d15e639d1cfe9ab42f19ee35ed5954ee428f7129afef04
@@ -55,6 +55,6 @@ spec:
         existingClaim: media
         advancedMounts:
           daily-audio-ripper:
-            app:
+            daily-audio-ripper:
               - path: /media
                 subPath: audio

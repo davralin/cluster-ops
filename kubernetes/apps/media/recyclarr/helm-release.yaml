@@ -39,7 +39,7 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          app:
+          recyclarr:
             image:
               repository: ghcr.io/recyclarr/recyclarr
               tag: 7.4.1
@@ -126,7 +126,7 @@ spec:
         name: recyclarr-yaml
         advancedMounts:
           recyclarr:
-            app:
+            recyclarr:
               - path: /config/recyclarr.yml
                 subPath: recyclarr.yaml
                 readOnly: true

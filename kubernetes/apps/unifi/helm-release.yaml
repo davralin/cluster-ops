@@ -37,7 +37,7 @@ spec:
     controllers:
       unifi:
         containers:
-          app:
+          unifi:
             image:
               repository: jacobalberty/unifi
               tag: v9.0.114
@@ -62,7 +62,7 @@ spec:
               limits:
                 memory: 1400Mi
     service:
-      app:
+      unifi:
         controller: *name
         type: LoadBalancer
         #externalTrafficPolicy: Local
@@ -100,7 +100,7 @@ spec:
             port: 10001
             protocol: UDP
     ingress:
-      app:
+      unifi:
         enabled: true
         annotations:
           haproxy.org/server-ssl: "true"
@@ -116,7 +116,7 @@ spec:
             paths:
               - path: /
                 service:
-                  identifier: app
+                  identifier: unifi
                   port: http
         tls:
           - hosts:

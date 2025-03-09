@@ -40,7 +40,7 @@ spec:
     controllers:
       qbit-manage:
         containers:
-          app:
+          qbit-manage:
             image:
               repository: ghcr.io/stuffanthings/qbit_manage
               tag: v4.2.0

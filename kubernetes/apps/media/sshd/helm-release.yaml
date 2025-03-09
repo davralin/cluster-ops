@@ -37,7 +37,7 @@ spec:
     controllers:
       sshd:
         containers:
-          app:
+          sshd:
             image:
               repository: ghcr.io/davralin/sshd
               tag: latest@sha256:839893dc5bdc60e0beb964f48085246b408277f73338d6929c49f992f48d76ad
@@ -55,7 +55,7 @@ spec:
               limits:
                 memory: 200Mi
     service:
-      app:
+      sshd:
         controller: *name
         type: LoadBalancer
         #externalTrafficPolicy: Local

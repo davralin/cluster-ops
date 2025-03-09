@@ -24,11 +24,11 @@ spec:
     remediation:
       retries: 10
   valuesFrom:
-    - targetPath: controllers.openwebui.containers.app.env.DATABASE_URL
+    - targetPath: controllers.openwebui.containers.openwebui.env.DATABASE_URL
       kind: Secret
       name: openwebui-secrets
       valuesKey: DATABASE_URL
-    - targetPath: controllers.openwebui.containers.app.env.WEBUI_SECRET_KEY
+    - targetPath: controllers.openwebui.containers.openwebui.env.WEBUI_SECRET_KEY
       kind: Secret
       name: openwebui-secrets
       valuesKey: WEBUI_SECRET_KEY
@@ -46,7 +46,7 @@ spec:
     controllers:
       openwebui:
         containers:
-          app:
+          openwebui:
             image:
               repository: ghcr.io/open-webui/open-webui
               tag: 0.5.20@sha256:92b238e6c27dc6dacda7769062444044ed71b78628e0a9810ba5cea25e0e1ba0
@@ -72,13 +72,13 @@ spec:
               limits:
                 memory: 1000Mi
     service:
-      app:
+      openwebui:
         controller: *name
         ports:
           http:
             port: 8080
     ingress:
-      app:
+      openwebui:
         enabled: true
         annotations:
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
@@ -93,7 +93,7 @@ spec:
             paths:
               - path: /
                 service:
-                  identifier: app
+                  identifier: openwebui
                   port: http
         tls:
           - hosts:

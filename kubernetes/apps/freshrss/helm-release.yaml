@@ -38,7 +38,7 @@ spec:
     controllers:
       freshrss:
         containers:
-          app:
+          freshrss:
             image:
               repository: freshrss/freshrss
               tag: 1.26.0@sha256:d18055cc1c2fa807f118accb4ba74f435d381daf96130f87b17d9d9d1d169341
@@ -59,13 +59,13 @@ spec:
               limits:
                 memory: 300Mi
     service:
-      app:
+      freshrss:
         controller: *name
         ports:
           http:
             port: 80
     ingress:
-      app:
+      freshrss:
         enabled: true
         annotations:
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
@@ -80,7 +80,7 @@ spec:
             paths:
               - path: /
                 service:
-                  identifier: app
+                  identifier: freshrss
                   port: http
         tls:
           - hosts:

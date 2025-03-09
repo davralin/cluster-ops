@@ -24,7 +24,7 @@ spec:
     remediation:
       retries: 10
   valuesFrom:
-    - targetPath: controllers.lidarr.containers.app.env.LIDARR__POSTGRES__PASSWORD
+    - targetPath: controllers.lidarr.containers.lidarr.env.LIDARR__POSTGRES__PASSWORD
       kind: Secret
       name: lidarr-config
       valuesKey: POSTGRES_PASSWORD
@@ -43,7 +43,7 @@ spec:
     controllers:
       lidarr:
         containers:
-          app:
+          lidarr:
             image:
               repository: ghcr.io/drag0n141/lidarr
               tag: 2.9.6.4552@sha256:121080101a78695bbb3c58ebdd368897f5f6675e1776d8627e482130ecc41f28
@@ -84,13 +84,13 @@ spec:
                   failureThreshold: 3
               readiness: *probes
     service:
-      app:
+      lidarr:
         controller: *name
         ports:
           http:
             port: 8686
     ingress:
-      app:
+      lidarr:
         enabled: true
         annotations:
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
@@ -105,7 +105,7 @@ spec:
             paths:
               - path: /
                 service:
-                  identifier: app
+                  identifier: lidarr
                   port: http
         tls:
           - hosts:

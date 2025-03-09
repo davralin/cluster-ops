@@ -37,7 +37,7 @@ spec:
     controllers:
       zigbee2mqtt:
         containers:
-          app:
+          zigbee2mqtt:
             image:
               repository: ghcr.io/koenkk/zigbee2mqtt
               tag: 2.1.3@sha256:80f82f8fed251acb706a002c51fffab166b25bb18b1aff15f37f85cf3d73c171
@@ -59,14 +59,14 @@ spec:
               limits:
                 memory: 1Gi
     service:
-      app:
+      zigbee2mqtt:
         controller: *name
         ports:
           http:
             enabled: true
             port: 8080
     ingress:
-      app:
+      zigbee2mqtt:
         annotations:
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
           haproxy.org/ssl-redirect-port: "443"
@@ -80,7 +80,7 @@ spec:
             paths:
               - path: /
                 service:
-                  identifier: app
+                  identifier: zigbee2mqtt
                   port: http
         tls:
           - hosts:

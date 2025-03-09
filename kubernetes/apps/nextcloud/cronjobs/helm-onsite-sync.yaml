@@ -40,7 +40,7 @@ spec:
         cronjob:
           schedule: "45 */6 * * *"
         containers:
-          app:
+          onsite-sync:
             image:
               repository: ghcr.io/davralin/rsync
               tag: latest@sha256:739a87b5e9a5722871a3b57bc3f9c7f347c391149452fcc899d86ce7c9469cec
@@ -68,7 +68,7 @@ spec:
         defaultMode: 0600
         advancedMounts:
           onsite-sync:
-            app:
+            onsite-sync:
               - path: /home/user/.ssh/id_ed25519
                 subPath: id_ed25519
                 readOnly: true

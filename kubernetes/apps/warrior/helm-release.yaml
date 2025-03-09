@@ -37,7 +37,7 @@ spec:
     controllers:
       warrior:
         containers:
-          app:
+          warrior:
             image:
               repository: atdr.meo.ws/archiveteam/warrior-dockerfile
               tag: latest@sha256:afe7e9a9a1cd11d044ec960f48a3f3d8e871d0bd058c204163757e6bc7b74ee6
@@ -57,13 +57,13 @@ spec:
               limits:
                 memory: 2Gi
     service:
-      app:
+      warrior:
         controller: *name
         ports:
           http:
             port: 8001
     ingress:
-      app:
+      warrior:
         enabled: true
         annotations:
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
@@ -78,7 +78,7 @@ spec:
             paths:
               - path: /
                 service:
-                  identifier: app
+                  identifier: warrior
                   port: http
         tls:
           - hosts:

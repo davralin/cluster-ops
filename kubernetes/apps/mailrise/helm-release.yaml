@@ -41,7 +41,7 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          app:
+          mailrise:
             image:
               repository: yoryan/mailrise
               tag: 1.4.0
@@ -58,7 +58,7 @@ spec:
               limits:
                 memory: 100Mi
     service:
-      app:
+      mailrise:
         controller: *name
         ports:
           http:
@@ -79,7 +79,7 @@ spec:
         name: mailrise-conf
         advancedMounts:
           mailrise:
-            app:
+            mailrise:
               - path: /etc/mailrise.conf
                 subPath: mailrise.conf
                 readOnly: true

@@ -41,7 +41,7 @@ spec:
           concurrencyPolicy: Replace
           schedule: "14 07 * * *"
         containers:
-          app:
+          daily-to-jottacloud:
             image:
               repository: ghcr.io/rclone/rclone
               tag: 1.69.1
@@ -56,7 +56,7 @@ spec:
         existingClaim: media
         advancedMounts:
           daily-to-jottacloud:
-            app:
+            daily-to-jottacloud:
               - path: /data
                 subPath: .
                 readOnly: true

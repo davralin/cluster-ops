@@ -40,7 +40,7 @@ spec:
         cronjob:
           schedule: "59 01 * * *"
         containers:
-          app:
+          daily-streamripper:
             image:
               repository: ghcr.io/davralin/streamripper
               tag: latest@sha256:02a233e42282dff595b04af1702aaf6dae286e768602f47a18701f1909e8d7ed
@@ -55,6 +55,6 @@ spec:
         existingClaim: media
         advancedMounts:
           daily-streamripper:
-            app:
+            daily-streamripper:
               - path: /media
                 subPath: audio/streams

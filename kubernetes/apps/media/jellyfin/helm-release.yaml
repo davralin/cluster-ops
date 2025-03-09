@@ -41,7 +41,7 @@ spec:
     controllers:
       jellyfin:
         containers:
-          app:
+          jellyfin:
             image:
               repository: ghcr.io/jellyfin/jellyfin
               tag: 10.10.6@sha256:2aa67ae3eff5384ade5a5675a61ca487e9e1a510312289ac80076837ebeda8c8
@@ -60,13 +60,13 @@ spec:
                 memory: 4Gi
                 gpu.intel.com/i915: 1
     service:
-      app:
+      jellyfin:
         controller: *name
         ports:
           http:
             port: 8096
     ingress:
-      app:
+      jellyfin:
         enabled: true
         annotations:
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
@@ -81,7 +81,7 @@ spec:
             paths:
               - path: /
                 service:
-                  identifier: app
+                  identifier: jellyfin
                   port: http
         tls:
           - hosts:
@@ -95,7 +95,7 @@ spec:
         existingClaim: media
         advancedMounts:
           jellyfin:
-            app:
+            jellyfin:
               - path: /data
                 subPath: .
                 readOnly: true

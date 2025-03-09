@@ -38,7 +38,7 @@ spec:
     controllers:
       metube:
         containers:
-          app:
+          metube:
             image:
               repository: ghcr.io/alexta69/metube
               tag: 2025-03-07@sha256:e69e42b6d9084a67f4f3631a5ef3672f35cd5fcce28a4c0be6030ced282f9430
@@ -80,13 +80,13 @@ spec:
               limits:
                 memory: 600Mi
     service:
-      app:
+      metube:
         controller: *name
         ports:
           http:
             port: 8081
     ingress:
-      app:
+      metube:
         enabled: true
         annotations:
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
@@ -101,7 +101,7 @@ spec:
             paths:
               - path: /
                 service:
-                  identifier: app
+                  identifier: metube
                   port: http
         tls:
           - hosts:
@@ -118,6 +118,6 @@ spec:
         existingClaim: media
         advancedMounts:
           metube:
-            app:
+            metube:
               - path: /downloads
                 subPath: video/web

@@ -24,19 +24,19 @@ spec:
     remediation:
       retries: 10
   valuesFrom:
-    - targetPath: controllers.paperless-ngx.containers.app.env.PAPERLESS_DBPASS
+    - targetPath: controllers.paperless-ngx.containers.paperless-ngx.env.PAPERLESS_DBPASS
       kind: Secret
       name: paperless-secrets
       valuesKey: postgresql-password
-    - targetPath: controllers.paperless-ngx.containers.app.env.PAPERLESS_ADMIN_USER
+    - targetPath: controllers.paperless-ngx.containers.paperless-ngx.env.PAPERLESS_ADMIN_USER
       kind: Secret
       name: paperless-secrets
       valuesKey: paperless-admin-user
-    - targetPath: controllers.paperless-ngx.containers.app.env.PAPERLESS_ADMIN_PASSWORD
+    - targetPath: controllers.paperless-ngx.containers.paperless-ngx.env.PAPERLESS_ADMIN_PASSWORD
       kind: Secret
       name: paperless-secrets
       valuesKey: paperless-admin-pw
-    - targetPath: controllers.paperless-ngx.containers.app.env.PAPERLESS_ADMIN_EMAIL
+    - targetPath: controllers.paperless-ngx.containers.paperless-ngx.env.PAPERLESS_ADMIN_EMAIL
       kind: Secret
       name: paperless-secrets
       valuesKey: paperless-admin-email
@@ -55,7 +55,7 @@ spec:
     controllers:
       paperless-ngx:
         containers:
-          app:
+          paperless-ngx:
             image:
               repository: ghcr.io/paperless-ngx/paperless-ngx
               tag: 2.14.7
@@ -120,13 +120,13 @@ spec:
               limits:
                 memory: 100Mi
     service:
-      app:
+      paperless-ngx:
         controller: *name
         ports:
           http:
             port: 8000
     ingress:
-      app:
+      paperless-ngx:
         enabled: true
         annotations:
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
@@ -141,7 +141,7 @@ spec:
             paths:
               - path: /
                 service:
-                  identifier: app
+                  identifier: paperless-ngx
                   port: http
         tls:
           - hosts:
@@ -152,7 +152,7 @@ spec:
         existingClaim: paperless-ngx
         advancedMounts:
           paperless-ngx:
-            app:
+            paperless-ngx:
               - path: /usr/src/paperless/data
                 subPath: data
               - path: /usr/src/paperless/consume
@@ -164,7 +164,7 @@ spec:
         existingClaim: paperless-ngx-export
         advancedMounts:
           paperless-ngx:
-            app:
+            paperless-ngx:
               - path: /export
                 subPath: .
                 readOnly: true

@@ -37,7 +37,7 @@ spec:
     controllers:
       mealie:
         containers:
-          app:
+          mealie:
             image:
               repository: ghcr.io/mealie-recipes/mealie
               tag: v2.7.1@sha256:708e9ffb843bafdcebf46ee35bb45d1b003518e8c204483a1da039b4076ef980
@@ -55,13 +55,13 @@ spec:
               limits:
                 memory: 800Mi
     service:
-      app:
+      mealie:
         controller: *name
         ports:
           http:
             port: 9000
     ingress:
-      app:
+      mealie:
         enabled: true
         annotations:
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
@@ -76,7 +76,7 @@ spec:
             paths:
               - path: /
                 service:
-                  identifier: app
+                  identifier: mealie
                   port: http
         tls:
           - hosts:

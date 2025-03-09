@@ -40,7 +40,7 @@ spec:
         cronjob:
           schedule: "*/4 * * * *"
         containers:
-          app:
+          cron-curl:
             image:
               repository: nextcloud
               tag: 31.0.0-apache

@@ -38,7 +38,7 @@ spec:
     controllers:
       kuma:
         containers:
-          app:
+          kuma:
             image:
               repository: louislam/uptime-kuma
               tag: 1.23.16
@@ -56,13 +56,13 @@ spec:
               limits:
                 memory: 1000Mi
     service:
-      app:
+      kuma:
         controller: *name
         ports:
           http:
             port: 3001
     ingress:
-      app:
+      kuma:
         enabled: true
         annotations:
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
@@ -77,7 +77,7 @@ spec:
             paths:
               - path: /
                 service:
-                  identifier: app
+                  identifier: kuma
                   port: http
         tls:
           - hosts:

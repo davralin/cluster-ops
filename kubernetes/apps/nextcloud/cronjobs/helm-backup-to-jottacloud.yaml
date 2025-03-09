@@ -40,7 +40,7 @@ spec:
         cronjob:
           schedule: "27 05 * * *"
         containers:
-          app:
+          backup-to-jottacloud:
             image:
               repository: ghcr.io/rclone/rclone
               tag: 1.69.1
@@ -78,7 +78,7 @@ spec:
         defaultMode: 0755
         advancedMounts:
           backup-to-jottacloud:
-            app:
+            backup-to-jottacloud:
               - path: backup.sh
                 subPath: backup.sh
                 readOnly: true

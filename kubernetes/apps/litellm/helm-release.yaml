@@ -40,7 +40,7 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          app:
+          litellm:
             image:
               repository: ghcr.io/berriai/litellm-non_root
               tag: main-v1.60.0@sha256:d2c08fb25abed9cb612ae6d693d19cf77f7e73ac4719a3fb33b6fa292fc03760
@@ -84,13 +84,13 @@ spec:
                   timeoutSeconds: 3
                   failureThreshold: 3
     service:
-      app:
+      litellm:
         controller: *name
         ports:
           http:
             port: 4000
     ingress:
-      app:
+      litellm:
         enabled: true
         annotations:
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
@@ -105,7 +105,7 @@ spec:
             paths:
               - path: /
                 service:
-                  identifier: app
+                  identifier: litellm
                   port: http
         tls:
           - hosts:

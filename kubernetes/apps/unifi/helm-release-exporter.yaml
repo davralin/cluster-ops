@@ -40,7 +40,7 @@ spec:
     controllers:
       unpoller:
         containers:
-          app:
+          unpoller:
             image:
               repository: ghcr.io/unpoller/unpoller
               tag: v2.14.1
@@ -62,13 +62,13 @@ spec:
               limits:
                 memory: 100Mi
     service:
-      app:
+      unpoller:
         controller: *name
         ports:
           http:
             port: 9130
     serviceMonitor:
-      app:
+      unpoller:
         serviceName: *name
         enabled: "${MONITORING_PROMETHEUS}"
         endpoints:

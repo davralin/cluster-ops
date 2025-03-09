@@ -43,7 +43,7 @@ spec:
         cronjob:
           schedule: "48 02 * * *"
         containers:
-          app:
+          shared-albums:
             envFrom:
               - secretRef:
                   name: immich-shared-secret

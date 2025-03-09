@@ -24,7 +24,7 @@ spec:
     remediation:
       retries: 10
   valuesFrom:
-    - targetPath: controllers.prowlarr.containers.app.env.PROWLARR__POSTGRES__PASSWORD
+    - targetPath: controllers.prowlarr.containers.prowlarr.env.PROWLARR__POSTGRES__PASSWORD
       kind: Secret
       name: prowlarr-config
       valuesKey: POSTGRES_PASSWORD
@@ -43,7 +43,7 @@ spec:
     controllers:
       prowlarr:
         containers:
-          app:
+          prowlarr:
             image:
               repository: ghcr.io/onedr0p/prowlarr
               tag: 1.31.2.4975@sha256:f1c8615cab30b98b2a71254ceafea5b99fa8000d71276df3347cb230e9e5af01
@@ -83,13 +83,13 @@ spec:
               limits:
                 memory: 400Mi
     service:
-      app:
+      prowlarr:
         controller: *name
         ports:
           http:
             port: 9696
     ingress:
-      app:
+      prowlarr:
         enabled: true
         annotations:
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
@@ -104,7 +104,7 @@ spec:
             paths:
               - path: /
                 service:
-                  identifier: app
+                  identifier: prowlarr
                   port: http
         tls:
           - hosts:

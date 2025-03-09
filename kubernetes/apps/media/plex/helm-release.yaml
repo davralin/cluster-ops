@@ -41,7 +41,7 @@ spec:
     controllers:
       plex:
         containers:
-          app:
+          plex:
             image:
               repository: ghcr.io/onedr0p/plex
               tag: 1.41.4.9463-630c9f557@sha256:7e169d17670c8f34bcb1f40500747b1b689c1c2ef7b80e604b968b5375e62022
@@ -60,7 +60,7 @@ spec:
                 memory: 3Gi
                 gpu.intel.com/i915: 1
     service:
-      app:
+      plex:
         controller: *name
         type: LoadBalancer
         #externalTrafficPolicy: Local
@@ -77,7 +77,7 @@ spec:
         existingClaim: media
         advancedMounts:
           plex:
-            app:
+            plex:
               - path: /data
                 subPath: .
                 readOnly: true

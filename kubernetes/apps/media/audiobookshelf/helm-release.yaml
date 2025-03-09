@@ -37,7 +37,7 @@ spec:
     controllers:
       audiobookshelf:
         containers:
-          app:
+          audiobookshelf:
             image:
               repository: ghcr.io/advplyr/audiobookshelf
               tag: 2.19.5
@@ -59,13 +59,13 @@ spec:
               limits:
                 memory: 500Mi
     service:
-      app:
+      audiobookshelf:
         controller: *name
         ports:
           http:
             port: 8080
     ingress:
-      app:
+      audiobookshelf:
         enabled: true
         annotations:
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
@@ -80,7 +80,7 @@ spec:
             paths:
               - path: /
                 service:
-                  identifier: app
+                  identifier: audiobookshelf
                   port: http
         tls:
           - hosts:
@@ -94,7 +94,7 @@ spec:
         existingClaim: media
         advancedMounts:
           audiobookshelf:
-            app:
+            audiobookshelf:
               - path: /audiobooks
                 subPath: audio/books
                 readOnly: true

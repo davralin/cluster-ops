@@ -37,7 +37,7 @@ spec:
     controllers:
       syncthing:
         containers:
-          app:
+          syncthing:
             image:
               repository: syncthing/syncthing
               tag: 1.29.2
@@ -56,7 +56,7 @@ spec:
               limits:
                 memory: 300Mi
     service:
-      app:
+      syncthing:
         controller: *name
         ports:
           http:
@@ -75,7 +75,7 @@ spec:
             port: 22000
             protocol: UDP
     ingress:
-      app:
+      syncthing:
         enabled: true
         annotations:
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
@@ -90,7 +90,7 @@ spec:
             paths:
               - path: /
                 service:
-                  identifier: app
+                  identifier: syncthing
                   port: http
         tls:
           - hosts:

@@ -24,7 +24,7 @@ spec:
     remediation:
       retries: 10
   valuesFrom:
-    - targetPath: controllers.readarr.containers.app.env.READARR__POSTGRES___PASSWORD
+    - targetPath: controllers.readarr.containers.readarr.env.READARR__POSTGRES___PASSWORD
       kind: Secret
       name: readarr-config
       valuesKey: POSTGRES_PASSWORD
@@ -43,7 +43,7 @@ spec:
     controllers:
       readarr:
         containers:
-          app:
+          readarr:
             image:
               repository: ghcr.io/joryirving/readarr-develop
               tag: 0.4.12.2753@sha256:2d2577d3c27d8892d8d886a3dcd58215b20402aee320da4914dfbd5db373cab4
@@ -85,13 +85,13 @@ spec:
               limits:
                 memory: 400Mi
     service:
-      app:
+      readarr:
         controller: *name
         ports:
           http:
             port: 8787
     ingress:
-      app:
+      readarr:
         enabled: true
         annotations:
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
@@ -106,7 +106,7 @@ spec:
             paths:
               - path: /
                 service:
-                  identifier: app
+                  identifier: readarr
                   port: http
         tls:
           - hosts:

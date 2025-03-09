@@ -40,7 +40,7 @@ spec:
         cronjob:
           schedule: "17 05 * * *"
         containers:
-          app:
+          daily-to-consume:
             image:
               repository: ghcr.io/rclone/rclone
               tag: 1.69.1

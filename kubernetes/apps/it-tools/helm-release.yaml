@@ -38,7 +38,7 @@ spec:
       it-tools:
         strategy: RollingUpdate
         containers:
-          app:
+          it-tools:
             image:
               repository: ghcr.io/corentinth/it-tools
               tag: latest@sha256:8b8128748339583ca951af03dfe02a9a4d7363f61a216226fc28030731a5a61f
@@ -56,13 +56,13 @@ spec:
               limits:
                 memory: 60Mi
     service:
-      app:
+      it-tools:
         controller: *name
         ports:
           http:
             port: 80
     ingress:
-      app:
+      it-tools:
         enabled: true
         annotations:
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
@@ -77,7 +77,7 @@ spec:
             paths:
               - path: /
                 service:
-                  identifier: app
+                  identifier: it-tools
                   port: http
         tls:
           - hosts:

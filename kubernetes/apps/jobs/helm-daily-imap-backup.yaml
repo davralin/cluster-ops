@@ -40,7 +40,7 @@ spec:
         cronjob:
           schedule: "14 04 * * *"
         containers:
-          app:
+          daily-imap-backup:
             image:
               repository: jakewharton/mbsync
               tag: 1.4.1
@@ -58,7 +58,7 @@ spec:
         existingClaim: remotebackup
         advancedMounts:
           daily-imap-backup:
-            app:
+            daily-imap-backup:
               - path: /mail
                 subPath: mail
       mbsync:
@@ -68,7 +68,7 @@ spec:
         defaultMode: 0600
         advancedMounts:
           daily-imap-backup:
-            app:
+            daily-imap-backup:
               - path: /config/mbsync.rc
                 subPath: mbsync.rc
                 readOnly: true

@@ -39,7 +39,7 @@ spec:
         replicas: 2
         strategy: RollingUpdate
         containers:
-          app:
+          invidious:
             envFrom:
               - secretRef:
                   name: invidious-config
@@ -61,13 +61,13 @@ spec:
               limits:
                 memory: 400Mi
     service:
-      app:
+      invidious:
         controller: *name
         ports:
           http:
             port: 3000
     ingress:
-      app:
+      invidious:
         enabled: true
         annotations:
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
@@ -82,7 +82,7 @@ spec:
             paths:
               - path: /
                 service:
-                  identifier: app
+                  identifier: invidious
                   port: http
         tls:
           - hosts:

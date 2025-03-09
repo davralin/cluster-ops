@@ -37,7 +37,7 @@ spec:
     controllers:
       thelounge:
         containers:
-          app:
+          thelounge:
             image:
               repository: thelounge/thelounge
               tag: 4.4.3
@@ -55,13 +55,13 @@ spec:
               limits:
                 memory: 400Mi
     service:
-      app:
+      thelounge:
         controller: *name
         ports:
           http:
             port: 9000
     ingress:
-      app:
+      thelounge:
         enabled: true
         annotations:
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
@@ -76,7 +76,7 @@ spec:
             paths:
               - path: /
                 service:
-                  identifier: app
+                  identifier: thelounge
                   port: http
         tls:
           - hosts:

@@ -43,7 +43,7 @@ spec:
         cronjob:
           schedule: "29 02 * * *"
         containers:
-          app:
+          user1-albums:
             envFrom:
               - secretRef:
                   name: immich-user1-secret

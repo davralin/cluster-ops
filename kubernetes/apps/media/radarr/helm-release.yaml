@@ -24,7 +24,7 @@ spec:
     remediation:
       retries: 10
   valuesFrom:
-    - targetPath: controllers.radarr.containers.app.env.RADARR__POSTGRES__PASSWORD
+    - targetPath: controllers.radarr.containers.radarr.env.RADARR__POSTGRES__PASSWORD
       kind: Secret
       name: radarr-config
       valuesKey: POSTGRES_PASSWORD
@@ -43,7 +43,7 @@ spec:
     controllers:
       radarr:
         containers:
-          app:
+          radarr:
             image:
               repository: ghcr.io/onedr0p/radarr
               tag: 5.19.3.9730@sha256:7218cd42b646bb773a2c683b95860c51103c3ca7e0b9171b4bc549b95ddc6896
@@ -70,13 +70,13 @@ spec:
               limits:
                 memory: 400Mi
     service:
-      app:
+      radarr:
         controller: *name
         ports:
           http:
             port: 7878
     ingress:
-      app:
+      radarr:
         enabled: true
         annotations:
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
@@ -91,7 +91,7 @@ spec:
             paths:
               - path: /
                 service:
-                  identifier: app
+                  identifier: radarr
                   port: http
         tls:
           - hosts:

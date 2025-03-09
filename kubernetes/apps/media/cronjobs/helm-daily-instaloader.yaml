@@ -40,7 +40,7 @@ spec:
         cronjob:
           schedule: "48 01 * * *"
         containers:
-          app:
+          daily-instaloader:
             image:
               repository: ghcr.io/davralin/instaloader
               tag: latest@sha256:1292bea9ee0ab4b365a6b886a7e2bce39ffd2cd3aeed475773dbf27a7988edc7
@@ -55,6 +55,6 @@ spec:
         existingClaim: media
         advancedMounts:
           daily-instaloader:
-            app:
+            daily-instaloader:
               - path: /media
                 subPath: images/instagram

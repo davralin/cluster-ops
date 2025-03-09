@@ -37,7 +37,7 @@ spec:
     controllers:
       technitium:
         containers:
-          app:
+          technitium:
             image:
               repository: technitium/dns-server
               tag: 13.4.3
@@ -55,7 +55,7 @@ spec:
               limits:
                 memory: 1000Mi
     service:
-      app:
+      technitium:
         controller: *name
         ports:
           http:
@@ -74,7 +74,7 @@ spec:
             port: 53
             protocol: UDP
     ingress:
-      app:
+      technitium:
         enabled: true
         annotations:
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
@@ -89,7 +89,7 @@ spec:
             paths:
               - path: /
                 service:
-                  identifier: app
+                  identifier: technitium
                   port: http
         tls:
           - hosts:

@@ -37,7 +37,7 @@ spec:
     controllers:
       tautulli:
         containers:
-          app:
+          tautulli:
             image:
               repository: ghcr.io/tautulli/tautulli
               tag: v2.15.1@sha256:7755360de25d5b60aaf67a0aa4f1f71fb4fc12a1a668bb9ced09e9f4ab5239cd
@@ -59,13 +59,13 @@ spec:
               limits:
                 memory: 300Mi
     service:
-      app:
+      tautulli:
         controller: *name
         ports:
           http:
             port: 8181
     ingress:
-      app:
+      tautulli:
         enabled: true
         annotations:
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
@@ -80,7 +80,7 @@ spec:
             paths:
               - path: /
                 service:
-                  identifier: app
+                  identifier: tautulli
                   port: http
         tls:
           - hosts:

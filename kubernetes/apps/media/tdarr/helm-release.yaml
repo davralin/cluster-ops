@@ -41,7 +41,7 @@ spec:
     controllers:
       tdarr:
         containers:
-          app:
+          tdarr:
             image:
               repository: ghcr.io/haveagitgat/tdarr
               tag: 2.35.02
@@ -62,7 +62,7 @@ spec:
               limits:
                 memory: 600Mi
     service:
-      app:
+      tdarr:
         controller: *name
         ports:
           http:
@@ -72,7 +72,7 @@ spec:
             protocol: TCP
             port: 8266
     ingress:
-      app:
+      tdarr:
         enabled: true
         annotations:
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
@@ -87,7 +87,7 @@ spec:
             paths:
               - path: /
                 service:
-                  identifier: app
+                  identifier: tdarr
                   port: http
         tls:
           - hosts:
@@ -98,7 +98,7 @@ spec:
         existingClaim: tdarr
         advancedMounts:
           tdarr:
-            app:
+            tdarr:
               - path: /app/configs
                 subPath: config
               - path: /app/server

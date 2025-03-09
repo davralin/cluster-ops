@@ -38,7 +38,7 @@ spec:
       ollama:
         type: daemonset
         containers:
-          app:
+          ollama:
             image:
               repository: ollama/ollama
               tag: 0.5.13
@@ -55,13 +55,13 @@ spec:
                 cpu: 200m
                 memory: 2Gi # To make sure there's some headroom
     service:
-      app:
+      ollama:
         controller: *name
         ports:
           http:
             port: 11434
     ingress:
-      app:
+      ollama:
         enabled: true
         annotations:
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
@@ -76,7 +76,7 @@ spec:
             paths:
               - path: /
                 service:
-                  identifier: app
+                  identifier: ollama
                   port: http
         tls:
           - hosts:

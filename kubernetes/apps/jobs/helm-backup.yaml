@@ -37,7 +37,7 @@ spec:
     controllers:
       backupbrowser:
         containers:
-          app:
+          backupbrowser:
             image:
               repository: ghcr.io/davralin/sleep
               tag: latest@sha256:9ab6daa199c22c0b037dfc6baa581537fa82cc511589e6e86d706ffd6f5b4c3e
