@@ -36,6 +36,7 @@ resources:
   - ../mailrise
   - ../mealie
   - ../media
+  - ../meshtastic
   - ../minecraft
   - ../nextcloud
   - ../node-feature-discovery

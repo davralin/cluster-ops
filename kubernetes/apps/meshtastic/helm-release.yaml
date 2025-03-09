@@ -1,0 +1,98 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &name meshtastic
+  namespace: flux-system
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.7.2
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+      interval: 30m
+  targetNamespace: meshtastic
+  install:
+    createNamespace: true
+    remediation:
+      retries: 10
+  upgrade:
+    remediation:
+      retries: 10
+  values:
+    fullnameOverride: *name
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 1001
+        runAsGroup: 1001
+        fsGroup: 1001
+        fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+    controllers:
+      meshtastic:
+        containers:
+          meshtastic:
+            image:
+              repository: ghcr.io/meshtastic/web
+              tag: latest@sha256:ef572f994c7189f67187431ea75bfb9e3ecf9601c6a693f47ed4e1accc3a77a4
+            env:
+              TZ: "${TIMEZONE}"
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 10m
+                memory: 20Mi
+              limits:
+                memory: 60Mi
+    service:
+      meshtastic:
+        controller: *name
+        ports:
+          http:
+            port: 8080
+    ingress:
+      meshtastic:
+        enabled: true
+        annotations:
+          haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
+          haproxy.org/ssl-redirect-port: "443"
+          haproxy.org/response-set-header: |
+            Strict-Transport-Security "max-age=31536000"
+            X-Frame-Options "DENY"
+            X-Content-Type-Options "nosniff"
+            Referrer-Policy "no-referrer-when-downgrade"
+        hosts:
+          - host: &host "meshtastic.${SECRET_DEFAULT_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  identifier: meshtastic
+                  port: http
+        tls:
+          - hosts:
+              - *host
+    persistence:
+      # nginx: [alert] could not open error log file: open() "/var/log/nginx/error.log" failed (30: Read-only file system)
+      log:
+        type: emptyDir
+        globalMounts:
+          - path: /var/log/nginx/
+      # 2025/03/09 12:51:56 [emerg] 1#1: mkdir() "/var/lib/nginx/tmp/client_body" failed (13: Permission denied)
+      tmp:
+        type: emptyDir
+        globalMounts:
+          - path: /var/lib/nginx/tmp/
+      # nginx: [emerg] open() "/run/nginx.pid" failed (30: Read-only file system)
+      run:
+        type: emptyDir
+        globalMounts:
+          - path: /run/
