@@ -49,6 +49,6 @@ spec:
           upgrade:
             image: ghcr.io/siderolabs/talosctl:v1.9.5
             args:
-              - --nodes=elayne
+              - --nodes=$(SYSTEM_UPGRADE_NODE_NAME)
               - upgrade-k8s
-              - --to=1.32.3
+              - --to=$(SYSTEM_UPGRADE_PLAN_LATEST_VERSION)
