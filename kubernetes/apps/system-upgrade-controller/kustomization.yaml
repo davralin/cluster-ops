@@ -5,4 +5,5 @@ resources:
   - helm-release.yaml
   - namespace.yaml
   - plan_k8s_upgrade.yaml
+  - plan_talos_upgrade.yaml
   - rbac.yaml
