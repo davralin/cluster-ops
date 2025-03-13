@@ -47,6 +47,7 @@ resources:
   - ../reloader
   - ../searxng
   - ../syncthing
+  - ../system-upgrade-controller
   - ../technitium
   - ../thelounge
   - ../unifi
