@@ -69,7 +69,7 @@ services:
 
   immich-folder-album-creator:
       container_name: immich_folder_album_creator
-      image: ghcr.io/salvoxia/immich-folder-album-creator:0.18.4
+      image: ghcr.io/salvoxia/immich-folder-album-creator:0.18.5
       restart: unless-stopped
       environment:
         API_URL: http://immich_server:3001/api
