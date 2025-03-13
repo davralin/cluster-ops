@@ -33,6 +33,7 @@ spec:
         metadata:
           name: kubernetes
         spec:
+          # renovate: depName=ghcr.io/siderolabs/kubelet datasource=docker
           version: v1.32.3
           concurrency: 1
           postCompleteDelay: 30s
@@ -47,7 +48,7 @@ spec:
               ignoreUpdates: true
           serviceAccountName: system-upgrade-controller
           upgrade:
-            image: ghcr.io/siderolabs/talosctl:v1.9.5
+            image: ghcr.io/siderolabs/talosctl:v1.9.4
             args:
               - --nodes=$(SYSTEM_UPGRADE_NODE_NAME)
               - upgrade-k8s
