@@ -50,5 +50,6 @@ spec:
             image: ghcr.io/siderolabs/talosctl:v1.9.5
             args:
               - --nodes=$(SYSTEM_UPGRADE_NODE_NAME)
+              - --endpoints=$(SYSTEM_UPGRADE_NODE_NAME)
               - upgrade-k8s
               - --to=$(SYSTEM_UPGRADE_PLAN_LATEST_VERSION)
