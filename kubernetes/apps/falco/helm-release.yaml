@@ -138,6 +138,7 @@ spec:
             and not (k8s.ns.name = "reflector" and container.name = "reflector")
             and not (k8s.ns.name = "reloader" and container.image.repository = "ghcr.io/stakater/reloader")
             and not (k8s.ns.name = "rook-ceph" and container.image.repository = "docker.io/rook/ceph")
+            and not (k8s.ns.name = "system-upgrade-controller" and container.image.repository = "docker.io/rancher/system-upgrade-controller")
             and not (k8s.ns.name = "velero" and container.image.repository = "docker.io/velero/velero")
           output: Unexpected connection to K8s API Server from container (connection=%fd.name lport=%fd.lport rport=%fd.rport fd_type=%fd.type fd_proto=%fd.l4proto evt_type=%evt.type user=%user.name user_uid=%user.uid user_loginuid=%user.loginuid process=%proc.name proc_exepath=%proc.exepath parent=%proc.pname command=%proc.cmdline terminal=%proc.tty %container.info)
           priority: NOTICE
