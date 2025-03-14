@@ -67,8 +67,9 @@ spec:
         discord:
           webhookurl: "${SECRET_DISCORD_FALCO_URL}"
         loki:
+          hostport: http://loki.loki.svc.cluster.local:3100
           grafanaDashboard:
-            enabled: false
+            enabled: "${MONITORING_PROMETHEUS}"
       webui:
         enabled: true
         ingress:
