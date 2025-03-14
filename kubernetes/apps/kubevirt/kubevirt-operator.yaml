@@ -602,6 +602,13 @@ spec:
                           If set to true, migrations will still start in pre-copy, but switch to post-copy when
                           CompletionTimeoutPerGiB triggers. Defaults to false
                         type: boolean
+                      allowWorkloadDisruption:
+                        description: |-
+                          AllowWorkloadDisruption indicates that the migration shouldn't be
+                          canceled after acceptableCompletionTime is exceeded. Instead, if
+                          permitted, migration will be switched to post-copy or the VMI will be
+                          paused to allow the migration to complete
+                        type: boolean
                       bandwidthPerMigration:
                         anyOf:
                         - type: integer
@@ -614,8 +621,8 @@ spec:
                       completionTimeoutPerGiB:
                         description: |-
                           CompletionTimeoutPerGiB is the maximum number of seconds per GiB a migration is allowed to take.
-                          If a live-migration takes longer to migrate than this value multiplied by the size of the VMI,
-                          the migration will be cancelled, unless AllowPostCopy is true. Defaults to 150
+                          If the timeout is reached, the migration will be either paused, switched
+                          to post-copy or cancelled depending on other settings. Defaults to 150
                         format: int64
                         type: integer
                       disableTLS:
@@ -973,17 +980,17 @@ spec:
                         type: object
                     type: object
                   vmRolloutStrategy:
-                    description: VMRolloutStrategy defines how changes to a VM object
-                      propagate to its VMI
+                    description: |-
+                      VMRolloutStrategy defines how live-updatable fields, like CPU sockets, memory,
+                      tolerations, and affinity, are propagated from a VM to its VMI.
                     enum:
                     - Stage
                     - LiveUpdate
                     nullable: true
                     type: string
                   vmStateStorageClass:
-                    description: |-
-                      VMStateStorageClass is the name of the storage class to use for the PVCs created to preserve VM state, like TPM.
-                      The storage class must support RWX in filesystem mode.
+                    description: VMStateStorageClass is the name of the storage class
+                      to use for the PVCs created to preserve VM state, like TPM.
                     type: string
                   webhookConfiguration:
                     description: |-
@@ -3859,6 +3866,13 @@ spec:
                           If set to true, migrations will still start in pre-copy, but switch to post-copy when
                           CompletionTimeoutPerGiB triggers. Defaults to false
                         type: boolean
+                      allowWorkloadDisruption:
+                        description: |-
+                          AllowWorkloadDisruption indicates that the migration shouldn't be
+                          canceled after acceptableCompletionTime is exceeded. Instead, if
+                          permitted, migration will be switched to post-copy or the VMI will be
+                          paused to allow the migration to complete
+                        type: boolean
                       bandwidthPerMigration:
                         anyOf:
                         - type: integer
@@ -3871,8 +3885,8 @@ spec:
                       completionTimeoutPerGiB:
                         description: |-
                           CompletionTimeoutPerGiB is the maximum number of seconds per GiB a migration is allowed to take.
-                          If a live-migration takes longer to migrate than this value multiplied by the size of the VMI,
-                          the migration will be cancelled, unless AllowPostCopy is true. Defaults to 150
+                          If the timeout is reached, the migration will be either paused, switched
+                          to post-copy or cancelled depending on other settings. Defaults to 150
                         format: int64
                         type: integer
                       disableTLS:
@@ -4230,17 +4244,17 @@ spec:
                         type: object
                     type: object
                   vmRolloutStrategy:
-                    description: VMRolloutStrategy defines how changes to a VM object
-                      propagate to its VMI
+                    description: |-
+                      VMRolloutStrategy defines how live-updatable fields, like CPU sockets, memory,
+                      tolerations, and affinity, are propagated from a VM to its VMI.
                     enum:
                     - Stage
                     - LiveUpdate
                     nullable: true
                     type: string
                   vmStateStorageClass:
-                    description: |-
-                      VMStateStorageClass is the name of the storage class to use for the PVCs created to preserve VM state, like TPM.
-                      The storage class must support RWX in filesystem mode.
+                    description: VMStateStorageClass is the name of the storage class
+                      to use for the PVCs created to preserve VM state, like TPM.
                     type: string
                   webhookConfiguration:
                     description: |-
@@ -7149,6 +7163,7 @@ rules:
   resources:
   - virtualmachinesnapshots
   - virtualmachinesnapshots/status
+  - virtualmachinesnapshots/finalizers
   - virtualmachinesnapshotcontents
   - virtualmachinesnapshotcontents/status
   - virtualmachinesnapshotcontents/finalizers
@@ -7201,15 +7216,18 @@ rules:
   - kubevirt.io
   resources:
   - virtualmachines/finalizers
+  - virtualmachineinstances/finalizers
   verbs:
   - update
 - apiGroups:
   - subresources.kubevirt.io
   resources:
+  - virtualmachines/stop
   - virtualmachineinstances/addvolume
   - virtualmachineinstances/removevolume
   - virtualmachineinstances/freeze
   - virtualmachineinstances/unfreeze
+  - virtualmachineinstances/reset
   - virtualmachineinstances/softreboot
   - virtualmachineinstances/sev/setupsession
   - virtualmachineinstances/sev/injectlaunchsecret
@@ -7313,6 +7331,14 @@ rules:
   verbs:
   - list
   - watch
+- apiGroups:
+  - batch
+  resources:
+  - jobs
+  verbs:
+  - create
+  - get
+  - delete
 - apiGroups:
   - kubevirt.io
   resources:
@@ -7424,6 +7450,7 @@ rules:
   - virtualmachineinstances/freeze
   - virtualmachineinstances/unfreeze
   - virtualmachineinstances/softreboot
+  - virtualmachineinstances/reset
   - virtualmachineinstances/sev/setupsession
   - virtualmachineinstances/sev/injectlaunchsecret
   verbs:
@@ -7443,7 +7470,6 @@ rules:
   - virtualmachines/restart
   - virtualmachines/addvolume
   - virtualmachines/removevolume
-  - virtualmachines/migrate
   - virtualmachines/memorydump
   verbs:
   - update
@@ -7460,7 +7486,6 @@ rules:
   - virtualmachineinstances
   - virtualmachineinstancepresets
   - virtualmachineinstancereplicasets
-  - virtualmachineinstancemigrations
   verbs:
   - get
   - delete
@@ -7470,6 +7495,14 @@ rules:
   - list
   - watch
   - deletecollection
+- apiGroups:
+  - kubevirt.io
+  resources:
+  - virtualmachineinstancemigrations
+  verbs:
+  - get
+  - list
+  - watch
 - apiGroups:
   - snapshot.kubevirt.io
   resources:
@@ -7573,6 +7606,7 @@ rules:
   - virtualmachineinstances/freeze
   - virtualmachineinstances/unfreeze
   - virtualmachineinstances/softreboot
+  - virtualmachineinstances/reset
   - virtualmachineinstances/sev/setupsession
   - virtualmachineinstances/sev/injectlaunchsecret
   verbs:
@@ -7592,7 +7626,6 @@ rules:
   - virtualmachines/restart
   - virtualmachines/addvolume
   - virtualmachines/removevolume
-  - virtualmachines/migrate
   - virtualmachines/memorydump
   verbs:
   - update
@@ -7609,13 +7642,20 @@ rules:
   - virtualmachineinstances
   - virtualmachineinstancepresets
   - virtualmachineinstancereplicasets
-  - virtualmachineinstancemigrations
   verbs:
   - get
   - delete
   - create
   - update
   - patch
+  - list
+  - watch
+- apiGroups:
+  - kubevirt.io
+  resources:
+  - virtualmachineinstancemigrations
+  verbs:
+  - get
   - list
   - watch
 - apiGroups:
@@ -7797,6 +7837,25 @@ rules:
   - list
   - watch
 - apiGroups:
+  - subresources.kubevirt.io
+  resources:
+  - virtualmachines/migrate
+  verbs:
+  - update
+- apiGroups:
+  - kubevirt.io
+  resources:
+  - virtualmachineinstancemigrations
+  verbs:
+  - get
+  - delete
+  - create
+  - update
+  - patch
+  - list
+  - watch
+  - deletecollection
+- apiGroups:
   - authentication.k8s.io
   resources:
   - tokenreviews
@@ -7841,6 +7900,8 @@ spec:
     type: RollingUpdate
   template:
     metadata:
+      annotations:
+        openshift.io/required-scc: restricted-v2
       labels:
         kubevirt.io: virt-operator
         name: virt-operator
@@ -7869,14 +7930,14 @@ spec:
         - virt-operator
         env:
         - name: VIRT_OPERATOR_IMAGE
-          value: quay.io/kubevirt/virt-operator:v1.4.0
+          value: quay.io/kubevirt/virt-operator:v1.5.0
         - name: WATCH_NAMESPACE
           valueFrom:
             fieldRef:
               fieldPath: metadata.annotations['olm.targetNamespaces']
         - name: KUBEVIRT_VERSION
-          value: v1.4.0
-        image: quay.io/kubevirt/virt-operator:v1.4.0
+          value: v1.5.0
+        image: quay.io/kubevirt/virt-operator:v1.5.0
         imagePullPolicy: IfNotPresent
         name: virt-operator
         ports:
