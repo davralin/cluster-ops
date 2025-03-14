@@ -50,6 +50,7 @@ resources:
   - ../system-upgrade-controller
   - ../technitium
   - ../thelounge
+  - ../trivy
   - ../unifi
   - ../velero
   - ../volsync

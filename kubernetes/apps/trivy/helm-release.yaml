@@ -1,0 +1,35 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &name trivy-operator
+  namespace: flux-system
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: trivy-operator
+      version: 0.27.0
+      sourceRef:
+        kind: HelmRepository
+        name: aquasecurity-charts
+        namespace: flux-system
+      interval: 30m
+  targetNamespace: trivy
+  maxHistory: 3
+  install:
+    createNamespace: true
+    remediation:
+      retries: 10
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 10
+  uninstall:
+    keepHistory: false
+  values:
+    fullnameOverride: *name
+    serviceMonitor:
+      enabled: "${MONITORING_PROMETHEUS}"
+    trivy:
+      storageClassEnabled: false
