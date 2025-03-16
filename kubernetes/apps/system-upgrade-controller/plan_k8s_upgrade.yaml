@@ -35,6 +35,10 @@ spec:
         spec:
           # renovate: depName=ghcr.io/siderolabs/kubelet datasource=docker
           version: v1.32.3
+          window:
+            startTime: "06:00"
+            endTime: "06:59"
+            timeZone: "${TIMEZONE}"
           concurrency: 1
           postCompleteDelay: 30s
           exclusive: true
