@@ -1,0 +1,99 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &name minecraft-bedrock-oneblock
+  namespace: flux-system
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: minecraft
+      version: 4.25.0
+      sourceRef:
+        kind: HelmRepository
+        name: itzg-charts
+        namespace: flux-system
+      interval: 30m
+  targetNamespace: minecraft
+  install:
+    createNamespace: true
+    remediation:
+      retries: 10
+  upgrade:
+    remediation:
+      retries: 10
+  valuesFrom:
+    - targetPath: minecraftServer.whitelist
+      kind: Secret
+      name: minecraft-secrets
+      valuesKey: whitelist
+    - targetPath: minecraftServer.ops
+      kind: Secret
+      name: minecraft-secrets
+      valuesKey: ops
+    - targetPath: mcbackup.resticEnvs.RESTIC_PASSWORD
+      kind: Secret
+      name: minecraft-secrets
+      valuesKey: restic_password
+  values:
+    fullnameOverride: *name
+    extraVolumes:
+      - volumeMounts:
+          - name: plugins
+            mountPath: /plugins
+            subPath: plugins
+            readOnly: false
+      - volumes:
+         - name: plugins
+           persistentVolumeClaim:
+             claimName: mods
+    minecraftServer:
+      extraPorts:
+        - name: geysermc
+          containerPort: 25565
+          protocol: UDP
+          service:
+            enabled: true
+            embedded: true
+            port: 25565
+      tz: "${TIMEZONE}"
+      eula: true
+      type: PAPER
+      version: "1.21.4"
+      difficulty: "easy"
+      maxPlayers: 4
+      levelSeed: 421112feedmekittens
+      maxTickTime: -1
+      mode: survival
+      memory: 6G
+      motd: "A bedrock-oneblock Minecraft Server"
+      overrideServerProperties: true
+      rcon:
+        enabled: true
+      removeOldMods: false
+      serviceType: LoadBalancer
+      #externalTrafficPolicy: Local
+    resources:
+      requests:
+        memory: 6G
+    extraEnv:
+      ENABLE_AUTOPAUSE: "FALSE"
+      ENFORCE_WHITELIST: "FALSE"
+    podAnnotations:
+      reloader.stakater.com/auto: "true"
+    persistence:
+      dataDir:
+        enabled: true
+        existingClaim: bedrock-oneblock
+    mcbackup:
+      enabled: true
+      pauseIfNoPlayers: true
+      backupMethod: restic
+      excludes: "*.jar,cache,logs,lost+found"
+      resticRepository: /backups
+      pruneBackupsDays: 3
+      persistence:
+        backupDir:
+          enabled: true
+          existingClaim: bedrock-oneblock-backup
