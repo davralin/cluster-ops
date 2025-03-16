@@ -95,6 +95,9 @@ spec:
         replicaCount: 1
         redis:
           storageEnabled: false
+    resources:
+      limits:
+        memory: 2Gi
     tty: true
     customRules:
       custom-rules.yaml: |-
