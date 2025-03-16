@@ -37,6 +37,7 @@ spec:
       name: minecraft-secrets
       valuesKey: restic_password
   values:
+    fullnameOverride: *name
     extraVolumes:
       - volumeMounts:
           - name: plugins

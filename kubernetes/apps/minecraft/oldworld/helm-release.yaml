@@ -33,6 +33,7 @@ spec:
       name: minecraft-secrets
       valuesKey: ops
   values:
+    fullnameOverride: *name
     extraVolumes:
       - volumeMounts:
           - name: mods
