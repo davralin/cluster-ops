@@ -46,7 +46,7 @@ spec:
           prowlarr:
             image:
               repository: ghcr.io/onedr0p/prowlarr
-              tag: 1.31.2.4975@sha256:f1c8615cab30b98b2a71254ceafea5b99fa8000d71276df3347cb230e9e5af01
+              tag: 1.32.2.4987@sha256:fa01195217ab1a7aac3aa516fcc50ff886ea26c177b2546ebe364e7b2cf1a282
             env:
               TZ: "${TIMEZONE}"
               PROWLARR__AUTH__APIKEY: "${SECRET_PROWLARR_API_KEY}"
