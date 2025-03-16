@@ -59,6 +59,7 @@ spec:
       mode: survival
       memory: 3G
       motd: "A Survival Minecraft Server"
+      onlineMode: true
       overrideServerProperties: true
       rcon:
         enabled: true

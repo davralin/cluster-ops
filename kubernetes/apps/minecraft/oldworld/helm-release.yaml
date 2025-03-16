@@ -61,6 +61,7 @@ spec:
       mode: creative
       memory: 2G
       motd: "A retro Minecraft server"
+      onlineMode: true
       overrideServerProperties: true
       downloadWorldUrl: "/oldworlds/18world"
       rcon:

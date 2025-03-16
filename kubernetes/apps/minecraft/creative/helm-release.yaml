@@ -59,6 +59,7 @@ spec:
       mode: creative
       memory: 3G
       motd: "A Creative Minecraft Server"
+      onlineMode: true
       overrideServerProperties: true
       rcon:
         enabled: true
