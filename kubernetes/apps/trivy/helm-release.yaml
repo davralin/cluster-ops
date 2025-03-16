@@ -30,9 +30,19 @@ spec:
   values:
     fullnameOverride: *name
     nodeCollector:
-      useNodeSelector: false
-    operator:
-      scanNodeCollectorLimit: 0
+      volumeMounts:
+        - name: var-lib-etcd
+          mountPath: /var/lib/etcd
+          readOnly: true
+        - name: var-lib-kubelet
+          mountPath: /var/lib/kubelet
+          readOnly: true
+        - name: var-lib-kube-scheduler
+          mountPath: /var/lib/kube-scheduler
+          readOnly: true
+        - name: var-lib-kube-controller-manager
+          mountPath: /var/lib/kube-controller-manager
+          readOnly: true
     serviceMonitor:
       enabled: "${MONITORING_PROMETHEUS}"
     trivy:
