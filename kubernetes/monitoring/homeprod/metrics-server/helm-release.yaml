@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: metrics-server
+  name: &name metrics-server
   namespace: flux-system
 spec:
   interval: 30m
@@ -24,7 +24,7 @@ spec:
     remediation:
       retries: 10
   values:
-    fullnameOverride: metrics-server
+    fullnameOverride: *name
     args:
       - --kubelet-insecure-tls
     metrics:
