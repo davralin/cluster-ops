@@ -40,7 +40,7 @@ spec:
       mon_data_avail_warn = 10
     cephClusterSpec:
       dashboard:
-        enabled: true
+        enabled: false
       healthCheck:
         livenessProbe:
           mon:
@@ -110,20 +110,6 @@ spec:
                 config:
                   osdsPerDevice: "2"
               - name: /dev/disk/by-id/ata-Samsung_SSD_870_QVO_4TB_S5STNF0T205013V
-    ingress:
-      dashboard:
-        annotations:
-          haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
-          haproxy.org/response-set-header: |
-            Strict-Transport-Security "max-age=31536000"
-            X-Frame-Options "DENY"
-            X-Content-Type-Options "nosniff"
-            Referrer-Policy "no-referrer-when-downgrade"
-        host:
-          name: &host "ceph.${SECRET_DEFAULT_DOMAIN}"
-        tls:
-        - hosts:
-            - *host
     cephBlockPools:
       - name: ceph-blockpool
         spec:
