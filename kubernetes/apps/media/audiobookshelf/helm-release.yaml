@@ -40,7 +40,7 @@ spec:
           audiobookshelf:
             image:
               repository: ghcr.io/advplyr/audiobookshelf
-              tag: 2.19.5
+              tag: 2.20.0
             env:
               TZ: "${TIMEZONE}"
               AUDIOBOOKSHELF_UID: 1000
