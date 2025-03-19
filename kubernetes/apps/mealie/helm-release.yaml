@@ -46,8 +46,7 @@ spec:
               BASE_URL: "https://mealie.${SECRET_DEFAULT_DOMAIN}"
             securityContext:
               allowPrivilegeEscalation: false
-              # OSError: [Errno 30] Read-only file system: '/nonexistent'
-              readOnlyRootFilesystem: false
+              readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
             resources:
               requests:
@@ -88,3 +87,8 @@ spec:
         existingClaim: mealie
         globalMounts:
           - path: /app/data
+      ntlk-data:
+        enabled: true
+        type: emptyDir
+        globalMounts:
+          - path: /nltk_data
