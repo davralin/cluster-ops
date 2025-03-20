@@ -46,7 +46,7 @@ spec:
           nextcloud:
             image:
               repository: nextcloud
-              tag: 31.0.1-apache
+              tag: 31.0.2-apache
             probes:
               startup:
                 spec:
@@ -80,7 +80,7 @@ spec:
           1-disable-maintenance-mode:
             image:
               repository: nextcloud
-              tag: 31.0.1-apache
+              tag: 31.0.2-apache
             command: ["/usr/bin/su"]
             args: ["www-data", "-s", "/bin/bash", "-c", "/var/www/html/occ maintenance:mode --off"]
             env:
@@ -104,7 +104,7 @@ spec:
           2-occ-upgrade:
             image:
               repository: nextcloud
-              tag: 31.0.1-apache
+              tag: 31.0.2-apache
             command: ["/usr/bin/su"]
             args: ["www-data", "-s", "/bin/bash", "-c", "/var/www/html/occ upgrade"]
             env:
@@ -128,7 +128,7 @@ spec:
           3-occ-app-upgrade:
             image:
               repository: nextcloud
-              tag: 31.0.1-apache
+              tag: 31.0.2-apache
             command: ["/usr/bin/su"]
             args: ["www-data", "-s", "/bin/bash", "-c", "/var/www/html/occ app:update --all"]
             env:
