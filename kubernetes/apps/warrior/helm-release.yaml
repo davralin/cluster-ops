@@ -55,7 +55,7 @@ spec:
                 cpu: 100m
                 memory: 1Gi
               limits:
-                memory: 2Gi
+                memory: 5Gi
     service:
       warrior:
         controller: *name
