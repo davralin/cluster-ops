@@ -1,0 +1,83 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &name vllm
+  namespace: flux-system
+spec:
+  interval: 30m
+  timeout: 180m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.7.3
+      interval: 30m
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+  targetNamespace: vllm
+  install:
+    createNamespace: true
+    remediation:
+      retries: 10
+  upgrade:
+    remediation:
+      retries: 10
+  values:
+    fullnameOverride: *name
+    defaultPodOptions:
+      securityContext:
+        fsGroup: 2000
+    controllers:
+      vllm:
+        containers:
+          vllm:
+            image:
+              repository: vllm/vllm-openai
+              tag: "v0.8.1"
+            env:
+              - name: "HF_HOME"
+                value: /data
+              - name: "VLLM_ALLOW_LONG_MAX_MODEL_LEN"
+                value: 1
+            args:
+              [
+                "--model=/data/snowflake-arctic-embed-l-v2.0",
+                "--served-model-name=snowflake-arctic-embed-l-v2.0",
+                "--trust-remote-code",
+                "--host=0.0.0.0",
+                "--port=8000",
+                "--api-key=token-abc123",
+                "--max-model-len=1024"
+              ]
+            resources:
+              requests:
+                cpu: 2
+                memory: 1Gi
+              limits:
+                memory: 2Gi
+            securityContext:
+              runAsNonRoot: false
+              seccompProfile:
+               type: RuntimeDefault
+              allowPrivilegeEscalation: true
+              capabilities:
+                drop:
+                  - ALL
+    service:
+      vllm:
+        controller: *name
+        ports:
+          http:
+            port: 8000
+    persistence:
+      vllm:
+        enabled: true
+        type: persistentVolumeClaim
+        storageClass: ceph-filesystem
+        accessMode: ReadWriteMany
+        size: 30Gi
+        retain: true
+        globalMounts:
+          - path: /data

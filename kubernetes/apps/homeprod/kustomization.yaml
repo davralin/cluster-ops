@@ -53,6 +53,7 @@ resources:
   - ../trivy
   - ../unifi
   - ../velero
+  - ../vllm
   - ../volsync
   - ../wallos
   - ../warrior
