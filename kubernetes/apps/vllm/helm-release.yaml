@@ -68,6 +68,10 @@ spec:
           http:
             port: 8000
     persistence:
+      tmp:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp
       vllm:
         enabled: true
         type: persistentVolumeClaim
