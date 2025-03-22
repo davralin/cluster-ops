@@ -49,7 +49,8 @@ spec:
             args:
               [
                 "--model=/data/snowflake-arctic-embed-l-v2.0",
-                "--served-model-name=snowflake-arctic-embed-l-v2.0"
+                "--served-model-name=snowflake-arctic-embed-l-v2.0",
+                "--device cpu"
               ]
             resources:
               requests:
