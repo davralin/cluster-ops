@@ -42,6 +42,7 @@ spec:
             image:
               repository: michaelf34/infinity
               tag: "0.0.76-cpu"
+            args: ["v2"]
             env:
               INFINITY_ANONYMOUS_USAGE_STATS: 0
               INFINITY_DEVICE: cpu
