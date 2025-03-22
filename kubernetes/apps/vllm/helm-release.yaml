@@ -43,19 +43,13 @@ spec:
               repository: vllm/vllm-openai
               tag: "v0.8.1"
             env:
-              - name: "HF_HOME"
-                value: /data
-              - name: "VLLM_ALLOW_LONG_MAX_MODEL_LEN"
-                value: 1
+              HF_HOME: /data
+              VLLM_ALLOW_LONG_MAX_MODEL_LEN: 1
+              VLLM_LOGGING_LEVEL: DEBUG
             args:
               [
                 "--model=/data/snowflake-arctic-embed-l-v2.0",
-                "--served-model-name=snowflake-arctic-embed-l-v2.0",
-                "--trust-remote-code",
-                "--host=0.0.0.0",
-                "--port=8000",
-                "--api-key=token-abc123",
-                "--max-model-len=1024"
+                "--served-model-name=snowflake-arctic-embed-l-v2.0"
               ]
             resources:
               requests:
