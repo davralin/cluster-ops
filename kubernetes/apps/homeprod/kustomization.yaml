@@ -20,6 +20,7 @@ resources:
   - ../gitea
   - ../glance
   - ../homeassistant
+  - ../infinity
   - ../intel-device-plugin
   - ../invidious
   - ../it-tools
@@ -53,7 +54,6 @@ resources:
   - ../trivy
   - ../unifi
   - ../velero
-  - ../vllm
   - ../volsync
   - ../wallos
   - ../warrior
