@@ -28,7 +28,7 @@ spec:
     controllers:
       filebrowser:
         containers:
-          app:
+          filebrowser:
             image:
               repository: ghcr.io/davralin/sleep
               tag: latest@sha256:55ba7c4ae6cc7627d300131cb95b873e6589c0e7f85675ec80288f3e845650fe

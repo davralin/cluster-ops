@@ -63,7 +63,7 @@ spec:
         defaultMode: 0600
         advancedMounts:
           daily-sitebackup-from:
-            app:
+            daily-sitebackup-from:
               - path: /home/user/.ssh/id_ed25519
                 subPath: id_ed25519
                 readOnly: true

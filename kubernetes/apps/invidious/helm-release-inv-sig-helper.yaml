@@ -38,7 +38,7 @@ spec:
       inv-sig-helper:
         replicas: 1
         containers:
-          app:
+          inv-sig-helper:
             image:
               repository: quay.io/invidious/inv-sig-helper
               tag: latest@sha256:cd40f9bc62a809e6449b194c99c0cc908115585f014927e8e71ff803780ee0a4
@@ -58,7 +58,7 @@ spec:
               limits:
                 memory: 100Mi
     service:
-      app:
+      inv-sig-helper:
         controller: *name
         ports:
           http:

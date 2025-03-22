@@ -68,7 +68,7 @@ spec:
         defaultMode: 0600
         advancedMounts:
           onsite-sync:
-            app:
+            jobs-onsite-sync:
               - path: /home/user/.ssh/id_ed25519
                 subPath: id_ed25519
                 readOnly: true
