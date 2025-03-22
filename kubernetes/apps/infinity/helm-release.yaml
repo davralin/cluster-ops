@@ -65,6 +65,10 @@ spec:
           http:
             port: 7997
     persistence:
+      tmp:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp
       infinity:
         enabled: true
         type: persistentVolumeClaim
