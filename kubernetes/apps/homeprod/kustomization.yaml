@@ -46,6 +46,7 @@ resources:
   - ../openwebui
   - ../paperless-ngx
   - ../reloader
+  - ../romm
   - ../searxng
   - ../syncthing
   - ../system-upgrade-controller
