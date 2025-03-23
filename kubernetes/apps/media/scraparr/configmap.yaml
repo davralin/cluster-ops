@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: scraparr-configmap
+  namespace: media
+data:
+  config.yaml: |-
+    sonarr:
+      url: http://sonarr.media.svc.cluster.local:8989
+      api_key: "${SECRET_SONARR_API_KEY}"
+      # alias: sonarr # Optional to Differentiate between multiple Services
+      # api_version: v3 # Optional to use a different API Version
+      # interval: 30 # Optional to set a different Interval in Seconds
+      # detailed: true  # Get Data per Series
+
+    radarr:
+      url: http://radarr.media.svc.cluster.local:7878
+      api_key: "${SECRET_RADARR_API_KEY}"
+      # alias: radarr # Optional to Differentiate between multiple Services
+      # api_version: v3 # Optional to use a different API Version
+      # interval: 30 # Optional to set a different Interval in Seconds
+      # detailed: true  # Get Data per Movie
+
+    prowlarr:
+      url: http://prowlarr.media.svc.cluster.local:9696
+      api_key: "${SECRET_PROWLARR_API_KEY}"
+      # alias: prowlarr # Optional to Differentiate between multiple Services
+      # api_version: v1 # Optional to use a different API Version
+      # interval: 30 # Optional to set a different Interval in Seconds
+      # detailed: true  # Get Data per Application/Indexer
+
+    readarr:
+      url: http://readarr.media.svc.cluster.local:8787
+      api_key: "${SECRET_READARR_API_KEY}"
+      # alias: prowlarr # Optional to Differentiate between multiple Services
+      # api_version: v1 # Optional to use a different API Version
+      # interval: 30 # Optional to set a different Interval in Seconds
+      # detailed: true  # Get Data per Book
