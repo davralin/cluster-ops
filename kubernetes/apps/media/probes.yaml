@@ -42,7 +42,6 @@ spec:
           targets:
             staticConfig:
               static:
-                - "https://audiobookshelf.${SECRET_DEFAULT_DOMAIN}"
                 - "https://bazarr.${SECRET_DEFAULT_DOMAIN}"
                 - "https://jellyfin.${SECRET_DEFAULT_DOMAIN}"
                 - "https://jellystat.${SECRET_DEFAULT_DOMAIN}"
