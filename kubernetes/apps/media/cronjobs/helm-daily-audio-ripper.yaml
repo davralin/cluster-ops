@@ -43,7 +43,7 @@ spec:
           daily-audio-ripper:
             image:
               repository: ghcr.io/davralin/youtube-dl
-              tag: latest@sha256:7175075e59e0384b6ae6ce7e3daf1c60e523dc73205d257afc02418ebf60cfde
+              tag: latest@sha256:e38d8cd6e3cee99bef71bdfb0503b31cec8e57894e8403ac49ca93acd7425f71
             command: ['/media/audioripper.sh']
             securityContext:
               allowPrivilegeEscalation: false
