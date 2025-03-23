@@ -19,10 +19,10 @@ spec:
   install:
     createNamespace: true
     remediation:
-      retries: 5
+      retries: 10
   upgrade:
     remediation:
-      retries: 5
+      retries: 10
   values:
     fullnameOverride: *name
     defaultPodOptions:

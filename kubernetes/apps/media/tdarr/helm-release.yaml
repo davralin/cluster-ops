@@ -22,7 +22,7 @@ spec:
       retries: 10
   upgrade:
     remediation:
-      retries: -1
+      retries: 10
   values:
     fullnameOverride: *name
     defaultPodOptions:

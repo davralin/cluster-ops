@@ -19,10 +19,10 @@ spec:
   install:
     createNamespace: true
     remediation:
-      retries: 5
+      retries: 10
   upgrade:
     remediation:
-      retries: 5
+      retries: 10
   # The Cilium-variant I am installing requires this, but I pre-deploy cilium on initial bootstrap
   # so a different cilium-variant is already installed.
   #dependsOn:

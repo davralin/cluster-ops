@@ -19,13 +19,13 @@ spec:
   install:
     createNamespace: true
     remediation:
-      retries: 5
+      retries: 10
   dependsOn:
     - name: kubevirt
       namespace: flux-system
   upgrade:
     remediation:
-      retries: 5
+      retries: 10
   values:
     resources:
       - apiVersion: cdi.kubevirt.io/v1beta1
