@@ -23,6 +23,7 @@ spec:
   upgrade:
     remediation:
       retries: 10
+      # I need to adjust these values after tampering
   valuesFrom:
     - targetPath: authentik.postgresql.password
       kind: Secret
