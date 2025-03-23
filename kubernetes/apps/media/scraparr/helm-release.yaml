@@ -36,6 +36,8 @@ spec:
           type: RuntimeDefault
     controllers:
       scraparr:
+        annotations:
+          reloader.stakater.com/auto: "true"
         containers:
           scraparr:
             image:
