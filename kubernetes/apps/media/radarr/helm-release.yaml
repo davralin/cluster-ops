@@ -63,6 +63,19 @@ spec:
               # System.IO.IOException: Read-only file system
               readOnlyRootFilesystem: false
               capabilities: { drop: ["ALL"] }
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /ping
+                    port: 7878
+                  initialDelaySeconds: 50
+                  periodSeconds: 10
+                  timeoutSeconds: 10
+                  failureThreshold: 3
+              readiness: *probes
             resources:
               requests:
                 cpu: 10m
