@@ -15,7 +15,7 @@ spec:
         name: dysnix-charts
         namespace: flux-system
       interval: 30m
-  targetNamespace: &namespace jellyseerr
+  targetNamespace: &namespace media
   install:
     createNamespace: true
     remediation:

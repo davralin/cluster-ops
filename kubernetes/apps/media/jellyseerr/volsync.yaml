@@ -1,0 +1,70 @@
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: jellyseerr-volsync-secret
+  namespace: media
+type: Opaque
+stringData:
+  RESTIC_REPOSITORY: "s3:${SECRET_S3_URL}/volsync-${CLUSTER_NAME}/jellyseerr"
+  RESTIC_PASSWORD: "${SECRET_VOLSYNC_RESTIC_PWD}"
+  AWS_ACCESS_KEY_ID: "${SECRET_VOLSYNC_ACCESS_KEYS}"
+  AWS_SECRET_ACCESS_KEY: "${SECRET_VOLSYNC_SECRET_KEYS}"
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: jellyseerr-volsync
+  namespace: media
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: raw
+      version: v0.3.2
+      sourceRef:
+        kind: HelmRepository
+        name: dysnix-charts
+        namespace: flux-system
+      interval: 30m
+  targetNamespace: media
+  install:
+    createNamespace: true
+    remediation:
+      retries: 10
+  upgrade:
+    remediation:
+      retries: 10
+  dependsOn:
+    - name: volsync
+      namespace: flux-system
+    - name: jellyseerr
+      namespace: flux-system
+  values:
+    resources:
+      - apiVersion: volsync.backube/v1alpha1
+        kind: ReplicationSource
+        metadata:
+          name: jellyseerr
+          namespace: media
+        spec:
+          sourcePVC: jellyseerr
+          trigger:
+            schedule: "04 04 * * *"
+          restic:
+            copyMethod: Direct
+            cacheStorageClassName: "${STORAGE_READWRITEONCE}"
+            cacheAccessModes: ["ReadWriteOnce"]
+            pruneIntervalDays: 7
+            repository: jellyseerr-volsync-secret
+            moverSecurityContext:
+              runAsUser: 1000
+              runAsGroup: 1000
+              fsGroup: 1000
+              fsGroupChangePolicy: "OnRootMismatch"
+              runAsNonRoot: true
+              seccompProfile:
+                type: RuntimeDefault
+            retain:
+              daily: 7
+              within: 3d

@@ -9,7 +9,7 @@ data:
       url: http://bazarr.media.svc.cluster.local:6767
       api_key: "${SECRET_BAZARR_API_KEY}"
       # alias: bazarr # Optional to Differentiate between multiple Services
-      # interval: 30 # Optional to set a different Interval in Seconds
+      # interval: 60 # Optional to set a different Interval in Seconds
       # detailed: true  # Get Data per Series
 
     sonarr:
@@ -17,7 +17,7 @@ data:
       api_key: "${SECRET_SONARR_API_KEY}"
       # alias: sonarr # Optional to Differentiate between multiple Services
       # api_version: v3 # Optional to use a different API Version
-      # interval: 30 # Optional to set a different Interval in Seconds
+      # interval: 60 # Optional to set a different Interval in Seconds
       # detailed: true  # Get Data per Series
 
     radarr:
@@ -25,7 +25,7 @@ data:
       api_key: "${SECRET_RADARR_API_KEY}"
       # alias: radarr # Optional to Differentiate between multiple Services
       # api_version: v3 # Optional to use a different API Version
-      # interval: 30 # Optional to set a different Interval in Seconds
+      # interval: 60 # Optional to set a different Interval in Seconds
       # detailed: true  # Get Data per Movie
 
     prowlarr:
@@ -33,7 +33,7 @@ data:
       api_key: "${SECRET_PROWLARR_API_KEY}"
       # alias: prowlarr # Optional to Differentiate between multiple Services
       # api_version: v1 # Optional to use a different API Version
-      # interval: 30 # Optional to set a different Interval in Seconds
+      # interval: 60 # Optional to set a different Interval in Seconds
       # detailed: true  # Get Data per Application/Indexer
 
     readarr:
@@ -41,5 +41,12 @@ data:
       api_key: "${SECRET_READARR_API_KEY}"
       # alias: prowlarr # Optional to Differentiate between multiple Services
       # api_version: v1 # Optional to use a different API Version
-      # interval: 30 # Optional to set a different Interval in Seconds
+      # interval: 60 # Optional to set a different Interval in Seconds
       # detailed: true  # Get Data per Book
+
+    jellyseerr:
+      url: http://jellyseerr.media.svc.cluster.local:5055
+      api_key: "${SECRET_JELLYSEERR_API_KEY}"
+      # alias: jellyseerr # Optional to Differentiate between multiple Services
+      # interval: 60 # Optional to set a different Interval in Seconds
+      # detailed: true  # Get Data per Request/Issue
