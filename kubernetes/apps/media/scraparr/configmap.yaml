@@ -5,6 +5,13 @@ metadata:
   namespace: media
 data:
   config.yaml: |-
+    bazarr:
+      url: http://bazarr.media.svc.cluster.local:6767
+      api_key: "${SECRET_BAZARR_API_KEY}"
+      # alias: bazarr # Optional to Differentiate between multiple Services
+      # interval: 30 # Optional to set a different Interval in Seconds
+      # detailed: true  # Get Data per Series
+
     sonarr:
       url: http://sonarr.media.svc.cluster.local:8989
       api_key: "${SECRET_SONARR_API_KEY}"
