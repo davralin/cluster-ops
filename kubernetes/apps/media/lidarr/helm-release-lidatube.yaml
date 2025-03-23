@@ -42,7 +42,7 @@ spec:
           lidatube:
             image:
               repository: thewicklowwolf/lidatube
-              tag: 0.2.16@sha256:104314735b0589d543c1664a9a981ccc7e536c5add8805c8bb683f6ae8ccc89f
+              tag: 0.2.17@sha256:94008bb877fbca05c721649710cbcfb68e6055b2b6405a5879aabda003c16cb6
             env:
               TZ: "${TIMEZONE}"
               lidarr_api_key: "${SECRET_LIDARR_API_KEY}"
