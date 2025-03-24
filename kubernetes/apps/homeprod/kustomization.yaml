@@ -20,7 +20,6 @@ resources:
   - ../gitea
   - ../glance
   - ../homeassistant
-  - ../infinity
   - ../intel-device-plugin
   - ../invidious
   - ../it-tools
