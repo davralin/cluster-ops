@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 30m
-  timeout: 60m
+  timeout: 120m
   chart:
     spec:
       chart: immich
