@@ -54,7 +54,7 @@
         "ghcr.io/meshtastic/web",
         "ghcr.io/onedr0p",
         "ghcr.io/sdr-enthusiasts",
-        "quay.io/redlib/redlib"
+        "quay.io/invidious/inv-sig-helper"
       ]
     },
     {
