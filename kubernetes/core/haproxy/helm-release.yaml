@@ -29,6 +29,10 @@ spec:
       kind: DaemonSet
       logging:
         level: debug
+        traffic:
+          address: stdout
+          format: raw
+          facility: daemon
       service:
         type: LoadBalancer
         annotations:
