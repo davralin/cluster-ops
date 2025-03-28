@@ -75,6 +75,7 @@
       "matchUpdateTypes": ["patch"],
       "matchPackagePatterns": [
         "docker.io/searxng/searxng",
+        "docker.io/thewicklowwolf/lidatube",
         "ghcr.io/alexta69/metube",
 	      "ghcr.io/esphome/esphome",
 	      "ghcr.io/cloudnative-pg/postgresql",
