@@ -106,7 +106,7 @@ spec:
           gotenberg:
             image: 
               repository: docker.io/gotenberg/gotenberg
-              tag: "8.18.0"
+              tag: "8.19.0"
             command: ['/usr/bin/gotenberg']
             args: ['--chromium-disable-javascript=true', '--chromium-allow-list=file:///tmp/.*']
             securityContext:
