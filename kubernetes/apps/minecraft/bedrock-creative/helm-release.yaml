@@ -60,7 +60,7 @@ spec:
       tz: "${TIMEZONE}"
       eula: true
       type: PAPER
-      version: "1.21.4"
+      version: "1.21.5"
       difficulty: "easy"
       maxPlayers: 4
       levelSeed: 421112feedmekittens
