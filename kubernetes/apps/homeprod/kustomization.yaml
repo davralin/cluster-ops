@@ -47,6 +47,7 @@ resources:
   - ../reloader
   - ../romm
   - ../searxng
+  - ../speedtest-exporter
   - ../syncthing
   - ../system-upgrade-controller
   - ../technitium

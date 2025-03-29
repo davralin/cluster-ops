@@ -190,6 +190,13 @@ spec:
           revision: 2
           datasource:
             - { name: DS_PROMETHEUS, value: Prometheus }
+        # Ref: https://grafana.com/grafana/dashboards/13665-speedtest-exporter-dashboard/
+        speedtest_exporter_dashboard:
+        # renovate: depName="Speedtest-Exporter Dashboard"
+          gnetId: 13665
+          revision: 4
+          datasource:
+            - { name: DS_PROMETHEUS, value: Prometheus }
         # Ref: https://grafana.com/grafana/dashboards/17813-trivy-operator-dashboard/
         trivy_operator_dashboard:
         # renovate: depName="Trivy Operator Dashboard"
