@@ -38,6 +38,8 @@ spec:
       inv-sig-helper:
         strategy: RollingUpdate
         replicas: 1
+        annotations:
+          reloader.stakater.com/auto: "true"
         containers:
           inv-sig-helper:
             image:

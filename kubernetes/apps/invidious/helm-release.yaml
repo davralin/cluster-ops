@@ -38,6 +38,8 @@ spec:
       invidious:
         replicas: 1
         strategy: RollingUpdate
+        annotations:
+          reloader.stakater.com/auto: "true"
         containers:
           invidious:
             envFrom:
