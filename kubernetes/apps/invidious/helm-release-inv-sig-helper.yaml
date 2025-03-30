@@ -43,7 +43,7 @@ spec:
               repository: quay.io/invidious/inv-sig-helper
               tag: latest@sha256:1cfd80c42482f6524a3f7a11fdc0f623b761f8cd6686a4c027aaff05fb853fe5
             env:
-              RUST_LOG: info
+              RUST_LOG: debug
             args:
               - --tcp
               - "0.0.0.0:12999"
