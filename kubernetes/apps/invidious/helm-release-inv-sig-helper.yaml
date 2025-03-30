@@ -36,6 +36,7 @@ spec:
           type: RuntimeDefault
     controllers:
       inv-sig-helper:
+        strategy: RollingUpdate
         replicas: 1
         containers:
           inv-sig-helper:
