@@ -50,6 +50,24 @@ spec:
               TZ: "${TIMEZONE}"
               INVIDIOUS_PORT: "3000" # https://github.com/iv-org/invidious/issues/2970
               INVIDIOUS_SIGNATURE_SERVER: inv-sig-helper.invidious.svc.cluster.local:12999
+              INVIDIOUS_REGISTRATION_ENABLED: false
+              INVIDIOUS_POPULAR_ENABLED: false
+              INVIDIOUS_QUALITY: dash
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /api/v1/trending
+                    port: &port 3000
+                  initialDelaySeconds: 5
+                  periodSeconds: 30
+                  timeoutSeconds: 5
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: false
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
