@@ -48,6 +48,7 @@ resources:
   - ../romm
   - ../searxng
   - ../speedtest-exporter
+  - ../spegel
   - ../syncthing
   - ../system-upgrade-controller
   - ../technitium
