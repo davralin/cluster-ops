@@ -38,6 +38,8 @@ spec:
       valuesKey: restic_password
   values:
     fullnameOverride: *name
+    image:
+      repository: ghcr.io/itzg/minecraft-server
     extraVolumes:
       - volumeMounts:
           - name: mods

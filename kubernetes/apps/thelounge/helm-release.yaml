@@ -39,8 +39,8 @@ spec:
         containers:
           thelounge:
             image:
-              repository: thelounge/thelounge
-              tag: 4.4.3
+              repository: ghcr.io/thelounge/thelounge
+              tag: 4.4.3@sha256:0f8b2e47f9441d59445603fef8a4206ad1c04e522024d0472ae5da5810ebb699
             env:
               TZ: "${TIMEZONE}"
               THELOUNGE_HOME: "/config"

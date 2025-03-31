@@ -39,8 +39,8 @@ spec:
         containers:
           syncthing:
             image:
-              repository: syncthing/syncthing
-              tag: 1.29.3
+              repository: ghcr.io/syncthing/syncthing
+              tag: 1.29.3@sha256:59580c71260ea38d50247a0acebd6c608c6d59b78e651b0194943a8649841f82
             env:
               TZ: "${TIMEZONE}"
               PUID: 1000
