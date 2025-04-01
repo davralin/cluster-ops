@@ -19,12 +19,10 @@ model_list:
     litellm_params:
       model: ollama_chat/deepseek-r1:32b
       api_base: "http://10.0.1.243:11434"
-  - model_name: gpt-3.5-turbo
+  - model_name: gemma3:12b
     litellm_params:
-      model: azure/chatgpt-v-2
-      api_base: "${SECRET_OPENAI_ENDPOINT}"
-      api_version: "2023-05-15"
-      api_key: "${SECRET_OPENAI_API_KEY}"
+      model: ollama_chat/gemma3:12b
+      api_base: "http://ollama.ollama.svc.cluster.local:11434"
   - model_name: llama3.2:3b
     litellm_params:
       model: ollama_chat/llama3.2:3b

@@ -51,12 +51,9 @@ spec:
               repository: ghcr.io/open-webui/open-webui
               tag: v0.6.0@sha256:a02d2892a53b89218074b903394485328bea49456e34de72bc3f17b68f04d64e
             env:
-              #OLLAMA_BASE_URL: "http://10.0.1.228:11434"
-              OLLAMA_BASE_URL: "http://ollama.ollama.svc.cluster.local:11434"
               ENABLE_RAG_WEB_SEARCH: true
               RAG_WEB_SEARCH_ENGINE: "searxng"
               SEARXNG_QUERY_URL: "http://searxng.searxng.svc.cluster.local:8080/search?q=<query>"
-              OPENAI_API_KEY: "${SECRET_OPENAI_KEY}"
               WEBUI_URL: "https://openwebui.${SECRET_DEFAULT_DOMAIN}"
               CORS_ALLOW_ORIGIN: "https://openwebui.${SECRET_DEFAULT_DOMAIN}"
               DATA_DIR: /app/backend/data
