@@ -54,10 +54,10 @@ spec:
               #capabilities: { drop: ["ALL"] }
             resources:
               requests:
-                cpu: 10m
-                memory: 1Gi
-              #limits:
-                #memory: 2Gi
+                cpu: 200m
+                memory: 5Gi
+              limits:
+                memory: 10Gi
     service:
       firefox:
         controller: *name
