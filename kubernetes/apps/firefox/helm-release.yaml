@@ -55,9 +55,9 @@ spec:
             resources:
               requests:
                 cpu: 10m
-                memory: 200Mi
-              limits:
-                memory: 2Gi
+                memory: 1Gi
+              #limits:
+                #memory: 2Gi
     service:
       firefox:
         controller: *name
