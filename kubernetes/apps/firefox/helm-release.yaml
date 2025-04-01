@@ -1,0 +1,90 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &name firefox
+  namespace: flux-system
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.7.3
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+      interval: 30m
+  targetNamespace: firefox
+  install:
+    createNamespace: true
+    remediation:
+      retries: 10
+  upgrade:
+    remediation:
+      retries: 10
+  values:
+    fullnameOverride: *name
+    defaultPodOptions:
+      securityContext:
+        # [cont-init   ] 10-init-users.sh: rm: can't remove '/etc/passwd': Permission denied
+        runAsNonRoot: false
+        runAsUser: 0
+        runAsGroup: 0
+        fsGroup: 0
+        fsGroupChangePolicy: OnRootMismatch
+        seccompProfile:
+          type: RuntimeDefault
+    controllers:
+      firefox:
+        containers:
+          firefox:
+            image:
+              repository: ghcr.io/jlesage/firefox
+              tag: v25.03.1@sha256:055c28defe317c4ee3247ef7e98a9c3ecdd5355dd944dc93a707357d1c797ade
+            env:
+              TZ: "${TIMEZONE}"
+              USER_ID: 1000
+              GROUP_ID: 1000
+            securityContext:
+              allowPrivilegeEscalation: false
+              # mktemp: : Read-only file system
+              readOnlyRootFilesystem: false
+              # [cont-init   ] 10-init-users.sh: chown: /etc/shadow: Operation not permitted
+              #capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 10m
+                memory: 200Mi
+              limits:
+                memory: 2Gi
+    service:
+      firefox:
+        controller: *name
+        ports:
+          http:
+            port: 5800
+    ingress:
+      firefox:
+        annotations:
+          haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
+          haproxy.org/ssl-redirect-port: "443"
+          haproxy.org/response-set-header: |
+            Strict-Transport-Security "max-age=31536000"
+            X-Frame-Options "DENY"
+            X-Content-Type-Options "nosniff"
+            Referrer-Policy "no-referrer-when-downgrade"
+        hosts:
+          - host: &host "firefox.${SECRET_DEFAULT_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  identifier: firefox
+                  port: http
+        tls:
+          - hosts:
+              - *host
+    persistence:
+      config:
+        enabled: true
+        existingClaim: firefox

@@ -16,6 +16,7 @@ resources:
   - ../epicgames-freegames
   - ../esphome
   - ../falco
+  - ../firefox
   - ../freshrss
   - ../gitea
   - ../glance
