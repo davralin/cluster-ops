@@ -35,20 +35,4 @@ spec:
         serviceMonitor:
           enabled: "${MONITORING_PROMETHEUS}"
       ui:
-        ingress:
-          enabled: true
-          hosts:
-            - host: &host "opencost.${SECRET_DEFAULT_DOMAIN}"
-              paths:
-                - /
-        tls:
-          - hosts:
-              - *host
-        securityContext:
-          allowPrivilegeEscalation: false
-          # cp: can't create '/var/www/XXX': Read-only file system
-          readOnlyRootFilesystem: false
-          runAsNonRoot: true
-          capabilities: { drop: ["ALL"] }
-          seccompProfile:
-            type: RuntimeDefault
+        enabled: false
