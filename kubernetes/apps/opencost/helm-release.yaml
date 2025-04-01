@@ -46,7 +46,8 @@ spec:
               - *host
         securityContext:
           allowPrivilegeEscalation: false
-          readOnlyRootFilesystem: true
+          # cp: can't create '/var/www/XXX': Read-only file system
+          readOnlyRootFilesystem: false
           runAsNonRoot: true
           capabilities: { drop: ["ALL"] }
           seccompProfile:
