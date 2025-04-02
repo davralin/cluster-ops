@@ -81,6 +81,11 @@ spec:
           - hosts:
               - *host
     persistence:
+      # [emerg] 1#1: mkdir() "/var/cache/nginx/client_temp" failed (13: Permission denied)
+      cache:
+        type: emptyDir
+        globalMounts:
+          - path: /var/cache/nginx/
       # nginx: [alert] could not open error log file: open() "/var/log/nginx/error.log" failed (30: Read-only file system)
       log:
         type: emptyDir
