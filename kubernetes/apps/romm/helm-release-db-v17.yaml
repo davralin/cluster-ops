@@ -52,16 +52,16 @@ spec:
             name: *name
           bootstrap:
             # use this to start a new cluster
-            initdb:
+            #initdb:
+            #  database: romm
+            #  owner: romm
+            #  secret:
+            #    name: romm-basic-auth
+            # use this to recover a net-new cluster from a backup
+            recovery:
+              source: *name
               database: romm
               owner: romm
-              secret:
-                name: romm-basic-auth
-            # use this to recover a net-new cluster from a backup
-            #recovery:
-              #source: *name
-              #database: romm
-              #owner: romm
             # # use this to 'migrate' from an existing cnpg cluster (e.g. "romm-postgres-v16") to the new cluster
             #initdb:
             #  database: romm
@@ -71,7 +71,7 @@ spec:
             #    databases:
             #      - romm
             #    source:
-            #      externalCluster: old-pg-cluster
+            #      externalCluster: romm-postgres-v16
           monitoring:
             enablePodMonitor: "${MONITORING_PROMETHEUS}"
           resources:
@@ -113,15 +113,6 @@ spec:
                   secretAccessKey:
                     name: *name
                     key: s3-secret-key
-            - name: old-pg-cluster
-              connectionParameters:
-                host: postgres-v16-ro.cloudnative-pg.svc.cluster.local
-                user: romm
-                dbname: romm
-                sslmode: prefer
-              password:
-                name: romm-basic-auth
-                key: password
             # # this represents an existing cnpg cluster to migrate from (e.g. upgrading from postgres v16 to postgres v17)
              #- name: romm-postgres-v16
              #  connectionParameters:
