@@ -72,7 +72,7 @@ spec:
         - display_name: code-server
           description: codercom/code-server
           kubespawner_override:
-            image: ghcr.io/kubeflow/kubeflow/notebook-servers/codeserver:v1.9.2
+            image: ghcr.io/kubeflow/kubeflow/notebook-servers/codeserver:v1.10.0
         - display_name: "scipy notebook"
           description: "quay.io/jupyter/scipy-notebook"
           kubespawner_override:
