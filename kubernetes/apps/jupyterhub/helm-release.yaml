@@ -6,6 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 30m
+  timeout: 15m
   chart:
     spec:
       chart: jupyterhub
@@ -30,14 +31,14 @@ spec:
     hub:
       config:
         KubeSpawner:
-          container_security_context:
-            runAsNonRoot: true
-            capabilities:
-              drop: ["ALL"]
-            seccompProfile:
-              type: RuntimeDefault
+          container_security_context: {}
+            #runAsNonRoot: true
+            #capabilities:
+              #drop: ["ALL"]
+            #seccompProfile:
+              #type: RuntimeDefault
           services_enabled: true
-          uid: 1000
+          #uid: 1000
       networkPolicy:
         egress:
           - ports:
