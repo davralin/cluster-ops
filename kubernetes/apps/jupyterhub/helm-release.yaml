@@ -70,20 +70,11 @@ spec:
         # iptables to block the sensitive metadata server at the provided ip.
         blockWithIptables: false
       profileList:
-        - display_name: code-server
-          description: codercom/code-server
+        - display_name: kubeflow
+          description: kubeflow
           kubespawner_override:
             image: ghcr.io/kubeflow/kubeflow/notebook-servers/codeserver:v1.10.0
-        - display_name: "scipy notebook"
-          description: "quay.io/jupyter/scipy-notebook"
+        - display_name: code-server
+          description: coder
           kubespawner_override:
-            image: quay.io/jupyter/pyspark-notebook:latest
-        - display_name: "tensorflow notebook"
-          description: "quay.io/jupyter/tensorflow-notebook"
-          kubespawner_override:
-            image: quay.io/jupyter/tensorflow-notebook:latest
-          default: true
-        - display_name: "pytorch notebook"
-          description: "quay.io/jupyter/pytorch-notebook"
-          kubespawner_override:
-            image: quay.io/jupyter/pytorch-notebook:latest
+            image: ghcr.io/coder/code-server:4.98.2
