@@ -3,5 +3,3 @@ apiVersion: v1
 kind: Namespace
 metadata:
   name: jupyterhub
-  labels:
-    pod-security.kubernetes.io/enforce: baseline

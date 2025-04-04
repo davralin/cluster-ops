@@ -38,7 +38,8 @@ spec:
               drop: ["ALL"]
             seccompProfile:
               type: RuntimeDefault
-          services_enabled: true
+          start_timeout: 60
+          services_enabled: false
           uid: 1000
       networkPolicy:
         egress:
