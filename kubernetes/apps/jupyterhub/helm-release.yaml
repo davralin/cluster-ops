@@ -66,6 +66,7 @@ spec:
       service:
         type: ClusterIP
     singleuser:
+      defaultUrl: "/"
       cloudMetadata:
          # block set to true will append a privileged initContainer using
         # iptables to block the sensitive metadata server at the provided ip.
@@ -79,7 +80,6 @@ spec:
           description: "Pedro"
           kubespawner_override:
             image: ghcr.io/coder/code-server:4.98.2
-            default_url: "/"
             command: ["/usr/bin/code-server"]
             args:
               - --bind-addr
