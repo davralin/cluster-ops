@@ -78,10 +78,21 @@ spec:
           kubespawner_override:
             image: ghcr.io/coder/code-server:4.98.2
         - display_name: vscode-in-a-box-connecting
-          description: "Pedro"
+          description: "Starts, connects, drops with 404"
           kubespawner_override:
             image: ghcr.io/coder/code-server:4.98.2
-            command: ["/usr/bin/code-server"]
+            command: ["Starts, connects, bombs with 404 on the default URL"]
+            args:
+              - --bind-addr
+              - 0.0.0.0:8888
+              - --auth
+              - none
+              - /home/coder
+        - display_name: vscode-in-a-box-url
+          description: "URLedro"
+          kubespawner_override:
+            image: ghcr.io/coder/code-server:4.98.2
+            command: ["Starts, connects, URL 404"]
             args:
               - --bind-addr
               - 0.0.0.0:8888
