@@ -75,7 +75,14 @@ spec:
           description: "Starts but won't connect"
           kubespawner_override:
             image: ghcr.io/coder/code-server:4.98.2
-        - display_name: code-server
-          description: coder
+        - display_name: vscode-in-a-box-connecting
+          description: "Pedro"
           kubespawner_override:
             image: ghcr.io/coder/code-server:4.98.2
+            command: ["/usr/bin/code-server"]
+            args:
+              - --bind-addr
+              - 0.0.0.0:8888
+              - --auth
+              - none
+              - /home/coder
