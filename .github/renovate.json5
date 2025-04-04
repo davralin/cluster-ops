@@ -77,8 +77,9 @@
         "docker.io/searxng/searxng",
         "docker.io/thewicklowwolf/lidatube",
         "ghcr.io/alexta69/metube",
-	      "ghcr.io/esphome/esphome",
-	      "ghcr.io/cloudnative-pg/postgresql",
+        "ghcr.io/dgtlmoon/changedetection.io",
+        "ghcr.io/esphome/esphome",
+        "ghcr.io/cloudnative-pg/postgresql",
         "ghcr.io/coder/code-server",
 	      "ghcr.io/home-assistant/home-assistant",
         "ghcr.io/joryirving"
