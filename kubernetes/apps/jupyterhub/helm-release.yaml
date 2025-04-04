@@ -25,20 +25,21 @@ spec:
   upgrade:
     remediation:
       retries: 10
+    timeout: 20m
   values:
     debug:
       enabled: true
     hub:
       config:
         KubeSpawner:
-          container_security_context: {}
-            #runAsNonRoot: true
-            #capabilities:
-              #drop: ["ALL"]
-            #seccompProfile:
-              #type: RuntimeDefault
+          container_security_context:
+            runAsNonRoot: true
+            capabilities:
+              drop: ["ALL"]
+            seccompProfile:
+              type: RuntimeDefault
           services_enabled: true
-          #uid: 1000
+          uid: 1000
       networkPolicy:
         egress:
           - ports:
@@ -66,14 +67,14 @@ spec:
         type: ClusterIP
     singleuser:
       cloudMetadata:
-         # block set to true will append a privileged initContainer using the
+         # block set to true will append a privileged initContainer using
         # iptables to block the sensitive metadata server at the provided ip.
         blockWithIptables: false
       profileList:
-        - display_name: kubeflow
-          description: kubeflow
+        - display_name: vscode-in-a-box
+          description: "Starts but won't connect"
           kubespawner_override:
-            image: ghcr.io/kubeflow/kubeflow/notebook-servers/codeserver:v1.10.0
+            image: ghcr.io/coder/code-server:4.98.2
         - display_name: code-server
           description: coder
           kubespawner_override:
