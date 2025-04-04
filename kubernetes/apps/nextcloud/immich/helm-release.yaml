@@ -39,7 +39,7 @@ spec:
       DB_HOSTNAME: "immich-postgres-v16-rw"
       DB_DATABASE_NAME: "immich"
     image:
-      tag: "v1.131.2"
+      tag: "v1.131.3"
     immich:
       metrics:
         enabled: "${MONITORING_PROMETHEUS}"
