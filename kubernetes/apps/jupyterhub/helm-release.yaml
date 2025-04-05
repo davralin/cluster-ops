@@ -93,6 +93,7 @@ spec:
           kubespawner_override:
             image: ghcr.io/coder/code-server:4.98.2
             command: ["Starts, connects, URL 404"]
+            default_url: “/vscode”
             args:
               - --bind-addr
               - 0.0.0.0:8888
