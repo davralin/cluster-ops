@@ -1,218 +1,307 @@
 {
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:recommended",
-    "docker:enableMajor",
-    ":automergeBranch",
-    ":disableRateLimiting"
+  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
+  extends: [
+    'config:recommended',
+    'docker:enableMajor',
+    ':automergeBranch',
+    ':disableRateLimiting',
   ],
-  "dependencyDashboardTitle": "Renovate Dashboard",
-  "assigneesFromCodeOwners": true,
-  // Since we don't have tests, and we want automerge enabled
-  "ignoreTests": true,
-  "flux": {
-    "fileMatch": [
-      "kubernetes/.+\\.yaml$"
-    ]
+  dependencyDashboardTitle: 'Renovate Dashboard',
+  assigneesFromCodeOwners: true,
+  ignoreTests: true,
+  flux: {
+    fileMatch: [
+      'kubernetes/.+\\.yaml$',
+    ],
   },
-  "helm-values": {
-    "fileMatch": [
-      "kubernetes/.+\\.yaml$"
-    ]
+  'helm-values': {
+    fileMatch: [
+      'kubernetes/.+\\.yaml$',
+    ],
   },
-  "kubernetes": {
-    "fileMatch": [
-      "kubernetes/.+\\.yaml$"
-    ]
+  kubernetes: {
+    fileMatch: [
+      'kubernetes/.+\\.yaml$',
+    ],
   },
-  "packageRules": [
+  packageRules: [
     {
-      "description": ["Loose versioning for non-semver packages"],
-      "matchDatasources": ["docker"],
-      "versioning": "loose",
-      "matchPackagePatterns": [
-        "metube",
-        "plex",
-        "searxng"
-      ]
+      description: [
+        'Loose versioning for non-semver packages',
+      ],
+      matchDatasources: [
+        'docker',
+      ],
+      versioning: 'loose',
+      matchPackageNames: [
+        '/metube/',
+        '/plex/',
+        '/searxng/',
+      ],
     },
     {
-      "description": ["Auto-merge container digests updates for trusted containers"],
-      "matchDatasources": ["docker"],
-      "automerge": true,
-      "automergeType": "branch",
-      "matchUpdateTypes": ["digest"],
-      "matchPackagePatterns": [
-        "docker.io/redis",
-        "docker.io/searxng/searxng",
-        "docker.io/tensorchord/pgvecto-rs",
-        "ghcr.io/alexta69/metube",
-        "ghcr.io/corentinth/it-tools",
-        "ghcr.io/davralin",
-        "ghcr.io/drag0n141",
-        "ghcr.io/joryirving",
-        "ghcr.io/meshtastic/web",
-        "ghcr.io/onedr0p",
-        "ghcr.io/sdr-enthusiasts",
-        "quay.io/invidious/inv-sig-helper"
-      ]
+      description: [
+        'Auto-merge container digests updates for trusted containers',
+      ],
+      matchDatasources: [
+        'docker',
+      ],
+      automerge: true,
+      automergeType: 'branch',
+      matchUpdateTypes: [
+        'digest',
+      ],
+      matchPackageNames: [
+        '/docker.io/redis/',
+        '/docker.io/searxng/searxng/',
+        '/docker.io/tensorchord/pgvecto-rs/',
+        '/ghcr.io/alexta69/metube/',
+        '/ghcr.io/corentinth/it-tools/',
+        '/ghcr.io/davralin/',
+        '/ghcr.io/drag0n141/',
+        '/ghcr.io/joryirving/',
+        '/ghcr.io/meshtastic/web/',
+        '/ghcr.io/onedr0p/',
+        '/ghcr.io/sdr-enthusiasts/',
+        '/quay.io/invidious/inv-sig-helper/',
+      ],
     },
     {
-      "description": ["Auto-merge container patch for trusted containers"],
-      "matchDatasources": ["docker"],
-      "automerge": true,
-      "automergeType": "branch",
-      "matchUpdateTypes": ["patch"],
-      "matchPackagePatterns": [
-	      "ghcr.io/onedr0p"
-      ]
+      description: [
+        'Auto-merge container patch for trusted containers',
+      ],
+      matchDatasources: [
+        'docker',
+      ],
+      automerge: true,
+      automergeType: 'branch',
+      matchUpdateTypes: [
+        'patch',
+      ],
+      matchPackageNames: [
+        '/ghcr.io/onedr0p/',
+      ],
     },
     {
-      "description": ["Auto-merge fix-updates for trusted containers"],
-      "matchDatasources": ["docker"],
-      "automerge": true,
-      "automergeType": "branch",
-      "matchUpdateTypes": ["patch"],
-      "matchPackagePatterns": [
-        "docker.io/searxng/searxng",
-        "docker.io/thewicklowwolf/lidatube",
-        "ghcr.io/alexta69/metube",
-        "ghcr.io/dgtlmoon/changedetection.io",
-        "ghcr.io/esphome/esphome",
-        "ghcr.io/cloudnative-pg/postgresql",
-        "ghcr.io/coder/code-server",
-	      "ghcr.io/home-assistant/home-assistant",
-        "ghcr.io/joryirving"
-      ]
+      description: [
+        'Auto-merge fix-updates for trusted containers',
+      ],
+      matchDatasources: [
+        'docker',
+      ],
+      automerge: true,
+      automergeType: 'branch',
+      matchUpdateTypes: [
+        'patch',
+      ],
+      matchPackageNames: [
+        '/docker.io/searxng/searxng/',
+        '/docker.io/thewicklowwolf/lidatube/',
+        '/ghcr.io/alexta69/metube/',
+        '/ghcr.io/dgtlmoon/changedetection.io/',
+        '/ghcr.io/esphome/esphome/',
+        '/ghcr.io/cloudnative-pg/postgresql/',
+        '/ghcr.io/coder/code-server/',
+        '/ghcr.io/home-assistant/home-assistant/',
+        '/ghcr.io/joryirving/',
+      ],
     },
     {
-      "description": ["Auto-merge fix-updates for trusted helmers"],
-      "matchDatasources": ["helm"],
-      "automerge": true,
-      "automergeType": "branch",
-      "matchUpdateTypes": ["patch"],
-      "matchPackagePatterns": [
-	      "awx-operator",
-	      "grafana",
-        "kube-prometheus-stack"
-      ]
+      description: [
+        'Auto-merge fix-updates for trusted helmers',
+      ],
+      matchDatasources: [
+        'helm',
+      ],
+      automerge: true,
+      automergeType: 'branch',
+      matchUpdateTypes: [
+        'patch',
+      ],
+      matchPackageNames: [
+        '/awx-operator/',
+        '/grafana/',
+        '/kube-prometheus-stack/',
+      ],
     },
     {
-      "matchDatasources": ["docker"],
-      "matchUpdateTypes": ["major"],
-      "commitMessagePrefix": "feat(container)!: ",
-      "commitMessageTopic": "{{depName}}",
-      "commitMessageExtra": " ( {{currentVersion}} → {{newVersion}} )"
+      matchDatasources: [
+        'docker',
+      ],
+      matchUpdateTypes: [
+        'major',
+      ],
+      commitMessagePrefix: 'feat(container)!: ',
+      commitMessageTopic: '{{depName}}',
+      commitMessageExtra: ' ( {{currentVersion}} → {{newVersion}} )',
     },
     {
-      "matchDatasources": ["docker"],
-      "matchUpdateTypes": ["minor"],
-      "commitMessagePrefix": "feat(container): ",
-      "commitMessageTopic": "{{depName}}",
-      "commitMessageExtra": " ( {{currentVersion}} → {{newVersion}} )"
+      matchDatasources: [
+        'docker',
+      ],
+      matchUpdateTypes: [
+        'minor',
+      ],
+      commitMessagePrefix: 'feat(container): ',
+      commitMessageTopic: '{{depName}}',
+      commitMessageExtra: ' ( {{currentVersion}} → {{newVersion}} )',
     },
     {
-      "matchDatasources": ["docker"],
-      "matchUpdateTypes": ["patch"],
-      "commitMessagePrefix": "fix(container): ",
-      "commitMessageTopic": "{{depName}}",
-      "commitMessageExtra": " ( {{currentVersion}} → {{newVersion}} )"
+      matchDatasources: [
+        'docker',
+      ],
+      matchUpdateTypes: [
+        'patch',
+      ],
+      commitMessagePrefix: 'fix(container): ',
+      commitMessageTopic: '{{depName}}',
+      commitMessageExtra: ' ( {{currentVersion}} → {{newVersion}} )',
     },
     {
-      "matchDatasources": ["docker"],
-      "matchUpdateTypes": ["digest"],
-      "commitMessagePrefix": "chore(container): ",
-      "commitMessageTopic": "{{depName}}",
-      "commitMessageExtra": "( {{currentDigestShort}} → {{newDigestShort}} )"
+      matchDatasources: [
+        'docker',
+      ],
+      matchUpdateTypes: [
+        'digest',
+      ],
+      commitMessagePrefix: 'chore(container): ',
+      commitMessageTopic: '{{depName}}',
+      commitMessageExtra: '( {{currentDigestShort}} → {{newDigestShort}} )',
     },
     {
-      "matchDatasources": ["helm"],
-      "matchUpdateTypes": ["major"],
-      "commitMessagePrefix": "feat(helm)!: ",
-      "commitMessageTopic": "{{depName}}",
-      "commitMessageExtra": "( {{currentVersion}} → {{newVersion}} )"
+      matchDatasources: [
+        'helm',
+      ],
+      matchUpdateTypes: [
+        'major',
+      ],
+      commitMessagePrefix: 'feat(helm)!: ',
+      commitMessageTopic: '{{depName}}',
+      commitMessageExtra: '( {{currentVersion}} → {{newVersion}} )',
     },
     {
-      "matchDatasources": ["helm"],
-      "matchUpdateTypes": ["minor"],
-      "commitMessagePrefix": "feat(helm): ",
-      "commitMessageTopic": "{{depName}}",
-      "commitMessageExtra": "( {{currentVersion}} → {{newVersion}} )"
+      matchDatasources: [
+        'helm',
+      ],
+      matchUpdateTypes: [
+        'minor',
+      ],
+      commitMessagePrefix: 'feat(helm): ',
+      commitMessageTopic: '{{depName}}',
+      commitMessageExtra: '( {{currentVersion}} → {{newVersion}} )',
     },
     {
-      "matchDatasources": ["helm"],
-      "matchUpdateTypes": ["patch"],
-      "commitMessagePrefix": "fix(helm): ",
-      "commitMessageTopic": "{{depName}}",
-      "commitMessageExtra": "( {{currentVersion}} → {{newVersion}} )"
+      matchDatasources: [
+        'helm',
+      ],
+      matchUpdateTypes: [
+        'patch',
+      ],
+      commitMessagePrefix: 'fix(helm): ',
+      commitMessageTopic: '{{depName}}',
+      commitMessageExtra: '( {{currentVersion}} → {{newVersion}} )',
     },
     {
-      "matchManagers": ["github-actions"],
-      "matchUpdateTypes": ["major"],
-      "commitMessagePrefix": "feat(github-action)!: ",
-      "commitMessageTopic": "{{depName}}",
-      "commitMessageExtra": "( {{currentVersion}} → {{newVersion}} )"
+      matchManagers: [
+        'github-actions',
+      ],
+      matchUpdateTypes: [
+        'major',
+      ],
+      commitMessagePrefix: 'feat(github-action)!: ',
+      commitMessageTopic: '{{depName}}',
+      commitMessageExtra: '( {{currentVersion}} → {{newVersion}} )',
     },
     {
-      "matchManagers": ["github-actions"],
-      "matchUpdateTypes": ["minor"],
-      "commitMessagePrefix": "feat(github-action): ",
-      "commitMessageTopic": "{{depName}}",
-      "commitMessageExtra": "( {{currentVersion}} → {{newVersion}} )"
+      matchManagers: [
+        'github-actions',
+      ],
+      matchUpdateTypes: [
+        'minor',
+      ],
+      commitMessagePrefix: 'feat(github-action): ',
+      commitMessageTopic: '{{depName}}',
+      commitMessageExtra: '( {{currentVersion}} → {{newVersion}} )',
     },
     {
-      "matchManagers": ["github-actions"],
-      "matchUpdateTypes": ["patch"],
-      "commitMessagePrefix": "fix(github-action)!: ",
-      "commitMessageTopic": "{{depName}}",
-      "commitMessageExtra": "( {{currentVersion}} → {{newVersion}} )"
+      matchManagers: [
+        'github-actions',
+      ],
+      matchUpdateTypes: [
+        'patch',
+      ],
+      commitMessagePrefix: 'fix(github-action)!: ',
+      commitMessageTopic: '{{depName}}',
+      commitMessageExtra: '( {{currentVersion}} → {{newVersion}} )',
     },
     {
-      "description": ["Custom versioning for minio"],
-      "matchDatasources": ["docker"],
-      "versioning": "regex:^RELEASE\\.(?<major>\\d+)-(?<minor>\\d+)-(?<patch>\\d+)T.*Z$",
-      "matchPackagePatterns": ["minio"]
+      description: [
+        'Custom versioning for minio',
+      ],
+      matchDatasources: [
+        'docker',
+      ],
+      versioning: 'regex:^RELEASE\\.(?<major>\\d+)-(?<minor>\\d+)-(?<patch>\\d+)T.*Z$',
+      matchPackageNames: [
+        '/minio/',
+      ],
     },
     {
-      "addLabels": ["renovate/grafana-dashboard"],
-      "automerge": true,
-      "automergeType": "branch",
-      "matchDatasources": ["custom.grafana-dashboards"],
-      "matchUpdateTypes": ["major"],
-      "semanticCommitType": "chore",
-      "semanticCommitScope": "grafana-dashboards",
-      "commitMessageTopic": "dashboard {{depName}}",
-      "commitMessageExtra": "( {{currentVersion}} → {{newVersion}} )"
-    }
+      addLabels: [
+        'renovate/grafana-dashboard',
+      ],
+      automerge: true,
+      automergeType: 'branch',
+      matchDatasources: [
+        'custom.grafana-dashboards',
+      ],
+      matchUpdateTypes: [
+        'major',
+      ],
+      semanticCommitType: 'chore',
+      semanticCommitScope: 'grafana-dashboards',
+      commitMessageTopic: 'dashboard {{depName}}',
+      commitMessageExtra: '( {{currentVersion}} → {{newVersion}} )',
+    },
   ],
-  "customDatasources": {
-    "grafana-dashboards": {
-      "defaultRegistryUrlTemplate": "https://grafana.com/api/dashboards/{{packageName}}",
-      "format": "json",
-      "transformTemplates": ["{\"releases\":[{\"version\": $string(revision)}]}"]
-    }
+  customDatasources: {
+    'grafana-dashboards': {
+      defaultRegistryUrlTemplate: 'https://grafana.com/api/dashboards/{{packageName}}',
+      format: 'json',
+      transformTemplates: [
+        '{"releases":[{"version": $string(revision)}]}',
+      ],
+    },
   },
-  "customManagers": [
+  customManagers: [
     {
-      "customType": "regex",
-      "description": ["Process CloudnativePG Postgresql version"],
-      "fileMatch": [
-        "kubernetes/.+\\.yaml$"
+      customType: 'regex',
+      description: [
+        'Process CloudnativePG Postgresql version',
       ],
-      "matchStrings": [
-        "imageName: (?<depName>\\S+):(?<currentValue>.*\\-.*)"
+      fileMatch: [
+        'kubernetes/.+\\.yaml$',
       ],
-      "datasourceTemplate": "docker",
-      "versioningTemplate": "redhat"
+      matchStrings: [
+        'imageName: (?<depName>\\S+):(?<currentValue>.*\\-.*)',
+      ],
+      datasourceTemplate: 'docker',
+      versioningTemplate: 'redhat',
     },
     {
-      "customType": "regex",
-      "description": ["Process Grafana dashboards"],
-      "fileMatch": ["(^|/)kubernetes/.+\\.ya?ml$"],
-      "matchStrings": ["depName=\"(?<depName>.*)\"\\n(?<indentation>\\s+)gnetId: (?<packageName>\\d+)\\n.+revision: (?<currentValue>\\d+)"],
-      "autoReplaceStringTemplate": "depName=\"{{{depName}}}\"\n{{{indentation}}}gnetId: {{{packageName}}}\n{{{indentation}}}revision: {{{newValue}}}",
-      "datasourceTemplate": "custom.grafana-dashboards",
-      "versioningTemplate": "regex:^(?<major>\\d+)$"
-    }
-  ]
+      customType: 'regex',
+      description: [
+        'Process Grafana dashboards',
+      ],
+      fileMatch: [
+        '(^|/)kubernetes/.+\\.ya?ml$',
+      ],
+      matchStrings: [
+        'depName="(?<depName>.*)"\\n(?<indentation>\\s+)gnetId: (?<packageName>\\d+)\\n.+revision: (?<currentValue>\\d+)',
+      ],
+      autoReplaceStringTemplate: 'depName="{{{depName}}}"\n{{{indentation}}}gnetId: {{{packageName}}}\n{{{indentation}}}revision: {{{newValue}}}',
+      datasourceTemplate: 'custom.grafana-dashboards',
+      versioningTemplate: 'regex:^(?<major>\\d+)$',
+    },
+  ],
 }
