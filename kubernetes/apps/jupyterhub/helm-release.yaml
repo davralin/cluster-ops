@@ -40,6 +40,7 @@ spec:
               type: RuntimeDefault
           start_timeout: 60
           services_enabled: false
+          default_url: "/"
           uid: 1000
       networkPolicy:
         egress:
@@ -67,7 +68,6 @@ spec:
       service:
         type: ClusterIP
     singleuser:
-      defaultUrl: "/proxy/8888/"
       cloudMetadata:
          # block set to true will append a privileged initContainer using
         # iptables to block the sensitive metadata server at the provided ip.
@@ -94,6 +94,7 @@ spec:
             image: ghcr.io/coder/code-server:4.98.2
             command: ["Starts, connects, URL 404"]
             default_url: “/vscode”
+            defaultUrl: “/vscode”
             args:
               - --bind-addr
               - 0.0.0.0:8888
