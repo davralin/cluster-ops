@@ -37,6 +37,8 @@ spec:
       [global]
       bdev_enable_discard = true
       bdev_async_discard = true
+      # https://github.com/rook/rook/discussions/15403
+      bdev_async_discard_threads = 1
       mon_data_avail_warn = 10
     cephClusterSpec:
       dashboard:
