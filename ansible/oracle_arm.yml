@@ -8,3 +8,5 @@
   - node_exporter
   - nullmailer
   - sshd
+  - docker
+  - uptime_kuma_compose
