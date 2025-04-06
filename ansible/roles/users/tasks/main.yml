@@ -1,9 +1,9 @@
 ---
 - name: Installing packages
-  apt:
+  ansible.builtin.apt:
     name: "{{ users_packages }}"
     state: present
-  become: yes
+  become: true
 
 - name: Manage user-accounts
   user:
@@ -16,27 +16,27 @@
     groups: "{{ item.groups | default('') }}"
     append: "{{ item.append | default('no') }}"
     update_password: "{{ item.update_password | default('on_create') }}"
-  become: yes
+  become: true
   with_items:
     - "{{ local_users }}"
 
 - name: Enforce ssh-keys for managed user-accounts
-  authorized_key:
+  ansible.posix.authorized_key:
     user: "{{ item.name }}"
     exclusive: "{{ item.exclusive | default('yes') }}"
     key: "{{ item.authorized_keys | default('') }}"
-  become: yes
+  become: true
   with_items:
     - "{{ local_users }}"
 
 - name: Enable unrestricted sudo
-  template:
+  ansible.builtin.template:
     src: sudoers.j2
     dest: "/etc/sudoers.d/{{ item.name }}"
     owner: root
     group: root
     mode: 0440
     validate: /usr/sbin/visudo -cf  %s
-  become: yes
+  become: true
   with_items:
     - "{{ local_users }}"

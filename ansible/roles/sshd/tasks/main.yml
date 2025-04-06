@@ -1,6 +1,6 @@
 ---
 - name: Set sshd_config
-  template:
+  ansible.builtin.template:
     src: sshd_config.j2
     dest: /etc/ssh/sshd_config
     group: root
@@ -8,5 +8,5 @@
     force: yes
     mode: 0644
     validate: /usr/sbin/sshd -t -f %s
-  become: yes
+  become: true
   notify: Restart sshd

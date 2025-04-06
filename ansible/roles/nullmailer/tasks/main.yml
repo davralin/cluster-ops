@@ -1,19 +1,19 @@
 ---
 - name: Installing relay-MTA (nullmailer)
-  apt:
+  ansible.builtin.apt:
     name: "{{ packages }}"
     state: present
-  become: yes
+  become: true
   vars:
     packages:
       - nullmailer
       - bsd-mailx
 
 - name: Configuring relay-MTA (nullmailer)
-  copy:
+  ansible.builtin.copy:
     dest: '/etc/nullmailer/{{ item.dest }}'
     content: '{{ item.content }}'
-  become: yes
+  become: true
   loop:
     - { dest: 'adminaddr', content: '{{ nullmailer_adminaddr|lower }}' }
     - { dest: 'defaultdomain', content: '{{ nullmailer_defaultdomain|lower }}' }

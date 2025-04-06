@@ -1,24 +1,24 @@
 ---
 - name: Installing packages
-  apt:
+  ansible.builtin.apt:
     name: "{{ profile_packages }}"
     state: present
-  become: yes
+  become: true
 
 - name: Set motd
-  copy:
+  ansible.builtin.copy:
     dest: /etc/motd
     content: "{{ profile_motd_content }}"
     mode: 0644
-  become: yes
+  become: true
 
 - name: Populate profiles and bashrc
-  copy:
+  ansible.builtin.copy:
     src: '{{ item.src }}'
     dest: '{{ item.dest }}'
-    force: yes
+    force: true
     mode: 0644
-  become: yes
+  become: true
   loop:
     - { src: 'bashrc', dest: '/etc/skel/.bashrc'}
     - { src: 'bashrc', dest: '/root/.bashrc'}
@@ -32,12 +32,12 @@
     - { src: 'rebootreq', dest: '/etc/profile.d/99_rebootreq.sh'}
 
 - name: Set locales
-  debconf:
+  ansible.builtin.debconf:
     name: locales
     question: "{{ item.question }}"
     value: "{{ item.value }}"
     vtype: "{{ item.vtype }}"
-  become: yes
+  become: true
   loop:
     - { question: 'locales/default_environment_locale', value: '{{ profile_environment_locale }}', vtype: 'select'}
     - { question: 'locales/locales_to_be_generated', value: '{{ profile_locale }}', vtype: 'select'}

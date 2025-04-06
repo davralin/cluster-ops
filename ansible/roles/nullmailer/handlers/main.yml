@@ -1,6 +1,6 @@
 ---
 - name: Restart nullmailer
-  service:
+  ansible.builtin.service:
     name: nullmailer
     state: restarted
-  become: yes
+  become: true

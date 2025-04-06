@@ -1,7 +1,7 @@
 ---
 - name: Rebuild locales
-  command: "{{ item }}"
-  become: yes
+  ansible.builtin.command: "{{ item }}"
+  become: true
   loop:
     - /usr/sbin/dpkg-reconfigure locales -f noninteractive
     - /usr/sbin/locale-gen
