@@ -1,0 +1,8 @@
+---
+apt_packages:
+  - lsof
+  - rsync
+  - silversearcher-ag
+  - systemd-timesyncd
+  - tmux
+  - vim
