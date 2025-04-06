@@ -22,7 +22,7 @@
     - apt update
 
 - name: Flush handlers
-  ansible.builtin.9meta: flush_handlers
+  ansible.builtin.meta: flush_handlers
 
 - name: Installing update-packages
   ansible.builtin.apt:
