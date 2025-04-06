@@ -3,3 +3,8 @@
 
   roles:
   - apt
+  - users
+  - profile
+  - node_exporter
+  - nullmailer
+  - sshd
