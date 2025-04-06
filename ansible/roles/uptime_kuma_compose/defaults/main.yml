@@ -1,0 +1,4 @@
+---
+uptime_kuma_compose_path: "/opt/uptime_kuma"
+uptime_kuma_compose_config_path: "{{ uptime_kuma_compose_path }}/config"
+uptime_kuma_compose_web_port: "3001"
