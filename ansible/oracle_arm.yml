@@ -1,0 +1,5 @@
+---
+- hosts: oracle_arm
+
+  roles:
+  - apt
