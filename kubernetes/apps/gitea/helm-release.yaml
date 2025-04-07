@@ -45,7 +45,7 @@ spec:
           gitea:
             image:
               repository: docker.gitea.com/gitea
-              tag: 1.23.6-rootless
+              tag: 1.23.7-rootless
             env:
               TZ: "${TIMEZONE}"
               USER_UID: 1000
