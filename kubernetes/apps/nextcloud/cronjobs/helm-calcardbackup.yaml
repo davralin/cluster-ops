@@ -41,7 +41,7 @@ spec:
           calcardbackup:
             image:
               repository: waja/calcardbackup
-              tag: 8.1.0-1
+              tag: 8.2.0-1
             env:
               TZ: "${TIMEZONE}"
               NC_DIR: "/nextcloud"
