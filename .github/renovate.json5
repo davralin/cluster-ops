@@ -82,7 +82,9 @@
         "ghcr.io/cloudnative-pg/postgresql",
         "ghcr.io/coder/code-server",
 	      "ghcr.io/home-assistant/home-assistant",
-        "ghcr.io/joryirving"
+        "ghcr.io/joryirving",
+        "ghcr.io/rommapp/romm",
+        "quay.io/minio/minio"
       ]
     },
     {
