@@ -26,6 +26,8 @@ spec:
   values:
     fullnameOverride: *name
     defaultPodOptions:
+      automountServiceAccountToken: false
+      enableServiceLinks: false
       securityContext:
         runAsUser: 999
         runAsGroup: 999

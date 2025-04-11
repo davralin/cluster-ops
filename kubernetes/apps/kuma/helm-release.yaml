@@ -26,6 +26,8 @@ spec:
   values:
     fullnameOverride: *name
     defaultPodOptions:
+      automountServiceAccountToken: false
+      enableServiceLinks: false
       securityContext:
         # chown: changing ownership of '/app/data/lost+found': Operation not permitted
         runAsUser: 0

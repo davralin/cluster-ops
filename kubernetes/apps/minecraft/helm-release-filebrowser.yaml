@@ -2,8 +2,8 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &name filebrowser
-  namespace: minecraft
+  name: &name minecraft-filebrowser
+  namespace: flux-system
 spec:
   interval: 30m
   chart:
@@ -25,6 +25,17 @@ spec:
       retries: 10
   values:
     fullnameOverride: *name
+    defaultPodOptions:
+      automountServiceAccountToken: false
+      enableServiceLinks: false
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
     controllers:
       filebrowser:
         containers:
@@ -32,6 +43,14 @@ spec:
             image:
               repository: ghcr.io/davralin/sleep
               tag: latest@sha256:55ba7c4ae6cc7627d300131cb95b873e6589c0e7f85675ec80288f3e845650fe
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 10m
+                memory: 100Mi
     persistence:
       mods:
         enabled: true

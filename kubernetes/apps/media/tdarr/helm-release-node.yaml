@@ -26,6 +26,8 @@ spec:
   values:
     fullnameOverride: *name
     defaultPodOptions:
+      automountServiceAccountToken: false
+      enableServiceLinks: false
       securityContext:
       # s6-overlay-suexec: warning: unable to gain root privileges (is the suid bit set?)
         runAsUser: 0

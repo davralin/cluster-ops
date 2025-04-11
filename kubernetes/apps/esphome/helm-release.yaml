@@ -27,6 +27,8 @@ spec:
     fullnameOverride: *name
     # PermissionError: [Errno 13] Permission denied: '/.platformio'
     defaultPodOptions:
+      automountServiceAccountToken: false
+      enableServiceLinks: false
       securityContext:
         runAsUser: 0
         runAsGroup: 0

@@ -26,6 +26,8 @@ spec:
   values:
     fullnameOverride: *name
     defaultPodOptions:
+      automountServiceAccountToken: false
+      enableServiceLinks: false
       securityContext:
         # [cont-init   ] 10-init-users.sh: rm: can't remove '/etc/passwd': Permission denied
         runAsNonRoot: false

@@ -27,6 +27,8 @@ spec:
     fullnameOverride: *name
     # Listens on port 80, chown's around
     defaultPodOptions:
+      automountServiceAccountToken: false
+      enableServiceLinks: false
       securityContext:
         runAsUser: 0
         runAsGroup: 0

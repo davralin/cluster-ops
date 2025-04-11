@@ -26,6 +26,8 @@ spec:
   values:
     fullnameOverride: *name
     defaultPodOptions:
+      automountServiceAccountToken: false
+      enableServiceLinks: false
       hostname: *name
       securityContext:
         # chown: /lidatube/.git/FETCH_HEAD: Operation not permitted

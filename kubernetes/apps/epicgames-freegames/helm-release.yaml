@@ -44,6 +44,8 @@ spec:
     fullnameOverride: *name
     # https://github.com/claabs/epicgames-freegames-node/issues/228
     defaultPodOptions:
+      automountServiceAccountToken: false
+      enableServiceLinks: false
       securityContext:
         # mkdir: cannot create directory '/nonexistent': Permission denied
         runAsUser: 0
