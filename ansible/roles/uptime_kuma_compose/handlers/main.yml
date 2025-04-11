@@ -1,6 +1,4 @@
 ---
 - name: Restart uptime_kuma
-  ansible.builtin.systemd_service:
-    name: docker-uptime_kuma.service
-    state: restarted
+  ansible.builtin.command: docker-compose -f {{ uptime_kuma_compose_path }}/docker-compose.yml restart
   become: true
