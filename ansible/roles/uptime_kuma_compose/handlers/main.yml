@@ -1,4 +1,4 @@
 ---
 - name: Restart uptime_kuma
-  ansible.builtin.command: docker-compose -f {{ uptime_kuma_compose_path }}/docker-compose.yml restart
+  ansible.builtin.command: docker-compose -f {{ uptime_kuma_compose_path }}/docker-compose.yml up -d --force-recreate
   become: true
