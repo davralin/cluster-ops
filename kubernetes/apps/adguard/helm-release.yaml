@@ -27,6 +27,8 @@ spec:
     fullnameOverride: *name
     # Containers listens on tcp/53 and tcp/80
     defaultPodOptions:
+      automountServiceAccountToken: false
+      enableServiceLinks: false
       securityContext:
         # [fatal] writing config file: open /opt/adguardhome/conf/.AdGuardHome.yaml7437003519424238868: permission denied
         runAsUser: 0

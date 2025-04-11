@@ -26,6 +26,8 @@ spec:
   values:
     fullnameOverride: *name
     defaultPodOptions:
+      automountServiceAccountToken: false
+      enableServiceLinks: false
       securityContext:
         # App doesn't even log anything.
         runAsUser: 0
