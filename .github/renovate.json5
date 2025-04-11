@@ -54,6 +54,7 @@
         "ghcr.io/meshtastic/web",
         "ghcr.io/onedr0p",
         "ghcr.io/sdr-enthusiasts",
+        "ghcr.io/thelounge/thelounge",
         "quay.io/invidious/inv-sig-helper"
       ]
     },
@@ -74,6 +75,7 @@
       "automergeType": "branch",
       "matchUpdateTypes": ["patch"],
       "matchPackagePatterns": [
+        "docker.io/glanceapp/glance",
         "docker.io/searxng/searxng",
         "docker.io/thewicklowwolf/lidatube",
         "ghcr.io/alexta69/metube",
@@ -83,6 +85,8 @@
         "ghcr.io/coder/code-server",
 	      "ghcr.io/home-assistant/home-assistant",
         "ghcr.io/joryirving",
+        "ghcr.io/music-assistant/server",
+        "ghcr.io/paperless-ngx/paperless-ngx",
         "ghcr.io/rommapp/romm",
         "quay.io/minio/minio"
       ]
