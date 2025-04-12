@@ -41,7 +41,7 @@ spec:
               Strict-Transport-Security "max-age=31536000"
               X-Frame-Options "DENY"
               X-Content-Type-Options "nosniff"
-              Referrer-Policy "no-referrer-when-downgrade"
+              Referrer-Policy "strict-origin-when-cross-origin"
           postgres_configuration_secret: awx-secrets
           ingress_type: ingress
           ingress_tls_secret: "${SECRET_PRIVATE_DOMAIN_CERT}"

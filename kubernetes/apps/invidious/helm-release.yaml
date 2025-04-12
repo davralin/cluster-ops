@@ -98,7 +98,7 @@ spec:
             Strict-Transport-Security "max-age=31536000"
             X-Frame-Options "SAMEORIGIN"
             X-Content-Type-Options "nosniff"
-            Referrer-Policy "no-referrer-when-downgrade"
+            Referrer-Policy "strict-origin-when-cross-origin"
         hosts:
           - host: &host "y.${SECRET_DEFAULT_DOMAIN}"
             paths:

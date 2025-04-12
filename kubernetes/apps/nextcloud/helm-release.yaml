@@ -172,7 +172,7 @@ spec:
             X-Frame-Options "SAMEORIGIN"
             X-Content-Type-Options "nosniff"
             X-Download-Options "NoOpen"
-            Referrer-Policy "no-referrer-when-downgrade"
+            Referrer-Policy "strict-origin-when-cross-origin"
         hosts:
           - host: &host "cloud.${SECRET_DEFAULT_DOMAIN}"
             paths:
