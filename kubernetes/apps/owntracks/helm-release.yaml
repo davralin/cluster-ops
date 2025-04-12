@@ -28,12 +28,16 @@ spec:
     defaultPodOptions:
       automountServiceAccountToken: false
       enableServiceLinks: false
+      # Recorder:
+      # ot-recorder: /store/ghash: Permission denied
+      # Frontend:
+      # /bin/sh: can't create /etc/nginx/nginx.conf: Permission denied
       securityContext:
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
+        runAsUser: 0
+        runAsGroup: 0
+        fsGroup: 0
         fsGroupChangePolicy: "OnRootMismatch"
-        runAsNonRoot: true
+        runAsNonRoot: false
         seccompProfile:
           type: RuntimeDefault
     controllers:
@@ -45,32 +49,39 @@ spec:
               tag: 1.0.0@sha256:8de5f7674fa7a4575635702fb41a6307e7294a31f393ac165c25328e45e36372
             env:
               TZ: "${TIMEZONE}"
+              OTR_HOST: "emqx.emqx.svc.cluster.local"
+              OTR_USER: "owntracks"
+              OTR_PASS: "owntracks"
+              OTR_CLIENTID: "owntracks"
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
             resources:
               requests:
-                cpu: 50m
-                memory: 500Mi
-              #limits:
-                #memory: 1000Mi
+                cpu: 10m
+                memory: 50Mi
+              limits:
+                memory: 100Mi
           frontend:
             image:
               repository: owntracks/frontend
               tag: 2.15.3@sha256:efa313bdec583939f6edc70eb148670a8bba1a5aed0508a326f5b2f2751d0861
             env:
+              SERVER_HOST: "localhost"
               TZ: "${TIMEZONE}"
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities: { drop: ["ALL"] }
+              # /bin/sh: can't create /etc/nginx/nginx.conf: Read-only file system
+              readOnlyRootFilesystem: false
+              # [emerg] 8#8: chown("/var/cache/nginx/client_temp", 101) failed (1: Operation not permitted)
+              #capabilities: { drop: ["ALL"] }
             resources:
               requests:
-                cpu: 50m
-                memory: 500Mi
-              #limits:
-                #memory: 1000Mi
+                cpu: 10m
+                memory: 50Mi
+              limits:
+                memory: 100Mi
     service:
       owntracks:
         controller: *name
@@ -89,7 +100,7 @@ spec:
             X-Content-Type-Options "nosniff"
             Referrer-Policy "no-referrer-when-downgrade"
         hosts:
-          - host: &host "status.${SECRET_DEFAULT_DOMAIN}"
+          - host: &host "owntracks.${SECRET_DEFAULT_DOMAIN}"
             paths:
               - path: /
                 service:
@@ -102,5 +113,16 @@ spec:
       config:
         enabled: true
         existingClaim: owntracks
-        globalMounts:
-          - path: /tmp
+        advancedMounts:
+          owntracks:
+            recorder:
+              - path: /store
+      frontend:
+        type: configMap
+        name: owntracks-config
+        advancedMounts:
+          owntracks:
+            frontend:
+              - path: /usr/share/nginx/html/config/config.js
+                subPath: frontend-config.js
+                readOnly: true

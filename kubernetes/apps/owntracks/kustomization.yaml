@@ -4,4 +4,12 @@ kind: Kustomization
 resources:
   - helm-release.yaml
   - namespace.yaml
+  - probes.yaml
   - pvc.yaml
+configMapGenerator:
+  - name: owntracks-config
+    namespace: owntracks
+    files:
+      - frontend-config.js=./frontend-config.js
+generatorOptions:
+  disableNameSuffixHash: true
