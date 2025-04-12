@@ -44,6 +44,7 @@ resources:
   - ../ollama
   - ../opencost
   - ../openwebui
+  - ../owntracks
   - ../paperless-ngx
   - ../reloader
   - ../romm
