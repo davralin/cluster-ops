@@ -1,0 +1,41 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: github-davralin-private-cluster-ops
+  namespace: flux-system
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: flux2-sync
+      version: 1.12.0
+      sourceRef:
+        kind: HelmRepository
+        name: flux-charts
+        namespace: flux-system
+      interval: 30m
+  targetNamespace: flux-system
+  install:
+    createNamespace: true
+    crds: CreateReplace
+    remediation:
+      retries: 10
+  upgrade:
+    crds: CreateReplace
+    remediation:
+      retries: 10
+  dependsOn:
+    - name: flux2
+      namespace: flux-system
+  values:
+    gitRepository:
+      name: github-davralin-private-cluster-ops
+      spec:
+        url: https://github.com/davralin/private-cluster-ops
+        ref:
+          branch: main
+    kustomization:
+      spec:
+        path: ./kubernetes/clusters/homeprod
+        prune: true
