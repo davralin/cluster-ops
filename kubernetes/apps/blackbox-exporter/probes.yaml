@@ -42,7 +42,6 @@ spec:
           targets:
             staticConfig:
               static:
-                - kjellerap.internal
                 - kjokkenap.internal
                 - takap.internal
                 - SLZB-06P7.internal
