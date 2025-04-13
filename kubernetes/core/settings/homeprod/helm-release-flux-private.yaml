@@ -39,3 +39,5 @@ spec:
       spec:
         path: ./kubernetes/clusters/homeprod
         prune: true
+    secret:
+      create: true
