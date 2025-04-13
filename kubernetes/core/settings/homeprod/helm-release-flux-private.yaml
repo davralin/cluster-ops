@@ -35,9 +35,8 @@ spec:
         url: https://github.com/davralin/private-cluster-ops
         ref:
           branch: main
+        secretRef: github-davralin-private-cluster-ops
     kustomization:
       spec:
         path: ./kubernetes/clusters/homeprod
         prune: true
-    secret:
-      create: true
