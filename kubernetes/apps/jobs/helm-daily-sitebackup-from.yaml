@@ -45,7 +45,7 @@ spec:
           daily-sitebackup-from:
             image:
               repository: ghcr.io/davralin/rsync
-              tag: latest@sha256:04e561bc3586ea91c48e16aa677617dcb63183ef28ad64da04b1858864a3656d
+              tag: latest@sha256:b36a4fbe6ae5bc21eb4986e75e3d298cc856feea59dc1a0e7f2f39a6822b5863
             command: ['/usr/bin/rsync']
             args: ["--archive", "--delete", "--verbose", "--rsync-path", "sudo rsync", "-e", "ssh -o StrictHostKeyChecking=no", "backup@nas.${SECRET_OFFSITE_DOMAIN}:/opt/local/", "/home/user/backup/"]
             securityContext:
