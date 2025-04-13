@@ -86,8 +86,11 @@
 	      "ghcr.io/home-assistant/home-assistant",
         "ghcr.io/joryirving",
         "ghcr.io/music-assistant/server",
+        "ghcr.io/open-webui/open-webui",
         "ghcr.io/paperless-ngx/paperless-ngx",
         "ghcr.io/rommapp/romm",
+        "ghcr.io/syncthing/syncthing",
+        "ghcr.io/tautulli/tautulli",
         "quay.io/minio/minio"
       ]
     },
