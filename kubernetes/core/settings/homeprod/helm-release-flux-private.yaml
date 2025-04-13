@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: github-davralin-private-cluster-ops
+  name: github-davralin-private-repo
   namespace: flux-system
 spec:
   interval: 30m
