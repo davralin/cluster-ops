@@ -103,7 +103,8 @@
       "matchPackagePatterns": [
 	      "awx-operator",
 	      "grafana",
-        "kube-prometheus-stack"
+        "kube-prometheus-stack",
+        "minecraft"
       ]
     },
     {
