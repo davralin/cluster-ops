@@ -93,4 +93,4 @@ spec:
       proxy:
         type: emptyDir
         globalMounts:
-          - path: /var/lib/nginx/body/
+          - path: /var/lib/nginx/proxy/
