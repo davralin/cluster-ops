@@ -99,6 +99,11 @@ spec:
         type: emptyDir
         globalMounts:
           - path: /var/lib/nginx/proxy/
+      # nginx: [emerg] open() "/run/nginx.pid" failed (30: Read-only file system)
+      run:
+        type: emptyDir
+        globalMounts:
+          - path: /run/
       # [emerg] 9#9: mkdir() "/var/lib/nginx/scgi" failed (30: Read-only file system)
       scgi:
         type: emptyDir
