@@ -99,3 +99,8 @@ spec:
         type: emptyDir
         globalMounts:
           - path: /var/lib/nginx/proxy/
+      # [emerg] 9#9: mkdir() "/var/lib/nginx/uwsgi" failed (30: Read-only file system)
+      uwsgi:
+        type: emptyDir
+        globalMounts:
+          - path: /var/lib/nginx/uwsgi
