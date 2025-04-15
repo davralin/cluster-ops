@@ -89,6 +89,11 @@ spec:
         type: emptyDir
         globalMounts:
           - path: /var/lib/nginx/body/
+      # [emerg] 9#9: mkdir() "/var/lib/nginx/fastcgi" failed (30: Read-only file system)
+      fastcgi:
+        type: emptyDir
+        globalMounts:
+          - path: /var/lib/nginx/fastcgi
       # [emerg] 9#9: mkdir() "/var/lib/nginx/proxy" failed (30: Read-only file system)
       proxy:
         type: emptyDir
