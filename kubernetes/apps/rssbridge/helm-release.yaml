@@ -83,3 +83,14 @@ spec:
         tls:
           - hosts:
               - *host
+    persistence:
+      # [emerg] 9#9: mkdir() "/var/lib/nginx/body" failed (30: Read-only file system)
+      body:
+        type: emptyDir
+        globalMounts:
+          - path: /var/lib/nginx/body/
+      # [emerg] 9#9: mkdir() "/var/lib/nginx/proxy" failed (30: Read-only file system)
+      proxy:
+        type: emptyDir
+        globalMounts:
+          - path: /var/lib/nginx/body/
