@@ -48,6 +48,7 @@ resources:
   - ../paperless-ngx
   - ../reloader
   - ../romm
+  - ../rssbridge
   - ../searxng
   - ../speedtest-exporter
   - ../spegel
