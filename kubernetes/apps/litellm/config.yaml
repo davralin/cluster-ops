@@ -1,8 +1,4 @@
 model_list:
-  - model_name: codestral:22b
-    litellm_params:
-      model: ollama_chat/codestral:22b
-      api_base: "http://10.0.1.243:11434"
   - model_name: deepseek-r1:1.5b
     litellm_params:
       model: ollama_chat/deepseek-r1:1.5b
@@ -11,14 +7,6 @@ model_list:
     litellm_params:
       model: ollama_chat/deepseek-r1:7b
       api_base: "http://ollama.ollama.svc.cluster.local:11434"
-  - model_name: deepseek-r1:14b
-    litellm_params:
-      model: ollama_chat/deepseek-r1:14b
-      api_base: "http://10.0.1.243:11434"
-  - model_name: deepseek-r1:32b
-    litellm_params:
-      model: ollama_chat/deepseek-r1:32b
-      api_base: "http://10.0.1.243:11434"
   - model_name: gemma3:12b
     litellm_params:
       model: ollama_chat/gemma3:12b
