@@ -14,6 +14,7 @@ resources:
   - metube
   - multiscrobbler
   - pvc.yaml
+  - ocdarr
   - plex
   - prowlarr
   - qbittorrent
