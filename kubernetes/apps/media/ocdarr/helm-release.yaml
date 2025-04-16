@@ -93,6 +93,13 @@ spec:
       config:
         enabled: true
         type: emptyDir
+        globalMounts:
+          - path: /app/config/
+      # OSError: [Errno 30] Read-only file system: '/app/logs/episeerr.log'
+      app-tmp:
+        type: emptyDir
+        globalMounts:
+          - path: /app/logs/
       tmp:
         type: emptyDir
         globalMounts:
