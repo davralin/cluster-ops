@@ -1,0 +1,6 @@
+---
+- name: Restart ErsatzTV
+  ansible.builtin.systemd_service:
+    name: docker-ersatztv.service
+    state: restarted
+  become: true

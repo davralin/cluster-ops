@@ -1,0 +1,5 @@
+---
+- hosts: ErsatzTV
+
+  roles:
+  - ersatztv_compose
