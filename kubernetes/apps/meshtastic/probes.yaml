@@ -42,4 +42,4 @@ spec:
           targets:
             staticConfig:
               static:
-                - "https://meshtastic.${SECRET_DEFAULT_DOMAIN}"
+                - "http://meshtastic.${SECRET_DEFAULT_DOMAIN}"

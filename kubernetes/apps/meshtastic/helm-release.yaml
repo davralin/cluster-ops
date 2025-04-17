@@ -57,31 +57,14 @@ spec:
                 memory: 60Mi
     service:
       meshtastic:
+        type: LoadBalancer
         controller: *name
+        loadBalancerIP: 10.0.1.45
         ports:
           http:
-            port: 8080
-    ingress:
-      meshtastic:
-        enabled: true
-        annotations:
-          haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
-          haproxy.org/ssl-redirect-port: "443"
-          haproxy.org/response-set-header: |
-            Strict-Transport-Security "max-age=31536000"
-            X-Frame-Options "DENY"
-            X-Content-Type-Options "nosniff"
-            Referrer-Policy "strict-origin-when-cross-origin"
-        hosts:
-          - host: &host "meshtastic.${SECRET_DEFAULT_DOMAIN}"
-            paths:
-              - path: /
-                service:
-                  identifier: meshtastic
-                  port: http
-        tls:
-          - hosts:
-              - *host
+            port: 80
+            targetPort: 8080
+            protocol: TCP
     persistence:
       # [emerg] 1#1: mkdir() "/var/cache/nginx/client_temp" failed (13: Permission denied)
       cache:
