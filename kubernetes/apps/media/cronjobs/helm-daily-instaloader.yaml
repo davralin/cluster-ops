@@ -45,7 +45,7 @@ spec:
           daily-instaloader:
             image:
               repository: ghcr.io/davralin/instaloader
-              tag: latest@sha256:458636bcd3ae6362a3c69f50a325f9fbd2c95ab9e59936ad4b825b3d441e7208
+              tag: latest@sha256:b42688f6b0443ca6e3920d7db370cac15922477cc31629950c0e85701b4a8732
             command: ['/media/instaloader.sh']
             securityContext:
               allowPrivilegeEscalation: false
