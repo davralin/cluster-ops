@@ -43,7 +43,7 @@ spec:
           esphome:
             image:
               repository: ghcr.io/esphome/esphome
-              tag: 2025.3.3
+              tag: 2025.4.0
             env:
               TZ: "${TIMEZONE}"
             securityContext:
