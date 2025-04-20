@@ -1,8 +1,10 @@
 ---
 apt_packages:
   - lsof
+  - ncurses-term
   - rsync
   - silversearcher-ag
   - systemd-timesyncd
+  - terminfo
   - tmux
   - vim
