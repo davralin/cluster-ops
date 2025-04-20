@@ -3,7 +3,7 @@
   apt:
     name: "{{ packages }}"
     state: present
-  become: yes
+  become: true
   vars:
     packages:
       - rsync
