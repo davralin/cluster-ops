@@ -284,6 +284,16 @@
       ]
     }
   },
+  "regexManagers": [
+    {
+      "fileMatch": [
+        ".*\\.ya?ml$"
+      ],
+      "matchStrings": [
+        "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( versioning=(?<versioning>.*?))?\\n.*?_version: (?<currentValue>.*)\\s"
+      ]
+    }
+  ],
   "customManagers": [
     {
       "customType": "regex",
