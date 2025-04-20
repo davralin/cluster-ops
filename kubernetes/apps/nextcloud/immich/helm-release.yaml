@@ -40,7 +40,7 @@ spec:
       DB_DATABASE_NAME: "immich"
     image:
       # renovate: datasource=github-releases depName=immich-app/immich
-      tag: "v1.131.3"
+      tag: v1.131.3
     immich:
       metrics:
         enabled: "${MONITORING_PROMETHEUS}"

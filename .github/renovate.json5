@@ -316,6 +316,16 @@
     },
     {
       "customType": "regex",
+      "description": "Process Immich helm-chart tags",
+      "fileMatch": [
+        "(^|/)kubernetes/.+\\.ya?ml$"
+      ],
+      "matchStrings": [
+        "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)(?: versioning=(?<versioning>\\S+))?\\n(?<variable>\\w+): (?<currentValue>\\S+)"
+      ]
+    },
+    {
+      "customType": "regex",
       "description": "Process custom ansible role-dependencies",
       "fileMatch": [
         "(^|/)ansible/.+\\.ya?ml$"
