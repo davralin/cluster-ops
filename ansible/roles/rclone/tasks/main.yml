@@ -1,0 +1,11 @@
+---
+- name: Get arch-information
+  ansible.builtin.command: "dpkg --print-architecture"
+  changed_when: false
+  register: host_architecture
+
+- name: Installing package
+  ansible.builtin.apt:
+    deb: "{{ rclone_deb_url }}"
+    state: present
+  become: true
