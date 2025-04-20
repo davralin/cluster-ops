@@ -284,16 +284,6 @@
       ]
     }
   },
-  "regexManagers": [
-    {
-      "fileMatch": [
-        ".*\\.ya?ml$"
-      ],
-      "matchStrings": [
-        "\\s*# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)(?: versioning=(?<versioning>\\S+))?.*\\n\\s*(?<variable>(?:[\\w\\-]+\\.)*[\\w\\-]+):\\s*[\"']?(?<currentValue>[^\"'\\s#]+)[\"']?"
-      ]
-    }
-  ],
   "customManagers": [
     {
       "customType": "regex",
@@ -323,6 +313,16 @@
       "autoReplaceStringTemplate": "depName=\"{{{depName}}}\"\n{{{indentation}}}gnetId: {{{packageName}}}\n{{{indentation}}}revision: {{{newValue}}}",
       "datasourceTemplate": "custom.grafana-dashboards",
       "versioningTemplate": "regex:^(?<major>\\d+)$"
+    },
+    {
+      "customType": "regex",
+      "description": "Process custom ansible role-dependencies",
+      "fileMatch": [
+        "(^|/)ansible/.+\\.ya?ml$"
+      ],
+      "matchStrings": [
+        "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)(?: versioning=(?<versioning>\\S+))?\\n(?<variable>\\w+): (?<currentValue>\\S+)"
+      ]
     }
   ]
 }
