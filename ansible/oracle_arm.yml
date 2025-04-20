@@ -8,6 +8,7 @@
   - profile
   - node_exporter
   - nullmailer
+  - rsync
   - sshd
   - docker
   - uptime_kuma_compose
