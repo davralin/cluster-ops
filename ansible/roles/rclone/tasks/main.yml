@@ -4,6 +4,15 @@
   changed_when: false
   register: host_architecture
 
+- name: Installing dependencies
+  ansible.builtin.apt:
+    name: "{{ packages }}"
+    state: present
+  become: true
+  vars:
+    packages:
+      - fuse
+
 - name: Installing package
   ansible.builtin.apt:
     deb: "{{ rclone_deb_url }}"
