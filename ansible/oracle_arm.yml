@@ -4,6 +4,7 @@
   roles:
   - apt
   - users
+  - locale
   - profile
   - node_exporter
   - nullmailer

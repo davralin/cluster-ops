@@ -1,0 +1,4 @@
+---
+- name: Regen locale
+  ansible.builtin.command: /usr/sbin/locale-gen
+  become: true

@@ -1,0 +1,11 @@
+---
+- name: Set locales
+  ansible.builtin.template:
+    src: locale.gen.j2
+    dest: /etc/locale.gen
+    group: root
+    owner: root
+    force: yes
+    mode: 0644
+  become: true
+  notify: Regen locale
