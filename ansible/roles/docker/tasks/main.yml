@@ -7,4 +7,5 @@
   vars:
     packages:
       - docker.io
+      - docker-cli
       - docker-compose
