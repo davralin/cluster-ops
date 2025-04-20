@@ -4,8 +4,12 @@ deb {{ apt_repo_mirror }} {{ apt_repo_releasename }} main non-free-firmware
 # updates repo for {{ apt_repo_releasename }}
 deb {{ apt_repo_mirror }} {{ apt_repo_releasename }}-updates main non-free-firmware
 
+{% if 'sid' in ansible_distribution_version %}
+# This debian is still sid, so no security-update-repo
+{% else %}
 # security repo for {{ apt_repo_releasename }}
 deb {{ apt_repo_security_mirror }} {{ apt_repo_releasename }}-security main non-free-firmware
+{% endif %}
 
 {% if apt_repo_contrib %}
 # contrib-repo for {{ apt_repo_releasename }}
