@@ -290,7 +290,7 @@
         ".*\\.ya?ml$"
       ],
       "matchStrings": [
-        "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( versioning=(?<versioning>.*?))?\\n.*?_version: (?<currentValue>.*)\\s"
+        "\\s*# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)(?: versioning=(?<versioning>\\S+))?.*\\n\\s*(?<variable>(?:[\\w\\-]+\\.)*[\\w\\-]+):\\s*[\"']?(?<currentValue>[^\"'\\s#]+)[\"']?"
       ]
     }
   ],
