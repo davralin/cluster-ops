@@ -5,9 +5,9 @@
   - apt
   - users
   - locale
-  - profile
   - node_exporter
   - nullmailer
+  - profile
   - rclone
   - rsync
   - sshd
