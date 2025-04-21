@@ -4,6 +4,7 @@
   roles:
   - apt
   - users
+  - haproxy
   - locale
   - node_exporter
   - nullmailer
