@@ -12,5 +12,6 @@
   - rclone
   - rsync
   - sshd
+  - wireguard
   - docker
   - uptime_kuma_compose
