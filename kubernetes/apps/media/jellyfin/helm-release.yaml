@@ -6,6 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 30m
+  timeout: 10m
   chart:
     spec:
       chart: app-template
@@ -61,7 +62,7 @@ spec:
                   httpGet:
                     path: /health
                     port: 8096
-                  initialDelaySeconds: 60
+                  initialDelaySeconds: 600
                   periodSeconds: 10
                   timeoutSeconds: 10
                   failureThreshold: 3
