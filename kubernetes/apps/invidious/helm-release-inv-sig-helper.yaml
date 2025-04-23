@@ -46,7 +46,7 @@ spec:
           inv-sig-helper:
             image:
               repository: quay.io/invidious/inv-sig-helper
-              tag: latest@sha256:646c7b2a0e106ef44fc65bf8e4f3325ef6d4a01f2581c27b1d3181a830e75557
+              tag: latest@sha256:b5466c9add729e82e4e3ee5515c30b69df02d78ebb2486dbc9c63e456f29083d
             env:
               RUST_LOG: debug
             args:
