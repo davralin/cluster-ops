@@ -98,7 +98,6 @@
       ],
       "matchPackagePatterns": [
         "docker.io/glanceapp/glance",
-        "docker.io/grafana/grafana",
         "docker.io/searxng/searxng",
         "docker.io/thewicklowwolf/lidatube",
         "ghcr.io/alexta69/metube",
@@ -114,7 +113,8 @@
         "ghcr.io/rommapp/romm",
         "ghcr.io/syncthing/syncthing",
         "ghcr.io/tautulli/tautulli",
-        "quay.io/minio/minio"
+        "quay.io/minio/minio",
+        "grafana/grafana"
       ]
     },
     {
