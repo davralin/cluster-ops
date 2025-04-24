@@ -40,7 +40,7 @@ spec:
             endTime: "06:59"
             timeZone: "${TIMEZONE}"
           concurrency: 1
-          postCompleteDelay: 30s
+          postCompleteDelay: 5m
           exclusive: true
           nodeSelector:
             matchExpressions:

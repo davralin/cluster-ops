@@ -37,10 +37,10 @@ spec:
           version: v1.9.5
           window:
             startTime: "00:01"
-            endTime: "01:00"
+            endTime: "03:00"
             timeZone: "${TIMEZONE}"
           concurrency: 1
-          postCompleteDelay: 2m
+          postCompleteDelay: 30m
           exclusive: true
           nodeSelector:
             matchExpressions:
