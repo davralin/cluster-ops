@@ -15,3 +15,10 @@
     dest: /root/cloudflare.ini
     mode: 0600
   become: true
+
+- name: Setup cron
+  ansible.builtin.cron:
+    name: "Schedule certbot renew"
+    job: "/usr/bin/certbot renew"
+    special_time: daily
+  become: true
