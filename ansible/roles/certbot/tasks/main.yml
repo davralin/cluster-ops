@@ -8,3 +8,9 @@
     packages:
       - certbot
       - python3-certbot-dns-cloudflare
+
+- name: Copy template-file
+  ansible.builtin.template:
+    src: cloudflare.ini.j2
+    dest: /root/cloudflare.ini
+  become: true

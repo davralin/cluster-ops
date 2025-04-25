@@ -1,0 +1,3 @@
+---
+certbot_cloudflare_email: "remove@spam.com"
+certbot_cloudflare_dns_api_token: "Abcd1234"
