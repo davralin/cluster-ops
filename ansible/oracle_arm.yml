@@ -4,6 +4,7 @@
   roles:
   - apt
   - users
+  - certbot
   - haproxy
   - locale
   - node_exporter

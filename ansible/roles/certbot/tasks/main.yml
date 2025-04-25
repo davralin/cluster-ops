@@ -1,0 +1,10 @@
+---
+- name: Installing packages
+  ansible.builtin.apt:
+    name: "{{ packages }}"
+    state: present
+  become: true
+  vars:
+    packages:
+      - certbot
+      - python3-certbot-dns-cloudflare
