@@ -16,6 +16,13 @@
     mode: 0600
   become: true
 
+- name: Copy haproxy-hook
+  ansible.builtin.copy:
+    src: haproxy.sh
+    dest: /etc/letsencrypt/renewal-hooks/post/haproxy.sh
+    mode: 0755
+  become: true
+
 - name: Setup cron
   ansible.builtin.cron:
     name: "Schedule certbot renew"
