@@ -13,4 +13,5 @@
   ansible.builtin.template:
     src: cloudflare.ini.j2
     dest: /root/cloudflare.ini
+    mode: 0600
   become: true
