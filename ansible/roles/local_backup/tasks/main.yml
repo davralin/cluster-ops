@@ -1,0 +1,22 @@
+---
+
+- name: Ensure path to local backup
+  ansible.builtin.file:
+    path: "{{ local_backup_folder }}"
+    state: directory
+  become: true
+
+- name: Copy template backup-script
+  ansible.builtin.copy:
+    src: backup.sh
+    dest: "{{ local_backup_folder }}/backup.sh"
+    mode: 0755
+    force: no
+  become: true
+
+- name: Setup cron
+  ansible.builtin.cron:
+    name: "Daily local backup"
+    job: "{{ local_backup_folder }}/backup.sh"
+    special_time: daily
+  become: true

@@ -6,6 +6,7 @@
   - users
   - certbot
   - haproxy
+  - local_backup
   - locale
   - node_exporter
   - nullmailer
