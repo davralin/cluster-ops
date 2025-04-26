@@ -61,6 +61,7 @@ spec:
               static:
                 - "https://adguard.${SECRET_OFFSITE_DOMAIN}"
                 - "https://bilder.${SECRET_OFFSITE_DOMAIN}"
+                - "https://status.${SECRET_PUBLIC_DOMAIN}"
                 - "http://minio.${SECRET_DEFAULT_DOMAIN}:9001"
                 - "http://nas.${SECRET_DEFAULT_DOMAIN}:8095"
       - apiVersion: monitoring.coreos.com/v1
