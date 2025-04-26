@@ -1,0 +1,3 @@
+---
+homebridge_compose_path: "/opt/homebridge"
+homebridge_compose_config_path: "{{ homebridge_compose_path }}/config"
