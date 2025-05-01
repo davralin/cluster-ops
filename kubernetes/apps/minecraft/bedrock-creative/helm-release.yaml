@@ -67,7 +67,7 @@ spec:
       maxPlayers: 4
       levelSeed: 421112feedmekittens
       maxTickTime: -1
-      mode: creative
+      mode: survival
       memory: 6G
       motd: "A Bedrock-Creative Minecraft Server"
       overrideServerProperties: true
