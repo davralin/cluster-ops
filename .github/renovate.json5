@@ -53,6 +53,7 @@
         "digest"
       ],
       "matchPackagePatterns": [
+        "atdr.meo.ws/archiveteam/warrior-dockerfile",
         "docker.io/redis",
         "docker.io/searxng/searxng",
         "docker.io/tensorchord/pgvecto-rs",
