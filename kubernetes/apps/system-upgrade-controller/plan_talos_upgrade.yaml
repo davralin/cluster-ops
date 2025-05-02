@@ -36,7 +36,7 @@ spec:
           # renovate: depName=ghcr.io/siderolabs/installer datasource=docker
           version: v1.10.0
           window:
-            startTime: "20:23"
+            startTime: "23:55"
             endTime: "03:00"
             timeZone: "${TIMEZONE}"
           concurrency: 1
