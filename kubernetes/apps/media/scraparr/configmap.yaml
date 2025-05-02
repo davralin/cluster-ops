@@ -50,3 +50,10 @@ data:
       # alias: jellyseerr # Optional to Differentiate between multiple Services
       # interval: 60 # Optional to set a different Interval in Seconds
       # detailed: true  # Get Data per Request/Issue
+
+    jellyfin:
+      url: http://jellyfin.media.svc.cluster.local:8096
+      api_key: "${SECRET_JELLYFIN_TOKEN}"
+      # alias: jellyseerr # Optional to Differentiate between multiple Services
+      # interval: 60 # Optional to set a different Interval in Seconds
+      # detailed: true  # Get Data per Request/Issue
