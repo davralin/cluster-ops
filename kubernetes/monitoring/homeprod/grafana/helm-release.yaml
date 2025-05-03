@@ -243,6 +243,12 @@ spec:
           gnetId: 11314
           revision: 10
           datasource: Prometheus
+        # Ref: https://grafana.com/grafana/dashboards/11312-unifi-poller-usw-insights-prometheus/
+        unifi-poller-usw-insights:
+        # renovate: depName="UniFi-Poller: USW Insights - Prometheus"
+          gnetId: 11312
+          revision: 9
+          datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/18817
         unpackerr:
         # renovate: depName="Unpackerr"
