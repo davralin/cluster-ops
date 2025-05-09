@@ -64,6 +64,7 @@
         "ghcr.io/joryirving",
         "ghcr.io/meshtastic/web",
         "ghcr.io/onedr0p",
+        "ghcr.io/rss-bridge/rss-bridge",
         "ghcr.io/sdr-enthusiasts",
         "ghcr.io/thelounge/thelounge",
         "quay.io/invidious/inv-sig-helper"
@@ -137,7 +138,8 @@
         "grafana",
         "kube-prometheus-stack",
         "minecraft",
-        "node-feature-discovery"
+        "node-feature-discovery",
+        "rook-ceph"
       ]
     },
     {
