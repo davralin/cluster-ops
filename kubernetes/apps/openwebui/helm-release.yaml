@@ -51,7 +51,7 @@ spec:
           openwebui:
             image:
               repository: ghcr.io/open-webui/open-webui
-              tag: v0.6.7@sha256:dc89eb6b7666bfc4d2759e14e228f98aa338b631f3a56e465d315165f6c232c6
+              tag: v0.6.8@sha256:89b3eed928517acb2d7cd40dc574f1e73108d4b0222a8ee99a9fdc4044c7a2c2
             env:
               ENABLE_RAG_WEB_SEARCH: true
               RAG_WEB_SEARCH_ENGINE: "searxng"
