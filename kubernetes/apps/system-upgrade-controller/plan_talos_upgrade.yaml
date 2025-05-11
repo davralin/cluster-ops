@@ -34,11 +34,11 @@ spec:
           name: talos
         spec:
           # renovate: depName=ghcr.io/siderolabs/installer datasource=docker
-          version: v1.10.0
-          window:
-            startTime: "23:55"
-            endTime: "03:00"
-            timeZone: "${TIMEZONE}"
+          version: v1.9.6
+          #window:
+            #startTime: "23:55"
+            #endTime: "03:00"
+            #timeZone: "${TIMEZONE}"
           concurrency: 1
           postCompleteDelay: 30m
           exclusive: true
