@@ -139,7 +139,8 @@
         "kube-prometheus-stack",
         "minecraft",
         "node-feature-discovery",
-        "rook-ceph"
+        "rook-ceph",
+        "velero"
       ]
     },
     {
