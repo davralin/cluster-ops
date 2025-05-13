@@ -59,6 +59,13 @@ spec:
             enabled: true
             embedded: true
             port: 25565
+        - name: prometheus
+          containerPort: 9100
+          protocol: TCP
+          service:
+            enabled: true
+            embedded: true
+            port: 9100
       tz: "${TIMEZONE}"
       eula: true
       type: PAPER
@@ -67,13 +74,15 @@ spec:
       maxPlayers: 4
       levelSeed: 421112feedmekittens
       maxTickTime: -1
-      mode: survival
+      mode: creative
       memory: 6G
       motd: "A Bedrock-Creative Minecraft Server"
       overrideServerProperties: true
       pluginUrls:
         - https://download.geysermc.org/v2/projects/geyser/versions/latest/builds/latest/downloads/spigot
         - https://download.geysermc.org/v2/projects/floodgate/versions/latest/builds/latest/downloads/spigot
+        # renovate: datasource=github-releases depName=sladkoff/minecraft-prometheus-exporter
+        - https://github.com/sladkoff/minecraft-prometheus-exporter/releases/download/v3.1.2/minecraft-prometheus-exporter-3.1.2.jar
         # renovate: datasource=github-releases depName=ViaVersion/ViaVersion
         - https://github.com/ViaVersion/ViaVersion/releases/download/5.3.2/ViaVersion-5.3.2.jar
       rcon:
