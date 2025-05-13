@@ -51,14 +51,6 @@ spec:
            persistentVolumeClaim:
              claimName: mods
     minecraftServer:
-      extraPorts:
-        - name: prometheus
-          containerPort: 9100
-          protocol: TCP
-          service:
-            enabled: true
-            embedded: true
-            port: 9100
       tz: "${TIMEZONE}"
       eula: true
       type: FABRIC
@@ -72,9 +64,6 @@ spec:
       motd: "A Creative Minecraft Server"
       onlineMode: true
       overrideServerProperties: true
-      pluginUrls:
-        # renovate: datasource=github-releases depName=sladkoff/minecraft-prometheus-exporter
-        - https://github.com/sladkoff/minecraft-prometheus-exporter/releases/download/v3.1.2/minecraft-prometheus-exporter-3.1.2.jar
       rcon:
         enabled: true
       removeOldMods: true
