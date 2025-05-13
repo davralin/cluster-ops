@@ -31,7 +31,6 @@ resources:
   - ../kuma
   - ../kyverno
   - ../librespeed
-  - ../librespeed-test
   - ../litellm
   - ../mailrelay
   - ../mailrise
@@ -43,6 +42,7 @@ resources:
   - ../node-problem-detector
   - ../ollama
   - ../opencost
+  - ../openspeedtest
   - ../openwebui
   - ../owntracks
   - ../paperless-ngx

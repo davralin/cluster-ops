@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &name librespeed-test
+  name: &name openspeedtest
   namespace: flux-system
 spec:
   interval: 30m
@@ -15,7 +15,7 @@ spec:
         name: bjw-s-charts
         namespace: flux-system
       interval: 30m
-  targetNamespace: librespeed-test
+  targetNamespace: openspeedtest
   install:
     createNamespace: true
     remediation:
@@ -37,34 +37,45 @@ spec:
         seccompProfile:
           type: RuntimeDefault
     controllers:
-      librespeed-test:
-        strategy: RollingUpdate
+      openspeedtest:
         containers:
-          librespeed-test:
+          openspeedtest:
             image:
-              repository: ghcr.io/davralin/speedtest
-              tag: latest@sha256:5b46f01eabafb7dfb0a3871e0cef7f93dffbe7cd6f6497699c21b4327e959d84
-            env:
-              MODE: standalone
-              WEBPORT: 8080
+              repository: openspeedtest/latest
+              tag: v2.0.6@sha256:a6a7e3b3e9e93cfe7b9b2eb49c60b2a93644149a0a600845d4df57148b193ff6
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /
+                    port: 3000
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: false
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: false
+              readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 10m
-                memory: 50Mi
+                memory: 128Mi
               limits:
-                memory: 100Mi
+                memory: 256Mi
     service:
-      librespeed-test:
+      openspeedtest:
         controller: *name
         ports:
           http:
-            port: 8080
+            port: 3000
     ingress:
-      librespeed-test:
+      openspeedtest:
         enabled: true
         annotations:
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
@@ -75,17 +86,12 @@ spec:
             X-Content-Type-Options "nosniff"
             Referrer-Policy "strict-origin-when-cross-origin"
         hosts:
-          - host: &host "speed-test.${SECRET_DEFAULT_DOMAIN}"
+          - host: &host "openspeedtest.${SECRET_DEFAULT_DOMAIN}"
             paths:
               - path: /
                 service:
-                  identifier: librespeed-test
+                  identifier: openspeedtest
                   port: http
         tls:
           - hosts:
               - *host
-    persistence:
-      wwwdata:
-        type: emptyDir
-        globalMounts:
-          - path: /var/www/html/
