@@ -159,6 +159,9 @@ spec:
         mc-monitor:
           url: https://raw.githubusercontent.com/itzg/mc-monitor/refs/heads/master/examples/mc-monitor-prom/dashboards/mc-monitor.json
           datasource: Prometheus
+        minecraft-prometheus-exporter:
+          url: https://raw.githubusercontent.com/sladkoff/minecraft-prometheus-exporter/master/dashboards/minecraft-server-dashboard.json
+          datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/1860
         node-exporter-full:
           # renovate: depName="Node Exporter Full"
