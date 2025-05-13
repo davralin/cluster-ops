@@ -71,6 +71,9 @@ spec:
       memory: 6G
       motd: "A Bedrock-survival Minecraft Server"
       overrideServerProperties: true
+      pluginUrls:
+        - https://download.geysermc.org/v2/projects/geyser/versions/latest/builds/latest/downloads/spigot
+        - https://download.geysermc.org/v2/projects/floodgate/versions/latest/builds/latest/downloads/spigot
       rcon:
         enabled: true
       removeOldMods: false
