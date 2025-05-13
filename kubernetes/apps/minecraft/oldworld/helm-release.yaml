@@ -38,17 +38,10 @@ spec:
       repository: ghcr.io/itzg/minecraft-server
     extraVolumes:
       - volumeMounts:
-          - name: mods
-            mountPath: /mods
-            subPath: mods
-            readOnly: false
           - name: oldworld
             mountPath: /oldworlds
             readOnly: true
       - volumes:
-         - name: mods
-           persistentVolumeClaim:
-             claimName: mods
          - name: oldworld
            persistentVolumeClaim:
              claimName: oldworld
@@ -69,7 +62,6 @@ spec:
       downloadWorldUrl: "/oldworlds/18world"
       rcon:
         enabled: true
-      removeOldMods: true
     resources:
       requests:
         memory: 2G

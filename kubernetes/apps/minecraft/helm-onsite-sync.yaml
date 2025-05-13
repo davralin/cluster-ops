@@ -63,11 +63,6 @@ spec:
         existingClaim: creative-backup
         globalMounts:
           - path: /minecraft/creative
-      mods:
-        enabled: true
-        existingClaim: mods
-        globalMounts:
-          - path: /minecraft/mods
       survival-backup:
         enabled: true
         existingClaim: survival-backup
