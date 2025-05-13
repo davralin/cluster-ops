@@ -62,13 +62,13 @@ spec:
       tz: "${TIMEZONE}"
       eula: true
       type: PAPER
-      version: "1.21.5"
+      version: "1.21.4"
       difficulty: "easy"
       maxPlayers: 5
       levelSeed: 421112feedmekittens
       maxTickTime: -1
       mode: creative
-      memory: 3G
+      memory: 6G
       motd: "A Creative Minecraft Server"
       onlineMode: true
       overrideServerProperties: true
@@ -80,7 +80,7 @@ spec:
       removeOldMods: true
     resources:
       requests:
-        memory: 3G
+        memory: 6G
     extraEnv:
       ENABLE_AUTOPAUSE: "FALSE"
       USE_AIKAR_FLAGS: true

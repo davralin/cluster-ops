@@ -51,25 +51,36 @@ spec:
            persistentVolumeClaim:
              claimName: mods
     minecraftServer:
+      extraPorts:
+        - name: prometheus
+          containerPort: 9100
+          protocol: TCP
+          service:
+            enabled: true
+            embedded: true
+            port: 9100
       tz: "${TIMEZONE}"
       eula: true
-      type: FABRIC
-      version: "1.21.5"
+      type: PAPER
+      version: "1.21.4"
       difficulty: "easy"
       maxPlayers: 3
       levelSeed: 421112feedmekittens
       maxTickTime: -1
       mode: survival
-      memory: 3G
+      memory: 6G
       motd: "A Survival Minecraft Server"
       onlineMode: true
       overrideServerProperties: true
+      pluginUrls:
+        # renovate: datasource=github-releases depName=sladkoff/minecraft-prometheus-exporter
+        - https://github.com/sladkoff/minecraft-prometheus-exporter/releases/download/v3.1.2/minecraft-prometheus-exporter-3.1.2.jar
       rcon:
         enabled: true
       removeOldMods: true
     resources:
       requests:
-        memory: 3G
+        memory: 6G
     extraEnv:
       ENABLE_AUTOPAUSE: "FALSE"
       USE_AIKAR_FLAGS: true
