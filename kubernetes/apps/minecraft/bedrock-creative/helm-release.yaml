@@ -40,16 +40,6 @@ spec:
     fullnameOverride: *name
     image:
       repository: ghcr.io/itzg/minecraft-server
-    extraVolumes:
-      - volumeMounts:
-          - name: plugins
-            mountPath: /plugins
-            subPath: plugins
-            readOnly: false
-      - volumes:
-         - name: plugins
-           persistentVolumeClaim:
-             claimName: mods
     minecraftServer:
       extraPorts:
         - name: geysermc
