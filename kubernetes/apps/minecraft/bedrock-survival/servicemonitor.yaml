@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &name servicemonitor-bedrock-survival
+  name: servicemonitor-bedrock-survival
   namespace: minecraft
 spec:
   interval: 30m
@@ -33,7 +33,7 @@ spec:
       - apiVersion: monitoring.coreos.com/v1
         kind: ServiceMonitor
         metadata:
-          name: *name
+          name: &name bedrock-survival
           namespace: minecraft
         spec:
           selector:
@@ -41,3 +41,8 @@ spec:
               app: minecraft-bedrock-survival
           endpoints:
             - port: prometheus
+              interval: 1m
+              relabelings:
+                - sourceLabels: [__address__]
+                  targetLabel: server_name
+                  replacement: *name
