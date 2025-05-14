@@ -164,7 +164,8 @@ spec:
           # renovate: depName="Node Exporter Full"
           gnetId: 1860
           revision: 40
-          datasource: Prometheus
+          datasource:
+            - { name: DS_PROMETHEUS, value: Prometheus }
         # Ref: https://grafana.com/grafana/dashboards/15549
         node-problem-detector:
         # renovate: depName="Node Problem Detector"
