@@ -32,10 +32,6 @@ spec:
       kind: Secret
       name: minecraft-secrets
       valuesKey: ops
-    - targetPath: mcbackup.resticEnvs.RESTIC_PASSWORD
-      kind: Secret
-      name: minecraft-secrets
-      valuesKey: restic_password
   values:
     fullnameOverride: *name
     image:
@@ -94,9 +90,11 @@ spec:
     mcbackup:
       enabled: true
       pauseIfNoPlayers: true
-      backupMethod: restic
+      backupMethod: rclone
       excludes: "*.jar,cache,logs,lost+found"
-      resticRepository: /backups
+      rcloneRemote: homenas.internal-s3
+      rcloneDestDir: minecraft/bedrock-survival
+      rcloneConfigExistingSecret: rclone-config
       pruneBackupsDays: 3
       persistence:
         backupDir:
