@@ -84,7 +84,7 @@ spec:
       backupMethod: rclone
       excludes: "*.jar,cache,logs,lost+found"
       rcloneRemote: homenas.internal-s3
-      rcloneDestDir: *name
+      rcloneDestDir: minecraft/survival
       rcloneConfigExistingSecret: rclone-config
       pruneBackupsDays: 3
       persistence:
