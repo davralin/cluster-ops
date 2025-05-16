@@ -9,7 +9,8 @@ stringData:
   rclone.conf: |-
     [homenas.internal-s3]
     type = s3
-    provider = minio
-    access_key_id = "${SECRET_VOLSYNC_ACCESS_KEYS}"
-    secret_access_key = "${SECRET_VOLSYNC_SECRET_KEYS}"
-    endpoint = "${SECRET_S3_URL}/minecraft"
+    provider = Minio
+    access_key_id = ${SECRET_VOLSYNC_ACCESS_KEYS}
+    secret_access_key = ${SECRET_VOLSYNC_SECRET_KEYS}
+    endpoint = ${SECRET_S3_URL}
+    region = norway-east
