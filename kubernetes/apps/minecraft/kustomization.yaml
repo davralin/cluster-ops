@@ -14,4 +14,5 @@ resources:
   - helm-offsite-sync.yaml
   - helm-onsite-sync.yaml
   - namespace.yaml
+  - rclone.conf.yaml
   - secret.yaml
