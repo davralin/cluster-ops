@@ -1,11 +1,12 @@
 ---
 apiVersion: v1
-kind: ConfigMap
+kind: Secret
+type: Opaque
 metadata:
   name: rclone-config
   namespace: minecraft
-data:
-  rclone.config: |-
+stringData:
+  rclone.conf: |-
     [homenas.internal-s3]
     type = s3
     provider = minio
