@@ -49,6 +49,6 @@ spec:
               runAsGroup: 0
               fsGroup: 0
               fsGroupChangePolicy: "OnRootMismatch"
-              runAsNonRoot: true
+              runAsNonRoot: false
               seccompProfile:
                 type: RuntimeDefault
