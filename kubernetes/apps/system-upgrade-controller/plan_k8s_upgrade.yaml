@@ -34,7 +34,7 @@ spec:
           name: kubernetes
         spec:
           # renovate: depName=ghcr.io/siderolabs/kubelet datasource=docker
-          version: v1.32.3
+          version: v1.33.1
           window:
             startTime: "06:00"
             endTime: "06:59"
