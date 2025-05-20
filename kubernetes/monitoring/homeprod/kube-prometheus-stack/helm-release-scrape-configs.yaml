@@ -40,6 +40,7 @@ spec:
                 - nas.${SECRET_PRIVATE_DOMAIN}:9100
                 - nas.${SECRET_OFFSITE_DOMAIN}:9100
                 - proxmox.${SECRET_PRIVATE_DOMAIN}:9100
+                - wireguard.${SECRET_PUBLIC_DOMAIN}:9100
           metricsPath: /metrics
           relabelings:
             - action: replace
