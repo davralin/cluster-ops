@@ -1,0 +1,9 @@
+---
+- name: Installing package
+  ansible.builtin.apt:
+    name: "{{ packages }}"
+    state: present
+  become: true
+  vars:
+    packages:
+      - liquidsoap
