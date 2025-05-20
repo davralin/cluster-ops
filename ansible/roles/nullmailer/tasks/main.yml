@@ -13,9 +13,10 @@
   ansible.builtin.copy:
     dest: '/etc/nullmailer/{{ item.dest }}'
     content: '{{ item.content }}'
+    mode: '0644'
   become: true
   loop:
-    - { dest: 'adminaddr', content: '{{ nullmailer_adminaddr|lower }}' }
-    - { dest: 'defaultdomain', content: '{{ nullmailer_defaultdomain|lower }}' }
-    - { dest: 'remotes', content: '{{ nullmailer_remotes|lower }}' }
+    - { dest: 'adminaddr', content: '{{ nullmailer_adminaddr | lower }}' }
+    - { dest: 'defaultdomain', content: '{{ nullmailer_defaultdomain | lower }}' }
+    - { dest: 'remotes', content: '{{ nullmailer_remotes | lower }}' }
   notify: Restart nullmailer

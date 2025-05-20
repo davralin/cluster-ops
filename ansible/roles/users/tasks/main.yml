@@ -6,7 +6,7 @@
   become: true
 
 - name: Manage user-accounts
-  user:
+  ansible.builtin.user:
     name: "{{ item.name }}"
     comment: "{{ item.comment }}"
     shell: "{{ item.shell | default('/bin/false') }}"
@@ -35,7 +35,7 @@
     dest: "/etc/sudoers.d/{{ item.name }}"
     owner: root
     group: root
-    mode: 0440
+    mode: '0440'
     validate: /usr/sbin/visudo -cf  %s
   become: true
   with_items:
