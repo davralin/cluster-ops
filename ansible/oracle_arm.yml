@@ -2,18 +2,20 @@
 - hosts: oracle_arm
 
   roles:
-  - apt
-  - users
-  - certbot
-  - haproxy
-  - local_backup
-  - locale
-  - node_exporter
-  - nullmailer
-  - profile
-  - rclone
-  - rsync
-  - sshd
-  - wireguard
-  - docker
-  - uptime_kuma_compose
+    - apt
+    - users
+    - certbot
+    - haproxy
+    - local_backup
+    - icecast
+    - liquidsoap
+    - locale
+    - node_exporter
+    - nullmailer
+    - profile
+    - rclone
+    - rsync
+    - sshd
+    - wireguard
+    - docker
+    - uptime_kuma_compose
