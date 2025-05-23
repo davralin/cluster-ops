@@ -34,3 +34,7 @@ spec:
     monitoring:
       grafanaDashboard:
         create: "${MONITORING_PROMETHEUS}"
+    config:
+      data:
+        CLUSTERS_ROLLOUT_DELAY: '120'
+        INSTANCES_ROLLOUT_DELAY: '20'
