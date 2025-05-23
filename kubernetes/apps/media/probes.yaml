@@ -54,6 +54,7 @@ spec:
                 - "https://radarr.${SECRET_DEFAULT_DOMAIN}"
                 - "https://readarr.${SECRET_DEFAULT_DOMAIN}"
                 - "https://sonarr.${SECRET_DEFAULT_DOMAIN}"
+                - "https://speakarr.${SECRET_DEFAULT_DOMAIN}"
                 - "https://tautulli.${SECRET_DEFAULT_DOMAIN}"
                 - "https://tdarr.${SECRET_DEFAULT_DOMAIN}"
       - apiVersion: monitoring.coreos.com/v1

@@ -1,0 +1,124 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &name speakarr
+  namespace: flux-system
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 4.0.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+      interval: 30m
+  targetNamespace: media
+  install:
+    createNamespace: true
+    remediation:
+      retries: 10
+  upgrade:
+    remediation:
+      retries: 10
+  #valuesFrom:
+  #  - targetPath: controllers.speakarr.containers.speakarr.env.READARR__POSTGRES___PASSWORD
+  #    kind: Secret
+  #    name: speakarr-config
+  #    valuesKey: POSTGRES_PASSWORD
+  values:
+    fullnameOverride: *name
+    defaultPodOptions:
+      automountServiceAccountToken: false
+      enableServiceLinks: false
+      hostname: *name
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+    controllers:
+      speakarr:
+        containers:
+          speakarr:
+            image:
+              repository: ghcr.io/joryirving/readarr-develop
+              tag: 0.4.12.2753@sha256:2d2577d3c27d8892d8d886a3dcd58215b20402aee320da4914dfbd5db373cab4
+            env:
+              TZ: "${TIMEZONE}"
+              #READARR__AUTH__APIKEY: "${SECRET_READARR_API_KEY}"
+              #READARR__POSTGRES__HOST: media-postgres-v17-rw.media.svc.cluster.local
+              #READARR__POSTGRES__PORT: "5432"
+              #READARR__POSTGRES__USER: "speakarr"
+              #READARR__POSTGRES__MAIN_DB: speakarr_main
+              #READARR__POSTGRES__CACHE_DB: speakarr_cache
+              READARR__AUTH__METHOD: External
+              READARR__AUTH__REQUIRED: DisabledForLocalAddresses
+              # https://github.com/Readarr/Readarr/issues/3453
+              READARR__LOG__DBENABLED: "False"
+              READARR__LOG__LEVEL: info
+            securityContext:
+              allowPrivilegeEscalation: false
+              # System.IO.IOException: Read-only file system
+              readOnlyRootFilesystem: false
+              capabilities: { drop: ["ALL"] }
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /ping
+                    port: 8787
+                  initialDelaySeconds: 50
+                  periodSeconds: 10
+                  timeoutSeconds: 10
+                  failureThreshold: 3
+              readiness: *probes
+            resources:
+              requests:
+                cpu: 10m
+                memory: 200Mi
+              limits:
+                memory: 400Mi
+    service:
+      speakarr:
+        controller: *name
+        ports:
+          http:
+            port: 8787
+    ingress:
+      speakarr:
+        enabled: true
+        annotations:
+          haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
+          haproxy.org/ssl-redirect-port: "443"
+          haproxy.org/response-set-header: |
+            Strict-Transport-Security "max-age=31536000"
+            X-Frame-Options "DENY"
+            X-Content-Type-Options "nosniff"
+            Referrer-Policy "strict-origin-when-cross-origin"
+        hosts:
+          - host: &host "speakarr.${SECRET_DEFAULT_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  identifier: speakarr
+                  port: http
+        tls:
+          - hosts:
+              - *host
+    persistence:
+      config:
+        enabled: true
+        existingClaim: speakarr
+      media:
+        enabled: true
+        existingClaim: media
+        globalMounts:
+          - path: /data

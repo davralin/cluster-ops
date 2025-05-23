@@ -22,6 +22,7 @@ resources:
   - recyclarr
   - scraparr
   - sonarr
+  - speakarr
   - sshd
   - tautulli
   - tdarr
