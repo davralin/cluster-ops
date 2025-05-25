@@ -44,10 +44,6 @@ spec:
             storageClass: "${STORAGE_READWRITEONCE}"
           managed:
             roles:
-              - name: speakarr
-                login: true
-                passwordSecret:
-                  name: speakarr-basic-auth
               - name: readarr
                 login: true
                 passwordSecret:
