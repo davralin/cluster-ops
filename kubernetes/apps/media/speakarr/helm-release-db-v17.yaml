@@ -126,7 +126,7 @@ spec:
             - name: media-postgres-v17
               connectionParameters:
                 host: media-postgres-v17-rw.media.svc.cluster.local
-                user: readarr
+                user: postgres
                 dbname: postgres
                 sslmode: require
               password:
