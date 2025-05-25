@@ -51,7 +51,7 @@ spec:
               - name: readarr
                 login: true
                 passwordSecret:
-                  name: speakarr-basic-auth
+                  name: readarr-basic-auth
           superuserSecret:
             name: *name
           bootstrap:
