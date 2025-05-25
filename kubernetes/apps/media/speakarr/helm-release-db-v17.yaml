@@ -40,37 +40,39 @@ spec:
           imageName: ghcr.io/cloudnative-pg/postgresql:17.5-1
           primaryUpdateStrategy: unsupervised
           storage:
-            size: 2Gi
+            size: 1Gi
             storageClass: "${STORAGE_READWRITEONCE}"
           managed:
             roles:
-              - name: readarr
+              - name: speakarr
                 login: true
                 passwordSecret:
-                  name: readarr-basic-auth
+                  name: speakarr-basic-auth
           superuserSecret:
             name: *name
           bootstrap:
             # use this to start a new cluster
-            #initdb:
-            #  database: speakarr
-            #  owner: speakarr
-            #  secret:
-            #    name: speakarr-basic-auth
+            initdb:
+              database: speakarr_main
+              owner: speakarr
+              postInitSQL:
+                - CREATE DATABASE speakarr_cache OWNER speakarr
+              secret:
+                name: speakarr-basic-auth
             # use this to recover a net-new cluster from a backup
             #recovery:
             #  source: *name
             #  database: speakarr
             #  owner: speakarr
             # # use this to 'migrate' from an existing cnpg cluster (e.g. "speakarr-postgres-v16") to the new cluster
-            initdb:
-              import:
-                type: monolith
-                databases:
-                  - speakarr_cache
-                  - speakarr_main
-                source:
-                  externalCluster: media-postgres-v17
+            #initdb:
+            #  import:
+            #    type: monolith
+            #    databases:
+            #      - speakarr_cache
+            #      - speakarr_main
+            #    source:
+            #      externalCluster: speakarr-postgres-v16
           monitoring:
             enablePodMonitor: "${MONITORING_PROMETHEUS}"
           resources:
@@ -78,7 +80,7 @@ spec:
               cpu: "200m"
               memory: "128Mi"
             limits:
-              memory: "1Gi"
+              memory: "512Mi"
           backup:
             retentionPolicy: 7d
             barmanObjectStore:
@@ -122,16 +124,6 @@ spec:
              #  password:
              #    name: speakarr-basic-auth
              #    key: password
-             # this represents an existing media-cluster to migrate from
-            - name: media-postgres-v17
-              connectionParameters:
-                host: media-postgres-v17-rw.media.svc.cluster.local
-                user: readarr
-                dbname: postgres
-                sslmode: require
-              password:
-                name: readarr-basic-auth
-                key: password
       - apiVersion: postgresql.cnpg.io/v1
         kind: ScheduledBackup
         metadata:
