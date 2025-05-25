@@ -48,6 +48,10 @@ spec:
                 login: true
                 passwordSecret:
                   name: speakarr-basic-auth
+              - name: readarr
+                login: true
+                passwordSecret:
+                  name: speakarr-basic-auth
           superuserSecret:
             name: *name
           bootstrap:
