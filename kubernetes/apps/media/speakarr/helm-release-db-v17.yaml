@@ -52,26 +52,25 @@ spec:
             name: *name
           bootstrap:
             # use this to start a new cluster
-            initdb:
-              database: speakarr
-              owner: speakarr
-              secret:
-                name: speakarr-basic-auth
+            #initdb:
+            #  database: speakarr
+            #  owner: speakarr
+            #  secret:
+            #    name: speakarr-basic-auth
             # use this to recover a net-new cluster from a backup
             #recovery:
             #  source: *name
             #  database: speakarr
             #  owner: speakarr
             # # use this to 'migrate' from an existing cnpg cluster (e.g. "speakarr-postgres-v16") to the new cluster
-            #initdb:
-            #  database: speakarr
-            #  owner: speakarr
-            #  import:
-            #    type: microservice
-            #    databases:
-            #      - speakarr
-            #    source:
-            #      externalCluster: speakarr-postgres-v16
+            initdb:
+              import:
+                type: microservice
+                databases:
+                  - speakarr_cache
+                  - speakarr_main
+                source:
+                  externalCluster: media-postgres-v17
           monitoring:
             enablePodMonitor: "${MONITORING_PROMETHEUS}"
           resources:
@@ -116,13 +115,23 @@ spec:
             # # this represents an existing cnpg cluster to migrate from (e.g. upgrading from postgres v16 to postgres v17)
              #- name: speakarr-postgres-v16
              #  connectionParameters:
-             #    host: speakarr-postgres-v16.speakarr.svc.cluster.local
+             #    host: speakarr-postgres-v16.media.svc.cluster.local
              #    user: speakarr
              #    dbname: speakarr
              #    sslmode: require
              #  password:
              #    name: speakarr-basic-auth
              #    key: password
+             # this represents an existing media-cluster to migrate from
+            - name: media-postgres-v17
+              connectionParameters:
+                host: media-postgres-v17-rw.media.svc.cluster.local
+                user: readarr
+                dbname: postgres
+                sslmode: require
+              password:
+                name: media-postgres-v17
+                key: password
       - apiVersion: postgresql.cnpg.io/v1
         kind: ScheduledBackup
         metadata:
