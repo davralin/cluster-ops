@@ -57,6 +57,7 @@ spec:
               owner: speakarr
               postInitSQL:
                 - CREATE DATABASE speakarr_cache OWNER speakarr
+                - CREATE DATABASE speakarr_log OWNER speakarr
               secret:
                 name: speakarr-basic-auth
             # use this to recover a net-new cluster from a backup
