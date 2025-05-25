@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 3.7.3
+      version: 4.0.1
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -47,8 +47,8 @@ spec:
         containers:
           prowlarr:
             image:
-              repository: ghcr.io/onedr0p/prowlarr
-              tag: 1.32.2.4987@sha256:aa248643aa72c407d2f565c2b63831f887152aae47acb076a12b062bbbdeb61d
+              repository: ghcr.io/home-operations/prowlarr
+              tag: 1.36.3.5071@sha256:a7d3dd22793a7c88a3a21b6459baaccee82fcbce506c4a82c955e014e48056aa
             env:
               TZ: "${TIMEZONE}"
               PROWLARR__AUTH__APIKEY: "${SECRET_PROWLARR_API_KEY}"

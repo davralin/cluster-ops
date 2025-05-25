@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 3.7.3
+      version: 4.0.1
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -45,8 +45,8 @@ spec:
         containers:
           plex:
             image:
-              repository: ghcr.io/onedr0p/plex
-              tag: 1.41.5.9522@sha256:6d393c4eee152100bd6762a94bdd891b8c80c1c8a914a7f906b4097ab69fd557
+              repository: ghcr.io/home-operations/plex
+              tag: 1.41.7.9799@sha256:0c31ee1ebee0b63ead2de2accc6c52b1e65e9322b39118715eeac8b2f2bb786f
             env:
               TZ: "${TIMEZONE}"
             securityContext:
