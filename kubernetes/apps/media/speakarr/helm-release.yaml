@@ -52,7 +52,7 @@ spec:
               READARR__POSTGRES__USER: "speakarr"
               READARR__POSTGRES__MAIN_DB: speakarr_main
               READARR__POSTGRES__CACHE_DB: speakarr_cache
-              READARR__POSTGRES___PASSWORD:
+              READARR__POSTGRES__PASSWORD:
                 valueFrom:
                   secretKeyRef:
                     name: speakarr-basic-auth
