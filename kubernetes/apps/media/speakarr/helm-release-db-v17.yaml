@@ -65,7 +65,7 @@ spec:
             # # use this to 'migrate' from an existing cnpg cluster (e.g. "speakarr-postgres-v16") to the new cluster
             initdb:
               import:
-                type: microservice
+                type: monolith
                 databases:
                   - speakarr_cache
                   - speakarr_main
