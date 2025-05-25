@@ -126,11 +126,11 @@ spec:
             - name: media-postgres-v17
               connectionParameters:
                 host: media-postgres-v17-rw.media.svc.cluster.local
-                user: postgres
+                user: readarr
                 dbname: postgres
                 sslmode: require
               password:
-                name: media-postgres-v17
+                name: readarr-basic-auth
                 key: password
       - apiVersion: postgresql.cnpg.io/v1
         kind: ScheduledBackup
