@@ -63,7 +63,7 @@
         "ghcr.io/drag0n141",
         "ghcr.io/joryirving",
         "ghcr.io/meshtastic/web",
-        "ghcr.io/onedr0p",
+        "ghcr.io/home-operations",
         "ghcr.io/rss-bridge/rss-bridge",
         "ghcr.io/sdr-enthusiasts",
         "ghcr.io/thelounge/thelounge",
@@ -83,7 +83,7 @@
         "patch"
       ],
       "matchPackagePatterns": [
-        "ghcr.io/onedr0p"
+        "ghcr.io/home-operations"
       ]
     },
     {
