@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 3.7.3
+      version: 4.0.1
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -42,15 +42,16 @@ spec:
         containers:
           it-tools:
             image:
-              repository: ghcr.io/corentinth/it-tools
-              tag: latest@sha256:8b8128748339583ca951af03dfe02a9a4d7363f61a216226fc28030731a5a61f
+              repository: ghcr.io/home-operations/it-tools
+              tag: 2024.10.22@sha256:7f26ae8d7a4a58b8d70b685cba5cbaa54d7df876d9f8bae702207f45b06d9b7c
             env:
               TZ: "${TIMEZONE}"
             securityContext:
               allowPrivilegeEscalation: false
-              # [emerg] 1#1: mkdir() "/var/cache/nginx/client_temp" failed (30: Read-only file system)
-              readOnlyRootFilesystem: false
-              capabilities: { drop: ["ALL"] }
+              capabilities:
+                drop:
+                  - ALL
+              readOnlyRootFilesystem: true
             resources:
               requests:
                 cpu: 10m
@@ -62,7 +63,7 @@ spec:
         controller: *name
         ports:
           http:
-            port: 80
+            port: 8080
     ingress:
       it-tools:
         enabled: true
@@ -85,13 +86,8 @@ spec:
           - hosts:
               - *host
     persistence:
-      # [emerg] 1#1: mkdir() "/var/cache/nginx/client_temp" failed (13: Permission denied)
-      cache:
+      tmpfs:
         type: emptyDir
         globalMounts:
-          - path: /var/cache/nginx/
-      # [emerg] 1#1: open() "/var/run/nginx.pid" failed (13: Permission denied)
-      run:
-        type: emptyDir
-        globalMounts:
-          - path: /var/run
+          - path: /tmp
+            subPath: tmp
