@@ -8,3 +8,10 @@
     packages:
       - wireguard
       - wireguard-tools
+
+- name: Schedule refresh resolvedns
+  ansible.builtin.cron:
+    name: "reresolve-dns wireguard"
+    job: "/usr/share/doc/wireguard-tools/examples/reresolve-dns/reresolve-dns.sh /etc/wireguard/wg0.conf"
+    special_time: hourly
+  become: true
