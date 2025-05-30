@@ -64,10 +64,6 @@ spec:
                 login: true
                 passwordSecret:
                   name: radarr-basic-auth
-              - name: readarr
-                login: true
-                passwordSecret:
-                  name: readarr-basic-auth
           superuserSecret:
             name: *name
           bootstrap:
@@ -94,16 +90,12 @@ spec:
                   - lidarr_log
                   - prowlarr_main
                   - radarr_main
-                  - readarr_main
-                  - readarr_cache
-                  - readarr_log
                   - sonarr_main
                 roles:
                   - jellystat
                   - lidarr
                   - prowlarr
                   - radarr
-                  - readarr
                   - sonarr
                 source:
                   externalCluster: old-pg-cluster
