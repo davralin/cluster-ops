@@ -43,7 +43,7 @@ spec:
           ollama:
             image:
               repository: ollama/ollama
-              tag: 0.8.0
+              tag: 0.9.0
             env:
               TZ: "${TIMEZONE}"
             securityContext:
