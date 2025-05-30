@@ -6,7 +6,6 @@ resources:
   - bedrock-creative
   - bedrock-survival
   - creative
-  - mc-monitor
   - mc-router
   - oldworld
   - survival
