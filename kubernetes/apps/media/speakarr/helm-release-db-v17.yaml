@@ -52,19 +52,19 @@ spec:
             name: *name
           bootstrap:
             # use this to start a new cluster
-            initdb:
-              database: speakarr_main
-              owner: speakarr
-              postInitSQL:
-                - CREATE DATABASE speakarr_cache OWNER speakarr
-                - CREATE DATABASE speakarr_log OWNER speakarr
-              secret:
-                name: speakarr-basic-auth
-            # use this to recover a net-new cluster from a backup
-            #recovery:
-            #  source: *name
-            #  database: speakarr
+            #initdb:
+            #  database: speakarr_main
             #  owner: speakarr
+            #  postInitSQL:
+            #    - CREATE DATABASE speakarr_cache OWNER speakarr
+            #    - CREATE DATABASE speakarr_log OWNER speakarr
+            #  secret:
+            #    name: speakarr-basic-auth
+            # use this to recover a net-new cluster from a backup
+            recovery:
+              source: *name
+              database: speakarr
+              owner: speakarr
             # # use this to 'migrate' from an existing cnpg cluster (e.g. "speakarr-postgres-v16") to the new cluster
             #initdb:
             #  import:
