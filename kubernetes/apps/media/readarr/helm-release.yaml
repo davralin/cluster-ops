@@ -52,7 +52,7 @@ spec:
             env:
               TZ: "${TIMEZONE}"
               READARR__AUTH__APIKEY: "${SECRET_READARR_API_KEY}"
-              READARR__POSTGRES__HOST: media-postgres-v17-rw.media.svc.cluster.local
+              READARR__POSTGRES__HOST: readarr-postgres-v17-rw.media.svc.cluster.local
               READARR__POSTGRES__PORT: "5432"
               READARR__POSTGRES__USER: "readarr"
               READARR__POSTGRES__MAIN_DB: readarr_main
