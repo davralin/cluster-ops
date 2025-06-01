@@ -45,10 +45,10 @@ spec:
             rcloneDestPath: "volsync-${CLUSTER_NAME}-rclone/homeassistant"
             rcloneConfig: rclone-config
             moverSecurityContext:
-              runAsUser: 1000
-              runAsGroup: 1000
-              fsGroup: 1000
+              runAsUser: 0
+              runAsGroup: 0
+              fsGroup: 0
               fsGroupChangePolicy: "OnRootMismatch"
-              runAsNonRoot: true
+              runAsNonRoot: false
               seccompProfile:
                 type: RuntimeDefault
