@@ -4,4 +4,4 @@ immich_compose_config_path: "{{ immich_compose_path }}/library"
 immich_folder_album_creator_api_key: "changeme"
 immich_compose_ip_binding_web: "3001"
 # renovate: datasource=github-releases depName=immich-app/immich
-immich_version: v1.132.3
+immich_version: v1.133.0
