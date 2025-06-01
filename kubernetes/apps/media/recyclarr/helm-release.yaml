@@ -125,7 +125,7 @@ spec:
       recyclarr-config:
         enabled: true
         type: secret
-        name: recyclarr-yaml
+        name: recyclarr
         advancedMounts:
           recyclarr:
             recyclarr:
