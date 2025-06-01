@@ -2,8 +2,8 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: wallos-volsync
-  namespace: wallos
+  name: technitium-volsync
+  namespace: technitium
 spec:
   interval: 30m
   chart:
@@ -15,7 +15,7 @@ spec:
         name: dysnix-charts
         namespace: flux-system
       interval: 30m
-  targetNamespace: wallos
+  targetNamespace: technitium
   install:
     createNamespace: true
     remediation:
@@ -26,23 +26,23 @@ spec:
   dependsOn:
     - name: volsync
       namespace: flux-system
-    - name: wallos
+    - name: technitium
       namespace: flux-system
   values:
     resources:
       - apiVersion: volsync.backube/v1alpha1
         kind: ReplicationSource
         metadata:
-          name: wallos
-          namespace: wallos
+          name: technitium
+          namespace: technitium
         spec:
-          sourcePVC: wallos
+          sourcePVC: technitium
           trigger:
             schedule: "04 01 * * *"
           rclone:
             copyMethod: Direct
             rcloneConfigSection: homenas.internal-s3
-            rcloneDestPath: "volsync-${CLUSTER_NAME}-rclone/wallos"
+            rcloneDestPath: "volsync-${CLUSTER_NAME}-rclone/technitium"
             rcloneConfig: rclone-config
             moverSecurityContext:
               runAsUser: 1000
