@@ -64,6 +64,24 @@ spec:
                   - ALL
               seccompProfile:
                 type: RuntimeDefault
+        serviceAccount:
+          identifier: system-upgrade-controller
     serviceAccount:
-      create: true
-      name: system-upgrade-controller
+      system-upgrade-controller: {}
+    rbac:
+      bindings:
+        system-upgrade-controller:
+          type: ClusterRoleBinding
+          roleRef:
+            kind: ClusterRole
+            name: cluster-admin
+          subjects:
+            - identifier: system-upgrade-controller
+    rawResources:
+      talosServiceAccount:
+        apiVersion: talos.dev/v1alpha1
+        kind: ServiceAccount
+        spec:
+          spec:
+            roles:
+              - os:admin
