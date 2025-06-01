@@ -62,10 +62,10 @@ spec:
       config:
         enabled: true
         existingClaim: rcloneconfig
-      jottacloud-photos-to-nextcloud-shell:
+      jottacloud-photos-to-nextcloud:
         enabled: true
         type: configMap
-        name: jottacloud-photos-to-nextcloud-shell
+        name: jottacloud-photos-to-nextcloud
         defaultMode: 0755
         advancedMounts:
           jottacloud-photos-to-nextcloud:
