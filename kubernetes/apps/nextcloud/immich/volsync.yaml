@@ -15,7 +15,7 @@ spec:
         name: dysnix-charts
         namespace: flux-system
       interval: 30m
-  targetnamespace: nextcloud
+  targetNamespace: nextcloud
   install:
     createNamespace: true
     remediation:
