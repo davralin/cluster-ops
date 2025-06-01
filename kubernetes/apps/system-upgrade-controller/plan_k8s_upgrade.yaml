@@ -32,8 +32,9 @@ spec:
         kind: Plan
         metadata:
           name: kubernetes
+          namespace: system-upgrade
         spec:
-          # renovate: depName=ghcr.io/siderolabs/kubelet datasource=docker
+          # renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
           version: v1.33.1
           window:
             startTime: "06:00"
@@ -46,12 +47,15 @@ spec:
             matchExpressions:
               - key: node-role.kubernetes.io/control-plane
                 operator: Exists
+          tolerations:
+            - {key: node-role.kubernetes.io/control-plane, effect: NoSchedule, operator: Exists}
           secrets:
             - name: system-upgrade-controller
               path: /var/run/secrets/talos.dev
               ignoreUpdates: true
           serviceAccountName: system-upgrade-controller
           upgrade:
+            # renovate: datasource=docker depName=ghcr.io/siderolabs/installer
             image: ghcr.io/siderolabs/talosctl:v1.10.3
             args:
               - --nodes=$(SYSTEM_UPGRADE_NODE_NAME)
