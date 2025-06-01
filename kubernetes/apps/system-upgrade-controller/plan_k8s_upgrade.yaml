@@ -32,7 +32,7 @@ spec:
         kind: Plan
         metadata:
           name: kubernetes
-          namespace: system-upgrade
+          namespace: system-upgrade-controller
         spec:
           # renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
           version: v1.33.1
