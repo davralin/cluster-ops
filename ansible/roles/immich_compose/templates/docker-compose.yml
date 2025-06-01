@@ -40,6 +40,9 @@ services:
       - model-cache:/cache
     env_file:
       - .env
+    depends_on:
+      - redis
+      - database
     restart: always
 
   redis:
@@ -68,17 +71,19 @@ services:
     restart: always
 
   immich-folder-album-creator:
-      container_name: immich_folder_album_creator
-      image: ghcr.io/salvoxia/immich-folder-album-creator:0.18.5
-      restart: unless-stopped
-      environment:
-        API_URL: http://immich_server:3001/api
-        API_KEY: "{{ immich_folder_album_creator_api_key }}"
-        ROOT_PATH: /usr/src/app/external
-        SYNC_MODE: "1"
-        CRON_EXPRESSION: "40 * * * *"
-        TZ: Europe/Oslo
-        RUN_IMMEDIATELY: "true"
+    container_name: immich_folder_album_creator
+    image: ghcr.io/salvoxia/immich-folder-album-creator:0.18.5
+    restart: unless-stopped
+    environment:
+      API_URL: http://immich_server:3001/api
+      API_KEY: "{{ immich_folder_album_creator_api_key }}"
+      ROOT_PATH: /usr/src/app/external
+      SYNC_MODE: "1"
+      CRON_EXPRESSION: "40 * * * *"
+      TZ: Europe/Oslo
+      RUN_IMMEDIATELY: "true"
+    depends_on:
+      - immich-server
 
 volumes:
   model-cache:
