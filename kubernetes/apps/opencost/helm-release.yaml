@@ -36,3 +36,8 @@ spec:
           enabled: "${MONITORING_PROMETHEUS}"
       ui:
         enabled: false
+    prometheus:
+      internal:
+        serviceName: kube-prom-prometheus
+        namespaceName: monitoring
+        port: 9090
