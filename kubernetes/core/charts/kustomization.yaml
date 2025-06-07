@@ -28,7 +28,6 @@ resources:
   - kyverno.yaml
   - metrics-server.yaml
   - node-feature-discovery.yaml
-  - opencost.yaml
   - piraeus.yaml
   - prometheus.yaml
   - rook-ceph.yaml

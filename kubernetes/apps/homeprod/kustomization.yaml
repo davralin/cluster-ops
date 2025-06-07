@@ -40,7 +40,6 @@ resources:
   - ../node-feature-discovery
   - ../node-problem-detector
   - ../ollama
-  - ../opencost
   - ../openwebui
   - ../owntracks
   - ../paperless-ngx

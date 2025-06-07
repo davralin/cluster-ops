@@ -173,20 +173,6 @@ spec:
           revision: 1
           datasource:
             - { name: DS_PROMETHEUS, value: Prometheus }
-        # Ref: https://grafana.com/grafana/dashboards/22252-opencost-namespace/
-        opencost_namespace:
-        # renovate: depName="OpenCost / Namespace"
-          gnetId: 22252
-          revision: 3
-          datasource:
-            - { name: DS_PROMETHEUS, value: Prometheus }
-        # Ref: https://grafana.com/grafana/dashboards/22208-opencost-overview/
-        opencost_overview:
-        # renovate: depName="OpenCost / Overview"
-          gnetId: 22208
-          revision: 2
-          datasource:
-            - { name: DS_PROMETHEUS, value: Prometheus }
         # Ref: https://grafana.com/grafana/dashboards/7587-prometheus-blackbox-exporter/
         prometheus_blackbox_exporter:
         # renovate: depName="Prometheus Blackbox Exporter"
