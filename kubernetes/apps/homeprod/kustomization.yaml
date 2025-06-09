@@ -55,7 +55,6 @@ resources:
   - ../thelounge
   - ../trivy
   - ../unifi
-  - ../velero
   - ../volsync
   - ../wallos
   - ../warrior

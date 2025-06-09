@@ -243,11 +243,6 @@ spec:
           revision: 1
           datasource:
             - { name: DS_PROMETHEUS, value: Prometheus }
-        velero:
-        # renovate: depName="Velero Exporter Overview"
-          gnetId: 15469
-          revision: 1
-          datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/21356
         volsync:
           # renovate: depName="VolSync Dashboard"
