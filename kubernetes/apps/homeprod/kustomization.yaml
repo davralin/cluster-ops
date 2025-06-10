@@ -25,6 +25,7 @@ resources:
   - ../it-tools
   - ../jobs
   - ../jupyterhub
+  - ../karakeep
   - ../kubevirt
   - ../kubevirt-cdi
   - ../kuma
