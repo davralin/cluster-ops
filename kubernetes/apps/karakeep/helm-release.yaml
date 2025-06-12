@@ -161,7 +161,8 @@ spec:
               capabilities:
                 drop:
                   - ALL
-              readOnlyRootFilesystem: true
+              # ERROR meilisearch: error=Read-only file system (os error 30)
+              readOnlyRootFilesystem: false
             resources:
               requests:
                 cpu: 10m
