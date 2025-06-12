@@ -222,3 +222,10 @@ spec:
           karakeep:
             karakeep:
               - path: /run
+      # Error: ENOENT: no such file or directory, mkdir '/tmp/tsx-0'
+      tmp:
+        type: emptyDir
+        advancedMounts:
+          karakeep:
+            karakeep:
+              - path: /tmp
