@@ -134,7 +134,7 @@ spec:
                       - key: app.kubernetes.io/name
                         operator: In
                         values:
-                          - karakeep
+                          - karakeep-karakeep
                       - key: app.kubernetes.io/controller
                         operator: In
                         values:
