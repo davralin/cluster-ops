@@ -67,8 +67,15 @@ spec:
               DISABLE_NEW_RELEASE_CHECK: true
               COREPACK_INTEGRITY_KEYS: 0
               S6_READ_ONLY_ROOT: 1
-              S6_YES_I_WANT_A_WORLD_WRITABLE_RUN_BECAUSE_KUBERNETES: 1
+              OLLAMA_BASE_URL: http://ollama.ollama.svc.cluster.local:11434
+              INFERENCE_TEXT_MODEL: gemma3:12b
             securityContext:
+              # S6-overlay sucks.
+              runAsUser: 0
+              runAsGroup: 0
+              fsGroup: 0
+              fsGroupChangePolicy: "OnRootMismatch"
+              runAsNonRoot: false
               allowPrivilegeEscalation: false
               capabilities:
                 drop:
