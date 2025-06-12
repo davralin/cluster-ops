@@ -66,6 +66,8 @@ spec:
               NEXTAUTH_URL: &host "karakeep.${SECRET_DEFAULT_DOMAIN}"
               DISABLE_NEW_RELEASE_CHECK: true
               COREPACK_INTEGRITY_KEYS: 0
+              S6_READ_ONLY_ROOT: 1
+              S6_YES_I_WANT_A_WORLD_WRITABLE_RUN_BECAUSE_KUBERNETES: 1
             securityContext:
               allowPrivilegeEscalation: false
               capabilities:
@@ -105,7 +107,9 @@ spec:
               capabilities:
                 drop:
                   - ALL
-              readOnlyRootFilesystem: true
+              # ERROR:platform_shared_memory_region_posix.cc(214)] Creating shared memory in
+              # /tmp/.org.chromium.Chromium.XXXXXX failed: Read-only file system (30)
+              readOnlyRootFilesystem: false
             resources:
               requests:
                 cpu: 10m
@@ -198,10 +202,16 @@ spec:
         existingClaim: karakeep
         advancedMounts:
           karakeep:
-            app:
+            karakeep:
               - path: /data
                 subPath: karakeep
           meilisearch:
-            app:
+            meilisearch:
               - path: /meili_data
                 subPath: meilisearch
+      run:
+        type: emptyDir
+        advancedMounts:
+          karakeep:
+            karakeep:
+              - path: /run
