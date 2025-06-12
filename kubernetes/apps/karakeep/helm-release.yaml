@@ -63,7 +63,7 @@ spec:
                   secretKeyRef:
                     name: karakeep-secret
                     key: encryption_key
-              NEXTAUTH_URL: &host "karakeep.${SECRET_DEFAULT_DOMAIN}"
+              NEXTAUTH_URL: "https://karakeep.${SECRET_DEFAULT_DOMAIN}"
               DISABLE_NEW_RELEASE_CHECK: true
               COREPACK_INTEGRITY_KEYS: 0
               S6_READ_ONLY_ROOT: 1
@@ -195,7 +195,7 @@ spec:
             X-Content-Type-Options "nosniff"
             Referrer-Policy "strict-origin-when-cross-origin"
         hosts:
-          - host: *host
+          - host: &host "karakeep.${SECRET_DEFAULT_DOMAIN}"
             paths:
               - path: /
                 service:
