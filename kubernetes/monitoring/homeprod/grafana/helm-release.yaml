@@ -205,13 +205,6 @@ spec:
           revision: 4
           datasource:
             - { name: DS_PROMETHEUS, value: Prometheus }
-        # Ref: https://grafana.com/grafana/dashboards/17813-trivy-operator-dashboard/
-        trivy_operator_dashboard:
-        # renovate: depName="Trivy Operator Dashboard"
-          gnetId: 17813
-          revision: 2
-          datasource:
-            - { name: DS_PROMETHEUS, value: Prometheus }
         # Ref: https://grafana.com/grafana/dashboards/11315
         unifi-poller-client-insights:
         # renovate: depName="UniFi-Poller: Client Insights - Prometheus"
