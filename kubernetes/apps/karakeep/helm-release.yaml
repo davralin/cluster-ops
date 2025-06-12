@@ -155,6 +155,7 @@ spec:
                   secretKeyRef:
                     name: karakeep-secret
                     key: meilisearch_master_key
+              HF_HOME: /meili_data/hf_home
             securityContext:
               allowPrivilegeEscalation: false
               capabilities:
