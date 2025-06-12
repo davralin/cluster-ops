@@ -216,6 +216,15 @@ spec:
             meilisearch:
               - path: /meili_data
                 subPath: meilisearch
+      # Failed to write image to cache JXUmFfUqFn4PInl-1vtDwKCUKRDWa0AkY7H-z+TAoP0=
+      # Error: ENOENT: no such file or directory, mkdir '/app/apps/web/.next/cache'
+      app-next-cache:
+        type: emptyDir
+        advancedMounts:
+          karakeep:
+            karakeep:
+              - path: /app/apps/web/.next/cache
+      # S6-overlay sucks
       run:
         type: emptyDir
         advancedMounts:
