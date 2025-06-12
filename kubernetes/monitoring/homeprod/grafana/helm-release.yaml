@@ -130,7 +130,7 @@ spec:
         haproxy2:
         # renovate: depName="HAProxy 2 Full"
           gnetId: 12693
-          revision: 10
+          revision: 11
           datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/13332
         kube-state-metrics-v2:
