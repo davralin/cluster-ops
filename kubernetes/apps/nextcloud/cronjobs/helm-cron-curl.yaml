@@ -45,7 +45,7 @@ spec:
           cron-curl:
             image:
               repository: nextcloud
-              tag: 31.0.5-apache
+              tag: 31.0.6-apache
             command: ['/usr/bin/curl']
             args: ["--silent", "--show-error", "https://cloud.${SECRET_DEFAULT_DOMAIN}/cron.php"]
             securityContext:
