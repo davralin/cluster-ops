@@ -614,26 +614,26 @@ spec:
                 oid: 1.3.6.1.4.1.50495.1.2.1.8.1
                 severity: critical
                 type: ceph_default
-            #- alert: CephNodeNetworkPacketDrops
-            #  annotations:
-            #    description: Node {{ $labels.instance }} experiences packet drop > 0.5% or
-            #      > 10 packets/s on interface {{ $labels.device }}.
-            #    summary: One or more NICs reports packet drops
-            #  expr: |
-            #    (
-            #      rate(node_network_receive_drop_total{device!="lo"}[1m]) +
-            #      rate(node_network_transmit_drop_total{device!="lo"}[1m])
-            #    ) / (
-            #      rate(node_network_receive_packets_total{device!="lo"}[1m]) +
-            #      rate(node_network_transmit_packets_total{device!="lo"}[1m])
-            #    ) >= 0.0050000000000000001 and (
-            #      rate(node_network_receive_drop_total{device!="lo"}[1m]) +
-            #      rate(node_network_transmit_drop_total{device!="lo"}[1m])
-            #    ) >= 10
-            #  labels:
-            #    oid: 1.3.6.1.4.1.50495.1.2.1.8.2
-            #    severity: warning
-            #    type: ceph_default
+            - alert: CephNodeNetworkPacketDrops
+              annotations:
+                description: Node {{ $labels.instance }} experiences packet drop > 0.5% or
+                  > 10 packets/s on interface {{ $labels.device }}.
+                summary: One or more NICs reports packet drops
+              expr: |
+                (
+                  rate(node_network_receive_drop_total{device!="lo"}[1m]) +
+                  rate(node_network_transmit_drop_total{device!="lo"}[1m])
+                ) / (
+                  rate(node_network_receive_packets_total{device!="lo"}[1m]) +
+                  rate(node_network_transmit_packets_total{device!="lo"}[1m])
+                ) >= 0.0050000000000000001 and (
+                  rate(node_network_receive_drop_total{device!="lo"}[1m]) +
+                  rate(node_network_transmit_drop_total{device!="lo"}[1m])
+                ) >= 10
+              labels:
+                oid: 1.3.6.1.4.1.50495.1.2.1.8.2
+                severity: warning
+                type: ceph_default
             - alert: CephNodeNetworkPacketErrors
               annotations:
                 description: Node {{ $labels.instance }} experiences packet errors > 0.01%

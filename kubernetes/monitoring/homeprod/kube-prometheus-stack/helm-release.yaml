@@ -79,6 +79,10 @@ spec:
               matchers:
                 - alertname =~ "InfoInhibitor"
               continue: false
+            - receiver: "dummy"
+              matchers:
+                - alertname ="etcdHighNumberOfLeaderChanges"
+              continue: false
       externalUrl: https://alertmanager.${SECRET_DEFAULT_DOMAIN}
       ingress:
         enabled: true
