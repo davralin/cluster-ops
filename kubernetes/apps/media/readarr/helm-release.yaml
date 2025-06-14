@@ -47,8 +47,8 @@ spec:
         containers:
           readarr:
             image:
-              repository: ghcr.io/joryirving/readarr-develop
-              tag: 0.4.12.2753@sha256:2d2577d3c27d8892d8d886a3dcd58215b20402aee320da4914dfbd5db373cab4
+              repository: ghcr.io/home-operations/readarr
+              tag: 0.4.17.2801@sha256:6bb62cd6c4d74b2cc6b0e9a8334a5034f75fd73cdbf5d47bf98381a6eba7a6e8
             env:
               TZ: "${TIMEZONE}"
               READARR__AUTH__APIKEY: "${SECRET_READARR_API_KEY}"
