@@ -47,8 +47,8 @@ spec:
         containers:
           lidarr:
             image:
-              repository: ghcr.io/drag0n141/lidarr
-              tag: 2.9.6.4552@sha256:121080101a78695bbb3c58ebdd368897f5f6675e1776d8627e482130ecc41f28
+              repository: ghcr.io/home-operations/lidarr
+              tag: 2.12.4.4658@sha256:2adf4c457faffbc587f7612f96a3f4d50795c5b2e343298aef7e67a91060bd6f
             env:
               TZ: "${TIMEZONE}"
               LIDARR__AUTH__APIKEY: "${SECRET_LIDARR_API_KEY}"
