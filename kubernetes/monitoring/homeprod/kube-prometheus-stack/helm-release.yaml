@@ -81,7 +81,7 @@ spec:
               continue: false
             - receiver: "dummy"
               matchers:
-                - alertname ="etcdHighNumberOfLeaderChanges"
+                - alertname ="etcdHighNumberOfLeaderChanges|etcdDatabaseHighFragmentationRatio"
               continue: false
       externalUrl: https://alertmanager.${SECRET_DEFAULT_DOMAIN}
       ingress:
