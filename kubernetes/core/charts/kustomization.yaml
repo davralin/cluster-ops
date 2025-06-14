@@ -25,7 +25,6 @@ resources:
   - itzg.yaml
   - jetstack.yaml
   - jupyterhub.yaml
-  - kyverno.yaml
   - metrics-server.yaml
   - node-feature-discovery.yaml
   - piraeus.yaml
