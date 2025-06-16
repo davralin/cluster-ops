@@ -37,7 +37,7 @@ spec:
           # using only 1 replica: very difficult to drain the node where postgres is running
           # using more than 1 replica: write amplification issues when leveraging replicated storage (e.g. ceph)
           instances: 2
-          imageName: ghcr.io/tensorchord/cloudnative-pgvecto.rs:16.4-v0.3.0
+          imageName: ghcr.io/tensorchord/cloudnative-vectorchord:16.9-0.4.2
           primaryUpdateStrategy: unsupervised
           storage:
             size: 10Gi
@@ -46,11 +46,9 @@ spec:
             roles:
               - name: immich
                 login: true
+                superuser: true
                 passwordSecret:
                   name: immich-basic-auth
-          enableSuperuserAccess: true
-          superuserSecret:
-            name: *name
           bootstrap:
             # use this to start a new cluster
             initdb:
@@ -58,14 +56,11 @@ spec:
               owner: immich
               secret:
                 name: immich-basic-auth
-              dataChecksums: true
               postInitApplicationSQL:
-                - CREATE EXTENSION IF NOT EXISTS cube;
-                - CREATE EXTENSION IF NOT EXISTS earthdistance;
-                # After bootup:
-                # ALTER USER "immich" WITH SUPERUSER;
-                # Wait for immich to init.
-                # ALTER USER "immich" WITH NOSUPERUSER;
+                - CREATE EXTENSION IF NOT EXISTS "vector";
+                - CREATE EXTENSION IF NOT EXISTS "vchord" CASCADE;
+                - CREATE EXTENSION IF NOT EXISTS "cube" CASCADE;
+                - CREATE EXTENSION IF NOT EXISTS "earthdistance" CASCADE;
             # # use this to recover a net-new cluster from a backup
             #recovery:
             #  source: *name
@@ -93,8 +88,7 @@ spec:
               memory: "1Gi"
           postgresql:
             shared_preload_libraries:
-              - "vectors.so"
-            enableAlterSystem: true
+              - "vchord.so"
           backup:
             retentionPolicy: 7d
             barmanObjectStore:
