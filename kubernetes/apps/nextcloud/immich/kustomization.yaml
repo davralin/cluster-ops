@@ -6,7 +6,7 @@ resources:
   - database-secret.yaml
   - helm-release-db-v16.yaml
   - helm-release-valkey.yaml
-  - helm-release.yaml
+#  - helm-release.yaml
   - probes.yaml
   - pvc.yaml
   - secret.yaml
