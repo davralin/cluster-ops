@@ -137,7 +137,7 @@
         "minecraft",
         "node-feature-discovery",
         "rook-ceph",
-        "velero"
+        "valkey"
       ]
     },
     {
