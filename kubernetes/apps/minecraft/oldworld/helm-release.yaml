@@ -46,20 +46,31 @@ spec:
            persistentVolumeClaim:
              claimName: oldworld
     minecraftServer:
+      extraPorts:
+        - name: prometheus
+          containerPort: 9100
+          protocol: TCP
+          service:
+            enabled: true
+            embedded: true
+            port: 9100
       tz: "${TIMEZONE}"
       eula: true
-      type: FABRIC
-      version: "1.21.5"
+      type: PAPER
+      version: "1.21.4"
       difficulty: "easy"
       maxPlayers: 10
       levelSeed: 421112feedmekittens
       maxTickTime: -1
       mode: creative
-      memory: 2G
-      motd: "A retro Minecraft server"
+      memory: 6G
+      motd: "A Retro Minecraft Server"
       onlineMode: true
       overrideServerProperties: true
       downloadWorldUrl: "/oldworlds/18world"
+      pluginUrls:
+        # renovate: datasource=github-releases depName=sladkoff/minecraft-prometheus-exporter
+        - https://github.com/sladkoff/minecraft-prometheus-exporter/releases/download/v3.1.2/minecraft-prometheus-exporter-3.1.2.jar
       rcon:
         enabled: true
     resources:
