@@ -55,7 +55,7 @@ spec:
                 spec:
                   httpGet:
                     path: /healthcheck
-                    port: *port
+                    port: &port 8945
                   initialDelaySeconds: 0
                   periodSeconds: 10
                   timeoutSeconds: 1
@@ -76,7 +76,7 @@ spec:
         controller: *name
         ports:
           http:
-            port: 8945
+            port: *port
     ingress:
       pinchflat:
         enabled: true
