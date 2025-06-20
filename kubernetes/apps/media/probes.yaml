@@ -49,6 +49,7 @@ spec:
                 - "https://lidatube.${SECRET_DEFAULT_DOMAIN}"
                 - "https://metube.${SECRET_DEFAULT_DOMAIN}"
                 - "https://multiscrobbler.${SECRET_DEFAULT_DOMAIN}"
+                - "https://pinchflat.${SECRET_DEFAULT_DOMAIN}"
                 - "https://prowlarr.${SECRET_DEFAULT_DOMAIN}"
                 - "https://qbittorrent.${SECRET_DEFAULT_DOMAIN}"
                 - "https://radarr.${SECRET_DEFAULT_DOMAIN}"
