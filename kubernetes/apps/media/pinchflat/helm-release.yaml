@@ -48,6 +48,7 @@ spec:
             env:
               TZ: "${TIMEZONE}"
               TZ_DATA_DIR: /tmp/elixir_tz_data
+              YT_DLP_WORKER_CONCURRENCY: 1
             probes:
               liveness: &probes
                 enabled: true
