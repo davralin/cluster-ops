@@ -1,6 +1,4 @@
 ---
 - name: Restart ADSB
-  ansible.builtin.systemd_service:
-    name: docker-adsb.service
-    state: restarted
+  ansible.builtin.command: docker-compose -f {{ adsb_compose_path }}/docker-compose.yml up -d --force-recreate
   become: true
