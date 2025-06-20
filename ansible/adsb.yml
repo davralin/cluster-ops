@@ -13,4 +13,4 @@
     - sshd
     - wireguard
     - docker
-    - adsb_compose
+#    - adsb_compose
