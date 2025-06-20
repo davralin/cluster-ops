@@ -17,4 +17,4 @@
     dest: "{{ adsb_compose_path }}/docker-compose.yml"
   become: true
   notify:
-    - Restart adguard
+    - Restart ADSB
