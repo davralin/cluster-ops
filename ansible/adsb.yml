@@ -2,4 +2,15 @@
 - hosts: ADSB
 
   roles:
-  - adsb_compose
+    - apt
+    - users
+    - locale
+    - node_exporter
+    - nullmailer
+    - profile
+    - rclone
+    - rsync
+    - sshd
+    - wireguard
+    - docker
+    - adsb_compose
