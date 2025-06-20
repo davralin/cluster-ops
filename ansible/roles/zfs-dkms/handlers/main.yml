@@ -1,0 +1,7 @@
+---
+- name: Enable zfs-load-key-service
+  ansible.builtin.systemd_service:
+    name: zfs-load-key.service
+    enabled: true
+    daemon_reload: true
+  become: true

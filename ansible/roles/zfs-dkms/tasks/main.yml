@@ -26,3 +26,14 @@
     packages:
       - zfsutils-linux
       - zfs-zed
+
+- name: Copy zfs-load-key-service
+  ansible.builtin.copy:
+    src: zfs-load-key.service
+    dest: /etc/systemd/system/zfs-load-key.service
+    owner: root
+    group: root
+    mode: "0755"
+  become: true
+  notify:
+    - Enable zfs-load-key-service
