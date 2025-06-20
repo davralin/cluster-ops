@@ -1,6 +1,7 @@
 ---
 apt_packages:
   - btop
+  - ca-certificates
   - lsof
   - ncurses-term
   - silversearcher-ag
