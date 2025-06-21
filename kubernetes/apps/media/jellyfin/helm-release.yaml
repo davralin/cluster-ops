@@ -107,3 +107,8 @@ spec:
       transcode:
         enabled: true
         type: emptyDir
+      pinchflat-media:
+        enabled: true
+        existingClaim: pinchflat-media
+        globalMounts:
+          - path: /downloads
