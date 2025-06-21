@@ -1,0 +1,16 @@
+---
+- name: Installing package
+  ansible.builtin.apt:
+    name: "{{ packages }}"
+    state: present
+  become: true
+  vars:
+    packages:
+      - dnsmasq
+
+- name: Copy basic listen-conf
+  ansible.builtin.copy:
+    src: listen.conf
+    dest: /etc/dnsmasq.d/listen.conf
+    mode: "0755"
+  become: true
