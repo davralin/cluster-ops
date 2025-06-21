@@ -112,16 +112,8 @@ spec:
                 subPath: yt-dlp
               - path: /tmp
                 subPath: tmp
-      media:
-        enabled: true
-        existingClaim: media
-        advancedMounts:
-          pinchflat:
-            pinchflat:
-              - path: /downloads
-                subPath: unsorted
       pinchflat-media:
         enabled: true
         existingClaim: pinchflat-media
         globalMounts:
-          - path: /downloads2
+          - path: /downloads
