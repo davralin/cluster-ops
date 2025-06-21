@@ -120,3 +120,8 @@ spec:
             pinchflat:
               - path: /downloads
                 subPath: unsorted
+      pinchflat-media:
+        enabled: true
+        existingClaim: pinchflat-media
+        globalMounts:
+          - path: /downloads2
