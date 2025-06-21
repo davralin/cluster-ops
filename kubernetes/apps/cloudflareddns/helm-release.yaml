@@ -50,6 +50,7 @@ spec:
               tag: 1.15.1@sha256:a4e2089b3531eec8c9328c7a9a586f80e8d67dcd94856e0b596b7896e1de3f62
             env:
               DOMAINS: "home.${SECRET_INTERNAL_DOMAIN},home.${SECRET_PRIVATE_DOMAIN}"
+              IP6_PROVIDER: "none"
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
