@@ -62,7 +62,7 @@ spec:
             dependsOn: homeassistant
             image:
               repository: ghcr.io/coder/code-server
-              tag: 4.100.3
+              tag: 4.101.1
             args:
               - --auth
               - "none"
