@@ -12,6 +12,7 @@
     - rsync
     - local_backup
     - local_dnsmasq
+    - debian_desktop
     - sshd
     - wireguard
     - zfs-dkms
