@@ -45,7 +45,7 @@ spec:
           onsite-sync:
             image:
               repository: ghcr.io/davralin/rsync
-              tag: latest@sha256:00b829dab32e5dbd28f679d11f05dc77c3fb4a22f68c7fe204658afd49f6fcb7
+              tag: latest@sha256:6a9d3b1074f535c47e427cc6b3bc035d77d10b212ab619150493a445f8f9e877
             command: ['/usr/bin/rsync']
             args: ["--archive", "--delete", "--verbose", "-e", "ssh -o StrictHostKeyChecking=no", "/paperless-ngx/backup/", "backup@nas.${SECRET_DEFAULT_DOMAIN}:/opt/local/paperless-ngx/"]
             securityContext:
