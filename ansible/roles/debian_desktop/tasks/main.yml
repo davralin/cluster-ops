@@ -1,9 +1,24 @@
 ---
-- name: Installing packages
+- name: Installing generic packages
   ansible.builtin.apt:
     name: "{{ packages }}"
     state: present
   become: true
   vars:
     packages:
+      - dbus
+      - dbus-user-session
+      - libpam-systemd
+
+- name: Installing sound packages
+  ansible.builtin.apt:
+    name: "{{ packages }}"
+    state: present
+  become: true
+  vars:
+    packages:
+      - alsa-utils
       - pipewire
+      - pipewire-audio
+      - pipewire-pulse
+      - wireplumber
