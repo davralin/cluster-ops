@@ -1,5 +1,5 @@
 ---
-- hosts: ADSB
+- hosts: remote_workstation
 
   roles:
     - apt
@@ -10,6 +10,8 @@
     - profile
     - rclone
     - rsync
+    - local_backup
+    - local_dnsmasq
     - sshd
     - wireguard
-    - docker
+    - zfs-dkms
