@@ -70,3 +70,7 @@ spec:
         existingClaim: media
         globalMounts:
           - path: /data
+      tmp:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp
