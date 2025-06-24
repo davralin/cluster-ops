@@ -43,7 +43,7 @@ spec:
           homeassistant:
             image:
               repository: ghcr.io/home-assistant/home-assistant
-              tag: 2025.6.2
+              tag: 2025.6.3
             env:
               TZ: "${TIMEZONE}"
             securityContext:
