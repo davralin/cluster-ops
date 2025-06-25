@@ -8,7 +8,6 @@
     - haproxy
     - local_backup
     - icecast
-    - liquidsoap
     - locale
     - node_exporter
     - nullmailer
