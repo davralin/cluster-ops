@@ -1,7 +1,7 @@
 ---
 services:
   ersatztv:
-    image: jasongdove/ersatztv:v25.2.0
+    image: ghcr.io/ersatztv/ersatztv:v25.2.0
     container_name: ersatztv
     restart: unless-stopped
     ports:
