@@ -76,11 +76,11 @@ spec:
         - display_name: vscode-in-a-box
           description: "Starts but won't connect"
           kubespawner_override:
-            image: ghcr.io/coder/code-server:4.101.1
+            image: ghcr.io/coder/code-server:4.101.2
         - display_name: vscode-in-a-box-connecting
           description: "Starts, connects, drops with 404"
           kubespawner_override:
-            image: ghcr.io/coder/code-server:4.101.1
+            image: ghcr.io/coder/code-server:4.101.2
             command: ["Starts, connects, bombs with 404 on the default URL"]
             args:
               - --bind-addr
@@ -91,7 +91,7 @@ spec:
         - display_name: vscode-in-a-box-url
           description: "URLedro"
           kubespawner_override:
-            image: ghcr.io/coder/code-server:4.101.1
+            image: ghcr.io/coder/code-server:4.101.2
             command: ["Starts, connects, URL 404"]
             default_url: “/vscode”
             defaultUrl: “/vscode”
