@@ -44,9 +44,7 @@ spec:
             image:
               repository: icloudpd/icloudpd
               tag: 1.28.1
-            # So I can deal with login
-            command: ["/bin/sleep"]
-            args: ["infinity"]
+            command: ["/data/sync.sh"]
             env:
               TZ: "${TIMEZONE}"
               TMP: "/tmp"
