@@ -54,7 +54,8 @@ spec:
               capabilities:
                 drop:
                   - ALL
-              readOnlyRootFilesystem: true
+              # OSError: [Errno 30] Read-only file system: '/.pyicloud'
+              readOnlyRootFilesystem: false
             resources:
               requests:
                 cpu: 10m
