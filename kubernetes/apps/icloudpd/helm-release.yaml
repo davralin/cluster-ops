@@ -55,8 +55,7 @@ spec:
               capabilities:
                 drop:
                   - ALL
-              # Just because I want tmux
-              readOnlyRootFilesystem: false
+              readOnlyRootFilesystem: true
             resources:
               requests:
                 cpu: 10m
@@ -94,12 +93,5 @@ spec:
     persistence:
       data:
         existingClaim: icloudpd
-        advancedMounts:
-          icloudpd:
-            icloudpd:
-              - path: /root/.pyicloud
-                subPath: config
-              - path: /data
-                subPath: sync
       tmp:
         type: emptyDir
