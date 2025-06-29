@@ -47,6 +47,11 @@ spec:
             - action: replace
               targetLabel: job
               replacement: *name
+            # All creds to https://a-cup-of.coffee/blog/prometheus/#relabeling
+            - sourceLabels: [__address__]
+              regex: '(.*):[0-9]+'
+              replacement: '${1}'
+              targetLabel: instance
       - apiVersion: monitoring.coreos.com/v1alpha1
         kind: ScrapeConfig
         metadata:
@@ -61,6 +66,11 @@ spec:
             - action: replace
               targetLabel: job
               replacement: *name
+            # All creds to https://a-cup-of.coffee/blog/prometheus/#relabeling
+            - sourceLabels: [__address__]
+              regex: '(.*):[0-9]+'
+              replacement: '${1}'
+              targetLabel: instance
       - apiVersion: monitoring.coreos.com/v1alpha1
         kind: ScrapeConfig
         metadata:
@@ -75,6 +85,11 @@ spec:
             - action: replace
               targetLabel: job
               replacement: *name
+            # All creds to https://a-cup-of.coffee/blog/prometheus/#relabeling
+            - sourceLabels: [__address__]
+              regex: '(.*):[0-9]+'
+              replacement: '${1}'
+              targetLabel: instance
       - apiVersion: monitoring.coreos.com/v1alpha1
         kind: ScrapeConfig
         metadata:
@@ -89,3 +104,8 @@ spec:
             - action: replace
               targetLabel: job
               replacement: *name
+            # All creds to https://a-cup-of.coffee/blog/prometheus/#relabeling
+            - sourceLabels: [__address__]
+              regex: '(.*):[0-9]+'
+              replacement: '${1}'
+              targetLabel: instance
