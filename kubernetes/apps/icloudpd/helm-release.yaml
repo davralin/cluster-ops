@@ -55,7 +55,8 @@ spec:
               capabilities:
                 drop:
                   - ALL
-              readOnlyRootFilesystem: true
+              # Just because I want tmux
+              readOnlyRootFilesystem: false
             resources:
               requests:
                 cpu: 10m
