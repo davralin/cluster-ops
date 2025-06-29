@@ -15,7 +15,6 @@ resources:
   - dysnix.yaml
   - emberstack.yaml
   - emqx.yaml
-  - falco.yaml
   - flux.yaml
   - fluxcd-community.yaml
   - grafana.yaml
