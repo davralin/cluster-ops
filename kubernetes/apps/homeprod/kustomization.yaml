@@ -19,6 +19,7 @@ resources:
   - ../freshrss
   - ../gitea
   - ../homeassistant
+  - ../icloudpd
   - ../intel-device-plugin
   - ../invidious
   - ../it-tools
