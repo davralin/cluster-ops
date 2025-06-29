@@ -48,6 +48,7 @@ spec:
             args: ["infinity"]
             env:
               TZ: "${TIMEZONE}"
+              TMP: "/tmp"
             securityContext:
               allowPrivilegeEscalation: false
               capabilities:
@@ -91,3 +92,5 @@ spec:
     persistence:
       data:
         existingClaim: icloudpd
+      tmp:
+        type: emptyDir
