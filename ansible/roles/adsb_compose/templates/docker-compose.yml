@@ -7,7 +7,6 @@ services:
     hostname: ultrafeeder
     ports:
       - "{{ adsb_compose_ip_binding_ultrafeeder_web }}:80"
-      - "{{ adsb_compose_ip_binding_ultrafeeder_rtlport }}:30005"
     devices:
       - /dev/bus/usb:/dev/bus/usb
     volumes:
