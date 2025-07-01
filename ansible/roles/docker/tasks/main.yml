@@ -9,3 +9,10 @@
       - docker.io
       - docker-cli
       - docker-compose
+
+- name: Schedule monthly prune
+  ansible.builtin.cron:
+    name: "Monthly docker prune"
+    job: "docker system prune --all --force"
+    special_time: monthly
+  become: true
