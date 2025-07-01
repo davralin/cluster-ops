@@ -120,11 +120,11 @@ spec:
           labels:
             severity: warning
           annotations:
-            summary: "SSL certificate for {{ $labels.target }} will expire in less than 60 days."
+            summary: "SSL certificate for {{ $labels.instance }} will expire in less than 60 days."
         - alert: BlackboxSslCertificateWillExpireReallySoon
           expr: probe_ssl_earliest_cert_expiry - time() < 86400 * 51
           for: 5m
           labels:
             severity: error
           annotations:
-            summary: "SSL certificate for {{ $labels.target }} will expire in less than 55 days."
+            summary: "SSL certificate for {{ $labels.instance }} will expire in less than 55 days."
