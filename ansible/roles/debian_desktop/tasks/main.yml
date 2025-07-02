@@ -22,3 +22,12 @@
       - pipewire-audio
       - pipewire-pulse
       - wireplumber
+
+- name: Installing players
+  ansible.builtin.apt:
+    name: "{{ packages }}"
+    state: present
+  become: true
+  vars:
+    packages:
+      - moc
