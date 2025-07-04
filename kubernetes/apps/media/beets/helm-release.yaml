@@ -55,3 +55,6 @@ spec:
       data:
         enabled: true
         existingClaim: media
+      tmp:
+        enabled: true
+        type: emptyDir
