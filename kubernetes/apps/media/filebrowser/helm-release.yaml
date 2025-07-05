@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &name media-filebrowser
+  name: &name filebrowser
   namespace: flux-system
 spec:
   interval: 30m
@@ -41,8 +41,8 @@ spec:
         containers:
           filebrowser:
             image:
-              repository: ghcr.io/davralin/sleep
-              tag: latest@sha256:0f1619bdd66eb227f02f0de1a5cd1782fb363f123d3cfa96c666d813df371f79
+              repository: filebrowser/filebrowser
+              tag: v2.36.1@sha256:25a17f9ba8ecbfd26a267e9f35a26b7658792ec34c3d45ed5d1cef4a451a1726
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -51,10 +51,46 @@ spec:
               requests:
                 cpu: 10m
                 memory: 100Mi
+    service:
+      filebrowser:
+        controller: *name
+        ports:
+          http:
+            port: 80
+    ingress:
+      filebrowser:
+        enabled: true
+        annotations:
+          haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
+          haproxy.org/ssl-redirect-port: "443"
+          haproxy.org/response-set-header: |
+            Strict-Transport-Security "max-age=31536000"
+            X-Frame-Options "DENY"
+            X-Content-Type-Options "nosniff"
+            Referrer-Policy "strict-origin-when-cross-origin"
+        hosts:
+          - host: &host "filebrowser.${SECRET_DEFAULT_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  identifier: filebrowser
+                  port: http
+        tls:
+          - hosts:
+              - *host
     persistence:
       data:
         enabled: true
         existingClaim: media
-      rclone:
+        globalMounts:
+          - path: /srv
+      config:
         enabled: true
-        existingClaim: rcloneconfig
+        existingClaim: filebrowser
+        advancedMounts:
+          filebrowser:
+            filebrowser:
+              - path: /database
+                subPath: database
+              - path: /config
+                subPath: config
