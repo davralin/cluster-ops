@@ -58,3 +58,6 @@ spec:
       rclone:
         enabled: true
         existingClaim: rcloneconfig
+      tmp:
+        enabled: true
+        type: emptyDir
