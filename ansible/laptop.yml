@@ -1,0 +1,16 @@
+---
+- hosts: laptop
+
+  roles:
+    - apt
+    - users
+    - locale
+    - profile
+    - rclone
+    - rsync
+    - local_dnsmasq
+    - debian_desktop
+    - powersaving
+    - sshd
+    - wireguard
+    - zfs-dkms
