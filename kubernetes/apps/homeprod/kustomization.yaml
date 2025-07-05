@@ -14,7 +14,6 @@ resources:
   - ../cloudflareddns
   - ../emqx
   - ../epicgames-freegames
-  - ../esphome
   - ../firefox
   - ../freshrss
   - ../gitea
