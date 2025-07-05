@@ -29,5 +29,6 @@ resources:
   - tautulli
   - tdarr
   - unpackerr
+  - utility
   - namespace.yaml
   - probes.yaml
