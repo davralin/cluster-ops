@@ -42,7 +42,7 @@ spec:
           immich-filebrowser:
             image:
               repository: filebrowser/filebrowser
-              tag: v2.40.1@sha256:e94ade700dfc46b08e4444ade9cd7888e28288c4e5a04cc1e4124a15a97fa943
+              tag: v2.40.2@sha256:2cd16c5d480f68e79dd3b222c6b0ec855b755a4f61b45fdaa5c3cac0d4f8d8e8
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
