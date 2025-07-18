@@ -38,6 +38,7 @@ spec:
           # using more than 1 replica: write amplification issues when leveraging replicated storage (e.g. ceph)
           instances: 2
           imageName: ghcr.io/tensorchord/cloudnative-pgvecto.rs:16.4-v0.3.0
+          #imageName: ghcr.io/tensorchord/cloudnative-vectorchord:16.9-0.3.0
           primaryUpdateStrategy: unsupervised
           storage:
             size: 10Gi
