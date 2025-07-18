@@ -37,10 +37,10 @@ spec:
           # using only 1 replica: very difficult to drain the node where postgres is running
           # using more than 1 replica: write amplification issues when leveraging replicated storage (e.g. ceph)
           instances: 2
-          imageName: ghcr.io/tensorchord/cloudnative-vectorchord:16.9-0.3.0
+          imageName: ghcr.io/tensorchord/cloudnative-vectorchord:16.9-0.4.3
           primaryUpdateStrategy: unsupervised
           storage:
-            size: 10Gi
+            size: 20Gi
             storageClass: "${STORAGE_READWRITEONCE}"
           managed:
             roles:
