@@ -37,8 +37,7 @@ spec:
           # using only 1 replica: very difficult to drain the node where postgres is running
           # using more than 1 replica: write amplification issues when leveraging replicated storage (e.g. ceph)
           instances: 2
-          imageName: ghcr.io/tensorchord/cloudnative-pgvecto.rs:16.4-v0.3.0
-          #imageName: ghcr.io/tensorchord/cloudnative-vectorchord:16.9-0.3.0
+          imageName: ghcr.io/tensorchord/cloudnative-vectorchord:16.9-0.3.0
           primaryUpdateStrategy: unsupervised
           storage:
             size: 10Gi
@@ -61,8 +60,10 @@ spec:
                 name: immich-basic-auth
               dataChecksums: true
               postInitApplicationSQL:
-                - CREATE EXTENSION IF NOT EXISTS cube;
-                - CREATE EXTENSION IF NOT EXISTS earthdistance;
+                - CREATE EXTENSION IF NOT EXISTS "vector";
+                - CREATE EXTENSION IF NOT EXISTS "vchord" CASCADE;
+                - CREATE EXTENSION IF NOT EXISTS "cube" CASCADE;
+                - CREATE EXTENSION IF NOT EXISTS "earthdistance" CASCADE;
                 # After bootup:
                 # ALTER USER "immich" WITH SUPERUSER;
                 # Wait for immich to init.
@@ -94,7 +95,7 @@ spec:
               memory: "1Gi"
           postgresql:
             shared_preload_libraries:
-              - "vectors.so"
+              - "vchord.so"
             enableAlterSystem: true
           backup:
             retentionPolicy: 7d
