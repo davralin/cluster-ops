@@ -6,4 +6,5 @@
   become: true
   vars:
     packages:
+      - rsnapshot
       - rsync
