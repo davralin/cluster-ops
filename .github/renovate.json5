@@ -97,7 +97,6 @@
         "patch"
       ],
       "matchPackagePatterns": [
-        "docker.io/glanceapp/glance",
         "docker.io/icloudpd/icloudpd",
         "docker.io/searxng/searxng",
         "docker.io/thewicklowwolf/lidatube",

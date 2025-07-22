@@ -42,7 +42,7 @@ spec:
         containers:
           icloudpd:
             image:
-              repository: icloudpd/icloudpd
+              repository: docker.io/icloudpd/icloudpd
               tag: 1.29.1
             command: ["/data/sync.sh"]
             env:
