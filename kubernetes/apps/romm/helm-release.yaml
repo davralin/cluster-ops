@@ -111,8 +111,15 @@ spec:
       config:
         enabled: true
         existingClaim: romm
-        globalMounts:
-          - path: /romm
+        advancedMounts:
+          romm:
+            romm:
+              - path: /bios
+                subPath: bios
+              - path: /romm
+                subPath: romm
+              - path: /roms
+                subPath: roms
       # OSError: [Errno 30] Read-only file system: '/tmp/tmpzxo8orzh'
       tmp:
         type: emptyDir
