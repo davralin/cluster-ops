@@ -44,7 +44,7 @@ spec:
           romm:
             image:
               repository: ghcr.io/rommapp/romm
-              tag: 3.10.3@sha256:f28660570b57a7032bc752724bebbc86828916211356b1d6110e03b139b807cf
+              tag: 4.0.0@sha256:677122fdd92516e92aba005f939d8ac3be20541447fbbfd9c9ba49d75a303c76
             envFrom:
               - secretRef:
                   name: romm-secrets
@@ -62,6 +62,10 @@ spec:
                     name: romm-basic-auth
                     key: password
               DB_PORT: "5432"
+              ENABLE_SCHEDULED_UPDATE_LAUNCHBOX_METADATA: "true"
+              LAUNCHBOX_API_ENABLED: "true"
+              HASHEOUS_API_ENABLED: "true"
+              PLAYMATCH_API_ENABLED: "true"
               ROMM_DB_DRIVER: "postgresql"
               REDIS_HOST: "valkey-primary.romm.svc.cluster.local"
               REDIS_PORT: "6379"
