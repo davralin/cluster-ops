@@ -49,7 +49,7 @@ spec:
               tag: 1.0.0@sha256:8de5f7674fa7a4575635702fb41a6307e7294a31f393ac165c25328e45e36372
             env:
               TZ: "${TIMEZONE}"
-              OTR_HOST: "emqx.emqx.svc.cluster.local"
+              OTR_HOST: "mqtt.${SECRET_DEFAULT_DOMAIN}"
               OTR_USER: "owntracks"
               OTR_PASS: "owntracks"
               OTR_CLIENTID: "owntracks"
