@@ -58,6 +58,21 @@ spec:
           existingClaim: nextcloud
           readOnly: true
     server:
+      probes:
+        readiness:
+          custom: true
+          spec:
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3000
+        startup:
+          custom: true
+          spec:
+            initialDelaySeconds: 0
+            timeoutSeconds: 5
+            periodSeconds: 10
+            failureThreshold: 6000
       persistence:
         external:
           enabled: true
