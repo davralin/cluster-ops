@@ -83,3 +83,6 @@ spec:
               - path: /data
                 subPath: .
                 readOnly: true
+      transcode:
+        enabled: true
+        type: emptyDir
