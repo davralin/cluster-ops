@@ -58,6 +58,8 @@ spec:
           existingClaim: nextcloud
           readOnly: true
     server:
+      controller:
+        strategy: Recreate
       probes:
         readiness:
           custom: true
