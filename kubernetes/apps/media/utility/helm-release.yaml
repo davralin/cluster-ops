@@ -66,4 +66,4 @@ spec:
         existingClaim: plex
       cache:
         enabled: true
-        existingClaim: plex-cache
+        existingClaim: plex-migrate

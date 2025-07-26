@@ -15,12 +15,12 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: plex-cache
+  name: plex-migrate
   namespace: media
 spec:
-  storageClassName: "${STORAGE_READWRITEONCE}"
+  storageClassName: "${STORAGE_READWRITEMANY}"
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   resources:
     requests:
       storage: 10Gi
