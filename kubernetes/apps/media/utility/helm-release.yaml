@@ -61,3 +61,9 @@ spec:
       tmp:
         enabled: true
         type: emptyDir
+      config:
+        enabled: true
+        existingClaim: plex
+      cache:
+        enabled: true
+        existingClaim: plex-cache

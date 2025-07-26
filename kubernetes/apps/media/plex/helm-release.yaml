@@ -74,9 +74,6 @@ spec:
       config:
         enabled: true
         existingClaim: plex
-      cache:
-        enabled: true
-        existingClaim: plex-cache
       media:
         enabled: true
         existingClaim: media
