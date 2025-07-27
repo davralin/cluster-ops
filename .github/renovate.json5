@@ -107,6 +107,7 @@
         "ghcr.io/dgtlmoon/changedetection.io",
         "ghcr.io/esphome/esphome",
         "ghcr.io/fallenbagel/jellyseerr",
+        "ghcr.io/jlesage/firefox",
         "ghcr.io/home-assistant/home-assistant",
         "ghcr.io/music-assistant/server",
         "ghcr.io/open-webui/open-webui",
