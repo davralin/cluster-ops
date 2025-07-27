@@ -5,12 +5,12 @@ metadata:
   name: plex
   namespace: media
 spec:
-  storageClassName: "${STORAGE_READWRITEMANY}"
+  storageClassName: "${STORAGE_READWRITEONCE}"
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   resources:
     requests:
-      storage: 20Gi
+      storage: 10Gi
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim

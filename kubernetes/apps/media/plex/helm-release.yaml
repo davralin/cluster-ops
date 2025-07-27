@@ -73,7 +73,7 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: plex
+        existingClaim: plex-migrate
       media:
         enabled: true
         existingClaim: media
