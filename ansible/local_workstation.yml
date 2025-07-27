@@ -1,0 +1,14 @@
+---
+- hosts: local_workstation
+
+  roles:
+    - apt
+    - users
+    - locale
+    - nullmailer
+    - profile
+    - rclone
+    - rsync
+    - debian_desktop
+    - sshd
+    - zfs-dkms
