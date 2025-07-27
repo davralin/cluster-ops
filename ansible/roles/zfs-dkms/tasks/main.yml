@@ -33,7 +33,7 @@
     dest: /etc/systemd/system/zfs-load-key.service
     owner: root
     group: root
-    mode: "0755"
+    mode: "0644"
   become: true
   notify:
     - Enable zfs-load-key-service
