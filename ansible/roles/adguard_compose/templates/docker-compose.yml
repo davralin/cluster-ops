@@ -3,7 +3,7 @@ name: adguard
 
 services:
   adguard:
-    image: adguard/adguardhome:v0.107.63
+    image: adguard/adguardhome:v0.107.64
     ports:
       - "{{ adguard_compose_ip_binding_web }}:80"
       - "{{ adguard_compose_ip_binding_dns }}:53"
