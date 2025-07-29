@@ -24,7 +24,9 @@ services:
     environment:
       BEASTHOST: "{{ adsb_compose_beasthost }}"
       FR24KEY: "{{ adsb_compose_fr24key }}"
-      MLAT: "yes"
+      # If you are sharing to other networks alongside Flightradar24, please disable MLAT.
+      MLAT: "no"
+      MLAT-without-gps: "no"
     restart: always
   adsbhub:
     image: ghcr.io/sdr-enthusiasts/docker-adsbhub:1.06@sha256:ce5cfd547c2c83f91d6df63c13b5d4d73c006c7426be5d27c76efccee4961159
