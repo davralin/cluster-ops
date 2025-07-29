@@ -59,8 +59,8 @@ spec:
           targets:
             staticConfig:
               static:
-                - "https://adguard.${SECRET_OFFSITE_DOMAIN}"
-                - "https://bilder.${SECRET_OFFSITE_DOMAIN}"
+                #- "https://adguard.${SECRET_OFFSITE_DOMAIN}"
+                #- "https://bilder.${SECRET_OFFSITE_DOMAIN}"
                 - "https://status.${SECRET_PUBLIC_DOMAIN}"
                 - "https://home.${SECRET_DEFAULT_DOMAIN}"
                 - "http://minio.${SECRET_DEFAULT_DOMAIN}:9001"
@@ -79,16 +79,16 @@ spec:
               static:
                 - "https://proxmox.${SECRET_DEFAULT_DOMAIN}:8006" # PVE
                 - "https://proxmox.${SECRET_DEFAULT_DOMAIN}:8007" # PBS
-      - apiVersion: monitoring.coreos.com/v1
-        kind: Probe
-        metadata:
-          name: dnsmonitoring
-          namespace: blackbox-exporter
-        spec:
-          module: dns
-          prober:
-            url: "${BLACKBOX_EXPORTER_URL}"
-          targets:
-            staticConfig:
-              static:
-                - "adguard.${SECRET_OFFSITE_DOMAIN}"
+     # - apiVersion: monitoring.coreos.com/v1
+     #   kind: Probe
+     #   metadata:
+     #     name: dnsmonitoring
+     #     namespace: blackbox-exporter
+     #   spec:
+     #     module: dns
+     #     prober:
+     #       url: "${BLACKBOX_EXPORTER_URL}"
+     #     targets:
+     #       staticConfig:
+     #         static:
+     #           - "adguard.${SECRET_OFFSITE_DOMAIN}"
