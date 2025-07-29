@@ -37,6 +37,7 @@ spec:
           staticConfigs:
             - targets:
                 - mierin:9100
+                - adsb.${SECRET_OFFSITE_DOMAIN}:9100
                 - nas.${SECRET_PRIVATE_DOMAIN}:9100
 #                - nas.${SECRET_OFFSITE_DOMAIN}:9100
                 - proxmox.${SECRET_PRIVATE_DOMAIN}:9100
