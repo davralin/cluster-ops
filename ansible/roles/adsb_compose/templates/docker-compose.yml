@@ -55,7 +55,7 @@ services:
       LAT: "{{ adsb_compose_latitude }}"
       LONG: "{{ adsb_compose_lontitude }}"
       OPENSKY_USERNAME: "{{ adsb_compose_opensky_username }}"
-      OPENSKY_SERIAL: "-{{ adsb_compose_opensky_serial }}"
+      OPENSKY_SERIAL: "{{ adsb_compose_opensky_serial }}"
     restart: always
   piaware:
     image: ghcr.io/sdr-enthusiasts/docker-piaware:v9.0.1@sha256:5b9a5d2dde4e80fcf8395ccb20acfdba04fc09cfd2af7794519fad154b244a04
