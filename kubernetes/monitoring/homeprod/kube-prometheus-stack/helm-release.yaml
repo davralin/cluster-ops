@@ -58,6 +58,7 @@ spec:
                     {{- else }}
                       **Description:** N/A
                     {{- end }}
+                    {{ if ne .Annotations.runbook_url "" }}**Runbook: ** {{ .Annotations.runbook_url }} {{ end }}
                   {{- end }}
           - name: "dummy"
           - name: "healthchecksio"
