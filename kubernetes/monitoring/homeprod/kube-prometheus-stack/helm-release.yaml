@@ -209,6 +209,7 @@ spec:
                 for: 5m
                 labels:
                   context: node
+                  severity: warning
                 annotations:
                   description: Node disk usage above 85%
                   summary: Disk usage on target {{ $labels.instance }} at 85%
