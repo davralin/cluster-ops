@@ -85,7 +85,7 @@ spec:
                 - alertname =~ "NodeDiskIOSaturation"
               continue: false
             - receiver: "dummy"
-              matchers:
+              matchers: # https://github.com/davralin/cluster-ops/issues/4635
                 - alertname =~ "etcdHighNumberOfLeaderChanges|etcdDatabaseHighFragmentationRatio"
               continue: false
       externalUrl: https://alertmanager.${SECRET_DEFAULT_DOMAIN}
