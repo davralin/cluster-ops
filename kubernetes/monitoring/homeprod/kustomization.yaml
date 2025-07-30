@@ -5,8 +5,8 @@ resources:
   - ../flux
   - grafana
   - kube-prometheus-stack
-  - loki
+#  - loki
   - metrics-server
-  - promtail
+#  - promtail
   - smartctl-exporter
   - namespace.yaml
