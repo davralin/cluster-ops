@@ -10,6 +10,16 @@
       - dbus-user-session
       - libpam-systemd
 
+- name: Installing boot-tools
+  ansible.builtin.apt:
+    name: "{{ packages }}"
+    state: present
+  become: true
+  vars:
+    packages:
+      - plymouth
+      - plymouth-themes
+
 - name: Installing sound packages
   ansible.builtin.apt:
     name: "{{ packages }}"
