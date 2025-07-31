@@ -80,9 +80,12 @@ spec:
               matchers:
                 - alertname =~ "InfoInhibitor"
               continue: false
+              # These trigger when I run my backups, and media-jobs - creating false alerts
+              # I can't override/disable spesific alerts, so i Null them and
+              # create new alerts which must be firing longer before alerting.
             - receiver: "dummy"
               matchers:
-                - alertname =~ "NodeDiskIOSaturation"
+                - alertname =~ "NodeDiskIOSaturation|NodeSystemSaturation"
               continue: false
             - receiver: "dummy"
               matchers: # https://github.com/davralin/cluster-ops/issues/4635
@@ -225,6 +228,19 @@ spec:
                     This symptom might indicate disk saturation.
                   runbook_url: https://runbooks.prometheus-operator.dev/runbooks/node/nodediskiosaturation
                   summary: Disk IO queue is high.
+              - alert: ExpandedNodeSystemSaturation
+                expr: |-
+                  node_load1{job="node-exporter"} / count without (cpu, mode) (node_cpu_seconds_total{job="node-exporter", mode="idle"}) > 2
+                for: 60m
+                labels:
+                  context: node
+                  severity: warning
+                annotations:
+                  description: |
+                    System load per core at {{ $labels.instance }} has been above 2 for the last 15 minutes, is currently at {{ printf "%.2f" $value }}.
+                    This might indicate this instance resources saturation and can cause it becoming unresponsive.
+                  runbook_url: https://runbooks.prometheus-operator.dev/runbooks/node/nodesystemsaturation
+                  summary: System saturated, load per core is very high.
       oom-rules:
         groups:
           - name: oom
