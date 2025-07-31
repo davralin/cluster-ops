@@ -41,7 +41,7 @@ spec:
         containers:
           filebrowser:
             image:
-              repository: filebrowser/filebrowser
+              repository: docker.io/filebrowser/filebrowser
               tag: v2.42.0@sha256:5096c405f00f1062facc843773e2de875a1fef177bc31b8f0e4d6aeab53a1219
             securityContext:
               allowPrivilegeEscalation: false
