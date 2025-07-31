@@ -89,7 +89,7 @@ spec:
               continue: false
             - receiver: "dummy"
               matchers: # https://github.com/davralin/cluster-ops/issues/4635
-                - alertname =~ "etcdHighNumberOfLeaderChanges|etcdDatabaseHighFragmentationRatio"
+                - alertname =~ "etcdHighNumberOfLeaderChanges|etcdDatabaseHighFragmentationRatio|etcdMemberCommunicationSlow|etcdHighNumberOfFailedGRPCRequests"
               continue: false
       externalUrl: https://alertmanager.${SECRET_DEFAULT_DOMAIN}
       ingress:
