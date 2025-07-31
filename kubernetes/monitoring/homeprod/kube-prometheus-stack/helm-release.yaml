@@ -215,7 +215,7 @@ spec:
                   summary: Disk usage on target {{ $labels.instance }} at 85%
               - alert: ExpandedNodeDiskIOSaturation
                 expr: rate(node_disk_io_time_weighted_seconds_total{job="node-exporter", device=~"(/dev/)?(mmcblk.p.+|nvme.+|rbd.+|sd.+|vd.+|xvd.+|dm-.+|md.+|dasd.+)"}[5m]) > 10
-                for: 90m
+                for: 120m
                 labels:
                   context: node
                   severity: warning
