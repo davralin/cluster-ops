@@ -13,6 +13,6 @@
 - name: Schedule monthly prune
   ansible.builtin.cron:
     name: "Monthly docker prune"
-    job: "docker system prune --all --force"
+    job: "docker system prune --all --force &>/dev/null"
     special_time: monthly
   become: true
