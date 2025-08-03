@@ -48,6 +48,8 @@ spec:
         library:
           existingClaim: immich
     machine-learning:
+      controller:
+        strategy: Recreate
       persistence:
         cache:
           type: pvc
