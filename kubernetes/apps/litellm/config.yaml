@@ -7,6 +7,10 @@ model_list:
     litellm_params:
       model: ollama_chat/gemma3:12b
       api_base: "http://ollama.ollama.svc.cluster.local:11434"
+  - model_name: gpt-oss:20b
+    litellm_params:
+      model: ollama_chat/gpt-oss:20b
+      api_base: "http://ollama.ollama.svc.cluster.local:11434"
   - model_name: qwen3:8b
     litellm_params:
       model: ollama_chat/qwen3:8b
