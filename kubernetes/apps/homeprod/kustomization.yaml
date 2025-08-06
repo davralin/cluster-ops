@@ -12,7 +12,6 @@ resources:
   - ../cyberchef
   - ../descheduler
   - ../cloudflareddns
-  - ../emqx
   - ../epicgames-freegames
   - ../firefox
   - ../freshrss
@@ -56,4 +55,3 @@ resources:
   - ../volsync
   - ../wallos
   - ../warrior
-  - ../zigbee2mqtt
