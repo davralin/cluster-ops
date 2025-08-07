@@ -77,8 +77,7 @@ spec:
           targets:
             staticConfig:
               static:
-                - "https://proxmox.${SECRET_DEFAULT_DOMAIN}:8006" # PVE
-                - "https://proxmox.${SECRET_DEFAULT_DOMAIN}:8007" # PBS
+                - "https://proxmox.${SECRET_DEFAULT_DOMAIN}:8006"
       - apiVersion: monitoring.coreos.com/v1
         kind: Probe
         metadata:
