@@ -41,3 +41,6 @@
   vars:
     packages:
       - moc
+      - mpc
+      - mpd
+      - ncmpcpp
