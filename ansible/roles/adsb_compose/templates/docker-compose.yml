@@ -3,7 +3,7 @@ name: adsb
 
 services:
   ultrafeeder:
-    image: ghcr.io/sdr-enthusiasts/docker-adsb-ultrafeeder:latest@sha256:df2134a679e2668d525060f9975fa1eb8e47689b0fc9d11a364db3ac00875a02
+    image: ghcr.io/sdr-enthusiasts/docker-adsb-ultrafeeder:latest@sha256:cb7655b5dadea2766798c4397fe462ac18c68c3012f81f4333213ee6d2dcdf2d
     hostname: ultrafeeder
     ports:
       - "{{ adsb_compose_ip_binding_ultrafeeder_web }}:80"
