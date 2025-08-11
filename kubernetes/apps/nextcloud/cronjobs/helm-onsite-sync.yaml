@@ -45,7 +45,7 @@ spec:
           onsite-sync:
             image:
               repository: ghcr.io/davralin/rsync
-              tag: latest@sha256:540aa35aab4f1009a0264e338f5ca8bd997a5b71cf770ded5239ad5e9aef988f
+              tag: latest@sha256:a91c440cafb02dd56034fc002387990e615e3f2e592e7c43d0cbf198b70b222a
             command: ['/usr/bin/rsync']
             args: ["--archive", "--delete", "--verbose", "-e", "ssh -o StrictHostKeyChecking=no", "/nextcloud/", "backup@nas.${SECRET_DEFAULT_DOMAIN}:/opt/local/nextcloud/"]
             securityContext:
