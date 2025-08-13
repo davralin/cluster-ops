@@ -47,7 +47,7 @@ spec:
           gitea:
             image:
               repository: ghcr.io/go-gitea/gitea
-              tag: 1.24.4-rootless
+              tag: 1.24.5-rootless
             env:
               TZ: "${TIMEZONE}"
               USER_UID: 1000
