@@ -16,7 +16,6 @@ resources:
   - ../firefox
   - ../freshrss
   - ../gitea
-  - ../homeassistant
   - ../icloudpd
   - ../intel-device-plugin
   - ../invidious
