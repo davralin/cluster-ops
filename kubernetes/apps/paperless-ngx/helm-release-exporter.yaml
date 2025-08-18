@@ -65,7 +65,7 @@ spec:
             args: ["--compare-checksums", "--delete", "--use-filename-format", "--skip-checks", "--verbosity", "3", "/export/backup"]
             image:
               repository: ghcr.io/paperless-ngx/paperless-ngx
-              tag: 2.18.0
+              tag: 2.18.1
             env:
               PAPERLESS_TIME_ZONE: "${TIMEZONE}"
               PAPERLESS_REDIS: "redis://valkey-primary"

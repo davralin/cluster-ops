@@ -60,7 +60,7 @@ spec:
           paperless-ngx:
             image:
               repository: ghcr.io/paperless-ngx/paperless-ngx
-              tag: 2.18.0
+              tag: 2.18.1
             env:
               PAPERLESS_TIME_ZONE: "${TIMEZONE}"
               PAPERLESS_OCR_LANGUAGE: "nor+eng"
