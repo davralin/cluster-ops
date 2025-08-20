@@ -42,8 +42,8 @@ spec:
         containers:
           sockpuppetbrowser:
             image:
-              repository: dgtlmoon/sockpuppetbrowser
-              tag: latest@sha256:df8d9d02e1efa93d7824e81222ee638e7d0dbb0ef132bc277dc01c969e82d57e
+              repository: docker.io/dgtlmoon/sockpuppetbrowser
+              tag: 0.0.3@sha256:23a7be698216407648b6c78fc55de0411bde550635edc30347373c86a5176fad
             env:
               SCREEN_WIDTH: "1920"
               SCREEN_HEIGHT: "1024"
