@@ -33,6 +33,10 @@
       - pipewire-pulse
       - wireplumber
 
+- name: Installing stuff for i3
+  ansible.builtin.include_tasks:
+    file: i3.yml
+
 - name: Installing players
   ansible.builtin.apt:
     name: "{{ packages }}"
