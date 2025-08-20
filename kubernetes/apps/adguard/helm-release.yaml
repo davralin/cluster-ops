@@ -43,7 +43,7 @@ spec:
         containers:
           adguard:
             image:
-              repository: adguard/adguardhome
+              repository: docker.io/adguard/adguardhome
               tag: v0.107.64
             env:
               TZ: "${TIMEZONE}"

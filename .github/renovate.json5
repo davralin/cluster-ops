@@ -97,6 +97,7 @@
         "patch"
       ],
       "matchPackagePatterns": [
+        "docker.io/adguard/adguardhome",
         "docker.io/filebrowser/filebrowser",
         "docker.io/icloudpd/icloudpd",
         "docker.io/searxng/searxng",
