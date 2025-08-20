@@ -44,3 +44,12 @@
       - mpc
       - mpd
       - ncmpcpp
+
+- name: Removing previous experiments
+  ansible.builtin.apt:
+    name: "{{ packages }}"
+    state: absent
+  become: true
+  vars:
+    packages:
+      - moc
