@@ -141,6 +141,7 @@
         "kube-prometheus-stack",
         "minecraft",
         "node-feature-discovery",
+        "reflector",
         "rook-ceph",
         "valkey"
       ]
