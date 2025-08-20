@@ -100,6 +100,7 @@
         "docker.io/adguard/adguardhome",
         "docker.io/filebrowser/filebrowser",
         "docker.io/icloudpd/icloudpd",
+        "docker.io/ollama/ollama",
         "docker.io/searxng/searxng",
         "docker.io/thewicklowwolf/lidatube",
         "ghcr.io/alexta69/metube",
@@ -109,6 +110,7 @@
         "ghcr.io/dgtlmoon/changedetection.io",
         "ghcr.io/esphome/esphome",
         "ghcr.io/fallenbagel/jellyseerr",
+        "ghcr.io/foxxmd/multi-scrobbler",
         "ghcr.io/go-gitea/gitea",
         "ghcr.io/jlesage/firefox",
         "ghcr.io/home-assistant/home-assistant",
@@ -118,6 +120,7 @@
         "ghcr.io/rommapp/romm",
         "ghcr.io/syncthing/syncthing",
         "ghcr.io/tautulli/tautulli",
+        "ghcr.io/unpoller/unpoller",
         "quay.io/minio/minio",
         "grafana/grafana"
       ]
