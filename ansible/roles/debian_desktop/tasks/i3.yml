@@ -7,12 +7,14 @@
   vars:
     packages:
       - alacritty
+      - feh # for setting wallpapers with variety
       - i3
       - i3blocks
       - lightdm
       - lightdm-gtk-greeter
       - lxpolkit # Keyring
       - rofi
+      - variety
       - xorg
       - xserver-xorg-video-intel
       - xserver-xorg-video-amdgpu
