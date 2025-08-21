@@ -48,6 +48,16 @@
       - mpd
       - ncmpcpp
 
+- name: Installing fonts
+  ansible.builtin.apt:
+    name: "{{ packages }}"
+    state: present
+  become: true
+  vars:
+    packages:
+      - fonts-font-awesome
+      - fonts-hack
+
 - name: Removing previous experiments
   ansible.builtin.apt:
     name: "{{ packages }}"

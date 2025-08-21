@@ -16,3 +16,4 @@
       - xorg
       - xserver-xorg-video-intel
       - xserver-xorg-video-amdgpu
+      - xterm # dedicated to ncmpcpp
