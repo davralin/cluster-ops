@@ -25,6 +25,7 @@
   vars:
     flatpaks:
       - com.discordapp.Discord
+      - com.nextcloud.desktopclient.nextcloud
       - com.valvesoftware.Steam
       - io.freetubeapp.FreeTube
       - org.gnome.gitlab.cheywood.Buffer
@@ -39,8 +40,8 @@
     content: |
       [Unit]
       Description=Flatpak maintenance (update + cleanup)
-      ConditionNetwork=online
-      ConditionNetwork=!metered
+      Wants=network.target
+      After=network-online.target
 
       [Service]
       Type=oneshot
