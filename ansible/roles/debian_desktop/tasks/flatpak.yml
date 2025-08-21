@@ -46,6 +46,7 @@
       Type=oneshot
       ExecStart=/usr/bin/flatpak update -y --system
       ExecStart=/usr/bin/flatpak uninstall -y --unused --system
+  become: true
 
 - name: Deploy flatpak-maintenance.timer
   ansible.builtin.copy:
@@ -61,6 +62,7 @@
 
       [Install]
       WantedBy=timers.target
+  become: true
 
 - name: Enable and start flatpak-maintenance timer
   ansible.builtin.systemd:
@@ -68,3 +70,4 @@
     enabled: true
     state: started
     daemon_reload: true
+  become: true
