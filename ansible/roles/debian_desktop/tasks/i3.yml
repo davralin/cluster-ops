@@ -8,11 +8,14 @@
     packages:
       - alacritty
       - feh # for setting wallpapers with variety
+      - gnome-keyring # keyring-service
       - i3
       - i3blocks
       - lightdm
       - lightdm-gtk-greeter
-      - lxpolkit # Keyring
+      - lxpolkit # priv-esc
+      - network-manager-applet
+      - unclutter-xfixes # Modern? alternative to unclutter
       - rofi
       - variety
       - xorg
