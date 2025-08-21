@@ -1,0 +1,70 @@
+---
+- name: Installing flatpakstuff
+  ansible.builtin.apt:
+    name: "{{ packages }}"
+    state: present
+  become: true
+  vars:
+    packages:
+      - flatpak
+      - xdg-desktop-portal-gtk # portal-integration for flatpak
+
+- name: Add the Gnome flatpak remote to the system installation
+  community.general.flatpak_remote:
+    name: gnome
+    state: present
+    flatpakrepo_url: https://sdk.gnome.org/gnome-apps.flatpakrepo
+  become: true
+
+- name: Installing flatpaks
+  community.general.flatpak:
+    name: "{{ flatpaks }}"
+    method: system
+    state: present
+  become: true
+  vars:
+    flatpaks:
+      - com.discordapp.Discord
+      - com.valvesoftware.Steam
+      - io.freetubeapp.FreeTube
+      - org.gnome.gitlab.cheywood.Buffer
+      - org.mozilla.firefox
+      - org.signal.Signal
+      - org.speedcrunch.SpeedCrunch
+
+- name: Deploy flatpak-maintenance.service
+  ansible.builtin.copy:
+    dest: /etc/systemd/system/flatpak-maintenance.service
+    mode: '0644'
+    content: |
+      [Unit]
+      Description=Flatpak maintenance (update + cleanup)
+      ConditionNetwork=online
+      ConditionNetwork=!metered
+
+      [Service]
+      Type=oneshot
+      ExecStart=/usr/bin/flatpak update -y --system
+      ExecStart=/usr/bin/flatpak uninstall -y --unused --system
+
+- name: Deploy flatpak-maintenance.timer
+  ansible.builtin.copy:
+    dest: /etc/systemd/system/flatpak-maintenance.timer
+    mode: '0644'
+    content: |
+      [Unit]
+      Description=Weekly Flatpak maintenance
+
+      [Timer]
+      OnCalendar=weekly
+      Persistent=true
+
+      [Install]
+      WantedBy=timers.target
+
+- name: Enable and start flatpak-maintenance timer
+  ansible.builtin.systemd:
+    name: flatpak-maintenance.timer
+    enabled: true
+    state: started
+    daemon_reload: true
