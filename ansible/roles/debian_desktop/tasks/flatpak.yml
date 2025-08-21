@@ -9,11 +9,11 @@
       - flatpak
       - xdg-desktop-portal-gtk # portal-integration for flatpak
 
-- name: Add the Gnome flatpak remote to the system installation
+- name: Add flathub flatpak remote to the system installation
   community.general.flatpak_remote:
-    name: gnome
+    name: flathub
     state: present
-    flatpakrepo_url: https://sdk.gnome.org/gnome-apps.flatpakrepo
+    flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
   become: true
 
 - name: Installing flatpaks
