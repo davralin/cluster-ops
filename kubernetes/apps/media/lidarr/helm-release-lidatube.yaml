@@ -43,7 +43,7 @@ spec:
         containers:
           lidatube:
             image:
-              repository: thewicklowwolf/lidatube
+              repository: docker.io/thewicklowwolf/lidatube
               tag: 0.2.31@sha256:0663821daa6b77d332232600455eaa1b840144a859ebef7ea36179e7085fdba1
             env:
               TZ: "${TIMEZONE}"
