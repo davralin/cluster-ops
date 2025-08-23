@@ -62,6 +62,15 @@
       - fonts-font-awesome
       - fonts-hack
 
+- name: Installing ssh/gpg-agent-stuff
+  ansible.builtin.apt:
+    name: "{{ packages }}"
+    state: present
+  become: true
+  vars:
+    packages:
+      - scdaemon
+
 - name: Removing previous experiments
   ansible.builtin.apt:
     name: "{{ packages }}"
