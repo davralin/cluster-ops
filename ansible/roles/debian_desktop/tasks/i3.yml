@@ -16,6 +16,7 @@
       - lxpolkit # priv-esc
       - network-manager-applet
       - unclutter-xfixes # Modern? alternative to unclutter
+      - picom
       - rofi
       - variety
       - xorg
