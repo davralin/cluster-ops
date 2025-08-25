@@ -9,6 +9,7 @@
       - alacritty
       - feh # for setting wallpapers with variety
       - gnome-keyring # keyring-service
+      - gammastep # display-fatigue-stopper
       - i3
       - i3blocks
       - lightdm
