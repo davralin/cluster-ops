@@ -43,6 +43,7 @@ spec:
     cephClusterSpec:
       dashboard:
         enabled: false
+      enableCrushUpdates: true
       healthCheck:
         livenessProbe:
           mon:
