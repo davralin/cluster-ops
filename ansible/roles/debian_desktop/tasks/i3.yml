@@ -7,6 +7,7 @@
   vars:
     packages:
       - alacritty
+      - autorandr
       - feh # for setting wallpapers with variety
       - gnome-keyring # keyring-service
       - gammastep # display-fatigue-stopper
