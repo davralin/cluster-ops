@@ -43,7 +43,6 @@ spec:
     cephClusterSpec:
       dashboard:
         enabled: false
-      enableCrushUpdates: true
       healthCheck:
         livenessProbe:
           mon:
@@ -116,6 +115,7 @@ spec:
     cephBlockPools:
       - name: ceph-blockpool
         spec:
+          enableCrushUpdates: true
           deviceClass: nvme
           failureDomain: host
           replicated:
