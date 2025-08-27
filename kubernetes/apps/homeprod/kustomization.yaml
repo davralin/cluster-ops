@@ -14,6 +14,7 @@ resources:
   - ../cloudflareddns
   - ../epicgames-freegames
   - ../firefox
+  - ../formbricks
   - ../freshrss
   - ../gitea
   - ../icloudpd
