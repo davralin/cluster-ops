@@ -44,7 +44,7 @@ spec:
           romm:
             image:
               repository: ghcr.io/rommapp/romm
-              tag: 4.0.1@sha256:2f31f792885cd0fc839a590b9645ada846106d4893e5de0be68dc6580b11b5f9
+              tag: 4.1.6@sha256:2e9cd221a9cefe093c327258e148b762b0e5491ff72f6f79fbe9fc336852654c
             envFrom:
               - secretRef:
                   name: romm-secrets
