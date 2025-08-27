@@ -17,6 +17,7 @@
       - lightdm-gtk-greeter
       - lxpolkit # priv-esc
       - network-manager-applet
+      - udiskie
       - unclutter-xfixes # Modern? alternative to unclutter
       - picom
       - rofi
