@@ -9,6 +9,7 @@
       - dbus
       - dbus-user-session
       - libpam-systemd
+      - ntfs-3g
 
 - name: Installing boot-tools
   ansible.builtin.apt:
