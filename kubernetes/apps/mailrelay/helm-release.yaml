@@ -55,14 +55,13 @@ spec:
         containers:
           exim:
             image:
-              repository: devture/exim-relay
-              tag: 4.96-r1-0
+              repository: docker.io/devture/exim-relay
+              tag: 4.98-r0-4@sha256:7ba30080c7a6ac4e93a99143ebd1aa229a16c47b97b2129002dc753c8a47f095
             env:
               HOSTNAME: "smtp.${SECRET_DEFAULT_DOMAIN}"
             securityContext:
               allowPrivilegeEscalation: false
-              # Failed to create directory "/var/spool/exim/input": Read-only file system
-              readOnlyRootFilesystem: false
+              readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
             resources:
               requests:
@@ -82,3 +81,8 @@ spec:
             port: 25
             targetPort: 8025
             protocol: TCP
+    persistence:
+      cache:
+        type: emptyDir
+        globalMounts:
+          - path: /var/spool/exim/input
