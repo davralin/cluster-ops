@@ -22,6 +22,7 @@
       - picom
       - rofi
       - variety
+      - xdotool # for emulating keyboard inputs
       - xorg
       - xserver-xorg-video-intel
       - xserver-xorg-video-amdgpu
