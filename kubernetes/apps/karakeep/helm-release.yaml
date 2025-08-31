@@ -76,7 +76,7 @@ spec:
               S6_READ_ONLY_ROOT: 1
               OLLAMA_BASE_URL: http://ollama.ollama.svc.cluster.local:11434
               INFERENCE_ENABLE_AUTO_SUMMARIZATION: true
-              INFERENCE_JOB_TIMEOUT_SEC: 300
+              INFERENCE_JOB_TIMEOUT_SEC: 600
               INFERENCE_TEXT_MODEL: gpt-oss:20b
             securityContext:
               # S6-overlay sucks.
