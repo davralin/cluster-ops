@@ -51,6 +51,7 @@ spec:
               QBT_CONFIG: "/config/config.yml"
               QBT_DEBUG: true
               QBT_TRACE: true
+              QBT_WEB_SERVER: true
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -61,6 +62,33 @@ spec:
                 memory: 100Mi
               limits:
                 memory: 200Mi
+    service:
+      qbit-manage:
+        controller: *name
+        ports:
+          http:
+            port: 8080
+    ingress:
+      qbit-manage:
+        enabled: true
+        annotations:
+          haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
+          haproxy.org/ssl-redirect-port: "443"
+          haproxy.org/response-set-header: |
+            Strict-Transport-Security "max-age=31536000"
+            X-Frame-Options "DENY"
+            X-Content-Type-Options "nosniff"
+            Referrer-Policy "strict-origin-when-cross-origin"
+        hosts:
+          - host: &host "qbit-manage.${SECRET_DEFAULT_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  identifier: qbit-manage
+                  port: http
+        tls:
+          - hosts:
+              - *host
     persistence:
       config:
         enabled: true
