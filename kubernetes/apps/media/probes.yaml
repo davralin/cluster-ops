@@ -53,6 +53,7 @@ spec:
                 - "https://pinchflat.${SECRET_DEFAULT_DOMAIN}"
                 - "https://prowlarr.${SECRET_DEFAULT_DOMAIN}"
                 - "https://qbittorrent.${SECRET_DEFAULT_DOMAIN}"
+                - "https://qbit-manage.${SECRET_DEFAULT_DOMAIN}"
                 - "https://radarr.${SECRET_DEFAULT_DOMAIN}"
                 - "https://readarr.${SECRET_DEFAULT_DOMAIN}"
                 - "https://sonarr.${SECRET_DEFAULT_DOMAIN}"
