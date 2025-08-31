@@ -82,7 +82,7 @@ spec:
             targetPort: 8025
             protocol: TCP
     persistence:
-      cache:
+      spool:
         type: emptyDir
         globalMounts:
-          - path: /var/spool/exim/input
+          - path: /var/spool/exim
