@@ -65,6 +65,8 @@ spec:
         controller: *name
         primary: true
         ports:
+          smtp:
+            port: 25
           http:
             port: 80
     ingress:
@@ -89,6 +91,11 @@ spec:
           - hosts:
               - *host
     persistence:
+      config:
+        type: configMap
+        name: ntfy-config
+        globalMounts:
+          - path: /etc/ntfy
       data:
         existingClaim: ntfy
         globalMounts:

@@ -5,3 +5,10 @@ resources:
   - helm-release.yaml
   - namespace.yaml
   - pvc.yaml
+configMapGenerator:
+  - name: ntfy-config
+    namespace: ntfy
+    files:
+      - config.yaml=./config.yaml
+generatorOptions:
+  disableNameSuffixHash: true
