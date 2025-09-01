@@ -8,11 +8,13 @@
     packages:
       - alacritty
       - autorandr
+      - dunst # notification daemon
       - feh # for setting wallpapers with variety
       - gnome-keyring # keyring-service
       - gammastep # display-fatigue-stopper
       - i3
       - i3blocks
+      - libnotify-bin # notify-send
       - lightdm
       - lightdm-gtk-greeter
       - lxpolkit # priv-esc
