@@ -42,7 +42,7 @@ spec:
           syncthing:
             image:
               repository: ghcr.io/syncthing/syncthing
-              tag: 2.0.5@sha256:2a1eaba4d4dd5f63994039c8506c19518d87fb964953c60c310588e52034d220
+              tag: 2.0.5@sha256:dd8298202efe3897107c718331b37517ca8a1623fbd37bba74aec426941013c0
             env:
               TZ: "${TIMEZONE}"
               PUID: 1000
