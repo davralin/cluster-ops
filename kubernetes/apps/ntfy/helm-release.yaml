@@ -47,6 +47,11 @@ spec:
               repository: ghcr.io/vaskozl/ntfy
               tag: 2.14.0@sha256:1492789d9b9c3b0aac41284035007c3cb329e8e6ef14314527dc18905c01b3ad
             env:
+              NTFY_BASE_URL: "https://ntfy.${SECRET_DEFAULT_DOMAIN}"
+              NTFY_UPSTREAM_BASE_URL: "https://ntfy.sh"
+              NTFY_ATTACHMENT_CACHE_DIR: /var/cache/ntfy/attachments
+              NTFY_CACHE_FILE: /var/cache/ntfy/cache.db
+              NTFY_BEHIND_PROXY: true
               TZ: "${TIMEZONE}"
             securityContext:
               allowPrivilegeEscalation: false
@@ -65,8 +70,6 @@ spec:
         controller: *name
         primary: true
         ports:
-          smtp:
-            port: 25
           http:
             port: 80
     ingress:

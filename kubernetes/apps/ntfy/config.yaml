@@ -1,8 +1,0 @@
-base-url: "https://ntfy.${SECRET_DEFAULT_DOMAIN}"
-cache-file: "/var/cache/ntfy/cache.db"
-attachment-cache-dir: "/var/cache/ntfy/attachments"
-upstream-base-url: "https://ntfy.sh"
-listen-http: ":80"
-smtp-server-listen: ":25"
-smtp-server-domain: "ntfy.${SECRET_DEFAULT_DOMAIN}"
-smtp-server-addr-prefix: ""
