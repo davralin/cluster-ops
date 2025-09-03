@@ -94,15 +94,6 @@ spec:
           - hosts:
               - *host
     persistence:
-      config:
-        type: configMap
-        name: ntfy-config
-        globalMounts:
-          - path: /etc/ntfy
-      data:
-        existingClaim: ntfy
-        globalMounts:
-          - path: /etc/ntfy
       cache:
         type: emptyDir
         globalMounts:
