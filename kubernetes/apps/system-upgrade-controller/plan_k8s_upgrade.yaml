@@ -35,7 +35,7 @@ spec:
           namespace: system-upgrade-controller
         spec:
           # renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
-          version: v1.34.0
+          version: v1.34.1
           window:
             startTime: "06:00"
             endTime: "06:59"
