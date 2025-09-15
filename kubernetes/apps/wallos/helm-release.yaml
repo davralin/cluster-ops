@@ -43,7 +43,7 @@ spec:
           wallos:
             image:
               repository: ghcr.io/ellite/wallos
-              tag: 4.1.1
+              tag: 4.2.0
             env:
               TZ: "${TIMEZONE}"
             resources:
