@@ -1,0 +1,19 @@
+---
+- name: Symlink timezone to Europe/Oslo
+  ansible.builtin.file:
+    src: /usr/share/zoneinfo/Europe/Oslo
+    dest: /etc/localtime
+    state: link
+    force: true
+  become: true
+
+- name: Set timezone to Europe/Oslo
+  community.general.timezone:
+    name: Europe/Oslo
+  become: true
+
+- name: Raw set timezone to Europe/Oslo
+  ansible.builtin.copy:
+    dest: /etc/timezone
+    content: "Europe/Oslo"
+  become: true

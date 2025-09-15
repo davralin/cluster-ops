@@ -38,6 +38,10 @@
   ansible.builtin.include_tasks:
     file: flatpak.yml
 
+- name: Configuring timezone
+  ansible.builtin.include_tasks:
+    file: timezone.yml
+
 - name: Installing stuff for i3
   ansible.builtin.include_tasks:
     file: i3.yml
