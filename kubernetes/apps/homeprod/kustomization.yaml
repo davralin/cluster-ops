@@ -37,7 +37,6 @@ resources:
   - ../nextcloud
   - ../node-feature-discovery
   - ../node-problem-detector
-  - ../ntfy
   - ../ollama
   - ../openwebui
   - ../owntracks
