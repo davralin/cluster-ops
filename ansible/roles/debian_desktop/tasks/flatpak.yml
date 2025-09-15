@@ -29,6 +29,7 @@
       - com.valvesoftware.Steam
       - io.freetubeapp.FreeTube
       - org.gnome.gitlab.cheywood.Buffer
+      - org.keepassxc.KeePassXC
       - org.mozilla.firefox
       - org.signal.Signal
       - org.speedcrunch.SpeedCrunch
