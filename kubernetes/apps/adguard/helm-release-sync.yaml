@@ -69,7 +69,7 @@ spec:
           adguard-sync:
             image:
               repository: ghcr.io/bakito/adguardhome-sync
-              tag: v0.8.0
+              tag: v0.8.1
             args: ["run"]
             env:
               TZ: "${TIMEZONE}"
