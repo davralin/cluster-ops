@@ -44,6 +44,7 @@ spec:
               static:
                 - core.internal
                 - kjokkenap.internal
+                - kontorap.internal
                 - takap.internal
                 - SLZB-06P7.internal
                 - somneo.internal
