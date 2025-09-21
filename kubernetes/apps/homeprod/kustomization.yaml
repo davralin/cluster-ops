@@ -17,6 +17,7 @@ resources:
   - ../formbricks
   - ../freshrss
   - ../gitea
+  - ../gotify
   - ../icloudpd
   - ../intel-device-plugin
   - ../invidious

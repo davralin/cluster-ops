@@ -1,0 +1,86 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &name gotify
+  namespace: flux-system
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 4.3.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+      interval: 30m
+  targetNamespace: gotify
+  install:
+    createNamespace: true
+    remediation:
+      retries: 10
+  upgrade:
+    remediation:
+      retries: 10
+  values:
+    fullnameOverride: *name
+    defaultPodOptions:
+      automountServiceAccountToken: false
+      enableServiceLinks: false
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+    controllers:
+      gotify:
+        containers:
+          gotify:
+            image:
+              repository: ghcr.io/gotify/server
+              tag: 2.7.2@sha256:0ef798f15421511dcfeb3bc1336ef1c0dfc56fdfea979e0e2b50741e55514751
+            env:
+              TZ: "${TIMEZONE}"
+            securityContext:
+              allowPrivilegeEscalation: false
+              capabilities:
+                drop:
+                  - ALL
+              readOnlyRootFilesystem: true
+            resources:
+              requests:
+                cpu: 5m
+                memory: 50Mi
+              limits:
+                memory: 150Mi
+    service:
+      gotify:
+        controller: *name
+        ports:
+          http:
+            port: 80
+    ingress:
+      gotify:
+        enabled: true
+        annotations:
+          haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
+          haproxy.org/ssl-redirect-port: "443"
+          haproxy.org/response-set-header: |
+            Strict-Transport-Security "max-age=31536000"
+            X-Frame-Options "DENY"
+            X-Content-Type-Options "nosniff"
+            Referrer-Policy "strict-origin-when-cross-origin"
+        hosts:
+          - host: &host "gotify.${SECRET_DEFAULT_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  identifier: gotify
+                  port: http
+        tls:
+          - hosts:
+              - *host
