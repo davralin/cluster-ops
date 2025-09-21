@@ -84,3 +84,8 @@ spec:
         tls:
           - hosts:
               - *host
+    persistence:
+      tmpfs:
+        type: emptyDir
+        globalMounts:
+          - path: /app/data
