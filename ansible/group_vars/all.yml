@@ -9,4 +9,5 @@ apt_packages:
   - systemd-timesyncd
   - terminfo
   - tmux
+  - unzip
   - vim
