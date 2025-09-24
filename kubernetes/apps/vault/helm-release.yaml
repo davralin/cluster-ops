@@ -25,7 +25,10 @@ spec:
       retries: 10
   values:
     fullnameOverride: *name
+    csi:
+      enabled: false
     injector:
+      enabled: false
       securityContext:
         container:
           allowPrivilegeEscalation: false

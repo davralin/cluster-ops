@@ -18,7 +18,6 @@ resources:
   - ../freshrss
   - ../gitea
   - ../gotify
-  - ../hashicorp
   - ../icloudpd
   - ../intel-device-plugin
   - ../invidious
@@ -54,6 +53,7 @@ resources:
   - ../technitium
   - ../thelounge
   - ../unifi
+  - ../vault
   - ../volsync
   - ../wallos
   - ../warrior
