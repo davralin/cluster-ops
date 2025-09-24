@@ -102,6 +102,8 @@ spec:
               requests:
                 cpu: 10m
                 memory: 500Mi
+              limits:
+                memory: 700Mi
     service:
       invidious:
         controller: *name
