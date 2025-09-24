@@ -53,7 +53,6 @@ spec:
             env:
               TZ: "${TIMEZONE}"
               INVIDIOUS_PORT: "3000" # https://github.com/iv-org/invidious/issues/2970
-              INVIDIOUS_SIGNATURE_SERVER: inv-sig-helper.invidious.svc.cluster.local:12999
               INVIDIOUS_REGISTRATION_ENABLED: false
               INVIDIOUS_POPULAR_ENABLED: false
               INVIDIOUS_QUALITY: dash
