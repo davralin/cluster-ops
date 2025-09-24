@@ -4,7 +4,6 @@ kind: Kustomization
 resources:
   - database-secret.yaml
   - helm-release-db-v17.yaml
-  - helm-release-inv-sig-helper.yaml
   - helm-release.yaml
   - namespace.yaml
   - probes.yaml

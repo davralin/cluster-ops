@@ -49,7 +49,7 @@ spec:
                   name: invidious-config
             image:
               repository: quay.io/invidious/invidious
-              tag: 2.20250517.0
+              tag: 2.20250913.0
             env:
               TZ: "${TIMEZONE}"
               INVIDIOUS_PORT: "3000" # https://github.com/iv-org/invidious/issues/2970
@@ -82,12 +82,42 @@ spec:
                 memory: 200Mi
               limits:
                 memory: 400Mi
+      companion:
+        strategy: RollingUpdate
+        replicas: 1
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          companion:
+            envFrom:
+              - secretRef:
+                  name: invidious-config
+            image:
+              repository: quay.io/invidious/invidious-companion
+              tag: latest@sha256:18610b3a76ab009a271f85be01df5a19a5916409ba0f43998bb731b650f03ac3
+            env:
+              SERVER_SECRET_KEY: CHANGE_ME!!SAME_AS_INVIDIOUS_COMPANION_SECRET_KEY_FROM_INVIDIOUS_CONFIG
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 10m
+                memory: 50Mi
+              limits:
+                memory: 100Mi
     service:
       invidious:
         controller: *name
         ports:
           http:
             port: 3000
+      companion:
+        controller: companion
+        ports:
+          http:
+            port: 8282
     ingress:
       invidious:
         enabled: true
