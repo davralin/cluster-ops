@@ -1,6 +1,6 @@
 ---
 # renovate: datasource=github-releases depName=rclone/rclone
-rclone_version: 1.71.0
+rclone_version: 1.71.1
 rclone_upstream_url: "https://github.com/rclone/rclone/releases/download"
 rclone_filename: "rclone-v{{ rclone_version }}-linux-{{ host_architecture.stdout }}.deb"
 rclone_deb_url: "{{ rclone_upstream_url }}/v{{ rclone_version }}/{{ rclone_filename }}"
