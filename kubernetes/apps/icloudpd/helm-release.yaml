@@ -39,7 +39,6 @@ spec:
           type: RuntimeDefault
     controllers:
       icloudpd:
-        strategy: Recreate
         containers:
           icloudpd:
             image:
