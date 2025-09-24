@@ -44,7 +44,7 @@ spec:
           romm:
             image:
               repository: ghcr.io/rommapp/romm
-              tag: 4.0.1@sha256:2f31f792885cd0fc839a590b9645ada846106d4893e5de0be68dc6580b11b5f9
+              tag: 4.2.0@sha256:7750c09db727c0b4d9225fea518dcef94142e7d2b2dbcfb451e904e66a05f8ec
             envFrom:
               - secretRef:
                   name: romm-secrets
@@ -69,6 +69,7 @@ spec:
               ROMM_DB_DRIVER: "postgresql"
               REDIS_HOST: "valkey-primary.romm.svc.cluster.local"
               REDIS_PORT: "6379"
+              HLTB_API_ENABLED: "true"
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
