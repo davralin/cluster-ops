@@ -25,3 +25,14 @@ spec:
       retries: 10
   values:
     fullnameOverride: *name
+    injector:
+      securityContext:
+        container:
+          seccompProfile:
+            type: RuntimeDefault
+    server:
+      statefulSet:
+        securityContext:
+          container:
+            seccompProfile:
+              type: RuntimeDefault
