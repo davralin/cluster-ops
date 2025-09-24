@@ -110,23 +110,14 @@ spec:
               - *host
     persistence:
       config:
-        enabled: true
-        existingClaim: romm
-        advancedMounts:
-          romm:
-            romm:
-              - path: /bios
-                subPath: bios
-              - path: /romm
-                subPath: romm
-              - path: /roms
-                subPath: roms
-      config-file:
         type: configMap
         name: romm-config
         globalMounts:
           - subPath: config.yml
             path: /romm/config/config.yml
+      romm:
+        enabled: true
+        existingClaim: romm
       # OSError: [Errno 30] Read-only file system: '/tmp/tmpzxo8orzh'
       tmp:
         type: emptyDir
