@@ -28,11 +28,19 @@ spec:
     injector:
       securityContext:
         container:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+              - ALL
           seccompProfile:
             type: RuntimeDefault
     server:
       statefulSet:
         securityContext:
           container:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
             seccompProfile:
               type: RuntimeDefault
