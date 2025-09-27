@@ -86,6 +86,7 @@ spec:
               - *host
     persistence:
       tmpfs:
-        type: emptyDir
+        enabled: true
+        existingClaim: gotify
         globalMounts:
           - path: /app/data
