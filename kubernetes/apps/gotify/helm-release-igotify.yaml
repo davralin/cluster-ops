@@ -47,7 +47,6 @@ spec:
               repository: ghcr.io/androidseb25/igotify-notification-assist
               tag: v1.5.0.1@sha256:d817cbc04a8c164e521d9ef9797d13a336159518376cd22dc55c9722c7367594
             env:
-              GOTIFY_SERVERS: "http://gotify"
               GOTIFY_URLS: "http://gotify"
               #GOTIFY_CLIENT_TOKENS: "lol"
               #SECNTFY_TOKENS: "lol"
