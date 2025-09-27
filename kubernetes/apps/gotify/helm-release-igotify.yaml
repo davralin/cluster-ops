@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &name gotify
+  name: &name igotify
   namespace: flux-system
 spec:
   interval: 30m
@@ -23,6 +23,9 @@ spec:
   upgrade:
     remediation:
       retries: 10
+  dependsOn:
+    - name: gotify
+      namespace: flux-system
   values:
     fullnameOverride: *name
     defaultPodOptions:
@@ -37,14 +40,17 @@ spec:
         seccompProfile:
           type: RuntimeDefault
     controllers:
-      gotify:
+      igotify:
         containers:
-          gotify:
+          igotify:
             image:
-              repository: ghcr.io/gotify/server
-              tag: 2.7.3@sha256:2ae0e4e689f183137c8247884382fcb174d5a72253ce1897e7e5267090093fc8
+              repository: ghcr.io/androidseb25/igotify-notification-assist
+              tag: v1.5.0.1@sha256:d817cbc04a8c164e521d9ef9797d13a336159518376cd22dc55c9722c7367594
             env:
-              TZ: "${TIMEZONE}"
+              GOTIFY_SERVERS: "http://gotify"
+              GOTIFY_URLS: "http://gotify"
+              #GOTIFY_CLIENT_TOKENS: "lol"
+              #SECNTFY_TOKENS: "lol"
             securityContext:
               allowPrivilegeEscalation: false
               capabilities:
@@ -55,16 +61,16 @@ spec:
               requests:
                 cpu: 5m
                 memory: 50Mi
-              limits:
-                memory: 150Mi
+              #limits:
+                #memory: 150Mi
     service:
-      gotify:
+      igotify:
         controller: *name
         ports:
           http:
-            port: 80
+            port: 8080
     ingress:
-      gotify:
+      igotify:
         enabled: true
         annotations:
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
@@ -75,18 +81,18 @@ spec:
             X-Content-Type-Options "nosniff"
             Referrer-Policy "strict-origin-when-cross-origin"
         hosts:
-          - host: &host "gotify.${SECRET_DEFAULT_DOMAIN}"
+          - host: &host "igotify.${SECRET_DEFAULT_DOMAIN}"
             paths:
               - path: /
                 service:
-                  identifier: gotify
+                  identifier: igotify
                   port: http
         tls:
           - hosts:
               - *host
     persistence:
-      gotify:
+      igotify:
         enabled: true
-        existingClaim: gotify
+        existingClaim: igotify
         globalMounts:
           - path: /app/data
