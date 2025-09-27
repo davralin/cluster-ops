@@ -44,7 +44,7 @@ spec:
           lidatube:
             image:
               repository: docker.io/thewicklowwolf/lidatube
-              tag: 0.2.37@sha256:633563c50e329f1e63f1198dbd240cd28bd4748464024684d6ef075db6c03278
+              tag: 0.2.38@sha256:7766465cb97f4e236505eaebce06ec6d4b2b3a0fde1fd789926e001a80b761d4
             env:
               TZ: "${TIMEZONE}"
               lidarr_api_key: "${SECRET_LIDARR_API_KEY}"
