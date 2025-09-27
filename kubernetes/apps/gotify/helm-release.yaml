@@ -130,8 +130,17 @@ spec:
           - hosts:
               - *host
     persistence:
-      tmpfs:
+      gotify:
         enabled: true
         existingClaim: gotify
-        globalMounts:
-          - path: /app/data
+        advancedMounts:
+          gotify:
+            gotify:
+              - path: /app/data
+      igotify:
+        enabled: true
+        existingClaim: igotify
+        advancedMounts:
+          gotify:
+            igotify:
+              - path: /app/data
