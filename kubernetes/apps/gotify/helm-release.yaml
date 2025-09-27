@@ -57,12 +57,37 @@ spec:
                 memory: 50Mi
               limits:
                 memory: 150Mi
+          igotify:
+            image:
+              repository: ghcr.io/androidseb25/igotify-notification-assist
+              tag: v1.5.0.1@sha256:d817cbc04a8c164e521d9ef9797d13a336159518376cd22dc55c9722c7367594
+            env:
+              GOTIFY_URLS: "http://gotify"
+              #GOTIFY_CLIENT_TOKENS: "lol"
+              #SECNTFY_TOKENS: "lol"
+            securityContext:
+              allowPrivilegeEscalation: false
+              capabilities:
+                drop:
+                  - ALL
+              readOnlyRootFilesystem: true
+            resources:
+              requests:
+                cpu: 5m
+                memory: 50Mi
+              #limits:
+                #memory: 150Mi
     service:
       gotify:
         controller: *name
         ports:
           http:
             port: 80
+      igotify:
+        controller: *name
+        ports:
+          http:
+            port: 8080
     ingress:
       gotify:
         enabled: true
@@ -80,6 +105,26 @@ spec:
               - path: /
                 service:
                   identifier: gotify
+                  port: http
+        tls:
+          - hosts:
+              - *host
+      igotify:
+        enabled: true
+        annotations:
+          haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
+          haproxy.org/ssl-redirect-port: "443"
+          haproxy.org/response-set-header: |
+            Strict-Transport-Security "max-age=31536000"
+            X-Frame-Options "DENY"
+            X-Content-Type-Options "nosniff"
+            Referrer-Policy "strict-origin-when-cross-origin"
+        hosts:
+          - host: &host "igotify.${SECRET_DEFAULT_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  identifier: igotify
                   port: http
         tls:
           - hosts:
