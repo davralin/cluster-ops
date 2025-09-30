@@ -10,6 +10,7 @@
       - autorandr
       - dunst # notification daemon
       - feh # for setting wallpapers with variety
+      - flameshot # screenshots
       - gnome-keyring # keyring-service
       - gammastep # display-fatigue-stopper
       - i3
