@@ -6,4 +6,4 @@ immich_compose_ip_binding_web: "3001"
 # renovate: datasource=github-releases depName=immich-app/immich
 immich_version: v1.144.1
 # renovate: datasource=github-releases depName=salvoxia/immich-folder-album-creator
-immich_compose_folder_album_creator_version: 0.20.0
+immich_compose_folder_album_creator_version: 0.21.0
