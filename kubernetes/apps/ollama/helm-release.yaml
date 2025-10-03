@@ -69,6 +69,9 @@ spec:
         annotations:
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
           haproxy.org/ssl-redirect-port: "443"
+          haproxy.org/backend-config-snippet: |
+            option http-keep-alive
+            timeout server 300000ms
           haproxy.org/response-set-header: |
             Strict-Transport-Security "max-age=31536000"
             X-Frame-Options "DENY"
