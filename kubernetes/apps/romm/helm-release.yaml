@@ -44,7 +44,7 @@ spec:
           romm:
             image:
               repository: ghcr.io/rommapp/romm
-              tag: 4.2.0@sha256:7750c09db727c0b4d9225fea518dcef94142e7d2b2dbcfb451e904e66a05f8ec
+              tag: 4.3.0@sha256:a492592dad85b7d9bae9fca9ac958eb04492e383002abbd3566a7efb3b251091
             envFrom:
               - secretRef:
                   name: romm-secrets
@@ -114,7 +114,7 @@ spec:
         name: romm-config
         globalMounts:
           - subPath: config.yml
-            path: /romm/config/config.yml
+            path: /romm/config/config3.yml
       romm:
         enabled: true
         existingClaim: romm
