@@ -109,12 +109,6 @@ spec:
           - hosts:
               - *host
     persistence:
-      config:
-        type: configMap
-        name: romm-config
-        globalMounts:
-          - subPath: config.yml
-            path: /romm/config/config3.yml
       romm:
         enabled: true
         existingClaim: romm
