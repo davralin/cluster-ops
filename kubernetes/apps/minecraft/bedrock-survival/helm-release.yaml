@@ -70,7 +70,7 @@ spec:
         # renovate: datasource=github-releases depName=sladkoff/minecraft-prometheus-exporter
         - https://github.com/sladkoff/minecraft-prometheus-exporter/releases/download/v3.1.2/minecraft-prometheus-exporter-3.1.2.jar
         # renovate: datasource=github-releases depName=ViaVersion/ViaVersion
-        - https://github.com/ViaVersion/ViaVersion/releases/download/5.4.2/ViaVersion-5.4.2.jar
+        - https://github.com/ViaVersion/ViaVersion/releases/download/5.5.0/ViaVersion-5.5.0.jar
       rcon:
         enabled: true
       serviceType: LoadBalancer
