@@ -65,7 +65,6 @@ spec:
                 - "https://status.${SECRET_PUBLIC_DOMAIN}"
                 - "https://home.${SECRET_DEFAULT_DOMAIN}"
                 - "http://minio.${SECRET_DEFAULT_DOMAIN}:9001"
-                - "http://nas.${SECRET_DEFAULT_DOMAIN}:8095"
       - apiVersion: monitoring.coreos.com/v1
         kind: Probe
         metadata:

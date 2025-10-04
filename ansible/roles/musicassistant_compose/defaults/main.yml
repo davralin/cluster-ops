@@ -1,4 +1,0 @@
----
-musicassistant_compose_path: "/opt/musicassistant"
-musicassistant_compose_data_path: "{{ musicassistant_compose_path }}/data"
-musicassistant_compose_media_path: "{{ musicassistant_compose_path }}/media"

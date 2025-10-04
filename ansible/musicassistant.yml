@@ -1,5 +1,0 @@
----
-- hosts: MusicAssistant
-
-  roles:
-  - musicassistant_compose

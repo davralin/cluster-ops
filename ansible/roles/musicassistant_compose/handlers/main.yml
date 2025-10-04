@@ -1,6 +1,0 @@
----
-- name: Restart musicassistant
-  ansible.builtin.systemd_service:
-    name: docker-musicassistant.service
-    state: restarted
-  become: true
