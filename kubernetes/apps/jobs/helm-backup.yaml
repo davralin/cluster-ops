@@ -42,7 +42,7 @@ spec:
           backupbrowser:
             image:
               repository: ghcr.io/davralin/sleep
-              tag: latest@sha256:54966f14c3fb2dd04677bdbe80496a17446e64e61455ce7411c1ecb230628691
+              tag: latest@sha256:1bedc6192d2f89aea63bbbf3aa00c00c683536816095f179f5e755ead141b06c
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
