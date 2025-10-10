@@ -1,9 +1,0 @@
----
-services:
-  homebridge:
-    image: homebridge/homebridge:2025-02-26
-    container_name: homekit
-    restart: unless-stopped
-    network_mode: host
-    volumes:
-      - "{{ homebridge_compose_config_path }}:/homebridge/"

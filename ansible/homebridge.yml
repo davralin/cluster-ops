@@ -1,5 +1,0 @@
----
-- hosts: HomeBridge
-
-  roles:
-  - homebridge_compose

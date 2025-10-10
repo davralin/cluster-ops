@@ -1,6 +1,0 @@
----
-- name: Restart homebridge
-  ansible.builtin.systemd_service:
-    name: docker-homebridge.service
-    state: restarted
-  become: true
