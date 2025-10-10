@@ -1,0 +1,19 @@
+---
+- name: Installing packages
+  ansible.builtin.apt:
+    name: "{{ packages }}"
+    state: present
+  become: true
+  vars:
+    packages:
+      - atomicparsley
+      - attr
+      - ffmpeg
+      - mkvtoolnix
+
+- name: Download yt-dlp
+  ansible.builtin.get_url:
+    url: https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp
+    dest: /usr/local/bin/yt-dlp
+    mode: '0755'
+  become: true

@@ -13,6 +13,7 @@
     - local_backup
     - local_dnsmasq
     - debian_desktop
+    - yt-dlp
     - sshd
     - wireguard
     - zfs-dkms

@@ -10,5 +10,6 @@
     - rclone
     - rsync
     - debian_desktop
+    - yt-dlp
     - sshd
     - zfs-dkms
