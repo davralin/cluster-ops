@@ -30,7 +30,7 @@
       - io.freetubeapp.FreeTube
       - org.gnome.gitlab.cheywood.Buffer
       - org.keepassxc.KeePassXC
-      - org.mozilla.firefox
+      - org.mozilla.firefox # xdg-settings set default-web-browser org.mozilla.firefox.desktop
       - org.signal.Signal
       - org.speedcrunch.SpeedCrunch
 
