@@ -5,6 +5,7 @@ apt_packages:
   - git
   - lsof
   - ncurses-term
+  - python3-debian
   - silversearcher-ag
   - systemd-timesyncd
   - terminfo

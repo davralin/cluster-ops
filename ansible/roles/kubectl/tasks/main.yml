@@ -17,3 +17,12 @@
     types: deb
     uris: "https://pkgs.k8s.io/core:/stable:/v1.34/deb/ /"
     signed_by: "https://pkgs.k8s.io/core:/stable:/v1.34/deb/Release.key"
+
+- name: Installing kubectl
+  ansible.builtin.apt:
+    name: "{{ packages }}"
+    state: present
+  become: true
+  vars:
+    packages:
+      - kubectl
