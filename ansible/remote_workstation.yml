@@ -13,6 +13,7 @@
     - local_backup
     - local_dnsmasq
     - debian_desktop
+    - kubectl
     - yt-dlp
     - sshd
     - wireguard

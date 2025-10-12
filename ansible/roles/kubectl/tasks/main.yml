@@ -1,0 +1,19 @@
+---
+- name: Installing prerequisites
+  ansible.builtin.apt:
+    name: "{{ packages }}"
+    state: present
+  become: true
+  vars:
+    packages:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - gnupg
+
+- name: Add kubernetes apt-repo
+  ansible.builtin.deb822_repository:
+    name: kubernetes
+    types: deb
+    uris: "https://pkgs.k8s.io/core:/stable:/v1.34/deb/ /"
+    signed_by: "https://pkgs.k8s.io/core:/stable:/v1.34/deb/Release.key"
