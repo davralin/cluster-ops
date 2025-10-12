@@ -25,7 +25,7 @@ jobs:
         run: bash meta/immich-update-tags-from-ansible.sh
 
       - name: Auto-commit changes and push
-        uses: stefanzweifel/git-auto-commit-action@v6
+        uses: stefanzweifel/git-auto-commit-action@v7
         with:
           commit_message: "chore(immich): immich-update-tags-from-ansible"
           commit_author: Feed Updater <actions@github.com>
