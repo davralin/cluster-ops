@@ -29,6 +29,7 @@
       - com.valvesoftware.Steam
       - io.freetubeapp.FreeTube
       - org.gnome.gitlab.cheywood.Buffer
+      - org.kde.krita
       - org.keepassxc.KeePassXC
       - org.mozilla.firefox # xdg-settings set default-web-browser org.mozilla.firefox.desktop
       - org.signal.Signal
