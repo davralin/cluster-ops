@@ -42,7 +42,7 @@ spec:
           meshtastic:
             image:
               repository: ghcr.io/meshtastic/web
-              tag: latest@sha256:aa2f36263c1d45dc3d9e8430da0d2980420b203c0fd51f21a518c6d2653b4524
+              tag: latest@sha256:ced7a025a65a6576a61298203833acf509a6c49007fa1803bfda7c41f7cc71cc
             env:
               TZ: "${TIMEZONE}"
             securityContext:
