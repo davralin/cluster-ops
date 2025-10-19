@@ -51,7 +51,7 @@ spec:
                   name: immich-shared-secret
             image:
               repository: ghcr.io/salvoxia/immich-folder-album-creator
-              tag: 0.21.1@sha256:6e9f34c3abc4e902c36bf05e036077ba471ad734ae7ab0c9f1efbf5525d8beaa
+              tag: 0.22.0@sha256:4435f5339a7cf52e4e7eeeb5ac2919f1c08da2eeafd5fc2682db4d0779cad470
             command: ["/script/immich_auto_album.sh"]
             env:
               TZ: "${TIMEZONE}"
