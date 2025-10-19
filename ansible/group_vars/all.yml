@@ -3,6 +3,7 @@ apt_packages:
   - btop
   - ca-certificates
   - git
+  - hx
   - lsof
   - ncurses-term
   - python3-debian
