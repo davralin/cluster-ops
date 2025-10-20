@@ -44,7 +44,7 @@ spec:
         port: 25
         from: "Authentik <authentik@${SECRET_DEFAULT_DOMAIN}>"
       postgresql:
-        host: authentik-postgres-v17-rw.authentik.svc.cluster.local
+        host: authentik-postgres-v18-rw.authentik.svc.cluster.local
       redis:
         host: "valkey-primary.authentik.svc.cluster.local"
     prometheus:

@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &name authentik-postgres-v17
+  name: &name authentik-postgres-v18
   namespace: flux-system
 spec:
   interval: 30m
@@ -37,7 +37,7 @@ spec:
           # using only 1 replica: very difficult to drain the node where postgres is running
           # using more than 1 replica: write amplification issues when leveraging replicated storage (e.g. ceph)
           instances: 2
-          imageName: ghcr.io/cloudnative-pg/postgresql:17.6
+          imageName: ghcr.io/cloudnative-pg/postgresql:18.0
           primaryUpdateStrategy: unsupervised
           storage:
             size: 10Gi
@@ -62,7 +62,7 @@ spec:
             #  source: *name
             #  database: authentik
             #  owner: authentik
-            # # use this to 'migrate' from an existing cnpg cluster (e.g. "authentik-postgres-v16") to the new cluster
+            # # use this to 'migrate' from an existing cnpg cluster (e.g. "authentik-postgres-v17") to the new cluster
             #initdb:
             #  database: authentik
             #  owner: authentik
@@ -71,7 +71,7 @@ spec:
             #    databases:
             #      - authentik
             #    source:
-            #      externalCluster: authentik-postgres-v16
+            #      externalCluster: authentik-postgres-v17
           monitoring:
             enablePodMonitor: "${MONITORING_PROMETHEUS}"
           resources:
@@ -113,10 +113,10 @@ spec:
                   secretAccessKey:
                     name: *name
                     key: s3-secret-key
-            # # this represents an existing cnpg cluster to migrate from (e.g. upgrading from postgres v16 to postgres v17)
-            #- name: authentik-postgres-v16
+            # # this represents an existing cnpg cluster to migrate from (e.g. upgrading from postgres v17 to postgres v188)
+            #- name: authentik-postgres-v17
             #  connectionParameters:
-            #    host: authentik-postgres-v16.authentik.svc.cluster.local
+            #    host: authentik-postgres-v17.authentik.svc.cluster.local
             #    user: authentik
             #    dbname: authentik
             #    sslmode: require
