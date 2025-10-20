@@ -61,7 +61,6 @@ spec:
           schedule: "05 22 * * *"
         containers:
           exporter:
-            args: ["--compare-checksums", "--delete", "--use-filename-format", "--skip-checks", "--verbosity", "3"]
             image:
               repository: ghcr.io/community-tooling/oci-images/paperless-export
               tag: 1.2.6
