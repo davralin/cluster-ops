@@ -16,6 +16,8 @@ spec:
         namespace: flux-system
       interval: 30m
   targetNamespace: thelounge
+  driftDetection:
+    mode: enabled
   install:
     createNamespace: true
     remediation:
