@@ -9,7 +9,6 @@ resources:
   - helm-onsite-sync.yaml
   - helm-release-db-v17.yaml
 #  - helm-release-exporter.yaml
-  - helm-release-valkey.yaml
   - helm-release.yaml
   - namespace.yaml
   - probes.yaml
