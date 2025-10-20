@@ -118,6 +118,7 @@
         "ghcr.io/music-assistant/server",
         "ghcr.io/open-webui/open-webui",
         "ghcr.io/paperless-ngx/paperless-ngx",
+        "ghcr.io/rclone/rclone",
         "ghcr.io/rommapp/romm",
         "ghcr.io/stuffanthings/qbit_manage",
         "ghcr.io/syncthing/syncthing",
