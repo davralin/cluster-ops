@@ -71,6 +71,8 @@ spec:
               PAPERLESS_OCR_LANGUAGE: "nor"
               PAPERLESS_OCR_LANGUAGES: "eng nor"
               PAPERLESS_REDIS: "redis://paperless-ngx-valkey"
+              # Changing this breaks variable substitution or something in flux:
+              PAPERLESS_FILENAME_FORMAT: "{created_year}/{correspondent}/{created_month}_{title}"
               PAPERLESS_URL: "https://paperless-ngx.${SECRET_DEFAULT_DOMAIN}"
               PAPERLESS_DBHOST: "paperless-ngx-postgres-v17-rw.paperless-ngx.svc.cluster.local"
               PAPERLESS_DBNAME: "paperless-ngx"
