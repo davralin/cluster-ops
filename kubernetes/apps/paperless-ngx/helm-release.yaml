@@ -96,8 +96,7 @@ spec:
               tag: 2.9.1-minimal
             securityContext:
               allowPrivilegeEscalation: false
-              # java.util.concurrent.ExecutionException: java.nio.file.FileSystemException: /tmp/apache-tika-server-forked-tmp-14715358992636831581: Read-only file system
-              readOnlyRootFilesystem: false
+              readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
             resources:
               requests:
@@ -170,3 +169,9 @@ spec:
               - path: /export
                 subPath: .
                 readOnly: true
+      tmp:
+        type: emptyDir
+        advancedMounts:
+          paperless-ngx:
+            tika:
+              - path: /tmp
