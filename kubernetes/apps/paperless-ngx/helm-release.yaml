@@ -90,20 +90,6 @@ spec:
                 memory: 1Gi
               limits:
                 memory: 2Gi
-          tika:
-            image: 
-              repository: ghcr.io/paperless-ngx/tika
-              tag: 2.9.1-minimal
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities: { drop: ["ALL"] }
-            resources:
-              requests:
-                cpu: 10m
-                memory: 400Mi
-              limits:
-                memory: 800Mi
           gotenberg:
             image: 
               repository: docker.io/gotenberg/gotenberg
@@ -120,6 +106,20 @@ spec:
                 memory: 50Mi
               limits:
                 memory: 100Mi
+          tika:
+            image: 
+              repository: ghcr.io/paperless-ngx/tika
+              tag: 2.9.1-minimal
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 10m
+                memory: 400Mi
+              limits:
+                memory: 800Mi
     service:
       paperless-ngx:
         controller: *name
