@@ -42,15 +42,16 @@ spec:
           unifi:
             image:
               repository: jacobalberty/unifi
-              tag: v9.4.19
+              tag: v9.5.21
             env:
               TZ: "${TIMEZONE}"
               RUNAS_UID0: "true"
               UNIFI_UID: "999"
               UNIFI_GID: "999"
               UNIFI_STDOUT: "true"
-              JVM_INIT_HEAP_SIZE:
-              JVM_MAX_HEAP_SIZE: 1024M
+              JVM_INIT_HEAP_SIZE: "256M"
+              JVM_MAX_HEAP_SIZE: "1024M"
+              SYSTEM_IP: "10.0.1.39"
             securityContext:
               allowPrivilegeEscalation: false
               # <inform-3> ERROR [InformServlet] - Servlet.service() for servlet [InformServlet] in context with path [] threw exception [Servlet execution threw an exception] with root cause
