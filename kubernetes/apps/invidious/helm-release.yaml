@@ -103,7 +103,7 @@ spec:
                 cpu: 10m
                 memory: 500Mi
               limits:
-                memory: 700Mi
+                memory: 1Gi
     service:
       invidious:
         controller: *name
