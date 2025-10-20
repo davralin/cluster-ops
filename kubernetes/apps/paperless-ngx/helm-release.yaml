@@ -77,8 +77,8 @@ spec:
               PAPERLESS_DBNAME: "paperless-ngx"
               PAPERLESS_DBUSER: "paperless-ngx"
               PAPERLESS_TIKA_ENABLED: "1"
-              PAPERLESS_TIKA_ENDPOINT: "http://localhost:9998"
-              PAPERLESS_TIKA_GOTENBERG_ENDPOINT: "http://localhost:3000"
+              PAPERLESS_TIKA_ENDPOINT: "http://paperless-ngx-tika:9998"
+              PAPERLESS_TIKA_GOTENBERG_ENDPOINT: "http://paperless-ngx-gotenberg:3000"
               PAPERLESS_CONSUMER_POLLING: 3600
               PAPERLESS_CONSUMER_RECURSIVE: true
               PAPERLESS_CONSUMPTION_DIR: /usr/src/paperless/consume
@@ -145,6 +145,16 @@ spec:
         ports:
           http:
             port: 8000
+      gotenberg:
+        controller: *name
+        ports:
+          http:
+            port: 3000
+      tika:
+        controller: *name
+        ports:
+          http:
+            port: 9998
       valkey:
         controller: *name
         ports:
