@@ -69,7 +69,7 @@ spec:
           group_by: ["..."]
           group_wait: 30s
           group_interval: 5m
-          repeat_interval: 12h
+          repeat_interval: 1d
           receiver: "Discord"
           routes:
             - receiver: "healthchecksio"
