@@ -57,4 +57,4 @@ spec:
           targets:
             staticConfig:
               static:
-                - "10.0.1.32"
+                - "10.0.1.43"
