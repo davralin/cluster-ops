@@ -19,7 +19,6 @@ resources:
   - fluxcd-community.yaml
   - grafana.yaml
   - haproxytech.yaml
-  - hashicorp.yaml
   - immich.yaml
   - intel.yaml
   - itzg.yaml
