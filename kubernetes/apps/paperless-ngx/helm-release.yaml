@@ -127,7 +127,7 @@ spec:
           valkey:
             image:
               repository: ghcr.io/valkey-io/valkey
-              tag: 8.1.4
+              tag: 9.0.0
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
