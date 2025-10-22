@@ -25,3 +25,7 @@ spec:
       retries: 10
   values:
     fullnameOverride: trivy-operator
+    serviceMonitor:
+      enabled: true
+    trivy:
+      ignoreUnfixed: true
