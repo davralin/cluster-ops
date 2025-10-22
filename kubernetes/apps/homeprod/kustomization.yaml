@@ -51,6 +51,7 @@ resources:
   - ../system-upgrade-controller
   - ../technitium
   - ../thelounge
+  - ../trivy
   - ../unifi
   - ../volsync
   - ../wallos

@@ -31,3 +31,4 @@ resources:
   - rook-ceph.yaml
   - spegel.yaml
   - stakater.yaml
+  - trivy.yaml
