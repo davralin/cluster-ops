@@ -43,7 +43,7 @@ spec:
           kuma:
             image:
               repository: louislam/uptime-kuma
-              tag: 1.23.17
+              tag: 2.0.2
             env:
               TZ: "${TIMEZONE}"
             securityContext:
