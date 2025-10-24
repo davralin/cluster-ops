@@ -93,3 +93,4 @@ spec:
             staticConfig:
               static:
                 - "adguard.${SECRET_OFFSITE_DOMAIN}"
+                - "nas.${SECRET_DEFAULT_DOMAIN}"
