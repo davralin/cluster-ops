@@ -45,16 +45,3 @@ spec:
             staticConfig:
               static:
                 - "https://adguard.${SECRET_DEFAULT_DOMAIN}"
-      - apiVersion: monitoring.coreos.com/v1
-        kind: Probe
-        metadata:
-          name: dnsmonitoring
-          namespace: adguard
-        spec:
-          module: dns
-          prober:
-            url: "${BLACKBOX_EXPORTER_URL}"
-          targets:
-            staticConfig:
-              static:
-                - "adguard.${SECRET_DEFAULT_DOMAIN}"
