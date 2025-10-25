@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: immich
-      version: 0.9.3
+      version: 0.10.1
       sourceRef:
         kind: HelmRepository
         name: immich-charts
@@ -25,19 +25,15 @@ spec:
     remediation:
       retries: 10
   valuesFrom:
-    - targetPath: env.DB_PASSWORD
+    - targetPath: controllers.main.containers.main.env.DB_PASSWORD
       kind: Secret
       name: immich-pg-secret
       valuesKey: password
-    - targetPath: env.DB_USERNAME
+    - targetPath: controllers.main.containers.main.env.DB_USERNAME
       kind: Secret
       name: immich-pg-secret
       valuesKey: username
   values:
-    env:
-      REDIS_HOSTNAME: "immich-valkey-primary"
-      DB_HOSTNAME: "immich-postgres-v16-rw"
-      DB_DATABASE_NAME: "immich"
     image:
       # renovate: datasource=github-releases depName=immich-app/immich
       tag: v2.1.0
@@ -47,12 +43,23 @@ spec:
       persistence:
         library:
           existingClaim: immich
+    controllers:
+      main:
+        containers:
+          main:
+            env:
+              DB_HOSTNAME: immich-postgres-v16-rw
+              DB_DATABASE_NAME: immich
+              LOG_LEVEL: verbose
+              REDIS_HOSTNAME: nextcloud-immich-valkey
+              TZ: "${TIMEZONE}"
     machine-learning:
-      controller:
-        strategy: Recreate
+      controllers:
+        main:
+          strategy: Recreate
       persistence:
         cache:
-          type: pvc
+          type: persistentVolumeClaim
           accessMode: ReadWriteOnce
           storageClass: "${STORAGE_READWRITEONCE}"
         external:
@@ -60,23 +67,43 @@ spec:
           existingClaim: nextcloud
           readOnly: true
     server:
-      controller:
-        strategy: Recreate
+      controllers:
+        main:
+          strategy: Recreate
       probes:
-        readiness:
+        liveness:
+          enabled: true
           custom: true
           spec:
-            initialDelaySeconds: 30
+            httpGet:
+              path: /ping
+              port: http
+            initialDelaySeconds: 0
             periodSeconds: 10
-            timeoutSeconds: 5
+            timeoutSeconds: 1
+            failureThreshold: 3
+        readiness:
+          enabled: true
+          custom: true
+          spec:
+            httpGet:
+              path: /ping
+              port: http
+            initialDelaySeconds: 0
+            periodSeconds: 10
+            timeoutSeconds: 1
             failureThreshold: 3000
         startup:
+          enabled: true
           custom: true
           spec:
+            httpGet:
+              path: /ping
+              port: http
             initialDelaySeconds: 0
-            timeoutSeconds: 5
             periodSeconds: 10
-            failureThreshold: 6000
+            timeoutSeconds: 1
+            failureThreshold: 60
       persistence:
         external:
           enabled: true
@@ -99,3 +126,5 @@ spec:
                 - path: "/"
           tls:
             - secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
+    valkey:
+      enabled: true
