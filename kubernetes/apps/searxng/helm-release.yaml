@@ -48,7 +48,7 @@ spec:
               TZ: "${TIMEZONE}"
               SEARXNG_BASE_URL: "https://searxng.${SECRET_DEFAULT_DOMAIN}"
               SEARXNG_URL: "https://searxng.${SECRET_DEFAULT_DOMAIN}"
-              SEARXNG_REDIS_URL: "redis://valkey-primary.searxng.svc.cluster.local:6379"
+              SEARXNG_REDIS_URL: "redis://valkey.searxng.svc.cluster.local:6379"
               UWSGI_WORKERS: 4
               UWSGI_THREADS: 4
             securityContext:
