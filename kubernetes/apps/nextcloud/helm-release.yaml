@@ -56,7 +56,7 @@ spec:
                   periodSeconds: 30
             env:
               TZ: "${TIMEZONE}"
-              REDIS_HOST: "valkey-primary"
+              REDIS_HOST: "nextcloud-valkey.nextcloud.svc.cluster.local"
               SMTP_HOST: "exim.mailrelay.svc.cluster.local"
               SMTP_PORT: "25"
               SMTP_AUTHTYPE: "PLAIN"
