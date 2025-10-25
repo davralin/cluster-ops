@@ -34,9 +34,6 @@ spec:
       name: immich-pg-secret
       valuesKey: username
   values:
-    image:
-      # renovate: datasource=github-releases depName=immich-app/immich
-      tag: v2.1.0
     immich:
       metrics:
         enabled: "${MONITORING_PROMETHEUS}"
@@ -47,6 +44,9 @@ spec:
       main:
         containers:
           main:
+            image:
+              # renovate: datasource=github-releases depName=immich-app/immich
+              tag: v2.1.0
             env:
               DB_HOSTNAME: immich-postgres-v16-rw
               DB_DATABASE_NAME: immich
