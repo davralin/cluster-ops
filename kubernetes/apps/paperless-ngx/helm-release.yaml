@@ -124,21 +124,6 @@ spec:
                 memory: 400Mi
               limits:
                 memory: 800Mi
-          valkey:
-            image:
-              repository: ghcr.io/valkey-io/valkey
-              tag: 9.0.0
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              # setpriv: setresuid failed: Operation not permitted
-              # capabilities: { drop: ["ALL"] }
-            resources:
-              requests:
-                cpu: 20m
-                memory: 32Mi
-              limits:
-                memory: 128Mi
     service:
       paperless-ngx:
         controller: *name
@@ -155,11 +140,6 @@ spec:
         ports:
           http:
             port: 9998
-      valkey:
-        controller: *name
-        ports:
-          http:
-            port: 6379
     ingress:
       paperless-ngx:
         enabled: true

@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &name nextcloud-valkey
+  name: &name paperless-ngx-valkey
   namespace: flux-system
 spec:
   interval: 30m
@@ -15,7 +15,7 @@ spec:
         name: bjw-s-charts
         namespace: flux-system
       interval: 30m
-  targetNamespace: nextcloud
+  targetNamespace: paperless-ngx
   install:
     createNamespace: true
     remediation:
