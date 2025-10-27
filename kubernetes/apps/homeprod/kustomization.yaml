@@ -17,6 +17,7 @@ resources:
   - ../freshrss
   - ../gitea
   - ../gotify
+  - ../homer
   - ../icloudpd
   - ../intel-device-plugin
   - ../invidious
