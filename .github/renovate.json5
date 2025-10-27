@@ -146,7 +146,6 @@
         "minecraft",
         "node-feature-discovery",
         "reflector",
-        "rook-ceph",
         "valkey"
       ]
     },
