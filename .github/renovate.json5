@@ -112,6 +112,7 @@
         "ghcr.io/fallenbagel/jellyseerr",
         "ghcr.io/foxxmd/multi-scrobbler",
         "ghcr.io/go-gitea/gitea",
+        "ghcr.io/jellyfin/jellyfin",
         "ghcr.io/jlesage/firefox",
         "ghcr.io/open-webui/open-webui",
         "ghcr.io/paperless-ngx/paperless-ngx",
