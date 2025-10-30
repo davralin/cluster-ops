@@ -3,7 +3,7 @@ name: adguard
 
 services:
   adguard:
-    image: docker.io/adguard/adguardhome:v0.107.68
+    image: docker.io/adguard/adguardhome:v0.107.69
     ports:
       - "{{ adguard_compose_ip_binding_web }}:80"
       - "{{ adguard_compose_ip_binding_dns }}:53"
