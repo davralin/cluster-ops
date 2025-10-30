@@ -45,7 +45,7 @@ spec:
           jobs-onsite-sync:
             image:
               repository: ghcr.io/davralin/rsync
-              tag: latest@sha256:0940e6dbcece5a5576548dba1f80c74f254ef8edb59be0341ab376a45cbf1366
+              tag: latest@sha256:22aa3dae64c58cbdc5017bcadd57757cc375c8831e458c514382874fc00d7131
             command: ['/usr/bin/rsync']
             args: ["--archive", "--delete", "--verbose", "-e", "ssh -o StrictHostKeyChecking=no", "/home/user/regular/", "backup@nas.${SECRET_DEFAULT_DOMAIN}:/opt/local/regular/"]
             securityContext:
