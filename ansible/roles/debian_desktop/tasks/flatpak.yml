@@ -24,6 +24,7 @@
   become: true
   vars:
     flatpaks:
+      - com.fastmail.Fastmail
       - com.discordapp.Discord
       - com.nextcloud.desktopclient.nextcloud
       - com.valvesoftware.Steam
