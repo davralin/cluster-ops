@@ -40,6 +40,10 @@ spec:
       kind: Secret
       name: epicgames-free-login
       valuesKey: WEBHOOK_URL
+    - targetPath: controllers.epicgames-free.containers.epicgames-free.env.GOTIFY_TOKEN
+      kind: Secret
+      name: epicgames-free-login
+      valuesKey: GOTIFY_TOKEN
   values:
     fullnameOverride: *name
     # https://github.com/claabs/epicgames-freegames-node/issues/228
