@@ -142,15 +142,16 @@
         "patch"
       ],
       "matchPackagePatterns": [
+        "authentik",
         "awx-operator",
         "cert-manager",
+        "flux2",
         "grafana",
         "kube-prometheus-stack",
         "minecraft",
         "node-feature-discovery",
         "reflector",
-        "rook-ceph",
-        "valkey"
+        "rook-ceph"
       ]
     },
     {
