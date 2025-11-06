@@ -10,6 +10,7 @@
       - dbus-user-session
       - libpam-systemd
       - ntfs-3g
+      - xdg-user-dirs
 
 - name: Installing boot-tools
   ansible.builtin.apt:
@@ -66,6 +67,19 @@
     packages:
       - fonts-font-awesome
       - fonts-hack
+
+- name: Installing thunar
+  ansible.builtin.apt:
+    name: "{{ packages }}"
+    state: present
+  become: true
+  vars:
+    packages:
+      - thunar
+      - thunar-archive-plugin
+      - thunar-media-tags-plugin
+      - gvfs-backends
+      - libmtp-runtime
 
 - name: Installing ssh/gpg-agent-stuff
   ansible.builtin.apt:
