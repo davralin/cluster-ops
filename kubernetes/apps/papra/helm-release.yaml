@@ -1,0 +1,89 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &name papra
+  namespace: flux-system
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 4.4.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+      interval: 30m
+  targetNamespace: papra
+  install:
+    createNamespace: true
+    remediation:
+      retries: 10
+  upgrade:
+    remediation:
+      retries: 10
+  values:
+    fullnameOverride: *name
+    defaultPodOptions:
+      automountServiceAccountToken: false
+      enableServiceLinks: false
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+    controllers:
+      papra:
+        containers:
+          papra:
+            image:
+              repository: ghcr.io/papra-hq/papra
+              tag: 25.10.2-rootless@sha256:18c184620767ba1c240a5c1f3ef106430024dc6306607a6d2ac60b6ded3502e5
+            env:
+              TZ: "${TIMEZONE}"
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 25m
+                memory: 256Mi
+              limits:
+                memory: 512Mi
+    service:
+      papra:
+        controller: *name
+        ports:
+          http:
+            port: 8000
+    ingress:
+      papra:
+        enabled: true
+        annotations:
+          haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
+          haproxy.org/ssl-redirect-port: "443"
+          haproxy.org/response-set-header: |
+            Strict-Transport-Security "max-age=31536000"
+            X-Frame-Options "DENY"
+            X-Content-Type-Options "nosniff"
+            Referrer-Policy "strict-origin-when-cross-origin"
+        hosts:
+          - host: &host "papra.${SECRET_DEFAULT_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  identifier: papra
+                  port: http
+        tls:
+          - hosts:
+              - *host
+    persistence:
+      cache:
+        type: emptyDir
+        globalMounts:
+          - path: /app/app-data

@@ -41,6 +41,7 @@ resources:
   - ../openwebui
   - ../owntracks
   - ../paperless-ngx
+  - ../papra
   - ../reloader
   - ../romm
   - ../rssbridge
