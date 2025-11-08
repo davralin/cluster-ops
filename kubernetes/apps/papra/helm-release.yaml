@@ -83,7 +83,11 @@ spec:
           - hosts:
               - *host
     persistence:
-      cache:
+      data:
         type: emptyDir
         globalMounts:
           - path: /app/app-data
+      tmp:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp
