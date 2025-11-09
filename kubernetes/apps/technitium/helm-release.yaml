@@ -42,7 +42,7 @@ spec:
           technitium:
             image:
               repository: technitium/dns-server
-              tag: 13.6.0
+              tag: 14.0.0
             env:
               DNS_SERVER_DOMAIN: "${SECRET_DEFAULT_DOMAIN}"
             securityContext:
