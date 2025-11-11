@@ -1,0 +1,19 @@
+---
+- name: Add vscodium apt-repo
+  ansible.builtin.deb822_repository:
+    name: vscodium
+    types: deb
+    uris: "https://download.vscodium.com/debs"
+    signed_by: "https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/master/pub.gpg"
+    suites: vscodium
+    components: main
+  become: true
+
+- name: Installing vscodium
+  ansible.builtin.apt:
+    name: "{{ packages }}"
+    state: present
+  become: true
+  vars:
+    packages:
+      - codium

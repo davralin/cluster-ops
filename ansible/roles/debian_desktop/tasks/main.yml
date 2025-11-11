@@ -47,6 +47,10 @@
   ansible.builtin.include_tasks:
     file: i3.yml
 
+- name: Installing vscodium
+  ansible.builtin.include_tasks:
+    file: vscodium.yml
+
 - name: Installing players
   ansible.builtin.apt:
     name: "{{ packages }}"
