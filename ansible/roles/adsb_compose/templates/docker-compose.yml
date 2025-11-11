@@ -38,7 +38,7 @@ services:
       CLIENTKEY: "{{ adsb_compose_adsbhub_clientkey }}"
     restart: always
   planefinder:
-    image: ghcr.io/sdr-enthusiasts/docker-planefinder:latest@sha256:ed5180f8605d900f7aa8a324840767964c9c1418f9230680e6f083bc38f52c00
+    image: ghcr.io/sdr-enthusiasts/docker-planefinder:latest@sha256:5bd8082dd1c19f6520aa572cd89721a285d44bf82dede4153da1f7c7206dc2e4
     environment:
       TZ: "{{ adsb_compose_tz }}"
       BEASTHOST: "{{ adsb_compose_beasthost }}"
