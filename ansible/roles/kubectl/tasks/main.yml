@@ -19,7 +19,14 @@
     signed_by: "https://pkgs.k8s.io/core:/stable:/v1.34/deb/Release.key"
     suites: /
     components: []
+  register: _kubectl_apt_repo
   become: true
+
+- name: Update apt-cache
+  ansible.builtin.apt:
+    update_cache: yes
+  become: true
+  when: _kubectl_apt_repo is changed
 
 - name: Installing kubectl
   ansible.builtin.apt:

@@ -7,7 +7,14 @@
     signed_by: "https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/master/pub.gpg"
     suites: vscodium
     components: main
+  register: _vscodium_apt_repo
   become: true
+
+- name: Update apt-cache
+  ansible.builtin.apt:
+    update_cache: yes
+  become: true
+  when: _vscodium_apt_repo is changed
 
 - name: Installing vscodium
   ansible.builtin.apt:
