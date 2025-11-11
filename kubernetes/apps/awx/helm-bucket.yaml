@@ -34,5 +34,5 @@ spec:
           name: awx-bucket
           namespace: awx
         spec:
-          generateBucketName: awx-fact-bucket
+          bucketName: awx-fact-bucket
           storageClassName: ceph-bucket
