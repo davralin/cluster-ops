@@ -15,6 +15,7 @@ spec:
         name: bjw-s-charts
         namespace: flux-system
       interval: 30m
+  driftDetection: enabled
   targetNamespace: jobs
   install:
     createNamespace: true
