@@ -36,6 +36,10 @@ spec:
       kind: Secret
       name: epicgames-free-login
       valuesKey: TOTP
+    - targetPath: controllers.epicgames-free.containers.epicgames-free.env.DISCORD_WEBHOOK
+      kind: Secret
+      name: epicgames-free-login
+      valuesKey: WEBHOOK_URL
     - targetPath: controllers.epicgames-free.containers.epicgames-free.env.GOTIFY_TOKEN
       kind: Secret
       name: epicgames-free-login
