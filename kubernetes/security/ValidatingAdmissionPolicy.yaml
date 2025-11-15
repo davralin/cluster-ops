@@ -12,8 +12,5 @@ spec:
       resources:   ["*"]
       operations:  ["CREATE", "UPDATE", "DELETE"]
   validations:
-  - expression: >
-      !(
-        request.userInfo.username.startsWith("system:serviceaccount:flux-system:")
-      )
-    message: "Non-Flux actor made a change"
+    - expression: 'request.userInfo.username != "system:serviceaccount:flux-system:default"'
+      message: "Non-Flux actor made a change"
