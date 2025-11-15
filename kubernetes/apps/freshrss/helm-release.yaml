@@ -48,6 +48,11 @@ spec:
               TZ: "${TIMEZONE}"
               DOMAIN: "https://freshrss.${SECRET_DEFAULT_DOMAIN}"
               CRON_MIN: 18,48
+            probes:
+              liveness: &probes
+                enabled: true
+              readiness: *probes
+              startup: *probes
             securityContext:
               allowPrivilegeEscalation: false
               # Fatal Error Unable to create lock file: Read-only file system (30)

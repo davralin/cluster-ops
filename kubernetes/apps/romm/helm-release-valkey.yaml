@@ -43,6 +43,11 @@ spec:
             image:
               repository: ghcr.io/valkey-io/valkey
               tag: 9.0.0@sha256:4503e204c900a00ad393bec83c8c7c4c76b0529cd629e23b34b52011aefd1d27
+            probes:
+              liveness: &probes
+                enabled: true
+              readiness: *probes
+              startup: *probes
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true

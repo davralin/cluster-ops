@@ -48,6 +48,11 @@ spec:
             env:
               TZ: "${TIMEZONE}"
               TMP: "/tmp"
+            probes:
+              liveness: &probes
+                enabled: false
+              readiness: *probes
+              startup: *probes
             securityContext:
               allowPrivilegeEscalation: false
               capabilities:

@@ -55,6 +55,11 @@ spec:
               UN_SONARR_0_API_KEY: "${SECRET_SONARR_API_KEY}"
               UN_RADARR_0_URL: http://radarr.media.svc.cluster.local:7878
               UN_RADARR_0_API_KEY: "${SECRET_RADARR_API_KEY}"
+            probes:
+              liveness: &probes
+                enabled: true
+              readiness: *probes
+              startup: *probes
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true

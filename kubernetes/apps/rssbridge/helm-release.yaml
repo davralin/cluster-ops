@@ -47,6 +47,11 @@ spec:
               tag: latest@sha256:7205e8e30f233d684b91c3dbfa23aa16a4626044729007784c2eeb3e7f85738c
             env:
               TZ: "${TIMEZONE}"
+            probes:
+              liveness: &probes
+                enabled: true
+              readiness: *probes
+              startup: *probes
             securityContext:
               allowPrivilegeEscalation: false
               # This was an ongoing battle with nginx, which eventually lead to:

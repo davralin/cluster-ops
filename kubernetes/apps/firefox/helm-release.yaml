@@ -48,6 +48,11 @@ spec:
               TZ: "${TIMEZONE}"
               USER_ID: 1000
               GROUP_ID: 1000
+            probes:
+              liveness: &probes
+                enabled: true
+              readiness: *probes
+              startup: *probes
             securityContext:
               allowPrivilegeEscalation: false
               # mktemp: : Read-only file system

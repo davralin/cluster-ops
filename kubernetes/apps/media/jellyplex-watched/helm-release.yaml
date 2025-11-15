@@ -89,6 +89,11 @@ spec:
               #WHITELIST_LIBRARY_TYPE: ""
               #BLACKLIST_USERS: ""
               #WHITELIST_USERS: "testuser1,testuser2"
+            probes:
+              liveness: &probes
+                enabled: true
+              readiness: *probes
+              startup: *probes
             securityContext:
               allowPrivilegeEscalation: false
               # [ERROR]: [Errno 30] Read-only file system: 'log.log'

@@ -45,6 +45,11 @@ spec:
             image:
               repository: ghcr.io/thecfu/scraparr
               tag: 2.2.5@sha256:cfe07f005aa6e93221dd0bb540600aaa51ea1215968595806863f9df3dc3b26c
+            probes:
+              liveness: &probes
+                enabled: true
+              readiness: *probes
+              startup: *probes
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true

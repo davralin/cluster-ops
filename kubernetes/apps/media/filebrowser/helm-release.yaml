@@ -43,6 +43,11 @@ spec:
             image:
               repository: docker.io/filebrowser/filebrowser
               tag: v2.46.1@sha256:a3d21db89b6aa6b32d072184bf884a832725912f8bae1952338a09d10de415e2
+            probes:
+              liveness: &probes
+                enabled: true
+              readiness: *probes
+              startup: *probes
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true

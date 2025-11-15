@@ -45,10 +45,15 @@ spec:
           litellm:
             image:
               repository: ghcr.io/berriai/litellm-non_root
-              tag: main-v1.60.0@sha256:d2c08fb25abed9cb612ae6d693d19cf77f7e73ac4719a3fb33b6fa292fc03760
+              tag: main-v1.79.1-stable@sha256:367b3c64c1f2cfcbfac5f3f9d8a32971c8f54fdb07d76c58b7a1756a5bf16121
             env:
               TZ: "${TIMEZONE}"
               LITELLM_MASTER_KEY: "sk-1234"
+            probes:
+              liveness: &probes
+                enabled: true
+              readiness: *probes
+              startup: *probes
             args:
               - "--config"
               - "/app/config.yaml"

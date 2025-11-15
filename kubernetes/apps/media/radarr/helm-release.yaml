@@ -60,11 +60,6 @@ spec:
               RADARR__AUTH__REQUIRED: DisabledForLocalAddresses
               RADARR__LOG__DBENABLED: "False"
               RADARR__LOG__LEVEL: info
-            securityContext:
-              allowPrivilegeEscalation: false
-              # System.IO.IOException: Read-only file system
-              readOnlyRootFilesystem: false
-              capabilities: { drop: ["ALL"] }
             probes:
               liveness: &probes
                 enabled: true
@@ -78,6 +73,12 @@ spec:
                   timeoutSeconds: 10
                   failureThreshold: 3
               readiness: *probes
+              startup: *probes
+            securityContext:
+              allowPrivilegeEscalation: false
+              # System.IO.IOException: Read-only file system
+              readOnlyRootFilesystem: false
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 10m

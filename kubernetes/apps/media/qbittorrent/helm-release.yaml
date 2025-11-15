@@ -46,6 +46,11 @@ spec:
             env:
               TZ: "${TIMEZONE}"
               QBT_TORRENTING_PORT: 9500
+            probes:
+              liveness: &probes
+                enabled: true
+              readiness: *probes
+              startup: *probes
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true

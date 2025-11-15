@@ -71,6 +71,11 @@ spec:
                         {"key":"FFmpegMetadata","add_metadata":"True","add_infojson":"True","add_chapters":"True"}
                   ]
                 }
+            probes:
+              liveness: &probes
+                enabled: true
+              readiness: *probes
+              startup: *probes
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true

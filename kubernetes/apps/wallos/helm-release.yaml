@@ -46,6 +46,11 @@ spec:
               tag: 4.5.0
             env:
               TZ: "${TIMEZONE}"
+            probes:
+              liveness: &probes
+                enabled: true
+              readiness: *probes
+              startup: *probes
             resources:
               requests:
                 cpu: 10m

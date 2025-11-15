@@ -70,6 +70,11 @@ spec:
               REDIS_HOST: "romm-valkey.romm.svc.cluster.local"
               REDIS_PORT: "6379"
               HLTB_API_ENABLED: "true"
+            probes:
+              liveness: &probes
+                enabled: true
+              readiness: *probes
+              startup: *probes
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true

@@ -46,20 +46,19 @@ spec:
             env:
               APP_BASE_URL: "https://papra.${SECRET_DEFAULT_DOMAIN}"
               TZ: "${TIMEZONE}"
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities: { drop: ["ALL"] }
             probes:
-              liveness:
+              liveness: &probes
                 enabled: true
-              readiness:
-                enabled: true
+              readiness: *probes
               startup:
                 enabled: true
                 spec:
                   failureThreshold: 30
                   periodSeconds: 5
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 25m

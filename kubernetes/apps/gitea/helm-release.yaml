@@ -69,6 +69,11 @@ spec:
               GITEA__SERVER__ROOT_URL: "https://gitea.${SECRET_DEFAULT_DOMAIN}"
               GITEA__SERVER__SSH_DOMAIN: "ssh.${SECRET_DEFAULT_DOMAIN}"
               GITEA__SERVER__SSH_PORT: 22
+            probes:
+              liveness: &probes
+                enabled: true
+              readiness: *probes
+              startup: *probes
             securityContext:
               allowPrivilegeEscalation: false
               # mkdir: can't create directory '/tmp/gitea': Read-only file system

@@ -42,11 +42,16 @@ spec:
           warrior:
             image:
               repository: atdr.meo.ws/archiveteam/warrior-dockerfile
-              tag: latest
+              tag: latest@sha256:0404579c23edf10f722d6efc02d026721936ffd3531e303b8f9c071cc8de4788
             env:
               TZ: "${TIMEZONE}"
               DOWNLOADER: "davralin"
               SELECTED_PROJECT: "auto"
+            probes:
+              liveness: &probes
+                enabled: true
+              readiness: *probes
+              startup: *probes
             securityContext:
               allowPrivilegeEscalation: false
               # Have not been able to figure out where some tmp/cache-files are placed.

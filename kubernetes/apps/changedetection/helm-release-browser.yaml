@@ -49,6 +49,11 @@ spec:
               SCREEN_HEIGHT: "1024"
               SCREEN_DEPTH: "16"
               MAX_CONCURRENT_CHROME_PROCESSES: "10"
+            probes:
+              liveness: &probes
+                enabled: true
+              readiness: *probes
+              startup: *probes
             securityContext:
               allowPrivilegeEscalation: false
               # OSError: [Errno 30] Read-only file system: '/tmp/chrome-puppeteer-proxy53qcyf_d'

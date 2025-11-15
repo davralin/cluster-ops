@@ -62,11 +62,6 @@ spec:
               # https://github.com/Readarr/Readarr/issues/3453
               READARR__LOG__DBENABLED: "False"
               READARR__LOG__LEVEL: info
-            securityContext:
-              allowPrivilegeEscalation: false
-              # System.IO.IOException: Read-only file system
-              readOnlyRootFilesystem: false
-              capabilities: { drop: ["ALL"] }
             probes:
               liveness: &probes
                 enabled: true
@@ -80,6 +75,12 @@ spec:
                   timeoutSeconds: 10
                   failureThreshold: 3
               readiness: *probes
+              startup: *probes
+            securityContext:
+              allowPrivilegeEscalation: false
+              # System.IO.IOException: Read-only file system
+              readOnlyRootFilesystem: false
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 10m

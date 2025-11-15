@@ -53,6 +53,11 @@ spec:
               OTR_USER: "owntracks"
               OTR_PASS: "owntracks"
               OTR_CLIENTID: "owntracks"
+            probes:
+              liveness: &probes
+                enabled: true
+              readiness: *probes
+              startup: *probes
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true

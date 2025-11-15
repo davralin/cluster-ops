@@ -78,6 +78,11 @@ spec:
               INFERENCE_ENABLE_AUTO_SUMMARIZATION: true
               INFERENCE_JOB_TIMEOUT_SEC: 600
               INFERENCE_TEXT_MODEL: gpt-oss:20b
+            probes:
+              liveness: &probes
+                enabled: true
+              readiness: *probes
+              startup: *probes
             securityContext:
               # S6-overlay sucks.
               runAsUser: 0
@@ -90,11 +95,6 @@ spec:
                 drop:
                   - ALL
               readOnlyRootFilesystem: true
-            probes:
-              liveness:
-                enabled: true
-              readiness:
-                enabled: true
             resources:
               requests:
                 cpu: 10m
@@ -118,6 +118,11 @@ spec:
               - --remote-debugging-address=0.0.0.0
               - --remote-debugging-port=9222
               - --hide-scrollbars
+            probes:
+              liveness: &probes
+                enabled: true
+              readiness: *probes
+              startup: *probes
             securityContext:
               allowPrivilegeEscalation: false
               capabilities:
@@ -165,6 +170,11 @@ spec:
                     name: karakeep-secret
                     key: meilisearch_master_key
               HF_HOME: /meili_data/hf_home
+            probes:
+              liveness: &probes
+                enabled: true
+              readiness: *probes
+              startup: *probes
             securityContext:
               allowPrivilegeEscalation: false
               capabilities:

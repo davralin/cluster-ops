@@ -49,11 +49,6 @@ spec:
             image:
               repository: nextcloud
               tag: 32.0.1-apache
-            probes:
-              startup:
-                spec:
-                  initialDelaySeconds: 30
-                  periodSeconds: 30
             env:
               TZ: "${TIMEZONE}"
               REDIS_HOST: "nextcloud-valkey.nextcloud.svc.cluster.local"
@@ -66,6 +61,15 @@ spec:
               POSTGRES_HOST: "nextcloud-postgres-v17-rw.nextcloud.svc.cluster.local"
               POSTGRES_DB: "nextcloud"
               POSTGRES_USER: "nextcloud"
+            probes:
+              liveness: &probes
+                enabled: true
+              readiness: *probes
+              startup:
+                enabled: true
+                spec:
+                  initialDelaySeconds: 30
+                  periodSeconds: 30
             securityContext:
               allowPrivilegeEscalation: false
               # /entrypoint.sh: 111: cannot create /usr/local/etc/php/conf.d/redis-session.ini: Read-only file system

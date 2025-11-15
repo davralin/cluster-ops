@@ -47,6 +47,11 @@ spec:
               TZ: "${TIMEZONE}"
               PUID: 1000
               PGID: 1000
+            probes:
+              liveness: &probes
+                enabled: true
+              readiness: *probes
+              startup: *probes
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true

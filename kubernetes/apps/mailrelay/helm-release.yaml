@@ -59,6 +59,11 @@ spec:
               tag: 4.98-r0-4@sha256:7ba30080c7a6ac4e93a99143ebd1aa229a16c47b97b2129002dc753c8a47f095
             env:
               HOSTNAME: "smtp.${SECRET_DEFAULT_DOMAIN}"
+            probes:
+              liveness: &probes
+                enabled: true
+              readiness: *probes
+              startup: *probes
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true

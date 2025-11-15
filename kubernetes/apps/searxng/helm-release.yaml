@@ -51,6 +51,11 @@ spec:
               SEARXNG_REDIS_URL: "redis://valkey.searxng.svc.cluster.local:6379"
               UWSGI_WORKERS: 4
               UWSGI_THREADS: 4
+            probes:
+              liveness: &probes
+                enabled: true
+              readiness: *probes
+              startup: *probes
             securityContext:
               allowPrivilegeEscalation: false
               # WARNING:searx.botdetection.config: missing config file: /etc/searxng/limiter.toml

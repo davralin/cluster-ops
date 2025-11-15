@@ -73,6 +73,11 @@ spec:
               PLEX_TOKEN: "${SECRET_PLEX_TOKEN}"
               LASTFM_REDIRECT_URI: "https://multiscrobbler.${SECRET_DEFAULT_DOMAIN}/lastfm/callback"
               SPOTIFY_REDIRECT_URI: "https://multiscrobbler.${SECRET_DEFAULT_DOMAIN}/spotify/callback"
+            probes:
+              liveness: &probes
+                enabled: true
+              readiness: *probes
+              startup: *probes
             securityContext:
               allowPrivilegeEscalation: false
               # s6-rmrf: fatal: unable to remove /run/s6: Read-only file system

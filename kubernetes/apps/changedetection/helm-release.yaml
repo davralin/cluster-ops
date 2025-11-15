@@ -49,6 +49,11 @@ spec:
               PUID: 1000
               PGID: 1000
               BASE_URL: &host "changedetection.${SECRET_DEFAULT_DOMAIN}"
+            probes:
+              liveness: &probes
+                enabled: true
+              readiness: *probes
+              startup: *probes
             securityContext:
               allowPrivilegeEscalation: false
               # changedetectionio.update_worker:run:479 - EROFS: read-only file system, mkdtemp '/tmp/playwright-artifacts-KF7JSJ'

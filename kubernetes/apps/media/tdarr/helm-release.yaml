@@ -51,6 +51,11 @@ spec:
               TZ: "${TIMEZONE}"
               PUID: "1000"
               PGID: "1000"
+            probes:
+              liveness: &probes
+                enabled: true
+              readiness: *probes
+              startup: *probes
             securityContext:
               allowPrivilegeEscalation: false
               # s6-rmrf: fatal: unable to remove /run/s6: Read-only file system

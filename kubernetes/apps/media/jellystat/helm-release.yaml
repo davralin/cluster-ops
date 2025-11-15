@@ -56,6 +56,11 @@ spec:
               POSTGRES_USER: jellystat
               POSTGRES_IP: media-postgres-v17-rw.media.svc.cluster.local
               POSTGRES_PORT: "5432"
+            probes:
+              liveness: &probes
+                enabled: true
+              readiness: *probes
+              startup: *probes
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true

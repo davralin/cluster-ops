@@ -61,17 +61,6 @@ spec:
               # https://github.com/Lidarr/Lidarr/issues/4785
               LIDARR__LOG__DBENABLED: "False"
               LIDARR__LOG__LEVEL: info
-            securityContext:
-              allowPrivilegeEscalation: false
-              # System.IO.IOException: Read-only file system
-              readOnlyRootFilesystem: false
-              capabilities: { drop: ["ALL"] }
-            resources:
-              requests:
-                cpu: 10m
-                memory: 300Mi
-              limits:
-                memory: 600Mi
             probes:
               liveness: &probes
                 enabled: true
@@ -85,6 +74,18 @@ spec:
                   timeoutSeconds: 10
                   failureThreshold: 3
               readiness: *probes
+              startup: *probes
+            securityContext:
+              allowPrivilegeEscalation: false
+              # System.IO.IOException: Read-only file system
+              readOnlyRootFilesystem: false
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 10m
+                memory: 300Mi
+              limits:
+                memory: 600Mi
     service:
       lidarr:
         controller: *name

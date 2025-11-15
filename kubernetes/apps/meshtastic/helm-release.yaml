@@ -45,6 +45,11 @@ spec:
               tag: latest@sha256:ced7a025a65a6576a61298203833acf509a6c49007fa1803bfda7c41f7cc71cc
             env:
               TZ: "${TIMEZONE}"
+            probes:
+              liveness: &probes
+                enabled: true
+              readiness: *probes
+              startup: *probes
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true

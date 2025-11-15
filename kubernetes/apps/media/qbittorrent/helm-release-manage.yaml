@@ -52,6 +52,11 @@ spec:
               QBT_DEBUG: true
               QBT_TRACE: true
               QBT_WEB_SERVER: true
+            probes:
+              liveness: &probes
+                enabled: true
+              readiness: *probes
+              startup: *probes
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true

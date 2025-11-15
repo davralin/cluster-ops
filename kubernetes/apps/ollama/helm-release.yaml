@@ -47,6 +47,11 @@ spec:
               tag: 0.12.11
             env:
               TZ: "${TIMEZONE}"
+            probes:
+              liveness: &probes
+                enabled: true
+              readiness: *probes
+              startup: *probes
             securityContext:
               allowPrivilegeEscalation: false
               # Error: could not create directory mkdir /.ollama: read-only file system

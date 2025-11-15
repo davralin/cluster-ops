@@ -45,6 +45,11 @@ spec:
               tag: 14.0.1
             env:
               DNS_SERVER_DOMAIN: "${SECRET_DEFAULT_DOMAIN}"
+            probes:
+              liveness: &probes
+                enabled: true
+              readiness: *probes
+              startup: *probes
             securityContext:
               allowPrivilegeEscalation: false
               #  Error! Read-only file system : '/tmp/'

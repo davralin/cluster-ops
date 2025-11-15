@@ -48,6 +48,11 @@ spec:
             env:
               MODE: standalone
               WEBPORT: 8080
+            probes:
+              liveness: &probes
+                enabled: true
+              readiness: *probes
+              startup: *probes
             securityContext:
               allowPrivilegeEscalation: false
               # cp: cannot create regular file '/var/www/html/speedtest.js': Read-only file system
