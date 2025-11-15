@@ -59,15 +59,6 @@ spec:
             probes:
               liveness: &probes
                 enabled: true
-                custom: true
-                spec:
-                  httpGet:
-                    path: /api/v1/trending
-                    port: 3000
-                  initialDelaySeconds: 30
-                  periodSeconds: 30
-                  timeoutSeconds: 5
-                  failureThreshold: 5
               readiness: *probes
               startup: *probes
             securityContext:
