@@ -121,6 +121,6 @@ spec:
     persistence:
       config:
         enabled: true
-        type: emptyDir
+        existingClaim: epicgames-free
         globalMounts:
           - path: /usr/app/config
