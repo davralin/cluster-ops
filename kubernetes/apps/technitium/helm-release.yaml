@@ -42,7 +42,7 @@ spec:
           technitium:
             image:
               repository: technitium/dns-server
-              tag: 14.0.1
+              tag: 14.1.0
             env:
               DNS_SERVER_DOMAIN: "${SECRET_DEFAULT_DOMAIN}"
             probes:
