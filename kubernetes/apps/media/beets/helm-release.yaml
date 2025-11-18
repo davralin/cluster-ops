@@ -42,7 +42,7 @@ spec:
           filebrowser:
             image:
               repository: ghcr.io/davralin/beets
-              tag: latest@sha256:3531079c81378f4dc5d83fe578ee439f61e9c528e6ee4a25db134aac8270266c
+              tag: latest@sha256:440a76ee9cfc7305d64dc0f171279f9cedc72025d29c742b1ce194f2824d4dec
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
