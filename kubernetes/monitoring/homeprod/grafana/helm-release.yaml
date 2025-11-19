@@ -188,7 +188,7 @@ spec:
         scraparr:
         # renovate: depName="Scraping"
           gnetId: 22934
-          revision: 4
+          revision: 7
           datasource:
             - { name: DS_PROMETHEUS, value: Prometheus }
         # Ref: https://grafana.com/grafana/dashboards/22604-smartctl-exporter-dashboard/
