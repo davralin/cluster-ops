@@ -147,6 +147,7 @@
         "cert-manager",
         "flux2",
         "grafana",
+        "immich",
         "kube-prometheus-stack",
         "minecraft",
         "node-feature-discovery",
