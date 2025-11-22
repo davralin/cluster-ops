@@ -332,6 +332,20 @@
     },
     {
       "customType": "regex",
+      "description": [
+        "Process CloudnativePG Postgresql version"
+      ],
+      "fileMatch": [
+        "kubernetes/.+\\.yaml$"
+      ],
+      "matchStrings": [
+        "imageName: (?<depName>\\S+):(?<currentValue>.*\\-.*)"
+      ],
+      "datasourceTemplate": "docker",
+      "versioningTemplate": "redhat"
+    },
+    {
+      "customType": "regex",
       "description": "Process custom ansible role-dependencies",
       "fileMatch": [
         "(^|/)ansible/.+\\.ya?ml$"
