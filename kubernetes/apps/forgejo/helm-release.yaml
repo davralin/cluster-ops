@@ -1,0 +1,132 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &name forgejo
+  namespace: flux-system
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 4.4.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+      interval: 30m
+  targetNamespace: forgejo
+  install:
+    createNamespace: true
+    remediation:
+      retries: 10
+  upgrade:
+    remediation:
+      retries: 10
+  valuesFrom:
+    - targetPath: controllers.forgejo.containers.forgejo.env.GITEA__database__PASSWD
+      kind: Secret
+      name: forgejo-config
+      valuesKey: POSTGRESQL_PASSWORD
+  values:
+    fullnameOverride: *name
+    defaultPodOptions:
+      automountServiceAccountToken: false
+      enableServiceLinks: false
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+    controllers:
+      forgejo:
+        containers:
+          forgejo:
+            image:
+              repository: ghcr.io/go-forgejo/forgejo
+              tag: 1.25.2-rootless
+            env:
+              TZ: "${TIMEZONE}"
+              USER_UID: 1000
+              USER_GID: 1000
+              GITEA__ACTIONS__ENABLED: "True"
+              GITEA__database__DB_TYPE: "postgres"
+              GITEA__database__HOST: "forgejo-postgres-v17-rw.forgejo.svc.cluster.local:5432"
+              GITEA__database__NAME: "forgejo"
+              GITEA__database__USER: "forgejo"
+              GITEA__MAILER__ENABLED: "True"
+              GITEA__MAILER__PROTOCOL: "SMTP"
+              GITEA__MAILER__SMTP_ADDR: "exim.mailrelay.svc.cluster.local"
+              GITEA__MAILER__SMTP_PORT: "25"
+              GITEA__MAILER__FROM: "forgejo@${SECRET_DEFAULT_DOMAIN}"
+              GITEA__REPOSITORY__ENABLE_PUSH_CREATE_USER: "True"
+              GITEA__REPOSITORY__DEFAULT_BRANCH: "main"
+              GITEA__SECURITY__INSTALL_LOCK: "True"
+              GITEA__SERVER__DOMAIN: "forgejo.${SECRET_DEFAULT_DOMAIN}"
+              GITEA__SERVER__ROOT_URL: "https://forgejo.${SECRET_DEFAULT_DOMAIN}"
+              GITEA__SERVER__SSH_DOMAIN: "ssh.${SECRET_DEFAULT_DOMAIN}"
+              GITEA__SERVER__SSH_PORT: 22
+            probes:
+              liveness: &probes
+                enabled: true
+              readiness: *probes
+              startup: *probes
+            securityContext:
+              allowPrivilegeEscalation: false
+              # mkdir: can't create directory '/tmp/forgejo': Read-only file system
+              readOnlyRootFilesystem: false
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 10m
+                memory: 300Mi
+              limits:
+                memory: 600Mi
+    service:
+      forgejo:
+        controller: *name
+        ports:
+          http:
+            port: 3000
+      ssh:
+        enabled: true
+        type: LoadBalancer
+        controller: *name
+        externalTrafficPolicy: Local
+        loadBalancerIP: 10.0.1.34
+        ports:
+          ssh:
+            enabled: true
+            port: 22
+            targetPort: 2222
+            protocol: TCP
+    ingress:
+      forgejo:
+        enabled: true
+        annotations:
+          haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
+          haproxy.org/ssl-redirect-port: "443"
+          haproxy.org/response-set-header: |
+            Strict-Transport-Security "max-age=31536000"
+            X-Frame-Options "DENY"
+            X-Content-Type-Options "nosniff"
+            Referrer-Policy "strict-origin-when-cross-origin"
+        hosts:
+          - host: &host "forgejo.${SECRET_DEFAULT_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  identifier: forgejo
+                  port: http
+        tls:
+          - hosts:
+              - *host
+    persistence:
+      config:
+        enabled: true
+        existingClaim: forgejo
+        globalMounts:
+          - path: /var/lib/forgejo
