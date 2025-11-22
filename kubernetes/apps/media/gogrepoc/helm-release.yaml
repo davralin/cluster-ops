@@ -51,7 +51,7 @@ spec:
           gogrepoc:
             image:
               repository: docker.io/leberschnitzel/gogrepocdock
-              tag: 4.2@sha256:a525d8088e6d756d0bcf6f95c7348792ede26a82a97cc009c867bde2ba434143
+              tag: 5.0@sha256:b4ba79351c4d29466a986802f3e2476377eede941d446165bd35162183d706c5
             env:
               updatecommands: "-os windows linux -lang en"
             securityContext:
