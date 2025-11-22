@@ -37,7 +37,6 @@ spec:
           # using only 1 replica: very difficult to drain the node where postgres is running
           # using more than 1 replica: write amplification issues when leveraging replicated storage (e.g. ceph)
           instances: 2
-          # renovate: datasource=docker depName=ghcr.io/cloudnative-pg/postgresql
           imageName: ghcr.io/cloudnative-pg/postgresql:18.1
           primaryUpdateStrategy: unsupervised
           storage:
