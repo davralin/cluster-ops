@@ -46,8 +46,8 @@ spec:
         containers:
           forgejo:
             image:
-              repository: ghcr.io/go-forgejo/forgejo
-              tag: 1.25.2-rootless
+              repository: codeberg.org/forgejo/forgejo
+              tag: 13.0.3-rootless
             env:
               TZ: "${TIMEZONE}"
               USER_UID: 1000
