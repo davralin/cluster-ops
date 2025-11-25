@@ -8,6 +8,7 @@
     packages:
       - dbus
       - dbus-user-session
+      - libfuse2 # appimage-support
       - libpam-systemd
       - ntfs-3g
       - xdg-user-dirs
