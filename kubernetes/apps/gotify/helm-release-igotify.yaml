@@ -45,7 +45,7 @@ spec:
           igotify:
             image:
               repository: ghcr.io/androidseb25/igotify-notification-assist
-              tag: v1.5.0.1@sha256:d817cbc04a8c164e521d9ef9797d13a336159518376cd22dc55c9722c7367594
+              tag: v1.5.0.1@sha256:f580a679a4aa2582bed6e3721bf45975ed0d062bf32c1d08df762a4259bffaf3
             env:
               GOTIFY_URLS: "http://gotify"
             probes:
