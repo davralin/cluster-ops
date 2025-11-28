@@ -98,6 +98,10 @@ spec:
       config:
         enabled: true
         existingClaim: firefox
+      dockerinstance:
+        type: emptyDir
+        globalMounts:
+          - path: /.docker-instance
       tmp:
         type: emptyDir
         globalMounts:
