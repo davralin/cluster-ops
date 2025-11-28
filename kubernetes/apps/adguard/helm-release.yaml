@@ -58,6 +58,7 @@ spec:
               capabilities:
                 add:
                   - CHOWN
+                  - SETUID
                 drop:
                   - ALL
             resources:
