@@ -56,7 +56,9 @@ spec:
               allowPrivilegeEscalation: false
               # Have not been able to figure out where some tmp/cache-files are placed.
               readOnlyRootFilesystem: false
-              capabilities: { drop: ["ALL"] }
+              capabilities:
+                drop:
+                  - ALL
             resources:
               requests:
                 cpu: 100m

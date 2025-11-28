@@ -57,8 +57,11 @@ spec:
               # This was an ongoing battle with nginx, which eventually lead to:
               # (1): Fatal Error Unable to create lock file: Read-only file system (30)
               readOnlyRootFilesystem: false
-              # [emerg] 9#9: chown("/var/lib/nginx/body", 33) failed (1: Operation not permitted)
-              # capabilities: { drop: ["ALL"] }
+              capabilities:
+                add:
+                  - CHOWN
+                drop:
+                  - ALL
             resources:
               requests:
                 cpu: 10m

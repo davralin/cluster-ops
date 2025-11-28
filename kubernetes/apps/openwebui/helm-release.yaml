@@ -68,7 +68,9 @@ spec:
               allowPrivilegeEscalation: false
               # start.sh: line 16: .webui_secret_key: Read-only file system
               readOnlyRootFilesystem: false
-              capabilities: { drop: ["ALL"] }
+              capabilities:
+                drop:
+                  - ALL
             resources:
               requests:
                 cpu: 10m

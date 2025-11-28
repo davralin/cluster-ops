@@ -60,7 +60,9 @@ spec:
               allowPrivilegeEscalation: false
               # App doesn't even log anything.
               readOnlyRootFilesystem: false
-              #capabilities: { drop: ["ALL"] }
+              capabilities:
+                drop:
+                  - ALL
             resources:
               requests:
                 cpu: 10m
@@ -83,7 +85,9 @@ spec:
               allowPrivilegeEscalation: false
               # App doesn't even log anything.
               readOnlyRootFilesystem: false
-              #capabilities: { drop: ["ALL"] }
+              capabilities:
+                drop:
+                  - ALL
             resources:
               requests:
                 cpu: 10m

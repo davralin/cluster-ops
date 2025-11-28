@@ -61,8 +61,11 @@ spec:
               allowPrivilegeEscalation: false
               # /var/www/html/startup.sh: line 3: can't create /var/log/startup.log: Read-only file system
               readOnlyRootFilesystem: false
-              # ERROR: [pool www] failed to setgid(82): Operation not permitted (1)
-              #capabilities: { drop: ["ALL"] }
+              capabilities:
+                add:
+                  - SETGID
+                drop:
+                  - ALL
     service:
       wallos:
         controller: *name

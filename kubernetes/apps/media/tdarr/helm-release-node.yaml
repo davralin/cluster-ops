@@ -65,7 +65,9 @@ spec:
               # s6-rmrf: fatal: unable to remove /run/s6: Read-only file system
               readOnlyRootFilesystem: false
               # s6-applyuidgid: fatal: unable to set supplementary group list: Operation not permitted
-              #capabilities: { drop: ["ALL"] }
+              #capabilities:
+                #drop:
+                  #- ALL
             resources:
               requests:
                 cpu: 100m

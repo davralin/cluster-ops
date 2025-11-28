@@ -60,7 +60,9 @@ spec:
               allowPrivilegeEscalation: false
               # WARNING:searx.botdetection.config: missing config file: /etc/searxng/limiter.toml
               readOnlyRootFilesystem: false
-              capabilities: { drop: ["ALL"] }
+              capabilities:
+                drop:
+                  - ALL
             resources:
               requests:
                 cpu: 10m

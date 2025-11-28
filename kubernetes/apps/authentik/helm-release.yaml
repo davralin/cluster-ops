@@ -56,7 +56,9 @@ spec:
           enabled: "${MONITORING_PROMETHEUS}"
       containerSecurityContext:
         allowPrivilegeEscalation: false
-        capabilities: { drop: ["ALL"] }
+        capabilities:
+          drop:
+            - ALL
         runAsNonRoot: true
         seccompProfile:
           type: RuntimeDefault
@@ -77,7 +79,9 @@ spec:
     worker:
       containerSecurityContext:
         allowPrivilegeEscalation: false
-        capabilities: { drop: ["ALL"] }
+        capabilities:
+          drop:
+            - ALL
         runAsNonRoot: true
         seccompProfile:
           type: RuntimeDefault

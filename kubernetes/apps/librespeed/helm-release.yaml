@@ -57,8 +57,11 @@ spec:
               allowPrivilegeEscalation: false
               # cp: cannot create regular file '/var/www/html/speedtest.js': Read-only file system
               readOnlyRootFilesystem: false
-              #+ chown -R www-data /var/www/html/backend /var/www/html/favicon.ico /var/www/html/index.php /var/www/html/speedtest.js /var/www/html/speedtest_worker.js
-              #capabilities: { drop: ["ALL"] }
+              capabilities:
+                add:
+                  - CHOWN
+                drop:
+                  - ALL
             resources:
               requests:
                 cpu: 10m

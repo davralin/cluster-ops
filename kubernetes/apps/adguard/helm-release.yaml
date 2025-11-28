@@ -55,8 +55,11 @@ spec:
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-              # exec /opt/adguardhome/AdGuardHome: operation not permitted
-              #capabilities: { drop: ["ALL"] }
+              capabilities:
+                add:
+                  - CHOWN
+                drop:
+                  - ALL
             resources:
               requests:
                 memory: 400Mi

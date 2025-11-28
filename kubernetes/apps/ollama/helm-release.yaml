@@ -56,7 +56,9 @@ spec:
               allowPrivilegeEscalation: false
               # Error: could not create directory mkdir /.ollama: read-only file system
               readOnlyRootFilesystem: false
-              capabilities: { drop: ["ALL"] }
+              capabilities:
+                drop:
+                  - ALL
             resources:
               # This is obviously only to handle it being idle
               requests:

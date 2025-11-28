@@ -81,10 +81,11 @@ spec:
             # https://github.com/claabs/epicgames-freegames-node/issues/228
             securityContext:
               allowPrivilegeEscalation: false
-              # ERROR: EROFS: read-only file system, open '/tmp/config.json'
-              readOnlyRootFilesystem: false
+              readOnlyRootFilesystem: true
               # ERROR: Encountered an error during browser automation. Saved a screenshot for debugging purposes.
-              #capabilities: { drop: ["ALL"] }
+              #capabilities:
+                #drop:
+                  #- ALL
             resources:
               requests:
                 cpu: 10m
@@ -124,3 +125,7 @@ spec:
         existingClaim: epicgames-free
         globalMounts:
           - path: /usr/app/config
+      tmp:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp

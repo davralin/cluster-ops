@@ -76,9 +76,12 @@ spec:
               startup: *probes
             securityContext:
               allowPrivilegeEscalation: false
-              # mkdir: can't create directory '/tmp/gitea': Read-only file system
-              readOnlyRootFilesystem: false
-              capabilities: { drop: ["ALL"] }
+              readOnlyRootFilesystem: true
+              capabilities:
+                add:
+                  - CHOWN
+                drop:
+                  - ALL
             resources:
               requests:
                 cpu: 10m
@@ -130,3 +133,7 @@ spec:
         existingClaim: gitea
         globalMounts:
           - path: /var/lib/gitea
+      tmp:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp

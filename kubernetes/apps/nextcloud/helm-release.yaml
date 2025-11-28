@@ -74,8 +74,11 @@ spec:
               allowPrivilegeEscalation: false
               # /entrypoint.sh: 111: cannot create /usr/local/etc/php/conf.d/redis-session.ini: Read-only file system
               readOnlyRootFilesystem: false
-              # su: cannot set groups: Operation not permitted
-              #capabilities: { drop: ["ALL"] }
+              capabilities:
+                add:
+                  - SETGID
+                drop:
+                  - ALL
             resources:
               requests:
                 cpu: 200m
@@ -105,8 +108,11 @@ spec:
               allowPrivilegeEscalation: false
               # /entrypoint.sh: 111: cannot create /usr/local/etc/php/conf.d/redis-session.ini: Read-only file system
               readOnlyRootFilesystem: false
-              # su: cannot set groups: Operation not permitted
-              #capabilities: { drop: ["ALL"] }
+              capabilities:
+                add:
+                  - SETGID
+                drop:
+                  - ALL
           2-occ-upgrade:
             image:
               repository: nextcloud
@@ -129,8 +135,11 @@ spec:
               allowPrivilegeEscalation: false
               # /entrypoint.sh: 111: cannot create /usr/local/etc/php/conf.d/redis-session.ini: Read-only file system
               readOnlyRootFilesystem: false
-              # su: cannot set groups: Operation not permitted
-              #capabilities: { drop: ["ALL"] }
+              capabilities:
+                add:
+                  - SETGID
+                drop:
+                  - ALL
           3-occ-app-upgrade:
             image:
               repository: nextcloud
@@ -153,8 +162,11 @@ spec:
               allowPrivilegeEscalation: false
               # /entrypoint.sh: 111: cannot create /usr/local/etc/php/conf.d/redis-session.ini: Read-only file system
               readOnlyRootFilesystem: false
-              # su: cannot set groups: Operation not permitted
-              #capabilities: { drop: ["ALL"] }
+              capabilities:
+                add:
+                  - SETGID
+                drop:
+                  - ALL
     service:
       nextcloud:
         controller: *name

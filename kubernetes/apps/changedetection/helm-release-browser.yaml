@@ -56,9 +56,10 @@ spec:
               startup: *probes
             securityContext:
               allowPrivilegeEscalation: false
-              # OSError: [Errno 30] Read-only file system: '/tmp/chrome-puppeteer-proxy53qcyf_d'
-              readOnlyRootFilesystem: false
-              capabilities: { drop: ["ALL"] }
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
             resources:
               requests:
                 cpu: 10m

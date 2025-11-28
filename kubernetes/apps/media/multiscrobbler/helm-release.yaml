@@ -82,8 +82,11 @@ spec:
               allowPrivilegeEscalation: false
               # s6-rmrf: fatal: unable to remove /run/s6: Read-only file system
               readOnlyRootFilesystem: false
-              # s6-overlay-suexec: warning: unable to gain root privileges (is the suid bit set?)
-              #capabilities: { drop: ["ALL"] }
+              capabilities:
+                add:
+                  - SETUID
+                drop:
+                  - ALL
             resources:
               requests:
                 cpu: 10m

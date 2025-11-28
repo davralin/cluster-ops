@@ -55,10 +55,12 @@ spec:
               startup: *probes
             securityContext:
               allowPrivilegeEscalation: false
-              # mktemp: : Read-only file system
-              readOnlyRootFilesystem: false
-              # [cont-init   ] 10-init-users.sh: chown: /etc/shadow: Operation not permitted
-              #capabilities: { drop: ["ALL"] }
+              readOnlyRootFilesystem: true
+              capabilities:
+                add:
+                  - CHOWN
+                drop:
+                  - ALL
             resources:
               requests:
                 cpu: 200m
@@ -95,3 +97,7 @@ spec:
       config:
         enabled: true
         existingClaim: firefox
+      tmp:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp

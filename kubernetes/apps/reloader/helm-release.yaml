@@ -31,7 +31,9 @@ spec:
         containerSecurityContext:
           allowPrivilegeEscalation: false
           readOnlyRootFilesystem: true
-          capabilities: { drop: ["ALL"] }
+          capabilities:
+            drop:
+              - ALL
       podMonitor:
         enabled: "${MONITORING_PROMETHEUS}"
         namespace: default

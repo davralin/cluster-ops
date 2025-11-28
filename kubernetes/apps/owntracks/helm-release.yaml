@@ -60,8 +60,9 @@ spec:
               startup: *probes
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities: { drop: ["ALL"] }
+              apabilities:
+                drop:
+                  - ALL
             resources:
               requests:
                 cpu: 10m
@@ -79,8 +80,11 @@ spec:
               allowPrivilegeEscalation: false
               # /bin/sh: can't create /etc/nginx/nginx.conf: Read-only file system
               readOnlyRootFilesystem: false
-              # [emerg] 8#8: chown("/var/cache/nginx/client_temp", 101) failed (1: Operation not permitted)
-              #capabilities: { drop: ["ALL"] }
+              capabilities:
+                add:
+                  - CHOWN
+                drop:
+                  - ALL
             resources:
               requests:
                 cpu: 10m

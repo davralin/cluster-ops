@@ -52,9 +52,10 @@ spec:
               startup: *probes
             securityContext:
               allowPrivilegeEscalation: false
-              #  Error! Read-only file system : '/tmp/'
-              readOnlyRootFilesystem: false
-              capabilities: { drop: ["ALL"] }
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
             resources:
               requests:
                 cpu: 10m
@@ -107,3 +108,7 @@ spec:
         existingClaim: technitium
         globalMounts:
           - path: /etc/dns
+      tmp:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp

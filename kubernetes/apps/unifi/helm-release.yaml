@@ -62,7 +62,9 @@ spec:
               # <inform-3> ERROR [InformServlet] - Servlet.service() for servlet [InformServlet] in context with path [] threw exception [Servlet execution threw an exception] with root cause
               # java.lang.ExceptionInInitializerError: Exception java.lang.UnsatisfiedLinkError: no snappyjava in java.library.path: /usr/java/packages/lib:/usr/lib/x86_64-linux-gnu/jni:/lib/x86_64-linux-gnu:/usr/lib/x86_64-linux-gnu:/usr/lib/jni:/lib:/usr/lib [in thread "inform-1"]
               readOnlyRootFilesystem: false
-              capabilities: { drop: ["ALL"] }
+              capabilities:
+                drop:
+                  - ALL
             resources:
               requests:
                 cpu: 50m

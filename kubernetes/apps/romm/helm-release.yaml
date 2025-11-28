@@ -78,8 +78,11 @@ spec:
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-              # [emerg] 33#33: chown("/tmp/client_body", 1000) failed (1: Operation not permitted)
-              #capabilities: { drop: ["ALL"] }
+              capabilities:
+                add:
+                  - CHOWN
+                drop:
+                  - ALL
             resources:
               requests:
                 memory: 512M

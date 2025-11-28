@@ -56,10 +56,12 @@ spec:
               startup: *probes
             securityContext:
               allowPrivilegeEscalation: false
-              # mkdir: can't create directory '/lidatube/cache': Read-only file system
-              readOnlyRootFilesystem: false
-              # chown: /lidatube/.git/FETCH_HEAD: Operation not permitted
-              #capabilities: { drop: ["ALL"] }
+              readOnlyRootFilesystem: true
+              capabilities:
+                add:
+                  - CHOWN
+                drop:
+                  - ALL
             resources:
               requests:
                 cpu: 10m
@@ -112,3 +114,7 @@ spec:
         type: emptyDir
         globalMounts:
           - path: /.cache/pip
+      lidatubecache:
+        type: emptyDir
+        globalMounts:
+          - path: /lidatube/cache

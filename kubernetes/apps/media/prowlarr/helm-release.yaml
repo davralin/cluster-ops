@@ -64,7 +64,9 @@ spec:
               allowPrivilegeEscalation: false
               # System.IO.IOException: Read-only file system
               readOnlyRootFilesystem: false
-              capabilities: { drop: ["ALL"] }
+              capabilities:
+                drop:
+                  - ALL
             probes:
               liveness: &probes
                 enabled: true

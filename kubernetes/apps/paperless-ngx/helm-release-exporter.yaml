@@ -83,8 +83,11 @@ spec:
               allowPrivilegeEscalation: false
               # E: List directory /var/lib/apt/lists/partial is missing. - Acquire (30: Read-only file system)
               readOnlyRootFilesystem: false
-              # E: setgroups 65534 failed - setgroups (1: Operation not permitted)
-              #capabilities: { drop: ["ALL"] }
+              capabilities:
+                add:
+                  - SETGID
+                drop:
+                  - ALL
             resources:
               requests:
                 cpu: 100m

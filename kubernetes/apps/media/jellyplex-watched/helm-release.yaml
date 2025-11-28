@@ -93,7 +93,9 @@ spec:
               allowPrivilegeEscalation: false
               # [ERROR]: [Errno 30] Read-only file system: 'log.log'
               readOnlyRootFilesystem: false
-              capabilities: { drop: ["ALL"] }
+              capabilities:
+                drop:
+                  - ALL
             resources:
               requests:
                 cpu: 10m

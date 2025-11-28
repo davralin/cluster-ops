@@ -29,7 +29,6 @@ spec:
       automountServiceAccountToken: false
       enableServiceLinks: false
       securityContext:
-        # chown: changing ownership of '/app/data/lost+found': Operation not permitted
         runAsUser: 0
         runAsGroup: 0
         fsGroup: 0
@@ -54,8 +53,11 @@ spec:
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-              # chown: changing ownership of '/app/data/lost+found': Operation not permitted
-              #capabilities: { drop: ["ALL"] }
+              capabilities:
+                add:
+                  - CHOWN
+                drop:
+                  - ALL
             resources:
               requests:
                 cpu: 50m
