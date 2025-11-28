@@ -54,7 +54,7 @@ spec:
               USER_GID: 1000
               GITEA__ACTIONS__ENABLED: "True"
               GITEA__database__DB_TYPE: "postgres"
-              GITEA__database__HOST: "forgejo-postgres-v17-rw.forgejo.svc.cluster.local:5432"
+              GITEA__database__HOST: "forgejo-postgres-v18-rw.forgejo.svc.cluster.local:5432"
               GITEA__database__NAME: "forgejo"
               GITEA__database__USER: "forgejo"
               GITEA__MAILER__ENABLED: "True"
@@ -76,9 +76,10 @@ spec:
               startup: *probes
             securityContext:
               allowPrivilegeEscalation: false
-              # mkdir: can't create directory '/tmp/forgejo': Read-only file system
-              readOnlyRootFilesystem: false
-              capabilities: { drop: ["ALL"] }
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
             resources:
               requests:
                 cpu: 10m
@@ -96,7 +97,6 @@ spec:
         type: LoadBalancer
         controller: *name
         externalTrafficPolicy: Local
-        loadBalancerIP: 10.0.1.34
         ports:
           ssh:
             enabled: true
@@ -128,5 +128,8 @@ spec:
       config:
         enabled: true
         existingClaim: forgejo
-        globalMounts:
-          - path: /var/lib/forgejo
+        #globalMounts:
+          #- path: /var/lib/forgejo
+      tmp:
+        enabled: true
+        type: emptyDir
