@@ -96,15 +96,15 @@ spec:
           - hosts:
               - *host
     persistence:
-      cache:
-        type: emptyDir
-        globalMounts:
-          - path: /lidatube/cache
       config:
         enabled: true
         existingClaim: lidatube
         globalMounts:
           - path: /lidatube/config
+      lidatube:
+        type: emptyDir
+        globalMounts:
+          - path: /lidatube
       media:
         existingClaim: media
         globalMounts:
@@ -114,7 +114,3 @@ spec:
         type: emptyDir
         globalMounts:
           - path: /.cache/pip
-      lidatubecache:
-        type: emptyDir
-        globalMounts:
-          - path: /lidatube/cache

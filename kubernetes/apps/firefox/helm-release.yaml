@@ -101,3 +101,7 @@ spec:
         type: emptyDir
         globalMounts:
           - path: /tmp
+      vartmp:
+        type: emptyDir
+        globalMounts:
+          - path: /var/tmp
