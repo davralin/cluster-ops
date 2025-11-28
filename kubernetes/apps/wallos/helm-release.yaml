@@ -63,6 +63,7 @@ spec:
               readOnlyRootFilesystem: false
               capabilities:
                 add:
+                  - CHOWN
                   - SETGID
                 drop:
                   - ALL
