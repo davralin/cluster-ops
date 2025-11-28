@@ -56,7 +56,7 @@ spec:
             securityContext:
               allowPrivilegeEscalation: false
               # [cont-init   ] 05-container-instance-uuid.sh: mkdir: can't create directory '/.docker-instance': Read-only file system
-              readOnlyRootFilesystem: false
+              readOnlyRootFilesystem: true
               capabilities:
                 add:
                   - CHOWN
