@@ -60,6 +60,7 @@ spec:
               capabilities:
                 add:
                   - CHOWN
+                  - SETGID
                 drop:
                   - ALL
             resources:
@@ -95,3 +96,8 @@ spec:
         tls:
           - hosts:
               - *host
+    persistence:
+      runphp:
+        type: emptyDir
+        globalMounts:
+          - path: /run/php
