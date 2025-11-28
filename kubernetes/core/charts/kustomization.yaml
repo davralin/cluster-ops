@@ -16,7 +16,6 @@ resources:
   - emqx.yaml
   - flux.yaml
   - fluxcd-community.yaml
-  - forgejo.yaml
   - grafana.yaml
   - haproxytech.yaml
   - immich.yaml

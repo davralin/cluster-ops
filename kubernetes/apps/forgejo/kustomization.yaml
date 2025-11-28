@@ -6,6 +6,7 @@ resources:
   - helm-release-db-v18.yaml
   - helm-release.yaml
   - namespace.yaml
+  - oci-repository.yaml
   #- probes.yaml
   - pvc.yaml
   #- secret.yaml
