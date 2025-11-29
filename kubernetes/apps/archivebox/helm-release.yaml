@@ -56,6 +56,8 @@ spec:
               # App doesn't even log anything.
               readOnlyRootFilesystem: false
               capabilities:
+                add:
+                  - CHOWN
                 drop:
                   - ALL
             resources:
@@ -86,6 +88,8 @@ spec:
               # App doesn't even log anything.
               readOnlyRootFilesystem: false
               capabilities:
+                add:
+                  - CHOWN
                 drop:
                   - ALL
             resources:
