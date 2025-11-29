@@ -37,7 +37,8 @@ spec:
           DISABLE_REGISTRATION: true
       metrics:
         enabled: "${MONITORING_PROMETHEUS}"
-        serviceMonitor: "${MONITORING_PROMETHEUS}"
+        serviceMonitor:
+          enabled: "${MONITORING_PROMETHEUS}"
     image:
       rootless: true
     ingress:
