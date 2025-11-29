@@ -102,10 +102,6 @@ spec:
         existingClaim: lidatube
         globalMounts:
           - path: /lidatube/config
-      lidatube:
-        type: emptyDir
-        globalMounts:
-          - path: /lidatube
       media:
         existingClaim: media
         globalMounts:
