@@ -56,11 +56,6 @@ spec:
                     fieldPath: spec.nodeName
               SYSTEM_UPGRADE_JOB_BACKOFF_LIMIT: "99"
               SYSTEM_UPGRADE_JOB_PRIVILEGED: false
-            probes:
-              liveness: &probes
-                enabled: true
-              readiness: *probes
-              startup: *probes
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
