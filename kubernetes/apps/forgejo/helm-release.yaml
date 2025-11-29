@@ -57,3 +57,5 @@ spec:
     service:
       ssh:
         type: LoadBalancer
+        loadBalancerIP: 10.0.1.44
+        externalTrafficPolicy: Local
