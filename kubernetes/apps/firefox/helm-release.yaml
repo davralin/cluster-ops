@@ -55,8 +55,9 @@ spec:
               startup: *probes
             securityContext:
               allowPrivilegeEscalation: false
-              # [cont-init   ] 05-container-instance-uuid.sh: mkdir: can't create directory '/.docker-instance': Read-only file system
-              readOnlyRootFilesystem: true
+              # If with ROFS: 05-container-instance-uuid.sh: mkdir: can't create directory '/.docker-instance': Read-only file system
+              # If with emptyDir: mkdir: can't create directory '/.docker-instance': File exists
+              readOnlyRootFilesystem: false
               capabilities:
                 add:
                   - CHOWN
@@ -98,10 +99,6 @@ spec:
       config:
         enabled: true
         existingClaim: firefox
-      dockerinstance:
-        type: emptyDir
-        globalMounts:
-          - path: /.docker-instance
       tmp:
         type: emptyDir
         globalMounts:
