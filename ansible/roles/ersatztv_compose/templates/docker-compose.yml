@@ -1,7 +1,7 @@
 ---
 services:
   ersatztv:
-    image: ghcr.io/ersatztv/ersatztv:v25.8.0
+    image: ghcr.io/ersatztv/ersatztv:v25.9.0
     container_name: ersatztv
     restart: unless-stopped
     ports:
