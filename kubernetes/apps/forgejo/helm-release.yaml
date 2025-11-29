@@ -6,15 +6,9 @@ metadata:
   namespace: flux-system
 spec:
   interval: 30m
-  chart:
-    spec:
-      chart: forgejo
-      version: 15.0.3
-      sourceRef:
-        kind: OCIRepository
-        name: forgejo-charts
-        namespace: flux-system
-      interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: forgejo
   targetNamespace: forgejo
   install:
     createNamespace: true
