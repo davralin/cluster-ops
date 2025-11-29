@@ -78,13 +78,14 @@ spec:
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-              capabilities:
-                add:
-                  - CHOWN
-                  - SETGID
-                  - SETUID
-                drop:
-                  - ALL
+              # CRITICAL: [RomM][config_manager]Config file not found! Any changes made to the configuration will not persist after the application restarts.
+              #capabilities:
+              #  add:
+              #    - CHOWN
+              #    - SETGID
+              #    - SETUID
+              #  drop:
+              #    - ALL
             resources:
               requests:
                 memory: 512M
