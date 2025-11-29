@@ -61,14 +61,15 @@ spec:
               allowPrivilegeEscalation: false
               # /var/www/html/startup.sh: line 3: can't create /var/log/startup.log: Read-only file system
               readOnlyRootFilesystem: false
-              capabilities:
-                add:
-                  - CHOWN
-                  - FOWNER
-                  - NET_BIND_SERVICE
-                  - SETGID
-                drop:
-                  - ALL
+              # chmod: /tmp: Permission denied
+              #capabilities:
+              #  add:
+              #    - CHOWN
+              #    - FOWNER
+              #    - NET_BIND_SERVICE
+              #    - SETGID
+              #  drop:
+              #    - ALL
     service:
       wallos:
         controller: *name
