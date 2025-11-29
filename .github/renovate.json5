@@ -104,6 +104,7 @@
         "docker.io/ollama/ollama",
         "docker.io/searxng/searxng",
         "docker.io/thewicklowwolf/lidatube",
+        "ghcr.io/androidseb25/igotify-notification-assist",
         "ghcr.io/alexta69/metube",
         "ghcr.io/bakito/adguardhome-sync",
         "ghcr.io/cloudnative-pg/postgresql",
