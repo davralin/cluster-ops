@@ -33,7 +33,7 @@ spec:
         runAsUser: 0
         runAsGroup: 0
         fsGroup: 0
-        fsGroupChangePolicy: "OnRootMismatch"
+        # fsGroupChangePolicy: "OnRootMismatch"
         runAsNonRoot: false
         seccompProfile:
           type: RuntimeDefault
