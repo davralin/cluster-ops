@@ -56,10 +56,13 @@ spec:
               startup: *probes
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
+              # Seems like the app copies it's src into the container when starting
+              readOnlyRootFilesystem: false
               capabilities:
                 add:
                   - CHOWN
+                  - SETGID
+                  - SETUID
                 drop:
                   - ALL
             resources:
