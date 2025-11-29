@@ -56,13 +56,12 @@ spec:
               startup: *probes
             securityContext:
               allowPrivilegeEscalation: false
-              # Nothing is logged, nothing works
-              readOnlyRootFilesystem: false
-              #capabilities:
-              #  add:
-              #    - CHOWN
-              #  drop:
-              #    - ALL
+              readOnlyRootFilesystem: true
+              capabilities:
+                add:
+                  - CHOWN
+                drop:
+                  - ALL
             resources:
               requests:
                 cpu: 10m
