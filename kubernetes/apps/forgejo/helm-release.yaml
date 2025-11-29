@@ -26,6 +26,10 @@ spec:
           - ALL
     gitea:
       config:
+        cache:
+          ENABLED: true
+          ADAPTER: redis
+          HOST: redis://forgejo-valkey.svc.cluster.local:6379
         server:
           OFFLINE_MODE: true
           LANDING_PAGE: explore
