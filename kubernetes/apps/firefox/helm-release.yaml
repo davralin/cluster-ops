@@ -58,11 +58,12 @@ spec:
               # If with ROFS: 05-container-instance-uuid.sh: mkdir: can't create directory '/.docker-instance': Read-only file system
               # If with emptyDir: mkdir: can't create directory '/.docker-instance': File exists
               readOnlyRootFilesystem: false
-              capabilities:
-                add:
-                  - CHOWN
-                drop:
-                  - ALL
+              # 05-container-instance-uuid.sh: /etc/cont-init.d/05-container-instance-uuid.sh: line 15: can't create /.docker-instance/uuid: Permission denied
+              #capabilities:
+              #  add:
+              #    - CHOWN
+              #  drop:
+              #    - ALL
             resources:
               requests:
                 cpu: 200m
