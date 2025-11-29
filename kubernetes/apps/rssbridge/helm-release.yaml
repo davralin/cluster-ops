@@ -60,6 +60,7 @@ spec:
               capabilities:
                 add:
                   - CHOWN
+                  - SETUID
                   - SETGID
                 drop:
                   - ALL
