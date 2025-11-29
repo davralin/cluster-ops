@@ -24,6 +24,13 @@ spec:
       capabilities:
         drop:
           - ALL
+    gitea:
+      config:
+        server:
+          OFFLINE_MODE: true
+          LANDING_PAGE: explore
+        service:
+          DISABLE_REGISTRATION: true
     image:
       rootless: true
     ingress:
