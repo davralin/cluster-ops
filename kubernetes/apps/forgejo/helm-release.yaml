@@ -9,7 +9,7 @@ spec:
   chartRef:
     kind: OCIRepository
     name: forgejo
-  targetNamespace: forgejo
+  targetNamespace: *name
   install:
     createNamespace: true
     remediation:
@@ -31,6 +31,9 @@ spec:
           LANDING_PAGE: explore
         service:
           DISABLE_REGISTRATION: true
+      metrics:
+        enabled: "${MONITORING_PROMETHEUS}"
+        serviceMonitor: "${MONITORING_PROMETHEUS}"
     image:
       rootless: true
     ingress:
