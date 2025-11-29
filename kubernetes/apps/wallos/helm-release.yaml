@@ -64,6 +64,7 @@ spec:
               capabilities:
                 add:
                   - CHOWN
+                  - FOWNER
                   - SETGID
                 drop:
                   - ALL
