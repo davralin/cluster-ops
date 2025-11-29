@@ -55,11 +55,12 @@ spec:
               allowPrivilegeEscalation: false
               # App doesn't even log anything.
               readOnlyRootFilesystem: false
-              capabilities:
-                add:
-                  - CHOWN
-                drop:
-                  - ALL
+              # [X] Error: archivebox user (PUID=911) is not able to write to your ./data dir (currently owned by 911:911.
+              #capabilities:
+              #  add:
+              #    - CHOWN
+              #  drop:
+              #    - ALL
             resources:
               requests:
                 cpu: 10m
