@@ -72,9 +72,12 @@ spec:
               HLTB_API_ENABLED: "true"
             probes:
               liveness: &probes
-                enabled: false
+                enabled: true
               readiness: *probes
-              startup: *probes
+              startup:
+                enabled: true
+                failureThreshold: 30
+                periodSeconds: 30
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
