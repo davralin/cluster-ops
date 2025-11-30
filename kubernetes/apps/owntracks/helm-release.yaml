@@ -60,7 +60,7 @@ spec:
               startup: *probes
             securityContext:
               allowPrivilegeEscalation: false
-              apabilities:
+              capabilities:
                 drop:
                   - ALL
             resources:
