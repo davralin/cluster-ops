@@ -40,6 +40,10 @@ spec:
           SSH_DOMAIN: "ssh-forgejo.${SECRET_DEFAULT_DOMAIN}"
         service:
           DISABLE_REGISTRATION: true
+          DEFAULT_ORG_VISIBILITY: limited
+          DEFAULT_USER_VISIBILITY: limited
+        repository:
+          DEFAULT_PRIVATE: private
         ui:
           DEFAULT_THEME: forgejo-dark
       metrics:
