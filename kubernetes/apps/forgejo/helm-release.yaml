@@ -25,6 +25,9 @@ spec:
         drop:
           - ALL
     gitea:
+      admin:
+        existingSecret: forgejo-config
+        passwordMode: initialOnlyNoReset
       config:
         cache:
           ENABLED: true
