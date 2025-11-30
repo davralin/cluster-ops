@@ -23,7 +23,7 @@ spec:
         - namespaceSelector:
             matchLabels:
               name: haproxy-controller
-        - podSelector:
+          podSelector:
             matchLabels:
               app.kubernetes.io/name: kubernetes-ingress
   policyTypes:
