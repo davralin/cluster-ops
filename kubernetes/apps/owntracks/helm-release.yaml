@@ -85,6 +85,7 @@ spec:
               capabilities:
                 add:
                   - CHOWN
+                  - SETGID
                 drop:
                   - ALL
             resources:
