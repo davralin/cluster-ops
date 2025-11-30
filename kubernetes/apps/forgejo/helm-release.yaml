@@ -29,6 +29,7 @@ spec:
         existingSecret: forgejo-config
         passwordMode: initialOnlyNoReset
       config:
+        APP_NAME: "Forgejo"
         cache:
           ENABLED: true
           ADAPTER: redis
