@@ -7,7 +7,7 @@ resources:
   - helm-release-valkey.yaml
   - helm-release.yaml
   - namespace.yaml
-  - networkpolicy.yaml
+  #- networkpolicy.yaml
   - oci-repository.yaml
   - probes.yaml
   - pvc.yaml
