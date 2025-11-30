@@ -11,5 +11,5 @@ resources:
   - oci-repository.yaml
   - probes.yaml
   - pvc.yaml
-  #- secret.yaml
+  - secret.yaml
   #- volsync.yaml
