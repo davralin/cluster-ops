@@ -63,6 +63,10 @@ spec:
         - secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
           hosts:
             - *host
+    persistence:
+      enabled: true
+      create: false
+      claimName: forgejo
     podSecurityContext:
       runAsUser: 1000
       runAsGroup: 1000
