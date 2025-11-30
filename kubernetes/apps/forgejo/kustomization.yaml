@@ -8,7 +8,7 @@ resources:
   - helm-release.yaml
   - namespace.yaml
   - oci-repository.yaml
-  #- probes.yaml
+  - probes.yaml
   - pvc.yaml
   #- secret.yaml
   #- volsync.yaml
