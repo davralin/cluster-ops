@@ -61,8 +61,6 @@ spec:
             securityContext:
               allowPrivilegeEscalation: false
               apabilities:
-                add:
-                  - SETGID
                 drop:
                   - ALL
             resources:
@@ -86,6 +84,7 @@ spec:
                 add:
                   - CHOWN
                   - SETGID
+                  - SETUID
                 drop:
                   - ALL
             resources:
