@@ -35,6 +35,8 @@ spec:
           LANDING_PAGE: explore
         service:
           DISABLE_REGISTRATION: true
+        ui:
+          DEFAULT_THEME: forgejo-dark
       metrics:
         enabled: "${MONITORING_PROMETHEUS}"
         serviceMonitor:
