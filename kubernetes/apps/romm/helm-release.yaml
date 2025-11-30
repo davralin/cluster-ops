@@ -72,7 +72,7 @@ spec:
               HLTB_API_ENABLED: "true"
             probes:
               liveness: &probes
-                enabled: true
+                enabled: false
               readiness: *probes
               startup: *probes
             securityContext:
