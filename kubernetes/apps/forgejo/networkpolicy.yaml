@@ -14,8 +14,8 @@ spec:
       - ports:
         - protocol: TCP
           port: 22
-        ipBlock:
-          cidr: "${HAPROXY_WHITELIST}"
+        - ipBlock:
+            cidr: "${HAPROXY_WHITELIST}"
     - from:
       - ports:
         - protocol: TCP
