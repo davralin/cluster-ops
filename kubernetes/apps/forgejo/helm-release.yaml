@@ -33,6 +33,8 @@ spec:
         server:
           OFFLINE_MODE: true
           LANDING_PAGE: explore
+          DOMAIN: &host "forgejo.${SECRET_DEFAULT_DOMAIN}"
+          SSH_DOMAIN: "ssh-forgejo.${SECRET_DEFAULT_DOMAIN}"
         service:
           DISABLE_REGISTRATION: true
         ui:
@@ -54,7 +56,7 @@ spec:
           X-Content-Type-Options "nosniff"
           Referrer-Policy "strict-origin-when-cross-origin"
       hosts:
-        - host: &host "forgejo.${SECRET_DEFAULT_DOMAIN}"
+        - host: *host
           paths:
             - path: /
               pathType: Prefix
