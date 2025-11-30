@@ -134,37 +134,3 @@ spec:
           backupOwnerReference: self
           cluster:
             name: *name
-      - kind: NetworkPolicy
-        apiVersion: networking.k8s.io/v1
-        metadata:
-          name: *name
-          namespace: *namespace
-        spec:
-          podSelector:
-            matchLabels:
-              cnpg.io/cluster: *name
-          egress: []
-          ingress:
-            - from:
-              - ports:
-                - protocol: TCP
-                  port: 5432
-                - namespaceSelector:
-                    matchLabels:
-                      name: *namespace
-                  podSelector:
-                    matchLabels:
-                      app.kubernetes.io/name: forgejo
-            - from:
-                - namespaceSelector:
-                    matchLabels:
-                      kubernetes.io/metadata.name: cloudnative-pg
-                  podSelector:
-                    matchLabels:
-                      app.kubernetes.io/name: cloudnative-pg
-              ports:
-                - port: 8000
-                - port: 5432
-          policyTypes:
-            - Egress
-            - Ingress
