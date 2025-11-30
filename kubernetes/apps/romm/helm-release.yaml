@@ -76,8 +76,8 @@ spec:
               readiness: *probes
               startup:
                 enabled: true
-                failureThreshold: 30
-                periodSeconds: 30
+                spec:
+                  periodSeconds: 30
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
