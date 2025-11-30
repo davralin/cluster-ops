@@ -1,0 +1,42 @@
+---
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: forgejo
+  namespace: forgejo
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: forgejo
+  egress: []
+  ingress:
+    - from:
+      - ports:
+        - protocol: TCP
+          port: 22
+        ipBlock:
+          cidr: "${HAPROXY_WHITELIST}"
+    - from:
+      - ports:
+        - protocol: TCP
+          port: 3000
+        - namespaceSelector:
+            matchLabels:
+              name: haproxy-controller
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/name: kubernetes-ingress
+  policyTypes:
+    - Egress
+    - Ingress
+---
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: deny-all
+  namespace: forgejo
+spec:
+  podSelector: {}
+  policyTypes:
+    - Egress
+    - Ingress
