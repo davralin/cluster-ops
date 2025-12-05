@@ -53,6 +53,9 @@ spec:
           DEFAULT_PRIVATE: private
         ui:
           DEFAULT_THEME: forgejo-dark
+        queue:
+          TYPE: redis
+          CONN_STR: redis://forgejo-valkey.forgejo.svc.cluster.local:6379
       metrics:
         enabled: "${MONITORING_PROMETHEUS}"
         serviceMonitor:
