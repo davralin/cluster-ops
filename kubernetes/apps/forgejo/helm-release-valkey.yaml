@@ -73,6 +73,9 @@ spec:
       valkey:
         enabled: true
         controller: valkey
+        policyTypes:
+          - Ingress
+          - Egress
         rules:
           egress:
             - {}
