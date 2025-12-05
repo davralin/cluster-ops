@@ -6,6 +6,7 @@ apt_packages:
   - hx
   - lsof
   - ncurses-term
+  - nmap
   - python3-debian
   - silversearcher-ag
   - systemd-timesyncd
