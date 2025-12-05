@@ -108,7 +108,7 @@ spec:
         existingClaim: media
         globalMounts:
           - path: /lidatube/downloads
-            subPath: audio/music/
+            subPath: audio/cache/
       pipcache:
         type: emptyDir
         globalMounts:
