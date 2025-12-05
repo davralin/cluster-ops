@@ -52,24 +52,3 @@ spec:
       ports:
         - port: 53
           protocol: UDP
----
-apiVersion: networking.k8s.io/v1
-kind: NetworkPolicy
-metadata:
-  name: forgejo-valkey
-  namespace: forgejo
-spec:
-  podSelector:
-    matchLabels:
-      app.kubernetes.io/name: forgejo-forgejo-valkey
-  policyTypes:
-    - Ingress
-    - Egress
-  ingress:
-    - from:
-        - podSelector:
-            matchLabels:
-              app.kubernetes.io/name: forgejo
-      ports:
-        - port: 6379
-  egress: []

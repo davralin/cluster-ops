@@ -69,3 +69,16 @@ spec:
     persistence:
       data:
         type: emptyDir
+    networkpolicies:
+      main:
+        enabled: true
+        rules:
+          egress:
+            - {}
+          ingress:
+            - from:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: forgejo
+              ports:
+                - port: 6379
