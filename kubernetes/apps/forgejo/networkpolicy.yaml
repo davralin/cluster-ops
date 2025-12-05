@@ -10,7 +10,7 @@ spec:
       app.kubernetes.io/name: forgejo
   policyTypes:
     - Ingress
-    - Egress
+    #- Egress
   ingress:
     - from:
         - ipBlock:
@@ -35,20 +35,20 @@ spec:
               name: prometheus
       ports:
         - port: 3000
-  egress:
-    - to:
-        - podSelector:
-            matchLabels:
-              cnpg.io/cluster: forgejo-postgres-v18
-      ports:
-        - port: 5432
-    - to:
-        - namespaceSelector:
-            matchLabels:
-              name: kube-system
-          podSelector:
-            matchLabels:
-              k8s-app: kube-dns
-      ports:
-        - port: 53
-          protocol: UDP
+  #egress:
+  #  - to:
+  #      - podSelector:
+  #          matchLabels:
+  #            cnpg.io/cluster: forgejo-postgres-v18
+  #    ports:
+  #      - port: 5432
+  #  - to:
+  #      - namespaceSelector:
+  #          matchLabels:
+  #            name: kube-system
+  #        podSelector:
+  #          matchLabels:
+  #            k8s-app: kube-dns
+  #    ports:
+  #      - port: 53
+  #        protocol: UDP
