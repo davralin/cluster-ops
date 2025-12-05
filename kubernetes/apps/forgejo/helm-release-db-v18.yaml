@@ -150,6 +150,13 @@ spec:
                     io.kubernetes.pod.namespace: cloudnative-pg
               toPorts:
                 - ports:
+                    - port: "9187"
+            - fromEndpoints:
+                - matchLabels:
+                    app.kubernetes.io/name: prometheus
+                    io.kubernetes.pod.namespace: monitoring
+              toPorts:
+                - ports:
                     - port: "5432"
                 - ports:
                     - port: "8000"
