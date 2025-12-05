@@ -43,7 +43,7 @@ spec:
           DOMAIN: &host "forgejo.${SECRET_DEFAULT_DOMAIN}"
           DISABLE_SSH: false
           SSH_DOMAIN: "ssh-forgejo.${SECRET_DEFAULT_DOMAIN}"
-          SSH_PORT: 2222
+          SSH_PORT: 22
           SSH_LISTEN_PORT: 2222
         service:
           DISABLE_REGISTRATION: true

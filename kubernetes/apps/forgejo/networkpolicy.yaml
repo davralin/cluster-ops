@@ -16,6 +16,11 @@ spec:
         - ipBlock:
             cidr: "${HAPROXY_WHITELIST}"
       ports:
+        - port: 22
+    - from:
+        - ipBlock:
+            cidr: "${HAPROXY_WHITELIST}"
+      ports:
         - port: 2222
     - from:
         - namespaceSelector:
