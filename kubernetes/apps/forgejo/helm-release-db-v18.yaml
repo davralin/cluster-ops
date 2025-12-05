@@ -171,10 +171,17 @@ spec:
                     - port: "9187"
           egress:
             - toFQDNs:
-                - matchName: "nas.${SECRET_DEFAULT_DOMAIN}" # Need to update this to a pointer that works
+                - matchName: "nas.${SECRET_DEFAULT_DOMAIN}" # Need to update this to a pointer that matches the S3-intent
               toPorts:
                 - ports:
                     - port: "9000"
+            - toEndpoints:
+                - matchLabels:
+                    app.kubernetes.io/name: *name
+                    io.kubernetes.pod.namespace: *namespace
+              toPorts:
+                - ports:
+                    - port: "8000"
             - toEndpoints:
                 - matchLabels:
                     io.kubernetes.pod.namespace: kube-system
