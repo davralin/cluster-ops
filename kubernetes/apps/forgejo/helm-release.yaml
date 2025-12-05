@@ -53,6 +53,7 @@ spec:
           DEFAULT_PRIVATE: private
         ui:
           DEFAULT_THEME: forgejo-dark
+          SHOW_USER_EMAIL: false
         queue:
           TYPE: redis
           CONN_STR: redis://forgejo-valkey.forgejo.svc.cluster.local:6379
