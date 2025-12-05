@@ -36,6 +36,7 @@ spec:
           HOST: redis://forgejo-valkey.forgejo.svc.cluster.local:6379
         i18n:
           LANGS: en-US
+          NAMES: English
         server:
           OFFLINE_MODE: true
           LANDING_PAGE: explore
