@@ -18,12 +18,12 @@ spec:
     remediation:
       retries: 10
   values:
-    containerSecurityContext:
-      allowPrivilegeEscalation: false
-      readOnlyRootFilesystem: true
-      capabilities:
-        drop:
-          - ALL
+    #containerSecurityContext:
+    #  allowPrivilegeEscalation: false
+    #  readOnlyRootFilesystem: true
+    #  capabilities:
+    #    drop:
+    #      - ALL
     gitea:
       admin:
         existingSecret: forgejo-config
