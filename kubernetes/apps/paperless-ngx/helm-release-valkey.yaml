@@ -69,3 +69,19 @@ spec:
     persistence:
       data:
         type: emptyDir
+    networkpolicies:
+      valkey:
+        enabled: true
+        controller: valkey
+        policyTypes:
+          - Ingress
+          - Egress
+        rules:
+          egress: []
+          ingress:
+            - from:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: paperless-ngx
+              ports:
+                - port: 6379
