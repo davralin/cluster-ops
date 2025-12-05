@@ -37,6 +37,8 @@ spec:
         i18n:
           LANGS: en-US
           NAMES: English
+        indexer:
+          REPO_INDEXER_ENABLED: true
         server:
           OFFLINE_MODE: true
           LANDING_PAGE: explore
