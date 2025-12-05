@@ -25,7 +25,7 @@ spec:
     - from:
         - namespaceSelector:
             matchLabels:
-              name: haproxy-controller
+              kubernetes.io/metadata.name: haproxy-controller
           podSelector:
             matchLabels:
               app.kubernetes.io/name: kubernetes-ingress
