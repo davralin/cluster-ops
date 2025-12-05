@@ -62,7 +62,7 @@ spec:
                 memory: 128Mi
     service:
       valkey:
-        controller: valkey
+        controller: *name
         ports:
           http:
             port: 6379
@@ -70,8 +70,9 @@ spec:
       data:
         type: emptyDir
     networkpolicies:
-      main:
+      valkey:
         enabled: true
+        controller: valkey
         rules:
           egress:
             - {}
