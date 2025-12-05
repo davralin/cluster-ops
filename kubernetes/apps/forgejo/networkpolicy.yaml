@@ -14,12 +14,12 @@ spec:
   ingress:
     - from:
         - ipBlock:
-            cidr: "${HAPROXY_WHITELIST}"
+            cidr: 0.0.0.0/0
       ports:
         - port: 22
     - from:
         - ipBlock:
-            cidr: "${HAPROXY_WHITELIST}"
+            cidr: 0.0.0.0/0
       ports:
         - port: 2222
     - from:
