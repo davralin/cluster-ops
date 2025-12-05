@@ -62,7 +62,7 @@ spec:
                 memory: 128Mi
     service:
       valkey:
-        controller: *name
+        controller: valkey
         ports:
           http:
             port: 6379
