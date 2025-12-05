@@ -150,27 +150,27 @@ spec:
                     io.kubernetes.pod.namespace: cloudnative-pg
               toPorts:
                 - ports:
-                    - port: "9187"
+                    - port: 9187
             - fromEndpoints:
                 - matchLabels:
                     app.kubernetes.io/name: prometheus
                     io.kubernetes.pod.namespace: monitoring
               toPorts:
                 - ports:
-                    - port: "5432"
+                    - port: 5432
                 - ports:
-                    - port: "8000"
+                    - port: 8000
           egress:
             - toFQDNs:
                 - matchName: "nas.${SECRET_DEFAULT_DOMAIN}" # Need to update this to a pointer that works
               toPorts:
                 - ports:
-                    - port: "9000"
+                    - port: 9000
             - toFQDNs:
                 - matchName: "nas.${SECRET_DEFAULT_DOMAIN}" # Need to update this to a pointer that works
               toPorts:
                 - ports:
-                    - port: "9000"
+                    - port: 9000
             - to:
                 - namespaceSelector:
                     matchLabels:
@@ -179,11 +179,11 @@ spec:
                     matchLabels:
                       k8s-app: kube-dns
               ports:
-                - port: "53"
+                - port: 53
                   protocol: UDP
             - toEntities:
               - kube-apiserver
               toPorts:
               - ports:
-                - port: "6443"
+                - port: 6443
                   protocol: TCP
