@@ -77,8 +77,7 @@ spec:
           - Ingress
           - Egress
         rules:
-          egress:
-            - {}
+          egress: []
           ingress:
             - from:
                 - podSelector:
