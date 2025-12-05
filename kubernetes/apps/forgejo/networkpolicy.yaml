@@ -16,7 +16,7 @@ spec:
         - ipBlock:
             cidr: 0.0.0.0/0
       ports:
-        - port: 22
+        - port: 2222 # Must match the port the pod actually listens to
     - from:
         - namespaceSelector:
             matchLabels:
