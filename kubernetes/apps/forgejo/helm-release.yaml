@@ -18,12 +18,12 @@ spec:
     remediation:
       retries: 10
   values:
-    #containerSecurityContext:
-    #  allowPrivilegeEscalation: false
-    #  readOnlyRootFilesystem: true
-    #  capabilities:
-    #    drop:
-    #      - ALL
+    containerSecurityContext:
+      allowPrivilegeEscalation: false
+      readOnlyRootFilesystem: true
+      capabilities:
+        drop:
+          - ALL
     gitea:
       admin:
         existingSecret: forgejo-config
@@ -61,7 +61,7 @@ spec:
         serviceMonitor:
           enabled: "${MONITORING_PROMETHEUS}"
     image:
-      rootless: false #true # just to test ssh-loadbalancer
+      rootless: true
     ingress:
       enabled: true
       annotations:
@@ -86,14 +86,14 @@ spec:
       enabled: true
       create: false
       claimName: forgejo
-    #podSecurityContext:
-    #  runAsUser: 1000
-    #  runAsGroup: 1000
-    #  fsGroup: 1000
-    #  fsGroupChangePolicy: "OnRootMismatch"
-    #  runAsNonRoot: true
-    #  seccompProfile:
-    #    type: RuntimeDefault
+    podSecurityContext:
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+      fsGroupChangePolicy: "OnRootMismatch"
+      runAsNonRoot: true
+      seccompProfile:
+        type: RuntimeDefault
     service:
       ssh:
         type: LoadBalancer
