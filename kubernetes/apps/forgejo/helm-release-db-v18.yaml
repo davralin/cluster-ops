@@ -150,7 +150,7 @@ spec:
       #              io.kubernetes.pod.namespace: cloudnative-pg
       #        toPorts:
       #          - ports:
-      #              - port: "9187"
+      #              - port: "8000"
       #      - fromEndpoints:
       #          - matchLabels:
       #              app.kubernetes.io/name: *name
@@ -165,8 +165,6 @@ spec:
       #        toPorts:
       #          - ports:
       #              - port: "5432"
-      #          - ports:
-      #              - port: "8000"
       #          - ports:
       #              - port: "9187"
       #    egress:
