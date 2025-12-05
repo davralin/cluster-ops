@@ -89,14 +89,14 @@ spec:
       enabled: true
       create: false
       claimName: forgejo
-    podSecurityContext:
-      runAsUser: 1000
-      runAsGroup: 1000
-      fsGroup: 1000
-      fsGroupChangePolicy: "OnRootMismatch"
-      runAsNonRoot: true
-      seccompProfile:
-        type: RuntimeDefault
+    #podSecurityContext:
+    #  runAsUser: 1000
+    #  runAsGroup: 1000
+    #  fsGroup: 1000
+    #  fsGroupChangePolicy: "OnRootMismatch"
+    #  runAsNonRoot: true
+    #  seccompProfile:
+    #    type: RuntimeDefault
     service:
       ssh:
         type: LoadBalancer
