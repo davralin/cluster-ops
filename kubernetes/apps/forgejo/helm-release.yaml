@@ -46,7 +46,7 @@ spec:
           DISABLE_SSH: false
           SSH_DOMAIN: "ssh-forgejo.${SECRET_DEFAULT_DOMAIN}"
           SSH_PORT: 22
-          SSH_LISTEN_PORT: 2222
+          SSH_LISTEN_PORT: 22
         service:
           DISABLE_REGISTRATION: true
           DEFAULT_ORG_VISIBILITY: limited
@@ -64,7 +64,7 @@ spec:
         serviceMonitor:
           enabled: "${MONITORING_PROMETHEUS}"
     image:
-      rootless: true
+      rootless: false #true # just to test ssh-loadbalancer
     ingress:
       enabled: true
       annotations:
@@ -100,7 +100,7 @@ spec:
     service:
       ssh:
         type: LoadBalancer
-        port: 2222
+        port: 22
         loadBalancerIP: 10.0.1.44
         externalTrafficPolicy: Local
     strategy:
