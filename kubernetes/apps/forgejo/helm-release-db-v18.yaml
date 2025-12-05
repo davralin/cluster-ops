@@ -159,3 +159,14 @@ spec:
               toPorts:
                 - ports:
                     - port: "9000"
+            - toFQDNs:
+                - matchName: "nas.${SECRET_DEFAULT_DOMAIN}" # Need to update this to a pointer that works
+              toPorts:
+                - ports:
+                    - port: "9000"
+            - toEntities:
+              - kube-apiserver
+              toPorts:
+              - ports:
+                - port: "6443"
+                  protocol: TCP
