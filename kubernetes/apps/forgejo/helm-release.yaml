@@ -41,7 +41,10 @@ spec:
           OFFLINE_MODE: true
           LANDING_PAGE: explore
           DOMAIN: &host "forgejo.${SECRET_DEFAULT_DOMAIN}"
+          DISABLE_SSH: false
           SSH_DOMAIN: "ssh-forgejo.${SECRET_DEFAULT_DOMAIN}"
+          SSH_PORT: 2222
+          SSH_LISTEN_PORT: 2222
         service:
           DISABLE_REGISTRATION: true
           DEFAULT_ORG_VISIBILITY: limited
@@ -91,6 +94,7 @@ spec:
     service:
       ssh:
         type: LoadBalancer
+        port: 2222
         loadBalancerIP: 10.0.1.44
         externalTrafficPolicy: Local
     strategy:
