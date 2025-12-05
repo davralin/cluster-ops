@@ -34,7 +34,7 @@ spec:
     - from:
         - namespaceSelector:
             matchLabels:
-              name: monitoring
+              kubernetes.io/metadata.name: monitoring
   #egress:
   #  - to:
   #      - podSelector:
