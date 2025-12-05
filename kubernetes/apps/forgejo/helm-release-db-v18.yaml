@@ -160,7 +160,7 @@ spec:
       #              - port: "8000"
       #      - fromEndpoints:
       #          - matchLabels:
-      #              name: prometheus
+      #              app.kubernetes.io/name: prometheus
       #              io.kubernetes.pod.namespace: monitoring
       #        toPorts:
       #          - ports:

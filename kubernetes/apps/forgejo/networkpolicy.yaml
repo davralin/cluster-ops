@@ -32,7 +32,7 @@ spec:
               name: monitoring
           podSelector:
             matchLabels:
-              name: prometheus
+              app.kubernetes.io/name: prometheus
       ports:
         - port: 3000
   #egress:
