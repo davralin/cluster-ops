@@ -1,5 +1,0 @@
----
-ersatztv_compose_path: "/opt/ersatztv"
-ersatztv_compose_config_path: "{{ ersatztv_compose_path }}/config"
-ersatztv_compose_media_path: "/opt/media"
-ersatztv_compose_tz: "Europe/Oslo"
