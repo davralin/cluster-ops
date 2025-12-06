@@ -6,6 +6,7 @@ resources:
   - beets
   - cronjobs
   - database
+  - ersatztv
   - filebrowser
   - gogrepoc
   - jellyfin

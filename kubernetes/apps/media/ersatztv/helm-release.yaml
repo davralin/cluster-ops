@@ -1,0 +1,138 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &name ersatztv
+  namespace: flux-system
+spec:
+  interval: 30m
+  timeout: 10m
+  chart:
+    spec:
+      chart: app-template
+      version: 4.5.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+      interval: 30m
+  targetNamespace: media
+  install:
+    createNamespace: true
+    remediation:
+      retries: 10
+  upgrade:
+    remediation:
+      retries: 10
+  values:
+    fullnameOverride: *name
+    defaultPodOptions:
+      automountServiceAccountToken: false
+      enableServiceLinks: false
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+    controllers:
+      ersatztv:
+        containers:
+          ersatztv:
+            image:
+              repository: ghcr.io/ersatztv/ersatztv
+              tag: v25.9.0@sha256:abeaae053c58ab3dce5e4771a1fe61f84b49d58360a110824698aa88402d055f
+            env:
+              TZ: "${TIMEZONE}"
+            probes:
+              liveness: &probes
+                enabled: true
+              readiness: *probes
+              startup: *probes
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+            resources:
+              requests:
+                cpu: 1
+                memory: 2Gi
+                gpu.intel.com/i915: 1
+              limits:
+                memory: 4Gi
+                gpu.intel.com/i915: 1
+    service:
+      ersatztv:
+        controller: *name
+        ports:
+          http:
+            port: &port 8409
+    ingress:
+      ersatztv:
+        enabled: true
+        annotations:
+          haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
+          haproxy.org/ssl-redirect-port: "443"
+          haproxy.org/response-set-header: |
+            Strict-Transport-Security "max-age=31536000"
+            X-Frame-Options "DENY"
+            X-Content-Type-Options "nosniff"
+            Referrer-Policy "strict-origin-when-cross-origin"
+        hosts:
+          - host: &host "ersatztv.${SECRET_DEFAULT_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  identifier: ersatztv
+                  port: http
+        tls:
+          - hosts:
+              - *host
+    persistence:
+      config:
+        enabled: true
+        existingClaim: ersatztv
+      media:
+        enabled: true
+        existingClaim: media
+        advancedMounts:
+          ersatztv:
+            ersatztv:
+              - path: /data
+                subPath: .
+                readOnly: true
+      tmp:
+        enabled: true
+        type: emptyDir
+      transcode:
+        enabled: true
+        type: emptyDir
+    networkpolicies:
+      ersatztv:
+        enabled: true
+        controller: ersatztv
+        policyTypes:
+          - Ingress
+          - Egress
+        rules:
+          egress:
+            - to:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: media-jellyfin
+              ports:
+                - port: 8096
+          ingress:
+            - from:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: haproxy-controller
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: kubernetes-ingress
+              ports:
+                - port: *port
