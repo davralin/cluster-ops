@@ -43,6 +43,11 @@ spec:
             image:
               repository: ghcr.io/valkey-io/valkey
               tag: 9.0.0@sha256:00e026f877bbbed33d13241e5e701142e8842f94e1124ce1d5ddbbf6d0cee4fb
+            probes:
+              liveness: &probes
+                enabled: true
+              readiness: *probes
+              startup: *probes
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -64,3 +69,19 @@ spec:
     persistence:
       data:
         type: emptyDir
+    networkpolicies:
+      valkey:
+        enabled: true
+        controller: valkey
+        policyTypes:
+          - Ingress
+          - Egress
+        rules:
+          egress: []
+          ingress:
+            - from:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: authentik
+              ports:
+                - port: 6379
