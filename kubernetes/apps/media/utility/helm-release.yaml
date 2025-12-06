@@ -42,7 +42,7 @@ spec:
           filebrowser:
             image:
               repository: ghcr.io/davralin/utility
-              tag: latest@sha256:b3feb71d82992ec99d778338ade066069c270f98f812f965cfb86b4fd07799af
+              tag: latest@sha256:e166d4bfd1a4ea971ee2babb80e830ecc42f177cce5a4cef75fadde66ad84b25
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
