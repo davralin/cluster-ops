@@ -87,7 +87,7 @@ spec:
                 compression: bzip2
                 maxParallel: 4
               destinationPath: s3://postgresql-${CLUSTER_NAME}
-              endpointURL: "${SECRET_S3_URL}"
+              endpointURL: "${SECRET_S3_CNPG_URL}"
               serverName: *name
               s3Credentials:
                 accessKeyId:
@@ -105,7 +105,7 @@ spec:
                   maxParallel: 8
                 destinationPath: s3://postgresql-${CLUSTER_NAME}
                 serverName: *name
-                endpointURL: "${SECRET_S3_URL}"
+                endpointURL: "${SECRET_S3_CNPG_URL}"
                 s3Credentials:
                   accessKeyId:
                     name: *name
