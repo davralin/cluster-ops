@@ -148,7 +148,6 @@ spec:
                 - port: *port
     rawResources:
       dnsPolicy:
-        enable: true
         apiVersion: v1
         kind: Pod
         metadata:
