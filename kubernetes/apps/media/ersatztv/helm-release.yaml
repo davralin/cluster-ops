@@ -156,6 +156,9 @@ spec:
               matchLabels:
                 app.kubernetes.io/name: media-ersatztv
             egress:
-              - toPorts:
+              - toFQDNs:
+                  - matchName: "github.com"
+                  - matchPattern: "*.github.com"
+                toPorts:
                   - ports:
                       - port: "443"
