@@ -147,14 +147,15 @@ spec:
               ports:
                 - port: *port
     rawResources:
-      enable: true
-      apiVersion: v1
-      kind: Pod
-      metadata:
-        name: configmap-demo-pod
-      spec:
+      dnsPolicy:
+        enable: true
+        apiVersion: v1
+        kind: Pod
+        metadata:
+          name: configmap-demo-pod
         spec:
-          containers:
-            - name: demo
-              image: alpine
-              command: ["sleep", "3600"]
+          spec:
+            containers:
+              - name: demo
+                image: alpine
+                command: ["sleep", "3600"]
