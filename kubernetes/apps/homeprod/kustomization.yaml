@@ -51,7 +51,6 @@ resources:
   - ../spegel
   - ../syncthing
   - ../system-upgrade-controller
-  - ../technitium
   - ../thelounge
   - ../unifi
   - ../volsync
