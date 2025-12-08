@@ -148,11 +148,16 @@ spec:
                 - port: *port
     rawResources:
       dnsPolicy:
-        apiVersion: v1
-        kind: Pod
+        apiVersion: cilium.io/v2
+        kind: CiliumNetworkPolicy
         spec:
           spec:
-            containers:
-              - name: demo
-                image: alpine
-                command: ["sleep", "3600"]
+            endpointSelector:
+              matchLabels:
+                app.kubernetes.io/name: media-ersatztv
+            egress:
+              - toFQDNs:
+                  - matchPattern: "*.github.com"
+                toPorts:
+                  - ports:
+                      - port: "443"
