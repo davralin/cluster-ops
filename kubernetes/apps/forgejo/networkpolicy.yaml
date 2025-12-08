@@ -39,12 +39,6 @@ spec:
     - to:
         - podSelector:
             matchLabels:
-              cnpg.io/cluster: forgejo-postgres-v18
-      ports:
-        - port: 5432
-    - to:
-        - podSelector:
-            matchLabels:
               app.kubernetes.io/name: forgejo-forgejo-valkey
       ports:
         - port: 6379
