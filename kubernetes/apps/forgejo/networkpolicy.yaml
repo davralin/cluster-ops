@@ -52,3 +52,11 @@ spec:
       ports:
         - port: 53
           protocol: UDP
+    - to: # For git-mirroring
+      - ipBlock:
+          cidr: 0.0.0.0/0
+          except:
+          - "${HAPROXY_WHITELIST}"
+      ports:
+        - port: 443
+          protocol: TCP
