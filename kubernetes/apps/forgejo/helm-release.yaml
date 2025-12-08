@@ -35,7 +35,7 @@ spec:
           ADAPTER: redis
           HOST: redis://forgejo-valkey.forgejo.svc.cluster.local:6379
         database:
-          DB_TYPE: sqlite # I don't really need the performance, and it's simpler to do backups
+          DB_TYPE: sqlite3 # I don't really need the performance, and it's simpler to do backups
         i18n:
           LANGS: en-US
           NAMES: English
