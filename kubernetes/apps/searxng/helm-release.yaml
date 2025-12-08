@@ -74,7 +74,7 @@ spec:
         controller: *name
         ports:
           http:
-            port: 8080
+            port: &port 8080
     ingress:
       searxng:
         enabled: true
@@ -105,3 +105,20 @@ spec:
         type: emptyDir
         globalMounts:
           - path: /tmp
+    networkpolicies:
+      searxng:
+        enabled: true
+        controller: *name
+        policyTypes:
+          - Ingress
+        rules:
+          ingress:
+            - from:
+                - namespaceSelector:
+                    matchLabels:
+                      name: haproxy-controller
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: kubernetes-ingress
+              ports:
+                - port: *port

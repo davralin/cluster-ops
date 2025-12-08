@@ -72,7 +72,7 @@ spec:
         controller: *name
         ports:
           http:
-            port: 1221
+            port: &port 1221
     ingress:
       papra:
         enabled: true
@@ -103,3 +103,20 @@ spec:
         type: emptyDir
         globalMounts:
           - path: /tmp
+    networkpolicies:
+      papra:
+        enabled: true
+        controller: *name
+        policyTypes:
+          - Ingress
+        rules:
+          ingress:
+            - from:
+                - namespaceSelector:
+                    matchLabels:
+                      name: haproxy-controller
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: kubernetes-ingress
+              ports:
+                - port: *port

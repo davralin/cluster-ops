@@ -68,8 +68,7 @@ spec:
       kuma:
         controller: *name
         ports:
-          http:
-            port: 3001
+          http: &port 3001
     ingress:
       kuma:
         enabled: true
@@ -97,3 +96,20 @@ spec:
         existingClaim: kuma
         globalMounts:
           - path: /app/data
+    networkpolicies:
+      kuma:
+        enabled: true
+        controller: *name
+        policyTypes:
+          - Ingress
+        rules:
+          ingress:
+            - from:
+                - namespaceSelector:
+                    matchLabels:
+                      name: haproxy-controller
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: kubernetes-ingress
+              ports:
+                - port: *port

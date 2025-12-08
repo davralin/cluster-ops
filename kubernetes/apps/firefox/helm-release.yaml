@@ -75,7 +75,7 @@ spec:
         controller: *name
         ports:
           http:
-            port: 5800
+            port: &port 5800
     ingress:
       firefox:
         annotations:
@@ -108,3 +108,20 @@ spec:
         type: emptyDir
         globalMounts:
           - path: /var/tmp
+    networkpolicies:
+      firefox:
+        enabled: true
+        controller: *name
+        policyTypes:
+          - Ingress
+        rules:
+          ingress:
+            - from:
+                - namespaceSelector:
+                    matchLabels:
+                      name: haproxy-controller
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: kubernetes-ingress
+              ports:
+                - port: *port

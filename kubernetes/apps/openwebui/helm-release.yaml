@@ -82,7 +82,7 @@ spec:
         controller: *name
         ports:
           http:
-            port: 8080
+            port: &port 8080
     ingress:
       openwebui:
         enabled: true
@@ -110,3 +110,20 @@ spec:
         existingClaim: openwebui
         globalMounts:
           - path: /app/backend/data
+    networkpolicies:
+      openwebui:
+        enabled: true
+        controller: *name
+        policyTypes:
+          - Ingress
+        rules:
+          ingress:
+            - from:
+                - namespaceSelector:
+                    matchLabels:
+                      name: haproxy-controller
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: kubernetes-ingress
+              ports:
+                - port: *port

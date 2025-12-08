@@ -75,7 +75,7 @@ spec:
         controller: *name
         ports:
           http:
-            port: 80
+            port: &port 80
     ingress:
       wallos:
         annotations:
@@ -107,3 +107,20 @@ spec:
                 subPath: db
               - path: /var/www/html/images/uploads/logos
                 subPath: logos
+    networkpolicies:
+      wallos:
+        enabled: true
+        controller: *name
+        policyTypes:
+          - Ingress
+        rules:
+          ingress:
+            - from:
+                - namespaceSelector:
+                    matchLabels:
+                      name: haproxy-controller
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: kubernetes-ingress
+              ports:
+                - port: *port

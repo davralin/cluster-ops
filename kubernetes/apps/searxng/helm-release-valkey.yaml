@@ -24,7 +24,7 @@ spec:
     remediation:
       retries: 10
   values:
-    fullnameOverride: valkey
+    fullnameOverride: *name
     defaultPodOptions:
       automountServiceAccountToken: false
       enableServiceLinks: false
@@ -69,3 +69,19 @@ spec:
     persistence:
       data:
         type: emptyDir
+    networkpolicies:
+      valkey:
+        enabled: true
+        controller: valkey
+        policyTypes:
+          - Ingress
+          - Egress
+        rules:
+          egress: []
+          ingress:
+            - from:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: searxng
+              ports:
+                - port: 6379

@@ -98,7 +98,7 @@ spec:
         controller: *name
         ports:
           http:
-            port: 80
+            port: &port 80
           api:
             port: 8083
     ingress:
@@ -143,3 +143,20 @@ spec:
               - path: /usr/share/nginx/html/config/config.js
                 subPath: frontend-config.js
                 readOnly: true
+    networkpolicies:
+      owntracks:
+        enabled: true
+        controller: *name
+        policyTypes:
+          - Ingress
+        rules:
+          ingress:
+            - from:
+                - namespaceSelector:
+                    matchLabels:
+                      name: haproxy-controller
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: kubernetes-ingress
+              ports:
+                - port: *port

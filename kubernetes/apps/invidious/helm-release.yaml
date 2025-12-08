@@ -103,7 +103,7 @@ spec:
         controller: *name
         ports:
           http:
-            port: 3000
+            port: &port 3000
       companion:
         controller: companion
         ports:
@@ -130,3 +130,20 @@ spec:
         tls:
           - hosts:
               - *host
+    networkpolicies:
+      invidious:
+        enabled: true
+        controller: *name
+        policyTypes:
+          - Ingress
+        rules:
+          ingress:
+            - from:
+                - namespaceSelector:
+                    matchLabels:
+                      name: haproxy-controller
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: kubernetes-ingress
+              ports:
+                - port: *port

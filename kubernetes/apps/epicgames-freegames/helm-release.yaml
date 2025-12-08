@@ -98,7 +98,7 @@ spec:
         controller: *name
         ports:
           http:
-            port: 3000
+            port: &port 3000
     ingress:
       epicgames-free:
         enabled: true
@@ -134,3 +134,20 @@ spec:
         type: emptyDir
         globalMounts:
           - path: /root/.local
+    networkpolicies:
+      epicgames-free:
+        enabled: true
+        controller: *name
+        policyTypes:
+          - Ingress
+        rules:
+          ingress:
+            - from:
+                - namespaceSelector:
+                    matchLabels:
+                      name: haproxy-controller
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: kubernetes-ingress
+              ports:
+                - port: *port
