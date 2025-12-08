@@ -158,7 +158,7 @@ spec:
           meilisearch:
             image:
               repository: docker.io/getmeili/meilisearch
-              tag: v1.28.2
+              tag: v1.29.0
             args:
               - /bin/meilisearch
               - --experimental-dumpless-upgrade
