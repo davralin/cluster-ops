@@ -45,7 +45,7 @@ spec:
           OFFLINE_MODE: true
           LANDING_PAGE: explore
           DOMAIN: &host "forgejo.${SECRET_DEFAULT_DOMAIN}"
-          SSH_DOMAIN: "ssh-forgejo.${SECRET_DEFAULT_DOMAIN}"
+          SSH_DOMAIN: "ssh.${SECRET_DEFAULT_DOMAIN}"
         service:
           DISABLE_REGISTRATION: true
           DEFAULT_ORG_VISIBILITY: limited
