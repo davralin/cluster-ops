@@ -4,9 +4,9 @@ kind: Kustomization
 resources:
   - database-secret.yaml
   - helm-release-db-v17.yaml
-  - helm-release.yaml
+  #- helm-release.yaml
   - namespace.yaml
-  - probes.yaml
+  #- probes.yaml
   - pvc.yaml
   - secret.yaml
-  - volsync.yaml
+  #- volsync.yaml
