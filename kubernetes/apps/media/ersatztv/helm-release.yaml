@@ -148,16 +148,12 @@ spec:
                 - port: *port
     rawResources:
       enable: true
-      apiVersion: cilium.io/v2
-      kind: CiliumNetworkPolicy
+      apiVersion: v1
+      kind: Pod
+      metadata:
+        name: configmap-demo-pod
       spec:
-        endpointSelector:
-          matchLabels:
-            app.kubernetes.io/name: media-ersatztv
-        egress:
-        - toFQDNs:
-            - matchPattern: "*.github.com"
-          toPorts:
-            - ports:
-                - port: "443"
-                  protocol: TCP
+        containers:
+          - name: demo
+            image: alpine
+            command: ["sleep", "3600"]
