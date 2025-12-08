@@ -146,3 +146,18 @@ spec:
                       app.kubernetes.io/name: kubernetes-ingress
               ports:
                 - port: *port
+    rawResources:
+      enable: true
+      apiVersion: cilium.io/v2
+      kind: CiliumNetworkPolicy
+      spec:
+        endpointSelector:
+          matchLabels:
+            app.kubernetes.io/name: media-ersatztv
+        egress:
+        - toFQDNs:
+            - matchPattern: "*.github.com"
+          toPorts:
+            - ports:
+                - port: "443"
+                  protocol: TCP
