@@ -128,7 +128,7 @@ spec:
         enabled: true
         existingClaim: unifi
     networkpolicies:
-      unpoller:
+      unifi:
         enabled: true
         controller: *name
         policyTypes:
