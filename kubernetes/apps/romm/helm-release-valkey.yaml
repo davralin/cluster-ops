@@ -82,6 +82,6 @@ spec:
             - from:
                 - podSelector:
                     matchLabels:
-                      app.kubernetes.io/name: romm
+                      app.kubernetes.io/name: romm-romm
               ports:
                 - port: 6379
