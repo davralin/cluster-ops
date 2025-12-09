@@ -145,14 +145,14 @@ spec:
           - Ingress
         rules:
           egress:
-            #- to: # Needs to connect to game-library-servers
-            #  - ipBlock:
-            #      cidr: 0.0.0.0/0
-            #      except:
-            #      - "${HAPROXY_WHITELIST}"
-            #  ports:
-            #    - port: 443
-            #      protocol: TCP
+            - to: # Needs to connect to game-library-servers
+              - ipBlock:
+                  cidr: 0.0.0.0/0
+                  except:
+                  - "${HAPROXY_WHITELIST}"
+              ports:
+                - port: 443
+                  protocol: TCP
             - to:
                 - namespaceSelector:
                     matchLabels:
