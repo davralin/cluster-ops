@@ -20,6 +20,15 @@ spec:
     - from:
         - namespaceSelector:
             matchLabels:
+              kubernetes.io/metadata.name: blackbox-exporter
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/name: prometheus-blackbox-exporter
+      ports:
+        - port: 2222 # Must match the port the pod actually listens to
+    - from:
+        - namespaceSelector:
+            matchLabels:
               kubernetes.io/metadata.name: haproxy-controller
           podSelector:
             matchLabels:
