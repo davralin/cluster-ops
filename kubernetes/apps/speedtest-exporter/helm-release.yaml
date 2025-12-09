@@ -78,6 +78,11 @@ spec:
             path: /metrics
             interval: 60m
             scrapeTimeout: 2m
+    persistence:
+      tmp:
+        type: emptyDir
+        globalMounts:
+          - path: /home/speedtest/.config
     networkpolicies:
       speedtest-exporter:
         enabled: true
