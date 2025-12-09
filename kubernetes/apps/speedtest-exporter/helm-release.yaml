@@ -67,7 +67,7 @@ spec:
         controller: *name
         ports:
           http:
-            port: 9798
+            port: &port 9798
     serviceMonitor:
       metrics:
         enabled: true
@@ -78,3 +78,40 @@ spec:
             path: /metrics
             interval: 60m
             scrapeTimeout: 2m
+    networkpolicies:
+      speedtest-exporter:
+        enabled: true
+        controller: *name
+        policyTypes:
+          - Ingress
+          - Egress
+        rules:
+          egress:
+            - to: # Needs to connect to speedtest-servers
+              - ipBlock:
+                  cidr: 0.0.0.0/0
+                  except:
+                  - "${HAPROXY_WHITELIST}"
+              ports:
+                - port: 443
+                  protocol: TCP
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: kube-system
+                  podSelector:
+                    matchLabels:
+                      k8s-app: kube-dns
+              ports:
+                - port: 53
+                  protocol: UDP
+          ingress:
+            - from:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: monitoring
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: prometheus
+              ports:
+                - port: *port
