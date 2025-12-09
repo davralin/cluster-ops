@@ -113,7 +113,7 @@ spec:
                   secretAccessKey:
                     name: *name
                     key: s3-secret-key
-            # # this represents an existing cnpg cluster to migrate from (e.g. upgrading from postgres v17 to postgres v188)
+            # # this represents an existing cnpg cluster to migrate from (e.g. upgrading from postgres v17 to postgres v18)
             #- name: authentik-postgres-v17
             #  connectionParameters:
             #    host: authentik-postgres-v17.authentik.svc.cluster.local
