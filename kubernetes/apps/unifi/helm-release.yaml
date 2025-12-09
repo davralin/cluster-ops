@@ -79,20 +79,12 @@ spec:
         loadBalancerIP: 10.0.1.39
         ports:
           http:
-            port: 8443
+            port: &port 8443
             protocol: HTTPS
           controller:
             enabled: true
             port: 8080
             protocol: TCP
-          portal-http:
-            enabled: false
-            port: 8880
-            protocol: HTTP
-          portal-https:
-            enabled: false
-            port: 8843
-            protocol: HTTPS
           speedtest:
             enabled: true
             port: 6789
@@ -135,3 +127,74 @@ spec:
       unifi:
         enabled: true
         existingClaim: unifi
+    networkpolicies:
+      unpoller:
+        enabled: true
+        controller: *name
+        policyTypes:
+          - Ingress
+          - Egress
+        rules:
+          egress:
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: kube-system
+                  podSelector:
+                    matchLabels:
+                      k8s-app: kube-dns
+              ports:
+                - port: 53
+                  protocol: UDP
+          ingress:
+            - from:
+                - ipBlock:
+                    cidr: "${HAPROXY_WHITELIST}"
+              ports:
+                - port: 8443
+                  protocol: TCP
+            - from:
+                - ipBlock:
+                    cidr: "${HAPROXY_WHITELIST}"
+              ports:
+                - port: 8080
+                  protocol: TCP
+            - from:
+                - ipBlock:
+                    cidr: "${HAPROXY_WHITELIST}"
+              ports:
+                - port: 6789
+                  protocol: TCP
+            - from:
+                - ipBlock:
+                    cidr: "${HAPROXY_WHITELIST}"
+              ports:
+                - port: 3478
+                  protocol: UDP
+            - from:
+                - ipBlock:
+                    cidr: "${HAPROXY_WHITELIST}"
+              ports:
+                - port: 5514
+                  protocol: UDP
+            - from:
+                - ipBlock:
+                    cidr: "${HAPROXY_WHITELIST}"
+              ports:
+                - port: 10001
+                  protocol: UDP
+            - from:
+                - namespaceSelector:
+                    matchLabels:
+                      name: haproxy-controller
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: kubernetes-ingress
+              ports:
+                - port: *port
+            - from:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: unifi-unpoller
+              ports:
+                - port: *port
