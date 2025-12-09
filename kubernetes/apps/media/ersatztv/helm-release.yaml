@@ -114,7 +114,7 @@ spec:
     networkpolicies:
       ersatztv:
         enabled: true
-        controller: ersatztv
+        controller: *name
         policyTypes:
           - Ingress
           - Egress
