@@ -75,7 +75,7 @@ spec:
         controller: *name
         ports:
           http:
-            port: 9130
+            port: &port 9130
     serviceMonitor:
       unpoller:
         serviceName: *name
@@ -86,3 +86,38 @@ spec:
             path: /metrics
             interval: 2m # Unifi API only polls at 2m intervals
             scrapeTimeout: 5s
+    networkpolicies:
+      unpoller:
+        enabled: true
+        controller: *name
+        policyTypes:
+          - Ingress
+          - Egress
+        rules:
+          egress:
+            - to:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: unifi-unifi
+              ports:
+                - port: 8443
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: kube-system
+                  podSelector:
+                    matchLabels:
+                      k8s-app: kube-dns
+              ports:
+                - port: 53
+                  protocol: UDP
+          ingress:
+            - from:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: monitoring
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: prometheus
+              ports:
+                - port: *port
