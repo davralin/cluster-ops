@@ -108,8 +108,10 @@ spec:
         enabled: true
         controller: *name
         policyTypes:
+          - Egress
           - Ingress
         rules:
+          egress: []
           ingress:
             - from:
                 - namespaceSelector:
