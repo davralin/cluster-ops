@@ -149,37 +149,37 @@ spec:
           ingress:
             - from:
                 - ipBlock:
-                    cidr: "${HAPROXY_WHITELIST}"
+                    cidr: 0.0.0.0/0
               ports:
                 - port: 8443
                   protocol: TCP
             - from:
                 - ipBlock:
-                    cidr: "${HAPROXY_WHITELIST}"
+                    cidr: 0.0.0.0/0
               ports:
                 - port: 8080
                   protocol: TCP
             - from:
                 - ipBlock:
-                    cidr: "${HAPROXY_WHITELIST}"
+                    cidr: 0.0.0.0/0
               ports:
                 - port: 6789
                   protocol: TCP
             - from:
                 - ipBlock:
-                    cidr: "${HAPROXY_WHITELIST}"
+                    cidr: 0.0.0.0/0
               ports:
                 - port: 3478
                   protocol: UDP
             - from:
                 - ipBlock:
-                    cidr: "${HAPROXY_WHITELIST}"
+                    cidr: 0.0.0.0/0
               ports:
                 - port: 5514
                   protocol: UDP
             - from:
                 - ipBlock:
-                    cidr: "${HAPROXY_WHITELIST}"
+                    cidr: 0.0.0.0/0
               ports:
                 - port: 10001
                   protocol: UDP

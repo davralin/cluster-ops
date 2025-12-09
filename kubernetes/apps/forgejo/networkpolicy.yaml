@@ -14,7 +14,7 @@ spec:
   ingress:
     - from:
         - ipBlock:
-            cidr: "${HAPROXY_WHITELIST}"
+            cidr: 0.0.0.0/0
       ports:
         - port: 2222 # Must match the port the pod actually listens to
     - from:
