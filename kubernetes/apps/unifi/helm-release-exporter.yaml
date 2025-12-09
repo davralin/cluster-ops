@@ -48,8 +48,8 @@ spec:
               tag: v2.16.0
             env:
               TZ: "${TIMEZONE}"
-              UP_UNIFI_DEFAULT_URL: https://unifi.${SECRET_DEFAULT_DOMAIN}
-              UP_UNIFI_DEFAULT_VERIFY_SSL: true
+              UP_UNIFI_DEFAULT_URL: https://unifi.unifi.svc.cluster.local:8443
+              UP_UNIFI_DEFAULT_VERIFY_SSL: false
               UP_UNIFI_DEFAULT_USER: unifipoller
               UP_UNIFI_DEFAULT_PASS: 1nternalUseOnly
               UP_INFLUXDB_DISABLE: true
