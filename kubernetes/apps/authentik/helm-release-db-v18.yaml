@@ -148,6 +148,13 @@ spec:
             - Egress
           ingress:
             - from:
+                - podSelector:
+                    matchLabels:
+                      cnpg.io/cluster: *name
+              ports:
+                - port: 5432
+                  protocol: TCP
+            - from:
                 - namespaceSelector:
                     matchLabels:
                       kubernetes.io/metadata.name: cloudnative-pg
