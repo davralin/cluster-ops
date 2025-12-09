@@ -148,6 +148,12 @@ spec:
             - Egress
           ingress:
             - from:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: cloudnative-pg
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: cloudnative-pg
                 - podSelector:
                     matchLabels:
                       cnpg.io/cluster: *name
