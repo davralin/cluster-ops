@@ -47,7 +47,7 @@ spec:
           daily-to-consume:
             image:
               repository: ghcr.io/rclone/rclone
-              tag: 1.72.0
+              tag: 1.72.1
             args: ["--config", "/consume/rclone.conf", "move", "--verbose", "nextcloud:Scans/", "/consume"]
             securityContext:
               allowPrivilegeEscalation: false
