@@ -42,7 +42,7 @@ spec:
           unifi:
             image:
               repository: jacobalberty/unifi
-              tag: v9.5.21
+              tag: v10.0.162
             env:
               TZ: "${TIMEZONE}"
               RUNAS_UID0: "true"
