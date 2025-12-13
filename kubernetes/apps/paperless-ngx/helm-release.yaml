@@ -61,7 +61,7 @@ spec:
             image:
               repository: ghcr.io/paperless-ngx/paperless-ngx
               #tag: 2.20.0
-              tag: 2.14.7
+              tag: 2.20.2
             env:
               # paperless-ngx/paperless-ngx/issues/9609
               S6_YES_I_WANT_A_WORLD_WRITABLE_RUN_BECAUSE_KUBERNETES: 1
