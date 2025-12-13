@@ -6,23 +6,19 @@ metadata:
   namespace: flux-system
 spec:
   interval: 30m
-  chart:
-    spec:
-      chart: node-problem-detector
-      version: 2.3.22
-      sourceRef:
-        kind: HelmRepository
-        name: deliveryhero-charts
-        namespace: flux-system
-      interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: node-problem-detector
   targetNamespace: node-problem-detector
   install:
     createNamespace: true
+    crds: CreateReplace
     remediation:
       retries: 10
   upgrade:
     remediation:
       retries: 10
+    crds: CreateReplace
   values:
     fullnameOverride: *name
     metrics:
