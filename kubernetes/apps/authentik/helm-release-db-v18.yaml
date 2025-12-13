@@ -200,7 +200,7 @@ spec:
               ports:
                 - port: 6443
                   protocol: TCP
-            - to:
+            - to: # API-Server-traffic
               - ipBlock:
                   cidr: 0.0.0.0/0
             - to: # S3-Backup
