@@ -49,7 +49,7 @@ spec:
           nextcloud:
             image:
               repository: nextcloud
-              tag: 32.0.2-apache
+              tag: 32.0.3-apache
             env:
               TZ: "${TIMEZONE}"
               REDIS_HOST: "nextcloud-valkey.nextcloud.svc.cluster.local"
