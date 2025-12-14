@@ -86,91 +86,91 @@ spec:
                 memory: 500Mi
               limits:
                 memory: 2Gi
-        initContainers:
-          1-disable-maintenance-mode:
-            image:
-              repository: nextcloud
-              tag: 32.0.2-apache
-            command: ["/usr/bin/su"]
-            args: ["www-data", "-s", "/bin/bash", "-c", "/var/www/html/occ maintenance:mode --off"]
-            env:
-              TZ: "${TIMEZONE}"
-              REDIS_HOST: "valkey-primary"
-              SMTP_HOST: "exim.mailrelay.svc.cluster.local"
-              SMTP_PORT: "25"
-              SMTP_AUTHTYPE: "PLAIN"
-              MAIL_FROM_ADDRESS: "cloud@${SECRET_DEFAULT_DOMAIN}"
-              OVERWRITEPROTOCOL: "https"
-              OVERWRITEHOST: "cloud.${SECRET_DEFAULT_DOMAIN}"
-              POSTGRES_HOST: "nextcloud-postgres-v17-rw.nextcloud.svc.cluster.local"
-              POSTGRES_DB: "nextcloud"
-              POSTGRES_USER: "nextcloud"
-            securityContext:
-              allowPrivilegeEscalation: false
-              # /entrypoint.sh: 111: cannot create /usr/local/etc/php/conf.d/redis-session.ini: Read-only file system
-              readOnlyRootFilesystem: false
-              capabilities:
-                add:
-                  - SETGID
-                  - SETUID
-                drop:
-                  - ALL
-          2-occ-upgrade:
-            image:
-              repository: nextcloud
-              tag: 32.0.2-apache
-            command: ["/usr/bin/su"]
-            args: ["www-data", "-s", "/bin/bash", "-c", "/var/www/html/occ upgrade"]
-            env:
-              TZ: "${TIMEZONE}"
-              REDIS_HOST: "valkey-primary"
-              SMTP_HOST: "exim.mailrelay.svc.cluster.local"
-              SMTP_PORT: "25"
-              SMTP_AUTHTYPE: "PLAIN"
-              MAIL_FROM_ADDRESS: "cloud@${SECRET_DEFAULT_DOMAIN}"
-              OVERWRITEPROTOCOL: "https"
-              OVERWRITEHOST: "cloud.${SECRET_DEFAULT_DOMAIN}"
-              POSTGRES_HOST: "nextcloud-postgres-v17-rw.nextcloud.svc.cluster.local"
-              POSTGRES_DB: "nextcloud"
-              POSTGRES_USER: "nextcloud"
-            securityContext:
-              allowPrivilegeEscalation: false
-              # /entrypoint.sh: 111: cannot create /usr/local/etc/php/conf.d/redis-session.ini: Read-only file system
-              readOnlyRootFilesystem: false
-              capabilities:
-                add:
-                  - SETGID
-                  - SETUID
-                drop:
-                  - ALL
-          3-occ-app-upgrade:
-            image:
-              repository: nextcloud
-              tag: 32.0.2-apache
-            command: ["/usr/bin/su"]
-            args: ["www-data", "-s", "/bin/bash", "-c", "/var/www/html/occ app:update --all"]
-            env:
-              TZ: "${TIMEZONE}"
-              REDIS_HOST: "valkey-primary"
-              SMTP_HOST: "exim.mailrelay.svc.cluster.local"
-              SMTP_PORT: "25"
-              SMTP_AUTHTYPE: "PLAIN"
-              MAIL_FROM_ADDRESS: "cloud@${SECRET_DEFAULT_DOMAIN}"
-              OVERWRITEPROTOCOL: "https"
-              OVERWRITEHOST: "cloud.${SECRET_DEFAULT_DOMAIN}"
-              POSTGRES_HOST: "nextcloud-postgres-v17-rw.nextcloud.svc.cluster.local"
-              POSTGRES_DB: "nextcloud"
-              POSTGRES_USER: "nextcloud"
-            securityContext:
-              allowPrivilegeEscalation: false
-              # /entrypoint.sh: 111: cannot create /usr/local/etc/php/conf.d/redis-session.ini: Read-only file system
-              readOnlyRootFilesystem: false
-              capabilities:
-                add:
-                  - SETGID
-                  - SETUID
-                drop:
-                  - ALL
+        #initContainers:
+        #  1-disable-maintenance-mode:
+        #    image:
+        #      repository: nextcloud
+        #      tag: 32.0.2-apache
+        #    command: ["/usr/bin/su"]
+        #    args: ["www-data", "-s", "/bin/bash", "-c", "/var/www/html/occ maintenance:mode --off"]
+        #    env:
+        #      TZ: "${TIMEZONE}"
+        #      REDIS_HOST: "valkey-primary"
+        #      SMTP_HOST: "exim.mailrelay.svc.cluster.local"
+        #      SMTP_PORT: "25"
+        #      SMTP_AUTHTYPE: "PLAIN"
+        #      MAIL_FROM_ADDRESS: "cloud@${SECRET_DEFAULT_DOMAIN}"
+        #      OVERWRITEPROTOCOL: "https"
+        #      OVERWRITEHOST: "cloud.${SECRET_DEFAULT_DOMAIN}"
+        #      POSTGRES_HOST: "nextcloud-postgres-v17-rw.nextcloud.svc.cluster.local"
+        #      POSTGRES_DB: "nextcloud"
+        #      POSTGRES_USER: "nextcloud"
+        #    securityContext:
+        #      allowPrivilegeEscalation: false
+        #      # /entrypoint.sh: 111: cannot create /usr/local/etc/php/conf.d/redis-session.ini: Read-only file system
+        #      readOnlyRootFilesystem: false
+        #      capabilities:
+        #        add:
+        #          - SETGID
+        #          - SETUID
+        #        drop:
+        #          - ALL
+        #  2-occ-upgrade:
+        #    image:
+        #      repository: nextcloud
+        #      tag: 32.0.2-apache
+        #    command: ["/usr/bin/su"]
+        #    args: ["www-data", "-s", "/bin/bash", "-c", "/var/www/html/occ upgrade"]
+        #    env:
+        #      TZ: "${TIMEZONE}"
+        #      REDIS_HOST: "valkey-primary"
+        #      SMTP_HOST: "exim.mailrelay.svc.cluster.local"
+        #      SMTP_PORT: "25"
+        #      SMTP_AUTHTYPE: "PLAIN"
+        #      MAIL_FROM_ADDRESS: "cloud@${SECRET_DEFAULT_DOMAIN}"
+        #      OVERWRITEPROTOCOL: "https"
+        #      OVERWRITEHOST: "cloud.${SECRET_DEFAULT_DOMAIN}"
+        #      POSTGRES_HOST: "nextcloud-postgres-v17-rw.nextcloud.svc.cluster.local"
+        #      POSTGRES_DB: "nextcloud"
+        #      POSTGRES_USER: "nextcloud"
+        #    securityContext:
+        #      allowPrivilegeEscalation: false
+        #      # /entrypoint.sh: 111: cannot create /usr/local/etc/php/conf.d/redis-session.ini: Read-only file system
+        #      readOnlyRootFilesystem: false
+        #      capabilities:
+        #        add:
+        #          - SETGID
+        #          - SETUID
+        #        drop:
+        #          - ALL
+        #  3-occ-app-upgrade:
+        #    image:
+        #      repository: nextcloud
+        #      tag: 32.0.2-apache
+        #    command: ["/usr/bin/su"]
+        #    args: ["www-data", "-s", "/bin/bash", "-c", "/var/www/html/occ app:update --all"]
+        #    env:
+        #      TZ: "${TIMEZONE}"
+        #      REDIS_HOST: "valkey-primary"
+        #      SMTP_HOST: "exim.mailrelay.svc.cluster.local"
+        #      SMTP_PORT: "25"
+        #      SMTP_AUTHTYPE: "PLAIN"
+        #      MAIL_FROM_ADDRESS: "cloud@${SECRET_DEFAULT_DOMAIN}"
+        #      OVERWRITEPROTOCOL: "https"
+        #      OVERWRITEHOST: "cloud.${SECRET_DEFAULT_DOMAIN}"
+        #      POSTGRES_HOST: "nextcloud-postgres-v17-rw.nextcloud.svc.cluster.local"
+        #      POSTGRES_DB: "nextcloud"
+        #      POSTGRES_USER: "nextcloud"
+        #    securityContext:
+        #      allowPrivilegeEscalation: false
+        #      # /entrypoint.sh: 111: cannot create /usr/local/etc/php/conf.d/redis-session.ini: Read-only file system
+        #      readOnlyRootFilesystem: false
+        #      capabilities:
+        #        add:
+        #          - SETGID
+        #          - SETUID
+        #        drop:
+        #          - ALL
     service:
       nextcloud:
         controller: *name
