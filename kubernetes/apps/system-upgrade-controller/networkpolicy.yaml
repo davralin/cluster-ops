@@ -9,3 +9,16 @@ spec:
   policyTypes:
     - Ingress
     - Egress
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: system-upgrade-controller
+  namespace: system-upgrade-controller
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: system-upgrade-controller-system-upgrade-controller
+  egress:
+    - toEntities:
+      - kube-apiserver
