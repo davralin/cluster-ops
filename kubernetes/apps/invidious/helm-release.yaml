@@ -184,7 +184,7 @@ spec:
                 - port: *port
       companion:
         enabled: true
-        controller: *name
+        controller: companion
         policyTypes:
           - Egress
           - Ingress
