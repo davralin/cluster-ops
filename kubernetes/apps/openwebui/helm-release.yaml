@@ -115,8 +115,27 @@ spec:
         enabled: true
         controller: *name
         policyTypes:
+          - Egress
           - Ingress
         rules:
+          egress:
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: kube-system
+                  podSelector:
+                    matchLabels:
+                      k8s-app: kube-dns
+              ports:
+                - port: 53
+                  protocol: UDP
+            - to:
+                - podSelector:
+                    matchLabels:
+                      cnpg.io/cluster: openwebui-postgres-v17
+                      cnpg.io/instanceRole: primary
+              ports:
+                - port: 5432
           ingress:
             - from:
                 - namespaceSelector:
