@@ -59,6 +59,7 @@ spec:
               WEBUI_URL: "https://openwebui.${SECRET_DEFAULT_DOMAIN}"
               CORS_ALLOW_ORIGIN: "https://openwebui.${SECRET_DEFAULT_DOMAIN}"
               DATA_DIR: /app/backend/data
+              OFFLINE_MODE: true
             probes:
               liveness: &probes
                 enabled: true
@@ -119,6 +120,24 @@ spec:
           - Ingress
         rules:
           egress:
+            - to: # Home Assistant Ollama
+              - ipBlock:
+                  cidr: 10.0.1.79/32
+              ports:
+                - port: 11434
+                  protocol: TCP
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: litellm
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: litellm
+                      app.kubernetes.io/instance: litellm-litellm
+                      app.kubernetes.io/name: litellm-litellm
+              ports:
+                - port: 4000
+                  protocol: TCP
             - to:
                 - namespaceSelector:
                     matchLabels:
