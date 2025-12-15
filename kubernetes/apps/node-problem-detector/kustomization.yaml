@@ -4,4 +4,5 @@ kind: Kustomization
 resources:
   - helm-release.yaml
   - namespace.yaml
+  - networkpolicy.yaml
   - oci-repository.yaml

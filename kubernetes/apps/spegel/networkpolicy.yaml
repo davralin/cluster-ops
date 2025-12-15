@@ -2,6 +2,17 @@
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
+  name: default-deny
+  namespace: spegel
+spec:
+  podSelector: {}
+  policyTypes:
+    - Ingress
+    - Egress
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
   name: spegel
   namespace: spegel
 spec:

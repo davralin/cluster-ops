@@ -69,7 +69,7 @@ spec:
         controller: *name
         ports:
           http:
-            port: 11434
+            port: &port 11434
     ingress:
       ollama:
         enabled: true
@@ -100,3 +100,20 @@ spec:
         existingClaim: ollama
         globalMounts:
           - path: /root/.ollama
+    networkpolicies:
+      ollama:
+        enabled: true
+        controller: *name
+        policyTypes:
+          - Ingress
+        rules:
+          ingress:
+            - from:
+                - namespaceSelector:
+                    matchLabels:
+                      name: haproxy-controller
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: kubernetes-ingress
+              ports:
+                - port: *port

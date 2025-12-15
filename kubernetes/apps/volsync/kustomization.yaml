@@ -4,5 +4,6 @@ kind: Kustomization
 resources:
   - helm-release-snapshot-controller.yaml
   - helm-release.yaml
+  - networkpolicy.yaml
   - prometheus_rules.yaml
   - rclone.conf.yaml
