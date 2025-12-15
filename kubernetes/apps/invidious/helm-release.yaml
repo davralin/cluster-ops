@@ -210,7 +210,7 @@ spec:
                   protocol: UDP
           ingress:
             - from:
-                - namespaceSelector:
+                - podSelector:
                     matchLabels:
                       app.kubernetes.io/controller: invidious
                       app.kubernetes.io/instance: invidious-invidious
