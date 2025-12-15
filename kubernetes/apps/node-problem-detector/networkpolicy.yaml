@@ -9,3 +9,16 @@ spec:
   policyTypes:
     - Ingress
     - Egress
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: node-problem-detector
+  namespace: node-problem-detector
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: node-problem-detector
+  egress:
+    - toEntities:
+      - kube-apiserver

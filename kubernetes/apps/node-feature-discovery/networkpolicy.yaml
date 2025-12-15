@@ -9,3 +9,17 @@ spec:
   policyTypes:
     - Ingress
     - Egress
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: node-feature-discovery
+  namespace: node-feature-discovery
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: node-feature-discovery
+      role: master
+  egress:
+    - toEntities:
+      - kube-apiserver
