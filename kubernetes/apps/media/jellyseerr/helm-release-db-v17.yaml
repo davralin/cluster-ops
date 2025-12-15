@@ -154,8 +154,8 @@ spec:
                 - podSelector:
                     matchLabels:
                       app.kubernetes.io/controller: jellyseerr
-                      app.kubernetes.io/instance: jellyseerr-jellyseerr
-                      app.kubernetes.io/name: jellyseerr-jellyseerr
+                      app.kubernetes.io/instance: media-jellyseerr
+                      app.kubernetes.io/name: media-jellyseerr
               ports:
                 - port: 5432
                   protocol: TCP

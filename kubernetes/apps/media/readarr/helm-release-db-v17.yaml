@@ -156,8 +156,8 @@ spec:
                 - podSelector:
                     matchLabels:
                       app.kubernetes.io/controller: readarr
-                      app.kubernetes.io/instance: readarr-readarr
-                      app.kubernetes.io/name: readarr-readarr
+                      app.kubernetes.io/instance: media-readarr
+                      app.kubernetes.io/name: media-readarr
               ports:
                 - port: 5432
                   protocol: TCP

@@ -156,8 +156,8 @@ spec:
                 - podSelector:
                     matchLabels:
                       app.kubernetes.io/controller: speakarr
-                      app.kubernetes.io/instance: speakarr-speakarr
-                      app.kubernetes.io/name: speakarr-speakarr
+                      app.kubernetes.io/instance: media-speakarr
+                      app.kubernetes.io/name: media-speakarr
               ports:
                 - port: 5432
                   protocol: TCP
