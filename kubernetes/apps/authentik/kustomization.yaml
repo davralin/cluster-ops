@@ -7,5 +7,6 @@ resources:
   #- helm-release-valkey.yaml
   #- helm-release.yaml
   - namespace.yaml
+  - networkpolicy.yaml
   #- probes.yaml
   - secret.yaml
