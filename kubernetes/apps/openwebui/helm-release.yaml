@@ -59,7 +59,7 @@ spec:
               WEBUI_URL: "https://openwebui.${SECRET_DEFAULT_DOMAIN}"
               CORS_ALLOW_ORIGIN: "https://openwebui.${SECRET_DEFAULT_DOMAIN}"
               DATA_DIR: /app/backend/data
-              OFFLINE_MODE: true
+              #OFFLINE_MODE: true
             probes:
               liveness: &probes
                 enabled: true
