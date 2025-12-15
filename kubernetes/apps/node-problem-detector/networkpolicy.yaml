@@ -10,6 +10,30 @@ spec:
     - Ingress
     - Egress
 ---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: node-problem-detector
+  namespace: node-problem-detector
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: node-problem-detector
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: monitoring
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/name: prometheus
+      ports:
+        - port: 20257
+  egress: []
+---
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
 metadata:
