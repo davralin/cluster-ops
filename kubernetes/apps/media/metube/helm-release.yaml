@@ -93,7 +93,7 @@ spec:
         controller: *name
         ports:
           http:
-            port: 8081
+            port: &port 8081
     ingress:
       metube:
         enabled: true
@@ -130,3 +130,20 @@ spec:
             metube:
               - path: /downloads
                 subPath: video/web
+    networkpolicies:
+      metube:
+        enabled: true
+        controller: *name
+        policyTypes:
+          - Ingress
+        rules:
+          ingress:
+            - from:
+                - namespaceSelector:
+                    matchLabels:
+                      name: haproxy-controller
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: kubernetes-ingress
+              ports:
+                - port: *port
