@@ -1,0 +1,204 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny
+  namespace: awx
+spec:
+  podSelector: {}
+  policyTypes:
+    - Ingress
+    - Egress
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: awx-automation-job
+  namespace: awx
+spec:
+  podSelector:
+    matchLabels:
+      ansible-awx: ""
+      ansible-awx-job-id: ""
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress: []
+  egress:
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: kube-system
+          podSelector:
+            matchLabels:
+              k8s-app: kube-dns
+      ports:
+        - port: 53
+          protocol: UDP
+    - to: # To reach nodes
+      - ipBlock:
+          cidr: 0.0.0.0/0
+      ports:
+        - port: 22
+          protocol: TCP
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: awx-database
+  namespace: awx
+spec:
+  podSelector:
+    matchLabels:
+      cnpg.io/cluster: awx-postgres-v17
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/name: awx-task
+              app.kubernetes.io/part-of: awx
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/name: awx-web
+              app.kubernetes.io/part-of: awx
+      ports:
+        - port: 5432
+          protocol: TCP
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: awx-task
+  namespace: awx
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: awx-task
+      app.kubernetes.io/part-of: awx
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress: []
+  egress:
+    - to:
+        - podSelector:
+            matchLabels:
+              cnpg.io/cluster: awx-postgres-v17
+      ports:
+        - port: 5432
+          protocol: TCP
+    - to:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/name: awx-web
+              app.kubernetes.io/part-of: awx
+      ports:
+        - port: 8052
+          protocol: TCP
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: mailrise
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/name: mailrise-mailrise
+      ports:
+        - port: 8025
+          protocol: TCP
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: kube-system
+          podSelector:
+            matchLabels:
+              k8s-app: kube-dns
+      ports:
+        - port: 53
+          protocol: UDP
+    - to: # For project-sync
+      - ipBlock:
+          cidr: 0.0.0.0/0
+          except:
+          - "${HAPROXY_WHITELIST}"
+      ports:
+        - port: 443
+          protocol: TCP
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: awx-web
+  namespace: awx
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: awx-web
+      app.kubernetes.io/part-of: awx
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: haproxy-controller
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/name: kubernetes-ingress
+      ports:
+        - port: 8052
+    - from:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/name: awx-task
+              app.kubernetes.io/part-of: awx
+      ports:
+        - port: 8052
+  egress:
+    - to:
+        - podSelector:
+            matchLabels:
+              cnpg.io/cluster: awx-postgres-v17
+      ports:
+        - port: 5432
+          protocol: TCP
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: kube-system
+          podSelector:
+            matchLabels:
+              k8s-app: kube-dns
+      ports:
+        - port: 53
+          protocol: UDP
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: awx-controller-manager
+  namespace: awx
+spec:
+  endpointSelector:
+    matchLabels:
+      control-plane: controller-manager
+      helm.sh/chart: awx-operator
+  egress:
+    - toEntities:
+      - kube-apiserver
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: awx-task
+  namespace: awx
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: awx-task
+      app.kubernetes.io/part-of: awx
+  egress:
+    - toEntities:
+      - kube-apiserver
