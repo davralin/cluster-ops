@@ -100,7 +100,7 @@ spec:
           http:
             port: &port 80
           api:
-            port: 8083
+            port: &frontendport 8083
     ingress:
       owntracks:
         enabled: true
@@ -144,6 +144,22 @@ spec:
                 subPath: frontend-config.js
                 readOnly: true
     networkpolicies:
+      frontend:
+        enabled: true
+        controller: *name
+        policyTypes:
+          - Ingress
+        rules:
+          ingress:
+            - from:
+                - namespaceSelector:
+                    matchLabels:
+                      name: haproxy-controller
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: kubernetes-ingress
+              ports:
+                - port: *frontendport
       owntracks:
         enabled: true
         controller: *name
