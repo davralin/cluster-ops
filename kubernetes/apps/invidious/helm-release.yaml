@@ -108,7 +108,7 @@ spec:
         controller: companion
         ports:
           http:
-            port: 8282
+            port: &companionport 8282
     ingress:
       invidious:
         enabled: true
@@ -148,6 +148,14 @@ spec:
                 - port: 443
                   protocol: TCP
             - to:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: companion
+                      app.kubernetes.io/instance: invidious-invidious
+                      app.kubernetes.io/name: invidious-invidious
+              ports:
+                - port: *companionport
+            - to:
                 - namespaceSelector:
                     matchLabels:
                       kubernetes.io/metadata.name: kube-system
@@ -174,3 +182,38 @@ spec:
                       app.kubernetes.io/name: kubernetes-ingress
               ports:
                 - port: *port
+      companion:
+        enabled: true
+        controller: *name
+        policyTypes:
+          - Egress
+          - Ingress
+        rules:
+          egress:
+            - to: # Needs to connect to youtube
+              - ipBlock:
+                  cidr: 0.0.0.0/0
+                  except:
+                  - "${HAPROXY_WHITELIST}"
+              ports:
+                - port: 443
+                  protocol: TCP
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: kube-system
+                  podSelector:
+                    matchLabels:
+                      k8s-app: kube-dns
+              ports:
+                - port: 53
+                  protocol: UDP
+          ingress:
+            - from:
+                - namespaceSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: invidious
+                      app.kubernetes.io/instance: invidious-invidious
+                      app.kubernetes.io/name: invidious-invidious
+              ports:
+                - port: *companionport
