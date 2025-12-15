@@ -153,6 +153,11 @@ spec:
                 - podSelector:
                     matchLabels:
                       cnpg.io/cluster: *name
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: paperless-ngx
+                      app.kubernetes.io/instance: paperless-ngx-paperless-ngx
+                      app.kubernetes.io/name: paperless-ngx-paperless-ngx
               ports:
                 - port: 5432
                   protocol: TCP

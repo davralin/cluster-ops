@@ -151,6 +151,11 @@ spec:
                 - podSelector:
                     matchLabels:
                       cnpg.io/cluster: *name
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: authentik
+                      app.kubernetes.io/instance: authentik-authentik
+                      app.kubernetes.io/name: authentik-authentik
               ports:
                 - port: 5432
                   protocol: TCP

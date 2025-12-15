@@ -151,6 +151,11 @@ spec:
                 - podSelector:
                     matchLabels:
                       cnpg.io/cluster: *name
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: romm
+                      app.kubernetes.io/instance: romm-romm
+                      app.kubernetes.io/name: romm-romm
               ports:
                 - port: 5432
                   protocol: TCP

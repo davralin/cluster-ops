@@ -153,6 +153,11 @@ spec:
                 - podSelector:
                     matchLabels:
                       cnpg.io/cluster: *name
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: openwebui
+                      app.kubernetes.io/instance: openwebui-openwebui
+                      app.kubernetes.io/name: openwebui-openwebui
               ports:
                 - port: 5432
                   protocol: TCP
