@@ -16,14 +16,9 @@ metadata:
   name: awx-automation-job
   namespace: awx
 spec:
-  podSelector:
-    matchLabels:
-      ansible-awx: ""
-      ansible-awx-job-id: ""
+  podSelector: {}
   policyTypes:
-    - Ingress
     - Egress
-  ingress: []
   egress:
     - to:
         - namespaceSelector:
@@ -35,9 +30,9 @@ spec:
       ports:
         - port: 53
           protocol: UDP
-    - to: # To reach nodes
-      - ipBlock:
-          cidr: 0.0.0.0/0
+    - to:
+        - ipBlock:
+            cidr: 0.0.0.0/0
       ports:
         - port: 22
           protocol: TCP
