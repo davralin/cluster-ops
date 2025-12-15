@@ -52,7 +52,5 @@ spec:
           ingress_type: ingress
           ingress_tls_secret: "${SECRET_PRIVATE_DOMAIN_CERT}"
           ipv6_disabled: true
-          labels:
-            foo: bar
           postgres_configuration_secret: awx-secrets
           replicas: 2
