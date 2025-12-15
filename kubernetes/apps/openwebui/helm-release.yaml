@@ -138,6 +138,14 @@ spec:
               ports:
                 - port: 4000
                   protocol: TCP
+            - to: # Needs to connect to the world
+              - ipBlock:
+                  cidr: 0.0.0.0/0
+                  except:
+                  - "${HAPROXY_WHITELIST}"
+              ports:
+                - port: 443
+                  protocol: TCP
             - to:
                 - namespaceSelector:
                     matchLabels:
