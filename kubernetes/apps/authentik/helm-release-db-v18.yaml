@@ -182,6 +182,8 @@ spec:
                     matchLabels:
                       cnpg.io/cluster: *name
               ports:
+                - port: 5432
+                  protocol: TCP
                 - port: 8000
                   protocol: TCP
             - to:
