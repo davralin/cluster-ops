@@ -48,6 +48,10 @@
   ansible.builtin.include_tasks:
     file: i3.yml
 
+- name: Configuring systemd-sleep
+  ansible.builtin.include_tasks:
+    file: systemd-sleep.yml
+
 - name: Installing vscodium
   ansible.builtin.include_tasks:
     file: vscodium.yml

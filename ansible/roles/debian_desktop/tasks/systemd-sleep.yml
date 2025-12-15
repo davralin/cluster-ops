@@ -1,0 +1,8 @@
+---
+
+- name: Set HibernateDelaySec in sleep.conf
+  ansible.builtin.lineinfile:
+    path: /etc/systemd/sleep.conf
+    regexp: '^HibernateDelaySec'
+    line: 'HibernateDelaySec={{ hibernate_delay_sec_override }}'
+  when: hibernate_delay_sec_override is defined
