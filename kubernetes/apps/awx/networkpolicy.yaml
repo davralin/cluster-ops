@@ -16,9 +16,12 @@ metadata:
   name: awx-automation-job
   namespace: awx
 spec:
-  podSelector: {}
-  policyTypes:
-    - Egress
+  podSelector:
+    matchExpressions:
+      - key: ansible-awx
+        operator: Exists
+      - key: ansible-awx-job-id
+        operator: Exists
   egress:
     - to:
         - namespaceSelector:
