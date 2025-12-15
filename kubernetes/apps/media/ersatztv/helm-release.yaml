@@ -121,9 +121,9 @@ spec:
         rules:
           egress:
             - to:
-                - podSelector:
-                    matchLabels:
-                      app.kubernetes.io/name: media-jellyfin
+              - podSelector:
+                  matchLabels:
+                    app.kubernetes.io/name: media-jellyfin
               ports:
                 - port: 8096
             - to:
