@@ -32,10 +32,17 @@ spec:
               app.kubernetes.io/name: prometheus
       ports:
         - port: 9090
-    - from:
-        - ipBlock:
-            cidr: 0.0.0.0/0 # This isn't exposed, so it's actually from the host
-      ports:
-        - port: 9090
-          protocol: TCP
   egress: []
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: reloader
+  namespace: reloader
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: reloader
+  egress:
+    - toEntities:
+      - kube-apiserver
