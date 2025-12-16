@@ -145,24 +145,6 @@ spec:
                 subPath: frontend-config.js
                 readOnly: true
     networkpolicies:
-      frontend:
-        enabled: true
-        controller: *name
-        policyTypes:
-          - Egress
-          - Ingress
-        rules:
-          egress: []
-          ingress:
-            - from:
-                - namespaceSelector:
-                    matchLabels:
-                      name: haproxy-controller
-                  podSelector:
-                    matchLabels:
-                      app.kubernetes.io/name: kubernetes-ingress
-              ports:
-                - port: *frontendport
       owntracks:
         enabled: true
         controller: *name
@@ -196,4 +178,5 @@ spec:
                     matchLabels:
                       app.kubernetes.io/name: kubernetes-ingress
               ports:
+                - port: *frontendport
                 - port: *port
