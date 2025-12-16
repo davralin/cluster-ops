@@ -2,8 +2,8 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: openwebui-volsync
-  namespace: openwebui
+  name: &name openwebui-volsync
+  namespace: &namespace openwebui
 spec:
   interval: 30m
   chart:
@@ -15,6 +15,8 @@ spec:
         name: dysnix-charts
         namespace: flux-system
       interval: 30m
+  driftDetection:
+    mode: enabled
   targetNamespace: openwebui
   install:
     createNamespace: true
@@ -33,8 +35,8 @@ spec:
       - apiVersion: volsync.backube/v1alpha1
         kind: ReplicationSource
         metadata:
-          name: openwebui
-          namespace: openwebui
+          name: *name
+          namespace: *namespace
         spec:
           sourcePVC: openwebui
           trigger:
@@ -52,3 +54,33 @@ spec:
               runAsNonRoot: true
               seccompProfile:
                 type: RuntimeDefault
+      - apiVersion: networking.k8s.io/v1
+        kind: NetworkPolicy
+        metadata:
+          name: *name
+          namespace: *namespace
+        spec:
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/created-by: volsync
+          policyTypes:
+            - Ingress
+            - Egress
+          ingress: []
+          egress:
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: kube-system
+                  podSelector:
+                    matchLabels:
+                      k8s-app: kube-dns
+              ports:
+                - port: 53
+                  protocol: UDP
+            - to: # S3-Backup
+              - ipBlock:
+                  cidr: 10.0.1.75/32
+              ports:
+                - port: 9000
+                  protocol: TCP
