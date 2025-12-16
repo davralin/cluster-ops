@@ -10,7 +10,7 @@
     - rclone
     - rsync
     - debian_desktop
-    - kubectl
+    - kubernetes_tools
     - yt-dlp
     - sshd
     - zfs-dkms

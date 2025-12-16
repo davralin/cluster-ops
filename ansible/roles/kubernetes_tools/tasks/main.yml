@@ -1,0 +1,9 @@
+---
+
+- name: Installing kubectl
+  ansible.builtin.include_tasks:
+    file: kubectl.yml
+
+- name: Installing flux
+  ansible.builtin.include_tasks:
+    file: flux.yml

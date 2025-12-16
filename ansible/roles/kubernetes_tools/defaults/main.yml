@@ -1,0 +1,4 @@
+---
+# renovate: datasource=github-releases depName=fluxcd/flux2
+flux_version: v2.7.4
+flux_dl_url: https://github.com/fluxcd/flux2/releases/download/{{ flux_version }}/flux_{{ flux_version_tag }}_linux_amd64.tar.gz

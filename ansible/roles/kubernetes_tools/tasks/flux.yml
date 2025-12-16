@@ -1,0 +1,16 @@
+---
+- name: Flux | Strip leading 'v' from version string
+  set_fact:
+    flux_version_tag: "{{ flux_version | regex_replace('^v', '') }}"
+
+- name: Debian/Ubuntu Family | Downloading and extracting flux {{ flux_version_tag }}
+  ansible.builtin.unarchive:
+    src: "{{ flux_dl_url }}"
+    dest: "/usr/local/bin"
+    extra_opts:
+      - flux
+    remote_src: yes
+    owner: root
+    group: root
+    mode: '0755'
+  become: true
