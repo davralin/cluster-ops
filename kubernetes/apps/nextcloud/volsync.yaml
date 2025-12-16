@@ -47,10 +47,9 @@ spec:
             rcloneDestPath: "volsync-${CLUSTER_NAME}-rclone/nextcloud"
             rcloneConfig: rclone-config
             moverSecurityContext:
-              runAsUser: 1000
-              runAsGroup: 1000
-              fsGroup: 1000
-              fsGroupChangePolicy: "OnRootMismatch"
+              runAsUser: 33
+              runAsGroup: 33
+              fsGroup: 33
               runAsNonRoot: true
               seccompProfile:
                 type: RuntimeDefault
