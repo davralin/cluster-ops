@@ -16,7 +16,6 @@ resources:
   - ../firefox
   - ../forgejo
   - ../freshrss
-  - ../gitea
   - ../gotify
   - ../icloudpd
   - ../intel-device-plugin
