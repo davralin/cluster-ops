@@ -2,8 +2,8 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: archivebox-volsync
-  namespace: archivebox
+  name: &name archivebox-volsync
+  namespace: &namespace archivebox
 spec:
   interval: 30m
   chart:
@@ -15,6 +15,8 @@ spec:
         name: dysnix-charts
         namespace: flux-system
       interval: 30m
+  driftDetection:
+    mode: enabled
   targetNamespace: archivebox
   install:
     createNamespace: true
@@ -33,8 +35,8 @@ spec:
       - apiVersion: volsync.backube/v1alpha1
         kind: ReplicationSource
         metadata:
-          name: archivebox
-          namespace: archivebox
+          name: *name
+          namespace: *namespace
         spec:
           sourcePVC: archivebox
           trigger:
@@ -45,10 +47,40 @@ spec:
             rcloneDestPath: "volsync-${CLUSTER_NAME}-rclone/archivebox"
             rcloneConfig: rclone-config
             moverSecurityContext:
-              runAsUser: 911
-              runAsGroup: 911
-              fsGroup: 911
+              runAsUser: 1000
+              runAsGroup: 1000
+              fsGroup: 1000
               fsGroupChangePolicy: "OnRootMismatch"
               runAsNonRoot: true
               seccompProfile:
                 type: RuntimeDefault
+      - apiVersion: networking.k8s.io/v1
+        kind: NetworkPolicy
+        metadata:
+          name: *name
+          namespace: *namespace
+        spec:
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/created-by: volsync
+          policyTypes:
+            - Ingress
+            - Egress
+          ingress: []
+          egress:
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: kube-system
+                  podSelector:
+                    matchLabels:
+                      k8s-app: kube-dns
+              ports:
+                - port: 53
+                  protocol: UDP
+            - to: # S3-Backup
+              - ipBlock:
+                  cidr: 10.0.1.75/32
+              ports:
+                - port: 9000
+                  protocol: TCP
