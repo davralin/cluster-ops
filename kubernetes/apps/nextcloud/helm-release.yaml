@@ -49,21 +49,11 @@ spec:
           1-chown-data:
             image:
               repository: ghcr.io/davralin/utility
-              tag: latest@sha256:733ccec71b192202238708552d35e548cc470b304f477ff7c2fdd14d8f245539
-            command: ['/usr/local/bin/sleeper']
+              tag: latest@sha256:7bc0c1b490ec991a040c6be03c6219eba71fed403bde55a08caf8e74b8b3eac0
+            command: ['/usr/local/bin/longsleep']
             #command: ['/bin/chown']
             #args: ["-R", "33:33", "/var/www/html/data"]
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities:
-                add:
-                  - CHOWN
-                  - SETGID
-                  - SETUID
-                drop:
-                  - ALL
-          2-disable-maintenance-mode:
+          1-disable-maintenance-mode:
             image:
               repository: nextcloud
               tag: 32.0.3-apache
@@ -91,7 +81,7 @@ spec:
                   - SETUID
                 drop:
                   - ALL
-          3-occ-upgrade:
+          2-occ-upgrade:
             image:
               repository: nextcloud
               tag: 32.0.3-apache
@@ -119,7 +109,7 @@ spec:
                   - SETUID
                 drop:
                   - ALL
-          4-occ-app-upgrade:
+          3-occ-app-upgrade:
             image:
               repository: nextcloud
               tag: 32.0.3-apache
