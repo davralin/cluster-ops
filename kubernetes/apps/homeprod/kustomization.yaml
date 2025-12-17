@@ -49,6 +49,7 @@ resources:
   - ../searxng
   - ../speedtest-exporter
   - ../spegel
+  - ../superset
   - ../syncthing
   - ../system-upgrade-controller
   - ../unifi
