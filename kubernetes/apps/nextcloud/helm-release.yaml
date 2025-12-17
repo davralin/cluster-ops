@@ -68,12 +68,12 @@ spec:
               allowPrivilegeEscalation: false
               # /entrypoint.sh: 111: cannot create /usr/local/etc/php/conf.d/redis-session.ini: Read-only file system
               readOnlyRootFilesystem: false
-              capabilities:
-                add:
-                  - SETGID
-                  - SETUID
-                drop:
-                  - ALL
+              #capabilities:
+              #  add:
+              #    - SETGID
+              #    - SETUID
+              #  drop:
+              #    - ALL
           2-occ-upgrade:
             image:
               repository: nextcloud
@@ -96,12 +96,12 @@ spec:
               allowPrivilegeEscalation: false
               # /entrypoint.sh: 111: cannot create /usr/local/etc/php/conf.d/redis-session.ini: Read-only file system
               readOnlyRootFilesystem: false
-              capabilities:
-                add:
-                  - SETGID
-                  - SETUID
-                drop:
-                  - ALL
+              #capabilities:
+              #  add:
+              #    - SETGID
+              #    - SETUID
+              #  drop:
+              #    - ALL
           3-occ-app-upgrade:
             image:
               repository: nextcloud
@@ -124,12 +124,12 @@ spec:
               allowPrivilegeEscalation: false
               # /entrypoint.sh: 111: cannot create /usr/local/etc/php/conf.d/redis-session.ini: Read-only file system
               readOnlyRootFilesystem: false
-              capabilities:
-                add:
-                  - SETGID
-                  - SETUID
-                drop:
-                  - ALL
+              #capabilities:
+              #  add:
+              #    - SETGID
+              #    - SETUID
+              #  drop:
+              #    - ALL
         containers:
           nextcloud:
             image:
@@ -160,13 +160,13 @@ spec:
               allowPrivilegeEscalation: false
               # /entrypoint.sh: 111: cannot create /usr/local/etc/php/conf.d/redis-session.ini: Read-only file system
               readOnlyRootFilesystem: false
-              capabilities:
-                add:
-                  - CHOWN
-                  - SETGID
-                  - SETUID
-                drop:
-                  - ALL
+              #capabilities:
+              #  add:
+              #    - CHOWN
+              #    - SETGID
+              #    - SETUID
+              #  drop:
+              #    - ALL
             resources:
               requests:
                 cpu: 200m
