@@ -27,3 +27,5 @@ spec:
       capabilities:
         drop:
           - ALL
+    serviceAccount:
+      create: false
