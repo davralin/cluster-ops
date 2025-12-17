@@ -1,0 +1,29 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &name nifikop
+  namespace: flux-system
+spec:
+  interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: nifikop
+  targetNamespace: *name
+  install:
+    createNamespace: true
+    remediation:
+      retries: 10
+  upgrade:
+    remediation:
+      retries: 10
+  values:
+    securityContext:
+      allowPrivilegeEscalation: false
+      runAsUser: 1000
+      runAsNonRoot: true
+      seccompProfile:
+        type: RuntimeDefault
+      capabilities:
+        drop:
+          - ALL
