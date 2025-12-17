@@ -61,7 +61,7 @@ spec:
           multiscrobbler:
             image:
               repository: ghcr.io/foxxmd/multi-scrobbler
-              tag: 0.10.6@sha256:292427c9f1b2b9fcf5d5bf1f84aea65d0a1efaea147c1adb388a7a0008d88ed0
+              tag: 0.10.7@sha256:7e2709a4c06e2a8dc8ceeebb5f6d02cc43076b1a0b64bd68e8f868bebc989e19
             env:
               TZ: "${TIMEZONE}"
               BASE_URL: "https://multiscrobbler.${SECRET_DEFAULT_DOMAIN}"
