@@ -32,8 +32,9 @@ spec:
       # App runs as root, as it contains a cron-manager
         runAsUser: 0
         runAsGroup: 0
-        fsGroup: 0
-        fsGroupChangePolicy: "OnRootMismatch"
+        # This switches to the wrong UID
+        #fsGroup: 1000
+        #fsGroupChangePolicy: "OnRootMismatch"
         runAsNonRoot: false
         seccompProfile:
           type: RuntimeDefault

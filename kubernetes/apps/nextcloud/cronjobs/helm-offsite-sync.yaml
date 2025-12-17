@@ -31,9 +31,10 @@ spec:
       automountServiceAccountToken: false
       enableServiceLinks: false
       securityContext:
-        runAsUser: 33
-        runAsGroup: 33
-        fsGroup: 33
+        runAsUser: 1000
+        runAsGroup: 1000
+        # This switches to the wrong UID
+        #fsGroup: 1000
         runAsNonRoot: true
         seccompProfile:
           type: RuntimeDefault
