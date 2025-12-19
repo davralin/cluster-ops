@@ -4,3 +4,5 @@ flux_version: v2.7.5
 flux_dl_url: https://github.com/fluxcd/flux2/releases/download/{{ flux_version }}/flux_{{ flux_version_tag }}_linux_amd64.tar.gz
 # renovate: datasource=github-releases depName=getsops/sops
 sops_version: v3.11.0
+# renovate: datasource=github-releases depName=siderolabs/talos
+talosctl_version: v1.11.5

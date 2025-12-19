@@ -11,3 +11,7 @@
 - name: Installing sops
   ansible.builtin.include_tasks:
     file: sops.yml
+
+- name: Installing talosctl
+  ansible.builtin.include_tasks:
+    file: talosctl.yml

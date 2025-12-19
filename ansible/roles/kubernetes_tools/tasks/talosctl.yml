@@ -1,0 +1,8 @@
+---
+- name: talosctl | fetch and install talosctl
+  ansible.builtin.get_url:
+    url: https://github.com/siderolabs/talos/releases/download/{{ talosctl_version }}/talosctl-linux-amd64
+    dest: /usr/local/bin/talosctl
+    checksum: sha256:https://github.com/siderolabs/talos/releases/download/{{ talosctl_version }}/sha256sum.txt
+    mode: '0755'
+  become: true
