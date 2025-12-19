@@ -1,0 +1,8 @@
+---
+- name: sops | fetch and install sops
+  ansible.builtin.get_url:
+    url: https://github.com/getsops/sops/releases/download/{{ sops_version }}/sops-{{ sops_version }}.linux.amd64
+    dest: /usr/local/bin/sops
+    checksum: sha256:https://github.com/getsops/sops/releases/download/{{ sops_version }}/sops-{{ sops_version }}.checksums.txt
+    mode: '0755'
+  become: true

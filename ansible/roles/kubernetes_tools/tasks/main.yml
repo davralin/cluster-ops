@@ -7,3 +7,7 @@
 - name: Installing flux
   ansible.builtin.include_tasks:
     file: flux.yml
+
+- name: Installing sops
+  ansible.builtin.include_tasks:
+    file: sops.yml
