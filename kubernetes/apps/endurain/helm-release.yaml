@@ -83,8 +83,8 @@ spec:
               requests:
                 cpu: 10m
                 memory: 50M
-              #limits:
-                #memory: 100M
+              limits:
+                memory: 300M
     service:
       endurain:
         controller: *name
