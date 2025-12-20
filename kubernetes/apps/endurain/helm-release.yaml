@@ -1,0 +1,175 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &name endurain
+  namespace: flux-system
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 4.5.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+      interval: 30m
+  targetNamespace: endurain
+  install:
+    createNamespace: true
+    remediation:
+      retries: 10
+  upgrade:
+    remediation:
+      retries: 10
+  values:
+    fullnameOverride: *name
+    defaultPodOptions:
+      automountServiceAccountToken: false
+      enableServiceLinks: false
+      securityContext:
+        runAsUser: 0
+        runAsGroup: 0
+        fsGroup: 0
+        fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: false
+        seccompProfile:
+          type: RuntimeDefault
+    controllers:
+      endurain:
+        containers:
+          endurain:
+            image:
+              repository: ghcr.io/endurain-project/endurain
+              tag: v0.16.3@sha256:a319243cc649dd8d229d31d46a1a12573ce6587baf508eff3d9f126d546eb003
+            env:
+              TZ: "${TIMEZONE}"
+              ENDURAIN_HOST: &host "endurain.${SECRET_DEFAULT_DOMAIN}"
+              BEHIND_PROXY: true
+              DB_HOST: endurain-postgres-v18-rw.endurain.svc.cluster.local
+              DB_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: endurain-config
+                    key: DB_PASSWORD
+              FERNET_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: endurain-config
+                    key: FERNET_KEY
+              SECRET_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: endurain-config
+                    key: SECRET_KEY
+              UID: 1000
+              GID: 1000
+            probes:
+              liveness: &probes
+                enabled: true
+              readiness: *probes
+              startup: *probes
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: false
+              capabilities:
+                add:
+                  - SETGID
+                  - SETUID
+                drop:
+                  - ALL
+            resources:
+              requests:
+                cpu: 10m
+                memory: 50M
+              #limits:
+                #memory: 100M
+    service:
+      endurain:
+        controller: *name
+        ports:
+          http:
+            port: &port 8080
+    ingress:
+      endurain:
+        enabled: true
+        annotations:
+          haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
+          haproxy.org/ssl-redirect-port: "443"
+          haproxy.org/response-set-header: |
+            Strict-Transport-Security "max-age=31536000"
+            X-Frame-Options "DENY"
+            X-Content-Type-Options "nosniff"
+            Referrer-Policy "strict-origin-when-cross-origin"
+        hosts:
+          - host: *host
+            paths:
+              - path: /
+                service:
+                  identifier: endurain
+                  port: http
+        tls:
+          - hosts:
+              - *host
+    persistence:
+      data:
+        enabled: true
+        existingClaim: endurain
+        advancedMounts:
+          endurain:
+            endurain:
+              - path: /app/backend/data
+                subPath: data
+      logs:
+        enabled: true
+        existingClaim: endurain
+        advancedMounts:
+          endurain:
+            endurain:
+              - path: /app/backend/logs
+                subPath: logs
+    networkpolicies:
+      endurain:
+        enabled: true
+        controller: *name
+        policyTypes:
+          - Ingress
+          - Egress
+        rules:
+          egress:
+            - to: # Needs to connect to Garmin Connect
+              - ipBlock:
+                  cidr: 0.0.0.0/0
+                  except:
+                  - "${HAPROXY_WHITELIST}"
+              ports:
+                - port: 443
+                  protocol: TCP
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: kube-system
+                  podSelector:
+                    matchLabels:
+                      k8s-app: kube-dns
+              ports:
+                - port: 53
+                  protocol: UDP
+            - to:
+                - podSelector:
+                    matchLabels:
+                      cnpg.io/cluster: endurain-postgres-v18
+                      cnpg.io/instanceRole: primary
+              ports:
+                - port: 5432
+          ingress:
+            - from:
+                - namespaceSelector:
+                    matchLabels:
+                      name: haproxy-controller
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: kubernetes-ingress
+              ports:
+                - port: *port

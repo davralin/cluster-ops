@@ -11,6 +11,7 @@ resources:
   - ../cloudnative-pg
   - ../cyberchef
   - ../descheduler
+  - ../endurain
   - ../cloudflareddns
   - ../epicgames-freegames
   - ../firefox
