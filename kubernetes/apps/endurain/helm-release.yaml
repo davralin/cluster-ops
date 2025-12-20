@@ -121,12 +121,6 @@ spec:
             endurain:
               - path: /app/backend/data
                 subPath: data
-      logs:
-        enabled: true
-        existingClaim: endurain
-        advancedMounts:
-          endurain:
-            endurain:
               - path: /app/backend/logs
                 subPath: logs
     networkpolicies:
