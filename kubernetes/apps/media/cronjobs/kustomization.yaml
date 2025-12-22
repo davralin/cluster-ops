@@ -5,7 +5,6 @@ resources:
   - backup-ssh-key.yaml
   - helm-daily-audio-ripper.yaml
   - helm-daily-instaloader.yaml
-  - helm-daily-streamripper.yaml
   - helm-daily-to-jottacloud.yaml
   - helm-daily-video-ripper.yaml
   - helm-onsite-sync.yaml
