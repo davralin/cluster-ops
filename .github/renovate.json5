@@ -66,6 +66,7 @@
         "ghcr.io/rss-bridge/rss-bridge",
         "ghcr.io/sdr-enthusiasts",
         "ghcr.io/thelounge/thelounge",
+        "ghcr.io/valkey-io/valkey",
         "quay.io/invidious/invidious-companion"
       ]
     },
