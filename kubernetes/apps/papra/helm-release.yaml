@@ -46,6 +46,7 @@ spec:
             env:
               APP_BASE_URL: "https://papra.${SECRET_DEFAULT_DOMAIN}"
               TZ: "${TIMEZONE}"
+              AUTH_SECRET: "f7e0376923eb95f3b50925cd0a0365946c147ce95c9ab4902e786e7cc54e2cae3e065ccc352d7b24ca8ef4a6bfad849d"
             probes:
               liveness: &probes
                 enabled: true
