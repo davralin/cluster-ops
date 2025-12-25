@@ -42,7 +42,8 @@ spec:
       onsite-sync:
         type: cronjob
         cronjob:
-          schedule: "45 */6 * * *"
+          #schedule: "45 */6 * * *"
+          schedule: "* * * * *"
         containers:
           onsite-sync:
             image:
@@ -74,6 +75,6 @@ spec:
         advancedMounts:
           onsite-sync:
             onsite-sync:
-              - path: /home/user/.ssh/id_ed25519
+              - path: /var/www/.ssh/id_ed25519
                 subPath: id_ed25519
                 readOnly: true
