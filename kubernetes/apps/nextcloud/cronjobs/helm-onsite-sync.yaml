@@ -42,8 +42,7 @@ spec:
       onsite-sync:
         type: cronjob
         cronjob:
-          #schedule: "45 */6 * * *"
-          schedule: "* * * * *"
+          schedule: "45 */6 * * *"
         containers:
           onsite-sync:
             image:
