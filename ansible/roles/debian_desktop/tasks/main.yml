@@ -9,6 +9,7 @@
       - dbus
       - dbus-user-session
       - libfuse2 # appimage-support
+      - libimage-exiftool-perl # exiftool
       - libpam-systemd
       - ntfs-3g
       - xdg-user-dirs
