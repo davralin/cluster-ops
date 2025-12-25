@@ -90,6 +90,7 @@
       - thunar-media-tags-plugin
       - gvfs-backends
       - libmtp-runtime
+      - tumbler # image preview
 
 - name: Installing ssh/gpg-agent-stuff
   ansible.builtin.apt:
