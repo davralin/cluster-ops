@@ -31,10 +31,10 @@ spec:
       automountServiceAccountToken: false
       enableServiceLinks: false
       securityContext:
-        runAsUser: 1000
-        runAsGroup: 1000
+        runAsUser: 33
+        runAsGroup: 33
         # This switches to the wrong UID
-        #fsGroup: 1000
+        #fsGroup: 33
         runAsNonRoot: true
         seccompProfile:
           type: RuntimeDefault
@@ -71,7 +71,6 @@ spec:
         enabled: true
         type: secret
         name: sshkey
-        defaultMode: 0600
         advancedMounts:
           onsite-sync:
             onsite-sync:
