@@ -73,7 +73,7 @@ spec:
               # Changing this breaks variable substitution or something in flux:
               PAPERLESS_FILENAME_FORMAT: "{created_year}/{correspondent}/{created_month}_{title}"
               PAPERLESS_URL: "https://paperless-ngx.${SECRET_DEFAULT_DOMAIN}"
-              PAPERLESS_DBHOST: "paperless-ngx-postgres-v17-rw.paperless-ngx.svc.cluster.local"
+              PAPERLESS_DBHOST: "paperless-ngx-postgres-v18-rw.paperless-ngx.svc.cluster.local"
               PAPERLESS_DBNAME: "paperless-ngx"
               PAPERLESS_DBUSER: "paperless-ngx"
               PAPERLESS_TIKA_ENABLED: "1"
