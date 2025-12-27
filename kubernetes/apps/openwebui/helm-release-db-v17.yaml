@@ -152,6 +152,9 @@ spec:
             - from:
                 - podSelector:
                     matchLabels:
+                      cnpg.io/cluster: openwebui-postgres-v18
+                - podSelector:
+                    matchLabels:
                       cnpg.io/cluster: *name
                 - podSelector:
                     matchLabels:

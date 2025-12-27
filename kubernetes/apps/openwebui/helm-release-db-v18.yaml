@@ -188,6 +188,9 @@ spec:
                 - podSelector:
                     matchLabels:
                       cnpg.io/cluster: *name
+                - podSelector:
+                    matchLabels:
+                      cnpg.io/cluster: openwebui-postgres-v17
               ports:
                 - port: 5432
                   protocol: TCP
