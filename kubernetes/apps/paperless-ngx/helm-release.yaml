@@ -93,7 +93,9 @@ spec:
               readOnlyRootFilesystem: false
               capabilities:
                 add:
+                  - CHOWN
                   - SETGID
+                  - SETUID
                 drop:
                   - ALL
             resources:
