@@ -61,7 +61,7 @@ spec:
               # paperless-ngx/paperless-ngx/issues/9609
               S6_YES_I_WANT_A_WORLD_WRITABLE_RUN_BECAUSE_KUBERNETES: 1
               # S6 is just so silly
-              S6_READ_ONLY_ROOT: 1
+              #S6_READ_ONLY_ROOT: 1
               PAPERLESS_TIME_ZONE: "${TIMEZONE}"
               PAPERLESS_OCR_LANGUAGE: "nor"
               PAPERLESS_OCR_LANGUAGES: "eng nor"
