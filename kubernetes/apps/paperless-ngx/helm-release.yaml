@@ -24,10 +24,6 @@ spec:
     remediation:
       retries: 10
   valuesFrom:
-    - targetPath: controllers.paperless-ngx.containers.paperless-ngx.env.PAPERLESS_DBPASS
-      kind: Secret
-      name: paperless-secrets
-      valuesKey: postgresql-password
     - targetPath: controllers.paperless-ngx.containers.paperless-ngx.env.PAPERLESS_ADMIN_USER
       kind: Secret
       name: paperless-secrets
@@ -75,7 +71,16 @@ spec:
               PAPERLESS_URL: "https://paperless-ngx.${SECRET_DEFAULT_DOMAIN}"
               PAPERLESS_DBHOST: "paperless-ngx-postgres-v18-rw.paperless-ngx.svc.cluster.local"
               PAPERLESS_DBNAME: "paperless-ngx"
-              PAPERLESS_DBUSER: "paperless-ngx"
+              PAPERLESS_DBUSER:
+                valueFrom:
+                  secretKeyRef:
+                    name: paperless-ngx-basic-auth
+                    key: username
+              PAPERLESS_DBPASS:
+                valueFrom:
+                  secretKeyRef:
+                    name: paperless-ngx-basic-auth
+                    key: password
               PAPERLESS_TIKA_ENABLED: "1"
               PAPERLESS_TIKA_ENDPOINT: "http://paperless-ngx-tika:9998"
               PAPERLESS_TIKA_GOTENBERG_ENDPOINT: "http://paperless-ngx-gotenberg:3000"
