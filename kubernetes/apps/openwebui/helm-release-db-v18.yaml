@@ -118,7 +118,7 @@ spec:
             # this represents an existing cnpg cluster to migrate from (e.g. upgrading from postgres v17 to postgres v18)
             - name: openwebui-postgres-v17
               connectionParameters:
-                host: openwebui-postgres-v17-ro
+                host: openwebui-postgres-v17-rw
                 user: postgres
                 dbname: postgres
                 sslmode: require
