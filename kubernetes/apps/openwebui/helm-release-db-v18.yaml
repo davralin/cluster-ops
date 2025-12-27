@@ -119,11 +119,11 @@ spec:
             - name: openwebui-postgres-v17
               connectionParameters:
                 host: openwebui-postgres-v17-rw
-                user: postgres
-                dbname: postgres
+                user: openwebui
+                dbname: openwebui
                 sslmode: require
               password:
-                name: openwebui-postgres-v17
+                name: openwebui-basic-auth
                 key: password
       - apiVersion: postgresql.cnpg.io/v1
         kind: ScheduledBackup
