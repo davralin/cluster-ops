@@ -96,13 +96,13 @@ spec:
               allowPrivilegeEscalation: false
               # E: List directory /var/lib/apt/lists/partial is missing. - Acquire (30: Read-only file system)
               readOnlyRootFilesystem: false
-              capabilities:
-                add:
-                  - CHOWN
-                  - SETGID
-                  - SETUID
-                drop:
-                  - ALL
+              #capabilities:
+              #  add:
+              #    - CHOWN
+              #    - SETGID
+              #    - SETUID
+              #  drop:
+              #    - ALL
             resources:
               requests:
                 cpu: 50m
