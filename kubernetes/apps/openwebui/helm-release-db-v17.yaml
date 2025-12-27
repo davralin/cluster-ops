@@ -63,7 +63,7 @@ spec:
             #  database: openwebui
             #  owner: openwebui
             #  secret:
-            #    name: immich-basic-auth
+            #    name: openwebui-basic-auth
             # # use this to 'migrate' from an existing cnpg cluster (e.g. "openwebui-postgres-v16") to the new cluster
             #initdb:
             #  database: openwebui
