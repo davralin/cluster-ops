@@ -23,6 +23,9 @@ spec:
   upgrade:
     remediation:
       retries: 10
+  dependsOn:
+    - name: openwebui-postgres-v18
+      namespace: flux-system
   valuesFrom:
     - targetPath: controllers.openwebui.containers.openwebui.env.DATABASE_URL
       kind: Secret
@@ -159,7 +162,7 @@ spec:
             - to:
                 - podSelector:
                     matchLabels:
-                      cnpg.io/cluster: openwebui-postgres-v17
+                      cnpg.io/cluster: openwebui-postgres-v18
                       cnpg.io/instanceRole: primary
               ports:
                 - port: 5432
