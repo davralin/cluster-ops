@@ -60,7 +60,6 @@ spec:
           paperless-ngx:
             image:
               repository: ghcr.io/paperless-ngx/paperless-ngx
-              #tag: 2.20.0
               tag: 2.14.7
             env:
               # paperless-ngx/paperless-ngx/issues/9609
