@@ -23,6 +23,9 @@ spec:
   upgrade:
     remediation:
       retries: 10
+  dependsOn:
+    - name: sonarr-postgres-v18
+      namespace: flux-system
   valuesFrom:
     - targetPath: controllers.sonarr.containers.sonarr.env.SONARR__POSTGRES__PASSWORD
       kind: Secret
@@ -52,7 +55,7 @@ spec:
             env:
               TZ: "${TIMEZONE}"
               SONARR__AUTH__APIKEY: "${SECRET_SONARR_API_KEY}"
-              SONARR__POSTGRES__HOST: media-postgres-v17-rw.media.svc.cluster.local
+              SONARR__POSTGRES__HOST: sonarr-postgres-v18-rw.media.svc.cluster.local
               SONARR__POSTGRES__PORT: "5432"
               SONARR__POSTGRES__USER: "sonarr"
               SONARR__POSTGRES__MAINDB: sonarr_main
@@ -92,7 +95,7 @@ spec:
         controller: *name
         ports:
           http:
-            port: 8989
+            port: &port 8989
     ingress:
       sonarr:
         enabled: true
@@ -123,3 +126,30 @@ spec:
         existingClaim: media
         globalMounts:
           - path: /data
+    networkpolicies:
+      sonarr:
+        enabled: true
+        controller: *name
+        policyTypes:
+          - Ingress
+        rules:
+          ingress:
+            - from:
+                - namespaceSelector:
+                    matchLabels:
+                      name: haproxy-controller
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: kubernetes-ingress
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: scraparr
+                      app.kubernetes.io/instance: media-scraparr
+                      app.kubernetes.io/name: media-scraparr
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: unpackerr
+                      app.kubernetes.io/instance: media-unpackerr
+                      app.kubernetes.io/name: media-unpackerr
+              ports:
+                - port: *port
