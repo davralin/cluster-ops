@@ -53,17 +53,17 @@ spec:
           bootstrap:
             # https://docs.paperless-ngx.com/administration/#importer
             # The importer should be run against a completely empty installation (database and directories) of Paperless-ngx.
-            # use this to start a new cluster
-            initdb:
+            ## use this to start a new cluster
+            #initdb:
+            #  database: paperless-ngx
+            #  owner: paperless-ngx
+            #  secret:
+            #    name: paperless-ngx-basic-auth
+            # use this to recover a net-new cluster from a backup
+            recovery:
+              source: *name
               database: paperless-ngx
               owner: paperless-ngx
-              secret:
-                name: paperless-ngx-basic-auth
-            # use this to recover a net-new cluster from a backup
-            #recovery:
-              #source: *name
-              #database: paperless-ngx
-              #owner: paperless-ngx
             # # use this to 'migrate' from an existing cnpg cluster (e.g. "paperless-ngx-postgres-v17") to the new cluster
             #initdb:
             #  database: paperless-ngx
