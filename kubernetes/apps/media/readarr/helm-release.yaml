@@ -97,7 +97,7 @@ spec:
         controller: *name
         ports:
           http:
-            port: 8787
+            port: &port 8787
     ingress:
       readarr:
         enabled: true
@@ -128,3 +128,30 @@ spec:
         existingClaim: media
         globalMounts:
           - path: /data
+    networkpolicies:
+      readarr:
+        enabled: true
+        controller: *name
+        policyTypes:
+          - Ingress
+        rules:
+          ingress:
+            - from:
+                - namespaceSelector:
+                    matchLabels:
+                      name: haproxy-controller
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: kubernetes-ingress
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: prowlarr
+                      app.kubernetes.io/instance: media-prowlarr
+                      app.kubernetes.io/name: media-prowlarr
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: scraparr
+                      app.kubernetes.io/instance: media-scraparr
+                      app.kubernetes.io/name: media-scraparr
+              ports:
+                - port: *port

@@ -149,6 +149,11 @@ spec:
                       app.kubernetes.io/name: media-lidatube
                 - podSelector:
                     matchLabels:
+                      app.kubernetes.io/controller: prowlarr
+                      app.kubernetes.io/instance: media-prowlarr
+                      app.kubernetes.io/name: media-prowlarr
+                - podSelector:
+                    matchLabels:
                       app.kubernetes.io/controller: scraparr
                       app.kubernetes.io/instance: media-scraparr
                       app.kubernetes.io/name: media-scraparr
