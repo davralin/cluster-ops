@@ -26,6 +26,8 @@ spec:
   dependsOn:
     - name: awx-operator
       namespace: flux-system
+    - name: awx-postgres-v18
+      namespace: flux-system
   values:
     resources:
       - apiVersion: awx.ansible.com/v1beta1

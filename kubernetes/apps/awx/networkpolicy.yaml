@@ -58,7 +58,7 @@ spec:
     - to:
         - podSelector:
             matchLabels:
-              cnpg.io/cluster: awx-postgres-v17
+              cnpg.io/cluster: awx-postgres-v18
       ports:
         - port: 5432
           protocol: TCP
@@ -133,7 +133,7 @@ spec:
     - to:
         - podSelector:
             matchLabels:
-              cnpg.io/cluster: awx-postgres-v17
+              cnpg.io/cluster: awx-postgres-v18
       ports:
         - port: 5432
           protocol: TCP
