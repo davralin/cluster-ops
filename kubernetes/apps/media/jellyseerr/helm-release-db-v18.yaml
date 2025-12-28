@@ -194,6 +194,9 @@ spec:
                 - podSelector:
                     matchLabels:
                       cnpg.io/cluster: *name
+                - podSelector:
+                    matchLabels:
+                      cnpg.io/cluster: jellyseerr-postgres-v17
               ports:
                 - port: 5432
                   protocol: TCP
