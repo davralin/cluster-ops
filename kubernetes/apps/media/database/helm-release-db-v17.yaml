@@ -86,14 +86,11 @@ spec:
                 type: monolith
                 databases:
                   - jfstat
-                  - lidarr_main
-                  - lidarr_log
                   - prowlarr_main
                   - radarr_main
                   - sonarr_main
                 roles:
                   - jellystat
-                  - lidarr
                   - prowlarr
                   - radarr
                   - sonarr
