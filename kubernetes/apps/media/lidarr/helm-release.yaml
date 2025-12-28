@@ -152,5 +152,10 @@ spec:
                       app.kubernetes.io/controller: scraparr
                       app.kubernetes.io/instance: media-scraparr
                       app.kubernetes.io/name: media-scraparr
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: unpackerr
+                      app.kubernetes.io/instance: media-unpackerr
+                      app.kubernetes.io/name: media-unpackerr
               ports:
                 - port: *port
