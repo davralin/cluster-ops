@@ -58,24 +58,24 @@ spec:
             #  secret:
             #    name: readarr-basic-auth
             # use this to recover a net-new cluster from a backup
-            #recovery:
-            #  source: *name
-            #  database: readarr
-            #  owner: readarr
-            #  secret:
-            #    name: readarr-basic-auth
-            # use this to 'migrate' from an existing cnpg cluster (e.g. "readarr-postgres-v17") to the new cluster
-            initdb:
+            recovery:
+              source: *name
               database: readarr
               owner: readarr
-              import:
-                type: monolith
-                databases:
-                  - readarr_cache
-                  - readarr_log
-                  - readarr_main
-                source:
-                  externalCluster: readarr-postgres-v17
+              secret:
+                name: readarr-basic-auth
+            ## use this to 'migrate' from an existing cnpg cluster (e.g. "readarr-postgres-v17") to the new cluster
+            #initdb:
+            #  database: readarr
+            #  owner: readarr
+            #  import:
+            #    type: monolith
+            #    databases:
+            #      - readarr_cache
+            #      - readarr_log
+            #      - readarr_main
+            #    source:
+            #      externalCluster: readarr-postgres-v17
           monitoring:
             enablePodMonitor: "${MONITORING_PROMETHEUS}"
           resources:
@@ -117,16 +117,16 @@ spec:
                   secretAccessKey:
                     name: *name
                     key: s3-secret-key
-            # this represents an existing cnpg cluster to migrate from (e.g. upgrading from postgres v17 to postgres v18)
-            - name: readarr-postgres-v17
-              connectionParameters:
-                host: readarr-postgres-v17-rw
-                user: readarr
-                dbname: readarr
-                sslmode: require
-              password:
-                name: readarr-basic-auth
-                key: password
+            ## this represents an existing cnpg cluster to migrate from (e.g. upgrading from postgres v17 to postgres v18)
+            #- name: readarr-postgres-v17
+            #  connectionParameters:
+            #    host: readarr-postgres-v17-rw
+            #    user: readarr
+            #    dbname: readarr
+            #    sslmode: require
+            #  password:
+            #    name: readarr-basic-auth
+            #    key: password
       - apiVersion: postgresql.cnpg.io/v1
         kind: ScheduledBackup
         metadata:
@@ -196,9 +196,9 @@ spec:
                 - podSelector:
                     matchLabels:
                       cnpg.io/cluster: *name
-                - podSelector:
-                    matchLabels:
-                      cnpg.io/cluster: readarr-postgres-v17
+                #- podSelector:
+                #    matchLabels:
+                #      cnpg.io/cluster: readarr-postgres-v17
               ports:
                 - port: 5432
                   protocol: TCP
