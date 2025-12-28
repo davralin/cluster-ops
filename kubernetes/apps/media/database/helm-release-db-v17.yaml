@@ -87,11 +87,9 @@ spec:
                 databases:
                   - jfstat
                   - prowlarr_main
-                  - sonarr_main
                 roles:
                   - jellystat
                   - prowlarr
-                  - sonarr
                 source:
                   externalCluster: old-pg-cluster
           monitoring:
