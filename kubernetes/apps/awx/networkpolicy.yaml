@@ -43,31 +43,6 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: awx-database
-  namespace: awx
-spec:
-  podSelector:
-    matchLabels:
-      cnpg.io/cluster: awx-postgres-v17
-  policyTypes:
-    - Ingress
-  ingress:
-    - from:
-        - podSelector:
-            matchLabels:
-              app.kubernetes.io/name: awx-task
-              app.kubernetes.io/part-of: awx
-        - podSelector:
-            matchLabels:
-              app.kubernetes.io/name: awx-web
-              app.kubernetes.io/part-of: awx
-      ports:
-        - port: 5432
-          protocol: TCP
----
-apiVersion: networking.k8s.io/v1
-kind: NetworkPolicy
-metadata:
   name: awx-task
   namespace: awx
 spec:

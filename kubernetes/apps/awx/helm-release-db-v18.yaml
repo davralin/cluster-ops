@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &name awx-postgres-v17
+  name: &name awx-postgres-v18
   namespace: flux-system
 spec:
   interval: 30m
@@ -37,7 +37,7 @@ spec:
           # using only 1 replica: very difficult to drain the node where postgres is running
           # using more than 1 replica: write amplification issues when leveraging replicated storage (e.g. ceph)
           instances: 2
-          imageName: ghcr.io/cloudnative-pg/postgresql:17.7
+          imageName: ghcr.io/cloudnative-pg/postgresql:18.1
           primaryUpdateStrategy: unsupervised
           storage:
             size: 10Gi
@@ -59,10 +59,10 @@ spec:
             #    name: awx-basic-auth
             # use this to recover a net-new cluster from a backup
             #recovery:
-              #source: *name
-              #database: awx
-              #owner: awx
-            # # use this to 'migrate' from an existing cnpg cluster (e.g. "awx-postgres-v16") to the new cluster
+            #  source: *name
+            #  database: awx
+            #  owner: awx
+            # # use this to 'migrate' from an existing cnpg cluster (e.g. "awx-postgres-v17") to the new cluster
             initdb:
               database: awx
               owner: awx
@@ -71,7 +71,7 @@ spec:
                 databases:
                   - awx
                 source:
-                  externalCluster: old-pg-cluster
+                  externalCluster: awx-postgres-v17
           monitoring:
             enablePodMonitor: "${MONITORING_PROMETHEUS}"
           resources:
@@ -113,25 +113,16 @@ spec:
                   secretAccessKey:
                     name: *name
                     key: s3-secret-key
-            - name: old-pg-cluster
+            # this represents an existing cnpg cluster to migrate from (e.g. upgrading from postgres v17 to postgres v18)
+            - name: awx-postgres-v17
               connectionParameters:
-                host: postgres-v16-ro.cloudnative-pg.svc.cluster.local
+                host: awx-postgres-v17-rw.awx.svc.cluster.local
                 user: awx
                 dbname: awx
-                sslmode: prefer
+                sslmode: require
               password:
                 name: awx-basic-auth
                 key: password
-            # # this represents an existing cnpg cluster to migrate from (e.g. upgrading from postgres v16 to postgres v17)
-             #- name: awx-postgres-v16
-             #  connectionParameters:
-             #    host: awx-postgres-v16
-             #    user: postgres
-             #    dbname: postgres
-             #    sslmode: require
-             #  password:
-             #    name: awx-postgres-v16
-             #    key: password
       - apiVersion: postgresql.cnpg.io/v1
         kind: ScheduledBackup
         metadata:
@@ -162,7 +153,10 @@ spec:
                       cnpg.io/cluster: *name
                 - podSelector:
                     matchLabels:
-                      cnpg.io/cluster: awx-postgres-v18
+                      cnpg.io/jobRole: import
+                      app.kubernetes.io/name: postgresql
+                      app.kubernetes.io/component: database
+                      app.kubernetes.io/managed-by: cloudnative-pg
                 - podSelector:
                     matchLabels:
                       app.kubernetes.io/name: awx-task
