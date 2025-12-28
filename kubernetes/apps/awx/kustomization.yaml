@@ -5,7 +5,6 @@ resources:
   - awx-deployment.yaml
   - database-secret.yaml
   - helm-bucket.yaml
-  - helm-release-db-v17.yaml
   - helm-release-db-v18.yaml
   - helm-release.yaml
   - namespace.yaml
