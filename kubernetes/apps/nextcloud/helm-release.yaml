@@ -178,7 +178,7 @@ spec:
         controller: *name
         ports:
           http:
-            port: 80
+            port: &port 80
     ingress:
       nextcloud:
         enabled: true
@@ -211,3 +211,45 @@ spec:
         existingClaim: nextcloud
         globalMounts:
           - path: /var/www/html
+    networkpolicies:
+      nextcloud:
+        enabled: true
+        controller: *name
+        policyTypes:
+          - Egress
+          - Ingress
+        rules:
+          egress:
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: kube-system
+                  podSelector:
+                    matchLabels:
+                      k8s-app: kube-dns
+              ports:
+                - port: 53
+                  protocol: UDP
+            - to:
+                - podSelector:
+                    matchLabels:
+                      cnpg.io/cluster: nextcloud-postgres-v18
+                      cnpg.io/instanceRole: primary
+              ports:
+                - port: 5432
+            - to:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: nextcloud-nextcloud-valkey
+              ports:
+                - port: 6379
+          ingress:
+            - from:
+                - namespaceSelector:
+                    matchLabels:
+                      name: haproxy-controller
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: kubernetes-ingress
+              ports:
+                - port: *port
