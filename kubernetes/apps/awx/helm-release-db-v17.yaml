@@ -160,9 +160,9 @@ spec:
                 - podSelector:
                     matchLabels:
                       cnpg.io/cluster: *name
-                - podSelector:
+                - namespaceSelector:
                     matchLabels:
-                      cnpg.io/cluster: awx-postgres-v18
+                      kubernetes.io/metadata.name: awx
                 - podSelector:
                     matchLabels:
                       app.kubernetes.io/name: awx-task
