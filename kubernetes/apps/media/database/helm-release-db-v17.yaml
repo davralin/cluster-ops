@@ -86,10 +86,8 @@ spec:
                 type: monolith
                 databases:
                   - jfstat
-                  - prowlarr_main
                 roles:
                   - jellystat
-                  - prowlarr
                 source:
                   externalCluster: old-pg-cluster
           monitoring:
