@@ -55,7 +55,7 @@ spec:
             env:
               TZ: "${TIMEZONE}"
               RADARR__AUTH__APIKEY: "${SECRET_RADARR_API_KEY}"
-              RADARR__POSTGRES__HOST: media-postgres-v18-rw.media.svc.cluster.local
+              RADARR__POSTGRES__HOST: radarr-postgres-v18-rw.media.svc.cluster.local
               RADARR__POSTGRES__PORT: "5432"
               RADARR__POSTGRES__USER: "radarr"
               RADARR__POSTGRES__MAINDB: radarr_main
