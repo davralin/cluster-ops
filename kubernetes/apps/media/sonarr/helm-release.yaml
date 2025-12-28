@@ -143,6 +143,11 @@ spec:
                       app.kubernetes.io/name: kubernetes-ingress
                 - podSelector:
                     matchLabels:
+                      app.kubernetes.io/controller: bazarr
+                      app.kubernetes.io/instance: media-bazarr
+                      app.kubernetes.io/name: media-bazarr
+                - podSelector:
+                    matchLabels:
                       app.kubernetes.io/controller: scraparr
                       app.kubernetes.io/instance: media-scraparr
                       app.kubernetes.io/name: media-scraparr
