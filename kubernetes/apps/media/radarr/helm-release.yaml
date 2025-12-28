@@ -148,6 +148,11 @@ spec:
                       app.kubernetes.io/name: media-bazarr
                 - podSelector:
                     matchLabels:
+                      app.kubernetes.io/controller: jellyseerr
+                      app.kubernetes.io/instance: media-jellyseerr
+                      app.kubernetes.io/name: media-jellyseerr
+                - podSelector:
+                    matchLabels:
                       app.kubernetes.io/controller: scraparr
                       app.kubernetes.io/instance: media-scraparr
                       app.kubernetes.io/name: media-scraparr
