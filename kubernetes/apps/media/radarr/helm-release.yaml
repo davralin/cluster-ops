@@ -23,6 +23,9 @@ spec:
   upgrade:
     remediation:
       retries: 10
+  dependsOn:
+    - name: radarr-postgres-v18
+      namespace: flux-system
   valuesFrom:
     - targetPath: controllers.radarr.containers.radarr.env.RADARR__POSTGRES__PASSWORD
       kind: Secret
@@ -52,7 +55,7 @@ spec:
             env:
               TZ: "${TIMEZONE}"
               RADARR__AUTH__APIKEY: "${SECRET_RADARR_API_KEY}"
-              RADARR__POSTGRES__HOST: media-postgres-v17-rw.media.svc.cluster.local
+              RADARR__POSTGRES__HOST: media-postgres-v18-rw.media.svc.cluster.local
               RADARR__POSTGRES__PORT: "5432"
               RADARR__POSTGRES__USER: "radarr"
               RADARR__POSTGRES__MAINDB: radarr_main
@@ -92,7 +95,7 @@ spec:
         controller: *name
         ports:
           http:
-            port: 7878
+            port: &port 7878
     ingress:
       radarr:
         enabled: true
@@ -123,3 +126,30 @@ spec:
         existingClaim: media
         globalMounts:
           - path: /data
+    networkpolicies:
+      radarr:
+        enabled: true
+        controller: *name
+        policyTypes:
+          - Ingress
+        rules:
+          ingress:
+            - from:
+                - namespaceSelector:
+                    matchLabels:
+                      name: haproxy-controller
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: kubernetes-ingress
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: scraparr
+                      app.kubernetes.io/instance: media-scraparr
+                      app.kubernetes.io/name: media-scraparr
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: unpackerr
+                      app.kubernetes.io/instance: media-unpackerr
+                      app.kubernetes.io/name: media-unpackerr
+              ports:
+                - port: *port
