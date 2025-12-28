@@ -23,6 +23,9 @@ spec:
   upgrade:
     remediation:
       retries: 10
+  dependsOn:
+    - name: lidarr
+      namespace: flux-system
   values:
     fullnameOverride: *name
     defaultPodOptions:
@@ -76,7 +79,7 @@ spec:
         controller: *name
         ports:
           http:
-            port: 5000
+            port: &port 5000
     ingress:
       lidatube:
         enabled: true
@@ -113,3 +116,49 @@ spec:
         type: emptyDir
         globalMounts:
           - path: /.cache/pip
+    networkpolicies:
+      lidatube:
+        enabled: true
+        controller: *name
+        policyTypes:
+          - Egress
+          - Ingress
+        rules:
+          egress:
+            - to:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: lidarr
+                      app.kubernetes.io/instance: media-lidarr
+                      app.kubernetes.io/name: media-lidarr
+              ports:
+                - port: 8686
+                  protocol: TCP
+            - to: # Needs to connect to youtube to do it's thing
+              - ipBlock:
+                  cidr: 0.0.0.0/0
+                  except:
+                  - "${HAPROXY_WHITELIST}"
+              ports:
+                - port: 443
+                  protocol: TCP
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: kube-system
+                  podSelector:
+                    matchLabels:
+                      k8s-app: kube-dns
+              ports:
+                - port: 53
+                  protocol: UDP
+          ingress:
+            - from:
+                - namespaceSelector:
+                    matchLabels:
+                      name: haproxy-controller
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: kubernetes-ingress
+              ports:
+                - port: *port
