@@ -107,6 +107,11 @@ spec:
       config:
         enabled: true
         existingClaim: jellystat
+      # Error writing env.js file: [Error: EROFS: read-only file system, open '/app/dist/env.js'] {
+      app-dist:
+        type: emptyDir
+        globalMounts:
+          - path: /app/dist
     networkpolicies:
       jellystat:
         enabled: true
