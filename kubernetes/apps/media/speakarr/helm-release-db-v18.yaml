@@ -72,6 +72,7 @@ spec:
                 type: monolith
                 databases:
                   - speakarr_cache
+                  - speakarr_log
                   - speakarr_main
                 source:
                   externalCluster: speakarr-postgres-v17
