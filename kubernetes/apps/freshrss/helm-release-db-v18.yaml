@@ -57,23 +57,23 @@ spec:
             #  owner: freshrss
             #  secret:
             #    name: freshrss-basic-auth
-            ## use this to recover a net-new cluster from a backup
-            #recovery:
-            #  source: *name
-            #  database: freshrss
-            #  owner: freshrss
-            #  secret:
-            #    name: freshrss-basic-auth
-            # # use this to 'migrate' from an existing cnpg cluster (e.g. "freshrss-postgres-v17") to the new cluster
-            initdb:
+            # use this to recover a net-new cluster from a backup
+            recovery:
+              source: *name
               database: freshrss
               owner: freshrss
-              import:
-                type: microservice
-                databases:
-                  - freshrss
-                source:
-                  externalCluster: freshrss-postgres-v17
+              secret:
+                name: freshrss-basic-auth
+            ## use this to 'migrate' from an existing cnpg cluster (e.g. "freshrss-postgres-v17") to the new cluster
+            #initdb:
+            #  database: freshrss
+            #  owner: freshrss
+            #  import:
+            #    type: microservice
+            #    databases:
+            #      - freshrss
+            #    source:
+            #      externalCluster: freshrss-postgres-v17
           monitoring:
             enablePodMonitor: "${MONITORING_PROMETHEUS}"
           resources:
@@ -115,16 +115,16 @@ spec:
                   secretAccessKey:
                     name: *name
                     key: s3-secret-key
-            # this represents an existing cnpg cluster to migrate from (e.g. upgrading from postgres v17 to postgres v18)
-            - name: freshrss-postgres-v17
-              connectionParameters:
-                host: freshrss-postgres-v17-rw
-                user: freshrss
-                dbname: freshrss
-                sslmode: require
-              password:
-                name: freshrss-basic-auth
-                key: password
+            ## this represents an existing cnpg cluster to migrate from (e.g. upgrading from postgres v17 to postgres v18)
+            #- name: freshrss-postgres-v17
+            #  connectionParameters:
+            #    host: freshrss-postgres-v17-rw
+            #    user: freshrss
+            #    dbname: freshrss
+            #    sslmode: require
+            #  password:
+            #    name: freshrss-basic-auth
+            #    key: password
       - apiVersion: postgresql.cnpg.io/v1
         kind: ScheduledBackup
         metadata:
@@ -194,9 +194,6 @@ spec:
                 - podSelector:
                     matchLabels:
                       cnpg.io/cluster: *name
-                - podSelector:
-                    matchLabels:
-                      cnpg.io/cluster: freshrss-postgres-v17
               ports:
                 - port: 5432
                   protocol: TCP
