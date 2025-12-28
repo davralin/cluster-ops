@@ -23,6 +23,9 @@ spec:
   upgrade:
     remediation:
       retries: 10
+  dependsOn:
+    - name: speakarr-postgres-v18
+      namespace: flux-system
   values:
     fullnameOverride: *name
     defaultPodOptions:
@@ -47,7 +50,7 @@ spec:
             env:
               TZ: "${TIMEZONE}"
               READARR__AUTH__APIKEY: "${SECRET_SPEAKARR_API_KEY}"
-              READARR__POSTGRES__HOST: speakarr-postgres-v17-rw.media.svc.cluster.local
+              READARR__POSTGRES__HOST: speakarr-postgres-v18-rw.media.svc.cluster.local
               READARR__POSTGRES__PORT: "5432"
               READARR__POSTGRES__USER: "speakarr"
               READARR__POSTGRES__MAIN_DB: speakarr_main
