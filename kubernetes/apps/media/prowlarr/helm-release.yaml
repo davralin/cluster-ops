@@ -23,6 +23,9 @@ spec:
   upgrade:
     remediation:
       retries: 10
+  dependsOn:
+    - name: prowlarr-postgres-v18
+      namespace: flux-system
   valuesFrom:
     - targetPath: controllers.prowlarr.containers.prowlarr.env.PROWLARR__POSTGRES__PASSWORD
       kind: Secret
@@ -52,7 +55,7 @@ spec:
             env:
               TZ: "${TIMEZONE}"
               PROWLARR__AUTH__APIKEY: "${SECRET_PROWLARR_API_KEY}"
-              PROWLARR__POSTGRES__HOST: media-postgres-v17-rw.media.svc.cluster.local
+              PROWLARR__POSTGRES__HOST: prowlarr-postgres-v18-rw.media.svc.cluster.local
               PROWLARR__POSTGRES__PORT: "5432"
               PROWLARR__POSTGRES__USER: "prowlarr"
               PROWLARR__POSTGRES__MAINDB: prowlarr_main
@@ -91,7 +94,7 @@ spec:
         controller: *name
         ports:
           http:
-            port: 9696
+            port: &port 9696
     ingress:
       prowlarr:
         enabled: true
@@ -117,3 +120,45 @@ spec:
       config:
         enabled: true
         type: emptyDir
+    networkpolicies:
+      prowlarr:
+        enabled: true
+        controller: *name
+        policyTypes:
+          - Ingress
+        rules:
+          ingress:
+            - from:
+                - namespaceSelector:
+                    matchLabels:
+                      name: haproxy-controller
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: kubernetes-ingress
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: lidarr
+                      app.kubernetes.io/instance: media-lidarr
+                      app.kubernetes.io/name: media-lidarr
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: radarr
+                      app.kubernetes.io/instance: media-radarr
+                      app.kubernetes.io/name: media-radarr
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: readarr
+                      app.kubernetes.io/instance: media-readarr
+                      app.kubernetes.io/name: media-readarr
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: sonarr
+                      app.kubernetes.io/instance: media-sonarr
+                      app.kubernetes.io/name: media-sonarr
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: speakarr
+                      app.kubernetes.io/instance: media-speakarr
+                      app.kubernetes.io/name: media-speakarr
+              ports:
+                - port: *port
