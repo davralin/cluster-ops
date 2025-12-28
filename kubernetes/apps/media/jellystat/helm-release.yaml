@@ -23,6 +23,9 @@ spec:
   upgrade:
     remediation:
       retries: 10
+  dependsOn:
+    - name: jellystat-postgres-v18
+      namespace: flux-system
   valuesFrom:
     - targetPath: controllers.jellystat.containers.jellystat.env.POSTGRES_PASSWORD
       kind: Secret
@@ -54,7 +57,7 @@ spec:
               tag: 1.1.7@sha256:e182aedd122e13be511c59f0462e0d9e48a67c7341a5f3c1f11b7aa6ab6d2291
             env:
               POSTGRES_USER: jellystat
-              POSTGRES_IP: media-postgres-v17-rw.media.svc.cluster.local
+              POSTGRES_IP: jellystat-postgres-v18-rw.media.svc.cluster.local
               POSTGRES_PORT: "5432"
             probes:
               liveness: &probes
@@ -78,7 +81,7 @@ spec:
         controller: *name
         ports:
           http:
-            port: 3000
+            port: &port 3000
     ingress:
       jellystat:
         enabled: true
@@ -104,3 +107,20 @@ spec:
       config:
         enabled: true
         existingClaim: jellystat
+    networkpolicies:
+      jellystat:
+        enabled: true
+        controller: *name
+        policyTypes:
+          - Ingress
+        rules:
+          ingress:
+            - from:
+                - namespaceSelector:
+                    matchLabels:
+                      name: haproxy-controller
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: kubernetes-ingress
+              ports:
+                - port: *port
