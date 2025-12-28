@@ -50,7 +50,7 @@ spec:
         # s6-overlay-suexec: warning: unable to gain root privileges (is the suid bit set?)
         runAsUser: 0
         runAsGroup: 0
-        fsGroup: 0
+        fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"
         runAsNonRoot: false
         seccompProfile:

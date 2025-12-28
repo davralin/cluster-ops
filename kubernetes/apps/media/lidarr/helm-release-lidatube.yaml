@@ -36,7 +36,7 @@ spec:
         # chown: /lidatube/.git/FETCH_HEAD: Operation not permitted
         runAsUser: 0
         runAsGroup: 0
-        fsGroup: 0
+        fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"
         runAsNonRoot: false
         seccompProfile:
