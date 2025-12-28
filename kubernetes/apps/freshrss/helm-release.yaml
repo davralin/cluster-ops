@@ -23,6 +23,9 @@ spec:
   upgrade:
     remediation:
       retries: 10
+  dependsOn:
+    - name: freshrss-postgres-v18
+      namespace: flux-system
   values:
     fullnameOverride: *name
     defaultPodOptions:
