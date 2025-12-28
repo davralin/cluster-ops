@@ -61,7 +61,7 @@ spec:
               MAIL_FROM_ADDRESS: "cloud@${SECRET_DEFAULT_DOMAIN}"
               OVERWRITEPROTOCOL: "https"
               OVERWRITEHOST: "cloud.${SECRET_DEFAULT_DOMAIN}"
-              POSTGRES_HOST: "nextcloud-postgres-v17-rw.nextcloud.svc.cluster.local"
+              POSTGRES_HOST: "nextcloud-postgres-v18-rw.nextcloud.svc.cluster.local"
               POSTGRES_DB: "nextcloud"
               POSTGRES_USER: "nextcloud"
             securityContext:
@@ -89,7 +89,7 @@ spec:
               MAIL_FROM_ADDRESS: "cloud@${SECRET_DEFAULT_DOMAIN}"
               OVERWRITEPROTOCOL: "https"
               OVERWRITEHOST: "cloud.${SECRET_DEFAULT_DOMAIN}"
-              POSTGRES_HOST: "nextcloud-postgres-v17-rw.nextcloud.svc.cluster.local"
+              POSTGRES_HOST: "nextcloud-postgres-v18-rw.nextcloud.svc.cluster.local"
               POSTGRES_DB: "nextcloud"
               POSTGRES_USER: "nextcloud"
             securityContext:
@@ -117,7 +117,7 @@ spec:
               MAIL_FROM_ADDRESS: "cloud@${SECRET_DEFAULT_DOMAIN}"
               OVERWRITEPROTOCOL: "https"
               OVERWRITEHOST: "cloud.${SECRET_DEFAULT_DOMAIN}"
-              POSTGRES_HOST: "nextcloud-postgres-v17-rw.nextcloud.svc.cluster.local"
+              POSTGRES_HOST: "nextcloud-postgres-v18-rw.nextcloud.svc.cluster.local"
               POSTGRES_DB: "nextcloud"
               POSTGRES_USER: "nextcloud"
             securityContext:
@@ -144,7 +144,7 @@ spec:
               MAIL_FROM_ADDRESS: "cloud@${SECRET_DEFAULT_DOMAIN}"
               OVERWRITEPROTOCOL: "https"
               OVERWRITEHOST: "cloud.${SECRET_DEFAULT_DOMAIN}"
-              POSTGRES_HOST: "nextcloud-postgres-v17-rw.nextcloud.svc.cluster.local"
+              POSTGRES_HOST: "nextcloud-postgres-v18-rw.nextcloud.svc.cluster.local"
               POSTGRES_DB: "nextcloud"
               POSTGRES_USER: "nextcloud"
             probes:
