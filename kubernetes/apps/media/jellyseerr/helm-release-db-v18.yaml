@@ -58,22 +58,22 @@ spec:
             #  secret:
             #    name: jellyseerr-basic-auth
             # use this to recover a net-new cluster from a backup
-            #recovery:
-            #  source: *name
-            #  database: jellyseerr
-            #  owner: jellyseerr
-            #  secret:
-            #    name: jellyseerr-basic-auth
-            # use this to 'migrate' from an existing cnpg cluster (e.g. "jellyseerr-postgres-v17") to the new cluster
-            initdb:
+            recovery:
+              source: *name
               database: jellyseerr
               owner: jellyseerr
-              import:
-                type: microservice
-                databases:
-                  - jellyseerr
-                source:
-                  externalCluster: jellyseerr-postgres-v17
+              secret:
+                name: jellyseerr-basic-auth
+            # use this to 'migrate' from an existing cnpg cluster (e.g. "jellyseerr-postgres-v17") to the new cluster
+            #initdb:
+            #  database: jellyseerr
+            #  owner: jellyseerr
+            #  import:
+            #    type: microservice
+            #    databases:
+            #      - jellyseerr
+            #    source:
+            #      externalCluster: jellyseerr-postgres-v17
           monitoring:
             enablePodMonitor: "${MONITORING_PROMETHEUS}"
           resources:
@@ -116,15 +116,15 @@ spec:
                     name: *name
                     key: s3-secret-key
             # this represents an existing cnpg cluster to migrate from (e.g. upgrading from postgres v17 to postgres v18)
-            - name: jellyseerr-postgres-v17
-              connectionParameters:
-                host: jellyseerr-postgres-v17-rw
-                user: jellyseerr
-                dbname: jellyseerr
-                sslmode: require
-              password:
-                name: jellyseerr-basic-auth
-                key: password
+            #- name: jellyseerr-postgres-v17
+            #  connectionParameters:
+            #    host: jellyseerr-postgres-v17-rw
+            #    user: jellyseerr
+            #    dbname: jellyseerr
+            #    sslmode: require
+            #  password:
+            #    name: jellyseerr-basic-auth
+            #    key: password
       - apiVersion: postgresql.cnpg.io/v1
         kind: ScheduledBackup
         metadata:
@@ -194,9 +194,6 @@ spec:
                 - podSelector:
                     matchLabels:
                       cnpg.io/cluster: *name
-                - podSelector:
-                    matchLabels:
-                      cnpg.io/cluster: jellyseerr-postgres-v17
               ports:
                 - port: 5432
                   protocol: TCP
