@@ -155,6 +155,12 @@ spec:
                       cnpg.io/cluster: *name
                 - podSelector:
                     matchLabels:
+                      cnpg.io/jobRole: import
+                      app.kubernetes.io/name: postgresql
+                      app.kubernetes.io/component: database
+                      app.kubernetes.io/managed-by: cloudnative-pg
+                - podSelector:
+                    matchLabels:
                       app.kubernetes.io/controller: speakarr
                       app.kubernetes.io/instance: media-speakarr
                       app.kubernetes.io/name: media-speakarr
