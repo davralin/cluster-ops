@@ -87,12 +87,10 @@ spec:
                 databases:
                   - jfstat
                   - prowlarr_main
-                  - radarr_main
                   - sonarr_main
                 roles:
                   - jellystat
                   - prowlarr
-                  - radarr
                   - sonarr
                 source:
                   externalCluster: old-pg-cluster
