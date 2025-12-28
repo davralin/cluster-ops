@@ -23,6 +23,11 @@ spec:
   upgrade:
     remediation:
       retries: 10
+  dependsOn:
+    - name: romm-postgres-v18
+      namespace: flux-system
+    - name: romm-valkey
+      namespace: flux-system
   values:
     fullnameOverride: *name
     defaultPodOptions:
@@ -49,7 +54,7 @@ spec:
               - secretRef:
                   name: romm-secrets
             env:
-              DB_HOST: "romm-postgres-v17-rw.romm.svc.cluster.local"
+              DB_HOST: "romm-postgres-v18-rw.romm.svc.cluster.local"
               DB_NAME: "romm"
               DB_USER:
                 valueFrom:
@@ -166,7 +171,7 @@ spec:
             - to:
                 - podSelector:
                     matchLabels:
-                      cnpg.io/cluster: romm-postgres-v17
+                      cnpg.io/cluster: romm-postgres-v18
                       cnpg.io/instanceRole: primary
               ports:
                 - port: 5432

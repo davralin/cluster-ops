@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &name romm-postgres-v17
+  name: &name romm-postgres-v18
   namespace: flux-system
 spec:
   interval: 30m
@@ -37,7 +37,7 @@ spec:
           # using only 1 replica: very difficult to drain the node where postgres is running
           # using more than 1 replica: write amplification issues when leveraging replicated storage (e.g. ceph)
           instances: 2
-          imageName: ghcr.io/cloudnative-pg/postgresql:17.7
+          imageName: ghcr.io/cloudnative-pg/postgresql:18.1
           primaryUpdateStrategy: unsupervised
           storage:
             size: 2Gi
@@ -57,21 +57,23 @@ spec:
             #  owner: romm
             #  secret:
             #    name: romm-basic-auth
-            # use this to recover a net-new cluster from a backup
-            recovery:
-              source: *name
-              database: romm
-              owner: romm
-            # # use this to 'migrate' from an existing cnpg cluster (e.g. "romm-postgres-v16") to the new cluster
-            #initdb:
+            ## use this to recover a net-new cluster from a backup
+            #recovery:
+            #  source: *name
             #  database: romm
             #  owner: romm
-            #  import:
-            #    type: microservice
-            #    databases:
-            #      - romm
-            #    source:
-            #      externalCluster: romm-postgres-v16
+            #  secret:
+            #    name: romm-basic-auth
+            # # use this to 'migrate' from an existing cnpg cluster (e.g. "romm-postgres-v17") to the new cluster
+            initdb:
+              database: romm
+              owner: romm
+              import:
+                type: microservice
+                databases:
+                  - romm
+                source:
+                  externalCluster: romm-postgres-v17
           monitoring:
             enablePodMonitor: "${MONITORING_PROMETHEUS}"
           resources:
@@ -113,16 +115,16 @@ spec:
                   secretAccessKey:
                     name: *name
                     key: s3-secret-key
-            # # this represents an existing cnpg cluster to migrate from (e.g. upgrading from postgres v16 to postgres v17)
-             #- name: romm-postgres-v16
-             #  connectionParameters:
-             #    host: romm-postgres-v16
-             #    user: postgres
-             #    dbname: postgres
-             #    sslmode: require
-             #  password:
-             #    name: romm-postgres-v16
-             #    key: password
+            # this represents an existing cnpg cluster to migrate from (e.g. upgrading from postgres v17 to postgres v18)
+            - name: romm-postgres-v17
+              connectionParameters:
+                host: romm-postgres-v17-rw
+                user: romm
+                dbname: romm
+                sslmode: require
+              password:
+                name: romm-basic-auth
+                key: password
       - apiVersion: postgresql.cnpg.io/v1
         kind: ScheduledBackup
         metadata:
@@ -169,9 +171,6 @@ spec:
                 - podSelector:
                     matchLabels:
                       cnpg.io/cluster: *name
-                - podSelector:
-                    matchLabels:
-                      cnpg.io/cluster: romm-postgres-v18
               ports:
                 - port: 8000
                   protocol: TCP
@@ -189,6 +188,9 @@ spec:
                 - podSelector:
                     matchLabels:
                       cnpg.io/cluster: *name
+                - podSelector:
+                    matchLabels:
+                      cnpg.io/cluster: romm-postgres-v17
               ports:
                 - port: 5432
                   protocol: TCP
