@@ -86,3 +86,13 @@ spec:
               app.kubernetes.io/name: kubernetes-ingress
       ports:
         - port: 2283
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: monitoring
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/name: prometheus
+      ports:
+        - port: 8081
+        - port: 8082
