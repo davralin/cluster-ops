@@ -82,6 +82,8 @@ spec:
             - from:
                 - podSelector:
                     matchLabels:
-                      app.kubernetes.io/name: immich-nextcloud
+                      app.kubernetes.io/controller: main
+                      app.kubernetes.io/instance: nextcloud-immich
+                      app.kubernetes.io/name: server
               ports:
                 - port: 6379
