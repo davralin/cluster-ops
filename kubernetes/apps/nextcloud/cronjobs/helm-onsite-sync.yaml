@@ -80,7 +80,7 @@ spec:
     networkpolicies:
       onsite-sync:
         enabled: true
-        controller: *name
+        controller: onsite-sync
         policyTypes:
           - Egress
           - Ingress
