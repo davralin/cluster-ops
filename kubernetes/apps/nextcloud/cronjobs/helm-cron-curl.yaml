@@ -59,7 +59,7 @@ spec:
     networkpolicies:
       cron-curl:
         enabled: true
-        controller: *name
+        controller: cron-curl
         policyTypes:
           - Egress
           - Ingress
