@@ -3,7 +3,7 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: immich-machine-learning
-  namespace: awx
+  namespace: nextcloud
 spec:
   podSelector:
     matchLabels:
@@ -39,7 +39,7 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: immich-server
-  namespace: awx
+  namespace: nextcloud
 spec:
   podSelector:
     matchLabels:
