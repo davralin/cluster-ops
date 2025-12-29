@@ -98,9 +98,7 @@ spec:
                   protocol: UDP
             - to: # Offsite-SSH
               - ipBlock:
-                  cidr: 0.0.0.0/0
-                  except:
-                  - "${HAPROXY_WHITELIST}"
+                  cidr: "${HAPROXY_WHITELIST}"
               ports:
                 - port: 22
                   protocol: TCP
