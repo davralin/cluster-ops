@@ -40,7 +40,7 @@ spec:
           imageName: ghcr.io/cloudnative-pg/postgresql:18.1
           primaryUpdateStrategy: unsupervised
           storage:
-            size: 4Gi
+            size: 10Gi
             storageClass: "${STORAGE_READWRITEONCE}"
           managed:
             roles:
