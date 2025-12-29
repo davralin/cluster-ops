@@ -66,6 +66,12 @@ spec:
         rules:
           egress:
             - to:
+              - ipBlock:
+                  cidr: "${HAPROXY_WHITELIST}"
+              ports:
+                - port: 443
+                  protocol: TCP
+            - to:
                 - namespaceSelector:
                     matchLabels:
                       kubernetes.io/metadata.name: kube-system
