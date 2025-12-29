@@ -56,3 +56,13 @@ spec:
               capabilities:
                 drop:
                   - ALL
+    networkpolicies:
+      cron-curl:
+        enabled: true
+        controller: *name
+        policyTypes:
+          - Egress
+          - Ingress
+        rules:
+          egress: []
+          ingress: []

@@ -71,3 +71,13 @@ spec:
         existingClaim: calcardbackup
         globalMounts:
           - path: /backup
+    networkpolicies:
+      calcardbackup:
+        enabled: true
+        controller: *name
+        policyTypes:
+          - Egress
+          - Ingress
+        rules:
+          egress: []
+          ingress: []
