@@ -96,4 +96,10 @@ spec:
               ports:
                 - port: 53
                   protocol: UDP
+            - to: # Onsite-SSH
+              - ipBlock:
+                  cidr: 10.0.1.75/32
+              ports:
+                - port: 22
+                  protocol: TCP
           ingress: []
