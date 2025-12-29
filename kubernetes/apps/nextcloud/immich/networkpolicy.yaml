@@ -33,7 +33,15 @@ spec:
       ports:
         - port: 6379
           protocol: TCP
-  ingress: []
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/controller: main
+              app.kubernetes.io/instance: nextcloud-immich
+              app.kubernetes.io/name: server
+      ports:
+        - port: 3003
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
@@ -68,6 +76,15 @@ spec:
               app.kubernetes.io/name: nextcloud-immich-valkey
       ports:
         - port: 6379
+          protocol: TCP
+    - to:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/controller: main
+              app.kubernetes.io/instance: nextcloud-immich
+              app.kubernetes.io/name: machine-learning
+      ports:
+        - port: 3003
           protocol: TCP
     - to:
         - podSelector:
