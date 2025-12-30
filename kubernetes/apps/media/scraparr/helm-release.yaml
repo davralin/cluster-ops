@@ -67,7 +67,7 @@ spec:
         controller: *name
         ports:
           http:
-            port: 7100
+            port: &port 7100
     serviceMonitor:
       scraparr:
         serviceName: scraparr
@@ -85,3 +85,20 @@ spec:
           - path: /scraparr/config/config.yaml
             subPath: config.yaml
             readOnly: true
+    networkpolicies:
+      scraparr:
+        enabled: true
+        controller: *name
+        policyTypes:
+          - Ingress
+        rules:
+          ingress:
+            - from:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: monitoring
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: prometheus
+              ports:
+                - port: *port
