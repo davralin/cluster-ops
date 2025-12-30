@@ -158,6 +158,11 @@ spec:
                       app.kubernetes.io/name: media-prowlarr
                 - podSelector:
                     matchLabels:
+                      app.kubernetes.io/controller: recyclarr
+                      app.kubernetes.io/instance: media-recyclarr
+                      app.kubernetes.io/name: media-recyclarr
+                - podSelector:
+                    matchLabels:
                       app.kubernetes.io/controller: scraparr
                       app.kubernetes.io/instance: media-scraparr
                       app.kubernetes.io/name: media-scraparr
