@@ -5,7 +5,6 @@ resources:
   - backup-ssh-key.yaml
   - helm-backup-to-jottacloud.yaml
   - helm-calcardbackup.yaml
-  - helm-cron-curl.yaml
   - helm-jottacloud-photos-to-nextcloud.yaml
   - helm-offsite-sync.yaml
   - helm-onsite-sync.yaml
