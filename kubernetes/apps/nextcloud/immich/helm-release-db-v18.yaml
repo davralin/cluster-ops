@@ -60,9 +60,7 @@ spec:
             #    name: immich-basic-auth
             #  dataChecksums: true
             #  postInitApplicationSQL:
-            #    - CREATE EXTENSION IF NOT EXISTS "vector";
             #    - CREATE EXTENSION IF NOT EXISTS "vchord" CASCADE;
-            #    - CREATE EXTENSION IF NOT EXISTS "cube" CASCADE;
             #    - CREATE EXTENSION IF NOT EXISTS "earthdistance" CASCADE;
             #    # After bootup:
             #    # ALTER USER "immich" WITH SUPERUSER;
@@ -86,9 +84,7 @@ spec:
                 source:
                   externalCluster: immich-postgres-v16
                 postInitApplicationSQL:
-                  - CREATE EXTENSION IF NOT EXISTS "vector";
                   - CREATE EXTENSION IF NOT EXISTS "vchord" CASCADE;
-                  - CREATE EXTENSION IF NOT EXISTS "cube" CASCADE;
                   - CREATE EXTENSION IF NOT EXISTS "earthdistance" CASCADE;
           monitoring:
             enablePodMonitor: "${MONITORING_PROMETHEUS}"
