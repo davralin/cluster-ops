@@ -177,6 +177,7 @@ spec:
             image:
               repository: nextcloud
               tag: 32.0.3-apache
+            command: ["/cron.sh"]
             env:
               TZ: "${TIMEZONE}"
               REDIS_HOST: "nextcloud-valkey.nextcloud.svc.cluster.local"
