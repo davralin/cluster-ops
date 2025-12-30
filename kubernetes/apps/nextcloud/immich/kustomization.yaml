@@ -5,6 +5,7 @@ resources:
   - cronjobs
   - database-secret.yaml
   - helm-release-db-v16.yaml
+  - helm-release-db-v18.yaml
   - helm-release-valkey.yaml
   - helm-release.yaml
   - networkpolicy.yaml
