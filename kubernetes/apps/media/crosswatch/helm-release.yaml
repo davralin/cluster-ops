@@ -119,6 +119,12 @@ spec:
                     app.kubernetes.io/name: media-jellyfin
               ports:
                 - port: 8096
+            - to:
+              - podSelector:
+                  matchLabels:
+                    app.kubernetes.io/name: media-plex
+              ports:
+                - port: 32400
           ingress:
             - from:
                 - namespaceSelector:
