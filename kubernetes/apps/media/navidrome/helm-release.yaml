@@ -47,7 +47,7 @@ spec:
             env:
               TZ: "${TIMEZONE}"
               ND_LOGLEVEL: debug
-              ND_DATAFOLDER: /data
+              ND_DATAFOLDER: /data/navidrome
               #ND_MUSICFOLDER: /media
               ND_PROMETHEUS_ENABLED: true
             probes:
