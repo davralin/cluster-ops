@@ -1,0 +1,86 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &name navidrome-volsync
+  namespace: &namespace media
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: raw
+      version: v0.3.2
+      sourceRef:
+        kind: HelmRepository
+        name: dysnix-charts
+        namespace: flux-system
+      interval: 30m
+  driftDetection:
+    mode: enabled
+  targetNamespace: media
+  install:
+    createNamespace: true
+    remediation:
+      retries: 10
+  upgrade:
+    remediation:
+      retries: 10
+  dependsOn:
+    - name: volsync
+      namespace: flux-system
+    - name: navidrome
+      namespace: flux-system
+  values:
+    resources:
+      - apiVersion: volsync.backube/v1alpha1
+        kind: ReplicationSource
+        metadata:
+          name: *name
+          namespace: *namespace
+        spec:
+          sourcePVC: navidrome
+          trigger:
+            schedule: "04 01 * * *"
+          rclone:
+            copyMethod: Direct
+            rcloneConfigSection: homenas.internal-s3
+            rcloneDestPath: "volsync-${CLUSTER_NAME}-rclone/navidrome"
+            rcloneConfig: rclone-config
+            moverSecurityContext:
+              runAsUser: 1000
+              runAsGroup: 1000
+              fsGroup: 1000
+              fsGroupChangePolicy: "OnRootMismatch"
+              runAsNonRoot: true
+              seccompProfile:
+                type: RuntimeDefault
+      - apiVersion: networking.k8s.io/v1
+        kind: NetworkPolicy
+        metadata:
+          name: *name
+          namespace: *namespace
+        spec:
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/created-by: volsync
+          policyTypes:
+            - Ingress
+            - Egress
+          ingress: []
+          egress:
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: kube-system
+                  podSelector:
+                    matchLabels:
+                      k8s-app: kube-dns
+              ports:
+                - port: 53
+                  protocol: UDP
+            - to: # S3-Backup
+              - ipBlock:
+                  cidr: 10.0.1.75/32
+              ports:
+                - port: 9000
+                  protocol: TCP
