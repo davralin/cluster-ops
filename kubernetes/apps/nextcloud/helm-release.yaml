@@ -154,8 +154,8 @@ spec:
               startup:
                 enabled: true
                 spec:
-                  initialDelaySeconds: 30
-                  periodSeconds: 30
+                  initialDelaySeconds: 10
+                  periodSeconds: 20
             securityContext:
               allowPrivilegeEscalation: false
               # /entrypoint.sh: 111: cannot create /usr/local/etc/php/conf.d/redis-session.ini: Read-only file system
