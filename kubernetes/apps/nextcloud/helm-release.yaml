@@ -292,3 +292,11 @@ spec:
                       app.kubernetes.io/name: kubernetes-ingress
               ports:
                 - port: *port
+            - from:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: jottacloud-photos-to-nextcloud
+                      app.kubernetes.io/instance: nextcloud-jottacloud-photos-to-nextcloud
+                      app.kubernetes.io/name: nextcloud-jottacloud-photos-to-nextcloud
+              ports:
+                - port: *port

@@ -103,4 +103,13 @@ spec:
               ports:
                 - port: 443
                   protocol: TCP
+            - to:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: nextcloud
+                      app.kubernetes.io/instance: nextcloud-nextcloud
+                      app.kubernetes.io/name: nextcloud-nextcloud
+              ports:
+                - port: 80
+                  protocol: TCP
           ingress: []
