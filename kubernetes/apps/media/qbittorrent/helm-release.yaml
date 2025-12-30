@@ -146,3 +146,26 @@ spec:
         existingClaim: media
         globalMounts:
           - path: /data
+    networkpolicies:
+      qbittorrent:
+        enabled: true
+        controller: *name
+        policyTypes:
+          - Egress
+        rules:
+          egress:
+            - to: # Needs to connect online to everything on any port
+              - ipBlock:
+                  cidr: 0.0.0.0/0
+                  except:
+                  - "${HAPROXY_WHITELIST}"
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: kube-system
+                  podSelector:
+                    matchLabels:
+                      k8s-app: kube-dns
+              ports:
+                - port: 53
+                  protocol: UDP
