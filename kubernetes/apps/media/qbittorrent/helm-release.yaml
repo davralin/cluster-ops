@@ -89,7 +89,7 @@ spec:
         controller: *name
         ports:
           http:
-            port: 8080
+            port: &port 8080
       bittorrent:
         enabled: true
         type: LoadBalancer
@@ -152,6 +152,7 @@ spec:
         controller: *name
         policyTypes:
           - Egress
+          - Ingress
         rules:
           egress:
             - to: # Needs to connect online to everything on any port
@@ -169,3 +170,62 @@ spec:
               ports:
                 - port: 53
                   protocol: UDP
+          ingress:
+            - from:
+                - namespaceSelector:
+                    matchLabels:
+                      name: haproxy-controller
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: kubernetes-ingress
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: lidarr
+                      app.kubernetes.io/instance: media-lidarr
+                      app.kubernetes.io/name: media-lidarr
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: prowlarr
+                      app.kubernetes.io/instance: media-prowlarr
+                      app.kubernetes.io/name: media-prowlarr
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: qbit-manage
+                      app.kubernetes.io/instance: media-qbit-manage
+                      app.kubernetes.io/name: media-qbit-manage
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: radarr
+                      app.kubernetes.io/instance: media-radarr
+                      app.kubernetes.io/name: media-radarr
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: readarr
+                      app.kubernetes.io/instance: media-readarr
+                      app.kubernetes.io/name: media-readarr
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: sonarr
+                      app.kubernetes.io/instance: media-sonarr
+                      app.kubernetes.io/name: media-sonarr
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: speakarr
+                      app.kubernetes.io/instance: media-speakarr
+                      app.kubernetes.io/name: media-speakarr
+              ports:
+                - port: *port
+            - from:
+                - ipBlock:
+                    cidr: 0.0.0.0/0
+              ports:
+                - port: 9500
+            - from:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: monitoring
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: prometheus
+              ports:
+                - port: 8000
