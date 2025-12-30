@@ -50,6 +50,7 @@ spec:
               ND_DATAFOLDER: /data/navidrome
               #ND_MUSICFOLDER: /media
               ND_PROMETHEUS_ENABLED: true
+              SQLITE_TMPDIR: /data/
             probes:
               liveness: &probes
                 enabled: true
