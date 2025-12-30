@@ -44,10 +44,9 @@ spec:
           librespeed:
             image:
               repository: ghcr.io/librespeed/speedtest
-              tag: 5.4.1@sha256:0e0d9c8c2e5aa362164cf0bf25a48a606b5701f6bc7fa1695975b687aaec26a9
+              tag: 5.5.0@sha256:f493cc54cf46c085233423240aac1fd935c37c8c4b747520457ffd3fbeb3e58d
             env:
               MODE: standalone
-              WEBPORT: 8080
             probes:
               liveness: &probes
                 enabled: true
