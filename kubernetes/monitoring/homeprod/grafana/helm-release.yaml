@@ -166,6 +166,7 @@ spec:
           revision: 1
           datasource:
             - { name: DS_PROMETHEUS, value: Prometheus }
+            - { name: DS_VICTORIAMETRICS, value: Prometheus }
         # Ref: https://grafana.com/grafana/dashboards/1860
         node-exporter-full:
           # renovate: depName="Node Exporter Full"
