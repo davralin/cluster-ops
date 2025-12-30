@@ -5,6 +5,7 @@ resources:
   - bazarr
   - beets
   - cronjobs
+  - crosswatch
   - ersatztv
   - filebrowser
   - gogrepoc
