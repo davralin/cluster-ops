@@ -173,6 +173,44 @@ spec:
                 memory: 500Mi
               limits:
                 memory: 2Gi
+          nextcloud-cron:
+            image:
+              repository: nextcloud
+              tag: 32.0.3-apache
+            env:
+              TZ: "${TIMEZONE}"
+              REDIS_HOST: "nextcloud-valkey.nextcloud.svc.cluster.local"
+              SMTP_HOST: "exim.mailrelay.svc.cluster.local"
+              SMTP_PORT: "25"
+              SMTP_AUTHTYPE: "PLAIN"
+              MAIL_FROM_ADDRESS: "cloud@${SECRET_DEFAULT_DOMAIN}"
+              OVERWRITEPROTOCOL: "https"
+              OVERWRITEHOST: "cloud.${SECRET_DEFAULT_DOMAIN}"
+              POSTGRES_HOST: "nextcloud-postgres-v18-rw.nextcloud.svc.cluster.local"
+              POSTGRES_DB: "nextcloud"
+              POSTGRES_USER: "nextcloud"
+            probes:
+              liveness: &probes
+                enabled: false
+              readiness: *probes
+              startup: *probes
+            securityContext:
+              allowPrivilegeEscalation: false
+              # /entrypoint.sh: 111: cannot create /usr/local/etc/php/conf.d/redis-session.ini: Read-only file system
+              readOnlyRootFilesystem: false
+              #capabilities:
+              #  add:
+              #    - CHOWN
+              #    - SETGID
+              #    - SETUID
+              #  drop:
+              #    - ALL
+            resources:
+              requests:
+                cpu: 200m
+                memory: 500Mi
+              limits:
+                memory: 2Gi
     service:
       nextcloud:
         controller: *name
