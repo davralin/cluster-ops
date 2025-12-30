@@ -77,6 +77,8 @@ spec:
             initdb:
               database: immich
               owner: immich
+              secret:
+                name: immich-basic-auth
               import:
                 type: microservice
                 databases:
@@ -135,11 +137,11 @@ spec:
             - name: immich-postgres-v16
               connectionParameters:
                 host: immich-postgres-v16-rw
-                user: immich
+                user: postgres
                 dbname: immich
                 sslmode: require
               password:
-                name: immich-basic-auth
+                name: immich-postgres-v16 # immich-basic-auth
                 key: password
       - apiVersion: postgresql.cnpg.io/v1
         kind: ScheduledBackup
