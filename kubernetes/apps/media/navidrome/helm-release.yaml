@@ -74,6 +74,15 @@ spec:
         ports:
           http:
             port: &port 4533
+    serviceMonitor:
+      navidrome:
+        serviceName: navidrome
+        endpoints:
+          - port: http
+            scheme: http
+            path: /metrics
+            interval: 1m
+            scrapeTimeout: 10s
     ingress:
       navidrome:
         enabled: true
@@ -125,5 +134,14 @@ spec:
                   podSelector:
                     matchLabels:
                       app.kubernetes.io/name: kubernetes-ingress
+              ports:
+                - port: *port
+            - from:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: monitoring
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: prometheus
               ports:
                 - port: *port
