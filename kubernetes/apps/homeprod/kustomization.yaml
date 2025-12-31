@@ -33,6 +33,7 @@ resources:
   - ../litellm
   - ../mailrelay
   - ../mailrise
+  - ../mealie
   - ../media
   - ../meshtastic
   - ../minecraft
