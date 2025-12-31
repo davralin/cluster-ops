@@ -47,7 +47,7 @@ spec:
           onsite-sync:
             image:
               repository: ghcr.io/davralin/rsync
-              tag: latest@sha256:79b0b75808d34c24496ff131684960e6c0d6b4966091d2c795801d8ae4dc1c71
+              tag: latest@sha256:3745dc8ab19b8327b6ebd6d190b7fdfd1a1a86e47d2f09cca4f33a896f7066b0
             command: ['/usr/bin/rsync']
             args: ["--archive", "--delete", "--verbose", "-e", "ssh -o StrictHostKeyChecking=no", "/media/", "backup@nas.${SECRET_DEFAULT_DOMAIN}:/opt/local/media/"]
             securityContext:
