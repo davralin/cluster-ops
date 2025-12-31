@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - helm-release-valkey.yaml
   - helm-release.yaml
+  - pvc.yaml
