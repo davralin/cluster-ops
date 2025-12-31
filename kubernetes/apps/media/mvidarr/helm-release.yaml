@@ -44,7 +44,7 @@ spec:
           mvidarr:
             image:
               repository: ghcr.io/prefect421/mvidarr
-              tag: 0.11.0@sha256:6703408a2b09e6e994cd200feb0369ee60a0e3448742349d8a8c1a553ffca692
+              tag: 1.0.0@sha256:487e3f942ddf6bdbf94b5903b79b4365ef17094ef3cbcf3a79aa58becc7eafdb
             env:
               TZ: "${TIMEZONE}"
               DEBUG: true
