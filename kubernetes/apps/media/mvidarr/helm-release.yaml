@@ -106,7 +106,7 @@ spec:
         enabled: true
         type: emptyDir
         globalMounts:
-          - path: /app/data/logs
+          - path: /app/logs
       musicvideos:
         enabled: true
         existingClaim: media
