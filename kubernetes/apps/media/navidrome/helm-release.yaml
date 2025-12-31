@@ -46,9 +46,10 @@ spec:
               tag: 0.59.0@sha256:4edc8a1de3e042f30b78a478325839f4395177eb8201c27543dccc0eba674f23
             env:
               TZ: "${TIMEZONE}"
+              ND_AUTOIMPORTPLAYLISTS: true
               ND_LOGLEVEL: debug
               ND_DATAFOLDER: /data/navidrome
-              #ND_MUSICFOLDER: /media
+              ND_MUSICFOLDER: /music/streams
               ND_PROMETHEUS_ENABLED: true
               SQLITE_TMPDIR: /data/
             probes:
@@ -108,13 +109,13 @@ spec:
       data:
         enabled: true
         existingClaim: navidrome
-      media:
+      music:
         enabled: true
         existingClaim: media
         advancedMounts:
           navidrome:
             navidrome:
-              - path: /media
+              - path: /music
                 subPath: audio
                 readOnly: true
     networkpolicies:
