@@ -43,8 +43,16 @@ spec:
         containers:
           mvidarr:
             image:
-              repository: ghcr.io/davralin/mvidarr
-              tag: latest@sha256:0a197d01881bf75b3bf63918e512927e455b346bc91d3113d9c49104658a286f
+              repository: ghcr.io/prefect421/mvidarr
+              tag: 0.11.0@sha256:6703408a2b09e6e994cd200feb0369ee60a0e3448742349d8a8c1a553ffca692
+            env:
+              TZ: "${TIMEZONE}"
+              DEBUG: true
+              PUID: 1000
+              PGID: 1000
+              REDIS_URL: redis://mvidarr-valkey.media.svc.cluster.local:6379/0
+              CELERY_BROKER_URL: redis://mvidarr-valkey.media.svc.cluster.local:6379/0
+              CELERY_RESULT_BACKEND: redis://mvidarr-valkey.media.svc.cluster.local:6379/1
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -79,16 +87,33 @@ spec:
           - hosts:
               - *host
     persistence:
+      cache:
+        enabled: true
+        type: emptyDir
+        globalMounts:
+          - path: /app/data/cache
       data:
         enabled: true
         existingClaim: mvidarr
-      media:
+        globalMounts:
+          - path: /app/data
+      downloads:
+        enabled: true
+        type: emptyDir
+        globalMounts:
+          - path: /app/data/downloads
+      logs:
+        enabled: true
+        type: emptyDir
+        globalMounts:
+          - path: /app/data/logs
+      musicvideos:
         enabled: true
         existingClaim: media
         advancedMounts:
           mvidarr:
             mvidarr:
-              - path: /musicvideos
+              - path: /app/data/musicvideos
                 subPath: video/musicvideos
     networkpolicies:
       mvidarr:
@@ -99,11 +124,6 @@ spec:
           - Ingress
         rules:
           egress:
-            - to: # Needs to connect to the world
-              - ipBlock:
-                  cidr: 0.0.0.0/0
-                  except:
-                  - "${HAPROXY_WHITELIST}"
             - to:
                 - namespaceSelector:
                     matchLabels:
@@ -114,6 +134,20 @@ spec:
               ports:
                 - port: 53
                   protocol: UDP
+            - to:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: mvidarr-valkey
+              ports:
+                - port: 6379
+            - to: # Needs to connect to the world
+              - ipBlock:
+                  cidr: 0.0.0.0/0
+                  except:
+                  - "${HAPROXY_WHITELIST}"
+              ports:
+                - port: 443
+                  protocol: TCP
           ingress:
             - from:
                 - namespaceSelector:
