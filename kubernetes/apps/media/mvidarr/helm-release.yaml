@@ -31,11 +31,11 @@ spec:
       automountServiceAccountToken: false
       enableServiceLinks: false
       securityContext:
-        runAsUser: 1000
-        runAsGroup: 1000
+        runAsUser: 0
+        runAsGroup: 0
         fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"
-        runAsNonRoot: true
+        runAsNonRoot: false
         seccompProfile:
           type: RuntimeDefault
     controllers:
@@ -56,11 +56,11 @@ spec:
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-              #capabilities:
-              #  add:
-              #   - CHOWN
-              #  drop:
-              #    - ALL
+              capabilities:
+                add:
+                 - CHOWN
+                drop:
+                  - ALL
     service:
       mvidarr:
         controller: *name
