@@ -24,8 +24,9 @@
   become: true
   vars:
     flatpaks:
-      - com.fastmail.Fastmail
       - com.discordapp.Discord
+      - com.fastmail.Fastmail
+      - com.heroicgameslauncher.hgl
       - com.nextcloud.desktopclient.nextcloud
       - com.valvesoftware.Steam
       - io.freetubeapp.FreeTube
