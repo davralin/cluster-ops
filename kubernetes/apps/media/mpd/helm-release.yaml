@@ -65,6 +65,7 @@ spec:
                 memory: 200Mi
     service:
       mpd:
+        type: LoadBalancer
         controller: *name
         ports:
           http:
