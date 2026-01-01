@@ -56,11 +56,11 @@ spec:
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-              capabilities:
-                add:
-                 - CHOWN
-                drop:
-                  - ALL
+              #capabilities:
+              #  add:
+              #   - CHOWN
+              #  drop:
+              #    - ALL
     service:
       mvidarr:
         controller: *name
