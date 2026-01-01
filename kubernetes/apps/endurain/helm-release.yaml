@@ -45,7 +45,7 @@ spec:
               tag: v0.16.4@sha256:8920ec8b3a51a754569376154edc627550f610fb5dca92fcc825585b9d9b6ca7
             env:
               TZ: "${TIMEZONE}"
-              ENDURAIN_HOST: &host "endurain.${SECRET_DEFAULT_DOMAIN}"
+              ENDURAIN_HOST: "https://endurain.${SECRET_DEFAULT_DOMAIN}"
               BEHIND_PROXY: true
               DB_HOST: endurain-postgres-v18-rw.endurain.svc.cluster.local
               DB_PASSWORD:
@@ -103,7 +103,7 @@ spec:
         #    X-Content-Type-Options "nosniff"
         #    Referrer-Policy "strict-origin-when-cross-origin"
         hosts:
-          - host: *host
+          - host: &host "endurain.${SECRET_DEFAULT_DOMAIN}"
             paths:
               - path: /
                 service:
