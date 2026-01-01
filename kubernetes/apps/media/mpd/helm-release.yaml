@@ -1,0 +1,108 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &name mpd
+  namespace: flux-system
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 4.5.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+      interval: 30m
+  targetNamespace: media
+  install:
+    createNamespace: true
+    remediation:
+      retries: 10
+  upgrade:
+    remediation:
+      retries: 10
+  values:
+    fullnameOverride: *name
+    defaultPodOptions:
+      automountServiceAccountToken: false
+      enableServiceLinks: false
+      hostname: *name
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+    controllers:
+      mpd:
+        containers:
+          mpd:
+            image:
+              repository: ghcr.io/davralin/mpd
+              tag: latest@sha256:b1eca02eadf936d9a2534bfab66c922afd1396feea81cb2a3bb6047daa687901
+            env:
+              TZ: "${TIMEZONE}"
+            probes:
+              liveness: &probes
+                enabled: false # TODO
+              readiness: *probes
+              startup: *probes
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+            resources:
+              requests:
+                cpu: 10m
+                memory: 100Mi
+              limits:
+                memory: 200Mi
+    service:
+      mpd:
+        controller: *name
+        ports:
+          http:
+            port: &port 6600
+          stream:
+            port: 8000
+    persistence:
+      data:
+        enabled: true
+        existingClaim: mpd
+        globalMounts:
+          - path: /var/lib/mpd
+      music:
+        enabled: true
+        existingClaim: media
+        advancedMounts:
+          mpd:
+            mpd:
+              - path: /var/lib/mpd/music
+                subPath: audio/streams
+                readOnly: true
+    networkpolicies:
+      mpd:
+        enabled: true
+        controller: *name
+        policyTypes:
+          - Egress
+          - Ingress
+        rules:
+          egress: []
+          ingress:
+            - from:
+                - ipBlock:
+                    cidr: 0.0.0.0/0
+              ports:
+                - port: *port
+            - from:
+                - ipBlock:
+                    cidr: 0.0.0.0/0
+              ports:
+                - port: 8000
