@@ -22,4 +22,79 @@ spec:
               app.kubernetes.io/name: prometheus
       ports:
         - port: 9926
-  egress: {}
+  egress: []
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: rook-ceph-operator
+  namespace: rook-ceph
+spec:
+  podSelector:
+    matchLabels:
+      app: rook-ceph-operator
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress: []
+  egress:
+    - to:
+        - podSelector:
+            matchLabels:
+              app: rook-ceph-mon
+              app.kubernetes.io/component: cephclusters.ceph.rook.io
+              app.kubernetes.io/created-by: rook-ceph-operator
+              app.kubernetes.io/managed-by: rook-ceph-operator
+              app.kubernetes.io/name: ceph-mon
+              ceph_daemon_type: mon
+      ports:
+        - port: 3300
+          protocol: TCP
+    - to:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/component: cephclusters.ceph.rook.io
+              app.kubernetes.io/created-by: rook-ceph-operator
+              app.kubernetes.io/managed-by: rook-ceph-operator
+              app.kubernetes.io/name: ceph-mgr
+              ceph_daemon_type: mgr
+      ports:
+        - port: 6800
+          protocol: TCP
+    - to:
+        - podSelector:
+            matchLabels:
+              app: rook-ceph-osd
+              app.kubernetes.io/component: cephclusters.ceph.rook.io
+              app.kubernetes.io/created-by: rook-ceph-operator
+              app.kubernetes.io/managed-by: rook-ceph-operator
+              app.kubernetes.io/name: ceph-osd
+              ceph_daemon_type: osd
+      ports:
+        - port: 6800
+          protocol: TCP
+    - to:
+        - podSelector:
+            matchLabels:
+              app: rook-ceph-rgw
+              app.kubernetes.io/component: cephobjectstores.ceph.rook.io
+              app.kubernetes.io/created-by: rook-ceph-operator
+              app.kubernetes.io/managed-by: rook-ceph-operator
+              app.kubernetes.io/name: ceph-rgw
+              ceph_daemon_type: rgw
+      ports:
+        - port: 8080
+          protocol: TCP
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: rook-ceph-operator
+  namespace: rook-ceph
+spec:
+  endpointSelector:
+    matchLabels:
+      app: rook-ceph-operator
+  egress:
+    - toEntities:
+      - kube-apiserver
