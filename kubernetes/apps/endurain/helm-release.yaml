@@ -31,7 +31,7 @@ spec:
       securityContext:
         runAsUser: 0
         runAsGroup: 0
-        fsGroup: 0
+        fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"
         runAsNonRoot: false
         seccompProfile:
@@ -117,7 +117,7 @@ spec:
         enabled: true
         existingClaim: endurain
         globalMounts:
-          - path: /app/backend/data2
+          - path: /app/backend/data
       tmp:
         type: emptyDir
         globalMounts:
