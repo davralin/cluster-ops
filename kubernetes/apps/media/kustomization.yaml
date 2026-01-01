@@ -27,7 +27,7 @@ resources:
   - scraparr
   - sonarr
   - speakarr
-  - streamripper
+  #- streamripper
   - tautulli
   - tdarr
   - unpackerr
