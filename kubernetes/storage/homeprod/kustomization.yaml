@@ -6,3 +6,4 @@ resources:
   - helm-release-monitoring.yaml
   - helm-release.yaml
   - namespace.yaml
+  - networkpolicy.yaml
