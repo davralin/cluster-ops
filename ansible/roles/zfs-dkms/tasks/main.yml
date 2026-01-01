@@ -24,6 +24,7 @@
   become: true
   vars:
     packages:
+      - zfs-auto-snapshot
       - zfsutils-linux
       - zfs-zed
 
