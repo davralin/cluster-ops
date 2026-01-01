@@ -49,7 +49,7 @@ spec:
               ND_AUTOIMPORTPLAYLISTS: true
               ND_LOGLEVEL: debug
               ND_DATAFOLDER: /data/navidrome
-              ND_MUSICFOLDER: /music/streams
+              ND_MUSICFOLDER: /music
               ND_PROMETHEUS_ENABLED: true
               SQLITE_TMPDIR: /data/
             probes:
@@ -115,8 +115,14 @@ spec:
         advancedMounts:
           navidrome:
             navidrome:
-              - path: /music
-                subPath: audio
+              - path: /music/artists
+                subPath: audio/artists
+                readOnly: true
+              - path: /music/singles
+                subPath: audio/singles
+                readOnly: true
+              - path: /music/soundtracks
+                subPath: audio/soundtracks
                 readOnly: true
     networkpolicies:
       navidrome:
