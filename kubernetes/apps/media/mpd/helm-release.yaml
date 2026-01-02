@@ -51,8 +51,7 @@ spec:
               tag: latest@sha256:49ca475ec37e1ef509395d4e9a44af3250bbf0118371fb563420bf03cc4b520a
             env:
               MPD_HOST: "mpd.media.svc.cluster.local"
-            command: ['sleep']
-            args: ["infinity"]
+            command: ['/usr/local/bin/create-playlist.sh']
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
