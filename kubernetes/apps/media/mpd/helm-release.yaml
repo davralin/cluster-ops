@@ -91,8 +91,9 @@ spec:
           create-playlist.sh: |
             #!/bin/bash
             for i in $(mpc listall | cut -f1 -d'/' | sort | uniq); do
-              echo $i; done
+              echo $i
             done
+            sleep 1h
     service:
       mpd:
         type: LoadBalancer
