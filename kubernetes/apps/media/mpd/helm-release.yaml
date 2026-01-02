@@ -41,9 +41,9 @@ spec:
           type: RuntimeDefault
     controllers:
       cron:
-        #type: cronjob
-        #cronjob:
-        #  schedule: "55 05 * * *"
+        type: cronjob
+        cronjob:
+          schedule: "55 05 * * *"
         containers:
           cron:
             image:
@@ -101,7 +101,6 @@ spec:
             mpc lsplaylist
             mpc load $(mpc lsplaylist | shuf | head -n1)
             mpc play
-            sleep 1h
     service:
       mpd:
         type: LoadBalancer
