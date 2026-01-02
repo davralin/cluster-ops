@@ -97,7 +97,10 @@ spec:
               mpc shuffle
               mpc save $i
             done
+            echo "We created:"
             mpc lsplaylist
+            mpc load $(mpc lsplaylist | shuf | head -n1)
+            mpc play
             sleep 1h
     service:
       mpd:
