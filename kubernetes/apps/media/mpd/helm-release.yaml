@@ -160,6 +160,15 @@ spec:
           egress: []
           ingress:
             - from:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: cron
+                      app.kubernetes.io/instance: media-mpd
+                      app.kubernetes.io/name: media-mpd
+              ports:
+                - port: 6600
+                  protocol: TCP
+            - from:
                 - ipBlock:
                     cidr: 0.0.0.0/0
               ports:
