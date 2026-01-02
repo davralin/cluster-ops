@@ -43,7 +43,7 @@ spec:
           mpd:
             image:
               repository: ghcr.io/davralin/mpd
-              tag: latest@sha256:b54ab47e6498c9ceefdfdca640df2a4f420d4992e05b133a39783f07f771f251
+              tag: latest@sha256:49ca475ec37e1ef509395d4e9a44af3250bbf0118371fb563420bf03cc4b520a
             env:
               TZ: "${TIMEZONE}"
             probes:
