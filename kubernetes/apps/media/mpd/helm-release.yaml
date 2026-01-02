@@ -91,7 +91,13 @@ spec:
             #!/bin/bash
             for i in $(mpc listall | cut -f1 -d'/' | sort | uniq); do
               echo $i
+              mpc clear
+              mpc rm $i
+              mpc add $i/
+              mpc shuffle
+              mpc save $i
             done
+            mpc lsplaylist
             sleep 1h
     service:
       mpd:
