@@ -49,6 +49,8 @@ spec:
             image:
               repository: ghcr.io/davralin/mpd
               tag: latest@sha256:49ca475ec37e1ef509395d4e9a44af3250bbf0118371fb563420bf03cc4b520a
+            env:
+              MPD_HOST: "mpd.media.svc.cluster.local"
             command: ['sleep']
             args: ["infinity"]
             securityContext:
@@ -82,6 +84,15 @@ spec:
                 memory: 100Mi
               limits:
                 memory: 200Mi
+    configMaps:
+      mpd-conf:
+        enabled: true
+        data:
+          create-playlist.sh: |
+            #!/bin/bash
+            for i in $(mpc listall | cut -f1 -d'/' | sort | uniq); do
+              echo $i; done
+            done
     service:
       mpd:
         type: LoadBalancer
@@ -119,6 +130,16 @@ spec:
           - Ingress
         rules:
           egress:
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: kube-system
+                  podSelector:
+                    matchLabels:
+                      k8s-app: kube-dns
+              ports:
+                - port: 53
+                  protocol: UDP
             - to:
                 - podSelector:
                     matchLabels:
