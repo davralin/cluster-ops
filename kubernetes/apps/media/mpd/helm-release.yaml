@@ -97,8 +97,10 @@ spec:
       data:
         enabled: true
         existingClaim: mpd
-        globalMounts:
-          - path: /var/lib/mpd
+        advancedMounts:
+          mpd:
+            mpd:
+              - path: /var/lib/mpd
       music:
         enabled: true
         existingClaim: media
@@ -109,6 +111,24 @@ spec:
                 subPath: audio/streams
                 readOnly: true
     networkpolicies:
+      cron:
+        enabled: true
+        controller: cron
+        policyTypes:
+          - Egress
+          - Ingress
+        rules:
+          egress:
+            - to:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: mpd
+                      app.kubernetes.io/instance: media-mpd
+                      app.kubernetes.io/name: media-mpd
+              ports:
+                - port: 6600
+                  protocol: TCP
+          ingress: []
       mpd:
         enabled: true
         controller: *name
