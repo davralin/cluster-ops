@@ -33,6 +33,14 @@ spec:
       ports:
         - port: 6379
           protocol: TCP
+    - to: # For model downloading
+      - ipBlock:
+          cidr: 0.0.0.0/0
+          except:
+          - "${HAPROXY_WHITELIST}"
+      ports:
+        - port: 443
+          protocol: TCP
   ingress:
     - from:
         - podSelector:
