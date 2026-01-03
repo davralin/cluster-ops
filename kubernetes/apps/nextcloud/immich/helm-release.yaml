@@ -51,7 +51,7 @@ spec:
               # renovate: datasource=github-releases depName=immich-app/immich
               tag: v2.4.1
             env:
-              DB_HOSTNAME: immich-postgres-v16-rw #immich-postgres-v18-rw
+              DB_HOSTNAME: immich-postgres-v18-rw
               DB_DATABASE_NAME: immich
               LOG_LEVEL: verbose
               REDIS_HOSTNAME: immich-valkey

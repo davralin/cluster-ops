@@ -97,7 +97,7 @@ spec:
     - to:
         - podSelector:
             matchLabels:
-              cnpg.io/cluster: immich-postgres-v16 # immich-postgres-v18
+              cnpg.io/cluster: immich-postgres-v18
       ports:
         - port: 5432
           protocol: TCP
