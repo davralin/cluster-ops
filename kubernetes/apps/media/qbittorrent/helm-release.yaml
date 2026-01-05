@@ -181,6 +181,17 @@ spec:
                       app.kubernetes.io/name: gotify-gotify
               ports:
                 - port: 80
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: mailrise
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: mailrise
+                      app.kubernetes.io/instance: mailrise-mailrise
+                      app.kubernetes.io/name: mailrise-mailrise
+              ports:
+                - port: 8025
           ingress:
             - from:
                 - namespaceSelector:
