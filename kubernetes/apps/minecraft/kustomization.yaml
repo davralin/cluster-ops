@@ -13,4 +13,5 @@ resources:
   - helm-offsite-sync.yaml
   - helm-onsite-sync.yaml
   - namespace.yaml
+  - networkpolicy.yaml
   - secret.yaml
