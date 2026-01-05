@@ -33,4 +33,4 @@ spec:
           targetLabel: instance
           action: replace
     prometheusRules:
-      enabled: false #"${MONITORING_PROMETHEUS}"
+      enabled: "${MONITORING_PROMETHEUS}"
