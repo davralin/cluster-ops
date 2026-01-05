@@ -148,11 +148,27 @@ spec:
                   protocol: UDP
           ingress:
             - from:
+                - namespaceSelector:
+                    matchLabels:
+                      name: haproxy-controller
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: kubernetes-ingress
                 - podSelector:
                     matchLabels:
                       app.kubernetes.io/controller: ersatztv
                       app.kubernetes.io/instance: media-ersatztv
                       app.kubernetes.io/name: media-ersatztv
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: jellyseerr
+                      app.kubernetes.io/instance: media-jellyseerr
+                      app.kubernetes.io/name: media-jellyseerr
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: jellystat
+                      app.kubernetes.io/instance: media-jellystat
+                      app.kubernetes.io/name: media-jellystat
                 - podSelector:
                     matchLabels:
                       app.kubernetes.io/controller: lidarr

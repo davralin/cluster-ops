@@ -130,12 +130,63 @@ spec:
       tmp:
         type: emptyDir
     networkpolicies:
-      metube:
+      jellyseerr:
         enabled: true
         controller: *name
         policyTypes:
+          - Egress
           - Ingress
         rules:
+          egress:
+            - to: # Needs to reach out for artwork and such
+              - ipBlock:
+                  cidr: 0.0.0.0/0
+                  except:
+                  - "${HAPROXY_WHITELIST}"
+              ports:
+                - port: 443
+                  protocol: TCP
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: kube-system
+                  podSelector:
+                    matchLabels:
+                      k8s-app: kube-dns
+              ports:
+                - port: 53
+                  protocol: UDP
+            - to:
+                - podSelector:
+                    matchLabels:
+                      cnpg.io/cluster: jellyseerr-postgres-v18
+                      cnpg.io/instanceRole: primary
+              ports:
+                - port: 5432
+            - to:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: jellyfin
+                      app.kubernetes.io/instance: media-jellyfin
+                      app.kubernetes.io/name: media-jellyfin
+              ports:
+                - port: 8096
+            - to:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: radarr
+                      app.kubernetes.io/instance: media-radarr
+                      app.kubernetes.io/name: media-radarr
+              ports:
+                - port: 7878
+            - to:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: sonarr
+                      app.kubernetes.io/instance: media-sonarr
+                      app.kubernetes.io/name: media-sonarr
+              ports:
+                - port: 8989
           ingress:
             - from:
                 - namespaceSelector:
