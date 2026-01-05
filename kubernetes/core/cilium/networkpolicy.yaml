@@ -28,9 +28,9 @@ spec:
     - from:
         - podSelector:
             matchLabels:
-              app.kubernetes.io/name: hubble-relay
+              app.kubernetes.io/name: hubble-ui
               app.kubernetes.io/part-of: cilium
-              k8s-app: hubble-relay
+              k8s-app: hubble-ui
       ports:
         - port: 4245
 ---
