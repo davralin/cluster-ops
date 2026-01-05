@@ -27,12 +27,6 @@ spec:
         - port: 53
           protocol: UDP
     - from:
-      - ipBlock:
-          cidr: 0.0.0.0/0
-      ports:
-        - port: 53
-          protocol: UDP
-    - from:
         - namespaceSelector:
             matchLabels:
               kubernetes.io/metadata.name: monitoring
