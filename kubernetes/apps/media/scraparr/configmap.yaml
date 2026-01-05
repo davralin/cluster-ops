@@ -12,21 +12,26 @@ data:
       # interval: 60 # Optional to set a different Interval in Seconds
       # detailed: true  # Get Data per Series
 
-    sonarr:
-      url: http://sonarr.media.svc.cluster.local:8989
-      api_key: "${SECRET_SONARR_API_KEY}"
-      # alias: sonarr # Optional to Differentiate between multiple Services
-      # api_version: v3 # Optional to use a different API Version
+    jellyseerr:
+      url: http://jellyseerr.media.svc.cluster.local:5055
+      api_key: "${SECRET_JELLYSEERR_API_KEY}"
+      # alias: jellyseerr # Optional to Differentiate between multiple Services
+      # interval: 60 # Optional to set a different Interval in Seconds
+      # detailed: true  # Get Data per Request/Issue
+
+    jellyfin:
+      url: http://jellyfin.media.svc.cluster.local:8096
+      api_key: "${SECRET_JELLYFIN_TOKEN}"
+      # alias: jellyseerr # Optional to Differentiate between multiple Services
+      # interval: 60 # Optional to set a different Interval in Seconds
+      # detailed: true  # Get Data per Request/Issue
+
+    lidarr:
+      url: http://lidarr.media.svc.cluster.local:6767
+      api_key: "${SECRET_LIDARR_API_KEY}"
+      # alias: lidarr # Optional to Differentiate between multiple Services
       # interval: 60 # Optional to set a different Interval in Seconds
       # detailed: true  # Get Data per Series
-
-    radarr:
-      url: http://radarr.media.svc.cluster.local:7878
-      api_key: "${SECRET_RADARR_API_KEY}"
-      # alias: radarr # Optional to Differentiate between multiple Services
-      # api_version: v3 # Optional to use a different API Version
-      # interval: 60 # Optional to set a different Interval in Seconds
-      # detailed: true  # Get Data per Movie
 
     prowlarr:
       url: http://prowlarr.media.svc.cluster.local:9696
@@ -35,6 +40,14 @@ data:
       # api_version: v1 # Optional to use a different API Version
       # interval: 60 # Optional to set a different Interval in Seconds
       # detailed: true  # Get Data per Application/Indexer
+
+    radarr:
+      url: http://radarr.media.svc.cluster.local:7878
+      api_key: "${SECRET_RADARR_API_KEY}"
+      # alias: radarr # Optional to Differentiate between multiple Services
+      # api_version: v3 # Optional to use a different API Version
+      # interval: 60 # Optional to set a different Interval in Seconds
+      # detailed: true  # Get Data per Movie
 
     readarr:
       url: http://readarr.media.svc.cluster.local:8787
@@ -52,16 +65,10 @@ data:
       # interval: 60 # Optional to set a different Interval in Seconds
       # detailed: true  # Get Data per Book
 
-    jellyseerr:
-      url: http://jellyseerr.media.svc.cluster.local:5055
-      api_key: "${SECRET_JELLYSEERR_API_KEY}"
-      # alias: jellyseerr # Optional to Differentiate between multiple Services
+    sonarr:
+      url: http://sonarr.media.svc.cluster.local:8989
+      api_key: "${SECRET_SONARR_API_KEY}"
+      # alias: sonarr # Optional to Differentiate between multiple Services
+      # api_version: v3 # Optional to use a different API Version
       # interval: 60 # Optional to set a different Interval in Seconds
-      # detailed: true  # Get Data per Request/Issue
-
-    jellyfin:
-      url: http://jellyfin.media.svc.cluster.local:8096
-      api_key: "${SECRET_JELLYFIN_TOKEN}"
-      # alias: jellyseerr # Optional to Differentiate between multiple Services
-      # interval: 60 # Optional to set a different Interval in Seconds
-      # detailed: true  # Get Data per Request/Issue
+      # detailed: true  # Get Data per Series
