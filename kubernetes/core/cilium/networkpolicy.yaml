@@ -91,13 +91,13 @@ spec:
     - Ingress
   egress:
     - to:
-        - podSelector: {}
-#            matchLabels:
-#              app.kubernetes.io/name: hubble-relay
-#              app.kubernetes.io/part-of: cilium
-#              k8s-app: hubble-relay
-#      ports:
-#        - port: 4245
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/name: hubble-relay
+              app.kubernetes.io/part-of: cilium
+              k8s-app: hubble-relay
+      ports:
+        - port: 4245
   ingress:
     - from:
         - namespaceSelector:
