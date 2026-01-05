@@ -35,45 +35,39 @@ spec:
 #          protocol: TCP
   ingress:
     - from:
-        - podSelector: {}
-#            matchLabels:
-#              app.kubernetes.io/name: hubble-ui
-#              app.kubernetes.io/part-of: cilium
-#              k8s-app: hubble-ui
-#      ports:
-#        - port: 4245
-#---
-#apiVersion: cilium.io/v2
-#kind: CiliumNetworkPolicy
-#metadata:
-#  name: hubble-relay
-#  namespace: kube-system
-#spec:
-#  endpointSelector:
-#    matchLabels:
-#      app.kubernetes.io/name: hubble-relay
-#      app.kubernetes.io/part-of: cilium
-#      k8s-app: hubble-relay
-#  egress:
-#    - toEntities:
-#      - cluster # really just the hosts, not the pods
-#      toPorts:
-#        - ports:
-#            - port: "4244" # hubble-relay
-#              protocol: TCP
-#    - toEntities:
-#      - kube-apiserver
-#      toPorts:
-#        - ports:
-#            - port: "6443"
-#              protocol: TCP
-#  ingress:
-#    - fromEntities:
-#      - cluster # really just the hosts, not the pods
-#      toPorts:
-#        - ports:
-#            - port: "4222" # hubble-agent
-#              protocol: TCP
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/name: hubble-ui
+              app.kubernetes.io/part-of: cilium
+              k8s-app: hubble-ui
+      ports:
+        - port: 4245
+    - from:
+        - ipBlock:
+            cidr: 0.0.0.0/0
+      ports:
+        - port: 4222
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: hubble-relay
+  namespace: kube-system
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: hubble-relay
+      app.kubernetes.io/part-of: cilium
+      k8s-app: hubble-relay
+  egress:
+    - toEntities:
+      - kube-apiserver
+      - host
+      - remote-node
+      toPorts:
+        - ports:
+            - port: "4244" # hubble-relay
+              protocol: TCP
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
