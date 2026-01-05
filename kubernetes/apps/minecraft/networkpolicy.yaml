@@ -55,6 +55,9 @@ spec:
               app.kubernetes.io/name: kuma-kuma
       ports:
         - port: 25565
+          protocol: TCP
+        - port: 25565
+          protocol: UDP
     - from:
         - namespaceSelector:
             matchLabels:
@@ -86,6 +89,8 @@ spec:
       ports:
         - port: 25565
           protocol: TCP
+        - port: 25565
+          protocol: UDP
   ingress:
     - from:
         - ipBlock:
@@ -100,6 +105,9 @@ spec:
               app.kubernetes.io/name: kuma-kuma
       ports:
         - port: 25565
+          protocol: TCP
+        - port: 25565
+          protocol: UDP
     - from:
         - namespaceSelector:
             matchLabels:
