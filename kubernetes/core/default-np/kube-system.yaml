@@ -10,12 +10,25 @@ spec:
       k8s-app: kube-dns
   policyTypes:
     - Egress
+    - Ingress
   egress:
     - to: # For DNS
       - ipBlock:
           cidr: 0.0.0.0/0
           except:
           - "${HAPROXY_WHITELIST}"
+      ports:
+        - port: 53
+          protocol: UDP
+  ingress:
+    - from:
+        - namespaceSelector: {}
+      ports:
+        - port: 53
+          protocol: UDP
+    - from:
+      - ipBlock:
+          cidr: 0.0.0.0/0
       ports:
         - port: 53
           protocol: UDP
