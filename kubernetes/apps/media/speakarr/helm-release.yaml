@@ -181,7 +181,7 @@ spec:
                       app.kubernetes.io/name: gotify-gotify
               ports:
                 - port: 80
-            - to: # metadata and notifications
+            - to: # metadata
               - ipBlock:
                   cidr: 0.0.0.0/0
                   except:
