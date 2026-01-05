@@ -67,7 +67,7 @@ spec:
         controller: *name
         ports:
           http:
-            port: 6767
+            port: &port 6767
     ingress:
       bazarr:
         enabled: true
@@ -98,3 +98,63 @@ spec:
         existingClaim: media
         globalMounts:
           - path: /data
+    networkpolicies:
+      bazarr:
+        enabled: true
+        controller: *name
+        policyTypes:
+          - Egress
+          - Ingress
+        rules:
+          egress:
+            - to: # Needs to download subs
+              - ipBlock:
+                  cidr: 0.0.0.0/0
+                  except:
+                  - "${HAPROXY_WHITELIST}"
+              ports:
+                - port: 443
+                  protocol: TCP
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: kube-system
+                  podSelector:
+                    matchLabels:
+                      k8s-app: kube-dns
+              ports:
+                - port: 53
+                  protocol: UDP
+            - to:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: radarr
+                      app.kubernetes.io/instance: media-radarr
+                      app.kubernetes.io/name: media-radarr
+              ports:
+                - port: 7878
+                  protocol: TCP
+            - to:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: sonarr
+                      app.kubernetes.io/instance: media-sonarr
+                      app.kubernetes.io/name: media-sonarr
+              ports:
+                - port: 8989
+                  protocol: TCP
+          ingress:
+            - from:
+                - namespaceSelector:
+                    matchLabels:
+                      name: haproxy-controller
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: kubernetes-ingress
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: scraparr
+                      app.kubernetes.io/instance: media-scraparr
+                      app.kubernetes.io/name: media-scraparr
+              ports:
+                - port: *port
