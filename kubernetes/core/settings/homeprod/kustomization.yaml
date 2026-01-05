@@ -11,6 +11,7 @@ resources:
   - ../../cert-manager
   - ../../charts
   - ../../cilium
+  - ../../default-np
   - ../../flux
   - ../../haproxy
   - ../../prometheus-crd
