@@ -11,19 +11,19 @@ spec:
       app.kubernetes.io/part-of: cilium
       k8s-app: hubble-relay
   policyTypes:
-    #- Egress
+    - Egress
     - Ingress
-  #egress:
-  #  - to:
-  #      - namespaceSelector:
-  #          matchLabels:
-  #            kubernetes.io/metadata.name: kube-system
-  #        podSelector:
-  #          matchLabels:
-  #            k8s-app: kube-dns
-  #    ports:
-  #      - port: 53
-  #        protocol: UDP
+  egress:
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: kube-system
+          podSelector:
+            matchLabels:
+              k8s-app: kube-dns
+      ports:
+        - port: 53
+          protocol: UDP
   #  - to:
   #      - podSelector: {}
 #            matchLabels:
