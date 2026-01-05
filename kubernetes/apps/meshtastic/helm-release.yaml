@@ -42,7 +42,7 @@ spec:
           meshtastic:
             image:
               repository: ghcr.io/meshtastic/web
-              tag: latest@sha256:ced7a025a65a6576a61298203833acf509a6c49007fa1803bfda7c41f7cc71cc
+              tag: 2.6.7@sha256:ced7a025a65a6576a61298203833acf509a6c49007fa1803bfda7c41f7cc71cc
             env:
               TZ: "${TIMEZONE}"
             probes:
@@ -70,7 +70,7 @@ spec:
         ports:
           http:
             port: 80
-            targetPort: 8080
+            targetPort: &port 8080
             protocol: TCP
     persistence:
       # [emerg] 1#1: mkdir() "/var/cache/nginx/client_temp" failed (13: Permission denied)
@@ -93,3 +93,22 @@ spec:
         type: emptyDir
         globalMounts:
           - path: /run/
+    networkpolicies:
+      meshtastic:
+        enabled: true
+        controller: *name
+        policyTypes:
+          - Ingress
+          - Egress
+        rules:
+          egress: []
+          ingress:
+            - from:
+                - namespaceSelector:
+                    matchLabels:
+                      name: haproxy-controller
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: kubernetes-ingress
+              ports:
+                - port: *port
