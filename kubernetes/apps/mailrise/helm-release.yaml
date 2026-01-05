@@ -88,7 +88,7 @@ spec:
       mailrise-config:
         enabled: true
         type: secret
-        name: mailrise-conf
+        name: mailrise
         advancedMounts:
           mailrise:
             mailrise:
