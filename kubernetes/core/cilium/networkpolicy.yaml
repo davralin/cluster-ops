@@ -52,6 +52,13 @@ spec:
         - ports:
             - port: "4244" # hubble-relay
               protocol: TCP
+  ingress:
+    - fromEntities:
+      - cluster # really just the hosts, not the pods
+      toPorts:
+        - ports:
+            - port: "4222" # hubble-agent
+              protocol: TCP
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
