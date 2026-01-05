@@ -74,7 +74,7 @@ spec:
         controller: *name
         ports:
           http:
-            port: 8096
+            port: &port 8096
     ingress:
       jellyfin:
         enabled: true
@@ -119,3 +119,74 @@ spec:
         existingClaim: pinchflat-media
         globalMounts:
           - path: /downloads
+    networkpolicies:
+      jellyfin:
+        enabled: true
+        controller: *name
+        policyTypes:
+          - Egress
+          - Ingress
+        rules:
+          egress:
+            - to: # Needs to reach out for artwork and such
+              - ipBlock:
+                  cidr: 0.0.0.0/0
+                  except:
+                  - "${HAPROXY_WHITELIST}"
+              ports:
+                - port: 443
+                  protocol: TCP
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: kube-system
+                  podSelector:
+                    matchLabels:
+                      k8s-app: kube-dns
+              ports:
+                - port: 53
+                  protocol: UDP
+          ingress:
+            - from:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: ersatztv
+                      app.kubernetes.io/instance: media-ersatztv
+                      app.kubernetes.io/name: media-ersatztv
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: lidarr
+                      app.kubernetes.io/instance: media-lidarr
+                      app.kubernetes.io/name: media-lidarr
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: multiscrobbler
+                      app.kubernetes.io/instance: media-multiscrobbler
+                      app.kubernetes.io/name: media-multiscrobbler
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: radarr
+                      app.kubernetes.io/instance: media-radarr
+                      app.kubernetes.io/name: media-radarr
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: readarr
+                      app.kubernetes.io/instance: media-readarr
+                      app.kubernetes.io/name: media-readarr
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: scraparr
+                      app.kubernetes.io/instance: media-scraparr
+                      app.kubernetes.io/name: media-scraparr
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: sonarr
+                      app.kubernetes.io/instance: media-sonarr
+                      app.kubernetes.io/name: media-sonarr
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: speakarr
+                      app.kubernetes.io/instance: media-speakarr
+                      app.kubernetes.io/name: media-speakarr
+              ports:
+                - port: *port

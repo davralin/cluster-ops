@@ -123,6 +123,8 @@ spec:
             - to:
               - podSelector:
                   matchLabels:
+                    app.kubernetes.io/controller: jellyfin
+                    app.kubernetes.io/instance: media-jellyfin
                     app.kubernetes.io/name: media-jellyfin
               ports:
                 - port: 8096

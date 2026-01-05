@@ -140,6 +140,11 @@ spec:
                       app.kubernetes.io/name: media-lidarr
                 - podSelector:
                     matchLabels:
+                      app.kubernetes.io/controller: multiscrobbler
+                      app.kubernetes.io/instance: media-multiscrobbler
+                      app.kubernetes.io/name: media-multiscrobbler
+                - podSelector:
+                    matchLabels:
                       app.kubernetes.io/controller: radarr
                       app.kubernetes.io/instance: media-radarr
                       app.kubernetes.io/name: media-radarr
