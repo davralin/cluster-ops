@@ -56,7 +56,7 @@ spec:
           serviceAccountName: system-upgrade-controller
           upgrade:
             # renovate: datasource=docker depName=ghcr.io/siderolabs/installer
-            image: ghcr.io/siderolabs/talosctl:v1.12.0
+            image: ghcr.io/siderolabs/talosctl:v1.12.1
             args:
               - --nodes=$(SYSTEM_UPGRADE_NODE_NAME)
               - upgrade-k8s
