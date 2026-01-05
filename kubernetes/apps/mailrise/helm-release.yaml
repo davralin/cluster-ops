@@ -81,6 +81,9 @@ spec:
               discord:
                 urls:
                   - "${SECRET_MAILRISE_DISCORD}"
+              gotify:
+                urls:
+                  - "${SECRET_MAILRISE_GOTIFY}"
     persistence:
       mailrise-config:
         enabled: true
