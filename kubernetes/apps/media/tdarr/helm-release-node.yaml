@@ -82,3 +82,31 @@ spec:
         existingClaim: media
         globalMounts:
           - path: /data
+    networkpolicies:
+      tdarr-node:
+        enabled: true
+        controller: *name
+        policyTypes:
+          - Egress
+          - Ingress
+        rules:
+          egress:
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: kube-system
+                  podSelector:
+                    matchLabels:
+                      k8s-app: kube-dns
+              ports:
+                - port: 53
+                  protocol: UDP
+            - to:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: tdarr
+                      app.kubernetes.io/instance: media-tdarr
+                      app.kubernetes.io/name: media-tdarr
+              ports:
+                - port: 8266
+          ingress: []

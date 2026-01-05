@@ -75,7 +75,7 @@ spec:
         controller: *name
         ports:
           http:
-            port: 8265
+            port: &port 8265
           server:
             enabled: true
             protocol: TCP
@@ -117,3 +117,48 @@ spec:
         existingClaim: media
         globalMounts:
           - path: /data
+    networkpolicies:
+      tdarr:
+        enabled: true
+        controller: *name
+        policyTypes:
+          - Egress
+          - Ingress
+        rules:
+          egress:
+            - to: # Needs to download recepies
+              - ipBlock:
+                  cidr: 0.0.0.0/0
+                  except:
+                  - "${HAPROXY_WHITELIST}"
+              ports:
+                - port: 443
+                  protocol: TCP
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: kube-system
+                  podSelector:
+                    matchLabels:
+                      k8s-app: kube-dns
+              ports:
+                - port: 53
+                  protocol: UDP
+          ingress:
+            - from:
+                - namespaceSelector:
+                    matchLabels:
+                      name: haproxy-controller
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: kubernetes-ingress
+              ports:
+                - port: *port
+            - from:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: tdarr-node
+                      app.kubernetes.io/instance: media-tdarr-node
+                      app.kubernetes.io/name: media-tdarr-node
+              ports:
+                - port: 8266
