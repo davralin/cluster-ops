@@ -115,22 +115,22 @@ spec:
               app.kubernetes.io/name: kubernetes-ingress
       ports:
         - port: 8081
-#---
-#apiVersion: cilium.io/v2
-#kind: CiliumNetworkPolicy
-#metadata:
-#  name: hubble-ui
-#  namespace: kube-system
-#spec:
-#  endpointSelector:
-#    matchLabels:
-#      app.kubernetes.io/name: hubble-ui
-#      app.kubernetes.io/part-of: cilium
-#      k8s-app: hubble-ui
-#  egress:
-#    - toEntities:
-#      - kube-apiserver
-#      toPorts:
-#        - ports:#
-#            - port: "6443"
-#              protocol: TCP
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: hubble-ui
+  namespace: kube-system
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: hubble-ui
+      app.kubernetes.io/part-of: cilium
+      k8s-app: hubble-ui
+  egress:
+    - toEntities:
+      - kube-apiserver
+      toPorts:
+        - ports:
+            - port: "6443"
+              protocol: TCP
