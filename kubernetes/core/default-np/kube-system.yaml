@@ -46,3 +46,20 @@ spec:
               app.kubernetes.io/name: prometheus
       ports:
         - port: 9153
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: kube-dns
+  namespace: kube-system
+spec:
+  endpointSelector:
+    matchLabels:
+      k8s-app: kube-dns
+  egress:
+    - toEntities:
+      - kube-apiserver
+      toPorts:
+        - ports:
+            - port: "6443"
+              protocol: TCP
