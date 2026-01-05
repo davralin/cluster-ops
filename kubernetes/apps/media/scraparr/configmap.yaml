@@ -59,7 +59,7 @@ data:
 
     readarr:
       url: http://speakarr.media.svc.cluster.local:8787
-      api_key: "${SECRET_READARR_API_KEY}"
+      api_key: "${SECRET_SPEAKARR_API_KEY}"
       alias: speakarr
       # api_version: v1 # Optional to use a different API Version
       # interval: 60 # Optional to set a different Interval in Seconds
