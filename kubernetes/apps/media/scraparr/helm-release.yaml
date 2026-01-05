@@ -90,8 +90,92 @@ spec:
         enabled: true
         controller: *name
         policyTypes:
+          - Egress
           - Ingress
         rules:
+          egress:
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: kube-system
+                  podSelector:
+                    matchLabels:
+                      k8s-app: kube-dns
+              ports:
+                - port: 53
+                  protocol: UDP
+            - to:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: bazarr
+                      app.kubernetes.io/instance: media-bazarr
+                      app.kubernetes.io/name: media-lidarr
+              ports:
+                - port: 6767
+            - to:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: jellyseerr
+                      app.kubernetes.io/instance: media-jellyseerr
+                      app.kubernetes.io/name: media-jellyseerr
+              ports:
+                - port: 5055
+            - to:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: jellyfin
+                      app.kubernetes.io/instance: media-jellyfin
+                      app.kubernetes.io/name: media-jellyfin
+              ports:
+                - port: 8096
+            - to:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: lidarr
+                      app.kubernetes.io/instance: media-lidarr
+                      app.kubernetes.io/name: media-lidarr
+              ports:
+                - port: 8686
+            - to:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: prowlarr
+                      app.kubernetes.io/instance: media-prowlarr
+                      app.kubernetes.io/name: media-prowlarr
+              ports:
+                - port: 9696
+            - to:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: radarr
+                      app.kubernetes.io/instance: media-radarr
+                      app.kubernetes.io/name: media-radarr
+              ports:
+                - port: 7878
+            - to:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: readarr
+                      app.kubernetes.io/instance: media-readarr
+                      app.kubernetes.io/name: media-readarr
+              ports:
+                - port: 8787
+            - to:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: speakarr
+                      app.kubernetes.io/instance: media-speakarr
+                      app.kubernetes.io/name: media-speakarr
+              ports:
+                - port: 8787
+            - to:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: sonarr
+                      app.kubernetes.io/instance: media-sonarr
+                      app.kubernetes.io/name: media-sonarr
+              ports:
+                - port: 8989
           ingress:
             - from:
                 - namespaceSelector:
