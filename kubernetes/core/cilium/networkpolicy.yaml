@@ -37,7 +37,7 @@ spec:
       k8s-app: hubble-relay
   egress:
     - toEntities:
-      - host
+      - cluster # really just the hosts, not the pods
       toPorts:
         - ports:
             - port: "4244" # hubble-relay
