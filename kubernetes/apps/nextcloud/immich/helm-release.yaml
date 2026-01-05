@@ -25,7 +25,7 @@ spec:
     remediation:
       retries: 10
   dependsOn:
-    - name: immich-postgres-v16 # immich-postgres-v18
+    - name: immich-postgres-v18
       namespace: flux-system
   valuesFrom:
     - targetPath: controllers.main.containers.main.env.DB_PASSWORD
