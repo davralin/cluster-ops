@@ -179,6 +179,14 @@ spec:
                       app.kubernetes.io/name: gotify-gotify
               ports:
                 - port: 80
+            - to:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: jellyfin
+                      app.kubernetes.io/instance: media-jellyfin
+                      app.kubernetes.io/name: media-jellyfin
+              ports:
+                - port: 8096
             - to: # metadata
               - ipBlock:
                   cidr: 0.0.0.0/0
