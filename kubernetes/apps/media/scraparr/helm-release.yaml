@@ -109,7 +109,7 @@ spec:
                     matchLabels:
                       app.kubernetes.io/controller: bazarr
                       app.kubernetes.io/instance: media-bazarr
-                      app.kubernetes.io/name: media-lidarr
+                      app.kubernetes.io/name: media-bazarr
               ports:
                 - port: 6767
             - to:
