@@ -71,7 +71,7 @@ spec:
         controller: *name
         ports:
           http:
-            port: 8025
+            port: &port 8025
     secrets:
       conf:
         enabled: true
@@ -95,3 +95,68 @@ spec:
               - path: /etc/mailrise.conf
                 subPath: mailrise.conf
                 readOnly: true
+    networkpolicies:
+      mailrise:
+        enabled: true
+        controller: *name
+        policyTypes:
+          - Egress
+          - Ingress
+        rules:
+          egress:
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: kube-system
+                  podSelector:
+                    matchLabels:
+                      k8s-app: kube-dns
+              ports:
+                - port: 53
+                  protocol: UDP
+            - to: # Discord
+              - ipBlock:
+                  cidr: 0.0.0.0/0
+                  except:
+                  - "${HAPROXY_WHITELIST}"
+              ports:
+                - port: 443
+                  protocol: TCP
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: gotify
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: gotify
+                      app.kubernetes.io/instance: gotify-gotify
+                      app.kubernetes.io/name: gotify-gotify
+              ports:
+                - port: 80
+          ingress:
+            - from:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: blackbox-exporter
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: prometheus-blackbox-exporter
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: awx
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/component: awx
+                      app.kubernetes.io/managed-by: awx-operator
+                      app.kubernetes.io/name: awx-task
+                      app.kubernetes.io/part-of: awx
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: media
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: qbittorrent
+                      app.kubernetes.io/instance: media-qbittorrent
+                      app.kubernetes.io/name: media-qbittorrent
+              ports:
+                - port: *port

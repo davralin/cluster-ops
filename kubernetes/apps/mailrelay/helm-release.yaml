@@ -86,10 +86,50 @@ spec:
           mail:
             primary: true
             port: 25
-            targetPort: 8025
+            targetPort: &port 8025
             protocol: TCP
     persistence:
       spool:
         type: emptyDir
         globalMounts:
           - path: /var/spool/exim
+    networkpolicies:
+      mailrelay:
+        enabled: true
+        controller: *name
+        policyTypes:
+          - Egress
+          - Ingress
+        rules:
+          egress:
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: kube-system
+                  podSelector:
+                    matchLabels:
+                      k8s-app: kube-dns
+              ports:
+                - port: 53
+                  protocol: UDP
+            - to: # smarthost
+              - ipBlock:
+                  cidr: 0.0.0.0/0
+                  except:
+                  - "${HAPROXY_WHITELIST}"
+              ports:
+                - port: 587
+                  protocol: TCP
+          ingress:
+            - from:
+                - ipBlock:
+                    cidr: 0.0.0.0/0
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: blackbox-exporter
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: prometheus-blackbox-exporter
+                - namespaceSelector: []
+              ports:
+                - port: *port # Must match the port the pod actually listens to
