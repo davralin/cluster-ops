@@ -158,5 +158,10 @@ spec:
                       app.kubernetes.io/controller: speakarr
                       app.kubernetes.io/instance: media-speakarr
                       app.kubernetes.io/name: media-speakarr
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: tautulli
+                      app.kubernetes.io/instance: media-tautulli
+                      app.kubernetes.io/name: media-tautulli
               ports:
                 - port: *port
