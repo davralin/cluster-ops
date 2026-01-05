@@ -24,15 +24,6 @@ spec:
       ports:
         - port: 53
           protocol: UDP
-  #  - to:
-  #      - podSelector: {}
-#            matchLabels:
-#              app.kubernetes.io/name: cilium-agent
-#              app.kubernetes.io/part-of: cilium
-#              k8s-app: cilium
-#      ports:
-#        - port: 443
-#          protocol: TCP
   ingress:
     - from:
         - podSelector:
