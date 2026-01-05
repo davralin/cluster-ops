@@ -33,4 +33,4 @@ spec:
           targetLabel: instance
           action: replace
     prometheusRules:
-      enabled: "${MONITORING_PROMETHEUS}"
+      enabled: false # "${MONITORING_PROMETHEUS}" - this keeps nagging me about wear-level, but the disks still work fine
