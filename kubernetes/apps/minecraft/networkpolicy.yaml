@@ -53,6 +53,10 @@ spec:
               app.kubernetes.io/controller: kuma
               app.kubernetes.io/instance: kuma-kuma
               app.kubernetes.io/name: kuma-kuma
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/instance: minecraft-minecraft-router
+              app.kubernetes.io/name: mc-router
       ports:
         - port: 25565
           protocol: TCP
