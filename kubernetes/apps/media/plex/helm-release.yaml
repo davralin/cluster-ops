@@ -122,6 +122,11 @@ spec:
                   protocol: UDP
           ingress:
             - from:
+                - ipBlock:
+                    cidr: 0.0.0.0/0
+              ports:
+                - port: 32400
+            - from:
                 - namespaceSelector:
                     matchLabels:
                       kubernetes.io/metadata.name: blackbox-exporter
