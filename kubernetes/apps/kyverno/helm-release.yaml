@@ -24,3 +24,26 @@ spec:
     remediation:
       retries: 10
   values:
+    fullnameOverride: *name
+    grafana:
+      enabled: "${MONITORING_PROMETHEUS}"
+    admissionController:
+      networkPolicy:
+        enabled: true
+      serviceMonitor:
+        enabled: "${MONITORING_PROMETHEUS}"
+    backgroundController:
+      networkPolicy:
+        enabled: true
+      serviceMonitor:
+        enabled: "${MONITORING_PROMETHEUS}"
+    cleanupController:
+      networkPolicy:
+        enabled: true
+      serviceMonitor:
+        enabled: "${MONITORING_PROMETHEUS}"
+    reportsController:
+      networkPolicy:
+        enabled: true
+      serviceMonitor:
+        enabled: "${MONITORING_PROMETHEUS}"
