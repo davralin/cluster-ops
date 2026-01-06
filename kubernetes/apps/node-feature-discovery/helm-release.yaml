@@ -33,6 +33,10 @@ spec:
         core:
           labelSources:
             - custom
+            - cpu
+            - pci
+            - system
+            - usb
           klog:
             v: 3
         sources:
