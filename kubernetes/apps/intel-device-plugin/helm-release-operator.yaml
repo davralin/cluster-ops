@@ -27,3 +27,7 @@ spec:
     remediation:
       strategy: rollback
       retries: 10
+  values:
+    manager:
+      devices:
+        gpu: true
