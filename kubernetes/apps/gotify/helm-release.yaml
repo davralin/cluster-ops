@@ -67,7 +67,7 @@ spec:
         controller: *name
         ports:
           http:
-            port: 80
+            port: &port 80
     ingress:
       gotify:
         enabled: true
@@ -95,3 +95,131 @@ spec:
         existingClaim: gotify
         globalMounts:
           - path: /app/data
+    networkpolicies:
+      gotify:
+        enabled: true
+        controller: *name
+        policyTypes:
+          - Egress
+          - Ingress
+        rules:
+          egress: []
+          ingress:
+            - from:
+                - namespaceSelector:
+                    matchLabels:
+                      name: haproxy-controller
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: kubernetes-ingress
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: igotify
+                      app.kubernetes.io/instance: gotify-igotify
+                      app.kubernetes.io/name: gotify-igotify
+                - namespaceSelector:
+                    matchLabels:
+                      name: epicgames-free
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: epicgames-free
+                      app.kubernetes.io/instance: epicgames-free-epicgames-free
+                      app.kubernetes.io/name: epicgames-free-epicgames-free
+                - namespaceSelector:
+                    matchLabels:
+                      name: mailrise
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: mailrise
+                      app.kubernetes.io/instance: mailrise-mailrise
+                      app.kubernetes.io/name: mailrise-mailrise
+                - namespaceSelector:
+                    matchLabels:
+                      name: media
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: jellyfin
+                      app.kubernetes.io/instance: media-jellyfin
+                      app.kubernetes.io/name: media-jellyfin
+                - namespaceSelector:
+                    matchLabels:
+                      name: media
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: jellyseerr
+                      app.kubernetes.io/instance: media-jellyseerr
+                      app.kubernetes.io/name: media-jellyseerr
+                - namespaceSelector:
+                    matchLabels:
+                      name: media
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: lidarr
+                      app.kubernetes.io/instance: media-lidarr
+                      app.kubernetes.io/name: media-lidarr
+                - namespaceSelector:
+                    matchLabels:
+                      name: media
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: prowlarr
+                      app.kubernetes.io/instance: media-prowlarr
+                      app.kubernetes.io/name: media-prowlarr
+                - namespaceSelector:
+                    matchLabels:
+                      name: media
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: qbittorrent
+                      app.kubernetes.io/instance: media-qbittorrent
+                      app.kubernetes.io/name: media-qbittorrent
+                - namespaceSelector:
+                    matchLabels:
+                      name: media
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: radarr
+                      app.kubernetes.io/instance: media-radarr
+                      app.kubernetes.io/name: media-radarr
+                - namespaceSelector:
+                    matchLabels:
+                      name: media
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: readarr
+                      app.kubernetes.io/instance: media-readarr
+                      app.kubernetes.io/name: media-readarr
+                - namespaceSelector:
+                    matchLabels:
+                      name: media
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: sonarr
+                      app.kubernetes.io/instance: media-sonarr
+                      app.kubernetes.io/name: media-sonarr
+                - namespaceSelector:
+                    matchLabels:
+                      name: media
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: speakarr
+                      app.kubernetes.io/instance: media-speakarr
+                      app.kubernetes.io/name: media-speakarr
+                - namespaceSelector:
+                    matchLabels:
+                      name: media
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: tautulli
+                      app.kubernetes.io/instance: media-tautulli
+                      app.kubernetes.io/name: media-tautulli
+                - namespaceSelector:
+                    matchLabels:
+                      name: wallos
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: wallos
+                      app.kubernetes.io/instance: wallos-wallos
+                      app.kubernetes.io/name: wallos-wallos
+              ports:
+                - port: *port

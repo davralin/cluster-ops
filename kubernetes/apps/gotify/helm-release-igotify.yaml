@@ -70,7 +70,7 @@ spec:
         controller: *name
         ports:
           http:
-            port: 8080
+            port: &port 8080
     ingress:
       igotify:
         enabled: true
@@ -98,3 +98,46 @@ spec:
         existingClaim: igotify
         globalMounts:
           - path: /app/data
+    networkpolicies:
+      igotify:
+        enabled: true
+        controller: *name
+        policyTypes:
+          - Egress
+          - Ingress
+        rules:
+          egress:
+            - to:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: gotify
+                      app.kubernetes.io/instance: gotify-gotify
+                      app.kubernetes.io/name: gotify-gotify
+              ports:
+                - port: 80
+                  protocol: TCP
+            - to:
+                - podSelector:
+                    matchLabels:
+                      k8s-app: kube-dns
+              ports:
+                - port: 53
+                  protocol: UDP
+            - to: # push notifications I guess
+              - ipBlock:
+                  cidr: 0.0.0.0/0
+                  except:
+                  - "${HAPROXY_WHITELIST}"
+              ports:
+                - port: 443
+                  protocol: TCP
+          ingress:
+            - from:
+                - namespaceSelector:
+                    matchLabels:
+                      name: haproxy-controller
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: kubernetes-ingress
+              ports:
+                - port: *port
