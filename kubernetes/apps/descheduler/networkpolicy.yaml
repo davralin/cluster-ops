@@ -1,0 +1,50 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny
+  namespace: descheduler
+spec:
+  podSelector: {}
+  policyTypes:
+    - Ingress
+    - Egress
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: descheduler
+  namespace: descheduler
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/instance: descheduler-descheduler
+      app.kubernetes.io/name: descheduler
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: monitoring
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/name: prometheus
+      ports:
+        - port: 10258
+  egress: []
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: descheduler
+  namespace: descheduler
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/instance: descheduler-descheduler
+      app.kubernetes.io/name: descheduler
+  egress:
+    - toEntities:
+      - kube-apiserver
