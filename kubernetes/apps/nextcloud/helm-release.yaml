@@ -282,6 +282,18 @@ spec:
                       app.kubernetes.io/name: nextcloud-nextcloud-valkey
               ports:
                 - port: 6379
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: mailrelay
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: exim
+                      app.kubernetes.io/instance: mailrelay-exim
+                      app.kubernetes.io/name: mailrelay-exim
+              ports:
+                - port: 8025
+                  protocol: TCP
           ingress:
             - from:
                 - namespaceSelector:
