@@ -128,7 +128,7 @@ spec:
           - Ingress
         rules:
           egress:
-            - to: # Needs to reach out for artwork and such
+            - to: # Needs to reach out for artwork
               - ipBlock:
                   cidr: 0.0.0.0/0
                   except:
@@ -136,6 +136,17 @@ spec:
               ports:
                 - port: 443
                   protocol: TCP
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: gotify
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: gotify
+                      app.kubernetes.io/instance: gotify-gotify
+                      app.kubernetes.io/name: gotify-gotify
+              ports:
+                - port: 80
             - to:
                 - namespaceSelector:
                     matchLabels:
