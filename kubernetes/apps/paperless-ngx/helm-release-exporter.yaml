@@ -65,7 +65,7 @@ spec:
           exporter:
             image:
               repository: ghcr.io/community-tooling/oci-images/paperless-export
-              tag: 1.4.4
+              tag: 1.4.5
             env:
               # paperless-ngx/paperless-ngx/issues/9609
               S6_YES_I_WANT_A_WORLD_WRITABLE_RUN_BECAUSE_KUBERNETES: 1
