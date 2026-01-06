@@ -155,7 +155,7 @@ spec:
             - to:
                 - namespaceSelector:
                     matchLabels:
-                      name: kube-system
+                      kubernetes.io/metadata.name: kube-system
                   podSelector:
                     matchLabels:
                       k8s-app: kube-dns
