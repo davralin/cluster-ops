@@ -80,7 +80,7 @@ spec:
         controller: *name
         ports:
           http:
-            port: 4000
+            port: &port 4000
     ingress:
       litellm:
         enabled: true
@@ -102,11 +102,86 @@ spec:
         tls:
           - hosts:
               - *host
+    configMaps:
+      config:
+        enabled: true
+        data:
+          config.yaml: |
+            model_list:
+              - model_name: deepseek-r1:7b
+                litellm_params:
+                  model: ollama_chat/deepseek-r1:7b
+                  api_base: "http://ollama.ollama.svc.cluster.local:11434"
+              - model_name: gemma3:12b
+                litellm_params:
+                  model: ollama_chat/gemma3:12b
+                  api_base: "http://ollama.ollama.svc.cluster.local:11434"
+              - model_name: gpt-oss:20b
+                litellm_params:
+                  model: ollama_chat/gpt-oss:20b
+                  api_base: "http://ollama.ollama.svc.cluster.local:11434"
+              - model_name: qwen3:8b
+                litellm_params:
+                  model: ollama_chat/qwen3:8b
+                  api_base: "http://ollama.ollama.svc.cluster.local:11434"
+              - model_name: qwen3:14b
+                litellm_params:
+                  model: ollama_chat/qwen3:14b
+                  api_base: "http://ollama.ollama.svc.cluster.local:11434"
     persistence:
       config-file:
         type: configMap
-        name: litellm-configmap
+        name: litellm
         globalMounts:
           - path: /app/config.yaml
             subPath: config.yaml
             readOnly: true
+    networkpolicies:
+      litellm:
+        enabled: true
+        controller: *name
+        policyTypes:
+          - Egress
+          - Ingress
+        rules:
+          egress:
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: ollama
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: ollama
+                      app.kubernetes.io/instance: ollama-ollama
+                      app.kubernetes.io/name: ollama-ollama
+              ports:
+                - port: 11434
+                  protocol: TCP
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: kube-system
+                  podSelector:
+                    matchLabels:
+                      k8s-app: kube-dns
+              ports:
+                - port: 53
+                  protocol: UDP
+          ingress:
+            - from:
+                - namespaceSelector:
+                    matchLabels:
+                      name: haproxy-controller
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: kubernetes-ingress
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: openwebui
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: openwebui
+                      app.kubernetes.io/instance: openwebui-openwebui
+                      app.kubernetes.io/name: openwebui-openwebui
+              ports:
+                - port: *port

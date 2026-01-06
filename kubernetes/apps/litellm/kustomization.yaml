@@ -4,11 +4,5 @@ kind: Kustomization
 resources:
   - helm-release.yaml
   - namespace.yaml
+  - networkpolicy.yaml
   - probes.yaml
-configMapGenerator:
-  - name: litellm-configmap
-    namespace: litellm
-    files:
-      - config.yaml=./config.yaml
-generatorOptions:
-  disableNameSuffixHash: true
