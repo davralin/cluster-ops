@@ -64,6 +64,9 @@ spec:
             daily-audio-ripper:
               - path: /media
                 subPath: audio
+      tmp:
+        enabled: true
+        type: emptyDir
     networkpolicies:
       daily-audio-ripper:
         enabled: true
