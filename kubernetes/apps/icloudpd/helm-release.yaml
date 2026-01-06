@@ -71,7 +71,7 @@ spec:
         primary: true
         ports:
           http:
-            port: 8080
+            port: &port 8080
     ingress:
       icloudpd:
         enabled: true
@@ -98,3 +98,20 @@ spec:
         existingClaim: icloudpd
       tmp:
         type: emptyDir
+    networkpolicies:
+      icloudpd:
+        enabled: true
+        controller: *name
+        policyTypes:
+          - Ingress
+        rules:
+          ingress:
+            - from:
+                - namespaceSelector:
+                    matchLabels:
+                      name: haproxy-controller
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: kubernetes-ingress
+              ports:
+                - port: *port
