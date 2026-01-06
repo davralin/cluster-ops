@@ -70,7 +70,7 @@ spec:
               TZ: "${TIMEZONE}"
               RUN_ON_STARTUP: "true"
               BASE_URL: "https://epicgames.${SECRET_DEFAULT_DOMAIN}"
-              GOTIFY_API_URL: "https://gotify.${SECRET_DEFAULT_DOMAIN}"
+              GOTIFY_API_URL: "http://gotify.gotify.svc.cluster.local:80"
             probes:
               liveness:
                 enabled: false
@@ -153,7 +153,10 @@ spec:
                 - port: 80
                   protocol: TCP
             - to:
-                - podSelector:
+                - namespaceSelector:
+                    matchLabels:
+                      name: kube-system
+                  podSelector:
                     matchLabels:
                       k8s-app: kube-dns
               ports:
