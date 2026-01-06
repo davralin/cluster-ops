@@ -52,3 +52,16 @@ spec:
   egress:
     - toEntities:
       - kube-apiserver
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: mutatingwebhookconfig
+  namespace: kyverno
+spec:
+  endpointSelector:
+    matchLabels:
+      job-name: kyverno-rm-mutatingwhconfig
+  egress:
+    - toEntities:
+      - kube-apiserver
