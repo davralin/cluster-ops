@@ -22,3 +22,6 @@ spec:
   egress:
     - toEntities:
       - kube-apiserver
+  ingress:
+    - fromEntities:
+      - remote-node
