@@ -32,20 +32,9 @@ spec:
       config:
         core:
           labelSources:
-            - custom
             - cpu
             - pci
             - system
             - usb
           klog:
             v: 3
-        sources:
-          custom:
-            - name: "intel-gpu"
-              labels:
-                intel.feature.node.kubernetes.io/gpu: "true"
-              matchFeatures:
-                - feature: pci.device
-                  matchExpressions:
-                    class: { op: In, value: ["0300"] }
-                    vendor: { op: In, value: ["8086"] }

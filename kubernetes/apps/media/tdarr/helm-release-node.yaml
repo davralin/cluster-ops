@@ -23,6 +23,11 @@ spec:
   upgrade:
     remediation:
       retries: 10
+  dependsOn:
+    - name: tdarr
+      namespace: flux-system
+    - name: node-feature-discovery
+      namespace: flux-system
   values:
     fullnameOverride: *name
     defaultPodOptions:
@@ -45,7 +50,7 @@ spec:
         type: daemonset
         pod:
           nodeSelector:
-            intel.feature.node.kubernetes.io/gpu: "true"
+            feature.node.kubernetes.io/pci-0300_8086.present: "true"
         containers:
           tdarr-node:
             image:
