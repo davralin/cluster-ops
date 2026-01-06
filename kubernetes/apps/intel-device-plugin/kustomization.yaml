@@ -5,3 +5,4 @@ resources:
   - helm-release-operator.yaml
   - helm-release.yaml
   - namespace.yaml
+  - networkpolicy.yaml

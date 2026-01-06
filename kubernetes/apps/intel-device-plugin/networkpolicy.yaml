@@ -1,0 +1,24 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny
+  namespace: intel-gpu
+spec:
+  podSelector: {}
+  policyTypes:
+    - Ingress
+    - Egress
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: intel-gpu
+  namespace: intel-gpu
+spec:
+  endpointSelector:
+    matchLabels:
+      control-plane: controller-manager
+  egress:
+    - toEntities:
+      - kube-apiserver
