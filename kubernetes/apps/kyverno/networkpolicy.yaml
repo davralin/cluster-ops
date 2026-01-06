@@ -9,3 +9,18 @@ spec:
   policyTypes:
     - Ingress
     - Egress
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: cleanup-controller
+  namespace: kyverno
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/component: cleanup-controller
+      app.kubernetes.io/instance: kyverno-kyverno
+      app.kubernetes.io/part-of: kyverno
+  egress:
+    - toEntities:
+      - kube-apiserver
