@@ -1,0 +1,29 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny
+  namespace: jupyterhub
+spec:
+  podSelector: {}
+  policyTypes:
+    - Ingress
+    - Egress
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: user-scheduler
+  namespace: jupyterhub
+spec:
+  endpointSelector:
+    matchLabels:
+      app: jupyterhub
+      app.kubernetes.io/component: user-scheduler
+      app.kubernetes.io/instance: jupyterhub-jupyterhub
+      app.kubernetes.io/name: jupyterhub
+      component: user-scheduler
+      release: jupyterhub-jupyterhub
+  egress:
+    - toEntities:
+      - kube-apiserver
