@@ -59,7 +59,8 @@ spec:
               capabilities:
                 drop:
                   - ALL
-              readOnlyRootFilesystem: true
+              # https://github.com/coreruleset/modsecurity-crs-docker/issues/172
+              readOnlyRootFilesystem: false
             resources:
               requests:
                 cpu: 10m
@@ -117,44 +118,12 @@ spec:
           - hosts:
               - *host
     persistence:
-      etc-nginx:
-        type: emptyDir
-        advancedMounts:
-          it-tools:
-            waf:
-              - path: /etc/nginx
-      etc-modsecurity:
-        type: emptyDir
-        advancedMounts:
-          it-tools:
-            waf:
-              - path: /etc/modsecurity
-      etc-modsecurityd:
-        type: emptyDir
-        advancedMounts:
-          it-tools:
-            waf:
-              - path: /etc/modsecurity.d
-      opt-owasp:
-        type: emptyDir
-        advancedMounts:
-          it-tools:
-            waf:
-              - path: /opt/owasp
       tmp:
         type: emptyDir
         advancedMounts:
           it-tools:
             it-tools:
               - path: /tmp
-            waf:
-              - path: /tmp
-      var-cache-nginx:
-        type: emptyDir
-        advancedMounts:
-          it-tools:
-            waf:
-              - path: /var/cache/nginx
     networkpolicies:
       it-tools:
         enabled: true
