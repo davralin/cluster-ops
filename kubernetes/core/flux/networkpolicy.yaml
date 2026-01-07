@@ -174,7 +174,26 @@ spec:
         - port: 53
           protocol: UDP
     - to:
-        - namespaceSelector: {}
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: monitoring
+          podSelector:
+            matchLabels:
+              alertmanager: kube-prom
+              app.kubernetes.io/instance: kube-prom
+              app.kubernetes.io/managed-by: prometheus-operator
+              app.kubernetes.io/name: alertmanager
+      ports:
+        - port: 9093
+          protocol: TCP
+    - to: # discord-alerting
+      - ipBlock:
+          cidr: 0.0.0.0/0
+          except:
+          - "${HAPROXY_WHITELIST}"
+      ports:
+        - port: 443
+          protocol: TCP
 ---
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
