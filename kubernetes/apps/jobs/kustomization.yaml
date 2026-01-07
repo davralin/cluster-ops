@@ -8,6 +8,7 @@ resources:
   - helm-onsite-sync.yaml
   - mbsync.yaml
   - namespace.yaml
+  - networkpolicy.yaml
   - pvc.yaml
   - sshkey.yaml
   - volsync.yaml
