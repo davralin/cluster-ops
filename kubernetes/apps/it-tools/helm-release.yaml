@@ -43,7 +43,7 @@ spec:
           waf:
             image:
               repository: owasp/modsecurity-crs
-              tag: 4.22.0-nginx-202601060501@sha256:98ceea88fc06ec4421ebf112c0d28f4f73d3aa4eaf1ee1772edcce6cdc38055c
+              tag: 4.22.0-nginx-202601060501@sha256:5d184e8272e86217081483fb57f605d9d525403921d716d4eebcb3adbfa2fdac
             env:
               TZ: "${TIMEZONE}"
               PORT: 1337
