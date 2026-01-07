@@ -131,6 +131,8 @@ spec:
               ports:
                 - port: 443
                   protocol: TCP
+                - port: 8443
+                  protocol: TCP
           ingress:
             - from:
                 - namespaceSelector:
