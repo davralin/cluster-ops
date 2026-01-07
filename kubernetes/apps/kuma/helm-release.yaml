@@ -123,10 +123,6 @@ spec:
                   podSelector:
                     matchLabels:
                       app.kubernetes.io/name: minecraft
-              ports:
-                - port: 25565
-                  protocol: TCP
-            - to:
                 - namespaceSelector:
                     matchLabels:
                       kubernetes.io/metadata.name: minecraft
