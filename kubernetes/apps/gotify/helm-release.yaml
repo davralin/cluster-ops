@@ -127,6 +127,14 @@ spec:
                       app.kubernetes.io/name: epicgames-free-epicgames-free
                 - namespaceSelector:
                     matchLabels:
+                      name: changedetection
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: changedetection
+                      app.kubernetes.io/instance: changedetection-changedetection
+                      app.kubernetes.io/name: changedetection-changedetection
+                - namespaceSelector:
+                    matchLabels:
                       name: mailrise
                   podSelector:
                     matchLabels:
