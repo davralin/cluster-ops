@@ -40,36 +40,6 @@ spec:
       it-tools:
         strategy: RollingUpdate
         containers:
-          waf:
-            image:
-              repository: owasp/modsecurity-crs
-              tag: 4.22.0-nginx-202601060501@sha256:5d184e8272e86217081483fb57f605d9d525403921d716d4eebcb3adbfa2fdac
-            env:
-              TZ: "${TIMEZONE}"
-              PORT: 1337
-              BACKEND: http://localhost:8080
-              PARANOIA: 1
-            #probes:
-            #  liveness: &probes
-            #    enabled: true
-            #  readiness: *probes
-            #  startup: *probes
-            securityContext:
-              runAsUser: 0
-              runAsGroup: 0
-              runAsNonRoot: false
-              allowPrivilegeEscalation: false
-              capabilities:
-                drop:
-                  - ALL
-              # https://github.com/coreruleset/modsecurity-crs-docker/issues/172
-              readOnlyRootFilesystem: false
-            resources:
-              requests:
-                cpu: 10m
-                memory: 20Mi
-              #limits:
-              #  memory: 60Mi
           it-tools:
             image:
               repository: ghcr.io/home-operations/it-tools
@@ -98,7 +68,7 @@ spec:
         controller: *name
         ports:
           http:
-            port: &port 1337
+            port: &port 8080
     ingress:
       it-tools:
         enabled: true
