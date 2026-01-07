@@ -326,6 +326,15 @@ spec:
                 - port: 9222
                   protocol: TCP
             - to:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: meilisearch
+                      app.kubernetes.io/instance: karakeep-karakeep
+                      app.kubernetes.io/name: karakeep-karakeep
+              ports:
+                - port: 7700
+                  protocol: TCP
+            - to:
                 - namespaceSelector:
                     matchLabels:
                       kubernetes.io/metadata.name: litellm
