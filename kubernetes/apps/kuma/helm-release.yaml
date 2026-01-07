@@ -132,6 +132,8 @@ spec:
               ports:
                 - port: 25565
                   protocol: TCP
+                - port: 25565
+                  protocol: UDP
             - to:
                 - namespaceSelector:
                     matchLabels:
