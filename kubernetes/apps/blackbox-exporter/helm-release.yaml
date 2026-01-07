@@ -93,7 +93,7 @@ spec:
           hosts:
             - "blackbox.${SECRET_DEFAULT_DOMAIN}"
     networkPolicy:
-      enabled: true
+      enabled: false # The rule is just 'allow any any'
     prometheusRule:
       enabled: true
       rules:
