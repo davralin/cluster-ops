@@ -129,7 +129,7 @@ spec:
           it-tools:
             waf:
               - path: /etc/modsecurity
-      etc-modsecurity.d:
+      etc-modsecurityd:
         type: emptyDir
         advancedMounts:
           it-tools:
