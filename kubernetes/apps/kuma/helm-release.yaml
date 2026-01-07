@@ -123,11 +123,11 @@ spec:
                   podSelector:
                     matchLabels:
                       app.kubernetes.io/name: minecraft
-                - ipBlock: # Internal IP for minecraft-servers
-                    cidr: "${HAPROXY_WHITELIST}"
               ports:
                 - port: 25565
                   protocol: TCP
+                - port: 25565
+                  protocol: UDP
             - to:
                 - namespaceSelector:
                     matchLabels:
