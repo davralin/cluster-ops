@@ -1,0 +1,61 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny
+  namespace: cloudnative-pg
+spec:
+  podSelector: {}
+  policyTypes:
+    - Ingress
+    - Egress
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: cloudnative-pg
+  namespace: cloudnative-pg
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/instance: cloudnative-pg-cloudnative-pg
+      app.kubernetes.io/name: cloudnative-pg
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress: []
+  egress:
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: kube-system
+          podSelector:
+            matchLabels:
+              k8s-app: kube-dns
+      ports:
+        - port: 53
+          protocol: UDP
+    - to:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/component: database
+              app.kubernetes.io/managed-by: cloudnative-pg
+              app.kubernetes.io/name: postgresql
+              cnpg.io/podRole: instance
+      ports:
+        - port: 8000
+          protocol: TCP
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: cloudnative-pg
+  namespace: cloudnative-pg
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/instance: cloudnative-pg-cloudnative-pg
+      app.kubernetes.io/name: cloudnative-pg
+  egress:
+    - toEntities:
+      - kube-apiserver
