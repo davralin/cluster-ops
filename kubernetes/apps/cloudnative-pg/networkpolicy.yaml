@@ -63,3 +63,5 @@ spec:
   ingress:
     - fromEntities:
       - kube-apiserver
+      - remote-node
+      - node
