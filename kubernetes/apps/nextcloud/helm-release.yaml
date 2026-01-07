@@ -310,5 +310,14 @@ spec:
                       app.kubernetes.io/controller: jottacloud-photos-to-nextcloud
                       app.kubernetes.io/instance: nextcloud-jottacloud-photos-to-nextcloud
                       app.kubernetes.io/name: nextcloud-jottacloud-photos-to-nextcloud
+            - from:
+                - namespaceSelector:
+                    matchLabels:
+                      name: kuma
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: kuma
+                      app.kubernetes.io/instance: kuma-kuma
+                      app.kubernetes.io/name: kuma-kuma
               ports:
                 - port: *port
