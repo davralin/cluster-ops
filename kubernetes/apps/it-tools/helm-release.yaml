@@ -117,11 +117,38 @@ spec:
           - hosts:
               - *host
     persistence:
-      tmpfs:
+      etc-nginx:
         type: emptyDir
-        globalMounts:
-          - path: /tmp
-            subPath: tmp
+        advancedMounts:
+          it-tools:
+            waf:
+              - path: /etc/nginx
+      etc-modsecurity:
+        type: emptyDir
+        advancedMounts:
+          it-tools:
+            waf:
+              - path: /etc/modsecurity
+      opt-owasp:
+        type: emptyDir
+        advancedMounts:
+          it-tools:
+            waf:
+              - path: /opt/owasp
+      tmp:
+        type: emptyDir
+        advancedMounts:
+          it-tools:
+            it-tools:
+              - path: /tmp
+            waf:
+              - path: /tmp
+      var-cache-nginx:
+        type: emptyDir
+        advancedMounts:
+          it-tools:
+            waf:
+              - path: /var/cache/nginx
     networkpolicies:
       it-tools:
         enabled: true
