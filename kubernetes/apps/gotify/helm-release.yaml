@@ -112,11 +112,6 @@ spec:
                   podSelector:
                     matchLabels:
                       app.kubernetes.io/name: kubernetes-ingress
-                - podSelector:
-                    matchLabels:
-                      app.kubernetes.io/controller: igotify
-                      app.kubernetes.io/instance: gotify-igotify
-                      app.kubernetes.io/name: gotify-igotify
                 - namespaceSelector: {}
               ports:
                 - port: *port
