@@ -9,3 +9,224 @@ spec:
   policyTypes:
     - Ingress
     - Egress
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: helm-controller
+  namespace: flux-system
+spec:
+  podSelector:
+    matchLabels:
+      app: helm-controller
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress: []
+  egress:
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: kube-system
+          podSelector:
+            matchLabels:
+              k8s-app: kube-dns
+      ports:
+        - port: 53
+          protocol: UDP
+    - to:
+        - podSelector:
+            matchLabels:
+              app: notification-controller
+        - podSelector:
+            matchLabels:
+              app: source-controller
+      ports:
+        - port: 9090
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: helm-controller
+  namespace: flux-system
+spec:
+  endpointSelector:
+    matchLabels:
+      app: helm-controller
+  egress:
+    - toEntities:
+      - kube-apiserver
+  ingress:
+    - fromEntities:
+      - kube-apiserver
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: kustomize-controller
+  namespace: flux-system
+spec:
+  podSelector:
+    matchLabels:
+      app: kustomize-controller
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress: []
+  egress:
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: kube-system
+          podSelector:
+            matchLabels:
+              k8s-app: kube-dns
+      ports:
+        - port: 53
+          protocol: UDP
+    - to:
+        - podSelector:
+            matchLabels:
+              app: notification-controller
+        - podSelector:
+            matchLabels:
+              app: source-controller
+      ports:
+        - port: 9090
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: kustomize-controller
+  namespace: flux-system
+spec:
+  endpointSelector:
+    matchLabels:
+      app: kustomize-controller
+  egress:
+    - toEntities:
+      - kube-apiserver
+  ingress:
+    - fromEntities:
+      - kube-apiserver
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: notification-controller
+  namespace: flux-system
+spec:
+  podSelector:
+    matchLabels:
+      app: notification-controller
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app: helm-controller
+        - podSelector:
+            matchLabels:
+              app: kustomize-controller
+        - podSelector:
+            matchLabels:
+              app: source-controller
+      ports:
+        - port: 9090
+  egress:
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: kube-system
+          podSelector:
+            matchLabels:
+              k8s-app: kube-dns
+      ports:
+        - port: 53
+          protocol: UDP
+    - to:
+        - namespaceSelector: {}
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: notification-controller
+  namespace: flux-system
+spec:
+  endpointSelector:
+    matchLabels:
+      app: notification-controller
+  egress:
+    - toEntities:
+      - kube-apiserver
+  ingress:
+    - fromEntities:
+      - kube-apiserver
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: source-controller
+  namespace: flux-system
+spec:
+  podSelector:
+    matchLabels:
+      app: source-controller
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app: helm-controller
+        - podSelector:
+            matchLabels:
+              app: kustomize-controller
+      ports:
+        - port: 9090
+  egress:
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: kube-system
+          podSelector:
+            matchLabels:
+              k8s-app: kube-dns
+      ports:
+        - port: 53
+          protocol: UDP
+    - to:
+        - podSelector:
+            matchLabels:
+              app: notification-controller
+      ports:
+        - port: 9090
+    - to:
+      - ipBlock:
+          cidr: 0.0.0.0/0
+          except:
+          - "${HAPROXY_WHITELIST}"
+      ports:
+        - port: 22
+          protocol: TCP
+        - port: 443
+          protocol: TCP
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: source-controller
+  namespace: flux-system
+spec:
+  endpointSelector:
+    matchLabels:
+      app: source-controller
+  egress:
+    - toEntities:
+      - kube-apiserver
+  ingress:
+    - fromEntities:
+      - kube-apiserver

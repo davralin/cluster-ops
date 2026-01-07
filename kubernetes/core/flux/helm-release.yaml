@@ -30,3 +30,5 @@ spec:
       create: false
     imageReflectionController:
       create: false
+    policies:
+      create: false # This is the thing that stops creating kind: NetworkPolicy
