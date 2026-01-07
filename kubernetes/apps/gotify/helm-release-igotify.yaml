@@ -125,8 +125,6 @@ spec:
             #  ports:
             #    - port: 443
             #      protocol: TCP
-            - to:
-                - namespaceSelector: {}
             - to: # testing
               - ipBlock:
                   cidr: 0.0.0.0/0
