@@ -7,6 +7,7 @@
   vars:
     packages:
       - flatpak
+      - gnome-themes-extra-data # Adwaita-Dark theme
       - xdg-desktop-portal-gtk # portal-integration for flatpak
 
 - name: Add flathub flatpak remote to the system installation
@@ -36,6 +37,22 @@
       - org.mozilla.firefox # xdg-settings set default-web-browser org.mozilla.firefox.desktop
       - org.signal.Signal
       - org.speedcrunch.SpeedCrunch
+
+- name: Installing flatpak-themes
+  community.general.flatpak:
+    name: "{{ flatpaks }}"
+    method: system
+    state: present
+  become: true
+  register: flatpaktheme
+  vars:
+    flatpaks:
+      - org.gtk.Gtk3theme.Adwaita-dark
+
+- name: Set overrides for theme-support for GTK3
+  ansible.builtin.command: /usr/bin/flatpak override --env GTK_THEME=Adwaita-dark --filesystem=$HOME/.themes
+  become: true
+  when: flatpaktheme.changed
 
 - name: Deploy flatpak-maintenance.service
   ansible.builtin.copy:
