@@ -40,6 +40,32 @@ spec:
       it-tools:
         strategy: RollingUpdate
         containers:
+          waf:
+            image:
+              repository: owasp/modsecurity-crs
+              tag: 4.22.0-nginx-202601060501@sha256:98ceea88fc06ec4421ebf112c0d28f4f73d3aa4eaf1ee1772edcce6cdc38055c
+            env:
+              TZ: "${TIMEZONE}"
+              PORT: 1337
+              BACKEND: http://localhost:8080
+              PARANOIA: 1
+            #probes:
+            #  liveness: &probes
+            #    enabled: true
+            #  readiness: *probes
+            #  startup: *probes
+            securityContext:
+              allowPrivilegeEscalation: false
+              capabilities:
+                drop:
+                  - ALL
+              readOnlyRootFilesystem: true
+            resources:
+              requests:
+                cpu: 10m
+                memory: 20Mi
+              #limits:
+              #  memory: 60Mi
           it-tools:
             image:
               repository: ghcr.io/home-operations/it-tools
@@ -68,7 +94,7 @@ spec:
         controller: *name
         ports:
           http:
-            port: 8080
+            port: &port 1337
     ingress:
       it-tools:
         enabled: true
@@ -114,4 +140,4 @@ spec:
                     matchLabels:
                       app.kubernetes.io/name: kubernetes-ingress
               ports:
-                - port: 8080
+                - port: *port
