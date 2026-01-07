@@ -127,12 +127,7 @@ spec:
                   protocol: TCP
             - to: # talk to gotify via ingress
               - ipBlock:
-                  cidr: "${HAPROXY_WHITELIST}"
-              ports:
-                - port: 443
-                  protocol: TCP
-                - port: 8443
-                  protocol: TCP
+                  cidr: 0.0.0.0/0
           ingress:
             - from:
                 - namespaceSelector:
