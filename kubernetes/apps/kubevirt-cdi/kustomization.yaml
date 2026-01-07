@@ -5,4 +5,5 @@ resources:
   #- cdi-operator.yaml
   #- hass-os.yaml
   #- helm-release-kubevirt-cdi.yaml
+  - networkpolicy.yaml
   - namespace.yaml
