@@ -34,6 +34,8 @@ spec:
       ports:
         - port: 53
           protocol: UDP
+    - to:
+        - namespaceSelector: {}
     - to: # I don't want to create a big list
       - ipBlock:
           cidr: 0.0.0.0/0
