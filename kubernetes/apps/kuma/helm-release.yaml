@@ -143,14 +143,6 @@ spec:
                       app.kubernetes.io/controller: gotify
                       app.kubernetes.io/instance: gotify-gotify
                       app.kubernetes.io/name: gotify-gotify
-                - namespaceSelector:
-                    matchLabels:
-                      kubernetes.io/metadata.name: nextcloud
-                  podSelector:
-                    matchLabels:
-                      app.kubernetes.io/controller: nextcloud
-                      app.kubernetes.io/instance: nextcloud-nextcloud
-                      app.kubernetes.io/name: nextcloud-nextcloud
               ports:
                 - port: 80
                   protocol: TCP
