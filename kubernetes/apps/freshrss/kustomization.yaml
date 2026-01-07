@@ -6,6 +6,7 @@ resources:
   - helm-release-db-v18.yaml
   - helm-release.yaml
   - namespace.yaml
+  - networkpolicy.yaml
   - probes.yaml
   - pvc.yaml
   - volsync.yaml
