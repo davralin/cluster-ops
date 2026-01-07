@@ -32,3 +32,6 @@ spec:
       create: false
     policies:
       create: false # This is the thing that stops creating kind: NetworkPolicy
+    prometheus:
+      podMonitor:
+        create: false # Created manually with flux2-notifications
