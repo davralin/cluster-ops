@@ -183,5 +183,13 @@ spec:
                       app.kubernetes.io/controller: openwebui
                       app.kubernetes.io/instance: openwebui-openwebui
                       app.kubernetes.io/name: openwebui-openwebui
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: karakeep
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: karakeep
+                      app.kubernetes.io/instance: karakeep-karakeep
+                      app.kubernetes.io/name: karakeep-karakeep
               ports:
                 - port: *port

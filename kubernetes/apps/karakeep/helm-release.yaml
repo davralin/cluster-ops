@@ -74,7 +74,8 @@ spec:
               DISABLE_NEW_RELEASE_CHECK: true
               COREPACK_INTEGRITY_KEYS: 0
               S6_READ_ONLY_ROOT: 1
-              OLLAMA_BASE_URL: http://ollama.ollama.svc.cluster.local:11434
+              OPENAI_BASE_URL: http://litellm.litellm.svc.cluster.local:4000/v1
+              OPENAI_API_KEY: sk-1234
               INFERENCE_ENABLE_AUTO_SUMMARIZATION: true
               INFERENCE_JOB_TIMEOUT_SEC: 600
               INFERENCE_TEXT_MODEL: gpt-oss:20b
@@ -260,12 +261,92 @@ spec:
             karakeep:
               - path: /tmp
     networkpolicies:
-      karakeep:
+      chrome:
         enabled: true
-        controller: *name
+        controller: chrome
         policyTypes:
+          - Egress
           - Ingress
         rules:
+          egress:
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: kube-system
+                  podSelector:
+                    matchLabels:
+                      k8s-app: kube-dns
+              ports:
+                - port: 53
+                  protocol: UDP
+            - to: # Needs to archive
+              - ipBlock:
+                  cidr: 0.0.0.0/0
+                  except:
+                  - "${HAPROXY_WHITELIST}"
+              ports:
+                - port: 80
+                  protocol: TCP
+                - port: 443
+                  protocol: TCP
+          ingress:
+            - from:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: karakeep
+                      app.kubernetes.io/instance: karakeep-karakeep
+                      app.kubernetes.io/name: karakeep-karakeep
+              ports:
+                - port: 9222
+      karakeep:
+        enabled: true
+        controller: karakeep
+        policyTypes:
+          - Egress
+          - Ingress
+        rules:
+          egress:
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: kube-system
+                  podSelector:
+                    matchLabels:
+                      k8s-app: kube-dns
+              ports:
+                - port: 53
+                  protocol: UDP
+            - to:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: chrome
+                      app.kubernetes.io/instance: karakeep-karakeep
+                      app.kubernetes.io/name: karakeep-karakeep
+              ports:
+                - port: 9222
+                  protocol: TCP
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: litellm
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: litellm
+                      app.kubernetes.io/instance: litellm-litellm
+                      app.kubernetes.io/name: litellm-litellm
+              ports:
+                - port: 4000
+                  protocol: TCP
+            - to: # Needs to archive
+              - ipBlock:
+                  cidr: 0.0.0.0/0
+                  except:
+                  - "${HAPROXY_WHITELIST}"
+              ports:
+                - port: 80
+                  protocol: TCP
+                - port: 443
+                  protocol: TCP
           ingress:
             - from:
                 - namespaceSelector:
@@ -276,3 +357,20 @@ spec:
                       app.kubernetes.io/name: kubernetes-ingress
               ports:
                 - port: *port
+      meilisearch:
+        enabled: true
+        controller: meilisearch
+        policyTypes:
+          - Egress
+          - Ingress
+        rules:
+          egress: []
+          ingress:
+            - from:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: karakeep
+                      app.kubernetes.io/instance: karakeep-karakeep
+                      app.kubernetes.io/name: karakeep-karakeep
+              ports:
+                - port: 7700
