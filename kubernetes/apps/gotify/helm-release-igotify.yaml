@@ -117,15 +117,17 @@ spec:
               ports:
                 - port: 53
                   protocol: UDP
-            - to: # push notifications to iCloud
-              - ipBlock:
-                  cidr: 0.0.0.0/0
-                  except:
-                  - "${HAPROXY_WHITELIST}"
-              ports:
-                - port: 443
-                  protocol: TCP
-            - to: # talk to gotify via ingress
+            #- to: # push notifications to iCloud
+            #  - ipBlock:
+            #      cidr: 0.0.0.0/0
+            #      except:
+            #      - "${HAPROXY_WHITELIST}"
+            #  ports:
+            #    - port: 443
+            #      protocol: TCP
+            - to:
+                - namespaceSelector: {}
+            - to: # testing
               - ipBlock:
                   cidr: 0.0.0.0/0
           ingress:
