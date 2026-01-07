@@ -54,8 +54,18 @@ spec:
                 cpu: 10m
                 memory: 50Mi
               limits:
-                memory: 200Mi
+                memory: 100Mi
     persistence:
       data:
         enabled: true
         existingClaim: remotebackup
+    networkpolicies:
+      backupbrowser:
+        enabled: true
+        controller: *name
+        policyTypes:
+          - Ingress
+          - Egress
+        rules:
+          egress: []
+          ingress: []

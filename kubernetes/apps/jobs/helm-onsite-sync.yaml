@@ -78,3 +78,29 @@ spec:
               - path: /home/user/.ssh/id_ed25519
                 subPath: id_ed25519
                 readOnly: true
+    networkpolicies:
+      onsite-sync:
+        enabled: true
+        controller: onsite-sync
+        policyTypes:
+          - Egress
+          - Ingress
+        rules:
+          egress:
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: kube-system
+                  podSelector:
+                    matchLabels:
+                      k8s-app: kube-dns
+              ports:
+                - port: 53
+                  protocol: UDP
+            - to: # Onsite-SSH
+              - ipBlock:
+                  cidr: 10.0.1.75/32
+              ports:
+                - port: 22
+                  protocol: TCP
+          ingress: []
