@@ -130,8 +130,6 @@ spec:
          - "alertmanager.${SECRET_DEFAULT_DOMAIN}"
         tls:
           - secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
-      networkPolicy:
-        enabled: true
     defaultRules:
       rules:
         kubelet: false
@@ -209,9 +207,6 @@ spec:
           - "prometheus.${SECRET_DEFAULT_DOMAIN}"
         tls:
           - secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
-      networkPolicy:
-        enabled: true
-        flavor: cilium
       prometheusSpec:
         podMonitorSelectorNilUsesHelmValues: false
         probeSelectorNilUsesHelmValues: false
@@ -231,10 +226,6 @@ spec:
               resources:
                 requests:
                   storage: 200Gi
-    prometheusOperator:
-      networkPolicy:
-        enabled: true
-        flavor: cilium
     additionalPrometheusRulesMap:
       node-rules:
         groups:
