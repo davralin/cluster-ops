@@ -313,7 +313,7 @@ spec:
             - from:
                 - namespaceSelector:
                     matchLabels:
-                      name: kuma
+                      app.kubernetes.io/name: kuma
                   podSelector:
                     matchLabels:
                       app.kubernetes.io/controller: kuma
