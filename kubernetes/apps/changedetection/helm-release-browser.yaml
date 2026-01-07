@@ -71,9 +71,42 @@ spec:
         controller: *name
         ports:
           http:
-            port: 3000
+            port: &port 3000
     persistence:
       tmp:
         type: emptyDir
         globalMounts:
           - path: /tmp
+    networkpolicies:
+      sockpuppetbrowser:
+        enabled: true
+        controller: *name
+        policyTypes:
+          - Egress
+          - Ingress
+        rules:
+          egress:
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: kube-system
+                  podSelector:
+                    matchLabels:
+                      k8s-app: kube-dns
+              ports:
+                - port: 53
+                  protocol: UDP
+            - to: # Needs to check for changes
+              - ipBlock:
+                  cidr: 0.0.0.0/0
+                  except:
+                  - "${HAPROXY_WHITELIST}"
+          ingress:
+            - from:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: changedetection
+                      app.kubernetes.io/instance: changedetection-changedetection
+                      app.kubernetes.io/name: changedetection-changedetection
+              ports:
+                - port: *port
