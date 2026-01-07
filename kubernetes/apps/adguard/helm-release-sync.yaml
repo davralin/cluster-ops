@@ -87,3 +87,44 @@ spec:
                 memory: 30Mi
               limits:
                 memory: 100Mi
+    networkpolicies:
+      adguard-sync:
+        enabled: true
+        controller: *name
+        policyTypes:
+          - Egress
+          - Ingress
+        rules:
+          egress:
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: kube-system
+                  podSelector:
+                    matchLabels:
+                      k8s-app: kube-dns
+              ports:
+                - port: 53
+                  protocol: UDP
+            - to:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: adguard
+                      app.kubernetes.io/instance: adguard-adguard
+                      app.kubernetes.io/name: adguard-adguard
+              ports:
+                - port: 80
+                  protocol: TCP
+            - to: # For synching external adguards
+              - ipBlock:
+                  cidr: 0.0.0.0/0
+                  except:
+                  - "${HAPROXY_WHITELIST}"
+              ports:
+                - port: 80
+                  protocol: TCP
+                - port: 443
+                  protocol: TCP
+                - port: 8443
+                  protocol: TCP
+          ingress: []
