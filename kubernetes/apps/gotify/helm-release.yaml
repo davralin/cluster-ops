@@ -135,6 +135,14 @@ spec:
                       app.kubernetes.io/name: changedetection-changedetection
                 - namespaceSelector:
                     matchLabels:
+                      name: kuma
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: kuma
+                      app.kubernetes.io/instance: kuma-kuma
+                      app.kubernetes.io/name: kuma-kuma
+                - namespaceSelector:
+                    matchLabels:
                       name: mailrise
                   podSelector:
                     matchLabels:
