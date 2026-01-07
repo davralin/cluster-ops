@@ -52,7 +52,8 @@ spec:
           name: alertmanager
           namespace: flux-system
         spec:
-          summary: "${CLUSTER_NAME}"
+          eventMetadata:
+            cluster: "${CLUSTER_NAME}"
           providerRef:
             name: alertmanager
           eventSeverity: error
@@ -78,7 +79,8 @@ spec:
           name: helm-info-discord
           namespace: flux-system
         spec:
-          summary: "${CLUSTER_NAME}"
+          eventMetadata:
+            cluster: "${CLUSTER_NAME}"
           providerRef:
             name: discord
           eventSeverity: info
@@ -95,7 +97,8 @@ spec:
           name: notify-error-discord
           namespace: flux-system
         spec:
-          summary: "${CLUSTER_NAME}"
+          eventMetadata:
+            cluster: "${CLUSTER_NAME}"
           providerRef:
             name: discord
           eventSeverity: error
