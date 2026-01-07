@@ -92,6 +92,8 @@ spec:
         - secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
           hosts:
             - "blackbox.${SECRET_DEFAULT_DOMAIN}"
+    networkPolicy:
+      enabled: true
     prometheusRule:
       enabled: true
       rules:
