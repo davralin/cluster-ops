@@ -35,3 +35,6 @@ spec:
     monitoring:
       enabled: "${MONITORING_PROMETHEUS}"
       createPrometheusRules: "${MONITORING_PROMETHEUS}"
+    resources:
+      limits:
+        memory: 1Gi
