@@ -55,6 +55,9 @@ spec:
             #  readiness: *probes
             #  startup: *probes
             securityContext:
+              runAsUser: 0
+              runAsGroup: 0
+              runAsNonRoot: false
               allowPrivilegeEscalation: false
               capabilities:
                 drop:
