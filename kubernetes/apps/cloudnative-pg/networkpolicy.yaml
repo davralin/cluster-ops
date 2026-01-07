@@ -36,7 +36,8 @@ spec:
         - port: 53
           protocol: UDP
     - to:
-        - podSelector:
+        - namespaceSelector: {}
+          podSelector:
             matchLabels:
               app.kubernetes.io/component: database
               app.kubernetes.io/managed-by: cloudnative-pg
