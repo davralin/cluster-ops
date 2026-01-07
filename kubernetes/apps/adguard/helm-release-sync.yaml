@@ -118,8 +118,6 @@ spec:
             - to: # For synching external adguards
               - ipBlock:
                   cidr: 0.0.0.0/0
-                  except:
-                  - "${HAPROXY_WHITELIST}"
               ports:
                 - port: 80
                   protocol: TCP
