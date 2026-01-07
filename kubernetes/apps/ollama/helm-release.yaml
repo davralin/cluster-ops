@@ -137,5 +137,13 @@ spec:
                   podSelector:
                     matchLabels:
                       app.kubernetes.io/name: kubernetes-ingress
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: litellm
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: litellm
+                      app.kubernetes.io/instance: litellm-litellm
+                      app.kubernetes.io/name: litellm-litellm
               ports:
                 - port: *port
