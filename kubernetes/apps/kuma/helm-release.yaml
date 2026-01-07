@@ -126,8 +126,16 @@ spec:
               ports:
                 - port: 25565
                   protocol: TCP
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: minecraft
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: mc-router
+              ports:
                 - port: 25565
-                  protocol: UDP
+                  protocol: TCP
             - to:
                 - namespaceSelector:
                     matchLabels:
