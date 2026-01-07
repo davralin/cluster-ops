@@ -117,7 +117,10 @@ spec:
                 - port: 80
                   protocol: TCP
             - to:
-                - podSelector:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: kube-system
+                  podSelector:
                     matchLabels:
                       k8s-app: kube-dns
               ports:
