@@ -64,4 +64,4 @@ spec:
     - fromEntities:
       - kube-apiserver
       - remote-node
-      - node
+      - host
