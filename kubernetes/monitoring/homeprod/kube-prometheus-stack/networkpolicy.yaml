@@ -80,10 +80,10 @@ metadata:
 spec:
   podSelector:
     matchLabels:
-      prometheus=kube-prom
-      app.kubernetes.io/instance=kube-prom
-      app.kubernetes.io/managed-by=prometheus-operator
-      app.kubernetes.io/name=prometheus
+      prometheus: kube-prom
+      app.kubernetes.io/instance: kube-prom
+      app.kubernetes.io/managed-by: prometheus-operator
+      app.kubernetes.io/name: prometheus
   policyTypes:
     - Ingress
     - Egress
@@ -134,10 +134,10 @@ metadata:
 spec:
   endpointSelector:
     matchLabels:
-      prometheus=kube-prom
-      app.kubernetes.io/instance=kube-prom
-      app.kubernetes.io/managed-by=prometheus-operator
-      app.kubernetes.io/name=prometheus
+      prometheus: kube-prom
+      app.kubernetes.io/instance: kube-prom
+      app.kubernetes.io/managed-by: prometheus-operator
+      app.kubernetes.io/name: prometheus
   egress:
     - toEntities:
       - host
