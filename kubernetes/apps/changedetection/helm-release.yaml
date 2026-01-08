@@ -129,6 +129,16 @@ spec:
               ports:
                 - port: 3000
                   protocol: TCP
+            - to: # Gotify via ingress
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: haproxy-controller
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: kubernetes-ingress
+              ports:
+                - port: 8443
+                  protocol: TCP
             - to: # Needs to check for changes
               - ipBlock:
                   cidr: 0.0.0.0/0
