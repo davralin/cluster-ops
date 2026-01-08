@@ -144,15 +144,6 @@ spec:
         rules:
           egress:
             - to:
-                - podSelector:
-                    matchLabels:
-                      app.kubernetes.io/controller: gotify
-                      app.kubernetes.io/instance: gotify-gotify
-                      app.kubernetes.io/name: gotify-gotify
-              ports:
-                - port: 80
-                  protocol: TCP
-            - to:
                 - namespaceSelector:
                     matchLabels:
                       kubernetes.io/metadata.name: kube-system
@@ -162,6 +153,16 @@ spec:
               ports:
                 - port: 53
                   protocol: UDP
+            - to: # Gotify via ingress
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: haproxy-controller
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: kubernetes-ingress
+              ports:
+                - port: 8443
+                  protocol: TCP
             - to: # to actually check for available games
               - ipBlock:
                   cidr: 0.0.0.0/0
