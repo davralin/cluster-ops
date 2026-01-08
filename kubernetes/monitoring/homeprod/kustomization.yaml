@@ -7,3 +7,4 @@ resources:
   - metrics-server
   - smartctl-exporter
   - namespace.yaml
+  - networkpolicy.yaml
