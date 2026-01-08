@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - helm-release-scrape-configs.yaml
   - helm-release.yaml
+  - networkpolicy.yaml
