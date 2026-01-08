@@ -138,7 +138,7 @@ spec:
       rules:
         kubelet: false
     kubeApiServer:
-      enabled: false # Disabled because of kubevirt KubeClientCertificateExpiration
+      enabled: true
       serviceMonitor:
         selector:
           k8s-app: kube-apiserver
