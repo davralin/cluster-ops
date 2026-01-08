@@ -55,6 +55,10 @@ spec:
   egress:
     - toEntities:
       - kube-apiserver
+  ingress:
+    - fromEntities:
+      - remote-node
+      - host
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
