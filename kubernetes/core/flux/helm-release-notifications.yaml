@@ -39,14 +39,6 @@ spec:
           type: alertmanager
           address: http://alertmanager-operated.monitoring.svc.cluster.local:9093/api/v2/alerts/
       - apiVersion: notification.toolkit.fluxcd.io/v1beta3
-        kind: Provider
-        metadata:
-          name: discord
-          namespace: flux-system
-        spec:
-          type: discord
-          address: "${SECRET_DISCORD_FLUXCD_URL}"
-      - apiVersion: notification.toolkit.fluxcd.io/v1beta3
         kind: Alert
         metadata:
           name: alertmanager
@@ -86,51 +78,6 @@ spec:
             - kind: HelmRelease
               name: '*'
               namespace: '*'
-          exclusionList:
-            - "*etcdserver: leader changed"
-          suspend: false
-      - apiVersion: notification.toolkit.fluxcd.io/v1beta3
-        kind: Alert
-        metadata:
-          name: helm-info-discord
-          namespace: flux-system
-        spec:
-          eventMetadata:
-            cluster: "${CLUSTER_NAME}"
-          providerRef:
-            name: discord
-          eventSeverity: info
-          eventSources:
-            - kind: HelmRelease
-              name: '*'
-              namespace: '*'
-          exclusionList:
-            - "*etcdserver: leader changed"
-          suspend: false
-      - apiVersion: notification.toolkit.fluxcd.io/v1beta3
-        kind: Alert
-        metadata:
-          name: notify-error-discord
-          namespace: flux-system
-        spec:
-          eventMetadata:
-            cluster: "${CLUSTER_NAME}"
-          providerRef:
-            name: discord
-          eventSeverity: error
-          eventSources:
-            - kind: Kustomization
-              name: apps
-            - kind: Kustomization
-              name: core
-            - kind: Kustomization
-              name: github-davralin-cluster-ops
-            - kind: Kustomization
-              name: monitoring
-            - kind: Kustomization
-              name: storage
-            - kind: HelmRelease
-              name: '*'
           exclusionList:
             - "*etcdserver: leader changed"
           suspend: false
