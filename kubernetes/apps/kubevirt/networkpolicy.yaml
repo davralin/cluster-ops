@@ -13,6 +13,25 @@ spec:
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
 metadata:
+  name: virt-controller
+  namespace: kubevirt
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/component: kubevirt
+      kubevirt.io: virt-controller
+  egress:
+    - toEntities:
+      - remote-node
+      - host
+  ingress:
+    - fromEntities:
+      - remote-node
+      - host
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
   name: virt-operator
   namespace: kubevirt
 spec:
