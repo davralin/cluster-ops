@@ -122,6 +122,16 @@ spec:
                       kubernetes.io/metadata.name: minecraft
                   podSelector:
                     matchLabels:
+                      app: minecraft-minecraft-bedrock-minecraft-bedrock
+              ports:
+                - port: 19132
+                  protocol: UDP
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: minecraft
+                  podSelector:
+                    matchLabels:
                       app.kubernetes.io/name: minecraft
                 - namespaceSelector:
                     matchLabels:
