@@ -78,9 +78,6 @@ spec:
         stringData:
           mailrise.conf: |
             configs:
-              discord:
-                urls:
-                  - "${SECRET_MAILRISE_DISCORD}"
               gotify:
                 urls:
                   - "${SECRET_MAILRISE_GOTIFY}"
@@ -114,14 +111,6 @@ spec:
               ports:
                 - port: 53
                   protocol: UDP
-            - to: # Discord
-              - ipBlock:
-                  cidr: 0.0.0.0/0
-                  except:
-                  - "${HAPROXY_WHITELIST}"
-              ports:
-                - port: 443
-                  protocol: TCP
             - to:
                 - namespaceSelector:
                     matchLabels:
