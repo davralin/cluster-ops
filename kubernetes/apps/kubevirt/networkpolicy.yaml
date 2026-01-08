@@ -23,6 +23,10 @@ spec:
   egress:
     - toEntities:
       - kube-apiserver
+  ingress:
+    - fromEntities:
+      - host
+      - remote-node
 ---
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
