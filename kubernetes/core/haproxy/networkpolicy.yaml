@@ -27,6 +27,7 @@ spec:
     - from:
         - ipBlock:
             cidr: 0.0.0.0/0
+        - namespaceSelector: {}
       ports:
         - port: 8443
     - from:
