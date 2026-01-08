@@ -67,3 +67,4 @@ spec:
   egress:
     - toEntities:
       - kube-apiserver
+      - world
