@@ -62,6 +62,7 @@ spec:
               name: "*"
           exclusionList:
             - "*etcdserver: leader changed"
+            - "*etcdserver: request timed out"
           suspend: false
       - apiVersion: notification.toolkit.fluxcd.io/v1beta3
         kind: Alert
@@ -80,6 +81,7 @@ spec:
               namespace: '*'
           exclusionList:
             - "*etcdserver: leader changed"
+            - "*etcdserver: request timed out"
           suspend: false
       - apiVersion: monitoring.coreos.com/v1
         kind: PodMonitor
