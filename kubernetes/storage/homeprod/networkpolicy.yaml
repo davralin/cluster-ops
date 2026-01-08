@@ -35,6 +35,12 @@ spec:
             matchExpressions:
               - key: app
                 operator: Exists
+    - to: # mgr
+      - ipBlock:
+          cidr: 0.0.0.0/0
+      ports:
+        - port: 3300
+          protocol: TCP
 ---
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
