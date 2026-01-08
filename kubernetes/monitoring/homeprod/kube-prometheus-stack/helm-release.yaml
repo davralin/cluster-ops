@@ -81,6 +81,10 @@ spec:
                     {{ if ne .Annotations.runbook_url "" }}**Runbook: ** {{ .Annotations.runbook_url }} {{ end }}
                   {{- end }}
           - name: "dummy"
+          - name: "gotify"
+            webhook_configs:
+              - url: http://gotify.gotify.svc.cluster.local:8080/gotify_webhook
+                send_resolved: true
           - name: "healthchecksio"
             webhook_configs:
               - send_resolved: true
@@ -92,7 +96,7 @@ spec:
           repeat_interval: 1d
           receiver: "Discord"
           routes:
-            - receiver: "Discord-BlackboxExporter"
+            - receiver: "gotify"
               matchers:
                 - alertname =~ "BlackboxProbeFailed"
               continue: false
