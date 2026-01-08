@@ -97,10 +97,8 @@ spec:
               app.kubernetes.io/name: kubernetes-ingress
         - podSelector:
             matchLabels:
-              alertmanager: kube-prom
-              app.kubernetes.io/instance: kube-prom
-              app.kubernetes.io/managed-by: prometheus-operator
-              app.kubernetes.io/name: alertmanager
+              app.kubernetes.io/instance: monitoring-grafana
+              app.kubernetes.io/name: grafana
       ports:
         - port: 9090
           protocol: TCP
@@ -115,5 +113,15 @@ spec:
       ports:
         - port: 53
           protocol: UDP
+    - to:
+        - podSelector:
+            matchLabels:
+              alertmanager: kube-prom
+              app.kubernetes.io/instance: kube-prom
+              app.kubernetes.io/managed-by: prometheus-operator
+              app.kubernetes.io/name: alertmanager
+      ports:
+        - port: 9093
+          protocol: TCP
     - to:
         - namespaceSelector: {}
