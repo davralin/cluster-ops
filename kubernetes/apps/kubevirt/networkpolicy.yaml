@@ -22,7 +22,9 @@ spec:
       kubevirt.io: virt-api
   egress:
     - toEntities:
+      - host
       - kube-apiserver
+      - remote-node
   ingress:
     - fromEntities:
       - host
@@ -59,7 +61,9 @@ spec:
       kubevirt.io: virt-handler
   egress:
     - toEntities:
+      - host
       - kube-apiserver
+      - remote-node
 ---
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
