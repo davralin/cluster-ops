@@ -149,6 +149,54 @@ spec:
             - to:
                 - podSelector:
                     matchLabels:
+                      app.kubernetes.io/controller: lidarr
+                      app.kubernetes.io/instance: media-lidarr
+                      app.kubernetes.io/name: media-lidarr
+              ports:
+                - port: 8686
+            - to:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: qbittorrent
+                      app.kubernetes.io/instance: media-qbittorrent
+                      app.kubernetes.io/name: media-qbittorrent
+              ports:
+                - port: 8080
+            - to:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: radarr
+                      app.kubernetes.io/instance: media-radarr
+                      app.kubernetes.io/name: media-radarr
+              ports:
+                - port: 7878
+            - to:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: readarr
+                      app.kubernetes.io/instance: media-readarr
+                      app.kubernetes.io/name: media-readarr
+              ports:
+                - port: 8787
+            - to:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: sonarr
+                      app.kubernetes.io/instance: media-sonarr
+                      app.kubernetes.io/name: media-sonarr
+              ports:
+                - port: 8989
+            - to:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: speakarr
+                      app.kubernetes.io/instance: media-speakarr
+                      app.kubernetes.io/name: media-speakarr
+              ports:
+                - port: 8787
+            - to:
+                - podSelector:
+                    matchLabels:
                       app.kubernetes.io/controller: qbittorrent
                       app.kubernetes.io/instance: media-qbittorrent
                       app.kubernetes.io/name: media-qbittorrent
