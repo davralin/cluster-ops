@@ -28,9 +28,6 @@ spec:
         - podSelector:
             matchLabels:
               app: rook-ceph-mon
-              app.kubernetes.io/component: cephclusters.ceph.rook.io
-              app.kubernetes.io/created-by: rook-ceph-operator
-              app.kubernetes.io/managed-by: rook-ceph-operator
               app.kubernetes.io/name: ceph-mon
               ceph_daemon_type: mon
       ports:
@@ -65,9 +62,6 @@ spec:
         - podSelector:
             matchLabels:
               app: rook-ceph-mon
-              app.kubernetes.io/component: cephclusters.ceph.rook.io
-              app.kubernetes.io/created-by: rook-ceph-operator
-              app.kubernetes.io/managed-by: rook-ceph-operator
               app.kubernetes.io/name: ceph-mon
               ceph_daemon_type: mon
       ports:
@@ -76,9 +70,6 @@ spec:
     - to:
         - podSelector:
             matchLabels:
-              app.kubernetes.io/component: cephclusters.ceph.rook.io
-              app.kubernetes.io/created-by: rook-ceph-operator
-              app.kubernetes.io/managed-by: rook-ceph-operator
               app.kubernetes.io/name: ceph-mgr
               ceph_daemon_type: mgr
       ports:
@@ -88,9 +79,6 @@ spec:
         - podSelector:
             matchLabels:
               app: rook-ceph-osd
-              app.kubernetes.io/component: cephclusters.ceph.rook.io
-              app.kubernetes.io/created-by: rook-ceph-operator
-              app.kubernetes.io/managed-by: rook-ceph-operator
               app.kubernetes.io/name: ceph-osd
               ceph_daemon_type: osd
       ports:
@@ -101,8 +89,6 @@ spec:
             matchLabels:
               app: rook-ceph-rgw
               app.kubernetes.io/component: cephobjectstores.ceph.rook.io
-              app.kubernetes.io/created-by: rook-ceph-operator
-              app.kubernetes.io/managed-by: rook-ceph-operator
               app.kubernetes.io/name: ceph-rgw
               ceph_daemon_type: rgw
       ports:
@@ -150,9 +136,6 @@ spec:
         - podSelector:
             matchLabels:
               app: rook-ceph-mon
-              app.kubernetes.io/component: cephclusters.ceph.rook.io
-              app.kubernetes.io/created-by: rook-ceph-operator
-              app.kubernetes.io/managed-by: rook-ceph-operator
               app.kubernetes.io/name: ceph-mon
               ceph_daemon_type: mon
       ports:
@@ -163,9 +146,6 @@ spec:
     - to:
         - podSelector:
             matchLabels:
-              app.kubernetes.io/component: cephclusters.ceph.rook.io
-              app.kubernetes.io/created-by: rook-ceph-operator
-              app.kubernetes.io/managed-by: rook-ceph-operator
               app.kubernetes.io/name: ceph-mgr
               ceph_daemon_type: mgr
       ports:
