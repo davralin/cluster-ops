@@ -125,6 +125,18 @@ spec:
           protocol: TCP
     - to:
         - namespaceSelector: {}
+    - to: # External node-exporters
+      - ipBlock:
+          cidr: "${HAPROXY_WHITELIST}"
+      ports:
+        - port: 8404 # Haproxy
+          protocol: TCP
+        - port: 9100 # Node-exporter
+          protocol: TCP
+        - port: 9153 # DNSMasq
+          protocol: TCP
+        - port: 9586 # Wireguard
+          protocol: TCP
 ---
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
