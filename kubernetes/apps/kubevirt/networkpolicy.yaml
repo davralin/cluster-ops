@@ -1,0 +1,30 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny
+  namespace: kubevirt
+spec:
+  podSelector: {}
+  policyTypes:
+    - Ingress
+    - Egress
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: virt-operator
+  namespace: kubevirt
+spec:
+  endpointSelector:
+    matchLabel:
+      kubevirt.io: virt-operator
+      name: virt-operator
+  egress:
+    - toEntities:
+      - remote-node
+      - host
+  ingress:
+    - fromEntities:
+      - remote-node
+      - host
