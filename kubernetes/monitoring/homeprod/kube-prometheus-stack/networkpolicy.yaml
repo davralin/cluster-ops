@@ -58,9 +58,9 @@ spec:
               kubernetes.io/metadata.name: gotify
           podSelector:
             matchLabels:
-              app.kubernetes.io/controller: gotify
-              app.kubernetes.io/instance: gotify-gotify
-              app.kubernetes.io/name: gotify-gotify
+              app.kubernetes.io/controller: gotify-alertmanager
+              app.kubernetes.io/instance: gotify-gotify-alertmanager
+              app.kubernetes.io/name: gotify-gotify-alertmanager
       ports:
         - port: 80
     - to: # Discord
