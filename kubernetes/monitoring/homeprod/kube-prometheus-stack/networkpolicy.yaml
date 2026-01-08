@@ -125,3 +125,21 @@ spec:
           protocol: TCP
     - to:
         - namespaceSelector: {}
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: prometheus
+  namespace: monitoring
+spec:
+  endpointSelector:
+    matchLabels:
+      prometheus=kube-prom
+      app.kubernetes.io/instance=kube-prom
+      app.kubernetes.io/managed-by=prometheus-operator
+      app.kubernetes.io/name=prometheus
+  egress:
+    - toEntities:
+      - host
+      - kube-apiserver
+      - remote-node
