@@ -71,3 +71,49 @@ spec:
       ports:
         - port: 443
           protocol: TCP
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: prometheus
+  namespace: monitoring
+spec:
+  podSelector:
+    matchLabels:
+      prometheus=kube-prom
+      app.kubernetes.io/instance=kube-prom
+      app.kubernetes.io/managed-by=prometheus-operator
+      app.kubernetes.io/name=prometheus
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: haproxy-controller
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/name: kubernetes-ingress
+        - podSelector:
+            matchLabels:
+              alertmanager: kube-prom
+              app.kubernetes.io/instance: kube-prom
+              app.kubernetes.io/managed-by: prometheus-operator
+              app.kubernetes.io/name: alertmanager
+      ports:
+        - port: 9090
+          protocol: TCP
+  egress:
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: kube-system
+          podSelector:
+            matchLabels:
+              k8s-app: kube-dns
+      ports:
+        - port: 53
+          protocol: UDP
+    - to:
+        - namespaceSelector: {}
