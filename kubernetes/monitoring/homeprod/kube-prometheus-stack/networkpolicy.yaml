@@ -155,6 +155,9 @@ spec:
       - host
       - kube-apiserver
       - remote-node
+  ingress:
+    - fromEntities:
+      - kube-apiserver
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
