@@ -43,7 +43,7 @@ spec:
           metube:
             image:
               repository: ghcr.io/alexta69/metube
-              tag: 2026.01.02@sha256:3c5e59886f404583196a45aa3e3fa9fb7b06e16fcdb71d2db5159b7c4e51b38a
+              tag: 2026.01.08@sha256:f0c60368e9da7617168372750f47ec627f6d2cb36e3504ab2d79e5b8c48139be
             env:
               TZ: "${TIMEZONE}"
               DOWNLOAD_DIR: "/downloads"
