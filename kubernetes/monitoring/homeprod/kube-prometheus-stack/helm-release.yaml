@@ -94,7 +94,7 @@ spec:
           group_wait: 30s
           group_interval: 5m
           repeat_interval: 1d
-          receiver: "Discord"
+          receiver: "gotify"
           routes:
             - receiver: "gotify"
               matchers:
