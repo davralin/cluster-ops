@@ -17,7 +17,7 @@ metadata:
   namespace: kubevirt
 spec:
   endpointSelector:
-    matchLabel:
+    matchLabels:
       kubevirt.io: virt-operator
       name: virt-operator
   egress:
