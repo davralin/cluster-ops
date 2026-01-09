@@ -83,7 +83,7 @@ spec:
           - name: "dummy"
           - name: "gotify"
             webhook_configs:
-              - url: http://gotify.gotify.svc.cluster.local:8080/gotify_webhook
+              - url: http://gotify-alertmanager.gotify.svc.cluster.local:8080/gotify_webhook
                 send_resolved: true
           - name: "healthchecksio"
             webhook_configs:
