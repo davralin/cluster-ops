@@ -35,7 +35,7 @@
       - org.kde.krita
       - org.keepassxc.KeePassXC
       - org.mozilla.firefox # xdg-settings set default-web-browser org.mozilla.firefox.desktop
-      - org.signal.Signal
+      - org.signal.Signal # .var/app/org.signal.Signal/config/Signal/ephemeral.json - "localeOverride": "en-DK" https://github.com/signalapp/Signal-Desktop/issues/4252
       - org.speedcrunch.SpeedCrunch
 
 - name: Installing flatpak-themes
