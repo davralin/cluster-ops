@@ -81,7 +81,7 @@ spec:
                     {{ if ne .Annotations.runbook_url "" }}**Runbook: ** {{ .Annotations.runbook_url }} {{ end }}
                   {{- end }}
           - name: "dummy"
-          - name: "gotify"
+          - name: "Gotify"
             webhook_configs:
               - url: http://gotify-alertmanager.gotify.svc.cluster.local:8080/gotify_webhook
                 send_resolved: true
