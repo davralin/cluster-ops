@@ -148,6 +148,14 @@ spec:
               ports:
                 - port: 80
             - to:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: ersatztv
+                      app.kubernetes.io/instance: media-ersatztv
+                      app.kubernetes.io/name: media-ersatztv
+              ports:
+                - port: 8409
+            - to:
                 - namespaceSelector:
                     matchLabels:
                       kubernetes.io/metadata.name: kube-system

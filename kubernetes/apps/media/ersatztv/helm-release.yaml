@@ -148,6 +148,11 @@ spec:
                   protocol: TCP
           ingress:
             - from:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: jellyfin
+                      app.kubernetes.io/instance: media-jellyfin
+                      app.kubernetes.io/name: media-jellyfin
                 - namespaceSelector:
                     matchLabels:
                       kubernetes.io/metadata.name: haproxy-controller
