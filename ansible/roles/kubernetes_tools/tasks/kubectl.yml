@@ -15,8 +15,8 @@
   ansible.builtin.deb822_repository:
     name: kubernetes
     types: deb
-    uris: "https://pkgs.k8s.io/core:/stable:/v1.34/deb/"
-    signed_by: "https://pkgs.k8s.io/core:/stable:/v1.34/deb/Release.key"
+    uris: "https://pkgs.k8s.io/core:/stable:/{{ kubernetes_pkg_version }}/deb/"
+    signed_by: "https://pkgs.k8s.io/core:/stable:/{{ kubernetes_pkg_version }}/deb/Release.key"
     suites: /
     components: []
   register: _kubectl_apt_repo
