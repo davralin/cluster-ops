@@ -96,7 +96,7 @@ spec:
           repeat_interval: 1d
           receiver: "gotify"
           routes:
-            - receiver: "gotify"
+            - receiver: "Discord"
               matchers:
                 - alertname =~ "BlackboxProbeFailed"
               continue: false
