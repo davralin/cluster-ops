@@ -129,7 +129,7 @@ spec:
           metube:
             metube:
               - path: /downloads
-                subPath: video/web
+                subPath: video
     networkpolicies:
       metube:
         enabled: true
