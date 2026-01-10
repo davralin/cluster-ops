@@ -65,6 +65,23 @@ spec:
               limits:
                 memory: 4Gi
                 gpu.intel.com/i915: 1
+          trash-cleaner:
+            image:
+              repository: ghcr.io/davralin/utility
+              tag: latest@sha256:b95941fbc019497bbb920fb999b67102639641edcf8b751c209a2edeca3bd953
+            #command: ["/config/trash-cleanup.sh"]
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+            resources:
+              requests:
+                cpu: 10m
+                memory: 10Mi
+              limits:
+                memory: 20Mi
     service:
       ersatztv:
         controller: *name
@@ -96,6 +113,8 @@ spec:
       config:
         enabled: true
         existingClaim: ersatztv
+        globalMounts:
+          - path: /config
       media:
         enabled: true
         existingClaim: media
