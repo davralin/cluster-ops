@@ -294,6 +294,16 @@ spec:
               ports:
                 - port: 8025
                   protocol: TCP
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: haproxy-controller
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: kubernetes-ingress
+              ports:
+                - port: 8443
+                  protocol: TCP
             - to: # AppUpdates
               - ipBlock:
                   cidr: 0.0.0.0/0
