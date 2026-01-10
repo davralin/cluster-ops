@@ -294,6 +294,14 @@ spec:
               ports:
                 - port: 8025
                   protocol: TCP
+            - to: # AppUpdates
+              - ipBlock:
+                  cidr: 0.0.0.0/0
+                  except:
+                  - "${HAPROXY_WHITELIST}"
+              ports:
+                - port: 443
+                  protocol: TCP
           ingress:
             - from:
                 - namespaceSelector:
