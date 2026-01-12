@@ -99,7 +99,7 @@ spec:
                 memory: 512M
                 cpu: 10m
               limits:
-                memory: 1024M
+                memory: 1536M
     service:
       romm:
         controller: *name
