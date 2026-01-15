@@ -76,7 +76,7 @@ spec:
     networkpolicies:
       sitebackup:
         enabled: true
-        controller: sitebackup
+        controller: *name
         policyTypes:
           - Egress
           - Ingress
