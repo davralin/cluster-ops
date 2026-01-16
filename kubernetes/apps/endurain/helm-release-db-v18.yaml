@@ -54,16 +54,16 @@ spec:
             name: *name
           bootstrap:
             # use this to start a new cluster
-            initdb:
-              database: endurain
-              owner: endurain
-              secret:
-                name: endurain-basic-auth
-            # use this to recover a net-new cluster from a backup
-            #recovery:
-            #  source: *name
+            #initdb:
             #  database: endurain
             #  owner: endurain
+            #  secret:
+            #    name: endurain-basic-auth
+            # use this to recover a net-new cluster from a backup
+            recovery:
+              source: *name
+              database: endurain
+              owner: endurain
             # # use this to 'migrate' from an existing cnpg cluster (e.g. "endurain-postgres-v17") to the new cluster
             #initdb:
             #  database: endurain

@@ -60,22 +60,22 @@ spec:
             #  secret:
             #    name: lidarr-basic-auth
             ## use this to recover a net-new cluster from a backup
-            #recovery:
-            #  source: *name
-            #  database: lidarr
-            #  owner: lidarr
-            #  secret:
-            #    name: lidarr-basic-auth
-            # use this to 'migrate' from an existing cnpg cluster (e.g. "lidarr-postgres-v17") to the new cluster
-            initdb:
+            recovery:
+              source: *name
               database: lidarr
               owner: lidarr
-              import:
-                type: monolith
-                databases:
-                  - lidarr_main
-                source:
-                  externalCluster: lidarr-postgres-v17
+              secret:
+                name: lidarr-basic-auth
+            # use this to 'migrate' from an existing cnpg cluster (e.g. "lidarr-postgres-v17") to the new cluster
+            #initdb:
+            #  database: lidarr
+            #  owner: lidarr
+            #  import:
+            #    type: monolith
+            #    databases:
+            #      - lidarr_main
+            #    source:
+            #      externalCluster: lidarr-postgres-v17
           monitoring:
             enablePodMonitor: "${MONITORING_PROMETHEUS}"
           resources:

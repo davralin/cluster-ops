@@ -60,20 +60,20 @@ spec:
             #  secret:
             #    name: awx-basic-auth
             # use this to recover a net-new cluster from a backup
-            #recovery:
-            #  source: *name
-            #  database: awx
-            #  owner: awx
-            # # use this to 'migrate' from an existing cnpg cluster (e.g. "awx-postgres-v17") to the new cluster
-            initdb:
+            recovery:
+              source: *name
               database: awx
               owner: awx
-              import:
-                type: microservice
-                databases:
-                  - awx
-                source:
-                  externalCluster: awx-postgres-v17
+            # # use this to 'migrate' from an existing cnpg cluster (e.g. "awx-postgres-v17") to the new cluster
+            #initdb:
+            #  database: awx
+            #  owner: awx
+            #  import:
+            #    type: microservice
+            #    databases:
+            #      - awx
+            #    source:
+            #      externalCluster: awx-postgres-v17
           monitoring:
             enablePodMonitor: "${MONITORING_PROMETHEUS}"
           resources:
