@@ -9,6 +9,7 @@ resources:
   - ../blackbox-exporter
   - ../changedetection
   - ../cloudnative-pg
+  - ../comics
   - ../cyberchef
   - ../descheduler
   - ../endurain
