@@ -49,7 +49,7 @@ spec:
           1-disable-maintenance-mode:
             image:
               repository: nextcloud
-              tag: 32.0.4-apache
+              tag: 32.0.5-apache
             command: ["/usr/bin/su"]
             args: ["www-data", "-s", "/bin/bash", "-c", "/var/www/html/occ maintenance:mode --off"]
             env:
@@ -77,7 +77,7 @@ spec:
           2-occ-upgrade:
             image:
               repository: nextcloud
-              tag: 32.0.4-apache
+              tag: 32.0.5-apache
             command: ["/usr/bin/su"]
             args: ["www-data", "-s", "/bin/bash", "-c", "/var/www/html/occ upgrade"]
             env:
@@ -105,7 +105,7 @@ spec:
           3-occ-app-upgrade:
             image:
               repository: nextcloud
-              tag: 32.0.4-apache
+              tag: 32.0.5-apache
             command: ["/usr/bin/su"]
             args: ["www-data", "-s", "/bin/bash", "-c", "/var/www/html/occ app:update --all"]
             env:
@@ -134,7 +134,7 @@ spec:
           nextcloud:
             image:
               repository: nextcloud
-              tag: 32.0.4-apache
+              tag: 32.0.5-apache
             env:
               TZ: "${TIMEZONE}"
               REDIS_HOST: "nextcloud-valkey.nextcloud.svc.cluster.local"
@@ -176,7 +176,7 @@ spec:
           nextcloud-cron:
             image:
               repository: nextcloud
-              tag: 32.0.4-apache
+              tag: 32.0.5-apache
             command: ["/cron.sh"]
             env:
               TZ: "${TIMEZONE}"
