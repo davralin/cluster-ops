@@ -31,6 +31,7 @@
       - com.nextcloud.desktopclient.nextcloud
       - com.valvesoftware.Steam
       - io.freetubeapp.FreeTube
+      - org.freedesktop.Platform.ffmpeg-full
       - org.gnome.gitlab.cheywood.Buffer
       - org.kde.krita
       - org.keepassxc.KeePassXC
