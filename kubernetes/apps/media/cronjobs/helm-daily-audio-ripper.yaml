@@ -47,7 +47,7 @@ spec:
           daily-audio-ripper:
             image:
               repository: ghcr.io/davralin/ripbox
-              tag: latest@sha256:7f40367941aa454ca6a0141a795f890444d52b2373f77fbb5ae92e214eac8229
+              tag: latest@sha256:fc2efca6ed29ea013d2f980e9d1c24ac2ad51ce87e93a064e2793c1eb9550b2f
             command: ['/media/audioripper.sh']
             securityContext:
               allowPrivilegeEscalation: false
