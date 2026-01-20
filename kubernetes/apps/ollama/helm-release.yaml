@@ -39,7 +39,6 @@ spec:
           type: RuntimeDefault
     controllers:
       ollama:
-        type: daemonset
         containers:
           ollama:
             image:
@@ -47,6 +46,7 @@ spec:
               tag: 0.14.2
             env:
               TZ: "${TIMEZONE}"
+              OLLAMA_KEEP_ALIVE: -1
             probes:
               liveness: &probes
                 enabled: true
