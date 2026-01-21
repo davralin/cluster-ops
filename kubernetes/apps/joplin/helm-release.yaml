@@ -115,6 +115,10 @@ spec:
         type: emptyDir
         globalMounts:
           - path: /opt/pm2
+      yarn-server-logs: # Error: ENOENT: no such file or directory, mkdir '/home/joplin/packages/server/logs'] {
+        type: emptyDir
+        globalMounts:
+          - path: /home/joplin/packages/server/
     networkpolicies:
       joplin:
         enabled: true
