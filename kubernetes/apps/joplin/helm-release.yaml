@@ -1,0 +1,144 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &name joplin
+  namespace: flux-system
+spec:
+  interval: 30m
+  timeout: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 4.6.2
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+      interval: 30m
+  targetNamespace: joplin
+  install:
+    createNamespace: true
+    remediation:
+      retries: 10
+  upgrade:
+    remediation:
+      retries: 10
+  dependsOn:
+    - name: joplin-postgres-v18
+      namespace: flux-system
+  values:
+    fullnameOverride: *name
+    defaultPodOptions:
+      automountServiceAccountToken: false
+      enableServiceLinks: false
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+    controllers:
+      joplin:
+        containers:
+          joplin:
+            image:
+              repository: docker.io/joplin/server
+              tag: 3.5.2@sha256:5d9e7f9d31b436cb1b99d1a6a65d8c5bf760829094617e8ad1e956fd925de888
+            env:
+              TZ: "${TIMEZONE}"
+              APP_BASE_URL: "https://joplin.${SECRET_DEFAULT_DOMAIN}"
+              DB_CLIENT: pg
+              POSTGRES_DATABASE: joplin
+              POSTGRES_USER:
+                valueFrom:
+                  secretKeyRef:
+                    name: joplin-basic-auth
+                    key: username
+              POSTGRES_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: joplin-basic-auth
+                    key: password
+              POSTGRES_PORT: 5432
+              POSTGRES_HOST: "joplin-postgres-v18-rw.joplin.svc.cluster.local"
+            probes:
+              liveness: &probes
+                enabled: true
+              readiness: *probes
+              startup: *probes
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+            resources:
+              requests:
+                cpu: 200m
+                memory: 2Gi
+    service:
+      joplin:
+        controller: *name
+        ports:
+          http:
+            port: &port 22300
+    ingress:
+      joplin:
+        enabled: true
+        annotations:
+          haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
+          haproxy.org/ssl-redirect-port: "443"
+          haproxy.org/response-set-header: |
+            Strict-Transport-Security "max-age: 31536000"
+            X-Frame-Options "DENY"
+            X-Content-Type-Options "nosniff"
+            Referrer-Policy "strict-origin-when-cross-origin"
+        hosts:
+          - host: &host "joplin.${SECRET_DEFAULT_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  identifier: joplin
+                  port: http
+        tls:
+          - hosts:
+              - *host
+    networkpolicies:
+      joplin:
+        enabled: true
+        controller: *name
+        policyTypes:
+          - Egress
+          - Ingress
+        rules:
+          egress:
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: kube-system
+                  podSelector:
+                    matchLabels:
+                      k8s-app: kube-dns
+              ports:
+                - port: 53
+                  protocol: UDP
+            - to:
+                - podSelector:
+                    matchLabels:
+                      cnpg.io/cluster: joplin-postgres-v18
+                      cnpg.io/instanceRole: primary
+              ports:
+                - port: 5432
+          ingress:
+            - from:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: haproxy-controller
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: kubernetes-ingress
+              ports:
+                - port: *port
