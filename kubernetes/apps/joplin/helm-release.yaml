@@ -51,6 +51,7 @@ spec:
               TZ: "${TIMEZONE}"
               APP_BASE_URL: "https://joplin.${SECRET_DEFAULT_DOMAIN}"
               DB_CLIENT: pg
+              MAX_TIME_DRIFT: 0 # Containers shouldn't care about time
               POSTGRES_DATABASE: joplin
               POSTGRES_USER:
                 valueFrom:
