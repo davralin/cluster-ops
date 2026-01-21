@@ -111,6 +111,10 @@ spec:
         type: emptyDir
         globalMounts:
           - path: /tmp
+      yarn-pm2: # Error: EACCES: permission denied, open '/opt/pm2/pm2.log'
+        type: emptyDir
+        globalMounts:
+          - path: /opt/pm2
     networkpolicies:
       joplin:
         enabled: true
