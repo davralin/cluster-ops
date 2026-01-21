@@ -33,9 +33,9 @@ spec:
       automountServiceAccountToken: false
       enableServiceLinks: false
       securityContext:
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
+        runAsUser: 1001
+        runAsGroup: 1001
+        fsGroup: 1001
         fsGroupChangePolicy: "OnRootMismatch"
         runAsNonRoot: true
         seccompProfile:
@@ -78,8 +78,8 @@ spec:
                   - ALL
             resources:
               requests:
-                cpu: 200m
-                memory: 2Gi
+                cpu: 50m
+                memory: 256Mi
     service:
       joplin:
         controller: *name
