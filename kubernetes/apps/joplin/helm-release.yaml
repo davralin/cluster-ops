@@ -71,7 +71,8 @@ spec:
               startup: *probes
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
+              # After a bunch of tries, lets test if this is the source of it all
+              readOnlyRootFilesystem: false
               capabilities:
                 drop:
                   - ALL
@@ -106,19 +107,19 @@ spec:
         tls:
           - hosts:
               - *host
-    persistence:
-      yarn-cache: # warning Skipping preferred cache folder "/tmp/.yarn-cache-1000" because it is not writable.
-        type: emptyDir
-        globalMounts:
-          - path: /tmp
-      yarn-pm2: # Error: EACCES: permission denied, open '/opt/pm2/pm2.log'
-        type: emptyDir
-        globalMounts:
-          - path: /opt/pm2
-      yarn-server-logs: # Error: ENOENT: no such file or directory, mkdir '/home/joplin/packages/server/logs'] {
-        type: emptyDir
-        globalMounts:
-          - path: /home/joplin/packages/server/
+    #persistence:
+    #  yarn-cache: # warning Skipping preferred cache folder "/tmp/.yarn-cache-1000" because it is not writable.
+    #    type: emptyDir
+    #    globalMounts:
+    #      - path: /tmp
+    #  yarn-pm2: # Error: EACCES: permission denied, open '/opt/pm2/pm2.log'
+    #    type: emptyDir
+    #    globalMounts:
+    #      - path: /opt/pm2
+    #  yarn-server-logs: # Error: ENOENT: no such file or directory, mkdir '/home/joplin/packages/server/logs'] {
+    #    type: emptyDir
+    #    globalMounts:
+    #      - path: /home/joplin/packages/server/
     networkpolicies:
       joplin:
         enabled: true
