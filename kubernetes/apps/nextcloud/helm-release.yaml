@@ -150,6 +150,15 @@ spec:
             probes:
               liveness: &probes
                 enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /status.php
+                    port: &port 80
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
               readiness: *probes
               startup:
                 enabled: true
@@ -192,7 +201,7 @@ spec:
               POSTGRES_USER: "nextcloud"
             probes:
               liveness: &probes
-                enabled: true
+                enabled: false
               readiness: *probes
               startup: *probes
             securityContext:
@@ -217,7 +226,7 @@ spec:
         controller: *name
         ports:
           http:
-            port: &port 80
+            port: *port
     ingress:
       nextcloud:
         enabled: true
