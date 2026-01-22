@@ -120,10 +120,10 @@ spec:
           - hosts:
               - *host
     persistence:
-      yarn-cache: # warning Skipping preferred cache folder "/tmp/.yarn-cache-1000" because it is not writable.
+      yarn-cache: # warning Skipping preferred cache folder "/home/joplin/.cache/yarn" because it is not writable.
         type: emptyDir
         globalMounts:
-          - path: /tmp
+          - path: /home/joplin/.cache/yarn
       yarn-pm2: # Error: EACCES: permission denied, open '/opt/pm2/pm2.log'
         type: emptyDir
         globalMounts:
@@ -131,7 +131,7 @@ spec:
       yarn-server-logs: # Error: ENOENT: no such file or directory, mkdir '/home/joplin/packages/server/logs'] {
         type: emptyDir
         globalMounts:
-          - path: /home/joplin/packages/server/
+          - path: /home/joplin/packages/server/logs
     networkpolicies:
       joplin:
         enabled: true
