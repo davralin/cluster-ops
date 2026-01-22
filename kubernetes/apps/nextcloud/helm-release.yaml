@@ -192,7 +192,7 @@ spec:
               POSTGRES_USER: "nextcloud"
             probes:
               liveness: &probes
-                enabled: false
+                enabled: true
               readiness: *probes
               startup: *probes
             securityContext:
