@@ -123,6 +123,10 @@ spec:
         type: emptyDir
         globalMounts:
           - path: /app/backend/logs
+      data2:
+        type: emptyDir
+        globalMounts:
+          - path: /data
     networkpolicies:
       endurain:
         enabled: true
