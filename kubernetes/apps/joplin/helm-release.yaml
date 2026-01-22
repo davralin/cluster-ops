@@ -136,6 +136,10 @@ spec:
         type: emptyDir
         globalMounts:
           - path: /home/joplin/packages/server/logs
+      yarn-server-temp: # [Error: ENOENT: no such file or directory, mkdir '/home/joplin/packages/server/temp'] {
+        type: emptyDir
+        globalMounts:
+          - path: /home/joplin/packages/server/temp
     networkpolicies:
       joplin:
         enabled: true
