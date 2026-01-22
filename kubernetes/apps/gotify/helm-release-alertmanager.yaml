@@ -51,6 +51,7 @@ spec:
               GOTIFY_ENDPOINT: "http://gotify.gotify.svc.cluster.local:80/message"
               TITLE_ANNOTATION: "summary"
               MESSAGE_ANNOTATION: "description"
+              DEBUG: 1
             probes:
               liveness: &probes
                 enabled: true
