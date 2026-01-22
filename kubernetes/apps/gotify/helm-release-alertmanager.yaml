@@ -49,9 +49,8 @@ spec:
             env:
               GOTIFY_TOKEN: "${SECRET_ALERTMANAGER_GOTIFY}"
               GOTIFY_ENDPOINT: "http://gotify.gotify.svc.cluster.local:80/message"
-              TITLE_ANNOTATION: "summary"
-              MESSAGE_ANNOTATION: "description"
-              DEBUG: 1
+              TITLE_ANNOTATION: "alertname"
+              MESSAGE_ANNOTATION: "instance"
             probes:
               liveness: &probes
                 enabled: true
