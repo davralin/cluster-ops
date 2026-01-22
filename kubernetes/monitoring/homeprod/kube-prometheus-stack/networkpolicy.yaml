@@ -62,7 +62,7 @@ spec:
               app.kubernetes.io/instance: gotify-gotify-alertmanager
               app.kubernetes.io/name: gotify-gotify-alertmanager
       ports:
-        - port: 80
+        - port: 8899
     - to: # Discord
       - ipBlock:
           cidr: 0.0.0.0/0
