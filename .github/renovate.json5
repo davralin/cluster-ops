@@ -113,6 +113,7 @@
         "ghcr.io/coder/code-server",
         "ghcr.io/community-tooling/oci-images/paperless-export",
         "ghcr.io/dgtlmoon/changedetection.io",
+        "ghcr.io/endurain-project/endurain",
         "ghcr.io/ersatztv/ersatztv",
         "ghcr.io/fallenbagel/jellyseerr",
         "ghcr.io/foxxmd/multi-scrobbler",
