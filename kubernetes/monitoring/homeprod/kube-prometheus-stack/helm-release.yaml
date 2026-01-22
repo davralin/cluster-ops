@@ -60,26 +60,6 @@ spec:
                     {{- end }}
                     {{ if ne .Annotations.runbook_url "" }}**Runbook: ** {{ .Annotations.runbook_url }} {{ end }}
                   {{- end }}
-          - name: "Discord-BlackboxExporter"
-            discord_configs:
-              - webhook_url: "${SECRET_DISCORD_BLACKBOX_EXPORTER_URL}"
-                title: |-
-                  [{{ .Status | toUpper }}:{{ if eq .Status "firing" }}{{ .Alerts.Firing | len }}{{ else }}{{ .Alerts.Resolved | len }}{{ end }}]
-                message: |-
-                  {{- range .Alerts }}
-                    **{{ .Labels.alertname }} {{ if ne .Labels.severity "" }}({{ .Labels.severity | title }}){{ end }} **
-                    {{ if ne .Labels.namespace "" }}**Namespace: ** {{ .Labels.namespace | title }} {{ end }}
-                    {{- if ne .Annotations.description "" }}
-                      **Description:** {{ .Annotations.description }}
-                    {{- else if ne .Annotations.message "" }}
-                      **Message:** {{ .Annotations.message }}
-                    {{- else if ne .Annotations.summary "" }}
-                      **Summary:** {{ .Annotations.summary }}
-                    {{- else }}
-                      **Description:** N/A
-                    {{- end }}
-                    {{ if ne .Annotations.runbook_url "" }}**Runbook: ** {{ .Annotations.runbook_url }} {{ end }}
-                  {{- end }}
           - name: "dummy"
           - name: "Gotify"
             webhook_configs:
