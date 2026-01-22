@@ -118,15 +118,11 @@ spec:
         enabled: true
         existingClaim: endurain
         globalMounts:
-          - path: /app/backend/data
+          - path: /data
       tmp:
         type: emptyDir
         globalMounts:
           - path: /app/backend/logs
-      data2:
-        type: emptyDir
-        globalMounts:
-          - path: /data
     networkpolicies:
       endurain:
         enabled: true
