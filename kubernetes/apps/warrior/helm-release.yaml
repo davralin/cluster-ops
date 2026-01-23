@@ -42,7 +42,7 @@ spec:
           warrior:
             image:
               repository: atdr.meo.ws/archiveteam/warrior-dockerfile
-              tag: latest@sha256:2318f747dca10c4e8aba3699d6b8f133bf80e82ae07d25a82b8369f8745a7feb
+              tag: latest@sha256:db162f841c520696c3d2655efd4fdbbdab7c3f50f338fb6d671d6f875ecabf58
             env:
               TZ: "${TIMEZONE}"
               DOWNLOADER: "davralin"
