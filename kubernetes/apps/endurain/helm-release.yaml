@@ -42,7 +42,7 @@ spec:
           endurain:
             image:
               repository: ghcr.io/endurain-project/endurain
-              tag: v0.17.2@sha256:1d2669253509aacec1d59daf9f52bfc81f64f3599700f294f5bd3c1c0c9cf98b
+              tag: v0.16.6@sha256:05bf60d33ae7fe1ce2402d1c6d8bb5a803a549b3a5fff0bcd65be7a804f3b7c1
             env:
               TZ: "${TIMEZONE}"
               ENDURAIN_HOST: "https://endurain.${SECRET_DEFAULT_DOMAIN}"
@@ -118,7 +118,7 @@ spec:
         enabled: true
         existingClaim: endurain
         globalMounts:
-          - path: /data
+          - path: /app/backend/data
       tmp:
         type: emptyDir
         globalMounts:
