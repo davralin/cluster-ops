@@ -49,7 +49,6 @@ spec:
             env:
               GOTIFY_TOKEN: "${SECRET_ALERTMANAGER_GOTIFY}"
               GOTIFY_URL: "http://gotify.gotify.svc.cluster.local:80/message"
-              EXCLUDE_LABELS: "no"
               LOGLEVEL: "DEBUG"
             probes:
               liveness: &probes
