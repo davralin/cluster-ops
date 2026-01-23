@@ -118,6 +118,9 @@ spec:
               - path: /music/artists
                 subPath: audio/artists
                 readOnly: true
+              - path: /music/rip
+                subPath: audio/rip
+                readOnly: true
               - path: /music/singles
                 subPath: audio/singles
                 readOnly: true
