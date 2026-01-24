@@ -114,4 +114,14 @@ spec:
                       app.kubernetes.io/name: media-tdarr
               ports:
                 - port: 8266
+            - to: # Gotify via ingress
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: haproxy-controller
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: kubernetes-ingress
+              ports:
+                - port: 8443
+                  protocol: TCP
           ingress: []
