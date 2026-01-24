@@ -109,6 +109,30 @@ spec:
             - to:
                 - podSelector:
                     matchLabels:
+                      app.kubernetes.io/controller: plex
+                      app.kubernetes.io/instance: media-plex
+                      app.kubernetes.io/name: media-plex
+              ports:
+                - port: 32400
+            - to:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: radarr
+                      app.kubernetes.io/instance: media-radarr
+                      app.kubernetes.io/name: media-radarr
+              ports:
+                - port: 7878
+            - to:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: sonarr
+                      app.kubernetes.io/instance: media-sonarr
+                      app.kubernetes.io/name: media-sonarr
+              ports:
+                - port: 8989
+            - to:
+                - podSelector:
+                    matchLabels:
                       app.kubernetes.io/controller: tdarr
                       app.kubernetes.io/instance: media-tdarr
                       app.kubernetes.io/name: media-tdarr

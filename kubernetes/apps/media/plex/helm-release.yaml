@@ -168,5 +168,10 @@ spec:
                       app.kubernetes.io/controller: tautulli
                       app.kubernetes.io/instance: media-tautulli
                       app.kubernetes.io/name: media-tautulli
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: tdarr-node
+                      app.kubernetes.io/instance: media-tdarr-node
+                      app.kubernetes.io/name: media-tdarr-node
               ports:
                 - port: *port

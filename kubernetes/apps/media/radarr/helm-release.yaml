@@ -230,6 +230,11 @@ spec:
                       app.kubernetes.io/name: media-scraparr
                 - podSelector:
                     matchLabels:
+                      app.kubernetes.io/controller: tdarr-node
+                      app.kubernetes.io/instance: media-tdarr-node
+                      app.kubernetes.io/name: media-tdarr-node
+                - podSelector:
+                    matchLabels:
                       app.kubernetes.io/controller: unpackerr
                       app.kubernetes.io/instance: media-unpackerr
                       app.kubernetes.io/name: media-unpackerr
