@@ -70,6 +70,16 @@ spec:
         ports:
           http:
             port: &port 3001
+    serviceMonitor:
+      kuma:
+        serviceName: *name
+        enabled: "${MONITORING_PROMETHEUS}"
+        endpoints:
+          - port: http
+            scheme: http
+            path: /metrics
+            interval: 1m
+            scrapeTimeout: 5s
     ingress:
       kuma:
         enabled: true
@@ -167,6 +177,13 @@ spec:
                 - port: 8443
                   protocol: TCP
           ingress:
+            - from:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: monitoring
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: prometheus
             - from:
                 - namespaceSelector:
                     matchLabels:
