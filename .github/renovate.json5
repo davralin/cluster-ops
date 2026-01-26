@@ -101,6 +101,7 @@
       "matchPackagePatterns": [
         "docker.io/adguard/adguardhome",
         "docker.io/filebrowser/filebrowser",
+        "docker.io/freshrss/freshrss",
         "docker.io/icloudpd/icloudpd",
         "docker.io/getmeili/meilisearch",
         "docker.io/ollama/ollama",
