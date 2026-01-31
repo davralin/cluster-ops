@@ -46,7 +46,7 @@ spec:
           backup-to-jottacloud:
             image:
               repository: ghcr.io/rclone/rclone
-              tag: 1.72.1
+              tag: 1.73.0
             command: ["/backup.sh"]
             securityContext:
               allowPrivilegeEscalation: false
