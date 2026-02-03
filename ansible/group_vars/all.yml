@@ -1,5 +1,6 @@
 ---
 apt_packages:
+  - borgbackup
   - btop
   - ca-certificates
   - git
