@@ -49,7 +49,7 @@ spec:
               repository: ghcr.io/davralin/rsync
               tag: latest@sha256:5059a2d9dff4dddc774fe83fdb7f22c79a97f52482f90d1c414713512e340b1b
             command: ['/usr/bin/rsync']
-            args: ["--archive", "--delete", "--verbose", "-e", "ssh -o StrictHostKeyChecking=no", "/minecraft/", "backup@nas.${SECRET_OFFSITE_DOMAIN}:/opt/local/minecraft/"]
+            args: ["--archive", "--delete", "--verbose", "-e", "ssh -o StrictHostKeyChecking=no", "/minecraft/", "backup@nas.${SECRET_OFFSITE_DOMAIN}:/opt/backup/minecraft/"]
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
