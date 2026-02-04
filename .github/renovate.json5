@@ -130,6 +130,7 @@
         "ghcr.io/tautulli/tautulli",
         "ghcr.io/thecfu/scraparr",
         "ghcr.io/unpoller/unpoller",
+        "ghcr.io/valkey-io/valkey",
         "grafana/grafana"
       ]
     },
