@@ -65,7 +65,6 @@
         "ghcr.io/home-operations",
         "ghcr.io/rss-bridge/rss-bridge",
         "ghcr.io/sdr-enthusiasts",
-        "ghcr.io/thelounge/thelounge",
         "ghcr.io/valkey-io/valkey",
         "quay.io/invidious/invidious-companion"
       ]
@@ -131,7 +130,6 @@
         "ghcr.io/tautulli/tautulli",
         "ghcr.io/thecfu/scraparr",
         "ghcr.io/unpoller/unpoller",
-        "quay.io/minio/minio",
         "grafana/grafana"
       ]
     },
