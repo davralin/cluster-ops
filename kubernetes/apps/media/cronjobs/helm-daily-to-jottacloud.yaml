@@ -50,7 +50,7 @@ spec:
               repository: ghcr.io/rclone/rclone
               tag: 1.73.0
             #args: ["sync", "--ignore-case", "--check-first", "--delete-before", "--verbose", "--jottacloud-hard-delete", "--delete-excluded", "/data/", "jottacloud-crypt:/media", "--exclude", "downloads/**", "--exclude", "unsorted/tdarr/**", "--exclude", "*TdarrCacheFile*"]
-            args: ["sync", "--ignore-case", "--check-first", "--delete-before", "--verbose", "--jottacloud-hard-delete", "/data/", "jottacloud-crypt:/media", "--exclude", "downloads/**", "--exclude", "unsorted/tdarr/**", "--exclude", "*TdarrCacheFile*", "--exclude", "games/video/gog/**"]
+            args: ["sync", "--ignore-case", "--check-first", "--delete-before", "--verbose", "--jottacloud-hard-delete", "/data/", "jottacloud-crypt:/media", "--exclude", "downloads/**", "--exclude", "unsorted/tdarr/**", "--exclude", "*TdarrCacheFile*"]
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
