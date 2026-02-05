@@ -47,7 +47,7 @@ spec:
               TZ: "${TIMEZONE}"
             probes:
               liveness: &probes
-                enabled: true
+                enabled: false
               readiness: *probes
               startup: *probes
             securityContext:
