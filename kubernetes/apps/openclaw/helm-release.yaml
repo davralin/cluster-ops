@@ -45,6 +45,7 @@ spec:
               tag: 2026.2.3@sha256:acc3631077173c8050278a44896947b6052dd5c8ebace4ee1a452a276bd28bab
             env:
               TZ: "${TIMEZONE}"
+              OPENCLAW_GATEWAY_TOKEN: 1234
             probes:
               liveness: &probes
                 enabled: false
