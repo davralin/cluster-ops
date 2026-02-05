@@ -96,6 +96,9 @@ spec:
         existingClaim: openclaw
         globalMounts:
           - path: /home/node
+      tmp:
+        enabled: true
+        type: emptyDir
     networkpolicies:
       openclaw:
         enabled: true
