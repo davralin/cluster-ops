@@ -24,6 +24,13 @@ spec:
     remediation:
       retries: 10
   values:
+    securityContext:
+      capabilities:
+        drop:
+        - ALL
+      readOnlyRootFilesystem: true
+      runAsNonRoot: true
+      runAsUser: 1000
     services:
       minecraft:
         type: LoadBalancer
@@ -32,3 +39,5 @@ spec:
     minecraftRouter:
       debug:
         enabled: true
+    metrics:
+      backend: prometheus
