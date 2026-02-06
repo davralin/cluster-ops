@@ -86,12 +86,25 @@ spec:
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
 metadata:
-  name: mutatingwebhookconfig # this is a job that removes the webhooks for kyverno, used when removing kyverno
+  name: mutatingwebhookconfig # this is a job that removes the mutating webhooks for kyverno, used when removing kyverno
   namespace: kyverno
 spec:
   endpointSelector:
     matchLabels:
       job-name: kyverno-rm-mutatingwhconfig
+  egress:
+    - toEntities:
+      - kube-apiserver
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: validatingwebhookconfig # this is a job that removes the validating webhooks for kyverno, used when removing kyverno
+  namespace: kyverno
+spec:
+  endpointSelector:
+    matchLabels:
+      job-name: kyverno-rm-validatingwhconfig
   egress:
     - toEntities:
       - kube-apiserver
