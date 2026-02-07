@@ -43,7 +43,7 @@ spec:
           ollama:
             image:
               repository: docker.io/ollama/ollama
-              tag: 0.15.5
+              tag: 0.15.6
             env:
               TZ: "${TIMEZONE}"
               OLLAMA_KEEP_ALIVE: -1
