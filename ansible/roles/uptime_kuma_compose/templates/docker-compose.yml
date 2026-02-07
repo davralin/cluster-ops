@@ -2,7 +2,7 @@
 
 services:
   uptime-kuma:
-    image: louislam/uptime-kuma:2.0.2
+    image: louislam/uptime-kuma:2.1.0
     ports:
       - "{{ uptime_kuma_compose_web_port }}:3001"
     volumes:
