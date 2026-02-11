@@ -196,7 +196,7 @@ spec:
         scraparr:
         # renovate: depName="Scraping"
           gnetId: 22934
-          revision: 7
+          revision: 8
           datasource:
             - { name: DS_MIMIR, value: Prometheus }
         # Ref: https://grafana.com/grafana/dashboards/22604-smartctl-exporter-dashboard/
