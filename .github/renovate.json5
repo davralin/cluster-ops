@@ -113,6 +113,7 @@
         "ghcr.io/coder/code-server",
         "ghcr.io/community-tooling/oci-images/paperless-export",
         "ghcr.io/dgtlmoon/changedetection.io",
+        "ghcr.io/ellite/wallos",
         "ghcr.io/endurain-project/endurain",
         "ghcr.io/ersatztv/ersatztv",
         "ghcr.io/fallenbagel/jellyseerr",
@@ -122,6 +123,7 @@
         "ghcr.io/jellyfin/jellyfin",
         "ghcr.io/jlesage/firefox",
         "ghcr.io/mealie-recipes/mealie",
+        "ghcr.io/navidrome/navidrome",
         "ghcr.io/open-webui/open-webui",
         "ghcr.io/paperless-ngx/paperless-ngx",
         "ghcr.io/rclone/rclone",
@@ -132,7 +134,8 @@
         "ghcr.io/thecfu/scraparr",
         "ghcr.io/unpoller/unpoller",
         "ghcr.io/valkey-io/valkey",
-        "grafana/grafana"
+        "grafana/grafana",
+        "registry.gitlab.com/egos-tech/alertmanager-notifier"
       ]
     },
     {
