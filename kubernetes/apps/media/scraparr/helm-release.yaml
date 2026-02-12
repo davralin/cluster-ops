@@ -44,7 +44,7 @@ spec:
           scraparr:
             image:
               repository: ghcr.io/thecfu/scraparr
-              tag: 3.0.2@sha256:0343c1121fc9f517b530fe7f827eb1e8b1bf7caa3554ae21884fc0ea5a8222ba
+              tag: 3.0.3@sha256:47ae07184e9d35ed7c25ed378e79a423b6f9da15056c9299d517af2bbe6f5e96
             probes:
               liveness: &probes
                 enabled: true
