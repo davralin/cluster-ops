@@ -45,7 +45,7 @@ spec:
           litellm:
             image:
               repository: ghcr.io/berriai/litellm-non_root
-              tag: main-v1.79.1-stable@sha256:367b3c64c1f2cfcbfac5f3f9d8a32971c8f54fdb07d76c58b7a1756a5bf16121
+              tag: main-v1.81.3-stable@sha256:35db7a7edf0dc572ae4d59abb169602c5576dfaa8f7f00a30116c202bd2bd00e
             env:
               TZ: "${TIMEZONE}"
               LITELLM_MASTER_KEY: "sk-1234"
