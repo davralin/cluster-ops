@@ -103,6 +103,7 @@
         "docker.io/freshrss/freshrss",
         "docker.io/icloudpd/icloudpd",
         "docker.io/getmeili/meilisearch",
+        "docker.io/mpepping/cyberchef",
         "docker.io/ollama/ollama",
         "docker.io/searxng/searxng",
         "docker.io/thewicklowwolf/lidatube",
