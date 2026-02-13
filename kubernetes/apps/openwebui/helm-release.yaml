@@ -41,11 +41,11 @@ spec:
       automountServiceAccountToken: false
       enableServiceLinks: false
       securityContext:
-        runAsUser: 1000
-        runAsGroup: 1000
+        runAsUser: 0
+        runAsGroup: 0
         fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"
-        runAsNonRoot: true
+        runAsNonRoot: false
         seccompProfile:
           type: RuntimeDefault
     controllers:
@@ -58,11 +58,11 @@ spec:
             env:
               ENABLE_RAG_WEB_SEARCH: true
               RAG_WEB_SEARCH_ENGINE: "searxng"
-              SEARXNG_QUERY_URL: "http://searxng.searxng.svc.cluster.local:8080/search?q=<query>"
+              SEARXNG_QUERY_URL: "https://searxng.${SECRET_DEFAULT_DOMAIN}/search?q=<query>"
               WEBUI_URL: "https://openwebui.${SECRET_DEFAULT_DOMAIN}"
               CORS_ALLOW_ORIGIN: "https://openwebui.${SECRET_DEFAULT_DOMAIN}"
               DATA_DIR: /app/backend/data
-              #OFFLINE_MODE: true
+              OFFLINE_MODE: true
             probes:
               liveness: &probes
                 enabled: true
@@ -72,9 +72,9 @@ spec:
               allowPrivilegeEscalation: false
               # start.sh: line 16: .webui_secret_key: Read-only file system
               readOnlyRootFilesystem: false
-              capabilities:
-                drop:
-                  - ALL
+              #capabilities:
+              #  drop:
+              #    - ALL
             resources:
               requests:
                 cpu: 10m
@@ -166,6 +166,16 @@ spec:
                       cnpg.io/instanceRole: primary
               ports:
                 - port: 5432
+            - to: # searxng
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: haproxy-controller
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: kubernetes-ingress
+              ports:
+                - port: 8443
+                  protocol: TCP
           ingress:
             - from:
                 - namespaceSelector:
