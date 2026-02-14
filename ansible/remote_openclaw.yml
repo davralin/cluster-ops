@@ -1,0 +1,13 @@
+---
+- hosts: remote_openclaw
+
+  roles:
+    - apt
+    - users
+    - locale
+    - node_exporter
+    - profile
+    - rclone
+    - rsync
+    - sshd
+    - docker
