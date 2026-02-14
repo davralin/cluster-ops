@@ -164,6 +164,7 @@
         "minecraft",
         "node-feature-discovery",
         "reflector",
+        "reloader",
         "rook-ceph"
       ]
     },
