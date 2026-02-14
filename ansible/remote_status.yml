@@ -1,5 +1,5 @@
 ---
-- hosts: oracle_arm
+- hosts: remote_status
 
   roles:
     - apt
