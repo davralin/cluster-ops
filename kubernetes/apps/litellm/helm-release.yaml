@@ -136,6 +136,11 @@ spec:
           - path: /app/config.yaml
             subPath: config.yaml
             readOnly: true
+      # OSError: [Errno 30] Read-only file system: '/tmp/tiktoken_cache'
+      tmp:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp
     networkpolicies:
       litellm:
         enabled: true
