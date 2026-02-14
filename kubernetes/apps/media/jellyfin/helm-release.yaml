@@ -128,6 +128,16 @@ spec:
           - Ingress
         rules:
           egress:
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: kube-system
+                  podSelector:
+                    matchLabels:
+                      k8s-app: kube-dns
+              ports:
+                - port: 53
+                  protocol: UDP
             - to: # Needs to reach out for artwork
               - ipBlock:
                   cidr: 0.0.0.0/0
@@ -158,13 +168,14 @@ spec:
             - to:
                 - namespaceSelector:
                     matchLabels:
-                      kubernetes.io/metadata.name: kube-system
+                      kubernetes.io/metadata.name: mailrelay
                   podSelector:
                     matchLabels:
-                      k8s-app: kube-dns
+                      app.kubernetes.io/controller: exim
+                      app.kubernetes.io/instance: mailrelay-exim
+                      app.kubernetes.io/name: mailrelay-exim
               ports:
-                - port: 53
-                  protocol: UDP
+                - port: 25
           ingress:
             - from:
                 - namespaceSelector:
