@@ -23,6 +23,11 @@ spec:
   upgrade:
     remediation:
       retries: 10
+  dependsOn:
+    - name: dawarich-postgres-v18
+      namespace: flux-system
+    - name: dawarich-valkey
+      namespace: flux-system
   values:
     fullnameOverride: *name
     defaultPodOptions:
