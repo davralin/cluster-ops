@@ -39,7 +39,7 @@ spec:
           # using only 1 replica: very difficult to drain the node where postgres is running
           # using more than 1 replica: write amplification issues when leveraging replicated storage (e.g. ceph)
           instances: 2
-          imageName: ghcr.io/cloudnative-pg/postgresql:18.1
+          imageName: ghcr.io/cloudnative-pg/postgis:18.1-3.6.1-system-trixie
           primaryUpdateStrategy: unsupervised
           storage:
             size: 10Gi
@@ -59,6 +59,8 @@ spec:
               owner: dawarich
               secret:
                 name: dawarich-basic-auth
+                postInitApplicationSQL:
+                  - CREATE EXTENSION IF NOT EXISTS "postgis" CASCADE;
             # use this to recover a net-new cluster from a backup
             #recovery:
             #  source: *name
