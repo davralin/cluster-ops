@@ -179,6 +179,11 @@ spec:
                 - port: 25
           ingress:
             - from:
+                - ipBlock:
+                    cidr: 0.0.0.0/0
+              ports:
+                - port: *port
+            - from:
                 - namespaceSelector:
                     matchLabels:
                       kubernetes.io/metadata.name: haproxy-controller
