@@ -74,11 +74,15 @@ spec:
               DISABLE_NEW_RELEASE_CHECK: true
               COREPACK_INTEGRITY_KEYS: 0
               S6_READ_ONLY_ROOT: 1
-              OPENAI_BASE_URL: http://litellm.litellm.svc.cluster.local:4000/v1
-              OPENAI_API_KEY: sk-1234
+              OPENAI_BASE_URL: https://openrouter.ai/api/v1
+              OPENAI_API_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: karakeep-secret
+                    key: openrouter_api_key
               INFERENCE_ENABLE_AUTO_SUMMARIZATION: true
               INFERENCE_JOB_TIMEOUT_SEC: 600
-              INFERENCE_TEXT_MODEL: gpt-oss:20b
+              INFERENCE_TEXT_MODEL: openai/gpt-oss-120b:free
             probes:
               liveness: &probes
                 enabled: true
@@ -334,19 +338,7 @@ spec:
               ports:
                 - port: 7700
                   protocol: TCP
-            - to:
-                - namespaceSelector:
-                    matchLabels:
-                      kubernetes.io/metadata.name: litellm
-                  podSelector:
-                    matchLabels:
-                      app.kubernetes.io/controller: litellm
-                      app.kubernetes.io/instance: litellm-litellm
-                      app.kubernetes.io/name: litellm-litellm
-              ports:
-                - port: 4000
-                  protocol: TCP
-            - to: # Needs to archive
+            - to: # Needs to archive, and connect to openrouter
               - ipBlock:
                   cidr: 0.0.0.0/0
                   except:

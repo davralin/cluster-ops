@@ -139,11 +139,11 @@ spec:
                       app.kubernetes.io/name: kubernetes-ingress
                 - namespaceSelector:
                     matchLabels:
-                      kubernetes.io/metadata.name: litellm
+                      kubernetes.io/metadata.name: openwebui
                   podSelector:
                     matchLabels:
-                      app.kubernetes.io/controller: litellm
-                      app.kubernetes.io/instance: litellm-litellm
-                      app.kubernetes.io/name: litellm-litellm
+                      app.kubernetes.io/controller: openwebui
+                      app.kubernetes.io/instance: openwebui-openwebui
+                      app.kubernetes.io/name: openwebui-openwebui
               ports:
                 - port: *port

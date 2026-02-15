@@ -131,14 +131,14 @@ spec:
             - to:
                 - namespaceSelector:
                     matchLabels:
-                      kubernetes.io/metadata.name: litellm
+                      kubernetes.io/metadata.name: ollama
                   podSelector:
                     matchLabels:
-                      app.kubernetes.io/controller: litellm
-                      app.kubernetes.io/instance: litellm-litellm
-                      app.kubernetes.io/name: litellm-litellm
+                      app.kubernetes.io/controller: ollama
+                      app.kubernetes.io/instance: ollama-ollama
+                      app.kubernetes.io/name: ollama-ollama
               ports:
-                - port: 4000
+                - port: 11434
                   protocol: TCP
             - to: # Needs to connect to the world
               - ipBlock:
