@@ -59,8 +59,6 @@ spec:
               owner: dawarich
               secret:
                 name: dawarich-basic-auth
-                postInitApplicationSQL:
-                  - CREATE EXTENSION IF NOT EXISTS "postgis" CASCADE;
             # use this to recover a net-new cluster from a backup
             #recovery:
             #  source: *name
@@ -84,22 +82,22 @@ spec:
               memory: "256Mi"
             limits:
               memory: "1Gi"
-          backup:
-            retentionPolicy: 7d
-            barmanObjectStore:
-              wal:
-                compression: bzip2
-                maxParallel: 4
-              destinationPath: s3://postgresql-${CLUSTER_NAME}
-              endpointURL: "${SECRET_S3_URL}"
-              serverName: *name
-              s3Credentials:
-                accessKeyId:
-                  name: *name
-                  key: s3-access-key
-                secretAccessKey:
-                  name: *name
-                  key: s3-secret-key
+          #backup:
+          #  retentionPolicy: 7d
+          #  barmanObjectStore:
+          #    wal:
+          #      compression: bzip2
+          #      maxParallel: 4
+          #    destinationPath: s3://postgresql-${CLUSTER_NAME}
+          #    endpointURL: "${SECRET_S3_URL}"
+          #    serverName: *name
+          #    s3Credentials:
+          #      accessKeyId:
+          #        name: *name
+          #        key: s3-access-key
+          #      secretAccessKey:
+          #        name: *name
+          #        key: s3-secret-key
           externalClusters:
             # this represents the s3 backup to restore from. Must be same version.
             - name: *name
@@ -127,17 +125,17 @@ spec:
             #  password:
             #    name: dawarich-basic-auth
             #    key: password
-      - apiVersion: postgresql.cnpg.io/v1
-        kind: ScheduledBackup
-        metadata:
-          name: *name
-          namespace: *namespace
-        spec:
-          schedule: "0 37 01 * * *"
-          immediate: true
-          backupOwnerReference: self
-          cluster:
-            name: *name
+      #- apiVersion: postgresql.cnpg.io/v1
+      #  kind: ScheduledBackup
+      #  metadata:
+      #    name: *name
+      #    namespace: *namespace
+      #  spec:
+      #    schedule: "0 37 01 * * *"
+      #    immediate: true
+      #    backupOwnerReference: self
+      #    cluster:
+      #      name: *name
       - apiVersion: networking.k8s.io/v1
         kind: NetworkPolicy
         metadata:
