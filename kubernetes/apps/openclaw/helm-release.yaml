@@ -144,12 +144,10 @@ spec:
           openclaw:
             editor:
               - path: /home/node
-                subPath: .
-              - path: /home/node2
                 subPath: openclaw
             openclaw:
               - path: /home/node
-                subPath: .
+                subPath: openclaw
             signal-cli:
               - path: /home/.local/share/signal-cli
                 subPath: signal-cli
