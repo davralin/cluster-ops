@@ -62,6 +62,22 @@ spec:
                 memory: 400Mi
               limits:
                 memory: 2Gi
+          editor:
+            image:
+              repository: ghcr.io/davralin/utility
+              tag: latest@sha256:b9de29196b7d7178602e126369ebee3e0a64fe1e0dadeedef98c0794f35f0b58
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+            resources:
+              requests:
+                cpu: 10m
+                memory: 50Mi
+              limits:
+                memory: 100Mi
     service:
       openclaw:
         controller: *name
