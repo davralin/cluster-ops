@@ -11,3 +11,4 @@
     - rsync
     - sshd
     - docker
+    - openclaw_compose

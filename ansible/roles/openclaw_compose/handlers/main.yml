@@ -1,0 +1,4 @@
+---
+- name: Restart openclaw
+  ansible.builtin.command: docker-compose -f {{ openclaw_compose_path }}/docker-compose.yml up -d --force-recreate
+  become: true

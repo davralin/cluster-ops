@@ -1,0 +1,12 @@
+---
+
+services:
+  openclaw:
+    image: ghcr.io/openclaw/openclaw:2026.2.14@sha256:ace6f32961c4d574cb189d0007ec778408a9c02502f38af9ded6c864bae0f454
+    ports:
+      - "{{ openclaw_compose_web_port }}:18789"
+    volumes:
+      - "{{ openclaw_compose_config_path }}:/home/node"
+    environment:
+      TZ: "Europe/Oslo"
+    restart: always
