@@ -88,6 +88,9 @@ spec:
             env:
               TZ: "${TIMEZONE}"
               MODE: json-rpc
+              SIGNAL_CLI_GID: 1000
+              SIGNAL_CLI_UID: 1000
+              SIGNAL_CLI_CHOWN_ON_STARTUP: false
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
