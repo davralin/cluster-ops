@@ -1,12 +1,20 @@
 ---
-
 services:
   openclaw:
     image: ghcr.io/openclaw/openclaw:2026.2.15@sha256:20fb8df4e6c6d893de5b8445394583258fdf0f98179e82cdfa24062c6bed5de0
     ports:
       - "{{ openclaw_compose_web_port }}:18789"
     volumes:
-      - "{{ openclaw_compose_config_path }}:/home/node"
+      - "{{ openclaw_compose_config_path }}/openclaw:/home/node"
     environment:
       TZ: "Europe/Oslo"
+    restart: always
+  signal-cli:
+    image: docker.io/bbernhard/signal-cli-rest-api:0.97@sha256:5fcb8e8620f20f944d747627841ca97f19104acb3e1adb1d5c8983b5db422529
+    ports:
+      - "127.0.0.1:8080:8080"
+    volumes:
+      - "{{ openclaw_compose_config_path }}/signal:/home/.local/share/signal-cli"
+    environment:
+      MODE: json-rpc
     restart: always
