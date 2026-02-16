@@ -1,4 +1,3 @@
 ---
 openclaw_compose_path: "/opt/openclaw"
 openclaw_compose_config_path: "{{ openclaw_compose_path }}/config"
-openclaw_compose_web_port: "18789"

@@ -3,12 +3,36 @@ services:
   openclaw:
     image: ghcr.io/openclaw/openclaw:2026.2.15@sha256:20fb8df4e6c6d893de5b8445394583258fdf0f98179e82cdfa24062c6bed5de0
     ports:
-      - "{{ openclaw_compose_web_port }}:18789"
+      - "18789:18789"
+      - "18790:18790"
     volumes:
       - "{{ openclaw_compose_config_path }}/openclaw:/home/node"
     environment:
-      TZ: "Europe/Oslo"
+      HOME: /home/node
+      TERM: xterm-256color
     restart: always
+    command:
+      [
+        "node",
+        "dist/index.js",
+        "gateway",
+        "--bind",
+        "0.0.0.0",
+        "--port",
+        "18789",
+      ]
+  openclaw-cli:
+    image: ghcr.io/openclaw/openclaw:2026.2.15@sha256:20fb8df4e6c6d893de5b8445394583258fdf0f98179e82cdfa24062c6bed5de0
+    environment:
+      HOME: /home/node
+      TERM: xterm-256color
+      BROWSER: echo
+    volumes:
+      - "{{ openclaw_compose_config_path }}/openclaw:/home/node"
+    stdin_open: true
+    tty: true
+    init: true
+    entrypoint: ["node", "dist/index.js"]
   signal-cli:
     image: docker.io/bbernhard/signal-cli-rest-api:0.97@sha256:5fcb8e8620f20f944d747627841ca97f19104acb3e1adb1d5c8983b5db422529
     ports:
