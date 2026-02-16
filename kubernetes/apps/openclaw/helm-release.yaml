@@ -45,6 +45,7 @@ spec:
               tag: 2026.2.15@sha256:20fb8df4e6c6d893de5b8445394583258fdf0f98179e82cdfa24062c6bed5de0
             env:
               TZ: "${TIMEZONE}"
+              OPENCLAW_DISABLE_BONJOUR: 1
             probes:
               liveness: &probes
                 enabled: true
