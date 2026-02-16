@@ -93,7 +93,8 @@ spec:
               SIGNAL_CLI_CHOWN_ON_STARTUP: false
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
+              # + groupmod -o -g 1000 signal-api
+              readOnlyRootFilesystem: false
               runAsUser: 0
               runAsGroup: 0
               runAsNonRoot: false
