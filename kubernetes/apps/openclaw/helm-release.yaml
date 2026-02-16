@@ -46,6 +46,8 @@ spec:
             env:
               TZ: "${TIMEZONE}"
               OPENCLAW_DISABLE_BONJOUR: 1
+              OPENCLAW_GATEWAY_PASSWORD: "${SECRET_GRAFANA_PASSWORD}"
+              OPENCLAW_GATEWAY_TOKEN: "${SECRET_GRAFANA_PASSWORD}"
             probes:
               liveness: &probes
                 enabled: true
