@@ -45,8 +45,8 @@ spec:
         containers:
           tdarr:
             image:
-              repository: ghcr.io/haveagitgat/tdarr
-              tag: 2.58.02
+              repository: ghcr.io/davralin/utility #haveagitgat/tdarr
+              tag: latest #2.58.02
             env:
               TZ: "${TIMEZONE}"
               PUID: "1000"
