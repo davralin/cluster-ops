@@ -36,7 +36,7 @@ spec:
         kind: Secret
         metadata:
           name: immich-volsync-secret
-          namespace: immich
+          namespace: *namespace
         type: Opaque
         stringData:
           RESTIC_REPOSITORY: "s3:${SECRET_S3_VOLSYNC_URL}/volsync-${CLUSTER_NAME}/immich"
