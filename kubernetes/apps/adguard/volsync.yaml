@@ -32,6 +32,17 @@ spec:
       namespace: flux-system
   values:
     resources:
+      - apiVersion: v1
+        kind: Secret
+        metadata:
+          name: adguard-volsync-secret
+          namespace: adguard
+        type: Opaque
+        stringData:
+          RESTIC_REPOSITORY: "s3:${SECRET_S3_VOLSYNC_URL}/volsync-${CLUSTER_NAME}/adguard"
+          RESTIC_PASSWORD: "${SECRET_VOLSYNC_RESTIC_PWD}"
+          AWS_ACCESS_KEY_ID: "${SECRET_S3_VOLSYNC_ACCESS_KEYS}"
+          AWS_SECRET_ACCESS_KEY: "${SECRET_S3_VOLSYNC_SECRET_KEYS}"
       - apiVersion: volsync.backube/v1alpha1
         kind: ReplicationSource
         metadata:
@@ -41,19 +52,21 @@ spec:
           sourcePVC: adguard
           trigger:
             schedule: "04 01 * * *"
-          rclone:
+          restic:
             copyMethod: Direct
-            rcloneConfigSection: homenas.internal-s3
-            rcloneDestPath: "volsync-${CLUSTER_NAME}-rclone/adguard"
-            rcloneConfig: rclone-config
+            pruneIntervalDays: 7
+            repository: adguard-volsync-secret
             moverSecurityContext:
-              runAsUser: 0
-              runAsGroup: 0
-              fsGroup: 0
+              runAsUser: 1000
+              runAsGroup: 1000
+              fsGroup: 1000
               fsGroupChangePolicy: "OnRootMismatch"
-              runAsNonRoot: false
+              runAsNonRoot: true
               seccompProfile:
                 type: RuntimeDefault
+            retain:
+              daily: 7
+              within: 3d
       - apiVersion: networking.k8s.io/v1
         kind: NetworkPolicy
         metadata:
@@ -82,5 +95,5 @@ spec:
               - ipBlock:
                   cidr: 10.0.1.75/32
               ports:
-                - port: 9000
+                - port: 3900
                   protocol: TCP
