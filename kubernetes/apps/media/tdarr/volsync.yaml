@@ -54,6 +54,8 @@ spec:
             schedule: "04 01 * * *"
           restic:
             copyMethod: Direct
+            cacheStorageClassName: "${STORAGE_READWRITEONCE}"
+            cacheAccessModes: ["ReadWriteOnce"]
             pruneIntervalDays: 7
             repository: tdarr-volsync-secret
             moverSecurityContext:

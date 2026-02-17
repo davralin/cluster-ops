@@ -5,7 +5,7 @@ metadata:
   name: jellyfin
   namespace: media
 spec:
-  storageClassName: "${STORAGE_READWRITEMANY}"
+  storageClassName: "${STORAGE_READWRITEMANY}" # ToDo - this should be converted
   accessModes:
     - ReadWriteMany
   resources:
