@@ -42,7 +42,7 @@ spec:
           papra:
             image:
               repository: ghcr.io/papra-hq/papra
-              tag: 26.1.0-rootless@sha256:91bbbbfce686ef77b7b1c45dab622f46f722d8af2f855624b4046ea191f3bca8
+              tag: 26.2.0-rootless@sha256:56936b2dd81cad6c4ed615aa5ffa35ec2f93ddd721130819943379f4b6942501
             env:
               APP_BASE_URL: "https://papra.${SECRET_DEFAULT_DOMAIN}"
               TZ: "${TIMEZONE}"
