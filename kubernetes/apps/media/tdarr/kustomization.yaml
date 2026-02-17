@@ -4,5 +4,6 @@ kind: Kustomization
 resources:
   - helm-release-node.yaml
   - helm-release.yaml
+  - probes.yaml
   - pvc.yaml
   - volsync.yaml

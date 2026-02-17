@@ -5,4 +5,5 @@ resources:
   - database-secret.yaml
   - helm-release-db-v18.yaml
   - helm-release.yaml
+  - probes.yaml
   - pvc.yaml

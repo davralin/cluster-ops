@@ -35,4 +35,3 @@ resources:
   - utility
   - namespace.yaml
   - networkpolicy.yaml
-  - probes.yaml
