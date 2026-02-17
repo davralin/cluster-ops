@@ -5,22 +5,9 @@ metadata:
   name: jellyfin
   namespace: media
 spec:
-  storageClassName: "${STORAGE_READWRITEMANY}" # ToDo - this should be converted
+  storageClassName: "${STORAGE_READWRITEONCE}"
   accessModes:
-    - ReadWriteMany
-  resources:
-    requests:
-      storage: 20Gi
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: jellyfin2
-  namespace: media
-spec:
-  storageClassName: "${STORAGE_READWRITEMANY}" # ToDo - this should be converted
-  accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   resources:
     requests:
       storage: 20Gi

@@ -1,0 +1,98 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &name jellyfin-restore-from-ssh
+  namespace: flux-system
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 4.6.2
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+      interval: 30m
+  driftDetection:
+    mode: enabled
+  targetNamespace: media
+  install:
+    createNamespace: true
+    remediation:
+      retries: 10
+  upgrade:
+    remediation:
+      retries: 10
+  values:
+    fullnameOverride: *name
+    defaultPodOptions:
+      automountServiceAccountToken: false
+      enableServiceLinks: false
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+    controllers:
+      jellyfin-restore-from-ssh:
+        containers:
+          jellyfin-restore-from-ssh:
+            image:
+              repository: ghcr.io/davralin/rsync
+              tag: latest@sha256:0844bf7c553a0b20495a27e741a5dfdde5f9df1641f4b8b19635f91790a16946
+            command: ['/usr/bin/rsync']
+            args: ["--archive", "--delete", "--verbose", "-e", "ssh -o StrictHostKeyChecking=no", "backup@nas.${SECRET_DEFAULT_DOMAIN}:/opt/local/jellyfin/", "/jellyfin/"]
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+    persistence:
+      jellyfin:
+        enabled: true
+        existingClaim: jellyfin
+        globalMounts:
+          - path: /jellyfin
+      sshkey:
+        enabled: true
+        type: secret
+        name: sshkey
+        defaultMode: 0600
+        advancedMounts:
+          jellyfin-restore-from-ssh:
+            jellyfin-restore-from-ssh:
+              - path: /home/user/.ssh/id_ed25519
+                subPath: id_ed25519
+                readOnly: true
+    networkpolicies:
+      jellyfin-restore-from-ssh:
+        enabled: true
+        controller: jellyfin-restore-from-ssh
+        policyTypes:
+          - Egress
+          - Ingress
+        rules:
+          egress:
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: kube-system
+                  podSelector:
+                    matchLabels:
+                      k8s-app: kube-dns
+              ports:
+                - port: 53
+                  protocol: UDP
+            - to: # Onsite-SSH
+              - ipBlock:
+                  cidr: 10.0.1.75/32
+              ports:
+                - port: 22
+                  protocol: TCP
+          ingress: []

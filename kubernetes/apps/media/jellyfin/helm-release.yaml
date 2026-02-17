@@ -72,7 +72,6 @@ spec:
     service:
       jellyfin:
         controller: *name
-        type: LoadBalancer
         ports:
           http:
             port: &port 8096
@@ -101,9 +100,6 @@ spec:
       config:
         enabled: true
         existingClaim: jellyfin
-      migrate:
-        enabled: true
-        existingClaim: jellyfin2
       media:
         enabled: true
         existingClaim: media
@@ -181,11 +177,6 @@ spec:
               ports:
                 - port: 25
           ingress:
-            - from:
-                - ipBlock:
-                    cidr: 0.0.0.0/0
-              ports:
-                - port: *port
             - from:
                 - namespaceSelector:
                     matchLabels:
