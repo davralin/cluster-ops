@@ -39,7 +39,7 @@ spec:
           namespace: media
         type: Opaque
         stringData:
-          RESTIC_REPOSITORY: "s3:${SECRET_S3_VOLSYNC_URL}/volsync-${CLUSTER_NAME}/qbittorrent-volsync
+          RESTIC_REPOSITORY: "s3:${SECRET_S3_VOLSYNC_URL}/volsync-${CLUSTER_NAME}/qbittorrent-volsync"
           RESTIC_PASSWORD: "${SECRET_VOLSYNC_RESTIC_PWD}"
           AWS_ACCESS_KEY_ID: "${SECRET_S3_VOLSYNC_ACCESS_KEYS}"
           AWS_SECRET_ACCESS_KEY: "${SECRET_S3_VOLSYNC_SECRET_KEYS}"
