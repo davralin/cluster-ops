@@ -1,0 +1,3 @@
+---
+garage_compose_path: "/opt/garage"
+garage_compose_config_path: "{{ garage_compose_path }}/config"

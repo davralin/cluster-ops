@@ -1,0 +1,17 @@
+---
+name: garage
+
+services:
+  garage:
+    image: docker.io/dxflrs/garage:v2.2.0
+    entrypoint: ["/garage", "-c", "/opt/garage/garage.toml", "server"]
+    ports:
+      - "3900:3900"
+      - "3901:3901"
+      - "3902:3902"
+      - "3903:3903"
+    volumes:
+      - "{{ garage_compose_config_path }}:/opt/garage"
+    environment:
+      TZ: "Europe/Oslo"
+    restart: always

@@ -1,7 +1,0 @@
----
-minio_compose_path: "/opt/minio"
-minio_compose_data_path: "{{ minio_compose_path }}/data"
-minio_compose_ip_binding_s3: "9000"
-minio_compose_ip_binding_web: "9001"
-minio_compose_url_s3: "http://localhost:{{ minio_compose_ip_binding_s3 }}"
-minio_compose_url_web: "http://localhost:{{ minio_compose_ip_binding_web }}"

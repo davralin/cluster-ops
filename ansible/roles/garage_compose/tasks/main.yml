@@ -1,20 +1,20 @@
 ---
 - name: Ensure path to compose-file
   ansible.builtin.file:
-    path: "{{ minio_compose_path }}"
+    path: "{{ garage_compose_path }}"
     state: directory
   become: true
 
 - name: Ensure path to data-folder
   ansible.builtin.file:
-    path: "{{ minio_compose_data_path }}"
+    path: "{{ garage_compose_config_path }}"
     state: directory
   become: true
 
 - name: Copy template-file
   ansible.builtin.template:
     src: docker-compose.yml
-    dest: "{{ minio_compose_path }}/docker-compose.yml"
+    dest: "{{ garage_compose_path }}/docker-compose.yml"
   become: true
   notify:
-    - Restart minio
+    - Restart garage
