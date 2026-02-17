@@ -101,6 +101,9 @@ spec:
       config:
         enabled: true
         existingClaim: jellyfin
+      migrate:
+        enabled: true
+        existingClaim: jellyfin2
       media:
         enabled: true
         existingClaim: media

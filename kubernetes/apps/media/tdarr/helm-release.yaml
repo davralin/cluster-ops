@@ -112,6 +112,9 @@ spec:
                 subPath: config
               - path: /app/server
                 subPath: server
+      migrate:
+        enabled: true
+        existingClaim: tdarr2
       media:
         enabled: true
         existingClaim: media
