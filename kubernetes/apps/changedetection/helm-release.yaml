@@ -41,8 +41,8 @@ spec:
         containers:
           changedetection:
             image:
-              repository: ghcr.io/davralin/utility #/dgtlmoon/changedetection.io
-              tag: latest # 0.52.9
+              repository: ghcr.io/dgtlmoon/changedetection.io
+              tag: 0.52.9
             env:
               TZ: "${TIMEZONE}"
               PLAYWRIGHT_DRIVER_URL: "ws://sockpuppetbrowser:3000"
@@ -51,7 +51,7 @@ spec:
               BASE_URL: &host "changedetection.${SECRET_DEFAULT_DOMAIN}"
             probes:
               liveness: &probes
-                enabled: false #true
+                enabled: true
               readiness: *probes
               startup: *probes
             securityContext:
