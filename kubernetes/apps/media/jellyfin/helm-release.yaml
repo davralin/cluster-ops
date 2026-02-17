@@ -46,8 +46,8 @@ spec:
         containers:
           jellyfin:
             image:
-              repository: ghcr.io/jellyfin/jellyfin
-              tag: 10.11.6@sha256:25db4eb10143c1c12adb79ed978e31d94fc98dc499fbae2d38b2c935089ced3e
+              repository: ghcr.io/davralin/utilty #jellyfin/jellyfin
+              tag: latest # 10.11.6@sha256:25db4eb10143c1c12adb79ed978e31d94fc98dc499fbae2d38b2c935089ced3e
             env:
               TZ: "${TIMEZONE}"
             probes:
