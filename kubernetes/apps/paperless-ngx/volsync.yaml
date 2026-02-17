@@ -32,20 +32,30 @@ spec:
       namespace: flux-system
   values:
     resources:
+      - apiVersion: v1
+        kind: Secret
+        metadata:
+          name: paperless-ngx-volsync-secret
+          namespace: paperless-ngx
+        type: Opaque
+        stringData:
+          RESTIC_REPOSITORY: "s3:${SECRET_S3_VOLSYNC_URL}/volsync-${CLUSTER_NAME}/paperless-ngx"
+          RESTIC_PASSWORD: "${SECRET_VOLSYNC_RESTIC_PWD}"
+          AWS_ACCESS_KEY_ID: "${SECRET_S3_VOLSYNC_ACCESS_KEYS}"
+          AWS_SECRET_ACCESS_KEY: "${SECRET_S3_VOLSYNC_SECRET_KEYS}"
       - apiVersion: volsync.backube/v1alpha1
         kind: ReplicationSource
         metadata:
           name: *name
           namespace: *namespace
         spec:
-          sourcePVC: paperless-ngx-export
+          sourcePVC: paperless-ngx
           trigger:
             schedule: "04 01 * * *"
-          rclone:
+          restic:
             copyMethod: Direct
-            rcloneConfigSection: homenas.internal-s3
-            rcloneDestPath: "volsync-${CLUSTER_NAME}-rclone/paperless-ngx"
-            rcloneConfig: rclone-config
+            pruneIntervalDays: 7
+            repository: paperless-ngx-volsync-secret
             moverSecurityContext:
               runAsUser: 1000
               runAsGroup: 1000
@@ -54,6 +64,9 @@ spec:
               runAsNonRoot: true
               seccompProfile:
                 type: RuntimeDefault
+            retain:
+              daily: 7
+              within: 3d
       - apiVersion: networking.k8s.io/v1
         kind: NetworkPolicy
         metadata:
@@ -82,5 +95,5 @@ spec:
               - ipBlock:
                   cidr: 10.0.1.75/32
               ports:
-                - port: 9000
+                - port: 3900
                   protocol: TCP
