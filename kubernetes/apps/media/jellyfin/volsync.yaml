@@ -28,8 +28,8 @@ spec:
   dependsOn:
     - name: volsync
       namespace: flux-system
-    #- name: jellyfin
-      #namespace: flux-system
+    - name: jellyfin
+      namespace: flux-system
   values:
     resources:
       - apiVersion: v1
@@ -44,20 +44,20 @@ spec:
           AWS_ACCESS_KEY_ID: "${SECRET_S3_VOLSYNC_ACCESS_KEYS}"
           AWS_SECRET_ACCESS_KEY: "${SECRET_S3_VOLSYNC_SECRET_KEYS}"
       - apiVersion: volsync.backube/v1alpha1
-        kind: ReplicationDestination
+        kind: ReplicationSource
         metadata:
           name: *name
           namespace: *namespace
         spec:
+          sourcePVC: jellyfin
           trigger:
-            manual: restore-once
+            schedule: "04 01 * * *"
           restic:
-            repository: jellyfin-volsync-secret
-            # Use an existing PVC, don't provision a new one
-            destinationPVC: jellyfin
             copyMethod: Direct
+            cacheStorageClassName: "${STORAGE_READWRITEONCE}"
             cacheAccessModes: ["ReadWriteOnce"]
-            #restoreAsOf: "2024-09-21T06:00:00+01:00"
+            pruneIntervalDays: 7
+            repository: jellyfin-volsync-secret
             moverSecurityContext:
               runAsUser: 1000
               runAsGroup: 1000
@@ -66,32 +66,9 @@ spec:
               runAsNonRoot: true
               seccompProfile:
                 type: RuntimeDefault
-      #- apiVersion: volsync.backube/v1alpha1
-      #  kind: ReplicationSource
-      #  metadata:
-      #    name: *name
-      #    namespace: *namespace
-      #  spec:
-      #    sourcePVC: jellyfin
-      #    trigger:
-      #      schedule: "04 01 * * *"
-      #    restic:
-      #      copyMethod: Direct
-      #      cacheStorageClassName: "${STORAGE_READWRITEONCE}"
-      #      cacheAccessModes: ["ReadWriteOnce"]
-      #      pruneIntervalDays: 7
-      #      repository: jellyfin-volsync-secret
-      #      moverSecurityContext:
-      #        runAsUser: 1000
-      #        runAsGroup: 1000
-      #        fsGroup: 1000
-      #        fsGroupChangePolicy: "OnRootMismatch"
-      #        runAsNonRoot: true
-      #        seccompProfile:
-      #          type: RuntimeDefault
-      #      retain:
-      #        daily: 7
-      #        within: 3d
+            retain:
+              daily: 7
+              within: 3d
       - apiVersion: networking.k8s.io/v1
         kind: NetworkPolicy
         metadata:
