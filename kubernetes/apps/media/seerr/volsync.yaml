@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &name jellyseerr-restic
+  name: &name seerr-restic
   namespace: &namespace media
 spec:
   interval: 30m
@@ -28,18 +28,18 @@ spec:
   dependsOn:
     - name: volsync
       namespace: flux-system
-    - name: jellyseerr
+    - name: seerr
       namespace: flux-system
   values:
     resources:
       - apiVersion: v1
         kind: Secret
         metadata:
-          name: jellyseerr-volsync-secret
+          name: seerr-volsync-secret
           namespace: media
         type: Opaque
         stringData:
-          RESTIC_REPOSITORY: "s3:${SECRET_S3_VOLSYNC_URL}/volsync-${CLUSTER_NAME}/jellyseerr"
+          RESTIC_REPOSITORY: "s3:${SECRET_S3_VOLSYNC_URL}/volsync-${CLUSTER_NAME}/seerr"
           RESTIC_PASSWORD: "${SECRET_VOLSYNC_RESTIC_PWD}"
           AWS_ACCESS_KEY_ID: "${SECRET_S3_VOLSYNC_ACCESS_KEYS}"
           AWS_SECRET_ACCESS_KEY: "${SECRET_S3_VOLSYNC_SECRET_KEYS}"
@@ -49,13 +49,13 @@ spec:
           name: *name
           namespace: *namespace
         spec:
-          sourcePVC: jellyseerr
+          sourcePVC: seerr
           trigger:
             schedule: "04 01 * * *"
           restic:
             copyMethod: Direct
             pruneIntervalDays: 7
-            repository: jellyseerr-volsync-secret
+            repository: seerr-volsync-secret
             moverSecurityContext:
               runAsUser: 1000
               runAsGroup: 1000

@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: jellyseerr
+  name: seerr
   namespace: media
 spec:
   storageClassName: "${STORAGE_READWRITEONCE}"
@@ -15,7 +15,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: jellyseerr-cache
+  name: seerr-cache
   namespace: media
 spec:
   storageClassName: "${STORAGE_READWRITEONCE}"

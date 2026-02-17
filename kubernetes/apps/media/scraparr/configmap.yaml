@@ -12,9 +12,9 @@ data:
       # interval: 60 # Optional to set a different Interval in Seconds
       # detailed: true  # Get Data per Series
 
-    jellyseerr:
-      url: http://jellyseerr.media.svc.cluster.local:5055
-      api_key: "${SECRET_JELLYSEERR_API_KEY}"
+    seerr:
+      url: http://jellseerr.media.svc.cluster.local:5055
+      api_key: "${SECRET_SEERR_API_KEY}"
       # alias: jellyseerr # Optional to Differentiate between multiple Services
       # interval: 60 # Optional to set a different Interval in Seconds
       # detailed: true  # Get Data per Request/Issue

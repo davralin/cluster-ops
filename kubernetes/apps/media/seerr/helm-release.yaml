@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &name jellyseerr
+  name: &name seerr
   namespace: flux-system
 spec:
   interval: 30m
@@ -24,7 +24,7 @@ spec:
     remediation:
       retries: 10
   dependsOn:
-    - name: jellyseerr-postgres-v18
+    - name: seerr-postgres-v18
       namespace: flux-system
   values:
     fullnameOverride: *name
@@ -40,25 +40,25 @@ spec:
         seccompProfile:
           type: RuntimeDefault
     controllers:
-      jellyseerr:
+      seerr:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          jellyseerr:
+          seerr:
             image:
-              repository: ghcr.io/fallenbagel/jellyseerr
-              tag: 2.7.3@sha256:9cc9e9ee6cd5cf5a23feb45c37742ba34cfd6314d81d259cddb373a97ac92cdd
+              repository: ghcr.io/seerr/seerr
+              tag: v3.0.1@sha256:1b5fc1ea825631d9d165364472663b817a4c58ef6aa1013f58d82c1570d7c866
             env:
               TZ: "${TIMEZONE}"
-              #API_KEY: "${SECRET_JELLYSEERR_API_KEY}"
+              #API_KEY: "${SECRET_SEERR_API_KEY}"
               DB_TYPE: "postgres"
-              DB_HOST: jellyseerr-postgres-v18-rw.media.svc.cluster.local
+              DB_HOST: seerr-postgres-v18-rw.media.svc.cluster.local
               DB_PORT: "5432"
               DB_USER: *name
               DB_PASS:
                 valueFrom:
                   secretKeyRef:
-                    name: jellyseerr-basic-auth
+                    name: seerr-basic-auth
                     key: password
               DB_NAME: *name
             securityContext:
@@ -82,18 +82,18 @@ spec:
               readiness: *probes
             resources:
               requests:
-                cpu: 20m
+                cpu: 10m
                 memory: 400Mi
               limits:
                 memory: 1Gi
     service:
-      jellyseerr:
+      seerr:
         controller: *name
         ports:
           http:
             port: &port 5055
     ingress:
-      jellyseerr:
+      seerr:
         enabled: true
         annotations:
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
@@ -104,11 +104,11 @@ spec:
             X-Content-Type-Options "nosniff"
             Referrer-Policy "strict-origin-when-cross-origin"
         hosts:
-          - host: &host "jellyseerr.${SECRET_DEFAULT_DOMAIN}"
+          - host: &host "seerr.${SECRET_DEFAULT_DOMAIN}"
             paths:
               - path: /
                 service:
-                  identifier: jellyseerr
+                  identifier: seerr
                   port: http
         tls:
           - hosts:
@@ -116,11 +116,11 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: jellyseerr
+        existingClaim: seerr
         globalMounts:
           - path: /app/config
       config-cache:
-        existingClaim: jellyseerr-cache
+        existingClaim: seerr-cache
         globalMounts:
           - path: /app/config/cache
       config-logs:
@@ -130,7 +130,7 @@ spec:
       tmp:
         type: emptyDir
     networkpolicies:
-      jellyseerr:
+      seerr:
         enabled: true
         controller: *name
         policyTypes:
@@ -138,14 +138,6 @@ spec:
           - Ingress
         rules:
           egress:
-            - to: # Needs to reach out for artwork and such
-              - ipBlock:
-                  cidr: 0.0.0.0/0
-                  except:
-                  - "${HAPROXY_WHITELIST}"
-              ports:
-                - port: 443
-                  protocol: TCP
             - to:
                 - namespaceSelector:
                     matchLabels:
@@ -159,16 +151,16 @@ spec:
             - to:
                 - podSelector:
                     matchLabels:
-                      cnpg.io/cluster: jellyseerr-postgres-v18
+                      cnpg.io/cluster: seerr-postgres-v18
                       cnpg.io/instanceRole: primary
               ports:
                 - port: 5432
             - to:
                 - podSelector:
                     matchLabels:
-                      app.kubernetes.io/controller: jellyfin
-                      app.kubernetes.io/instance: media-jellyfin
-                      app.kubernetes.io/name: media-jellyfin
+                      app.kubernetes.io/controller: fin
+                      app.kubernetes.io/instance: media-fin
+                      app.kubernetes.io/name: media-fin
               ports:
                 - port: 8096
             - to:
@@ -187,6 +179,14 @@ spec:
                       app.kubernetes.io/name: media-sonarr
               ports:
                 - port: 8989
+            - to: # Needs to reach out for artwork and such
+              - ipBlock:
+                  cidr: 0.0.0.0/0
+                  except:
+                  - "${HAPROXY_WHITELIST}"
+              ports:
+                - port: 443
+                  protocol: TCP
             - to:
                 - namespaceSelector:
                     matchLabels:

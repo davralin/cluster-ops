@@ -191,9 +191,9 @@ spec:
                       app.kubernetes.io/name: media-ersatztv
                 - podSelector:
                     matchLabels:
-                      app.kubernetes.io/controller: jellyseerr
-                      app.kubernetes.io/instance: media-jellyseerr
-                      app.kubernetes.io/name: media-jellyseerr
+                      app.kubernetes.io/controller: seerr
+                      app.kubernetes.io/instance: media-seerr
+                      app.kubernetes.io/name: media-seerr
                 - podSelector:
                     matchLabels:
                       app.kubernetes.io/controller: jellystat

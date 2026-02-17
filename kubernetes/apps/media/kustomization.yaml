@@ -10,7 +10,6 @@ resources:
   - gogrepoc
   - jellyfin
   - jellyplex-watched
-  - jellyseerr
   - jellystat
   - lidarr
   - metube
@@ -26,6 +25,7 @@ resources:
   - readarr
   - recyclarr
   - scraparr
+  - seerr
   - sonarr
   - speakarr
   - streamripper
