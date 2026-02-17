@@ -95,5 +95,5 @@ spec:
               - ipBlock:
                   cidr: 10.0.1.75/32
               ports:
-                - port: 3902
+                - port: 3900
                   protocol: TCP
