@@ -91,7 +91,7 @@ spec:
                 compression: bzip2
                 maxParallel: 4
               destinationPath: s3://postgresql-${CLUSTER_NAME}
-              endpointURL: "${SECRET_S3_URL}"
+              endpointURL: "${SECRET_S3_CNPG_URL}"
               serverName: *name
               s3Credentials:
                 accessKeyId:
@@ -100,6 +100,9 @@ spec:
                 secretAccessKey:
                   name: *name
                   key: s3-secret-key
+                region:
+                  name: *name
+                  key: region
           externalClusters:
             # this represents the s3 backup to restore from. Must be same version.
             - name: *name
@@ -109,7 +112,7 @@ spec:
                   maxParallel: 8
                 destinationPath: s3://postgresql-${CLUSTER_NAME}
                 serverName: *name
-                endpointURL: "${SECRET_S3_URL}"
+                endpointURL: "${SECRET_S3_CNPG_URL}"
                 s3Credentials:
                   accessKeyId:
                     name: *name
@@ -215,7 +218,7 @@ spec:
               - ipBlock:
                   cidr: 10.0.1.75/32
               ports:
-                - port: 9000
+                - port: 3900
                   protocol: TCP
       - apiVersion: cilium.io/v2
         kind: CiliumNetworkPolicy
