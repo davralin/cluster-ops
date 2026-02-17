@@ -49,7 +49,6 @@ spec:
             - name: RemovePodsViolatingTopologySpreadConstraint
               args:
                 constraints:
-                  - DoNotSchedule
                   - ScheduleAnyway
           plugins:
             balance:
