@@ -44,7 +44,6 @@ spec:
           targets:
             staticConfig:
               static:
-                - "https://bazarr.${SECRET_DEFAULT_DOMAIN}"
                 - "https://filebrowser.${SECRET_DEFAULT_DOMAIN}"
                 - "https://ersatztv.${SECRET_DEFAULT_DOMAIN}"
                 - "https://jellyfin.${SECRET_DEFAULT_DOMAIN}"
