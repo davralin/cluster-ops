@@ -15,7 +15,7 @@ spec:
         name: dysnix-charts
         namespace: flux-system
       interval: 30m
-  targetNamespace: awx
+  targetNamespace: flux-system
   install:
     createNamespace: true
     remediation:
