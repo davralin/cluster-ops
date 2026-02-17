@@ -5,9 +5,9 @@ metadata:
   name: tdarr
   namespace: media
 spec:
-  storageClassName: "${STORAGE_READWRITEMANY}" # ToDo - this should be converted
+  storageClassName: "${STORAGE_READWRITEONCE}"
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   resources:
     requests:
       storage: 10Gi
