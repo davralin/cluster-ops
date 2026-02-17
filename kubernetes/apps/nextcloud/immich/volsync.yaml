@@ -17,7 +17,7 @@ spec:
       interval: 30m
   driftDetection:
     mode: enabled
-  targetNamespace: immich
+  targetNamespace: nextcloud
   install:
     createNamespace: true
     remediation:
