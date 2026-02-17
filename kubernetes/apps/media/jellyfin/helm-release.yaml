@@ -30,11 +30,11 @@ spec:
       automountServiceAccountToken: false
       enableServiceLinks: false
       securityContext:
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
+        runAsUser: 0
+        runAsGroup: 0
+        fsGroup: 0
         fsGroupChangePolicy: "OnRootMismatch"
-        runAsNonRoot: true
+        runAsNonRoot: false
         seccompProfile:
           type: RuntimeDefault
         supplementalGroups:
@@ -52,15 +52,15 @@ spec:
               TZ: "${TIMEZONE}"
             probes:
               liveness: &probes
-                enabled: true
+                enabled: false
               readiness: *probes
               startup: *probes
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-              capabilities:
-                drop:
-                  - ALL
+              #capabilities:
+              #  drop:
+              #    - ALL
             resources:
               requests:
                 cpu: 1
