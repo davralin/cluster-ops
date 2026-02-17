@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &name changedetection-volsync
+  name: &name changedetection-restic
   namespace: &namespace changedetection
 spec:
   interval: 30m

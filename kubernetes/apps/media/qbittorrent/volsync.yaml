@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &name qbittorrent-volsync
+  name: &name qbittorrent-restic
   namespace: &namespace media
 spec:
   interval: 30m

@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &name forgejo-volsync
+  name: &name forgejo-restic
   namespace: &namespace forgejo
 spec:
   interval: 30m

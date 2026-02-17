@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &name bedrock-creative-volsync
+  name: &name bedrock-creative-restic
   namespace: &namespace minecraft
 spec:
   interval: 30m

@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &name unifi-volsync
+  name: &name unifi-restic
   namespace: &namespace unifi
 spec:
   interval: 30m

@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &name qbit-manage-volsync
+  name: &name qbit-manage-restic
   namespace: &namespace media
 spec:
   interval: 30m

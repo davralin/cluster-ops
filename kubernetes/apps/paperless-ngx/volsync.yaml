@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &name paperless-ngx-volsync
+  name: &name paperless-ngx-restic
   namespace: &namespace paperless-ngx
 spec:
   interval: 30m

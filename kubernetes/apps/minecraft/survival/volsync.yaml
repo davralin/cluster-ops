@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &name survival-volsync
+  name: &name survival-restic
   namespace: &namespace minecraft
 spec:
   interval: 30m

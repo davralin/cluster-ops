@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &name creative-volsync
+  name: &name creative-restic
   namespace: &namespace minecraft
 spec:
   interval: 30m

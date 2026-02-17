@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &name mealie-volsync
+  name: &name mealie-restic
   namespace: &namespace mealie
 spec:
   interval: 30m
