@@ -98,6 +98,9 @@ spec:
                 secretAccessKey:
                   name: *name
                   key: s3-secret-key
+                region:
+                  name: *name
+                  key: region
           externalClusters:
             # this represents the s3 backup to restore from. Must be same version.
             - name: *name
