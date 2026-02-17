@@ -6,4 +6,3 @@ resources:
   - helm-release.yaml
   - networkpolicy.yaml
   - prometheus_rules.yaml
-  - rclone.conf.yaml
