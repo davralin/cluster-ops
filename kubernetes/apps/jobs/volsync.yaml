@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &name backupbrowser-volsync
+  name: &name remotebackup-volsync
   namespace: &namespace jobs
 spec:
   interval: 30m
