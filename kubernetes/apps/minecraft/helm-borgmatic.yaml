@@ -53,7 +53,8 @@ spec:
               BORG_PASSPHRASE: "${SECRET_BORG_PASSPHRASE}"
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
+              #Error: [Errno 30] Read-only file system: '/home/user/.config'
+              readOnlyRootFilesystem: false
               capabilities:
                 drop:
                   - ALL
@@ -102,9 +103,6 @@ spec:
         existingClaim: oldworld
         globalMounts:
           - path: /minecraft/old_worlds
-      tmp:
-        enabled: true
-        type: emptyDir
       sshkey:
         enabled: true
         type: secret

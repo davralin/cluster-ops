@@ -53,7 +53,8 @@ spec:
               BORG_PASSPHRASE: "${SECRET_BORG_PASSPHRASE}"
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
+              #Error: [Errno 30] Read-only file system: '/home/user/.config'
+              readOnlyRootFilesystem: false
               capabilities:
                 drop:
                   - ALL
@@ -87,9 +88,6 @@ spec:
         existingClaim: paperless-ngx-export
         globalMounts:
           - path: /paperless-ngx
-      tmp:
-        enabled: true
-        type: emptyDir
       sshkey:
         enabled: true
         type: secret
