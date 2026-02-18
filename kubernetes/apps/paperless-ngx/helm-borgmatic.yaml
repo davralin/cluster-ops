@@ -87,6 +87,9 @@ spec:
         existingClaim: paperless-ngx-export
         globalMounts:
           - path: /paperless-ngx
+      tmp:
+        enabled: true
+        type: emptyDir
       sshkey:
         enabled: true
         type: secret

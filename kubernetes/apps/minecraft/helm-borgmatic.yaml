@@ -102,6 +102,9 @@ spec:
         existingClaim: oldworld
         globalMounts:
           - path: /minecraft/old_worlds
+      tmp:
+        enabled: true
+        type: emptyDir
       sshkey:
         enabled: true
         type: secret
