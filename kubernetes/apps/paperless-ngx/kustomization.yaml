@@ -6,8 +6,6 @@ resources:
   - database-secret.yaml
   - helm-borgmatic.yaml
   #- helm-daily-to-consume.yaml
-  #- helm-offsite-sync.yaml
-  #- helm-onsite-sync.yaml
   - helm-release-db-v18.yaml
   #- helm-release-exporter.yaml
   - helm-release-valkey.yaml
