@@ -66,6 +66,7 @@ spec:
               runAsNonRoot: true
               seccompProfile:
                 type: RuntimeDefault
+            unlock: "2026-02-18"
             retain:
               daily: 7
               within: 3d
