@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - backup-ssh-key.yaml
   - helm-backup-to-jottacloud.yaml
+  - helm-borgmatic.yaml
   - helm-calcardbackup.yaml
   - helm-jottacloud-photos-to-nextcloud.yaml
   - helm-offsite-sync.yaml
