@@ -144,6 +144,8 @@ spec:
                   except:
                   - "${HAPROXY_WHITELIST}"
               ports:
+                - port: 80
+                  protocol: TCP
                 - port: 443
                   protocol: TCP
             - to:
