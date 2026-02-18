@@ -47,7 +47,7 @@ spec:
           onsite-sync:
             image:
               repository: ghcr.io/davralin/rsync
-              tag: latest@sha256:0844bf7c553a0b20495a27e741a5dfdde5f9df1641f4b8b19635f91790a16946
+              tag: latest@sha256:f8e205124bec649681f0bc2635fa2af92a0d491a9d4eaa5fdd9030856c66a79b
             command: ['/usr/bin/rsync']
             args: ["--archive", "--delete", "--verbose", "-e", "ssh -o StrictHostKeyChecking=no", "/minecraft/", "backup@nas.${SECRET_DEFAULT_DOMAIN}:/opt/local/minecraft/"]
             securityContext:
