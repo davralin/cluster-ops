@@ -45,15 +45,15 @@ spec:
         containers:
           tdarr:
             image:
-              repository: ghcr.io/davralin/utility #haveagitgat/tdarr
-              tag: latest #2.58.02
+              repository: ghcr.io/haveagitgat/tdarr
+              tag: 2.58.02
             env:
               TZ: "${TIMEZONE}"
               PUID: "1000"
               PGID: "1000"
             probes:
               liveness: &probes
-                enabled: false
+                enabled: true
               readiness: *probes
               startup: *probes
             securityContext:
@@ -112,9 +112,6 @@ spec:
                 subPath: config
               - path: /app/server
                 subPath: server
-      migrate:
-        enabled: true
-        existingClaim: tdarr2
       media:
         enabled: true
         existingClaim: media
