@@ -9,6 +9,8 @@ spec:
   chartRef:
     kind: OCIRepository
     name: node-problem-detector
+  driftDetection:
+    mode: enabled
   targetNamespace: node-problem-detector
   install:
     createNamespace: true

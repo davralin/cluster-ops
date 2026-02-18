@@ -9,6 +9,8 @@ spec:
   chartRef:
     kind: OCIRepository
     name: forgejo
+  driftDetection:
+    mode: enabled
   targetNamespace: *name
   install:
     createNamespace: true

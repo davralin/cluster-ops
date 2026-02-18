@@ -15,6 +15,8 @@ spec:
         name: itzg-charts
         namespace: flux-system
       interval: 30m
+  driftDetection:
+    mode: enabled
   targetNamespace: minecraft
   install:
     createNamespace: true

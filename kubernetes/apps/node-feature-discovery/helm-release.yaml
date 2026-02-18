@@ -9,6 +9,8 @@ spec:
   chartRef:
     kind: OCIRepository
     name: node-feature-discovery
+  driftDetection:
+    mode: enabled
   targetNamespace: node-feature-discovery
   install:
     createNamespace: true
