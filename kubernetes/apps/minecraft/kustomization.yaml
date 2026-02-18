@@ -13,4 +13,5 @@ resources:
   - helm-borgmatic.yaml
   - namespace.yaml
   - networkpolicy.yaml
+  - rclone.conf.yaml
   - secret.yaml

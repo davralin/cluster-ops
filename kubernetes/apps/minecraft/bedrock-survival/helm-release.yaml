@@ -94,8 +94,8 @@ spec:
       pauseIfNoPlayers: true
       backupMethod: rclone
       excludes: "*.jar,cache,logs,lost+found"
-      rcloneRemote: homenas.internal-s3
-      rcloneDestDir: minecraft/bedrock-survival
+      rcloneRemote: minecraft-garage
+      rcloneDestDir: minecraft-${CLUSTER_NAME}/bedrock-survival
       rcloneConfigExistingSecret: rclone-config
       pruneBackupsDays: 3
       persistence:
