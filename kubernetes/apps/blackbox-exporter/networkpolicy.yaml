@@ -63,7 +63,7 @@ metadata:
   name: blackbox-exporter
   namespace: blackbox-exporter
 spec:
-  podSelector:
+  endpointSelector:
     matchLabels:
       app.kubernetes.io/instance: blackbox-exporter-blackbox-exporter
       app.kubernetes.io/name: prometheus-blackbox-exporter
