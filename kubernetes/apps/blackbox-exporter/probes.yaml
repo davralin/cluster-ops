@@ -53,7 +53,7 @@ spec:
       - apiVersion: monitoring.coreos.com/v1
         kind: Probe
         metadata:
-          name: services_http_2xx
+          name: services-http-2xx
           namespace: blackbox-exporter
         spec:
           module: http_2xx
@@ -96,7 +96,7 @@ spec:
       - apiVersion: monitoring.coreos.com/v1
         kind: Probe
         metadata:
-          name: services_http_4xx_insecure
+          name: services-http-4xx-insecure
           namespace: blackbox-exporter
         spec:
           module: http_4xx_insecure
