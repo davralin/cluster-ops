@@ -53,7 +53,7 @@ spec:
               BORG_PASSPHRASE: "${SECRET_BORG_PASSPHRASE}"
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: false
+              readOnlyRootFilesystem: true
               capabilities:
                 drop:
                   - ALL
@@ -65,7 +65,7 @@ spec:
             source_directories:
                 - /paperless-ngx
             repositories:
-              - path: ssh://backup@nas.${SECRET_DEFAULT_DOMAIN}//opt/local/paperless-ngx-borg
+              - path: ssh://backup@nas.${SECRET_DEFAULT_DOMAIN}//opt/local/paperless-ngx
                 label: onsite
                 append_only: true
                 make_parent_directories: true
@@ -142,15 +142,5 @@ spec:
                   cidr: "${HAPROXY_WHITELIST}"
               ports:
                 - port: 22
-                  protocol: TCP
-            - to: # Gotify via ingress
-                - namespaceSelector:
-                    matchLabels:
-                      kubernetes.io/metadata.name: haproxy-controller
-                  podSelector:
-                    matchLabels:
-                      app.kubernetes.io/name: kubernetes-ingress
-              ports:
-                - port: 8443
                   protocol: TCP
           ingress: []
