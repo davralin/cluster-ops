@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &name minecraft-offsite-sync
+  name: &name minecraft-borgmatic
   namespace: flux-system
 spec:
   interval: 30m
@@ -39,23 +39,48 @@ spec:
         seccompProfile:
           type: RuntimeDefault
     controllers:
-      offsite-sync:
+      borgmatic:
         type: cronjob
         cronjob:
           schedule: "47 */12 * * *"
         containers:
-          offsite-sync:
+          borgmatic:
             image:
-              repository: ghcr.io/davralin/rsync
-              tag: latest@sha256:f8e205124bec649681f0bc2635fa2af92a0d491a9d4eaa5fdd9030856c66a79b
-            command: ['/usr/bin/rsync']
-            args: ["--archive", "--delete", "--verbose", "-e", "ssh -o StrictHostKeyChecking=no", "/minecraft/", "backup@nas.${SECRET_OFFSITE_DOMAIN}:/opt/backup/minecraft/"]
+              repository: ghcr.io/davralin/borgmatic
+              tag: latest@sha256:fc97149956d36b57061bed39b364a95901ac9b6e1f1b4ca8723097027dc0a082
+            command: ['/usr/local/bin/start.sh']
+            env:
+              BORG_PASSPHRASE: "${SECRET_BORG_PASSPHRASE}"
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities:
                 drop:
                   - ALL
+    configMaps:
+      borgmatic:
+        enabled: true
+        data:
+          config.yaml: |
+            source_directories:
+                - /minecraft
+            repositories:
+              - path: ssh://backup@nas.${SECRET_DEFAULT_DOMAIN}//opt/local/minecraft
+                label: onsite
+                append_only: true
+                make_parent_directories: true
+              - path: ssh://backup@nas.${SECRET_OFFSITE_DOMAIN}//opt/backup/minecraft
+                label: offsite
+                append_only: true
+                make_parent_directories: true
+            ssh_command: ssh -i /home/user/.ssh/id_ed25519 -o StrictHostKeyChecking=no
+            archive_name_format: minecraft-{now}
+          start.sh: |
+            #!/bin/sh
+            /usr/bin/borgmatic repo-create --encryption repokey --append-only
+            /usr/bin/borgmatic create
+            /usr/bin/borgmatic info --last 1
+            /usr/bin/borgmatic list
     persistence:
       bedrock-creative-backup:
         enabled: true
@@ -83,15 +108,29 @@ spec:
         name: sshkey
         defaultMode: 0600
         advancedMounts:
-          offsite-sync:
-            offsite-sync:
+          borgmatic:
+            borgmatic:
               - path: /home/user/.ssh/id_ed25519
                 subPath: id_ed25519
                 readOnly: true
-    networkpolicies:
-      offsite-sync:
+      borgmatic:
         enabled: true
-        controller: offsite-sync
+        type: configMap
+        name: minecraft-borgmatic
+        defaultMode: 0755
+        advancedMounts:
+          borgmatic:
+            borgmatic:
+              - path: /etc/borgmatic/config.yaml
+                subPath: config.yaml
+                readOnly: true
+              - path: /usr/local/bin/start.sh
+                subPath: start.sh
+                readOnly: true
+    networkpolicies:
+      borgmatic:
+        enabled: true
+        controller: borgmatic
         policyTypes:
           - Egress
           - Ingress
@@ -107,6 +146,12 @@ spec:
               ports:
                 - port: 53
                   protocol: UDP
+            - to: # Onsite-SSH
+              - ipBlock:
+                  cidr: 10.0.1.75/32
+              ports:
+                - port: 22
+                  protocol: TCP
             - to: # Offsite-SSH
               - ipBlock:
                   cidr: "${HAPROXY_WHITELIST}"

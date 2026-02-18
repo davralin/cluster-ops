@@ -10,8 +10,7 @@ resources:
   - oldworld
   - survival
   - backup-ssh-key.yaml
-  - helm-offsite-sync.yaml
-  - helm-onsite-sync.yaml
+  - helm-borgmatic.yaml
   - namespace.yaml
   - networkpolicy.yaml
   - secret.yaml
