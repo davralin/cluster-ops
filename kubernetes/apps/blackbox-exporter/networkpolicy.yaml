@@ -56,3 +56,17 @@ spec:
       ports:
         - port: 9115
           protocol: TCP
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: blackbox-exporter
+  namespace: blackbox-exporter
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/instance: blackbox-exporter-blackbox-exporter
+      app.kubernetes.io/name: prometheus-blackbox-exporter
+  egress:
+    - toEntities:
+      - host
