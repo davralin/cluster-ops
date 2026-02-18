@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - backup-ssh-key.yaml
   - database-secret.yaml
+  - helm-borgmatic.yaml
   #- helm-daily-to-consume.yaml
   #- helm-offsite-sync.yaml
   #- helm-onsite-sync.yaml

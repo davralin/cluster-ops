@@ -1,0 +1,156 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &name paperless-ngx-borgmatic
+  namespace: flux-system
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 4.6.2
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+      interval: 30m
+  driftDetection:
+    mode: enabled
+  targetNamespace: paperless-ngx
+  install:
+    createNamespace: true
+    remediation:
+      retries: 10
+  upgrade:
+    remediation:
+      retries: 10
+  values:
+    fullnameOverride: *name
+    defaultPodOptions:
+      automountServiceAccountToken: false
+      enableServiceLinks: false
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+    controllers:
+      borgmatic:
+        type: cronjob
+        cronjob:
+          schedule: "40 */6 * * *"
+        containers:
+          borgmatic:
+            image:
+              repository: ghcr.io/davralin/borgmatic
+              tag: latest@sha256:fc97149956d36b57061bed39b364a95901ac9b6e1f1b4ca8723097027dc0a082
+            command: ['/usr/local/bin/start.sh']
+            env:
+              BORG_PASSPHRASE: "${SECRET_BORG_PASSPHRASE}"
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: false
+              capabilities:
+                drop:
+                  - ALL
+    configMaps:
+      borgmatic:
+        enabled: true
+        data:
+          config.yaml: |
+            source_directories:
+                - /paperless-ngx
+            repositories:
+              - path: ssh://backup@nas.${SECRET_DEFAULT_DOMAIN}//opt/local/paperless-ngx-borg
+                label: onsite
+                append_only: true
+                make_parent_directories: true
+              - path: ssh://backup@nas.${SECRET_OFFSITE_DOMAIN}//opt/backup/paperless-ngx-borg
+                label: offsite
+                append_only: true
+                make_parent_directories: true
+            ssh_command: ssh -i /home/user/.ssh/id_ed25519 -o StrictHostKeyChecking=no
+            archive_name_format: paperless-ngx-{now}
+          start.sh: |
+            #!/bin/sh
+            /usr/bin/borgmatic repo-create --encryption repokey --append-only
+            /usr/bin/borgmatic create
+            /usr/bin/borgmatic info --last 1
+            /usr/bin/borgmatic list
+    persistence:
+      paperless-ngx:
+        enabled: true
+        existingClaim: paperless-ngx-export
+        globalMounts:
+          - path: /paperless-ngx
+      sshkey:
+        enabled: true
+        type: secret
+        name: sshkey
+        defaultMode: 0600
+        advancedMounts:
+          borgmatic:
+            borgmatic:
+              - path: /home/user/.ssh/id_ed25519
+                subPath: id_ed25519
+                readOnly: true
+      borgmatic:
+        enabled: true
+        type: configMap
+        name: paperless-ngx-borgmatic
+        defaultMode: 0755
+        advancedMounts:
+          borgmatic:
+            borgmatic:
+              - path: /etc/borgmatic/config.yaml
+                subPath: config.yaml
+                readOnly: true
+              - path: /usr/local/bin/start.sh
+                subPath: start.sh
+                readOnly: true
+    networkpolicies:
+      borgmatic:
+        enabled: true
+        controller: borgmatic
+        policyTypes:
+          - Egress
+          - Ingress
+        rules:
+          egress:
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: kube-system
+                  podSelector:
+                    matchLabels:
+                      k8s-app: kube-dns
+              ports:
+                - port: 53
+                  protocol: UDP
+            - to: # Onsite-SSH
+              - ipBlock:
+                  cidr: 10.0.1.75/32
+              ports:
+                - port: 22
+                  protocol: TCP
+            - to: # Offsite-SSH
+              - ipBlock:
+                  cidr: "${HAPROXY_WHITELIST}"
+              ports:
+                - port: 22
+                  protocol: TCP
+            - to: # Gotify via ingress
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: haproxy-controller
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: kubernetes-ingress
+              ports:
+                - port: 8443
+                  protocol: TCP
+          ingress: []
