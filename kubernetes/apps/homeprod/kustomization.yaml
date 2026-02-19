@@ -29,7 +29,6 @@ resources:
   - ../jupyterhub
   - ../karakeep
   - ../kubevirt
-  - ../kubevirt-cdi
   - ../kuma
   - ../kyverno
   - ../librespeed
