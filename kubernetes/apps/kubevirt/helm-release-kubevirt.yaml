@@ -45,12 +45,6 @@ spec:
             developerConfiguration:
               featureGates:
                 - LiveMigration
-            smbios:
-              sku: "${CLUSTER_NAME}"
-              version: "1.0.0"
-              manufactorer: "SideroLabs"
-              product: "Talos"
-              family: "kvm"
           customizeComponents: {}
           imagePullPolicy: IfNotPresent
           workloadUpdateStrategy: {}
