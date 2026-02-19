@@ -44,7 +44,7 @@ spec:
           kuma:
             image:
               repository: docker.io/louislam/uptime-kuma
-              tag: 2.1.1
+              tag: 2.1.2
             env:
               TZ: "${TIMEZONE}"
             probes:
