@@ -83,33 +83,6 @@ spec:
                 memory: 50Mi
               limits:
                 memory: 100Mi
-          signal-cli:
-            image:
-              repository: docker.io/bbernhard/signal-cli-rest-api
-              tag: 0.97@sha256:5fcb8e8620f20f944d747627841ca97f19104acb3e1adb1d5c8983b5db422529
-            env:
-              TZ: "${TIMEZONE}"
-              MODE: json-rpc
-              #MODE: native
-              SIGNAL_CLI_GID: 1000
-              SIGNAL_CLI_UID: 1000
-              SIGNAL_CLI_CHOWN_ON_STARTUP: false
-            securityContext:
-              allowPrivilegeEscalation: false
-              # + groupmod -o -g 1000 signal-api
-              readOnlyRootFilesystem: false
-              runAsUser: 0
-              runAsGroup: 0
-              runAsNonRoot: false
-              #capabilities:
-              #  drop:
-              #    - ALL
-            resources:
-              requests:
-                cpu: 10m
-                memory: 50Mi
-              #limits:
-                #memory: 100Mi
     service:
       openclaw:
         controller: *name
@@ -148,14 +121,9 @@ spec:
             editor:
               - path: /opt/openclaw
                 subPath: openclaw
-              - path: /opt/signal-cli
-                subPath: signal-cli
             openclaw:
               - path: /home/node
                 subPath: openclaw
-            signal-cli:
-              - path: /home/.local/share/signal-cli
-                subPath: signal-cli
       tmp:
         enabled: true
         type: emptyDir
