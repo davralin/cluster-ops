@@ -5,4 +5,4 @@ resources:
   - helm-release-kubevirt.yaml
   - kubevirt-operator.yaml
   #- networkpolicy.yaml
-  - testvm.yaml
+  #- testvm.yaml
