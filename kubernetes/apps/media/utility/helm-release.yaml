@@ -59,6 +59,9 @@ spec:
       data:
         enabled: true
         existingClaim: media
+      pinchflat:
+        enabled: true
+        existingClaim: pinchflat-media
       rclone:
         enabled: true
         existingClaim: rcloneconfig
