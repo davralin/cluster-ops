@@ -28,7 +28,6 @@ resources:
   - ../joplin
   - ../jupyterhub
   - ../karakeep
-  - ../kubevirt
   - ../kuma
   - ../kyverno
   - ../librespeed
