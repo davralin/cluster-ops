@@ -102,8 +102,24 @@ spec:
       media:
         enabled: true
         existingClaim: media
-        globalMounts:
-          - path: /data
+        advancedMounts:
+          audiobookshelf:
+            audiobookshelf:
+              - path: /data
+                subPath: .
+                readOnly: true
+      tmpfs:
+        enabled: true
+        type: emptyDir
+        advancedMounts:
+          audiobookshelf:
+            app:
+              - path: /.npm
+                subPath: cache
+              - path: /metadata/logs
+                subPath: logs
+              - path: /tmp
+                subPath: tmp
     networkpolicies:
       audiobookshelf:
         enabled: true
