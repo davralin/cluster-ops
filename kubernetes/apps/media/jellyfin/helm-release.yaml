@@ -111,16 +111,16 @@ spec:
               - path: /data
                 subPath: .
                 readOnly: true
+      pinchflat:
+        enabled: true
+        existingClaim: pinchflat-media
+        globalMounts:
+          - path: /pinchflat
       tmp:
         type: emptyDir
       transcode:
         enabled: true
         type: emptyDir
-      pinchflat-media:
-        enabled: true
-        existingClaim: pinchflat-media
-        globalMounts:
-          - path: /downloads
     networkpolicies:
       jellyfin:
         enabled: true
