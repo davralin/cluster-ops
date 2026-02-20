@@ -162,6 +162,7 @@
         "grafana",
         "immich",
         "kube-prometheus-stack",
+        "kyverno",
         "minecraft",
         "node-feature-discovery",
         "reflector",
