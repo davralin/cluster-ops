@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &name daily-imap-backup
+  name: &name mailbackup
   namespace: flux-system
 spec:
   interval: 30m
@@ -17,7 +17,7 @@ spec:
       interval: 30m
   driftDetection:
     mode: enabled
-  targetNamespace: jobs
+  targetNamespace: mailbackup
   install:
     createNamespace: true
     remediation:
@@ -39,15 +39,15 @@ spec:
         seccompProfile:
           type: RuntimeDefault
     controllers:
-      daily-imap-backup:
+      mailbackup:
         type: cronjob
         cronjob:
-          schedule: "14 04 * * *"
+          schedule: "05 */6 * * *"
         containers:
-          daily-imap-backup:
+          mailbackup:
             image:
-              repository: jakewharton/mbsync
-              tag: 1.4.1
+              repository: docker.io/jakewharton/mbsync
+              tag: 1.4.1@sha256:83e7894be29ca5a790fd96046393dbaa14aebc688a35a6d6e032f0b678f23547
             command: ['/usr/bin/mbsync']
             args: ["-V", "-a", "-c", "/config/mbsync.rc"]
             env:
@@ -59,27 +59,22 @@ spec:
                 drop:
                   - ALL
     persistence:
-      remotebackup:
+      mailbackup:
         enabled: true
-        existingClaim: remotebackup
-        advancedMounts:
-          daily-imap-backup:
-            daily-imap-backup:
-              - path: /mail
-                subPath: mail
+        existingClaim: mailbackup
       mbsync:
         enabled: true
         type: secret
         name: mbsync
         defaultMode: 0600
         advancedMounts:
-          daily-imap-backup:
-            daily-imap-backup:
+          mailbackup:
+            mailbackup:
               - path: /config/mbsync.rc
                 subPath: mbsync.rc
                 readOnly: true
     networkpolicies:
-      daily-imap-backup:
+      mailbackup:
         enabled: true
         controller: *name
         policyTypes:

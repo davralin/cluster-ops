@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Secret
+type: Opaque
+metadata:
+    name: mbsync
+    namespace: mailbackup
+data:
+    mbsync.rc: ENC[AES256_GCM,data:dF8QuPK5uIfrPXmRFulSFadtibczY4VuHtA1omjYgQLuPRIWvjHozCTLmWINz1W5JZpY4MOglSVU0KGqxfEijfBtRstyLR6m2fBlNcqfwdBw0RI8J8Y5QXgkXLxp38J1cjGEmmBkkSLxXSSTLv0VhNb9qYh7I8djdiYZzKaiaTPMDHhaTpIBs344le/20vdrz7VPP6nrjz+1bHLY/TFj66xFw/KKi+u4a07APH8TK6EREnRB0GOjSrS/yiGvOiA04hrWEwMA4ADzXgmO/xvVcCMZpT1QYI4opQtSzt5eOXunIFWBgFMY5Hj3Fs/bWspyF6D9lPVjF9eLdv2Bh5YrsLixjpUBxZgXlZy2aBNe2DPu9SYg9DhNONAV+SQi+sJJ7bKOe7LfhIIf9LjjQn0lNBKeae63WpjcUtscEHQwc1n6081AxZXKZWwbjArWtYVp1sIBKnKghAL9N6guOg5IhJAd/V88q8lTQlJoWpz7xB4JXUPfQN7GzrTQ0jgwCLvHBIuEShbqGRwfGqAIfpq4Y5hCHcUrvbJRHcNbkuoew7KHhG7NvwjN1bdR3OQi7/JX4YmUR5TmsF2TZVcYZx6D/MKFBoGMzxY9LE65VaEHehWfmz37iNOS/wMkDqUJ0NJlrDyHtvF08U8YgDPE7X90KUi3iQUcUBh9oOkGjMXQszP9vPSfn36tlo5626M=,iv:QpLrAWCyPys5s1qKEHTROMQ1rhdLv+Dk+IsgsNh8rSs=,tag:YBnYkBD5qHgAMVrzOEL+fQ==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age13s49lz9hcwqdlgyyde5zr2ynryc5jsydmyvpvhx0klqd0ylkkq0szd3xtm
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBKdVBJS2tmaG81bWlQTVEx
+            b0o0MVdvWUl4aENVQXdoQW13TnpNZkJnaEhvCkV6VHMzVVo5VHhtcVc1Nm0xYzlW
+            WWREQ1YxbzJhNjN5VkVsajhBK0RNMDgKLS0tIGxPa2ovVzlrd1BIbmdUNk1hd0xF
+            VjZ2VmFHM0Uxa1RoSjN3Tm9WNUZYME0K6PzsUJqEtPw9m9BLlwDxe59nfkh2QcXX
+            I2sQUBJqgBdEQ59y1QzoFHiKD1BxBV0FmBUcEqTrKP/UwHdXsVhHPQ==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2026-02-20T23:23:21Z"
+    mac: ENC[AES256_GCM,data:ItyK4F5AdfhcFp6I32Gj7N4o4XmLrWR78CfSlgfLI558/SPCPMDgnJMYhhAZ89Ed2GTmtImNjzndGz7rE05g6C8gT7Waw+C4tBJ7jiFSjiLmoJ91ihQE45sDRHb227ATY1TsBcmJVcEMaKGUI/5lqdl5kNqyJbhH85jiOmYnKZg=,iv:hKPzC1438dunArSlYxhekRygfTd1iEwfoANz5Ic5zs4=,tag:qkCBHNChD9oajZUdsckBnw==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData)$
+    version: 3.9.1

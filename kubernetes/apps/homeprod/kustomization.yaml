@@ -31,6 +31,7 @@ resources:
   - ../kuma
   - ../kyverno
   - ../librespeed
+  - ../mailbackup
   - ../mailrelay
   - ../mailrise
   - ../mealie

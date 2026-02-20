@@ -2,11 +2,10 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - helm-backup.yaml
-  - helm-daily-sitebackup-from.yaml
-  - helm-onsite-sync.yaml
+  - helm-borgmatic.yaml
+  - helm-release.yaml
+  - mbsync.yaml
   - namespace.yaml
   - networkpolicy.yaml
   - pvc.yaml
   - sshkey.yaml
-  - volsync.yaml
