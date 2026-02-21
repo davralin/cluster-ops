@@ -46,18 +46,11 @@ spec:
         containers:
           borgmatic:
             image:
-<<<<<<< HEAD:kubernetes/apps/jobs/helm-onsite-sync.yaml
-              repository: ghcr.io/davralin/rsync
-              tag: latest@sha256:1d945a53cf897480e56aa203c7fa249f07bb088e3538bd25d46c1d09271b6f01
-            command: ['/usr/bin/rsync']
-            args: ["--archive", "--delete", "--verbose", "-e", "ssh -o StrictHostKeyChecking=no", "/home/user/regular/", "backup@nas.${SECRET_DEFAULT_DOMAIN}:/opt/local/regular/"]
-=======
               repository: ghcr.io/davralin/borgmatic
-              tag: latest@sha256:fc97149956d36b57061bed39b364a95901ac9b6e1f1b4ca8723097027dc0a082
+              tag: latest@sha256:10d6a1353843641fbcc914a00915a70c8a1330bd9081dbf6cc2286f2ac0f0751
             command: ['/usr/local/bin/start.sh']
             env:
               BORG_PASSPHRASE: "${SECRET_BORG_PASSPHRASE}"
->>>>>>> 6f1a8390e (Deprecate jobs, move to a dedicated remotebackup-namespace):kubernetes/apps/remotebackup/helm-borgmatic.yaml
             securityContext:
               allowPrivilegeEscalation: false
               #Error: [Errno 30] Read-only file system: '/home/user/.config'
