@@ -168,7 +168,7 @@ spec:
             - to:
                 - podSelector:
                     matchLabels:
-                      app.kubernetes.io/controller: readmeabook-valkey
+                      app.kubernetes.io/controller: valkey
                       app.kubernetes.io/instance: media-readmeabook-valkey
                       app.kubernetes.io/name: media-readmeabook-valkey
               ports:
