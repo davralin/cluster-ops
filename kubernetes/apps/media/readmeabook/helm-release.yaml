@@ -54,6 +54,13 @@ spec:
             env:
               TZ: "${TIMEZONE}"
               REDIS_URL: redis://readmeabook-valkey.media.svc.cluster.local:6379
+              DATABASE_URL:
+                valueFrom:
+                  secretKeyRef:
+                    name: readmeabook-basic-auth
+                    key: DATABASE_URL
+              PUID: 1000
+              PGID: 1000
             probes:
               liveness: &probes
                 enabled: true
@@ -111,11 +118,22 @@ spec:
       config:
         enabled: true
         existingClaim: readmeabook
+        advancedMounts:
+          readmeabook:
+            readmeabook:
+              - path: /app/cache
+                subPath: cache
+              - path: /app/config
+                subPath: config
       media:
         enabled: true
         existingClaim: media
-        globalMounts:
-          - path: /data
+        advancedMounts:
+          readmeabook:
+            readmeabook:
+              - path: /media
+                subPath: .
+                readOnly: true
     networkpolicies:
       readmeabook:
         enabled: true
