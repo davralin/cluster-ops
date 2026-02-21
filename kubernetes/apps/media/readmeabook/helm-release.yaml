@@ -37,11 +37,14 @@ spec:
       enableServiceLinks: false
       hostname: *name
       securityContext:
-        runAsUser: 1000
-        runAsGroup: 1000
+        # [1/3] Remapping postgres group to 1000...
+        # usermod: Permission denied.
+        # usermod: cannot lock /etc/passwd; try again later.
+        runAsUser: 0
+        runAsGroup: 0
         fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"
-        runAsNonRoot: true
+        runAsNonRoot: false
         seccompProfile:
           type: RuntimeDefault
     controllers:
