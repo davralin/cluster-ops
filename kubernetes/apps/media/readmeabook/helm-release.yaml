@@ -81,11 +81,11 @@ spec:
               allowPrivilegeEscalation: false
               # usermod: cannot lock /etc/passwd; try again later.
               readOnlyRootFilesystem: false
-              capabilities:
-                add:
-                  - CHOWN # usermod: Failed to change ownership of the home directory
-                drop:
-                  - ALL
+              #capabilities:
+              #  add:
+              #    - CHOWN # usermod: Failed to change ownership of the home directory
+              #  drop:
+              #    - ALL
             resources:
               requests:
                 cpu: 10m
