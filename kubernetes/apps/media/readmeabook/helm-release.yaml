@@ -133,12 +133,8 @@ spec:
       media:
         enabled: true
         existingClaim: media
-        advancedMounts:
-          readmeabook:
-            readmeabook:
-              - path: /media
-                subPath: .
-                readOnly: true
+        globalMounts:
+          - path: /data
     networkpolicies:
       readmeabook:
         enabled: true
