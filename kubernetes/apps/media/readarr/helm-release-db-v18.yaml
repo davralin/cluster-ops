@@ -55,11 +55,11 @@ spec:
           bootstrap:
             # use this to start a new cluster
             initdb:
-              database: readarr_main
+              database: "readarr-main"
               owner: readarr
               postInitSQL:
-                - CREATE DATABASE readarr_cache OWNER readarr;
-                - CREATE DATABASE readarr_log OWNER readarr;
+                - CREATE DATABASE "readarr-cache" OWNER readarr;
+                - CREATE DATABASE "readarr-log" OWNER readarr;
               secret:
                 name: readarr-basic-auth
             # use this to recover a net-new cluster from a backup

@@ -60,8 +60,8 @@ spec:
                   secretKeyRef:
                     name: readarr-basic-auth
                     key: password
-              READARR__POSTGRES__MAIN_DB: readarr_main
-              READARR__POSTGRES__CACHE_DB: readarr_cache
+              READARR__POSTGRES__MAIN_DB: readarr-main
+              READARR__POSTGRES__CACHE_DB: readarr-cache
               READARR__AUTH__METHOD: External
               READARR__AUTH__REQUIRED: DisabledForLocalAddresses
               # https://github.com/Readarr/Readarr/issues/3453
