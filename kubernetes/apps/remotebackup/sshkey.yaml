@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Secret
+type: Opaque
+metadata:
+    name: sshkey
+    namespace: remotebackup
+data:
+    id_ed25519: ENC[AES256_GCM,data:NdSUKI0LFjXmjnxj+iOxJpIsNiSiQd0XdjAnmxtxh/t1EilbIesZTD2JbGyqTdJ6cU61xyflOyA2tKmEq7/E3P7zJTjo3Q38cwqMv7yH3qZZHHSIbdgam8I52OQYUqp/0wpvvJTiwwfRtGATkWtyFTyn+RKMCBPDM5TPMPGzH7aWx7XS+k6egV4IG9jfsUEKdW46eBGfIB8tDfvcQ884JzytUvP9oCFAD3qF2WdEJpSGgDDwdyheLPCZLP2Dnlr837iFCYViZnlFxXtyh6+OZPJd4X18YD3jNlMN+ExCIDvBZf5j39K1zxqNXWj/PxF9e7SJ/FkHmzyFrhcVPiGEnhYqtX5kDRzqwUCSZECy93qHg2qKL9bvPHeRQsflJE4X/RJDKc9wwJ3+1w4fsI/AO8L7fZUXo+21SFi4PB81iqVm5fBSaKs1CM7jiYi2V+AQ69xD6eQWhpJGxJkemc56kOCyAPqkgTVLew4ySYwzmWUyIHp8ZUPLAB6jsuoAinlz6qJfi/A+tZSRfzuRwRR3GYZ0qBB1JS/KISGl1DzBjqOcX3F18utDBsr5qe4ZbaTdBhSlhx9fbaTW4riTItphRy1ENxnvQkEbFUyzwpOPAA8XsRCNKs90wE9f8BcVnXFurarfIr/oGNOuvXuHKuqhZKH54jwQya6aI+SlBEIsEBSsB6FHyXJbSwgijKaR0t/YeVNfmtutGFLseU5zSoXcbYWUGis=,iv:aNdxXruEaOWJwMFRqAy7Fhy2683drszNktnisAF6kmA=,tag:cyVsCk5rnNAkkCGBbZJKPw==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age13s49lz9hcwqdlgyyde5zr2ynryc5jsydmyvpvhx0klqd0ylkkq0szd3xtm
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSB2cFhGd3JCR2h1Vk1xYmJy
+            THEzalVXVTk3K09ldVVMbDJoWVN2MnBFMkEwClpPRlVFdFhCTWdpeWtScDVaZEs5
+            dTBhaFhSKzZGUVJVQVJjYVc0OHZmZ3MKLS0tIGdlV0pnZkJKQnFTcUFoU0VWTllm
+            RCtWMzZNS2s1VGtsTnNSNlh5UUJ4Z0kKgLw3SWqFAzQ/lwAayia/7VQSKWvQDCw2
+            rOLJio6n9ZvzujTbSmZ1xigKEK8HWzTuyUsNxIzOj8fiw7hS/zOKfw==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2026-02-20T23:44:16Z"
+    mac: ENC[AES256_GCM,data:SpDPIeQ0Ia/4CBlT/sB5+vAcCoh2g0JNtByuIfg7pMv30XB+6j/NyUKgPdtFg0etrVUhFGZrEmsh14v1BcEJe1m/tyueYpkGGhSG0wdfNdnP6KT+3srwNtWy+1jCxOKy1tkApxnxBhpUnyC2KLR0Ipn1dhTYTtXBhYVaP/5wnb4=,iv:mrRxls3sVs2+qFTM90e8mMl2BGIq8Fdg8Y0mvdvMZMg=,tag:swqov6mi6ACtz+d5ty6WJw==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData)$
+    version: 3.9.1

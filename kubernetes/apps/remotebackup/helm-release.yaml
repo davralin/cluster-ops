@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &name daily-sitebackup-from
+  name: &name remotebackup
   namespace: flux-system
 spec:
   interval: 30m
@@ -17,7 +17,7 @@ spec:
       interval: 30m
   driftDetection:
     mode: enabled
-  targetNamespace: jobs
+  targetNamespace: remotebackup
   install:
     createNamespace: true
     remediation:
@@ -39,12 +39,12 @@ spec:
         seccompProfile:
           type: RuntimeDefault
     controllers:
-      daily-sitebackup-from:
+      remotebackup:
         type: cronjob
         cronjob:
-          schedule: "32 07 * * *"
+          schedule: "32 */6 * * *"
         containers:
-          daily-sitebackup-from:
+          remotebackup:
             image:
               repository: ghcr.io/davralin/rsync
               tag: latest@sha256:1d945a53cf897480e56aa203c7fa249f07bb088e3538bd25d46c1d09271b6f01
@@ -57,9 +57,9 @@ spec:
                 drop:
                   - ALL
     persistence:
-      sitebackup:
+      remotebackup:
         enabled: true
-        existingClaim: sitebackup
+        existingClaim: remotebackup
         globalMounts:
           - path: /home/user/backup
       sshkey:
@@ -68,13 +68,13 @@ spec:
         name: sshkey
         defaultMode: 0600
         advancedMounts:
-          daily-sitebackup-from:
-            daily-sitebackup-from:
+          remotebackup:
+            remotebackup:
               - path: /home/user/.ssh/id_ed25519
                 subPath: id_ed25519
                 readOnly: true
     networkpolicies:
-      sitebackup:
+      remotebackup:
         enabled: true
         controller: *name
         policyTypes:

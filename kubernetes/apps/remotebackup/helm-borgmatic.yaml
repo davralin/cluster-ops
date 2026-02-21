@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &name jobs-onsite-sync
+  name: &name remotebackup-borgmatic
   namespace: flux-system
 spec:
   interval: 30m
@@ -17,7 +17,7 @@ spec:
       interval: 30m
   driftDetection:
     mode: enabled
-  targetNamespace: jobs
+  targetNamespace: remotebackup
   install:
     createNamespace: true
     remediation:
@@ -39,49 +39,87 @@ spec:
         seccompProfile:
           type: RuntimeDefault
     controllers:
-      onsite-sync:
+      borgmatic:
         type: cronjob
         cronjob:
-          schedule: "29 */12 * * *"
+          schedule: "13 */12 * * *"
         containers:
-          jobs-onsite-sync:
+          borgmatic:
             image:
+<<<<<<< HEAD:kubernetes/apps/jobs/helm-onsite-sync.yaml
               repository: ghcr.io/davralin/rsync
               tag: latest@sha256:1d945a53cf897480e56aa203c7fa249f07bb088e3538bd25d46c1d09271b6f01
             command: ['/usr/bin/rsync']
             args: ["--archive", "--delete", "--verbose", "-e", "ssh -o StrictHostKeyChecking=no", "/home/user/regular/", "backup@nas.${SECRET_DEFAULT_DOMAIN}:/opt/local/regular/"]
+=======
+              repository: ghcr.io/davralin/borgmatic
+              tag: latest@sha256:fc97149956d36b57061bed39b364a95901ac9b6e1f1b4ca8723097027dc0a082
+            command: ['/usr/local/bin/start.sh']
+            env:
+              BORG_PASSPHRASE: "${SECRET_BORG_PASSPHRASE}"
+>>>>>>> 6f1a8390e (Deprecate jobs, move to a dedicated remotebackup-namespace):kubernetes/apps/remotebackup/helm-borgmatic.yaml
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
+              #Error: [Errno 30] Read-only file system: '/home/user/.config'
+              readOnlyRootFilesystem: false
               capabilities:
                 drop:
                   - ALL
+    configMaps:
+      borgmatic:
+        enabled: true
+        data:
+          config.yaml: |
+            source_directories:
+                - /remotebackup
+            repositories:
+              - path: ssh://backup@nas.${SECRET_DEFAULT_DOMAIN}//opt/local/remotebackup
+                label: onsite
+                append_only: true
+                make_parent_directories: true
+            ssh_command: ssh -i /home/user/.ssh/id_ed25519 -o StrictHostKeyChecking=no
+            archive_name_format: remotebackup-{now}
+          start.sh: |
+            #!/bin/sh
+            /usr/bin/borgmatic repo-create --encryption repokey --append-only
+            /usr/bin/borgmatic create
+            /usr/bin/borgmatic info --last 1
+            /usr/bin/borgmatic list
     persistence:
       remotebackup:
         enabled: true
         existingClaim: remotebackup
         globalMounts:
-          - path: /home/user/regular/remote
-      sitebackup:
-        enabled: true
-        existingClaim: sitebackup
-        globalMounts:
-          - path: /home/user/regular/site
+          - path: /remotebackup
       sshkey:
         enabled: true
         type: secret
         name: sshkey
         defaultMode: 0600
         advancedMounts:
-          onsite-sync:
-            jobs-onsite-sync:
+          borgmatic:
+            borgmatic:
               - path: /home/user/.ssh/id_ed25519
                 subPath: id_ed25519
                 readOnly: true
-    networkpolicies:
-      onsite-sync:
+      borgmatic:
         enabled: true
-        controller: onsite-sync
+        type: configMap
+        name: remotebackup-borgmatic
+        defaultMode: 0755
+        advancedMounts:
+          borgmatic:
+            borgmatic:
+              - path: /etc/borgmatic/config.yaml
+                subPath: config.yaml
+                readOnly: true
+              - path: /usr/local/bin/start.sh
+                subPath: start.sh
+                readOnly: true
+    networkpolicies:
+      borgmatic:
+        enabled: true
+        controller: borgmatic
         policyTypes:
           - Egress
           - Ingress
