@@ -55,8 +55,9 @@ spec:
               READARR__POSTGRES__HOST: speakarr-postgres-v18-rw.media.svc.cluster.local
               READARR__POSTGRES__PORT: "5432"
               READARR__POSTGRES__USER: "speakarr"
-              READARR__POSTGRES__MAIN_DB: speakarr_main
-              READARR__POSTGRES__CACHE_DB: speakarr_cache
+              READARR__POSTGRES__MAIN_DB: "speakarr-main"
+              READARR__POSTGRES__CACHE_DB: "speakarr-cache"
+              READARR__POSTGRES__LOG_DB: "speakarr-log"
               READARR__POSTGRES__PASSWORD:
                 valueFrom:
                   secretKeyRef:
@@ -64,8 +65,6 @@ spec:
                     key: password
               READARR__AUTH__METHOD: External
               READARR__AUTH__REQUIRED: DisabledForLocalAddresses
-              # https://github.com/Readarr/Readarr/issues/3453
-              READARR__LOG__DBENABLED: "False"
               READARR__LOG__LEVEL: info
             probes:
               liveness: &probes

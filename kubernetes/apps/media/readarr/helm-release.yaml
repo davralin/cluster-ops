@@ -62,10 +62,9 @@ spec:
                     key: password
               READARR__POSTGRES__MAIN_DB: readarr-main
               READARR__POSTGRES__CACHE_DB: readarr-cache
+              READARR__POSTGRES__LOG_DB: "readarr-log"
               READARR__AUTH__METHOD: External
               READARR__AUTH__REQUIRED: DisabledForLocalAddresses
-              # https://github.com/Readarr/Readarr/issues/3453
-              READARR__LOG__DBENABLED: "False"
               READARR__LOG__LEVEL: info
             probes:
               liveness: &probes
