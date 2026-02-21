@@ -39,7 +39,6 @@ spec:
       securityContext:
         # [1/3] Remapping postgres group to 1000...
         # usermod: Permission denied.
-        # usermod: cannot lock /etc/passwd; try again later.
         runAsUser: 0
         runAsGroup: 0
         fsGroup: 1000
@@ -80,7 +79,8 @@ spec:
               startup: *probes
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
+              # usermod: cannot lock /etc/passwd; try again later.
+              readOnlyRootFilesystem: false
               capabilities:
                 drop:
                   - ALL
