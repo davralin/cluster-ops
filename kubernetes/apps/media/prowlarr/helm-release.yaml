@@ -248,11 +248,6 @@ spec:
                       app.kubernetes.io/name: media-readarr
                 - podSelector:
                     matchLabels:
-                      app.kubernetes.io/controller: readmeabook
-                      app.kubernetes.io/instance: media-readmeabook
-                      app.kubernetes.io/name: media-readmeabook
-                - podSelector:
-                    matchLabels:
                       app.kubernetes.io/controller: scraparr
                       app.kubernetes.io/instance: media-scraparr
                       app.kubernetes.io/name: media-scraparr
