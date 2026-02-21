@@ -155,5 +155,10 @@ spec:
                   podSelector:
                     matchLabels:
                       app.kubernetes.io/name: kubernetes-ingress
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: readmeabook
+                      app.kubernetes.io/instance: media-readmeabook
+                      app.kubernetes.io/name: media-readmeabook
               ports:
                 - port: *port

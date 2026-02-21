@@ -176,6 +176,14 @@ spec:
             - to:
                 - podSelector:
                     matchLabels:
+                      app.kubernetes.io/controller: audiobookshelf
+                      app.kubernetes.io/instance: media-audiobookshelf
+                      app.kubernetes.io/name: media-audiobookshelf
+              ports:
+                - port: 80
+            - to:
+                - podSelector:
+                    matchLabels:
                       app.kubernetes.io/controller: prowlarr
                       app.kubernetes.io/instance: media-prowlarr
                       app.kubernetes.io/name: media-prowlarr
