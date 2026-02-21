@@ -172,6 +172,14 @@ spec:
               ports:
                 - port: 8080
             - to:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: readarr
+                      app.kubernetes.io/instance: media-readarr
+                      app.kubernetes.io/name: media-readarr
+              ports:
+                - port: 8787
+            - to:
                 - namespaceSelector:
                     matchLabels:
                       kubernetes.io/metadata.name: gotify
