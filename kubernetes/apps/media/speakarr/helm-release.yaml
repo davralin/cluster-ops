@@ -166,6 +166,14 @@ spec:
             - to:
                 - podSelector:
                     matchLabels:
+                      app.kubernetes.io/controller: rreading-glasses
+                      app.kubernetes.io/instance: media-rreading-glasses
+                      app.kubernetes.io/name: media-rreading-glasses
+              ports:
+                - port: 8788
+            - to:
+                - podSelector:
+                    matchLabels:
                       app.kubernetes.io/controller: qbittorrent
                       app.kubernetes.io/instance: media-qbittorrent
                       app.kubernetes.io/name: media-qbittorrent

@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &name readarr
+  name: &name rreading-glasses
   namespace: flux-system
 spec:
   interval: 30m
@@ -26,7 +26,7 @@ spec:
     remediation:
       retries: 10
   dependsOn:
-    - name: readarr-postgres-v18
+    - name: rreading-glasses-postgres-v18
       namespace: flux-system
   values:
     fullnameOverride: *name
@@ -43,64 +43,49 @@ spec:
         seccompProfile:
           type: RuntimeDefault
     controllers:
-      readarr:
+      rreading-glasses:
         containers:
-          readarr:
+          rreading-glasses:
             image:
-              repository: ghcr.io/home-operations/readarr
-              tag: 0.4.18.2805@sha256:8f7551205fbdccd526db23a38a6fba18b0f40726e63bb89be0fb2333ff4ee4cd
+              repository: docker.io/blampe/rreading-glasses
+              tag: latest@sha256:dd996a1db19ac4ef18df47f1671f608c0f097ed43c4776ebde94dee20c6b43c8
+            command: ['/main']
+            args: ["serve", "--upstream=www.goodreads.com", "--verbose"]
             env:
               TZ: "${TIMEZONE}"
-              READARR__AUTH__APIKEY: "${SECRET_READARR_API_KEY}"
-              READARR__POSTGRES__HOST: readarr-postgres-v18-rw.media.svc.cluster.local
-              READARR__POSTGRES__PORT: "5432"
-              READARR__POSTGRES__USER: "readarr"
-              READARR__POSTGRES__PASSWORD:
+              POSTGRES_HOST: rreading-glasses-postgres-v18-rw.media.svc.cluster.local
+              POSTGRES_DATABASE: rreading-glasses
+              POSTGRES_USER: rreading-glasses
+              POSTGRES_PASSWORD:
                 valueFrom:
                   secretKeyRef:
-                    name: readarr-basic-auth
+                    name: rreading-glasses-basic-auth
                     key: password
-              READARR__POSTGRES__MAIN_DB: readarr-main
-              READARR__POSTGRES__CACHE_DB: readarr-cache
-              READARR__POSTGRES__LOG_DB: "readarr-log"
-              READARR__AUTH__METHOD: External
-              READARR__AUTH__REQUIRED: DisabledForLocalAddresses
-              READARR__LOG__LEVEL: info
             probes:
               liveness: &probes
                 enabled: true
-                custom: true
-                spec:
-                  httpGet:
-                    path: /ping
-                    port: 8787
-                  initialDelaySeconds: 10
-                  periodSeconds: 10
-                  timeoutSeconds: 10
-                  failureThreshold: 3
               readiness: *probes
               startup: *probes
             securityContext:
               allowPrivilegeEscalation: false
-              # System.IO.IOException: Read-only file system
-              readOnlyRootFilesystem: false
+              readOnlyRootFilesystem: true
               capabilities:
                 drop:
                   - ALL
             resources:
               requests:
                 cpu: 10m
-                memory: 200Mi
+                memory: 100Mi
               limits:
-                memory: 400Mi
+                memory: 128Mi
     service:
-      readarr:
+      rreading-glasses:
         controller: *name
         ports:
           http:
-            port: &port 8787
+            port: &port 8788
     ingress:
-      readarr:
+      rreading-glasses:
         enabled: true
         annotations:
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
@@ -111,26 +96,17 @@ spec:
             X-Content-Type-Options "nosniff"
             Referrer-Policy "strict-origin-when-cross-origin"
         hosts:
-          - host: &host "readarr.${SECRET_DEFAULT_DOMAIN}"
+          - host: &host "rreading-glasses.${SECRET_DEFAULT_DOMAIN}"
             paths:
               - path: /
                 service:
-                  identifier: readarr
+                  identifier: rreading-glasses
                   port: http
         tls:
           - hosts:
               - *host
-    persistence:
-      config:
-        enabled: true
-        existingClaim: readarr
-      media:
-        enabled: true
-        existingClaim: media
-        globalMounts:
-          - path: /data
     networkpolicies:
-      readarr:
+      rreading-glasses:
         enabled: true
         controller: *name
         policyTypes:
@@ -151,45 +127,10 @@ spec:
             - to:
                 - podSelector:
                     matchLabels:
-                      cnpg.io/cluster: readarr-postgres-v18
+                      cnpg.io/cluster: rreading-glasses-postgres-v18
                       cnpg.io/instanceRole: primary
               ports:
                 - port: 5432
-            - to:
-                - podSelector:
-                    matchLabels:
-                      app.kubernetes.io/controller: prowlarr
-                      app.kubernetes.io/instance: media-prowlarr
-                      app.kubernetes.io/name: media-prowlarr
-              ports:
-                - port: 9696
-            - to:
-                - podSelector:
-                    matchLabels:
-                      app.kubernetes.io/controller: qbittorrent
-                      app.kubernetes.io/instance: media-qbittorrent
-                      app.kubernetes.io/name: media-qbittorrent
-              ports:
-                - port: 8080
-            - to:
-                - podSelector:
-                    matchLabels:
-                      app.kubernetes.io/controller: rreading-glasses
-                      app.kubernetes.io/instance: media-rreading-glasses
-                      app.kubernetes.io/name: media-rreading-glasses
-              ports:
-                - port: 8788
-            - to:
-                - namespaceSelector:
-                    matchLabels:
-                      kubernetes.io/metadata.name: gotify
-                  podSelector:
-                    matchLabels:
-                      app.kubernetes.io/controller: gotify
-                      app.kubernetes.io/instance: gotify-gotify
-                      app.kubernetes.io/name: gotify-gotify
-              ports:
-                - port: 80
             - to: # metadata
               - ipBlock:
                   cidr: 0.0.0.0/0
@@ -208,14 +149,9 @@ spec:
                       app.kubernetes.io/name: kubernetes-ingress
                 - podSelector:
                     matchLabels:
-                      app.kubernetes.io/controller: prowlarr
-                      app.kubernetes.io/instance: media-prowlarr
-                      app.kubernetes.io/name: media-prowlarr
-                - podSelector:
-                    matchLabels:
-                      app.kubernetes.io/controller: scraparr
-                      app.kubernetes.io/instance: media-scraparr
-                      app.kubernetes.io/name: media-scraparr
+                      app.kubernetes.io/controller: readarr
+                      app.kubernetes.io/instance: media-readarr
+                      app.kubernetes.io/name: media-readarr
                 - podSelector:
                     matchLabels:
                       app.kubernetes.io/controller: speakarr

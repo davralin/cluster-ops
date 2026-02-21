@@ -25,6 +25,7 @@ resources:
   - radarr
   - readarr
   - recyclarr
+  - rreading-glasses
   - scraparr
   - seerr
   - sonarr
