@@ -7,4 +7,3 @@ resources:
   - helm-release.yaml
   - probes.yaml
   - pvc.yaml
-  - secret.yaml

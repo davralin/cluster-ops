@@ -28,11 +28,6 @@ spec:
   dependsOn:
     - name: readarr-postgres-v18
       namespace: flux-system
-  valuesFrom:
-    - targetPath: controllers.readarr.containers.readarr.env.READARR__POSTGRES___PASSWORD
-      kind: Secret
-      name: readarr-config
-      valuesKey: POSTGRES_PASSWORD
   values:
     fullnameOverride: *name
     defaultPodOptions:
@@ -60,6 +55,11 @@ spec:
               READARR__POSTGRES__HOST: readarr-postgres-v18-rw.media.svc.cluster.local
               READARR__POSTGRES__PORT: "5432"
               READARR__POSTGRES__USER: "readarr"
+              READARR__POSTGRES__PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: readarr-basic-auth
+                    key: password
               READARR__POSTGRES__MAIN_DB: readarr_main
               READARR__POSTGRES__CACHE_DB: readarr_cache
               READARR__AUTH__METHOD: External
