@@ -146,11 +146,17 @@ spec:
               ports:
                 - port: 53
                   protocol: UDP
-            - to: # Home Assistant Ollama
-              - ipBlock:
-                  cidr: 10.0.1.79/32
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: searxng
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: searxng
+                      app.kubernetes.io/instance: searxng-searxng
+                      app.kubernetes.io/name: searxng-searxng
               ports:
-                - port: 11434
+                - port: 8080
                   protocol: TCP
             - to: # What could go wrong
               - ipBlock:
