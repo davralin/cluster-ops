@@ -47,7 +47,7 @@ spec:
           gotify-alertmanager:
             image:
               repository: registry.gitlab.com/egos-tech/alertmanager-notifier
-              tag: 1.3.26@sha256:80212ad36bfa3d4254714b9c2c508ad722074f5a8eb8cc492c39ee1e21ba01fb
+              tag: 1.3.26@sha256:b21e646547524ddc3e840bc8d67d5a72b08829ab84790f34f2daf76276962be7
             env:
               GOTIFY_TOKEN: "${SECRET_ALERTMANAGER_GOTIFY}"
               GOTIFY_URL: "http://gotify.gotify.svc.cluster.local:80/message"
