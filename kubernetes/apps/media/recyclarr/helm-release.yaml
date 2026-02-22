@@ -46,7 +46,7 @@ spec:
           recyclarr:
             image:
               repository: ghcr.io/recyclarr/recyclarr
-              tag: 7.5.2
+              tag: 8.2.1@sha256:791bdc0d2a35b0f24b89a0b14159591269ef070f19fcccfc5fb518a863141373
             env:
               TZ: "${TIMEZONE}"
             securityContext:
@@ -69,7 +69,7 @@ spec:
           recyclarr.yaml: |
             ---
             sonarr:
-              sonarr:
+              series:
                 base_url: http://sonarr.media.svc.cluster.local:8989
                 api_key: "${SECRET_SONARR_API_KEY}"
 
@@ -81,19 +81,22 @@ spec:
                       - 85c61753df5da1fb2aab6f2a47426b09  # BR-DISK
                       - 9c11cd3f07101cdba90a2d81cf0e56b4  # LQ
                       - fbcb31d8dabd2a319072b84fc0b7249c  # Extras
-                    quality_profiles:
+                    assign_scores_to:
                       - name: Any
+                      - name: Any - Norwegian
                   - trash_ids:
                       - 47435ece6b99a0b477caf360e79ba0bb  # x265 (HD)
-                    quality_profiles:
+                    assign_scores_to:
                       - name: Any
+                        score: +1000
+                      - name: Any - Norwegian
                         score: +1000
 
                 quality_definition:
                   type: series
                   preferred_ratio: 0.1
             radarr:
-              radarr:
+              movies:
                 base_url: http://radarr.media.svc.cluster.local:7878
                 api_key: "${SECRET_RADARR_API_KEY}"
 
@@ -106,15 +109,18 @@ spec:
                       - 90cedc1fea7ea5d11298bebd3d1d3223  # EVO (no WEBDL)
                       - 90a6f9a284dff5103f6346090e6280c8  # LQ
                       - b8cd450cbfa689c0259a01d9e29ba3d6  # 3D
-                    quality_profiles:
+                    assign_scores_to:
                       - name: Norwegian
                       - name: Original-Language
+                      - name: Original-Language-4K
                   - trash_ids:
                       - dc98083864ea246d05a42df0d05f81cc  # x265 (HD)
-                    quality_profiles:
+                    assign_scores_to:
                       - name: Norwegian
                         score: +1000
                       - name: Original-Language
+                        score: +1000
+                      - name: Original-Language-4K
                         score: +1000
 
                 quality_definition:
