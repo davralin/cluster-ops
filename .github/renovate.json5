@@ -66,6 +66,7 @@
         "ghcr.io/rss-bridge/rss-bridge",
         "ghcr.io/sdr-enthusiasts",
         "ghcr.io/valkey-io/valkey",
+        "registry.gitlab.com/egos-tech/alertmanager-notifier",
         "quay.io/invidious/invidious-companion"
       ]
     },
