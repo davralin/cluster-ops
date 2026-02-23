@@ -61,7 +61,7 @@ spec:
         enabled: true
         existingClaim: remotebackup
         globalMounts:
-          - path: /home/user/backup
+          - path: /home/user
       sshkey:
         enabled: true
         type: secret
