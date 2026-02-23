@@ -1,0 +1,38 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: omni-gitrepo
+  namespace: flux-system
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: flux2-sync
+      version: 1.14.1
+      sourceRef:
+        kind: HelmRepository
+        name: flux-charts
+        namespace: flux-system
+      interval: 30m
+  targetNamespace: flux-system
+  install:
+    createNamespace: true
+    remediation:
+      retries: 10
+  upgrade:
+    remediation:
+      retries: 10
+  values:
+    gitRepository:
+      name: omni-gitrepo
+      spec:
+        url: https://github.com/siderolabs/omni
+        ref:
+          # renovate: datasource=github-releases depName=siderolabs/omni
+          branch: v1.5.4
+        ignore: |
+          # exclude all
+          /*
+          # include deploy dir
+          !/deploy/helm/omni

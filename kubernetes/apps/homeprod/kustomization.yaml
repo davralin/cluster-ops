@@ -41,6 +41,7 @@ resources:
   - ../node-feature-discovery
   - ../node-problem-detector
   - ../ollama
+  - ../omni
   - ../openclaw
   - ../openwebui
   - ../owntracks
