@@ -17,7 +17,7 @@ spec:
       interval: 30m
   driftDetection:
     mode: enabled
-  targetNamespace: &namespace omni
+  targetNamespace: &namespace flux-system
   install:
     createNamespace: true
     remediation:
