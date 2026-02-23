@@ -1,0 +1,31 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &name omni
+  namespace: flux-system
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: ./deploy/helm/omni
+      sourceRef:
+        kind: GitRepository
+        name: omni-gitrepo
+        namespace: flux-system
+      interval: 30m
+  driftDetection:
+    mode: enabled
+  targetNamespace: omni
+  install:
+    createNamespace: true
+    remediation:
+      retries: 10
+  upgrade:
+    remediation:
+      retries: 10
+  dependsOn:
+    - name: omni-gitrepo
+      namespace: flux-system
+  values:
+    fullnameOverride: *name
