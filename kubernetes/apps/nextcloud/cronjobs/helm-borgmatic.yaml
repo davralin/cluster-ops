@@ -70,10 +70,12 @@ spec:
                 label: onsite
                 append_only: true
                 make_parent_directories: true
-              #- path: ssh://backup@nas.${SECRET_OFFSITE_DOMAIN}//opt/backup/nextcloud
-              #  label: offsite
-              #  append_only: true
-              #  make_parent_directories: true
+                # Temp point it locally, so we can rsync that later
+                #- path: ssh://backup@nas.${SECRET_OFFSITE_DOMAIN}//opt/backup/nextcloud
+              - path: ssh://backup@nas.${SECRET_DEFAULT_DOMAIN}//mnt/backup/nextcloud
+                label: offsite
+                append_only: true
+                make_parent_directories: true
             ssh_command: ssh -i /home/user/.ssh/id_ed25519 -o StrictHostKeyChecking=no
             archive_name_format: nextcloud-{now}
           start.sh: |
