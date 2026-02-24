@@ -45,8 +45,8 @@ spec:
         containers:
           calcardbackup:
             image:
-              repository: waja/calcardbackup
-              tag: 10.0.1-1
+              repository: docker.io/waja/calcardbackup
+              tag: 10.0.1-3@sha256:f14fa42b3fac674f720aabc001d95b3e17c3aaf4b2aa259480d390f08e26b661
             env:
               TZ: "${TIMEZONE}"
               NC_DIR: "/nextcloud"
