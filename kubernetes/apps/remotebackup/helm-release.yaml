@@ -48,10 +48,8 @@ spec:
             image:
               repository: ghcr.io/davralin/rsync
               tag: latest@sha256:368a7d3b40e490e7f24ba116db6a883662532d538baceee968392b1bf67265a8
-            command: ['sleep']
-            #command: ['/usr/bin/rsync']
-            args: ["infinity"]
-            #args: ["--archive", "--delete", "--verbose", "--rsync-path", "sudo rsync", "-e", "ssh -o StrictHostKeyChecking=no", "backup@nas.${SECRET_OFFSITE_DOMAIN}:/opt/local/", "/home/user/backup/"]
+            command: ['/usr/bin/rsync']
+            args: ["--archive", "--delete", "--verbose", "--rsync-path", "sudo rsync", "-e", "ssh -o StrictHostKeyChecking=no", "backup@nas.${SECRET_OFFSITE_DOMAIN}:/opt/local/", "/home/user/backup/"]
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
