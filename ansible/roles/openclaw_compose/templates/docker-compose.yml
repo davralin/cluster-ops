@@ -1,7 +1,7 @@
 ---
 services:
   openclaw:
-    image: ghcr.io/openclaw/openclaw:2026.2.23@sha256:6346f1c619147790cae8df965f770855b3fa175c319080910bcbf7235a84a5d0
+    image: ghcr.io/openclaw/openclaw:2026.2.24@sha256:7f4e29ceceb22dd39b1d0347087b11cd9977af0cad6565ffc208b22b6c25b918
     ports:
       - "18789:18789"
       - "18790:18790"
@@ -22,7 +22,7 @@ services:
         "18789",
       ]
   openclaw-cli:
-    image: ghcr.io/openclaw/openclaw:2026.2.23@sha256:6346f1c619147790cae8df965f770855b3fa175c319080910bcbf7235a84a5d0
+    image: ghcr.io/openclaw/openclaw:2026.2.24@sha256:7f4e29ceceb22dd39b1d0347087b11cd9977af0cad6565ffc208b22b6c25b918
     environment:
       HOME: /home/node
       TERM: xterm-256color
