@@ -70,9 +70,7 @@ spec:
                 label: onsite
                 append_only: true
                 make_parent_directories: true
-                # Temp point it locally, so we can rsync that later
-                #- path: ssh://backup@nas.${SECRET_OFFSITE_DOMAIN}//opt/backup/nextcloud
-              - path: ssh://backup@nas.${SECRET_DEFAULT_DOMAIN}//mnt/backup/nextcloud
+              - path: ssh://backup@nas.${SECRET_OFFSITE_DOMAIN}//opt/backup/nextcloud-borg
                 label: offsite
                 append_only: true
                 make_parent_directories: true
