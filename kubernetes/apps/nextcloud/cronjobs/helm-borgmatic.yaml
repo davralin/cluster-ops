@@ -78,9 +78,13 @@ spec:
             archive_name_format: nextcloud-{now}
           start.sh: |
             #!/bin/sh
+            echo "Borg repo create"
             /usr/bin/borgmatic repo-create --encryption repokey --append-only
+            echo "Borg backup create"
             /usr/bin/borgmatic create
+            echo "Borg show info"
             /usr/bin/borgmatic info --last 1
+            echo "Borg list archives"
             /usr/bin/borgmatic list
     persistence:
       nextcloud:
