@@ -167,6 +167,14 @@ spec:
               ports:
                 - port: 443
                   protocol: TCP
+            - to:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: prowlarr
+                      app.kubernetes.io/instance: media-prowlarr
+                      app.kubernetes.io/name: media-prowlarr
+              ports:
+                - port: 9696
           ingress:
             - from:
                 - namespaceSelector:

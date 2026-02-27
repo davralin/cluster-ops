@@ -253,6 +253,11 @@ spec:
                       app.kubernetes.io/name: media-scraparr
                 - podSelector:
                     matchLabels:
+                      app.kubernetes.io/controller: shelfmark
+                      app.kubernetes.io/instance: media-shelfmark
+                      app.kubernetes.io/name: media-shelfmark
+                - podSelector:
+                    matchLabels:
                       app.kubernetes.io/controller: sonarr
                       app.kubernetes.io/instance: media-sonarr
                       app.kubernetes.io/name: media-sonarr
