@@ -25,19 +25,6 @@ spec:
   upgrade:
     remediation:
       retries: 10
-  valuesFrom:
-    - targetPath: controllers.exim.containers.exim.env.SMARTHOST
-      kind: Secret
-      name: mail-smarthost
-      valuesKey: smarthost
-    - targetPath: controllers.exim.containers.exim.env.SMTP_USERNAME
-      kind: Secret
-      name: mail-smarthost
-      valuesKey: username
-    - targetPath: controllers.exim.containers.exim.env.SMTP_PASSWORD
-      kind: Secret
-      name: mail-smarthost
-      valuesKey: password
   values:
     fullnameOverride: *name
     defaultPodOptions:
@@ -61,6 +48,21 @@ spec:
               tag: 4.98-r0-4@sha256:7ba30080c7a6ac4e93a99143ebd1aa229a16c47b97b2129002dc753c8a47f095
             env:
               HOSTNAME: "smtp.${SECRET_DEFAULT_DOMAIN}"
+              SMARTHOST:
+                valueFrom:
+                  secretKeyRef:
+                    name: mail-smarthost
+                    key: smarthost
+              SMTP_USERNAME:
+                valueFrom:
+                  secretKeyRef:
+                    name: mail-smarthost
+                    key: username
+              SMTP_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: mail-smarthost
+                    key: password
             probes:
               liveness: &probes
                 enabled: true
