@@ -175,6 +175,14 @@ spec:
                       app.kubernetes.io/name: media-prowlarr
               ports:
                 - port: 9696
+            - to:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: qbittorrent
+                      app.kubernetes.io/instance: media-qbittorrent
+                      app.kubernetes.io/name: media-qbittorrent
+              ports:
+                - port: 8080
           ingress:
             - from:
                 - namespaceSelector:
