@@ -27,8 +27,8 @@ spec:
       retries: 10
   values:
     image:
-      repository: itzg/minecraft-bedrock-server
-      tag: 2026.2.1
+      repository: docker.io/itzg/minecraft-bedrock-server
+      tag: 2026.2.2@sha256:fc0f303481a7a3d950bc70035c8a604c753cc578877fd8987321559655d83dba
     minecraftServer:
       eula: true
       version: "LATEST"
