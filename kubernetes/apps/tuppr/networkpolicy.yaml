@@ -54,6 +54,8 @@ spec:
       - ports:
         - port: "6443"
           protocol: TCP
+        - port: "50000"
+          protocol: TCP
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
@@ -107,6 +109,8 @@ spec:
       toPorts:
       - ports:
         - port: "6443"
+          protocol: TCP
+        - port: "50000"
           protocol: TCP
   ingress:
     - fromEntities:
