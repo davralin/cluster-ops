@@ -22,9 +22,7 @@ spec:
       app.kubernetes.io/name: kubernetes-upgrade
       app.kubernetes.io/part-of: tuppr
   policyTypes:
-    - Ingress
     - Egress
-  ingress: {}
   egress:
     - to:
         - namespaceSelector:
