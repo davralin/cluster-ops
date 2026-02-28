@@ -1,0 +1,29 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &name tuppr
+  namespace: flux-system
+spec:
+  interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: tuppr
+  driftDetection:
+    mode: enabled
+  targetNamespace: tuppr
+  install:
+    createNamespace: true
+    crds: CreateReplace
+    remediation:
+      retries: 10
+  upgrade:
+    remediation:
+      retries: 10
+    crds: CreateReplace
+  values:
+    fullnameOverride: *name
+    replicaCount: 2
+    monitoring:
+      serviceMonitor:
+        enabled: "${MONITORING_PROMETHEUS}"
