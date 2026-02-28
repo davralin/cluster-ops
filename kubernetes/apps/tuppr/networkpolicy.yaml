@@ -9,3 +9,18 @@ spec:
   policyTypes:
     - Ingress
     - Egress
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: tuppr
+  namespace: tuppr
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/instance: tuppr-tuppr
+      app.kubernetes.io/name: tuppr
+  egress:
+    - toEntities:
+      - host
+      - kube-apiserver
