@@ -48,7 +48,12 @@ spec:
       app.kubernetes.io/part-of: tuppr
   egress:
     - toEntities:
+      - host
       - kube-apiserver
+      toPorts:
+      - ports:
+        - port: "6443"
+          protocol: TCP
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
@@ -99,6 +104,10 @@ spec:
     - toEntities:
       - host
       - kube-apiserver
+      toPorts:
+      - ports:
+        - port: "6443"
+          protocol: TCP
   ingress:
     - fromEntities:
       - kube-apiserver
