@@ -1,0 +1,53 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: tuppr-kubernetes-upgrade
+  namespace: flux-system
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: raw
+      version: v0.3.2
+      sourceRef:
+        kind: HelmRepository
+        name: dysnix-charts
+        namespace: flux-system
+      interval: 30m
+  targetNamespace: tuppr
+  install:
+    createNamespace: true
+    remediation:
+      retries: 10
+  upgrade:
+    remediation:
+      retries: 10
+  dependsOn:
+    - name: tuppr
+      namespace: flux-system
+  values:
+    resources:
+      - apiVersion: tuppr.home-operations.com/v1alpha1
+        kind: KubernetesUpgrade
+        metadata:
+          name: kubernetes
+          namespace: tuppr
+        spec:
+          kubernetes:
+            # renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
+            version: v1.35.2
+          #maintenance:
+          #  windows:
+          #    - start: "0 2 * * *"
+          #      duration: "1h"
+          #      timezone: "${TIMEZONE}"
+          #healthChecks:
+          #  - apiVersion: volsync.backube/v1alpha1
+          #    kind: ReplicationSource
+          #    expr: |-
+          #      status.conditions.filter(c, c.type == "Synchronizing").all(c, c.status == "False")
+          #  - apiVersion: ceph.rook.io/v1
+          #    kind: CephCluster
+          #    expr: |-
+          #      status.ceph.health in ['HEALTH_OK']
