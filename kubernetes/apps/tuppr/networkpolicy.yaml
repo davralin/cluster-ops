@@ -35,6 +35,21 @@ spec:
         - port: 53
           protocol: UDP
 ---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: kubernetes-upgrade
+  namespace: tuppr
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/instance: kubernetes
+      app.kubernetes.io/name: kubernetes-upgrade
+      app.kubernetes.io/part-of: tuppr
+  egress:
+    - toEntities:
+      - kube-apiserver
+---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
