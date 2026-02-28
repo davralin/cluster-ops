@@ -23,7 +23,6 @@ spec:
     crds: CreateReplace
   values:
     fullnameOverride: *name
-    replicaCount: 2
     monitoring:
       serviceMonitor:
         enabled: "${MONITORING_PROMETHEUS}"
