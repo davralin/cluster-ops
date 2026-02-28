@@ -1,0 +1,75 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: tuppr-prometheus-rules
+  namespace: flux-system
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: raw
+      version: v0.3.2
+      sourceRef:
+        kind: HelmRepository
+        name: dysnix-charts
+        namespace: flux-system
+      interval: 30m
+  targetNamespace: tuppr
+  install:
+    createNamespace: true
+    remediation:
+      retries: 10
+  upgrade:
+    remediation:
+      retries: 10
+  dependsOn:
+    - name: tuppr
+      namespace: flux-system
+    - name: kube-prometheus-stack-crds
+      namespace: flux-system
+  values:
+    resources:
+      - apiVersion: monitoring.coreos.com/v1
+        kind: PrometheusRule
+        metadata:
+          name: tuppr-rules
+          namespace: tuppr
+          labels:
+            prometheus: k8s
+            role: alert-rules
+        spec:
+          groups:
+            - name: tuppr.rules
+              rules:
+                - alert: TupprUpgradeFailed
+                  expr: tuppr_talos_upgrade_phase{phase="Failed"} == 3 or tuppr_kubernetes_upgrade_phase{phase="Failed"} == 3
+                  for: 0m
+                  labels:
+                    severity: critical
+                  annotations:
+                    summary: "Tuppr upgrade failed"
+                    description: "Upgrade {{ $labels.name }} has failed"
+                - alert: TupprUpgradeStuck
+                  expr: |
+                    (
+                      tuppr_talos_upgrade_phase{phase="InProgress"} == 1 and
+                      increase(tuppr_talos_upgrade_nodes_completed[30m]) == 0
+                    ) or (
+                      tuppr_kubernetes_upgrade_phase{phase="InProgress"} == 1
+                    )
+                  for: 30m
+                  labels:
+                    severity: warning
+                  annotations:
+                    summary: "Tuppr upgrade appears stuck"
+                    description: "Upgrade {{ $labels.name }} has been in progress for 30+ minutes without completing nodes"
+                - alert: TupprHealthCheckFailures
+                  expr: rate(tuppr_health_check_failures_total[5m]) > 0.1
+                  for: 2m
+                  labels:
+                    severity: warning
+                  annotations:
+                    summary: "High health check failure rate"
+                    description: "Health checks for {{ $labels.upgrade_name }} are failing frequently"
+

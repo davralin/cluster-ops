@@ -7,3 +7,4 @@ resources:
   - namespace.yaml
   - networkpolicy.yaml
   - oci-repository.yaml
+  - prometheus_rules.yaml
