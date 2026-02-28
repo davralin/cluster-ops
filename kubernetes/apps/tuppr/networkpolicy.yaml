@@ -50,6 +50,7 @@ spec:
     - toEntities:
       - host
       - kube-apiserver
+      - remote-node
       - world # This is really kube-VIP
       toPorts:
       - ports:
@@ -107,6 +108,7 @@ spec:
     - toEntities:
       - host
       - kube-apiserver
+      - remote-node
       toPorts:
       - ports:
         - port: "6443"
