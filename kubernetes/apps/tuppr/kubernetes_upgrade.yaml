@@ -37,17 +37,17 @@ spec:
           kubernetes:
             # renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
             version: v1.35.2
-          #maintenance:
-          #  windows:
-          #    - start: "0 2 * * *"
-          #      duration: "1h"
-          #      timezone: "${TIMEZONE}"
-          #healthChecks:
-          #  - apiVersion: volsync.backube/v1alpha1
-          #    kind: ReplicationSource
-          #    expr: |-
-          #      status.conditions.filter(c, c.type == "Synchronizing").all(c, c.status == "False")
-          #  - apiVersion: ceph.rook.io/v1
-          #    kind: CephCluster
-          #    expr: |-
-          #      status.ceph.health in ['HEALTH_OK']
+          maintenance:
+            windows:
+              - start: "13 5 * * 1-5" # At 05:13 on every weekday
+                duration: "1h"
+                timezone: "${TIMEZONE}"
+          healthChecks:
+            - apiVersion: volsync.backube/v1alpha1
+              kind: ReplicationSource
+              expr: |-
+                status.conditions.filter(c, c.type == "Synchronizing").all(c, c.status == "False")
+            #- apiVersion: ceph.rook.io/v1
+            #  kind: CephCluster
+            #  expr: |-
+            #    status.ceph.health in ['HEALTH_OK']
