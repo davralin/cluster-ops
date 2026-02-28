@@ -64,7 +64,8 @@ spec:
               startup: *probes
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
+              # OSError: [Errno 30] Read-only file system: '/usr/lib/python3.13/site-packages/litellm_proxy_extras/migrations/20260301003606_baseline_diff'
+              readOnlyRootFilesystem: false
               capabilities:
                 drop:
                   - ALL
