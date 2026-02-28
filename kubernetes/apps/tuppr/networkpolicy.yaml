@@ -49,3 +49,8 @@ spec:
     - toEntities:
       - host
       - kube-apiserver
+  ingress:
+    - fromEntities:
+      - kube-apiserver
+      - remote-node
+      - host
