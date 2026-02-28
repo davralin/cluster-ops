@@ -27,3 +27,6 @@ spec:
     monitoring:
       serviceMonitor:
         enabled: "${MONITORING_PROMETHEUS}"
+    securityContext:
+      seccompProfile:
+        type: RuntimeDefault
