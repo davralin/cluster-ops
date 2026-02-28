@@ -7,5 +7,4 @@ resources:
   - helm-borgmatic.yaml
   - helm-calcardbackup.yaml
   - helm-jottacloud-photos-to-nextcloud.yaml
-  - helm-offsite-sync.yaml
   - pvc.yaml
