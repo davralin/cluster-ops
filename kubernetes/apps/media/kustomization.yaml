@@ -24,6 +24,7 @@ resources:
   - qbittorrent
   - radarr
   - readarr
+  - readmeabook
   - recyclarr
   - rreading-glasses
   - scraparr
