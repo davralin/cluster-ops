@@ -1,0 +1,17 @@
+---
+- hosts: remote_backup
+
+  roles:
+    - apt
+    - users
+    - locale
+    - node_exporter
+    - nullmailer
+    - profile
+    - rclone
+    - rsync
+    - local_backup
+    - local_dnsmasq
+    - sshd
+    - wireguard
+    - zfs-dkms
