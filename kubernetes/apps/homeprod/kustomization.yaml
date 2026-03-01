@@ -43,7 +43,6 @@ resources:
   - ../node-problem-detector
   - ../ollama
   - ../omni
-  - ../openclaw
   - ../openwebui
   - ../owntracks
   - ../paperless-ngx
