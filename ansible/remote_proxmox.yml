@@ -1,0 +1,19 @@
+---
+- hosts: remote_proxmox
+
+  roles:
+    - apt
+    - users
+    - locale
+    - node_exporter
+    - nullmailer
+    - profile
+    - rclone
+    - rsync
+    - local_backup
+    - local_dnsmasq
+    - debian_desktop
+    - kubernetes_tools
+    - yt-dlp
+    - sshd
+    - wireguard
