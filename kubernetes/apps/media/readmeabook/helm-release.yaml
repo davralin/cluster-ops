@@ -52,7 +52,7 @@ spec:
           readmeabook:
             image:
               repository: ghcr.io/kikootwo/readmeabook
-              tag: 1.0.15@sha256:238d1e1d3064a9354f6ae51ad0821b4b40f20b83ac805c804974ca5d9589f230
+              tag: 1.0.16@sha256:1ed7af5bcbf7d217b7ead5d898f13a3cc1db89cf0353a9e90c86245332681305
             env:
               TZ: "${TIMEZONE}"
               REDIS_URL: redis://readmeabook-valkey.media.svc.cluster.local:6379
