@@ -47,7 +47,7 @@ spec:
           remotebackup:
             image:
               repository: ghcr.io/davralin/rsync
-              tag: latest@sha256:3ecfede903675369627cfe4fa9f35bdc72aec02696dcfb5611738d4b5a30c70e
+              tag: latest@sha256:b522d518f1c3e9273883d72a70588890f381e6d35de34e6805882abd13d52502
             command: ['/usr/bin/rsync']
             args: ["--archive", "--delete", "--verbose", "--rsync-path", "sudo rsync", "-e", "ssh -o StrictHostKeyChecking=no", "backup@nas.${SECRET_OFFSITE_DOMAIN}:/opt/local/", "/home/user/backup/"]
             securityContext:
