@@ -47,7 +47,7 @@ spec:
           mailbackup:
             image:
               repository: ghcr.io/davralin/isync
-              tag: latest@sha256:27024de2a2763a485bf1e74d882975590d95cf2a2c3a360b4146753c6398b565
+              tag: latest@sha256:bc731e069d6e0609db1203c126d9539039a644523be30a76e67e9f1f13daa0ce
             command: ['/usr/bin/mbsync']
             args: ["-V", "-a", "-c", "/config/mbsync.rc"]
             env:
