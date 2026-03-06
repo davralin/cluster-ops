@@ -32,11 +32,12 @@ spec:
       enableServiceLinks: false
       hostname: *name
       securityContext:
-        runAsUser: 1000
-        runAsGroup: 1000
+        # groupmod: Permission denied.
+        runAsUser: 0
+        runAsGroup: 0
         fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"
-        runAsNonRoot: true
+        runAsNonRoot: false
         seccompProfile:
           type: RuntimeDefault
     controllers:
@@ -55,7 +56,8 @@ spec:
               startup: *probes
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
+              # groupmod: cannot lock /etc/group; try again later.
+              readOnlyRootFilesystem: false
               #capabilities:
               #  add:
               #   - CHOWN # chown: changing ownership of '/home/user/spotisub/cache/lost+found': Operation not permitted
