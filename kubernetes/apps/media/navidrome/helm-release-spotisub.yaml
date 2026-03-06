@@ -51,36 +51,36 @@ spec:
             args: ["infinity"]
             env:
               TZ: "${TIMEZONE}"
-            SPOTIPY_CLIENT_ID:
-              valueFrom:
-                secretKeyRef:
-                  name: spotisub
-                  key: SPOTIPY_CLIENT_ID
-            SPOTIPY_CLIENT_SECRET:
-              valueFrom:
-                secretKeyRef:
-                  name: spotisub
-                  key: SPOTIPY_CLIENT_SECRET
-            SPOTIPY_REDIRECT_URI: http://127.0.0.1:5183/callback
-            SUBSONIC_API_HOST: http://navidrome.media.svc.cluster.local
-            SUBSONIC_API_PORT: 4533
-            SUBSONIC_API_USER:
-              valueFrom:
-                secretKeyRef:
-                  name: spotisub
-                  key: SUBSONIC_API_USER
-            SUBSONIC_API_PASS:
-              valueFrom:
-                secretKeyRef:
-                  name: spotisub
-                  key: SUBSONIC_API_PASS
-            ITEMS_PER_PLAYLIST: 100
-            NUM_USER_PLAYLISTS: 5
-            ARTIST_GEN_SCHED: 1
-            RECOMEND_GEN_SCHED: 4
-            PLAYLIST_GEN_SCHED: 3
-            SAVED_GEN_SCHED: 2
-            LOG_LEVEL: 20
+              SPOTIPY_CLIENT_ID:
+                valueFrom:
+                  secretKeyRef:
+                    name: spotisub
+                    key: SPOTIPY_CLIENT_ID
+              SPOTIPY_CLIENT_SECRET:
+                valueFrom:
+                  secretKeyRef:
+                    name: spotisub
+                    key: SPOTIPY_CLIENT_SECRET
+              SPOTIPY_REDIRECT_URI: http://127.0.0.1:5183/callback
+              SUBSONIC_API_HOST: http://navidrome.media.svc.cluster.local
+              SUBSONIC_API_PORT: 4533
+              SUBSONIC_API_USER:
+                valueFrom:
+                  secretKeyRef:
+                    name: spotisub
+                    key: SUBSONIC_API_USER
+              SUBSONIC_API_PASS:
+                valueFrom:
+                  secretKeyRef:
+                    name: spotisub
+                    key: SUBSONIC_API_PASS
+              ITEMS_PER_PLAYLIST: 100
+              NUM_USER_PLAYLISTS: 5
+              ARTIST_GEN_SCHED: 1
+              RECOMEND_GEN_SCHED: 4
+              PLAYLIST_GEN_SCHED: 3
+              SAVED_GEN_SCHED: 2
+              LOG_LEVEL: 20
             probes:
               liveness: &probes
                 enabled: false #true
