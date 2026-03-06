@@ -47,8 +47,6 @@ spec:
             image:
               repository: docker.io/blastbeng/spotisub
               tag: v0.3.6@sha256:a560b7a42eb2411903cc7da6ff7c3e946b1b4fd5043a53dfdc8787bea9ddb765
-            command: ['/bin/sleep']
-            args: ["infinity"]
             env:
               TZ: "${TIMEZONE}"
               SPOTIPY_CLIENT_ID:
@@ -61,7 +59,7 @@ spec:
                   secretKeyRef:
                     name: spotisub
                     key: SPOTIPY_CLIENT_SECRET
-              SPOTIPY_REDIRECT_URI: http://127.0.0.1:5183/callback
+              SPOTIPY_REDIRECT_URI: "https://spotisub.${SECRET_DEFAULT_DOMAIN}/callback"
               SUBSONIC_API_HOST: http://navidrome.media.svc.cluster.local
               SUBSONIC_API_PORT: 4533
               SUBSONIC_API_USER:
@@ -83,7 +81,7 @@ spec:
               LOG_LEVEL: 20
             probes:
               liveness: &probes
-                enabled: false #true
+                enabled: true
               readiness: *probes
               startup: *probes
             securityContext:
