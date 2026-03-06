@@ -156,6 +156,11 @@ spec:
                   podSelector:
                     matchLabels:
                       app.kubernetes.io/name: kubernetes-ingress
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: spotisub
+                      app.kubernetes.io/instance: media-spotisub
+                      app.kubernetes.io/name: media-spotisub
               ports:
                 - port: *port
             - from:

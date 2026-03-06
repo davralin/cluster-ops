@@ -161,6 +161,15 @@ spec:
               ports:
                 - port: 443
                   protocol: TCP
+            - to:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: navidrome
+                      app.kubernetes.io/instance: media-navidrome
+                      app.kubernetes.io/name: media-navidrome
+              ports:
+                - port: 4533
+                  protocol: TCP
           ingress:
             - from:
                 - namespaceSelector:
