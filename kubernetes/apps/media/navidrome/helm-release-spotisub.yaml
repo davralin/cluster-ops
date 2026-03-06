@@ -57,6 +57,8 @@ spec:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities:
+                add:
+                 - CHOWN # chown: changing ownership of '/home/user/spotisub/cache/lost+found': Operation not permitted
                 drop:
                   - ALL
             resources:
