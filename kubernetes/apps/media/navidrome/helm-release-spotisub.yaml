@@ -59,6 +59,8 @@ spec:
               capabilities:
                 add:
                  - CHOWN # chown: changing ownership of '/home/user/spotisub/cache/lost+found': Operation not permitted
+                 - SETUID # error: failed switching to 'user': operation not permitted
+                 - SETGID
                 drop:
                   - ALL
             resources:
