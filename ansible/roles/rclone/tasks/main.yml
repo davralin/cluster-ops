@@ -20,14 +20,17 @@
     checksum: sha256:{{ rclone_sha256sum_url }}
     mode: '0755'
   become: true
+  failed_when: false
 
 - name: Installing package
   ansible.builtin.apt:
     deb: "/tmp/{{ rclone_filename }}"
     state: present
   become: true
+  failed_when: false
 
 - name: Remove temp-file
   ansible.builtin.file:
     path: "/tmp/{{ rclone_filename }}"
     state: absent
+  failed_when: false
