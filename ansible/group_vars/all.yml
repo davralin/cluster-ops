@@ -3,6 +3,7 @@ apt_packages:
   - borgbackup
   - btop
   - ca-certificates
+  - dnsutils # dig
   - git
   - hx
   - lsof
