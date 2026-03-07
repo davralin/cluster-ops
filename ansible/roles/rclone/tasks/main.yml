@@ -13,8 +13,21 @@
     packages:
       - fuse
 
+- name: Temp download debfile
+  ansible.builtin.get_url:
+    url: "{{ rclone_deb_url }}"
+    dest: "/tmp/{{ rclone_filename }}"
+    checksum: sha256:{{ rclone_sha256sum_url }}
+    mode: '0755'
+  become: true
+
 - name: Installing package
   ansible.builtin.apt:
-    deb: "{{ rclone_deb_url }}"
+    deb: "/tmp/{{ rclone_filename }}"
     state: present
   become: true
+
+- name: Remove temp-file
+  ansible.builtin.file:
+    path: "/tmp/{{ rclone_filename }}"
+    state: absent
