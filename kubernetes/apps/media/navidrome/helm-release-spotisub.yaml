@@ -72,13 +72,15 @@ spec:
                   secretKeyRef:
                     name: spotisub
                     key: SUBSONIC_API_PASS
-              ITEMS_PER_PLAYLIST: 100
+              ITEMS_PER_PLAYLIST: 10
               NUM_USER_PLAYLISTS: 0
-              ARTIST_GEN_SCHED: 0
-              RECOMEND_GEN_SCHED: 0
-              PLAYLIST_GEN_SCHED: 0
+              ARTIST_GEN_SCHED: 1
+              RECOMEND_GEN_SCHED: 1
+              PLAYLIST_GEN_SCHED: 1
               PLAYLIST_PREFIX: "Imported - "
-              SAVED_GEN_SCHED: 24
+              SAVED_GEN_SCHED: 1
+              SPOTDL_ENABLED: 0
+              SPOTDL_OUT_FORMAT: "/music/{list-name}/{artist} - {title}.{output-ext}"
             probes:
               liveness: &probes
                 enabled: true
@@ -134,6 +136,11 @@ spec:
         existingClaim: spotisub
         globalMounts:
           - path: /home/user/spotisub/cache
+      spotdl:
+        existingClaim: media
+        globalMounts:
+          - path: /music/
+            subPath: audio/rip/
     networkpolicies:
       spotisub:
         enabled: true
