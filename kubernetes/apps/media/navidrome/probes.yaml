@@ -45,3 +45,4 @@ spec:
             staticConfig:
               static:
                 - "https://navidrome.${SECRET_DEFAULT_DOMAIN}"
+                - "https://spotisub.${SECRET_DEFAULT_DOMAIN}"
