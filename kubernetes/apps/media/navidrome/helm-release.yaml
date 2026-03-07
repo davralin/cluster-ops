@@ -130,6 +130,9 @@ spec:
               - path: /music/soundtracks
                 subPath: audio/soundtracks
                 readOnly: true
+      tmp: # Error reading metadata from file. Skipping" error="init module: get runtime once: create directory /tmp/go-taglib-wasm: mkdir /tmp/go-taglib-wasm: read-only file system"
+        enabled: true
+        type: emptyDir
     networkpolicies:
       navidrome:
         enabled: true
