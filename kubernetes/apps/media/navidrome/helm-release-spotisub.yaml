@@ -46,7 +46,7 @@ spec:
           spotisub:
             image:
               repository: docker.io/blastbeng/spotisub
-              tag: v0.3.6@sha256:a560b7a42eb2411903cc7da6ff7c3e946b1b4fd5043a53dfdc8787bea9ddb765
+              tag: v0.3.7@sha256:2c3dce737d5027fb1b7196106cc9c34a3bb41e7b629326f13721f5a34cfcec7d
             env:
               TZ: "${TIMEZONE}"
               SPOTIPY_CLIENT_ID:
