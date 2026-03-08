@@ -31,7 +31,6 @@
       - com.nextcloud.desktopclient.nextcloud
       - com.valvesoftware.Steam
       - io.freetubeapp.FreeTube
-      - net.cozic.joplin_desktop
       - org.freedesktop.Platform.ffmpeg-full/x86_64/24.08
       - org.gnome.gitlab.cheywood.Buffer
       - org.kde.krita
@@ -96,3 +95,13 @@
     state: started
     daemon_reload: true
   become: true
+
+- name: Removing flatpaks
+  community.general.flatpak:
+    name: "{{ flatpaks }}"
+    method: system
+    state: present
+  become: true
+  vars:
+    flatpaks:
+      - net.cozic.joplin_desktop

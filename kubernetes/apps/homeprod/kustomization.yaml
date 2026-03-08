@@ -24,7 +24,6 @@ resources:
   - ../intel-device-plugin
   - ../invidious
   - ../it-tools
-  - ../joplin
   - ../jupyterhub
   - ../karakeep
   - ../kuma
