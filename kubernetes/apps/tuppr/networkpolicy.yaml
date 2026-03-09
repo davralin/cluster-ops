@@ -62,6 +62,55 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
+  name: talos-upgrade
+  namespace: tuppr
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/instance: kubernetes
+      app.kubernetes.io/name: talos-upgrade
+      app.kubernetes.io/part-of: tuppr
+  policyTypes:
+    - Egress
+  egress:
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: kube-system
+          podSelector:
+            matchLabels:
+              k8s-app: kube-dns
+      ports:
+        - port: 53
+          protocol: UDP
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: talos-upgrade
+  namespace: tuppr
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/instance: kubernetes
+      app.kubernetes.io/name: talos-upgrade
+      app.kubernetes.io/part-of: tuppr
+  egress:
+    - toEntities:
+      - host
+      - kube-apiserver
+      - remote-node
+      - world # This is really kube-VIP
+      toPorts:
+      - ports:
+        - port: "6443"
+          protocol: TCP
+        - port: "50000"
+          protocol: TCP
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
   name: tuppr
   namespace: tuppr
 spec:
