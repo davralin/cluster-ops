@@ -31,7 +31,7 @@ spec:
       - apiVersion: tuppr.home-operations.com/v1alpha1
         kind: TalosUpgrade
         metadata:
-          name: talos
+          name: talos-cp
           namespace: tuppr
         spec:
           talos:
@@ -39,11 +39,46 @@ spec:
             version: v1.12.5
           policy:
             rebootMode: powercycle
+            stage: true
+          maintenance:
+            windows:
+              - start: "13 10 * * 1-5" # At 10:13 on every weekday
+                duration: "1h"
+                timezone: "${TIMEZONE}"
+          nodeSelector:
+            matchExpressions:
+              # Only control plane nodes for this specific plan
+              - {key: node-role.kubernetes.io/control-plane, operator: Exist}
+          healthChecks:
+            - apiVersion: volsync.backube/v1alpha1
+              kind: ReplicationSource
+              expr: |-
+                status.conditions.filter(c, c.type == "Synchronizing").all(c, c.status == "False")
+            #- apiVersion: ceph.rook.io/v1
+            #  kind: CephCluster
+            #  expr: |-
+            #    status.ceph.health in ['HEALTH_OK']
+      - apiVersion: tuppr.home-operations.com/v1alpha1
+        kind: TalosUpgrade
+        metadata:
+          name: talos-worker
+          namespace: tuppr
+        spec:
+          talos:
+            # renovate: datasource=docker depName=ghcr.io/siderolabs/installer
+            version: v1.12.5
+          policy:
+            rebootMode: powercycle
+            stage: true
           maintenance:
             windows:
               - start: "13 11 * * 1-5" # At 11:13 on every weekday
                 duration: "1h"
                 timezone: "${TIMEZONE}"
+          nodeSelector:
+            matchExpressions:
+              # Exclude control plane nodes from this specific plan
+              - {key: node-role.kubernetes.io/control-plane, operator: DoesNotExist}
           healthChecks:
             - apiVersion: volsync.backube/v1alpha1
               kind: ReplicationSource
