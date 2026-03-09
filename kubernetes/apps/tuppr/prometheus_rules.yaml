@@ -40,36 +40,83 @@ spec:
             role: alert-rules
         spec:
           groups:
-            - name: tuppr.rules
+            - name: tuppr.kubernetesupgrade
               rules:
-                - alert: TupprUpgradeFailed
-                  expr: tuppr_talos_upgrade_phase{phase="Failed"} == 3 or tuppr_kubernetes_upgrade_phase{phase="Failed"} == 3
-                  for: 0m
+                # Fires when the Kubernetes upgrade object itself is in Failed phase.
+                - alert: KubernetesUpgradeFailed
+                  expr: tuppr_kubernetes_upgrade_phase{phase="Failed"} > 0
+                  for: 1m
                   labels:
                     severity: critical
                   annotations:
-                    summary: "Tuppr upgrade failed"
-                    description: "Upgrade {{ $labels.name }} has failed"
-                - alert: TupprUpgradeStuck
-                  expr: |
-                    (
-                      tuppr_talos_upgrade_phase{phase="InProgress"} == 1 and
-                      increase(tuppr_talos_upgrade_nodes_completed[30m]) == 0
-                    ) or (
-                      tuppr_kubernetes_upgrade_phase{phase="InProgress"} == 1
-                    )
-                  for: 30m
+                    summary: >-
+                      Kubernetes upgrade {{ $labels.name }} is in Failed phase
+                    description: >-
+                      Kubernetes upgrade {{ $labels.name }} has entered the Failed phase.
+                      Check controller logs and the upgrade job for details.
+                - alert: KubernetesUpgradeStuck
+                  expr: >-
+                    tuppr_kubernetes_upgrade_phase{phase=~"Upgrading|HealthChecking"} > 0
+                  for: 45m
                   labels:
                     severity: warning
                   annotations:
-                    summary: "Tuppr upgrade appears stuck"
-                    description: "Upgrade {{ $labels.name }} has been in progress for 30+ minutes without completing nodes"
-                - alert: TupprHealthCheckFailures
-                  expr: rate(tuppr_health_check_failures_total[5m]) > 0.1
-                  for: 2m
+                    summary: >-
+                      Kubernetes upgrade {{ $labels.name }} stuck in {{ $labels.phase }} phase
+                    description: >-
+                      Kubernetes upgrade {{ $labels.name }} has been in the
+                      {{ $labels.phase }} phase for more than 45 minutes.
+                      Check the upgrade job and control-plane nodes for errors.
+            - name: tuppr.jobs
+              rules:
+                - alert: UpgradeJobRunningTooLong
+                  expr: tuppr_upgrade_jobs_active > 0
+                  for: 1h
                   labels:
                     severity: warning
                   annotations:
-                    summary: "High health check failure rate"
-                    description: "Health checks for {{ $labels.upgrade_name }} are failing frequently"
-
+                    summary: >-
+                      {{ $labels.upgrade_type | title }} upgrade job running for over 1 hour
+                    description: >-
+                      A {{ $labels.upgrade_type }} upgrade job has been active for more
+                      than 1 hour, which exceeds the expected duration. The job may be
+                      stuck. Check the job logs in the controller namespace.
+            - name: tuppr.talosupgrade
+              rules:
+                - alert: TalosUpgradeNodeFailed
+                  expr: tuppr_talos_upgrade_nodes_failed > 0
+                  for: 1m
+                  labels:
+                    severity: critical
+                  annotations:
+                    summary: >-
+                      Talos upgrade {{ $labels.name }} has {{ $value }} failed node(s)
+                    description: >-
+                      Talos upgrade {{ $labels.name }} has {{ $value }} node(s) that
+                      failed to upgrade. The upgrade has stopped and requires manual
+                      intervention (fix the underlying issue and reset with the reset
+                      annotation).
+                - alert: TalosUpgradeFailed
+                  expr: tuppr_talos_upgrade_phase{phase="Failed"} > 0
+                  for: 1m
+                  labels:
+                    severity: critical
+                  annotations:
+                    summary: >-
+                      Talos upgrade {{ $labels.name }} is in Failed phase
+                    description: >-
+                      Talos upgrade {{ $labels.name }} has entered the Failed phase.
+                      Check controller logs and node conditions for details.
+                - alert: TalosUpgradeStuck
+                  expr: >-
+                    tuppr_talos_upgrade_phase{phase=~"Upgrading|Rebooting|Draining|HealthChecking"} > 0
+                  for: 1h
+                  labels:
+                    severity: warning
+                  annotations:
+                    summary: >-
+                      Talos upgrade {{ $labels.name }} stuck in {{ $labels.phase }} phase
+                    description: >-
+                      Talos upgrade {{ $labels.name }} has been in the
+                      {{ $labels.phase }} phase for more than 1h.
+                      Check the upgrade job and target node for errors.
