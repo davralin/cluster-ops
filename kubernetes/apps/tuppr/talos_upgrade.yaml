@@ -39,11 +39,11 @@ spec:
             version: v1.12.5
           policy:
             rebootMode: powercycle
-          #maintenance:
-          #  windows:
-          #    - start: "13 11 * * 1-5" # At 11:13 on every weekday
-          #      duration: "1h"
-          #      timezone: "${TIMEZONE}"
+          maintenance:
+            windows:
+              - start: "13 11 * * 1-5" # At 11:13 on every weekday
+                duration: "1h"
+                timezone: "${TIMEZONE}"
           healthChecks:
             - apiVersion: volsync.backube/v1alpha1
               kind: ReplicationSource
