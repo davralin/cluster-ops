@@ -44,6 +44,9 @@ spec:
           storage:
             size: 10Gi
             storageClass: "${STORAGE_READWRITEONCE}"
+          walStorage:
+            size: 5Gi
+            storageClass: "${STORAGE_READWRITEONCE}"
           managed:
             roles:
               - name: openwebui

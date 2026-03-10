@@ -44,6 +44,9 @@ spec:
           storage:
             size: 2Gi
             storageClass: "${STORAGE_READWRITEONCE}"
+          walStorage:
+            size: 1Gi
+            storageClass: "${STORAGE_READWRITEONCE}"
           managed:
             roles:
               - name: seerr
