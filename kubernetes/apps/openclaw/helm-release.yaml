@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &name searxng
+  name: &name openclaw
   namespace: flux-system
 spec:
   interval: 30m
@@ -17,7 +17,7 @@ spec:
       interval: 30m
   driftDetection:
     mode: enabled
-  targetNamespace: searxng
+  targetNamespace: openclaw
   install:
     createNamespace: true
     remediation:
@@ -31,28 +31,25 @@ spec:
       automountServiceAccountToken: false
       enableServiceLinks: false
       securityContext:
-        runAsUser: 977
-        runAsGroup: 977
-        fsGroup: 977
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"
         runAsNonRoot: true
         seccompProfile:
           type: RuntimeDefault
     controllers:
-      searxng:
-        strategy: RollingUpdate
+      openclaw:
         containers:
-          searxng:
+          openclaw:
             image:
-              repository: docker.io/searxng/searxng
-              tag: 2026.3.13-867a43ac1@sha256:fce67c4904953294e3d60a6ab40c8abd2ad01096e45490bfa568c7d8bef8eb18
+              repository: ghcr.io/openclaw/openclaw
+              tag: 2026.2.26@sha256:ce9347548afa0b6bdd1d262060535ba04baf0b19cde0fc211c8039492647d1b1
             env:
               TZ: "${TIMEZONE}"
-              SEARXNG_BASE_URL: "https://searxng.${SECRET_DEFAULT_DOMAIN}"
-              SEARXNG_URL: "https://searxng.${SECRET_DEFAULT_DOMAIN}"
-              SEARXNG_VALKEY_URL: "redis://searxng-valkey.searxng.svc.cluster.local:6379"
-              UWSGI_WORKERS: 4
-              UWSGI_THREADS: 4
+              OPENCLAW_DISABLE_BONJOUR: 1
+              OPENCLAW_GATEWAY_PASSWORD: "${SECRET_GRAFANA_PASSWORD}"
+              OPENCLAW_GATEWAY_TOKEN: "${SECRET_GRAFANA_PASSWORD}"
             probes:
               liveness: &probes
                 enabled: true
@@ -60,25 +57,42 @@ spec:
               startup: *probes
             securityContext:
               allowPrivilegeEscalation: false
-              # WARNING:searx.botdetection.config: missing config file: /etc/searxng/limiter.toml
-              readOnlyRootFilesystem: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+            resources:
+              requests:
+                cpu: 100m
+                memory: 400Mi
+              limits:
+                memory: 2Gi
+          editor:
+            image:
+              repository: ghcr.io/davralin/utility
+              tag: latest@sha256:eb2d56c531f80d2ec1712d51e2d2d0ef1e0b5195be62e608dbf442b261fd0137
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
               capabilities:
                 drop:
                   - ALL
             resources:
               requests:
                 cpu: 10m
-                memory: 1Gi
+                memory: 50Mi
               limits:
-                memory: 2Gi
+                memory: 100Mi
     service:
-      searxng:
+      openclaw:
         controller: *name
         ports:
           http:
-            port: &port 8080
+            port: &port 18789
+          json-rpc:
+            port: 8080
     ingress:
-      searxng:
+      openclaw:
         enabled: true
         annotations:
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
@@ -89,26 +103,32 @@ spec:
             X-Content-Type-Options "nosniff"
             Referrer-Policy "strict-origin-when-cross-origin"
         hosts:
-          - host: &host "searxng.${SECRET_DEFAULT_DOMAIN}"
+          - host: &host "openclaw.${SECRET_DEFAULT_DOMAIN}"
             paths:
               - path: /
                 service:
-                  identifier: searxng
+                  identifier: openclaw
                   port: http
         tls:
           - hosts:
               - *host
     persistence:
-      cache:
-        type: emptyDir
-        globalMounts:
-          - path: /etc/searxng
+      config:
+        enabled: true
+        existingClaim: openclaw
+        advancedMounts:
+          openclaw:
+            editor:
+              - path: /opt/openclaw
+                subPath: openclaw
+            openclaw:
+              - path: /home/node
+                subPath: openclaw
       tmp:
+        enabled: true
         type: emptyDir
-        globalMounts:
-          - path: /tmp
     networkpolicies:
-      searxng:
+      openclaw:
         enabled: true
         controller: *name
         policyTypes:
@@ -126,7 +146,19 @@ spec:
               ports:
                 - port: 53
                   protocol: UDP
-            - to: # It contacts upstream search engines, by design
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: searxng
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: searxng
+                      app.kubernetes.io/instance: searxng-searxng
+                      app.kubernetes.io/name: searxng-searxng
+              ports:
+                - port: 8080
+                  protocol: TCP
+            - to: # What could go wrong
               - ipBlock:
                   cidr: 0.0.0.0/0
                   except:
@@ -142,13 +174,5 @@ spec:
                   podSelector:
                     matchLabels:
                       app.kubernetes.io/name: kubernetes-ingress
-                - namespaceSelector:
-                    matchLabels:
-                      kubernetes.io/metadata.name: openclaw
-                  podSelector:
-                    matchLabels:
-                      app.kubernetes.io/controller: openclaw
-                      app.kubernetes.io/instance: openclaw-openclaw
-                      app.kubernetes.io/name: openclaw-openclaw
               ports:
                 - port: *port
