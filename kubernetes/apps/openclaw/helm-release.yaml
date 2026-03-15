@@ -65,8 +65,8 @@ spec:
               requests:
                 cpu: 100m
                 memory: 400Mi
-              limits:
-                memory: 2Gi
+              #limits:
+                #memory: 2Gi
           editor:
             image:
               repository: ghcr.io/davralin/utility
