@@ -52,7 +52,7 @@ spec:
               OPENCLAW_GATEWAY_TOKEN: "${SECRET_GRAFANA_PASSWORD}"
             probes:
               liveness: &probes
-                enabled: true
+                enabled: false #true
               readiness: *probes
               startup: *probes
             securityContext:
