@@ -48,8 +48,21 @@ spec:
             env:
               TZ: "${TIMEZONE}"
               OPENCLAW_DISABLE_BONJOUR: 1
-              OPENCLAW_GATEWAY_PASSWORD: "${SECRET_GRAFANA_PASSWORD}"
-              OPENCLAW_GATEWAY_TOKEN: "${SECRET_GRAFANA_PASSWORD}"
+              GROQ_API_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: openclaw-secrets
+                    key: GROQ_API_KEY
+              OPENCLAW_GATEWAY_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: openclaw-secrets
+                    key: GATEWAY_PASSWORD
+              OPENCLAW_GATEWAY_TOKEN:
+                valueFrom:
+                  secretKeyRef:
+                    name: openclaw-secrets
+                    key: GATEWAY_TOKEN
             probes:
               liveness: &probes
                 enabled: false #true
