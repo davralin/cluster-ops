@@ -47,6 +47,10 @@ spec:
               kind: ReplicationSource
               expr: |-
                 status.conditions.filter(c, c.type == "Synchronizing").all(c, c.status == "False")
+            - apiVersion: tuppr.home-operations.com/v1alpha1
+              kind: TalosUpgrade
+              expr: |-
+                status.phase == "Completed"
             #- apiVersion: ceph.rook.io/v1
             #  kind: CephCluster
             #  expr: |-
