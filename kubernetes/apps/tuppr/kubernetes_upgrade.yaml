@@ -51,7 +51,7 @@ spec:
               kind: TalosUpgrade
               expr: |-
                 status.phase == "Completed"
-            #- apiVersion: ceph.rook.io/v1
-            #  kind: CephCluster
-            #  expr: |-
-            #    status.ceph.health in ['HEALTH_OK']
+            - apiVersion: ceph.rook.io/v1
+              kind: CephCluster
+              expr: |-
+                status.ceph.health in ['HEALTH_OK']
