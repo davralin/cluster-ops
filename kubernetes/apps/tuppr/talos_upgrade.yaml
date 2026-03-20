@@ -48,7 +48,7 @@ spec:
           nodeSelector:
             matchExpressions:
               # Only control plane nodes for this specific plan
-              - {key: node-role.kubernetes.io/control-plane, operator: Exist}
+              - {key: node-role.kubernetes.io/control-plane, operator: Exists}
           healthChecks:
             - apiVersion: volsync.backube/v1alpha1
               kind: ReplicationSource
