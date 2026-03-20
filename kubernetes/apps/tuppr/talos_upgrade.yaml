@@ -31,7 +31,7 @@ spec:
       - apiVersion: tuppr.home-operations.com/v1alpha1
         kind: TalosUpgrade
         metadata:
-          name: talos-cp
+          name: controlplane
           namespace: tuppr
         spec:
           talos:
@@ -61,7 +61,7 @@ spec:
       - apiVersion: tuppr.home-operations.com/v1alpha1
         kind: TalosUpgrade
         metadata:
-          name: talos-worker
+          name: worker
           namespace: tuppr
         spec:
           talos:
