@@ -41,6 +41,7 @@ resources:
   - ../node-problem-detector
   - ../ollama
   - ../omni
+  - ../omniroute
   - ../openclaw
   - ../openwebui
   - ../owntracks
