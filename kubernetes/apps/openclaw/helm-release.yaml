@@ -63,6 +63,11 @@ spec:
                   secretKeyRef:
                     name: openclaw-secrets
                     key: GATEWAY_TOKEN
+              OPENROUTER_API_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: openclaw-secrets
+                    key: OPENROUTER_API_KEY
               TELEGRAM_BOT_TOKEN:
                 valueFrom:
                   secretKeyRef:
