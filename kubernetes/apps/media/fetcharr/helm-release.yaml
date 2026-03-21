@@ -51,9 +51,9 @@ spec:
               tag: 2.0.1@sha256:8b667f26e2621df4494ba24f63a47ebc38516bbf262220ac2debe4821e411ee1
             env:
               TZ: "${TIMEZONE}"
-              DRY_RUN: true
+              DRY_RUN: false
               SEARCH_AMOUNT: 1
-              SEARCH_INTERVAL: 1day
+              SEARCH_INTERVAL: 1hour
               LIDARR_0_URL: http://lidarr.media.svc.cluster.local:8686
               LIDARR_0_API_KEY: "${SECRET_LIDARR_API_KEY}"
             securityContext:
@@ -69,9 +69,9 @@ spec:
             resources:
               requests:
                 cpu: 10m
-                memory: 200Mi
+                memory: 150Mi
               limits:
-                memory: 400Mi
+                memory: 300Mi
     networkpolicies:
       fetcharr:
         enabled: true
