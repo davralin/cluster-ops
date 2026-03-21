@@ -53,7 +53,7 @@ spec:
               TZ: "${TIMEZONE}"
               DRY_RUN: false
               SEARCH_AMOUNT: 1
-              SEARCH_INTERVAL: 1hour
+              SEARCH_INTERVAL: 1day
               LIDARR_0_URL: http://lidarr.media.svc.cluster.local:8686
               LIDARR_0_API_KEY: "${SECRET_LIDARR_API_KEY}"
             securityContext:
