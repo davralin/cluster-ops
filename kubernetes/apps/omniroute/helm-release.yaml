@@ -97,9 +97,11 @@ spec:
         existingClaim: omniroute
         globalMounts:
           - path: /app/data
-      tmp:
+      logs:
         enabled: true
         type: emptyDir
+        globalMounts:
+          - path: /app/logs
     networkpolicies:
       omniroute:
         enabled: true
@@ -119,6 +121,14 @@ spec:
               ports:
                 - port: 53
                   protocol: UDP
+            - to: # Talk to remote LLMs
+              - ipBlock:
+                  cidr: 0.0.0.0/0
+                  except:
+                  - "${HAPROXY_WHITELIST}"
+              ports:
+                - port: 443
+                  protocol: TCP
           ingress:
             - from:
                 - namespaceSelector:
