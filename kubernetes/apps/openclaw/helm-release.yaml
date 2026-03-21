@@ -63,6 +63,11 @@ spec:
                   secretKeyRef:
                     name: openclaw-secrets
                     key: GATEWAY_TOKEN
+              TELEGRAM_BOT_TOKEN:
+                valueFrom:
+                  secretKeyRef:
+                    name: openclaw-secrets
+                    key: TELEGRAM_BOT_TOKEN
             probes:
               liveness: &probes
                 enabled: false #true
