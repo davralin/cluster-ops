@@ -75,7 +75,7 @@ spec:
                     key: TELEGRAM_BOT_TOKEN
             probes:
               liveness: &probes
-                enabled: false #true
+                enabled: true
               readiness: *probes
               startup: *probes
             securityContext:
@@ -88,8 +88,8 @@ spec:
               requests:
                 cpu: 100m
                 memory: 400Mi
-              #limits:
-                #memory: 2Gi
+              limits:
+                memory: 1Gi
           editor:
             image:
               repository: ghcr.io/davralin/utility
