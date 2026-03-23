@@ -46,7 +46,7 @@ spec:
           jottacloud-photos-to-nextcloud:
             image:
               repository: ghcr.io/rclone/rclone
-              tag: 1.73.2
+              tag: 1.73.3
             command: ["/photos-to-nextcloud.sh"]
             securityContext:
               allowPrivilegeEscalation: false
