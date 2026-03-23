@@ -43,7 +43,7 @@ spec:
           maintenance:
             windows:
               - start: "13 10 * * 1-5" # At 10:13 on every weekday
-                duration: "1h"
+                duration: "2h"
                 timezone: "${TIMEZONE}"
           nodeSelector:
             matchExpressions:
@@ -73,7 +73,7 @@ spec:
           maintenance:
             windows:
               - start: "13 11 * * 1-5" # At 11:13 on every weekday
-                duration: "1h"
+                duration: "2h"
                 timezone: "${TIMEZONE}"
           nodeSelector:
             matchExpressions:
