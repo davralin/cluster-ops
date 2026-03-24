@@ -264,6 +264,11 @@ spec:
                 - port: 6379
           ingress:
             - from:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: paperless-gpt
+                      app.kubernetes.io/instance: paperless-ngx-paperless-gpt
+                      app.kubernetes.io/name: paperless-ngx-paperless-gpt
                 - namespaceSelector:
                     matchLabels:
                       kubernetes.io/metadata.name: haproxy-controller
