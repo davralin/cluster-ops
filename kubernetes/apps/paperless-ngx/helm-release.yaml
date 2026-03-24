@@ -67,7 +67,7 @@ spec:
               PAPERLESS_TIME_ZONE: "${TIMEZONE}"
               PAPERLESS_OCR_LANGUAGE: "nor"
               PAPERLESS_OCR_LANGUAGES: "eng nor"
-              PAPERLESS_REDIS: "redis://paperless-ngx-valkey"
+              PAPERLESS_REDIS: "redis://paperless-ngx-valkey.paperless-ngx.svc.cluster.local:6379"
               # Changing this breaks variable substitution or something in flux:
               PAPERLESS_FILENAME_FORMAT: "{created_year}/{correspondent}/{created_month}_{title}"
               PAPERLESS_URL: "https://paperless-ngx.${SECRET_DEFAULT_DOMAIN}"
@@ -84,8 +84,8 @@ spec:
                     name: paperless-ngx-basic-auth
                     key: password
               PAPERLESS_TIKA_ENABLED: "1"
-              PAPERLESS_TIKA_ENDPOINT: "http://paperless-ngx-tika:9998"
-              PAPERLESS_TIKA_GOTENBERG_ENDPOINT: "http://paperless-ngx-gotenberg:3000"
+              PAPERLESS_TIKA_ENDPOINT: "http://paperless-ngx-tika.paperless-ngx.svc.cluster.local:9998"
+              PAPERLESS_TIKA_GOTENBERG_ENDPOINT: "http://paperless-ngx-gotenberg.paperless-ngx.svc.cluster.local:3000"
               PAPERLESS_CONSUMER_POLLING: 3600
               PAPERLESS_CONSUMER_RECURSIVE: true
               PAPERLESS_CONSUMPTION_DIR: /usr/src/paperless/consume
