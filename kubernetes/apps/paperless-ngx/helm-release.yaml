@@ -216,6 +216,8 @@ spec:
         type: emptyDir
         advancedMounts:
           paperless-ngx:
+            paperless-ngx:
+              - path: /tmp
             tika:
               - path: /tmp
     networkpolicies:
