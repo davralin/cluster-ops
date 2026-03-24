@@ -25,19 +25,6 @@ spec:
   upgrade:
     remediation:
       retries: 10
-  valuesFrom:
-    - targetPath: controllers.paperless-ngx.containers.paperless-ngx.env.PAPERLESS_ADMIN_USER
-      kind: Secret
-      name: paperless-secrets
-      valuesKey: paperless-admin-user
-    - targetPath: controllers.paperless-ngx.containers.paperless-ngx.env.PAPERLESS_ADMIN_PASSWORD
-      kind: Secret
-      name: paperless-secrets
-      valuesKey: paperless-admin-pw
-    - targetPath: controllers.paperless-ngx.containers.paperless-ngx.env.PAPERLESS_ADMIN_EMAIL
-      kind: Secret
-      name: paperless-secrets
-      valuesKey: paperless-admin-email
   values:
     fullnameOverride: *name
     defaultPodOptions:
@@ -64,6 +51,21 @@ spec:
               #S6_YES_I_WANT_A_WORLD_WRITABLE_RUN_BECAUSE_KUBERNETES: 1
               # S6 is just so silly
               #S6_READ_ONLY_ROOT: 1
+              PAPERLESS_ADMIN_EMAIL:
+                valueFrom:
+                  secretKeyRef:
+                    name: paperless-secrets
+                    key: paperless-admin-email
+              PAPERLESS_ADMIN_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: paperless-secrets
+                    key: paperless-admin-pw
+              PAPERLESS_ADMIN_USER:
+                valueFrom:
+                  secretKeyRef:
+                    name: paperless-secrets
+                    key: paperless-admin-user
               PAPERLESS_TIME_ZONE: "${TIMEZONE}"
               PAPERLESS_OCR_LANGUAGE: "nor"
               PAPERLESS_OCR_LANGUAGES: "eng nor"
