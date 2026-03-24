@@ -2,11 +2,10 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &name ollama
+  name: &name paperless-gpt
   namespace: flux-system
 spec:
   interval: 30m
-  timeout: 30m
   chart:
     spec:
       chart: app-template
@@ -18,7 +17,7 @@ spec:
       interval: 30m
   driftDetection:
     mode: enabled
-  targetNamespace: ollama
+  targetNamespace: paperless-ngx
   install:
     createNamespace: true
     remediation:
@@ -32,23 +31,31 @@ spec:
       automountServiceAccountToken: false
       enableServiceLinks: false
       securityContext:
-        runAsUser: 0
-        runAsGroup: 0
-        fsGroup: 0
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"
-        runAsNonRoot: false
+        runAsNonRoot: true
         seccompProfile:
           type: RuntimeDefault
     controllers:
-      ollama:
+      paperless-gpt:
         containers:
-          ollama:
+          paperless-gpt:
             image:
-              repository: docker.io/ollama/ollama
-              tag: 0.18.2
+              repository: ghcr.io/icereed/paperless-gpt
+              tag: v0.25.1@sha256:c0ce6186028911101a2cfe68353f14a9dbb2653596f3f1cff94de4b6db3114ff
             env:
-              TZ: "${TIMEZONE}"
-              OLLAMA_KEEP_ALIVE: -1
+              PAPERLESS_BASE_URL: "http://paperless-ngx.paperless-ngx.svc.cluster.local:8000"
+              PAPERLESS_PUBLIC_URL: "https://paperless-ngx.${SECRET_DEFAULT_DOMAIN}"
+              VISION_LLM_PROVIDER: "ollama"
+              VISION_LLM_MODEL: "minicpm-v:8b"
+              OLLAMA_HOST: "http://ollama.ollama.svc.cluster.local:11434"
+              PAPERLESS_ADMIN_EMAIL:
+                valueFrom:
+                  secretKeyRef:
+                    name: paperless-secrets
+                    key: paperless-admin-email
             probes:
               liveness: &probes
                 enabled: true
@@ -56,54 +63,52 @@ spec:
               startup: *probes
             securityContext:
               allowPrivilegeEscalation: false
-              # Error: could not create directory mkdir /.ollama: read-only file system
-              readOnlyRootFilesystem: false
+              readOnlyRootFilesystem: true
               capabilities:
+                add:
+                  - CHOWN
+                  - SETGID
+                  - SETUID
                 drop:
                   - ALL
             resources:
-              # This is obviously only to handle it being idle
               requests:
-                cpu: 200m
-                memory: 2Gi # To make sure there's some headroom
+                cpu: 50m
+                memory: 100Mi
+              limits:
+                memory: 200Mi
     service:
-      ollama:
+      paperless-gpt:
         controller: *name
         ports:
           http:
-            port: &port 11434
+            port: &port 8080
     ingress:
-      ollama:
+      paperless-gpt:
         enabled: true
         annotations:
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
           haproxy.org/ssl-redirect-port: "443"
-          haproxy.org/backend-config-snippet: |
-            option http-keep-alive
-            timeout server 300000ms
           haproxy.org/response-set-header: |
             Strict-Transport-Security "max-age=31536000"
-            X-Frame-Options "DENY"
+            X-Frame-Options "SAMEORIGIN"
             X-Content-Type-Options "nosniff"
             Referrer-Policy "strict-origin-when-cross-origin"
         hosts:
-          - host: &host "ollama.${SECRET_DEFAULT_DOMAIN}"
+          - host: &host "paperless-gpt.${SECRET_DEFAULT_DOMAIN}"
             paths:
               - path: /
                 service:
-                  identifier: ollama
+                  identifier: paperless-gpt
                   port: http
         tls:
           - hosts:
               - *host
     persistence:
-      config:
-        enabled: true
-        existingClaim: ollama
-        globalMounts:
-          - path: /root/.ollama
+      tmp:
+        type: emptyDir
     networkpolicies:
-      ollama:
+      paperless-gpt:
         enabled: true
         controller: *name
         policyTypes:
@@ -121,16 +126,23 @@ spec:
               ports:
                 - port: 53
                   protocol: UDP
-            - to: # Needs to fetch new models
-              - ipBlock:
-                  cidr: 0.0.0.0/0
-                  except:
-                  - "${HAPROXY_WHITELIST}"
+            - to:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: paperless-ngx-paperless-ngx
               ports:
-                - port: 80
-                  protocol: TCP
-                - port: 443
-                  protocol: TCP
+                - port: 8000
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: ollama
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: ollama
+                      app.kubernetes.io/instance: ollama-ollama
+                      app.kubernetes.io/name: ollama-ollama
+              ports:
+                - port: 11434
           ingress:
             - from:
                 - namespaceSelector:
@@ -139,21 +151,5 @@ spec:
                   podSelector:
                     matchLabels:
                       app.kubernetes.io/name: kubernetes-ingress
-                - namespaceSelector:
-                    matchLabels:
-                      kubernetes.io/metadata.name: openwebui
-                  podSelector:
-                    matchLabels:
-                      app.kubernetes.io/controller: openwebui
-                      app.kubernetes.io/instance: openwebui-openwebui
-                      app.kubernetes.io/name: openwebui-openwebui
-                - namespaceSelector:
-                    matchLabels:
-                      kubernetes.io/metadata.name: paperless-ngx
-                  podSelector:
-                    matchLabels:
-                      app.kubernetes.io/controller: paperless-gpt
-                      app.kubernetes.io/instance: paperless-ngx-paperless-gpt
-                      app.kubernetes.io/name: paperless-ngx-paperless-gpt
               ports:
                 - port: *port
