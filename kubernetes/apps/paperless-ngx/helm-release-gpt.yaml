@@ -51,11 +51,11 @@ spec:
               VISION_LLM_PROVIDER: "ollama"
               VISION_LLM_MODEL: "minicpm-v:8b"
               OLLAMA_HOST: "http://ollama.ollama.svc.cluster.local:11434"
-              PAPERLESS_ADMIN_EMAIL:
+              PAPERLESS_API_TOKEN:
                 valueFrom:
                   secretKeyRef:
                     name: paperless-secrets
-                    key: paperless-admin-email
+                    key: paperless-api-token
             probes:
               liveness: &probes
                 enabled: true
