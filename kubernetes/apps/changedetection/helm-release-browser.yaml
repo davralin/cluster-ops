@@ -6,7 +6,6 @@ metadata:
   namespace: flux-system
 spec:
   interval: 30m
-  timeout: 30m
   chart:
     spec:
       chart: app-template
