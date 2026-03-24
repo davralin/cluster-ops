@@ -87,9 +87,9 @@ spec:
             resources:
               requests:
                 cpu: 100m
-                memory: 400Mi
+                memory: 2Gi
               limits:
-                memory: 1Gi
+                memory: 3Gi
           editor:
             image:
               repository: ghcr.io/davralin/utility
@@ -105,7 +105,7 @@ spec:
                 cpu: 10m
                 memory: 50Mi
               limits:
-                memory: 1Gi
+                memory: 100Mi
     service:
       openclaw:
         controller: *name
