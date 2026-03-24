@@ -51,7 +51,7 @@ spec:
           main:
             image:
               # renovate: datasource=github-releases depName=immich-app/immich
-              tag: v2.6.1
+              tag: v2.6.2
             env:
               DB_HOSTNAME: immich-postgres-v18-rw
               DB_DATABASE_NAME: immich
