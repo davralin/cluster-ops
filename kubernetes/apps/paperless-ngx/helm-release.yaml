@@ -222,7 +222,7 @@ spec:
               - path: /tmp
     networkpolicies:
       paperless-ngx:
-        enabled: true
+        enabled: false
         controller: *name
         policyTypes:
           - Egress
