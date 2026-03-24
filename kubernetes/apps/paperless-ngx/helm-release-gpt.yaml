@@ -111,6 +111,8 @@ spec:
     persistence:
       tmp:
         type: emptyDir
+        globalMounts:
+          - path: /app/prompts
     networkpolicies:
       paperless-gpt:
         enabled: true
