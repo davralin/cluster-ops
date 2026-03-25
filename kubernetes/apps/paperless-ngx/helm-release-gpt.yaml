@@ -69,10 +69,6 @@ spec:
               # level=fatal msg="Failed to create default settings file: mkdir config: read-only file system"
               readOnlyRootFilesystem: false
               capabilities:
-                add:
-                  - CHOWN
-                  - SETGID
-                  - SETUID
                 drop:
                   - ALL
             resources:
