@@ -61,7 +61,7 @@ spec:
                     key: paperless-api-token
             probes:
               liveness: &probes
-                enabled: false
+                enabled: true
               readiness: *probes
               startup: *probes
             securityContext:
