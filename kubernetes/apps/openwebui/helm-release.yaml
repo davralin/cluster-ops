@@ -28,15 +28,6 @@ spec:
   dependsOn:
     - name: openwebui-postgres-v18
       namespace: flux-system
-  valuesFrom:
-    - targetPath: controllers.openwebui.containers.openwebui.env.DATABASE_URL
-      kind: Secret
-      name: openwebui-secrets
-      valuesKey: DATABASE_URL
-    - targetPath: controllers.openwebui.containers.openwebui.env.WEBUI_SECRET_KEY
-      kind: Secret
-      name: openwebui-secrets
-      valuesKey: WEBUI_SECRET_KEY
   values:
     fullnameOverride: *name
     defaultPodOptions:
@@ -58,14 +49,24 @@ spec:
               repository: ghcr.io/open-webui/open-webui
               tag: v0.8.12@sha256:8113fa5510020ef05a44afc0c42d33eabeeb2524a996e3e3fb8c437c00f0d792
             env:
+              CORS_ALLOW_ORIGIN: "https://openwebui.${SECRET_DEFAULT_DOMAIN}"
               ENABLE_RAG_WEB_SEARCH: true
+              DATABASE_URL:
+                valueFrom:
+                  secretKeyRef:
+                    name: openwebui-secrets
+                    key: DATABASE_URL
+              DATA_DIR: /app/backend/data
               RAG_WEB_SEARCH_ENGINE: "searxng"
               RAG_WEB_SEARCH_RESULT_COUNT: 3
               RAG_WEB_SEARCH_CONCURRENT_REQUESTS: 10
               SEARXNG_QUERY_URL: "http://searxng.searxng.svc.cluster.local:8080/search?q=<query>"
               WEBUI_URL: "https://openwebui.${SECRET_DEFAULT_DOMAIN}"
-              CORS_ALLOW_ORIGIN: "https://openwebui.${SECRET_DEFAULT_DOMAIN}"
-              DATA_DIR: /app/backend/data
+              WEBUI_SECRET_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: openwebui-secrets
+                    key: WEBUI_SECRET_KEY
             probes:
               liveness: &probes
                 enabled: true
