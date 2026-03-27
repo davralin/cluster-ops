@@ -175,7 +175,8 @@
         "minecraft",
         "node-feature-discovery",
         "reflector",
-        "reloader"
+        "reloader",
+        "rook-ceph"
       ]
     },
     {
