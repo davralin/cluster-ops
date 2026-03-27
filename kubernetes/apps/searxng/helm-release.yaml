@@ -41,6 +41,9 @@ spec:
     controllers:
       searxng:
         strategy: RollingUpdate
+        replicas: 2
+        podDisruptionBudget:
+          minAvailable: 1
         containers:
           searxng:
             image:
@@ -60,8 +63,7 @@ spec:
               startup: *probes
             securityContext:
               allowPrivilegeEscalation: false
-              # WARNING:searx.botdetection.config: missing config file: /etc/searxng/limiter.toml
-              readOnlyRootFilesystem: false
+              readOnlyRootFilesystem: true
               capabilities:
                 drop:
                   - ALL
@@ -71,6 +73,62 @@ spec:
                 memory: 1Gi
               limits:
                 memory: 2Gi
+    configMaps:
+      searxng:
+        enabled: true
+        data:
+          settings.yml: |
+            ---
+            use_default_settings: true
+
+            server:
+              limiter: true
+              image_proxy: true
+              method: GET # https://github.com/searxng/searxng/pull/3619
+
+            search:
+              autocomplete: duckduckgo
+              favicon_resolver: duckduckgo
+              languages:
+                - all
+                - nb-NO
+                - en
+                - en-US
+              formats:
+                - html
+                - json
+
+            ui:
+              default_theme: simple
+              infinite_scroll: true
+              query_in_title: true
+              results_on_new_tab: true
+              theme_args:
+                simple_style: auto
+
+            categories_as_tabs:
+              general:
+              images:
+              videos:
+              map:
+
+            hostnames:
+              high_priority:
+                - (.*)\/blog\/(.*)
+                - (.*\.)?wikipedia.org$
+                - (.*\.)?github.com$
+                - (.*\.)?reddit.com$
+                - (.*\.)?docker.com$
+                - (.*\.)?archlinux.org$
+                - (.*\.)?stackoverflow.com$
+                - (.*\.)?askubuntu.com$
+                - (.*\.)?superuser.com$
+          limiter.toml: |
+            [botdetection.ip_limit]
+            link_token = false
+
+            [botdetection.ip_lists]
+            pass_ip = ["10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16"]
     service:
       searxng:
         controller: *name
@@ -99,10 +157,20 @@ spec:
           - hosts:
               - *host
     persistence:
-      cache:
-        type: emptyDir
-        globalMounts:
-          - path: /etc/searxng
+      searxng:
+        enabled: true
+        type: configMap
+        name: searxng
+        defaultMode: 0755
+        advancedMounts:
+          searxng:
+            searxng:
+              - path: /etc/searxng/limiter.toml
+                subPath: limiter.toml
+                readOnly: true
+              - path: /etc/searxng/settings.yml
+                subPath: settings.yml
+                readOnly: true
       tmp:
         type: emptyDir
         globalMounts:
