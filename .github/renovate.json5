@@ -101,6 +101,7 @@
       ],
       "matchPackagePatterns": [
         "docker.io/adguard/adguardhome",
+        "docker.io/diegosouzapw/omniroute",
         "docker.io/filebrowser/filebrowser",
         "docker.io/freshrss/freshrss",
         "docker.io/getmeili/meilisearch",
