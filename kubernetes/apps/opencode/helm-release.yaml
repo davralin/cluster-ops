@@ -31,11 +31,11 @@ spec:
       automountServiceAccountToken: false
       enableServiceLinks: false
       securityContext:
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
+        runAsUser: 0
+        runAsGroup: 0
+        fsGroup: 0
         fsGroupChangePolicy: "OnRootMismatch"
-        runAsNonRoot: true
+        runAsNonRoot: false
         seccompProfile:
           type: RuntimeDefault
     controllers:
@@ -60,7 +60,7 @@ spec:
               startup: *probes
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
+              readOnlyRootFilesystem: false
               capabilities:
                 drop:
                   - ALL
@@ -128,18 +128,6 @@ spec:
               ports:
                 - port: 53
                   protocol: UDP
-            - to:
-                - namespaceSelector:
-                    matchLabels:
-                      kubernetes.io/metadata.name: searxng
-                  podSelector:
-                    matchLabels:
-                      app.kubernetes.io/controller: searxng
-                      app.kubernetes.io/instance: searxng-searxng
-                      app.kubernetes.io/name: searxng-searxng
-              ports:
-                - port: 8080
-                  protocol: TCP
             - to:
               - ipBlock:
                   cidr: 0.0.0.0/0
