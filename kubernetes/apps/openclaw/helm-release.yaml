@@ -181,6 +181,15 @@ spec:
               ports:
                 - port: 8080
                   protocol: TCP
+            - to:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: openclaw-sockpuppetbrowser
+                      app.kubernetes.io/instance: openclaw-openclaw-sockpuppetbrowser
+                      app.kubernetes.io/name: openclaw-openclaw-sockpuppetbrowser
+              ports:
+                - port: 3000
+                  protocol: TCP
             - to: # What could go wrong
               - ipBlock:
                   cidr: 0.0.0.0/0
