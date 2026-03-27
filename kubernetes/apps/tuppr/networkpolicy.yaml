@@ -67,7 +67,6 @@ metadata:
 spec:
   podSelector:
     matchLabels:
-      app.kubernetes.io/instance: talos
       app.kubernetes.io/name: talos-upgrade
       app.kubernetes.io/part-of: tuppr
   policyTypes:
@@ -92,7 +91,6 @@ metadata:
 spec:
   endpointSelector:
     matchLabels:
-      app.kubernetes.io/instance: talos
       app.kubernetes.io/name: talos-upgrade
       app.kubernetes.io/part-of: tuppr
   egress:
