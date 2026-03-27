@@ -219,5 +219,13 @@ spec:
                       app.kubernetes.io/controller: openclaw
                       app.kubernetes.io/instance: openclaw-openclaw
                       app.kubernetes.io/name: openclaw-openclaw
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: openwebui
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: openwebui
+                      app.kubernetes.io/instance: openwebui-openwebui
+                      app.kubernetes.io/name: openwebui-openwebui
               ports:
                 - port: *port

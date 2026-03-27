@@ -60,7 +60,9 @@ spec:
             env:
               ENABLE_RAG_WEB_SEARCH: true
               RAG_WEB_SEARCH_ENGINE: "searxng"
-              SEARXNG_QUERY_URL: "https://searxng.${SECRET_DEFAULT_DOMAIN}/search?q=<query>"
+              RAG_WEB_SEARCH_RESULT_COUNT: 3
+              RAG_WEB_SEARCH_CONCURRENT_REQUESTS: 10
+              SEARXNG_QUERY_URL: "http://searxng.searxng.svc.cluster.local:8080/search?q=<query>"
               WEBUI_URL: "https://openwebui.${SECRET_DEFAULT_DOMAIN}"
               CORS_ALLOW_ORIGIN: "https://openwebui.${SECRET_DEFAULT_DOMAIN}"
               DATA_DIR: /app/backend/data
@@ -124,12 +126,6 @@ spec:
           - Ingress
         rules:
           egress:
-            - to: # Home Assistant Ollama
-              - ipBlock:
-                  cidr: 10.0.1.79/32
-              ports:
-                - port: 11434
-                  protocol: TCP
             - to:
                 - namespaceSelector:
                     matchLabels:
@@ -170,12 +166,14 @@ spec:
             - to: # searxng
                 - namespaceSelector:
                     matchLabels:
-                      kubernetes.io/metadata.name: haproxy-controller
+                      kubernetes.io/metadata.name: searxng
                   podSelector:
                     matchLabels:
-                      app.kubernetes.io/name: kubernetes-ingress
+                      app.kubernetes.io/controller: searxng
+                      app.kubernetes.io/instance: searxng-searxng
+                      app.kubernetes.io/name: searxng-searxng
               ports:
-                - port: 8443
+                - port: 8080
                   protocol: TCP
           ingress:
             - from:
