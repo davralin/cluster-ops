@@ -72,7 +72,7 @@ spec:
             stage: true
           maintenance:
             windows:
-              - start: "13 11 * * 1-5" # At 11:13 on every weekday
+              - start: "13 12 * * 1-5" # At 12:13 on every weekday
                 duration: "2h"
                 timezone: "${TIMEZONE}"
           nodeSelector:
