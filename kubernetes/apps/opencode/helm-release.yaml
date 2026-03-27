@@ -47,6 +47,7 @@ spec:
               tag: 1.3.3@sha256:c24219fc2118e9eeef37fb99078d1757db418e97c3116df0dddc3e42ff3c09c8
             env:
               TZ: "${TIMEZONE}"
+              HOME: /home/opencode
             command:
               - opencode
               - web
