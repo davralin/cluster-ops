@@ -43,6 +43,7 @@ resources:
   - ../omni
   - ../omniroute
   - ../openclaw
+  - ../opencode
   - ../openwebui
   - ../owntracks
   - ../paperless-ngx
