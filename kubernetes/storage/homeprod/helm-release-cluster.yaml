@@ -37,6 +37,9 @@ spec:
       cephConfig:
         global:
           mon_data_avail_warn: "10"
+          # https://github.com/rook/rook/discussions/15403
+          bdev_enable_discard: "true"
+          bdev_async_discard_threads: "1"
       cleanupPolicy:
         wipeDevicesFromOtherClusters: false
       crashCollector:
