@@ -5,4 +5,5 @@ resources:
   # Only enable when I want to run one of the oldworlds
   #- helm-release.yaml
   - pvc.yaml
-  - volsync.yaml
+  # Only enable when I want to run one of the oldworlds
+  #- volsync.yaml
