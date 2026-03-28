@@ -331,9 +331,14 @@ spec:
                   podSelector:
                     matchLabels:
                       app.kubernetes.io/name: kubernetes-ingress
-              ports:
-                - port: *port
-            - from:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: openclaw
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: openclaw
+                      app.kubernetes.io/instance: openclaw-openclaw
+                      app.kubernetes.io/name: openclaw-openclaw
                 - podSelector:
                     matchLabels:
                       app.kubernetes.io/controller: jottacloud-photos-to-nextcloud

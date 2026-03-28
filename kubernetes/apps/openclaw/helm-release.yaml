@@ -172,6 +172,40 @@ spec:
             - to:
                 - namespaceSelector:
                     matchLabels:
+                      kubernetes.io/metadata.name: freshrss
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: freshrss
+                      app.kubernetes.io/instance: freshrss-freshrss
+                      app.kubernetes.io/name: freshrss-freshrss
+              ports:
+                - port: 80
+                  protocol: TCP
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: monitoring
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: prometheus
+              ports:
+                - port: 9090
+                  protocol: TCP
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: nextcloud
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: nextcloud
+                      app.kubernetes.io/instance: nextcloud-nextcloud
+                      app.kubernetes.io/name: nextcloud-nextcloud
+              ports:
+                - port: 80
+                  protocol: TCP
+            - to:
+                - namespaceSelector:
+                    matchLabels:
                       kubernetes.io/metadata.name: ollama
                   podSelector:
                     matchLabels:
