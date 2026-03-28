@@ -121,7 +121,7 @@ spec:
       enabled: true
       serviceMonitor:
         selector:
-          k8s-app: kube-apiserver
+          k8s-app: kube-controller-manager
     kubeControllerManager:
       enabled: true
       service:
