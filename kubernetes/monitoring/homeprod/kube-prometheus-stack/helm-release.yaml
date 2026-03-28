@@ -118,7 +118,7 @@ spec:
       rules:
         kubelet: false
     kubeApiServer:
-      enabled: false
+      enabled: true
       serviceMonitor:
         selector:
           k8s-app: kube-apiserver
