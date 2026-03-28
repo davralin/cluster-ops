@@ -118,10 +118,7 @@ spec:
       rules:
         kubelet: false
     kubeApiServer:
-      enabled: false
-      serviceMonitor:
-        selector:
-          k8s-app: kube-apiserver
+      enabled: true
     kubeControllerManager:
       enabled: true
       service:
