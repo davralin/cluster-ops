@@ -38,7 +38,7 @@ spec:
         global:
           mon_data_avail_warn: "10"
       cleanupPolicy:
-        wipeDevicesFromOtherClusters: true
+        wipeDevicesFromOtherClusters: false
       crashCollector:
         disable: false
       csi:
