@@ -48,7 +48,7 @@ spec:
           fetcharr:
             image:
               repository: docker.io/egg82/fetcharr
-              tag: 2.0.2@sha256:d33f363ff6824fa7ce2920e1da90e1c502f0c94fab14ca42b961480db97b4cfa
+              tag: 2.1.1@sha256:d2c1da96e243d38d3d742f83d9dfb9115fce99141d21eda161689f2a3e3c013f
             env:
               TZ: "${TIMEZONE}"
               DRY_RUN: false
