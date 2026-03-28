@@ -34,6 +34,9 @@ spec:
       enabled: "${MONITORING_PROMETHEUS}"
       createPrometheusRules: "${MONITORING_PROMETHEUS}"
     cephClusterSpec:
+      cephConfig:
+        global:
+          mon_data_avail_warn: "10"
       cleanupPolicy:
         wipeDevicesFromOtherClusters: true
       crashCollector:
