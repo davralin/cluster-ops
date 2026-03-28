@@ -123,7 +123,7 @@ spec:
         selector:
           k8s-app: kube-apiserver
     kubeControllerManager:
-      enabled: false
+      enabled: true
       service:
         selector:
           k8s-app: kube-controller-manager
