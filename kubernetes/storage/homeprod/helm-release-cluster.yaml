@@ -181,3 +181,4 @@ spec:
       name: csi-ceph-filesystem
       deletionPolicy: Delete
       isDefault: false
+    cephObjectStores: []
