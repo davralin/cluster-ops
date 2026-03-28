@@ -20,6 +20,7 @@ resources:
   - ../forgejo
   - ../freshrss
   - ../gotify
+  - ../ha-mcp
   - ../icloudpd
   - ../intel-device-plugin
   - ../invidious

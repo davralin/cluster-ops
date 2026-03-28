@@ -1,0 +1,117 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &name ha-mcp
+  namespace: flux-system
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 4.6.2
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+      interval: 30m
+  driftDetection:
+    mode: enabled
+  targetNamespace: ha-mcp
+  install:
+    createNamespace: true
+    remediation:
+      retries: 10
+  upgrade:
+    remediation:
+      retries: 10
+  values:
+    fullnameOverride: *name
+    defaultPodOptions:
+      automountServiceAccountToken: false
+      enableServiceLinks: false
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+    controllers:
+      ha-mcp:
+        containers:
+          ha-mcp:
+            image:
+              repository: ghcr.io/homeassistant-ai/ha-mcp
+              tag: 7.1.0@sha256:f0a08038a230bd80a55332a1db1a955df48df018cfcc508c37c7f462c564c668
+            command:
+              - ha-mcp-web
+            env:
+              TZ: "${TIMEZONE}"
+              HOMEASSISTANT_URL: "https://home.${SECRET_DEFAULT_DOMAIN}"
+              HOMEASSISTANT_TOKEN:
+                valueFrom:
+                  secretKeyRef:
+                    name: ha-mcp-config
+                    key: HOMEASSISTANT_TOKEN
+            probes:
+              liveness: &probes
+                enabled: true
+              readiness: *probes
+              startup: *probes
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+            resources:
+              requests:
+                cpu: 100m
+                memory: 400Mi
+              limits:
+                memory: 2Gi
+    service:
+      ha-mcp:
+        controller: *name
+        ports:
+          http:
+            port: &port 8086
+    networkpolicies:
+      ha-mcp:
+        enabled: true
+        controller: *name
+        policyTypes:
+          - Egress
+          - Ingress
+        rules:
+          egress:
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: kube-system
+                  podSelector:
+                    matchLabels:
+                      k8s-app: kube-dns
+              ports:
+                - port: 53
+                  protocol: UDP
+            - to: # Talk to Home Assistant
+              - ipBlock:
+                  cidr: 10.0.1.79/32
+              ports:
+                - port: 443
+                  protocol: TCP
+          ingress:
+            - from:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: openclaw
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: openclaw
+                      app.kubernetes.io/instance: openclaw-openclaw
+                      app.kubernetes.io/name: openclaw-openclaw
+              ports:
+                - port: *port

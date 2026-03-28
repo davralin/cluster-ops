@@ -194,6 +194,18 @@ spec:
                 - port: 8080
                   protocol: TCP
             - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: ha-mcp
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: ha-mcp
+                      app.kubernetes.io/instance: ha-mcp-ha-mcp
+                      app.kubernetes.io/name: ha-mcp-ha-mcp
+              ports:
+                - port: 8086
+                  protocol: TCP
+            - to:
                 - podSelector:
                     matchLabels:
                       app.kubernetes.io/controller: openclaw-sockpuppetbrowser
