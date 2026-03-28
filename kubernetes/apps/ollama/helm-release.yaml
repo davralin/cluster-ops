@@ -141,6 +141,14 @@ spec:
                       app.kubernetes.io/name: kubernetes-ingress
                 - namespaceSelector:
                     matchLabels:
+                      kubernetes.io/metadata.name: openclaw
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: openclaw
+                      app.kubernetes.io/instance: openclaw-openclaw
+                      app.kubernetes.io/name: openclaw-openclaw
+                - namespaceSelector:
+                    matchLabels:
                       kubernetes.io/metadata.name: openwebui
                   podSelector:
                     matchLabels:

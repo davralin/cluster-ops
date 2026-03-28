@@ -172,6 +172,18 @@ spec:
             - to:
                 - namespaceSelector:
                     matchLabels:
+                      kubernetes.io/metadata.name: ollama
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: ollama
+                      app.kubernetes.io/instance: ollama-ollama
+                      app.kubernetes.io/name: ollama-ollama
+              ports:
+                - port: 11434
+                  protocol: TCP
+            - to:
+                - namespaceSelector:
+                    matchLabels:
                       kubernetes.io/metadata.name: searxng
                   podSelector:
                     matchLabels:
