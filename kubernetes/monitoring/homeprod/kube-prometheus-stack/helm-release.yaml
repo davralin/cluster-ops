@@ -128,7 +128,7 @@ spec:
         selector:
           k8s-app: kube-controller-manager
     kubeEtcd:
-      enabled: false
+      enabled: true
       service:
         selector:
           k8s-app: kube-controller-manager
