@@ -25,23 +25,6 @@ spec:
   upgrade:
     remediation:
       retries: 10
-  valuesFrom:
-    - targetPath: controllers.paperless-ngx-exporter.containers.exporter.env.PAPERLESS_DBPASS
-      kind: Secret
-      name: paperless-secrets
-      valuesKey: postgresql-password
-    - targetPath: controllers.paperless-ngx-exporter.containers.exporter.env.PAPERLESS_ADMIN_USER
-      kind: Secret
-      name: paperless-secrets
-      valuesKey: paperless-admin-user
-    - targetPath: controllers.paperless-ngx-exporter.containers.exporter.env.PAPERLESS_ADMIN_PASSWORD
-      kind: Secret
-      name: paperless-secrets
-      valuesKey: paperless-admin-pw
-    - targetPath: controllers.paperless-ngx-exporter.containers.exporter.env.PAPERLESS_ADMIN_EMAIL
-      kind: Secret
-      name: paperless-secrets
-      valuesKey: paperless-admin-email
   values:
     fullnameOverride: *name
     defaultPodOptions:
@@ -71,14 +54,38 @@ spec:
               S6_YES_I_WANT_A_WORLD_WRITABLE_RUN_BECAUSE_KUBERNETES: 1
               # S6 is just so silly
               S6_READ_ONLY_ROOT: 1
+              PAPERLESS_ADMIN_EMAIL:
+                valueFrom:
+                  secretKeyRef:
+                    name: paperless-secrets
+                    key: paperless-admin-email
+              PAPERLESS_ADMIN_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: paperless-secrets
+                    key: paperless-admin-pw
+              PAPERLESS_ADMIN_USER:
+                valueFrom:
+                  secretKeyRef:
+                    name: paperless-secrets
+                    key: paperless-admin-user
               PAPERLESS_TIME_ZONE: "${TIMEZONE}"
               PAPERLESS_REDIS: "redis://valkey-primary"
               # Changing this breaks app-template:
               PAPERLESS_FILENAME_FORMAT: "{created_year}/{correspondent}/{created_month}_{title}"
               PAPERLESS_URL: "https://paperless-ngx.${SECRET_DEFAULT_DOMAIN}"
-              PAPERLESS_DBHOST: "paperless-ngx-postgres-v17-rw.paperless-ngx.svc.cluster.local"
+              PAPERLESS_DBHOST: "paperless-ngx-postgres-v18-rw.paperless-ngx.svc.cluster.local"
               PAPERLESS_DBNAME: "paperless-ngx"
-              PAPERLESS_DBUSER: "paperless-ngx"
+              PAPERLESS_DBUSER:
+                valueFrom:
+                  secretKeyRef:
+                    name: paperless-ngx-basic-auth
+                    key: username
+              PAPERLESS_DBPASS:
+                valueFrom:
+                  secretKeyRef:
+                    name: paperless-ngx-basic-auth
+                    key: password
             securityContext:
               allowPrivilegeEscalation: false
               # E: List directory /var/lib/apt/lists/partial is missing. - Acquire (30: Read-only file system)
