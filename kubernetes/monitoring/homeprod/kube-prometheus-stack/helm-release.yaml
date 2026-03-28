@@ -114,9 +114,6 @@ spec:
          - "alertmanager.${SECRET_DEFAULT_DOMAIN}"
         tls:
           - secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
-    defaultRules:
-      rules:
-        kubelet: false
     kubeApiServer:
       enabled: true
     kubeControllerManager:
