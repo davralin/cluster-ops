@@ -38,6 +38,12 @@
       "matchPackagePatterns": ["immich"]
     },
     {
+      "description": "Group tdarr and tdarr_node container updates",
+      "groupName": "tdarr",
+      "matchDatasources": ["docker"],
+      "matchPackagePatterns": ["ghcr.io/haveagitgat/tdarr"]
+    },
+    {
       "description": [
         "Loose versioning for non-semver packages"
       ],
