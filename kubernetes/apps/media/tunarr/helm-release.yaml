@@ -46,6 +46,10 @@ spec:
             image:
               repository: ghcr.io/chrisbenincasa/tunarr
               tag: 1.2.8@sha256:4b0bd271362fddb19df3897237779af4d223b07ebe84aa5b5cc77a89b80a1156
+            args:
+              - server
+              - -d
+              - /config
             env:
               TZ: "${TIMEZONE}"
             probes:
