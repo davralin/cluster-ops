@@ -15,6 +15,7 @@
       - gammastep # display-fatigue-stopper
       - i3
       - i3blocks
+      - i3lock
       - libnotify-bin # notify-send
       - lightdm
       - lightdm-gtk-greeter
@@ -24,6 +25,7 @@
       - unclutter-xfixes # Modern? alternative to unclutter
       - picom
       - rofi
+      - scrot # for i3lockblur
       - variety
       - xdotool # for emulating keyboard inputs
       - xorg
