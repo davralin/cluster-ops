@@ -52,6 +52,7 @@ spec:
               - /config
             env:
               TZ: "${TIMEZONE}"
+              HOME: /tmp
             probes:
               liveness: &probes
                 enabled: true
