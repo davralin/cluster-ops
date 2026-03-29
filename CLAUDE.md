@@ -10,6 +10,7 @@ GitOps Kubernetes cluster: Talos Linux, Flux, Cilium, Rook-Ceph, SOPS/Age.
   - `feat`, `fix`, `chore`, `docs`, `refactor`, `test`, `ci`
 - Keep commit messages concise; use the body for detail when needed
 - Squash/rebase before merging if intermediate commits aren't meaningful
+- **PR descriptions should be brief** — let the code speak for itself. Don't write a blog post for every pull request
 
 ## Repository Structure
 
@@ -372,6 +373,8 @@ Update the applications table in `README.md` when adding or removing apps.
 ## Image Tags
 
 Always pin with digest: `tag: v1.0.0@sha256:...`. Renovate handles updates automatically.
+
+Always use fully qualified image references — prefix Docker Hub images with `docker.io/` (e.g. `docker.io/org/image`, not just `org/image`).
 
 ## Common Mistakes
 
