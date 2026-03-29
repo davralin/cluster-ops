@@ -264,6 +264,18 @@ spec:
             - to:
                 - namespaceSelector:
                     matchLabels:
+                      kubernetes.io/metadata.name: ha-mcp
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: ha-mcp
+                      app.kubernetes.io/instance: ha-mcp-ha-mcp
+                      app.kubernetes.io/name: ha-mcp-ha-mcp
+              ports:
+                - port: 8086
+                  protocol: TCP
+            - to:
+                - namespaceSelector:
+                    matchLabels:
                       kubernetes.io/metadata.name: monitoring
                   podSelector:
                     matchLabels:
@@ -296,6 +308,15 @@ spec:
                 - port: 11434
                   protocol: TCP
             - to:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: openclaw-sockpuppetbrowser
+                      app.kubernetes.io/instance: openclaw-openclaw-sockpuppetbrowser
+                      app.kubernetes.io/name: openclaw-openclaw-sockpuppetbrowser
+              ports:
+                - port: 3000
+                  protocol: TCP
+            - to:
                 - namespaceSelector:
                     matchLabels:
                       kubernetes.io/metadata.name: searxng
@@ -306,27 +327,6 @@ spec:
                       app.kubernetes.io/name: searxng-searxng
               ports:
                 - port: 8080
-                  protocol: TCP
-            - to:
-                - namespaceSelector:
-                    matchLabels:
-                      kubernetes.io/metadata.name: ha-mcp
-                  podSelector:
-                    matchLabels:
-                      app.kubernetes.io/controller: ha-mcp
-                      app.kubernetes.io/instance: ha-mcp-ha-mcp
-                      app.kubernetes.io/name: ha-mcp-ha-mcp
-              ports:
-                - port: 8086
-                  protocol: TCP
-            - to:
-                - podSelector:
-                    matchLabels:
-                      app.kubernetes.io/controller: openclaw-sockpuppetbrowser
-                      app.kubernetes.io/instance: openclaw-openclaw-sockpuppetbrowser
-                      app.kubernetes.io/name: openclaw-openclaw-sockpuppetbrowser
-              ports:
-                - port: 3000
                   protocol: TCP
             - to: # What could go wrong
               - ipBlock:
