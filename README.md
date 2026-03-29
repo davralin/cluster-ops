@@ -129,7 +129,7 @@ Each Optiplex 3090 Micro has three storage devices:
 
 | Slot | Device | Purpose |
 |------|--------|---------|
-| M.2 WiFi → NVMe adapter | 128GB 2230 NVMe | Talos OS + etcd |
+| M.2 WiFi → NVMe adapter | 128GB 2230 NVMe | Talos OS |
 | M.2 NVMe | 1–4TB NVMe (970 EVO Plus, SN850X, SN735) | Ceph OSDs (2 per drive) |
 | 2.5" SATA | 4–8TB Samsung 870 QVO | Ceph OSD (1 per drive) |
 
