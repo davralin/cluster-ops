@@ -284,7 +284,7 @@
       "matchUpdateTypes": [
         "patch"
       ],
-      "commitMessagePrefix": "fix(github-action)!: ",
+      "commitMessagePrefix": "fix(github-action): ",
       "commitMessageTopic": "{{depName}}",
       "commitMessageExtra": "( {{currentVersion}} → {{newVersion}} )"
     },
