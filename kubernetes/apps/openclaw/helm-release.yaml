@@ -267,7 +267,7 @@ spec:
                       kubernetes.io/metadata.name: forgejo
                   podSelector:
                     matchLabels:
-                      app.kubernetes.io/instance: forgejo-forge
+                      app.kubernetes.io/instance: forgejo-forgejo
                       app.kubernetes.io/name: forgejo
               ports:
                 - port: 22
