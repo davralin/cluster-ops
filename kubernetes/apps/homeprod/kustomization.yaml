@@ -60,6 +60,7 @@ resources:
   - ../syncthing
   - ../tuppr
   - ../unifi
+  - ../vaultwarden
   - ../volsync
   - ../wallos
   - ../warrior
