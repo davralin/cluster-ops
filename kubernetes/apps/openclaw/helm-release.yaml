@@ -48,6 +48,7 @@ spec:
             env:
               TZ: "${TIMEZONE}"
               OPENCLAW_DISABLE_BONJOUR: 1
+              NODE_OPTIONS: "--max-old-space-size=4096"
               GITHUB_TOKEN:
                 valueFrom:
                   secretKeyRef:
@@ -92,9 +93,9 @@ spec:
             resources:
               requests:
                 cpu: 100m
-                memory: 2Gi
-              limits:
                 memory: 3Gi
+              limits:
+                memory: 4Gi
           editor:
             image:
               repository: ghcr.io/davralin/utility
