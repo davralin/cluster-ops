@@ -32,11 +32,11 @@ spec:
       automountServiceAccountToken: false
       enableServiceLinks: false
       securityContext:
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
+        runAsUser: 0
+        runAsGroup: 0
+        fsGroup: 0
         fsGroupChangePolicy: "OnRootMismatch"
-        runAsNonRoot: true
+        runAsNonRoot: false
         seccompProfile:
           type: RuntimeDefault
     controllers:
@@ -63,8 +63,10 @@ spec:
               requests:
                 cpu: 10m
                 memory: 256Mi
+                gpu.intel.com/i915: 1
               limits:
                 memory: 512Mi
+                gpu.intel.com/i915: 1
     service:
       tunarr:
         controller: *name
