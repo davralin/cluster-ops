@@ -121,7 +121,6 @@
         "ghcr.io/dgtlmoon/changedetection.io",
         "ghcr.io/ellite/wallos",
         "ghcr.io/endurain-project/endurain",
-        "ghcr.io/ersatztv/ersatztv",
         "ghcr.io/fallenbagel/jellyseerr",
         "ghcr.io/foxxmd/multi-scrobbler",
         "ghcr.io/haveagitgat",
@@ -288,18 +287,6 @@
       "commitMessagePrefix": "fix(github-action)!: ",
       "commitMessageTopic": "{{depName}}",
       "commitMessageExtra": "( {{currentVersion}} → {{newVersion}} )"
-    },
-    {
-      "description": [
-        "Custom versioning for minio"
-      ],
-      "matchDatasources": [
-        "docker"
-      ],
-      "versioning": "regex:^RELEASE\\.(?<major>\\d+)-(?<minor>\\d+)-(?<patch>\\d+)T.*Z$",
-      "matchPackagePatterns": [
-        "minio"
-      ]
     },
     {
       "addLabels": [
