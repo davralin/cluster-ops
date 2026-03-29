@@ -264,6 +264,19 @@ spec:
             - to:
                 - namespaceSelector:
                     matchLabels:
+                      kubernetes.io/metadata.name: forgejo
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/instance: forgejo-forge
+                      app.kubernetes.io/name: forgejo
+              ports:
+                - port: 22
+                  protocol: TCP
+                - port: 2222
+                  protocol: TCP
+            - to:
+                - namespaceSelector:
+                    matchLabels:
                       kubernetes.io/metadata.name: ha-mcp
                   podSelector:
                     matchLabels:
