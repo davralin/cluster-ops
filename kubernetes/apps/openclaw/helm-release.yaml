@@ -83,7 +83,11 @@ spec:
               liveness: &probes
                 enabled: true
               readiness: *probes
-              startup: *probes
+              startup:
+                enabled: true
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 5
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
