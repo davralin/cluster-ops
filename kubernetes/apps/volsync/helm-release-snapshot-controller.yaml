@@ -2,13 +2,13 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: snapshot-controller
+  name: &name snapshot-controller
   namespace: flux-system
 spec:
   interval: 30m
   chart:
     spec:
-      chart: snapshot-controller
+      chart: *name
       version: 5.0.3
       sourceRef:
         kind: HelmRepository
@@ -20,6 +20,7 @@ spec:
   targetNamespace: kube-system
   install:
     crds: CreateReplace
+    createNamespace: true
     remediation:
       retries: 10
   upgrade:
@@ -27,8 +28,6 @@ spec:
     crds: CreateReplace
     remediation:
       retries: 10
-  uninstall:
-    keepHistory: false
   values:
     controller:
       serviceMonitor:
