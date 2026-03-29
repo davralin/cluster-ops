@@ -198,6 +198,8 @@ Always include: `automountServiceAccountToken: false`, `enableServiceLinks: fals
 
 Always include: `allowPrivilegeEscalation: false`, `readOnlyRootFilesystem: true` (set false only if app truly requires it), `capabilities.drop: [ALL]`.
 
+**Prefer `readOnlyRootFilesystem: true` with emptyDir mounts** over setting it to `false`. If an app writes to `/tmp`, `/cache`, or other runtime directories, add `emptyDir` volumes for those paths instead of disabling read-only root. Only set `false` as a last resort when the app writes to unpredictable locations across the filesystem.
+
 ### Network Policies
 
 1. **Default-deny per namespace** — `networkpolicy.yaml` in every app/namespace directory
@@ -222,6 +224,10 @@ spec:
 
 ### Common egress rules
 
+**Egress order**: Always list DNS first, then app-specific rules. DNS is the most fundamental dependency.
+
+**Least-privilege egress**: Only allow the egress an app actually needs. If it only talks to in-cluster services, only allow those specific pod selectors. Don't add broad internet egress unless the app genuinely requires external access.
+
 DNS (needed for most apps making outbound requests):
 ```yaml
 - to:
@@ -235,6 +241,10 @@ DNS (needed for most apps making outbound requests):
     - port: 53
       protocol: UDP
 ```
+
+### Cross-app network policies
+
+When adding an app that communicates with existing apps, update the existing app's network policies to allow the new traffic (egress, ingress, or both — depending on what's needed).
 
 ## Database Conventions (CNPG PostgreSQL)
 
