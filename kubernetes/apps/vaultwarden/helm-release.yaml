@@ -55,7 +55,7 @@ spec:
               DATABASE_URL:
                 valueFrom:
                   secretKeyRef:
-                    name: vaultwarden-config
+                    name: vaultwarden-postgres-v18
                     key: DATABASE_URL
               DOMAIN: "https://vaultwarden.${SECRET_DEFAULT_DOMAIN}"
               SIGNUPS_ALLOWED: "false"
