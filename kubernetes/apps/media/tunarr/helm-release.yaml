@@ -45,7 +45,7 @@ spec:
           tunarr:
             image:
               repository: ghcr.io/chrisbenincasa/tunarr
-              tag: 0.12.2@sha256:439f3e183e0cd224184d288afd998669723d215fed7d088e495c0a914ceeed95
+              tag: 1.2.8@sha256:4b0bd271362fddb19df3897237779af4d223b07ebe84aa5b5cc77a89b80a1156
             env:
               TZ: "${TIMEZONE}"
             probes:
