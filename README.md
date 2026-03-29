@@ -39,7 +39,7 @@ Ansible playbooks for host provisioning and configuration are in the `ansible/` 
 
 ## 🔒 Network Security
 
-Every namespace has a default-deny network policy. Ingress and egress are explicitly allowed per-app using Kubernetes NetworkPolicies and CiliumNetworkPolicies — **74 policies** across the cluster.
+Every namespace has a default-deny network policy. Ingress and egress are explicitly allowed per-app using Kubernetes NetworkPolicies and CiliumNetworkPolicies.
 
 ## 📦 Applications
 
