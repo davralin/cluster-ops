@@ -36,6 +36,7 @@ resources:
   - streamripper
   - tautulli
   - tdarr
+  - tunarr
   - unpackerr
   - utility
   - namespace.yaml
