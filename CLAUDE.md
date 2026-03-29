@@ -2,6 +2,15 @@
 
 GitOps Kubernetes cluster: Talos Linux, Flux, Cilium, Rook-Ceph, SOPS/Age.
 
+## Commit & PR Style
+
+- **Atomic commits** — each commit is one logical, self-contained change
+- **Atomic PRs** — each pull request contains only related, grouped commits
+- Use [Conventional Commits](https://www.conventionalcommits.org/): `type(scope): description`
+  - `feat`, `fix`, `chore`, `docs`, `refactor`, `test`, `ci`
+- Keep commit messages concise; use the body for detail when needed
+- Squash/rebase before merging if intermediate commits aren't meaningful
+
 ## Repository Structure
 
 ```
