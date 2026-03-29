@@ -113,6 +113,11 @@ spec:
       tmp:
         enabled: true
         type: emptyDir
+      tunarr-logs:
+        enabled: true
+        type: emptyDir
+        globalMounts:
+          - path: /root/.local/share/tunarr
     networkpolicies:
       tunarr:
         enabled: true
