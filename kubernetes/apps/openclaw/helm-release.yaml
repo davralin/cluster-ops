@@ -48,6 +48,11 @@ spec:
             env:
               TZ: "${TIMEZONE}"
               OPENCLAW_DISABLE_BONJOUR: 1
+              GITHUB_TOKEN:
+                valueFrom:
+                  secretKeyRef:
+                    name: openclaw-secrets
+                    key: GITHUB_TOKEN
               GROQ_API_KEY:
                 valueFrom:
                   secretKeyRef:
