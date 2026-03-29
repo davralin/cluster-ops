@@ -27,6 +27,17 @@
   },
   "packageRules": [
     {
+      "description": "Group rook-ceph helm charts",
+      "groupName": "rook-ceph",
+      "matchDatasources": ["helm"],
+      "matchPackagePatterns": ["rook-ceph"]
+    },
+    {
+      "description": "Group immich across ansible and kubernetes",
+      "groupName": "immich",
+      "matchPackagePatterns": ["immich"]
+    },
+    {
       "description": [
         "Loose versioning for non-semver packages"
       ],
