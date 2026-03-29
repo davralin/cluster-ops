@@ -210,6 +210,29 @@ Always include: `allowPrivilegeEscalation: false`, `readOnlyRootFilesystem: true
 
 **Prefer `readOnlyRootFilesystem: true` with emptyDir mounts** over setting it to `false`. If an app writes to `/tmp`, `/cache`, or other runtime directories, add `emptyDir` volumes for those paths instead of disabling read-only root. Only set `false` as a last resort when the app writes to unpredictable locations across the filesystem.
 
+### Persistence naming convention
+
+bjw-s app-template auto-mounts volumes to `/<key>` when `globalMounts` is omitted. Use the mount directory name as the persistence key to avoid redundant path config:
+
+```yaml
+# Good — key matches mount path, no globalMounts needed
+persistence:
+  data:
+    enabled: true
+    existingClaim: appname
+  tmp:
+    enabled: true
+    type: emptyDir
+
+# Only use globalMounts when the key doesn't match the path
+persistence:
+  config:
+    enabled: true
+    existingClaim: appname
+    globalMounts:
+      - path: /app/data
+```
+
 ### Network Policies
 
 1. **Default-deny per namespace** — `networkpolicy.yaml` in every app/namespace directory
