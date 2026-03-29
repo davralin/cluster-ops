@@ -35,6 +35,14 @@ spec:
           podSelector:
             matchLabels:
               app.kubernetes.io/name: prometheus-blackbox-exporter
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: openclaw
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/controller: openclaw
+              app.kubernetes.io/instance: openclaw-openclaw
+              app.kubernetes.io/name: openclaw-openclaw
       ports:
         - port: 2222 # Must match the port the pod actually listens to
     - from:
