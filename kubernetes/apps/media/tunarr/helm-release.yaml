@@ -46,13 +46,8 @@ spec:
             image:
               repository: ghcr.io/chrisbenincasa/tunarr
               tag: 1.2.8@sha256:4b0bd271362fddb19df3897237779af4d223b07ebe84aa5b5cc77a89b80a1156
-            args:
-              - server
-              - -d
-              - /config
             env:
               TZ: "${TIMEZONE}"
-              HOME: /tmp
             probes:
               liveness: &probes
                 enabled: true
@@ -113,11 +108,11 @@ spec:
       tmp:
         enabled: true
         type: emptyDir
-      tunarr-logs:
+      root-home:
         enabled: true
         type: emptyDir
         globalMounts:
-          - path: /root/.local/share/tunarr
+          - path: /root
     networkpolicies:
       tunarr:
         enabled: true
