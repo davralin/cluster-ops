@@ -113,6 +113,11 @@ spec:
         type: emptyDir
         globalMounts:
           - path: /root
+      tunarr-dumps:
+        enabled: true
+        type: emptyDir
+        globalMounts:
+          - path: /tunarr/dumps
     networkpolicies:
       tunarr:
         enabled: true
