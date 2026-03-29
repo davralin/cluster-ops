@@ -353,10 +353,10 @@
         "kubernetes/.+\\.yaml$"
       ],
       "matchStrings": [
-        "imageName: (?<depName>\\S+):(?<currentValue>.*\\-.*)"
+        "imageName: (?<depName>\\S+):(?<currentValue>\\d+\\.\\S+)"
       ],
       "datasourceTemplate": "docker",
-      "versioningTemplate": "redhat"
+      "versioningTemplate": "semver"
     },
     {
       "customType": "regex",
