@@ -47,6 +47,50 @@ spec:
         - port: 8000
           protocol: TCP
 ---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: plugin-barman-cloud
+  namespace: cloudnative-pg
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: plugin-barman-cloud
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: comics
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/component: database
+              app.kubernetes.io/managed-by: cloudnative-pg
+              app.kubernetes.io/name: postgresql
+              cnpg.io/podRole: instance
+      ports:
+        - port: 9090
+          protocol: TCP
+  egress:
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: kube-system
+          podSelector:
+            matchLabels:
+              k8s-app: kube-dns
+      ports:
+        - port: 53
+          protocol: UDP
+    - to: # S3-Backup
+      - ipBlock:
+          cidr: 10.0.1.75/32
+      ports:
+        - port: 3900
+          protocol: TCP
+---
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
 metadata:
@@ -57,6 +101,24 @@ spec:
     matchLabels:
       app.kubernetes.io/instance: cloudnative-pg-cloudnative-pg
       app.kubernetes.io/name: cloudnative-pg
+  egress:
+    - toEntities:
+      - kube-apiserver
+  ingress:
+    - fromEntities:
+      - kube-apiserver
+      - remote-node
+      - host
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: plugin-barman-cloud
+  namespace: cloudnative-pg
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: plugin-barman-cloud
   egress:
     - toEntities:
       - kube-apiserver
