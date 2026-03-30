@@ -89,6 +89,10 @@ spec:
       rcloneDestDir: minecraft-${CLUSTER_NAME}/creative
       rcloneConfigExistingSecret: rclone-config
       pruneBackupsDays: 3
+      resources:
+        requests:
+          cpu: 10m
+          memory: 128Mi
       persistence:
         backupDir:
           enabled: true

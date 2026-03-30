@@ -56,10 +56,15 @@ spec:
       network:
         connections:
           requireMsgr2: true
-      #resources:
-      #  osd:
-      #    limits:
-      #      memory: 8Gi # Required for bootstrap
+      resources:
+        osd:
+          requests:
+            cpu: 500m
+          #limits:
+          #  memory: 8Gi # Required for bootstrap
+        mon:
+          requests:
+            cpu: 500m
       storage:
         useAllNodes: false
         useAllDevices: false
