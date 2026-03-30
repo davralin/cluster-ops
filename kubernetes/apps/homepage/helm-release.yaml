@@ -177,7 +177,7 @@ spec:
     persistence:
       config:
         type: configMap
-        name: homepage-config
+        name: homepage
         globalMounts:
           - path: /app/config
       logs:
