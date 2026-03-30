@@ -28,6 +28,19 @@ talos/             # Talos Linux machine configs
 
 ## App Deployment Patterns
 
+### Prefer app-template built-ins
+
+Before creating separate resource files, check if app-template handles it natively:
+- **RBAC** → `rbac.roles` + `rbac.bindings`
+- **ConfigMaps** → `configMaps` (inline data, named `<fullnameOverride>-<key>`)
+- **Raw resources** → `rawResources` (CiliumNetworkPolicies, etc.)
+- **ServiceAccounts** → `serviceAccount: { <name>: {} }`
+
+**Chart selection hierarchy:**
+1. Dedicated upstream Helm charts — when available and they expose the values we need (securityContext, podSecurityContext are common gaps)
+2. bjw-s app-template — for most apps
+3. dysnix raw chart — for operator CRDs (VolSync ReplicationSources, CNPG Clusters, Prometheus Probes, etc.) that need their own HelmRelease lifecycle
+
 ### Standalone app (own namespace)
 
 Directory: `kubernetes/apps/<appname>/`
@@ -260,6 +273,37 @@ spec:
 **Egress order**: Always list DNS first, then app-specific rules. DNS is the most fundamental dependency.
 
 **Least-privilege egress**: Only allow the egress an app actually needs. If it only talks to in-cluster services, only allow those specific pod selectors. Don't add broad internet egress unless the app genuinely requires external access.
+
+**Cross-namespace podSelector specificity**: When targeting pods in another namespace, use enough labels to ensure the selector matches only the intended pod. Prefer multiple labels over a single one:
+```yaml
+podSelector:
+  matchLabels:
+    app.kubernetes.io/controller: appname
+    app.kubernetes.io/instance: namespace-appname
+    app.kubernetes.io/name: namespace-appname
+```
+
+### CiliumNetworkPolicy for kube-apiserver
+
+Any app that needs Kubernetes API access (e.g. `automountServiceAccountToken: true`) needs a CiliumNetworkPolicy for kube-apiserver. Add via `rawResources` in the HelmRelease:
+```yaml
+rawResources:
+  cilium-kube-api:
+    apiVersion: cilium.io/v2
+    kind: CiliumNetworkPolicy
+    spec:
+      spec:
+        endpointSelector:
+          matchLabels:
+            app.kubernetes.io/controller: *name
+        egress:
+          - toEntities:
+              - kube-apiserver
+            toPorts:
+              - ports:
+                  - port: "6443"
+                    protocol: TCP
+```
 
 DNS (needed for most apps making outbound requests):
 ```yaml
