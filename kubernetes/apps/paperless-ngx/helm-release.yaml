@@ -171,6 +171,7 @@ spec:
           gethomepage.dev/name: "Paperless-ngx"
           gethomepage.dev/group: "Productivity"
           gethomepage.dev/icon: "paperless-ngx.png"
+          gethomepage.dev/pod-selector: "app.kubernetes.io/name=paperless-ngx-paperless-ngx"
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
           haproxy.org/ssl-redirect-port: "443"
           haproxy.org/response-set-header: |

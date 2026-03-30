@@ -46,6 +46,10 @@ spec:
               value: '"awx.${SECRET_PRIVATE_DOMAIN}"'
           hostname: "awx.${SECRET_PRIVATE_DOMAIN}"
           ingress_annotations: |
+            gethomepage.dev/enabled: "true"
+            gethomepage.dev/name: "AWX"
+            gethomepage.dev/group: "Development"
+            gethomepage.dev/icon: "ansible.png"
             haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
             haproxy.org/ssl-redirect-port: "443"
             haproxy.org/response-set-header: |

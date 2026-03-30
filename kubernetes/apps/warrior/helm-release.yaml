@@ -81,6 +81,7 @@ spec:
           gethomepage.dev/name: "Warrior"
           gethomepage.dev/group: "Miscellaneous"
           gethomepage.dev/icon: "mdi-sword"
+          gethomepage.dev/pod-selector: "app.kubernetes.io/name=warrior-warrior"
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
           haproxy.org/ssl-redirect-port: "443"
           haproxy.org/response-set-header: |

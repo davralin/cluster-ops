@@ -81,6 +81,7 @@ spec:
           gethomepage.dev/name: "Tunarr"
           gethomepage.dev/group: "Media - Tools"
           gethomepage.dev/icon: "tunarr.png"
+          gethomepage.dev/pod-selector: "app.kubernetes.io/name=media-tunarr"
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
           haproxy.org/ssl-redirect-port: "443"
           haproxy.org/response-set-header: |

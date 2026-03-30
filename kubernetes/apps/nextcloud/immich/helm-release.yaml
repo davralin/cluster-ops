@@ -122,6 +122,7 @@ spec:
             gethomepage.dev/name: "Immich"
             gethomepage.dev/group: "Productivity"
             gethomepage.dev/icon: "immich.png"
+            gethomepage.dev/pod-selector: "app.kubernetes.io/name=server"
             haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
             haproxy.org/ssl-redirect-port: "443"
             haproxy.org/response-set-header: |
