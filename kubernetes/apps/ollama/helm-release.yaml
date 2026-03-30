@@ -78,8 +78,9 @@ spec:
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/name: "Ollama"
-          gethomepage.dev/group: "AI & Search"
+          gethomepage.dev/group: "AI"
           gethomepage.dev/icon: "ollama.png"
+          gethomepage.dev/pod-selector: "app.kubernetes.io/name=ollama-ollama"
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
           haproxy.org/ssl-redirect-port: "443"
           haproxy.org/backend-config-snippet: |

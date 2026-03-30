@@ -115,6 +115,7 @@ spec:
           gethomepage.dev/name: "ArchiveBox"
           gethomepage.dev/group: "Productivity"
           gethomepage.dev/icon: "archivebox.png"
+          gethomepage.dev/pod-selector: "app.kubernetes.io/name=archivebox-archivebox"
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
           haproxy.org/ssl-redirect-port: "443"
           haproxy.org/response-set-header: |

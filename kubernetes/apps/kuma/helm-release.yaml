@@ -90,6 +90,7 @@ spec:
           gethomepage.dev/name: "Uptime Kuma"
           gethomepage.dev/group: "Infrastructure"
           gethomepage.dev/icon: "uptime-kuma.png"
+          gethomepage.dev/pod-selector: "app.kubernetes.io/name=kuma-kuma"
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
           haproxy.org/ssl-redirect-port: "443"
           haproxy.org/response-set-header: |

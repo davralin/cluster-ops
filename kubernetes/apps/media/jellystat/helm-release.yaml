@@ -93,6 +93,7 @@ spec:
           gethomepage.dev/name: "Jellystat"
           gethomepage.dev/group: "Media - Tools"
           gethomepage.dev/icon: "jellyfin.png"
+          gethomepage.dev/pod-selector: "app.kubernetes.io/name=media-jellystat"
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
           haproxy.org/ssl-redirect-port: "443"
           haproxy.org/response-set-header: |

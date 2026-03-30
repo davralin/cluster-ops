@@ -82,6 +82,7 @@ spec:
           gethomepage.dev/name: "Audiobookshelf"
           gethomepage.dev/group: "Media - Streaming"
           gethomepage.dev/icon: "audiobookshelf.png"
+          gethomepage.dev/pod-selector: "app.kubernetes.io/name=media-audiobookshelf"
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
           haproxy.org/ssl-redirect-port: "443"
           haproxy.org/response-set-header: |

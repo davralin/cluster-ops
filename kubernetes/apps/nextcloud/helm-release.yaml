@@ -237,6 +237,7 @@ spec:
           gethomepage.dev/name: "Nextcloud"
           gethomepage.dev/group: "Productivity"
           gethomepage.dev/icon: "nextcloud.png"
+          gethomepage.dev/pod-selector: "app.kubernetes.io/name=nextcloud-nextcloud"
           haproxy.org/ssl-redirect-port: "443"
           haproxy.org/backend-config-snippet: |
             acl url_discovery path /.well-known/caldav /.well-known/carddav

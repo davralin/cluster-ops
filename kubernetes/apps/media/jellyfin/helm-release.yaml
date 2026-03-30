@@ -83,7 +83,7 @@ spec:
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/name: "Jellyfin"
-          gethomepage.dev/group: "Media"
+          gethomepage.dev/group: "Media - Streaming"
           gethomepage.dev/icon: "jellyfin.png"
           gethomepage.dev/app: "media-jellyfin"
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"

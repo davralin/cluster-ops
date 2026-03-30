@@ -110,6 +110,7 @@ spec:
           gethomepage.dev/name: "Shelfmark"
           gethomepage.dev/group: "Media - Downloads"
           gethomepage.dev/icon: "calibre.png"
+          gethomepage.dev/pod-selector: "app.kubernetes.io/name=media-shelfmark"
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
           haproxy.org/ssl-redirect-port: "443"
           haproxy.org/response-set-header: |
