@@ -119,7 +119,7 @@ spec:
           homepage:
             image:
               repository: ghcr.io/gethomepage/homepage
-              tag: v1.4.5@sha256:9cdc0cb35224fdfcbdc1d37440b42f05bd803d475a7211fed13bd69a65e4a1d4
+              tag: v1.12.1@sha256:9627769818fbfb14147d3e633e57cef9c27c0c5f07585f5a1d6c3d3425b3b33c
             env:
               TZ: "${TIMEZONE}"
               HOMEPAGE_ALLOWED_HOSTS: "homepage.${SECRET_DEFAULT_DOMAIN}"
