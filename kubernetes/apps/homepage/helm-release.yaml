@@ -255,7 +255,7 @@ spec:
                     matchLabels:
                       app.kubernetes.io/name: kubernetes-ingress
               ports:
-                - port: 443
+                - port: 8443
                   protocol: TCP
           ingress:
             - from:
