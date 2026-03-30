@@ -49,6 +49,7 @@ resources:
   - ../owntracks
   - ../paperless-ngx
   - ../papra
+  - ../redlib
   - ../reloader
   - ../remotebackup
   - ../romm
