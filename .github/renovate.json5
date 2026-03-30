@@ -387,6 +387,17 @@
     },
     {
       "customType": "regex",
+      "description": "Process GitHub release download URLs in pluginUrls",
+      "fileMatch": [
+        "(^|/)kubernetes/.+\\.ya?ml$"
+      ],
+      "matchStrings": [
+        "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)\\n\\s+- https://github\\.com/\\S+/releases/download/v(?<currentValue>\\S+)/\\S+"
+      ],
+      "versioningTemplate": "semver"
+    },
+    {
+      "customType": "regex",
       "description": "Process custom kubernetes role-dependencies",
       "fileMatch": [
         "(^|/)kubernetes/.+\\.ya?ml$"
