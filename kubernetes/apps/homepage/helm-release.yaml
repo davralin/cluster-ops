@@ -39,8 +39,7 @@ spec:
         seccompProfile:
           type: RuntimeDefault
     serviceAccount:
-      create: true
-      name: homepage
+      homepage: {}
     rbac:
       roles:
         homepage-discovery:
@@ -55,6 +54,14 @@ spec:
             - apiGroups: ["metrics.k8s.io"]
               resources: ["nodes", "pods"]
               verbs: ["get", "list"]
+      bindings:
+        homepage-discovery:
+          type: ClusterRoleBinding
+          roleRef:
+            identifier: homepage-discovery
+          subjects:
+            - identifier: homepage
+              serviceAccount: homepage
     configMaps:
       config:
         enabled: true
