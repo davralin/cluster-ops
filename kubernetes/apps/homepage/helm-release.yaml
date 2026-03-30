@@ -81,7 +81,7 @@ spec:
                     description: TV Shows
                     widget:
                       type: sonarr
-                      url: "http://sonarr.media.svc.cluster.local:8989"
+                      url: "https://sonarr.${SECRET_DEFAULT_DOMAIN}"
                       key: "${SECRET_SONARR_API_KEY}"
                 - Radarr:
                     icon: radarr.png
@@ -89,8 +89,15 @@ spec:
                     description: Movies
                     widget:
                       type: radarr
-                      url: "http://radarr.media.svc.cluster.local:7878"
+                      url: "https://radarr.${SECRET_DEFAULT_DOMAIN}"
                       key: "${SECRET_RADARR_API_KEY}"
+                - Tdarr:
+                    icon: tdarr.png
+                    href: "https://tdarr.${SECRET_DEFAULT_DOMAIN}"
+                    description: Transcode
+                    widget:
+                      type: tdarr
+                      url: "https://tdarr.${SECRET_DEFAULT_DOMAIN}"
           settings.yaml: |
             title: Dashboard
             favicon: https://gethomepage.dev/favicon.ico
@@ -243,25 +250,13 @@ spec:
             - to:
                 - namespaceSelector:
                     matchLabels:
-                      kubernetes.io/metadata.name: media
+                      kubernetes.io/metadata.name: haproxy-controller
                   podSelector:
                     matchLabels:
-                      app.kubernetes.io/controller: sonarr
-                      app.kubernetes.io/instance: media-sonarr
-                      app.kubernetes.io/name: media-sonarr
+                      app.kubernetes.io/name: kubernetes-ingress
               ports:
-                - port: 8989
-            - to:
-                - namespaceSelector:
-                    matchLabels:
-                      kubernetes.io/metadata.name: media
-                  podSelector:
-                    matchLabels:
-                      app.kubernetes.io/controller: radarr
-                      app.kubernetes.io/instance: media-radarr
-                      app.kubernetes.io/name: media-radarr
-              ports:
-                - port: 7878
+                - port: 443
+                  protocol: TCP
           ingress:
             - from:
                 - namespaceSelector:
