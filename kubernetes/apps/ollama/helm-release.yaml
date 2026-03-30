@@ -76,6 +76,10 @@ spec:
       ollama:
         enabled: true
         annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/name: "Ollama"
+          gethomepage.dev/group: "AI & Search"
+          gethomepage.dev/icon: "ollama.png"
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
           haproxy.org/ssl-redirect-port: "443"
           haproxy.org/backend-config-snippet: |

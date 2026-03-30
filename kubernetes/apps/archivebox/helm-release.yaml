@@ -111,6 +111,10 @@ spec:
     ingress:
       archivebox:
         annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/name: "ArchiveBox"
+          gethomepage.dev/group: "Productivity"
+          gethomepage.dev/icon: "archivebox.png"
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
           haproxy.org/ssl-redirect-port: "443"
           haproxy.org/response-set-header: |

@@ -81,6 +81,10 @@ spec:
     ingress:
       firefox:
         annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/name: "Firefox"
+          gethomepage.dev/group: "Miscellaneous"
+          gethomepage.dev/icon: "firefox.png"
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
           haproxy.org/ssl-redirect-port: "443"
           haproxy.org/response-set-header: |

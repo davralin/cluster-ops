@@ -76,6 +76,10 @@ spec:
       cyberchef:
         enabled: true
         annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/name: "CyberChef"
+          gethomepage.dev/group: "Miscellaneous"
+          gethomepage.dev/icon: "cyberchef.png"
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
           haproxy.org/ssl-redirect-port: "443"
           haproxy.org/response-set-header: |
