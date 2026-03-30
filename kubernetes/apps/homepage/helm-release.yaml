@@ -1,0 +1,246 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &name homepage
+  namespace: flux-system
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 4.6.2
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+      interval: 30m
+  driftDetection:
+    mode: enabled
+  targetNamespace: homepage
+  install:
+    createNamespace: true
+    remediation:
+      retries: 10
+  upgrade:
+    remediation:
+      retries: 10
+  values:
+    fullnameOverride: *name
+    defaultPodOptions:
+      automountServiceAccountToken: true
+      enableServiceLinks: false
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+    serviceAccount:
+      create: true
+      name: homepage
+    rbac:
+      roles:
+        homepage-discovery:
+          type: ClusterRole
+          rules:
+            - apiGroups: [""]
+              resources: ["namespaces", "pods", "nodes", "services"]
+              verbs: ["get", "list"]
+            - apiGroups: ["extensions", "networking.k8s.io"]
+              resources: ["ingresses"]
+              verbs: ["get", "list"]
+            - apiGroups: ["metrics.k8s.io"]
+              resources: ["nodes", "pods"]
+              verbs: ["get", "list"]
+    configMaps:
+      config:
+        enabled: true
+        data:
+          bookmarks.yaml: |
+            ---
+          docker.yaml: |
+            ---
+          kubernetes.yaml: |
+            mode: cluster
+          services.yaml: |
+            ---
+            - Media:
+                - Sonarr:
+                    icon: sonarr.png
+                    href: "https://sonarr.${SECRET_DEFAULT_DOMAIN}"
+                    description: TV Shows
+                    widget:
+                      type: sonarr
+                      url: "http://sonarr.media.svc.cluster.local:8989"
+                      key: "${SECRET_SONARR_API_KEY}"
+                - Radarr:
+                    icon: radarr.png
+                    href: "https://radarr.${SECRET_DEFAULT_DOMAIN}"
+                    description: Movies
+                    widget:
+                      type: radarr
+                      url: "http://radarr.media.svc.cluster.local:7878"
+                      key: "${SECRET_RADARR_API_KEY}"
+          settings.yaml: |
+            title: Dashboard
+            favicon: https://gethomepage.dev/favicon.ico
+            background:
+              image: ""
+            theme: dark
+            color: slate
+            headerStyle: clean
+            layout:
+              Media:
+                style: row
+                columns: 2
+            hideVersion: true
+          widgets.yaml: |
+            - kubernetes:
+                cluster:
+                  show: true
+                  cpu: true
+                  memory: true
+                  showLabel: true
+                  label: "cluster"
+                nodes:
+                  show: true
+                  cpu: true
+                  memory: true
+                  showLabel: true
+    controllers:
+      homepage:
+        strategy: RollingUpdate
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          homepage:
+            image:
+              repository: ghcr.io/gethomepage/homepage
+              tag: v1.4.5@sha256:9cdc0cb35224fdfcbdc1d37440b42f05bd803d475a7211fed13bd69a65e4a1d4
+            env:
+              TZ: "${TIMEZONE}"
+              HOMEPAGE_ALLOWED_HOSTS: "homepage.${SECRET_DEFAULT_DOMAIN}"
+            probes:
+              liveness: &probes
+                enabled: true
+              readiness: *probes
+              startup: *probes
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+            resources:
+              requests:
+                cpu: 10m
+                memory: 128Mi
+              limits:
+                memory: 256Mi
+    service:
+      homepage:
+        controller: *name
+        ports:
+          http:
+            port: &port 3000
+    ingress:
+      homepage:
+        enabled: true
+        annotations:
+          haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
+          haproxy.org/ssl-redirect-port: "443"
+          haproxy.org/response-set-header: |
+            Strict-Transport-Security "max-age=31536000"
+            X-Frame-Options "DENY"
+            X-Content-Type-Options "nosniff"
+            Referrer-Policy "strict-origin-when-cross-origin"
+        hosts:
+          - host: &host "homepage.${SECRET_DEFAULT_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  identifier: homepage
+                  port: http
+        tls:
+          - hosts:
+              - *host
+    persistence:
+      config:
+        type: configMap
+        name: homepage-config
+        globalMounts:
+          - path: /app/config
+      logs:
+        type: emptyDir
+        globalMounts:
+          - path: /app/config/logs
+    rawResources:
+      cilium-kube-api:
+        apiVersion: cilium.io/v2
+        kind: CiliumNetworkPolicy
+        spec:
+          spec:
+            endpointSelector:
+              matchLabels:
+                app.kubernetes.io/controller: *name
+            egress:
+              - toEntities:
+                  - kube-apiserver
+                toPorts:
+                  - ports:
+                      - port: "6443"
+                        protocol: TCP
+    networkpolicies:
+      homepage:
+        enabled: true
+        controller: *name
+        policyTypes:
+          - Egress
+          - Ingress
+        rules:
+          egress:
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: kube-system
+                  podSelector:
+                    matchLabels:
+                      k8s-app: kube-dns
+              ports:
+                - port: 53
+                  protocol: UDP
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: media
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: sonarr
+                      app.kubernetes.io/instance: media-sonarr
+                      app.kubernetes.io/name: media-sonarr
+              ports:
+                - port: 8989
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: media
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: radarr
+                      app.kubernetes.io/instance: media-radarr
+                      app.kubernetes.io/name: media-radarr
+              ports:
+                - port: 7878
+          ingress:
+            - from:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: haproxy-controller
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: kubernetes-ingress
+              ports:
+                - port: *port
