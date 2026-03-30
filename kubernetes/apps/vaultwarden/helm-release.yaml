@@ -88,6 +88,10 @@ spec:
       vaultwarden:
         enabled: true
         annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/name: "Vaultwarden"
+          gethomepage.dev/group: "Productivity"
+          gethomepage.dev/icon: "vaultwarden.png"
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
           haproxy.org/ssl-redirect-port: "443"
           haproxy.org/response-set-header: |

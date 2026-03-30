@@ -78,6 +78,10 @@ spec:
       icloudpd:
         enabled: true
         annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/name: "iCloudPD"
+          gethomepage.dev/group: "Miscellaneous"
+          gethomepage.dev/icon: "apple.png"
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
           haproxy.org/ssl-redirect-port: "443"
           haproxy.org/response-set-header: |

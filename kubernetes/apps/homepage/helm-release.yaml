@@ -74,124 +74,6 @@ spec:
             mode: cluster
           services.yaml: |
             ---
-            - Media:
-                - Sonarr:
-                    icon: sonarr.png
-                    href: "https://sonarr.${SECRET_DEFAULT_DOMAIN}"
-                    description: TV Shows
-                    namespace: media
-                    app: media-sonarr
-                    widget:
-                      type: sonarr
-                      url: "https://sonarr.${SECRET_DEFAULT_DOMAIN}"
-                      key: "${SECRET_SONARR_API_KEY}"
-                - Radarr:
-                    icon: radarr.png
-                    href: "https://radarr.${SECRET_DEFAULT_DOMAIN}"
-                    description: Movies
-                    namespace: media
-                    app: media-radarr
-                    widget:
-                      type: radarr
-                      url: "https://radarr.${SECRET_DEFAULT_DOMAIN}"
-                      key: "${SECRET_RADARR_API_KEY}"
-                - Lidarr:
-                    icon: lidarr.png
-                    href: "https://lidarr.${SECRET_DEFAULT_DOMAIN}"
-                    description: Music
-                    namespace: media
-                    app: media-lidarr
-                    widget:
-                      type: lidarr
-                      url: "https://lidarr.${SECRET_DEFAULT_DOMAIN}"
-                      key: "${SECRET_LIDARR_API_KEY}"
-                - Bazarr:
-                    icon: bazarr.png
-                    href: "https://bazarr.${SECRET_DEFAULT_DOMAIN}"
-                    description: Subtitles
-                    namespace: media
-                    app: media-bazarr
-                    widget:
-                      type: bazarr
-                      url: "https://bazarr.${SECRET_DEFAULT_DOMAIN}"
-                      key: "${SECRET_BAZARR_API_KEY}"
-                - Prowlarr:
-                    icon: prowlarr.png
-                    href: "https://prowlarr.${SECRET_DEFAULT_DOMAIN}"
-                    description: Indexers
-                    namespace: media
-                    app: media-prowlarr
-                    widget:
-                      type: prowlarr
-                      url: "https://prowlarr.${SECRET_DEFAULT_DOMAIN}"
-                      key: "${SECRET_PROWLARR_API_KEY}"
-                - Readarr:
-                    icon: readarr.png
-                    href: "https://readarr.${SECRET_DEFAULT_DOMAIN}"
-                    description: Ebooks
-                    namespace: media
-                    app: media-readarr
-                    widget:
-                      type: readarr
-                      url: "https://readarr.${SECRET_DEFAULT_DOMAIN}"
-                      key: "${SECRET_READARR_API_KEY}"
-                - Speakarr:
-                    icon: readarr.png
-                    href: "https://speakarr.${SECRET_DEFAULT_DOMAIN}"
-                    description: Audiobooks
-                    namespace: media
-                    app: media-speakarr
-                    widget:
-                      type: readarr
-                      url: "https://speakarr.${SECRET_DEFAULT_DOMAIN}"
-                      key: "${SECRET_SPEAKARR_API_KEY}"
-                - Tdarr:
-                    icon: tdarr.png
-                    href: "https://tdarr.${SECRET_DEFAULT_DOMAIN}"
-                    description: Transcode
-                    namespace: media
-                    app: media-tdarr
-                    widget:
-                      type: tdarr
-                      url: "https://tdarr.${SECRET_DEFAULT_DOMAIN}"
-            - Streaming:
-                - Jellyfin:
-                    icon: jellyfin.png
-                    href: "https://jellyfin.${SECRET_DEFAULT_DOMAIN}"
-                    description: Media Server
-                    namespace: media
-                    app: media-jellyfin
-                    widget:
-                      type: jellyfin
-                      url: "https://jellyfin.${SECRET_DEFAULT_DOMAIN}"
-                      key: "${SECRET_JELLYFIN_TOKEN}"
-                      enableNowPlaying: true
-                - Plex:
-                    icon: plex.png
-                    href: "https://plex.${SECRET_DEFAULT_DOMAIN}"
-                    description: Media Server
-                    namespace: media
-                    app: media-plex
-                    widget:
-                      type: plex
-                      url: "https://plex.${SECRET_DEFAULT_DOMAIN}"
-                      key: "${SECRET_PLEX_TOKEN}"
-                - Tautulli:
-                    icon: tautulli.png
-                    href: "https://tautulli.${SECRET_DEFAULT_DOMAIN}"
-                    description: Plex Analytics
-                    namespace: media
-                    app: media-tautulli
-                - Seerr:
-                    icon: overseerr.png
-                    href: "https://seerr.${SECRET_DEFAULT_DOMAIN}"
-                    description: Requests
-                    namespace: media
-                    app: media-seerr
-                    widget:
-                      type: overseerr
-                      url: "https://seerr.${SECRET_DEFAULT_DOMAIN}"
-                      key: "${SECRET_SEERR_API_KEY}"
           settings.yaml: |
             title: Dashboard
             favicon: https://gethomepage.dev/favicon.ico
@@ -200,13 +82,6 @@ spec:
             theme: dark
             color: slate
             headerStyle: clean
-            layout:
-              Media:
-                style: row
-                columns: 4
-              Streaming:
-                style: row
-                columns: 4
             hideVersion: true
           custom.css: ""
           custom.js: ""
@@ -225,6 +100,10 @@ spec:
                   cpu: true
                   memory: true
                   showLabel: true
+            - search:
+                provider: custom
+                url: "https://searxng.${SECRET_DEFAULT_DOMAIN}/search?q="
+                target: _blank
     controllers:
       homepage:
         strategy: RollingUpdate
@@ -344,16 +223,6 @@ spec:
               ports:
                 - port: 53
                   protocol: UDP
-            - to:
-                - namespaceSelector:
-                    matchLabels:
-                      kubernetes.io/metadata.name: haproxy-controller
-                  podSelector:
-                    matchLabels:
-                      app.kubernetes.io/name: kubernetes-ingress
-              ports:
-                - port: 8443
-                  protocol: TCP
           ingress:
             - from:
                 - namespaceSelector:
