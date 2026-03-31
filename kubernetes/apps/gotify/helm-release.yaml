@@ -74,11 +74,6 @@ spec:
       gotify:
         enabled: true
         annotations:
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/name: "Gotify"
-          gethomepage.dev/group: "Infrastructure"
-          gethomepage.dev/icon: "gotify.png"
-          gethomepage.dev/pod-selector: "app.kubernetes.io/name=gotify-gotify"
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
           haproxy.org/ssl-redirect-port: "443"
           haproxy.org/response-set-header: |

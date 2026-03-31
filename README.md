@@ -98,7 +98,6 @@ Every namespace has a default-deny network policy. Ingress and egress are explic
 | Service | Purpose |
 |---------|---------|
 | [Home Assistant MCP](https://github.com/homeassistant-ai/ha-mcp) | Smart home AI bridge |
-| [Homepage](https://gethomepage.dev/) | Application dashboard |
 | [AdGuard Home](https://adguard.com/adguard-home.html) | DNS-level ad blocking |
 | [Unifi Controller](https://ui.com/) | Network management |
 | [Changedetection.io](https://changedetection.io/) | Website change monitoring |
