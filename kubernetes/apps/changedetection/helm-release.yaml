@@ -81,7 +81,7 @@ spec:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/name: "Changedetection"
           gethomepage.dev/group: "Infrastructure"
-          gethomepage.dev/icon: "changedetection-io.png"
+          gethomepage.dev/icon: "changedetection.png"
           gethomepage.dev/pod-selector: "app.kubernetes.io/name=changedetection-changedetection"
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
           haproxy.org/ssl-redirect-port: "443"
