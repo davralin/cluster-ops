@@ -177,6 +177,14 @@ spec:
             - to:
                 - podSelector:
                     matchLabels:
+                      app.kubernetes.io/controller: dispatcharr
+                      app.kubernetes.io/instance: media-dispatcharr
+                      app.kubernetes.io/name: media-dispatcharr
+              ports:
+                - port: 9191
+            - to:
+                - podSelector:
+                    matchLabels:
                       app.kubernetes.io/controller: tunarr
                       app.kubernetes.io/instance: media-tunarr
                       app.kubernetes.io/name: media-tunarr
@@ -198,6 +206,11 @@ spec:
                   podSelector:
                     matchLabels:
                       app.kubernetes.io/name: kubernetes-ingress
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: dispatcharr
+                      app.kubernetes.io/instance: media-dispatcharr
+                      app.kubernetes.io/name: media-dispatcharr
                 - podSelector:
                     matchLabels:
                       app.kubernetes.io/controller: ersatztv
