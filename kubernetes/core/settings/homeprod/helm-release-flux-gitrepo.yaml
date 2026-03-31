@@ -35,6 +35,8 @@ spec:
         url: https://github.com/davralin/cluster-ops
         ref:
           branch: main
+        secretRef:
+          name: github-token
     kustomization:
       spec:
         path: ./kubernetes/clusters/homeprod
