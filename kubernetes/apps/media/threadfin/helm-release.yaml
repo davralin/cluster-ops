@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &name dispatcharr
+  name: &name threadfin
   namespace: flux-system
 spec:
   interval: 30m
@@ -31,17 +31,20 @@ spec:
       automountServiceAccountToken: false
       enableServiceLinks: false
       securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
         fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: true
         seccompProfile:
           type: RuntimeDefault
     controllers:
-      dispatcharr:
+      threadfin:
         containers:
-          dispatcharr:
+          threadfin:
             image:
-              repository: ghcr.io/dispatcharr/dispatcharr
-              tag: 0.21.1@sha256:3fe4da0af06887781aba4650bb64bbffc3a10f11a602d4d5a1a8df6a8edca416
+              repository: docker.io/fyb3roptik/threadfin
+              tag: 1.2.9@sha256:99c3556cf465b5c87f6648b232b7f9d84e34ff646719184f0490464bb522d160
             env:
               TZ: "${TIMEZONE}"
             probes:
@@ -51,31 +54,26 @@ spec:
               startup: *probes
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: false
+              readOnlyRootFilesystem: true
               capabilities:
                 drop:
                   - ALL
             resources:
               requests:
                 cpu: 10m
-                memory: 256Mi
+                memory: 128Mi
               limits:
-                memory: 1Gi
+                memory: 512Mi
     service:
-      dispatcharr:
+      threadfin:
         controller: *name
         ports:
           http:
-            port: &port 9191
+            port: &port 34400
     ingress:
-      dispatcharr:
+      threadfin:
         enabled: true
         annotations:
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/name: "Dispatcharr"
-          gethomepage.dev/group: "Media - Tools"
-          gethomepage.dev/icon: "dispatcharr.png"
-          gethomepage.dev/pod-selector: "app.kubernetes.io/name=media-dispatcharr"
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
           haproxy.org/ssl-redirect-port: "443"
           haproxy.org/response-set-header: |
@@ -84,26 +82,28 @@ spec:
             X-Content-Type-Options "nosniff"
             Referrer-Policy "strict-origin-when-cross-origin"
         hosts:
-          - host: &host "dispatcharr.${SECRET_DEFAULT_DOMAIN}"
+          - host: &host "threadfin.${SECRET_DEFAULT_DOMAIN}"
             paths:
               - path: /
                 service:
-                  identifier: dispatcharr
+                  identifier: threadfin
                   port: http
         tls:
           - hosts:
               - *host
     persistence:
-      data:
+      config:
         enabled: true
-        existingClaim: dispatcharr
+        existingClaim: threadfin
+        globalMounts:
+          - path: /home/threadfin/conf
     networkpolicies:
-      dispatcharr:
+      threadfin:
         enabled: true
         controller: *name
         policyTypes:
-          - Ingress
           - Egress
+          - Ingress
         rules:
           egress:
             - to:
@@ -127,19 +127,19 @@ spec:
                 - port: 443
                   protocol: TCP
             - to:
-                - podSelector:
-                    matchLabels:
-                      app.kubernetes.io/controller: ersatztv
-                      app.kubernetes.io/instance: media-ersatztv
-                      app.kubernetes.io/name: media-ersatztv
+              - podSelector:
+                  matchLabels:
+                    app.kubernetes.io/controller: ersatztv
+                    app.kubernetes.io/instance: media-ersatztv
+                    app.kubernetes.io/name: media-ersatztv
               ports:
                 - port: 8409
             - to:
-                - podSelector:
-                    matchLabels:
-                      app.kubernetes.io/controller: tunarr
-                      app.kubernetes.io/instance: media-tunarr
-                      app.kubernetes.io/name: media-tunarr
+              - podSelector:
+                  matchLabels:
+                    app.kubernetes.io/controller: tunarr
+                    app.kubernetes.io/instance: media-tunarr
+                    app.kubernetes.io/name: media-tunarr
               ports:
                 - port: 8000
           ingress:
