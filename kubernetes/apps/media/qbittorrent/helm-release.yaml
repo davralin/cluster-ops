@@ -124,7 +124,7 @@ spec:
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/name: "qBittorrent"
-          gethomepage.dev/group: "Media - Downloads"
+          gethomepage.dev/group: "Hoarding"
           gethomepage.dev/icon: "qbittorrent.png"
           gethomepage.dev/pod-selector: "app.kubernetes.io/name=media-qbittorrent"
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"

@@ -142,7 +142,7 @@ spec:
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/name: "SearXNG"
-          gethomepage.dev/group: "AI"
+          gethomepage.dev/group: "Development and Tools"
           gethomepage.dev/icon: "searxng.png"
           gethomepage.dev/pod-selector: "app.kubernetes.io/name=searxng-searxng"
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"

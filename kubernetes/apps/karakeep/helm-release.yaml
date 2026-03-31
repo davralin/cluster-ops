@@ -217,7 +217,7 @@ spec:
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/name: "Karakeep"
-          gethomepage.dev/group: "Productivity"
+          gethomepage.dev/group: "Hoarding"
           gethomepage.dev/icon: "karakeep.png"
           gethomepage.dev/pod-selector: "app.kubernetes.io/name=karakeep-karakeep"
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"

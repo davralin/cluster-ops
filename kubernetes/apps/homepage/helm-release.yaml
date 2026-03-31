@@ -83,6 +83,37 @@ spec:
             color: slate
             headerStyle: clean
             hideVersion: true
+            layout:
+              Infrastructure:
+                style: row
+                columns: 3
+              Document Management:
+                style: row
+                columns: 3
+              Productivity:
+                style: row
+                columns: 3
+              Hoarding:
+                style: row
+                columns: 3
+              AI:
+                style: row
+                columns: 3
+              Development and Tools:
+                style: row
+                columns: 3
+              Media - Streaming:
+                style: row
+                columns: 3
+              Media - Management:
+                style: row
+                columns: 3
+              Media - Tools:
+                style: row
+                columns: 3
+              Miscellaneous:
+                style: row
+                columns: 3
           custom.css: ""
           custom.js: ""
           proxmox.yaml: |

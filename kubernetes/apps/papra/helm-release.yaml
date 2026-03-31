@@ -82,7 +82,7 @@ spec:
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/name: "Papra"
-          gethomepage.dev/group: "Productivity"
+          gethomepage.dev/group: "Document Management"
           gethomepage.dev/icon: "papra.png"
           gethomepage.dev/pod-selector: "app.kubernetes.io/name=papra-papra"
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"

@@ -77,7 +77,7 @@ spec:
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/name: "IT Tools"
-          gethomepage.dev/group: "Miscellaneous"
+          gethomepage.dev/group: "Development and Tools"
           gethomepage.dev/icon: "it-tools.png"
           gethomepage.dev/pod-selector: "app.kubernetes.io/name=it-tools-it-tools"
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
