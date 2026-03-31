@@ -46,8 +46,8 @@ spec:
         containers:
           borgmatic:
             image:
-              repository: ghcr.io/davralin/borgmatic
-              tag: latest@sha256:aea25cb89bc0f08ee4c9304dcf3c423ef4a05b6990ed65406af5dedb1b8135ba
+              repository: docker.io/davralin/borgmatic
+              tag: latest
             command: ['/usr/local/bin/start.sh']
             env:
               BORG_PASSPHRASE: "${SECRET_BORG_PASSPHRASE}"

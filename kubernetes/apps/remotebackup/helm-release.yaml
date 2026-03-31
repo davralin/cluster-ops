@@ -46,8 +46,8 @@ spec:
         containers:
           remotebackup:
             image:
-              repository: ghcr.io/davralin/rsync
-              tag: latest@sha256:e9749ab2cd204882d95734443c26990f44799d6574c8e01be8c15b1e4d486efa
+              repository: docker.io/davralin/rsync
+              tag: latest
             command: ['/usr/bin/rsync']
             args: ["--archive", "--delete", "--verbose", "--rsync-path", "sudo rsync", "-e", "ssh -o StrictHostKeyChecking=no", "backup@nas.${SECRET_OFFSITE_DOMAIN}:/opt/local/", "/home/user/backup/"]
             securityContext:
