@@ -179,6 +179,11 @@ spec:
                       app.kubernetes.io/controller: jellyfin
                       app.kubernetes.io/instance: media-jellyfin
                       app.kubernetes.io/name: media-jellyfin
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: threadfin
+                      app.kubernetes.io/instance: media-threadfin
+                      app.kubernetes.io/name: media-threadfin
                 - namespaceSelector:
                     matchLabels:
                       kubernetes.io/metadata.name: haproxy-controller

@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: dispatcharr
+  name: threadfin
   namespace: media
 spec:
   storageClassName: "${STORAGE_READWRITEONCE}"
