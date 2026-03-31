@@ -90,7 +90,7 @@ spec:
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/name: "Vaultwarden"
-          gethomepage.dev/group: "Productivity"
+          gethomepage.dev/group: "Infrastructure"
           gethomepage.dev/icon: "vaultwarden.png"
           gethomepage.dev/pod-selector: "app.kubernetes.io/name=vaultwarden-vaultwarden"
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"

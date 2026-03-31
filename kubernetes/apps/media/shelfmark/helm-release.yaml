@@ -108,7 +108,7 @@ spec:
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/name: "Shelfmark"
-          gethomepage.dev/group: "Media - Downloads"
+          gethomepage.dev/group: "Hoarding"
           gethomepage.dev/icon: "calibre.png"
           gethomepage.dev/pod-selector: "app.kubernetes.io/name=media-shelfmark"
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
