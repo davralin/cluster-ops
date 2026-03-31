@@ -44,7 +44,7 @@ spec:
           omniroute:
             image:
               repository: docker.io/diegosouzapw/omniroute
-              tag: 3.3.9@sha256:21311c7b5620dd7f0426966d6a1e70940d582668f5a226cfa730451535a7c706
+              tag: 3.3.10@sha256:536a0d906a53de55ce1840a564b4eec7ae0485db2e8e16e3208a116f7457a52c
             env:
               TZ: "${TIMEZONE}"
             probes:
