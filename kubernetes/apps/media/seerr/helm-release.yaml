@@ -98,11 +98,6 @@ spec:
       seerr:
         enabled: true
         annotations:
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/name: "Seerr"
-          gethomepage.dev/group: "Media - Management"
-          gethomepage.dev/icon: "overseerr.png"
-          gethomepage.dev/pod-selector: "app.kubernetes.io/name=media-seerr"
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
           haproxy.org/ssl-redirect-port: "443"
           haproxy.org/response-set-header: |

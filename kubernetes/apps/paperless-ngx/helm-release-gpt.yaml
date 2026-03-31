@@ -87,11 +87,6 @@ spec:
       paperless-gpt:
         enabled: true
         annotations:
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/name: "Paperless-GPT"
-          gethomepage.dev/group: "Document Management"
-          gethomepage.dev/icon: "paperless-ngx.png"
-          gethomepage.dev/pod-selector: "app.kubernetes.io/name=paperless-ngx-paperless-gpt"
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
           haproxy.org/ssl-redirect-port: "443"
           haproxy.org/response-set-header: |

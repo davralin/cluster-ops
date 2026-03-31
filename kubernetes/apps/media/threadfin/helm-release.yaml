@@ -116,7 +116,7 @@ spec:
               ports:
                 - port: 53
                   protocol: UDP
-            - to:
+            - to: # M3U/EPG fetching
                 - ipBlock:
                     cidr: 0.0.0.0/0
                     except:

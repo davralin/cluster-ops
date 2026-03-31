@@ -101,11 +101,6 @@ spec:
       prowlarr:
         enabled: true
         annotations:
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/name: "Prowlarr"
-          gethomepage.dev/group: "Media - Management"
-          gethomepage.dev/icon: "prowlarr.png"
-          gethomepage.dev/pod-selector: "app.kubernetes.io/name=media-prowlarr"
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
           haproxy.org/ssl-redirect-port: "443"
           haproxy.org/response-set-header: |

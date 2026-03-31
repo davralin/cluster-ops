@@ -108,11 +108,6 @@ spec:
         enabled: true
         annotations:
           haproxy.org/server-ssl: "true"
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/name: "UniFi"
-          gethomepage.dev/group: "Infrastructure"
-          gethomepage.dev/icon: "unifi.png"
-          gethomepage.dev/pod-selector: "app.kubernetes.io/name=unifi-unifi"
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
           haproxy.org/ssl-redirect-port: "443"
           haproxy.org/response-set-header: |

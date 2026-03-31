@@ -95,11 +95,6 @@ spec:
       openwebui:
         enabled: true
         annotations:
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/name: "Open WebUI"
-          gethomepage.dev/group: "AI"
-          gethomepage.dev/icon: "open-webui.png"
-          gethomepage.dev/pod-selector: "app.kubernetes.io/name=openwebui-openwebui"
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
           haproxy.org/ssl-redirect-port: "443"
           haproxy.org/response-set-header: |

@@ -89,11 +89,6 @@ spec:
       syncthing:
         enabled: true
         annotations:
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/name: "Syncthing"
-          gethomepage.dev/group: "Productivity"
-          gethomepage.dev/icon: "syncthing.png"
-          gethomepage.dev/pod-selector: "app.kubernetes.io/name=syncthing-syncthing"
           haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
           haproxy.org/ssl-redirect-port: "443"
           haproxy.org/response-set-header: |

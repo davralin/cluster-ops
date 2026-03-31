@@ -21,7 +21,6 @@ resources:
   - ../freshrss
   - ../gotify
   - ../ha-mcp
-  - ../homepage
   - ../icloudpd
   - ../intel-device-plugin
   - ../invidious
