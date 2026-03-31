@@ -43,8 +43,8 @@ spec:
         containers:
           beets:
             image:
-              repository: ghcr.io/davralin/beets
-              tag: latest@sha256:56c470fe7ec618bc11650c7805b9853171f02ad1a32cac256fc8adf10fc93f6c
+              repository: docker.io/davralin/beets
+              tag: latest
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true

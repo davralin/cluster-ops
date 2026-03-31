@@ -46,8 +46,8 @@ spec:
         containers:
           daily-audio-ripper:
             image:
-              repository: ghcr.io/davralin/ripbox
-              tag: latest@sha256:0794c3821fb0fc8b3d937a2751726e759fa41e0356482447a55c964f3f88c23f
+              repository: docker.io/davralin/ripbox
+              tag: latest
             command: ['/media/audioripper.sh']
             securityContext:
               allowPrivilegeEscalation: false

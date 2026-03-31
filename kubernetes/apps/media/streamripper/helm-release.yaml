@@ -43,8 +43,8 @@ spec:
         containers:
           streamripper:
             image:
-              repository: ghcr.io/davralin/streamripper
-              tag: latest@sha256:93cf148f7955a07ee26bcb6c4eb15bf2519760bf40739f03a501fb064cf79778
+              repository: docker.io/davralin/streamripper
+              tag: latest
             command: ['/media/streamripper.sh']
             securityContext:
               allowPrivilegeEscalation: false
