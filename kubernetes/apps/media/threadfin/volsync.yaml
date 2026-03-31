@@ -51,7 +51,7 @@ spec:
         spec:
           sourcePVC: threadfin
           trigger:
-            schedule: "37 01 * * *"
+            schedule: "04 01 * * *"
           restic:
             copyMethod: Direct
             pruneIntervalDays: 7
