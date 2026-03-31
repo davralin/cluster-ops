@@ -223,6 +223,8 @@ Always include: `allowPrivilegeEscalation: false`, `readOnlyRootFilesystem: true
 
 **Prefer `readOnlyRootFilesystem: true` with emptyDir mounts** over setting it to `false`. If an app writes to `/tmp`, `/cache`, or other runtime directories, add `emptyDir` volumes for those paths instead of disabling read-only root. Only set `false` as a last resort when the app writes to unpredictable locations across the filesystem.
 
+**Do NOT add `tmp` emptyDir mounts preemptively.** Only add emptyDir volumes when the app is known to need them (e.g. it crashes without write access to a specific path). Don't speculatively add `/tmp` emptyDir "just in case" — if the app doesn't need it, don't include it.
+
 ### Persistence naming convention
 
 bjw-s app-template auto-mounts volumes to `/<key>` when `globalMounts` is omitted. Use the mount directory name as the persistence key to avoid redundant path config:

@@ -1,0 +1,162 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &name dispatcharr
+  namespace: flux-system
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 4.6.2
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+      interval: 30m
+  driftDetection:
+    mode: enabled
+  targetNamespace: media
+  install:
+    createNamespace: true
+    remediation:
+      retries: 10
+  upgrade:
+    remediation:
+      retries: 10
+  values:
+    fullnameOverride: *name
+    defaultPodOptions:
+      automountServiceAccountToken: false
+      enableServiceLinks: false
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+    controllers:
+      dispatcharr:
+        containers:
+          dispatcharr:
+            image:
+              repository: ghcr.io/dispatcharr/dispatcharr
+              tag: 0.21.1@sha256:3fe4da0af06887781aba4650bb64bbffc3a10f11a602d4d5a1a8df6a8edca416
+            env:
+              TZ: "${TIMEZONE}"
+            probes:
+              liveness: &probes
+                enabled: true
+              readiness: *probes
+              startup: *probes
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: false
+              capabilities:
+                drop:
+                  - ALL
+            resources:
+              requests:
+                cpu: 10m
+                memory: 256Mi
+              limits:
+                memory: 1Gi
+    service:
+      dispatcharr:
+        controller: *name
+        ports:
+          http:
+            port: &port 9191
+    ingress:
+      dispatcharr:
+        enabled: true
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/name: "Dispatcharr"
+          gethomepage.dev/group: "Media - Tools"
+          gethomepage.dev/icon: "dispatcharr.png"
+          gethomepage.dev/pod-selector: "app.kubernetes.io/name=media-dispatcharr"
+          haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
+          haproxy.org/ssl-redirect-port: "443"
+          haproxy.org/response-set-header: |
+            Strict-Transport-Security "max-age=31536000"
+            X-Frame-Options "DENY"
+            X-Content-Type-Options "nosniff"
+            Referrer-Policy "strict-origin-when-cross-origin"
+        hosts:
+          - host: &host "dispatcharr.${SECRET_DEFAULT_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  identifier: dispatcharr
+                  port: http
+        tls:
+          - hosts:
+              - *host
+    persistence:
+      data:
+        enabled: true
+        existingClaim: dispatcharr
+    networkpolicies:
+      dispatcharr:
+        enabled: true
+        controller: *name
+        policyTypes:
+          - Ingress
+          - Egress
+        rules:
+          egress:
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: kube-system
+                  podSelector:
+                    matchLabels:
+                      k8s-app: kube-dns
+              ports:
+                - port: 53
+                  protocol: UDP
+            - to: # M3U/EPG fetching
+                - ipBlock:
+                    cidr: 0.0.0.0/0
+                    except:
+                      - "${HAPROXY_WHITELIST}"
+              ports:
+                - port: 80
+                  protocol: TCP
+                - port: 443
+                  protocol: TCP
+            - to:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: ersatztv
+                      app.kubernetes.io/instance: media-ersatztv
+                      app.kubernetes.io/name: media-ersatztv
+              ports:
+                - port: 8409
+            - to:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: tunarr
+                      app.kubernetes.io/instance: media-tunarr
+                      app.kubernetes.io/name: media-tunarr
+              ports:
+                - port: 8000
+          ingress:
+            - from:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: jellyfin
+                      app.kubernetes.io/instance: media-jellyfin
+                      app.kubernetes.io/name: media-jellyfin
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: haproxy-controller
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: kubernetes-ingress
+              ports:
+                - port: *port
