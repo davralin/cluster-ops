@@ -37,6 +37,13 @@ spec:
               app.kubernetes.io/name: prometheus-blackbox-exporter
         - namespaceSelector:
             matchLabels:
+              kubernetes.io/metadata.name: awx
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/name: awx-task
+              app.kubernetes.io/part-of: awx
+        - namespaceSelector:
+            matchLabels:
               kubernetes.io/metadata.name: openclaw
           podSelector:
             matchLabels:
