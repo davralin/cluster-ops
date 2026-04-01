@@ -101,12 +101,13 @@ spec:
     - to: # For onprem project-sync
         - namespaceSelector:
             matchLabels:
-              kubernetes.io/metadata.name: haproxy-controller
+              kubernetes.io/metadata.name: forgejo
           podSelector:
             matchLabels:
-              app.kubernetes.io/name: kubernetes-ingress
+              app.kubernetes.io/instance: forgejo-forgejo
+              app.kubernetes.io/name: forgejo
       ports:
-        - port: 8443
+        - port: 22
           protocol: TCP
 ---
 apiVersion: networking.k8s.io/v1
