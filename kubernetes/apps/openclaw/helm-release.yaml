@@ -275,8 +275,6 @@ spec:
               ports:
                 - port: 22
                   protocol: TCP
-                - port: 2222
-                  protocol: TCP
             - to:
                 - namespaceSelector:
                     matchLabels:
