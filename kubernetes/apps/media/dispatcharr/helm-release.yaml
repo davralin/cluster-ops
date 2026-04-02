@@ -64,7 +64,6 @@ spec:
                     key: password
               REDIS_HOST: dispatcharr-valkey.media.svc.cluster.local
               REDIS_PORT: "6379"
-              CELERY_BROKER_URL: redis://dispatcharr-valkey.media.svc.cluster.local:6379/0
               DISPATCHARR_LOG_LEVEL: info
               DISPATCHARR_PORT: "9191"
             probes:
@@ -103,7 +102,6 @@ spec:
                     key: password
               REDIS_HOST: dispatcharr-valkey.media.svc.cluster.local
               REDIS_PORT: "6379"
-              CELERY_BROKER_URL: redis://dispatcharr-valkey.media.svc.cluster.local:6379/0
               DISPATCHARR_LOG_LEVEL: info
               # Celery entrypoint doesn't source the web entrypoint's profile,
               # so Django settings must be set explicitly
