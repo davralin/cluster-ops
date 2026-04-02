@@ -190,6 +190,24 @@ spec:
               ports:
                 - port: 6379
                   protocol: TCP
+            - to:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: ersatztv
+                      app.kubernetes.io/instance: media-ersatztv
+                      app.kubernetes.io/name: media-ersatztv
+              ports:
+                - port: 8409
+                  protocol: TCP
+            - to:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: tunarr
+                      app.kubernetes.io/instance: media-tunarr
+                      app.kubernetes.io/name: media-tunarr
+              ports:
+                - port: 8000
+                  protocol: TCP
             - to: # M3U/EPG/stream fetching
                 - ipBlock:
                     cidr: 0.0.0.0/0

@@ -151,9 +151,9 @@ spec:
             - from:
                 - podSelector:
                     matchLabels:
-                      app.kubernetes.io/controller: threadfin
-                      app.kubernetes.io/instance: media-threadfin
-                      app.kubernetes.io/name: media-threadfin
+                      app.kubernetes.io/controller: dispatcharr
+                      app.kubernetes.io/instance: media-dispatcharr
+                      app.kubernetes.io/name: media-dispatcharr
                 - namespaceSelector:
                     matchLabels:
                       kubernetes.io/metadata.name: haproxy-controller
