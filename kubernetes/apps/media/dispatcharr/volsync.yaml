@@ -51,7 +51,7 @@ spec:
         spec:
           sourcePVC: dispatcharr
           trigger:
-            schedule: "04 03 * * *"
+            schedule: "04 01 * * *"
           restic:
             copyMethod: Direct
             pruneIntervalDays: 7

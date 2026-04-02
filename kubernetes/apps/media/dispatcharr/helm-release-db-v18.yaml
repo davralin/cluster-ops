@@ -172,11 +172,6 @@ spec:
                       app.kubernetes.io/controller: dispatcharr
                       app.kubernetes.io/instance: media-dispatcharr
                       app.kubernetes.io/name: media-dispatcharr
-                - podSelector:
-                    matchLabels:
-                      app.kubernetes.io/controller: celery
-                      app.kubernetes.io/instance: media-dispatcharr
-                      app.kubernetes.io/name: media-dispatcharr
               ports:
                 - port: 5432
                   protocol: TCP
