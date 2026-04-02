@@ -47,10 +47,10 @@ spec:
       dispatcharr:
         containers:
           dispatcharr:
-            image: &image
+            image:
               repository: ghcr.io/dispatcharr/dispatcharr
               tag: 0.22.0@sha256:06189b5f338fe2c8bd2527ab9e2751bc8a1b32b955a44c1bc16cc0768ae290e6
-            env: &env
+            env:
               TZ: "${TIMEZONE}"
               DISPATCHARR_ENV: modular
               POSTGRES_HOST: dispatcharr-postgres-v18-rw.media.svc.cluster.local
@@ -72,7 +72,7 @@ spec:
                 enabled: true
               readiness: *probes
               startup: *probes
-            securityContext: &security
+            securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities:
@@ -80,12 +80,14 @@ spec:
                   - ALL
             resources:
               requests:
-                cpu: 50m
-                memory: 512Mi
+                cpu: 10m
+                memory: 256Mi
               limits:
-                memory: 2Gi
+                memory: 1Gi
           celery:
-            image: *image
+            image:
+              repository: ghcr.io/dispatcharr/dispatcharr
+              tag: 0.22.0@sha256:06189b5f338fe2c8bd2527ab9e2751bc8a1b32b955a44c1bc16cc0768ae290e6
             command: ["/app/docker/entrypoint.celery.sh"]
             env:
               TZ: "${TIMEZONE}"
@@ -108,20 +110,25 @@ spec:
               DJANGO_SETTINGS_MODULE: dispatcharr.settings
               PYTHONUNBUFFERED: "1"
             probes:
-              liveness: &disabled_probes
+              liveness: &probes_disabled
                 enabled: false
-              readiness: *disabled_probes
-              startup: *disabled_probes
-            securityContext: *security
+              readiness: *probes_disabled
+              startup: *probes_disabled
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
             resources:
               requests:
-                cpu: 20m
-                memory: 256Mi
+                cpu: 10m
+                memory: 128Mi
               limits:
-                memory: 1Gi
+                memory: 512Mi
     service:
       dispatcharr:
-        controller: dispatcharr
+        controller: *name
         ports:
           http:
             port: &port 9191
@@ -141,7 +148,7 @@ spec:
             paths:
               - path: /
                 service:
-                  identifier: dispatcharr
+                  identifier: *name
                   port: http
         tls:
           - hosts:
@@ -149,11 +156,11 @@ spec:
     persistence:
       data:
         enabled: true
-        existingClaim: dispatcharr
+        existingClaim: *name
     networkpolicies:
       dispatcharr:
         enabled: true
-        controller: dispatcharr
+        controller: *name
         policyTypes:
           - Egress
           - Ingress
