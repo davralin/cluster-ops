@@ -155,6 +155,11 @@ spec:
       data:
         enabled: true
         existingClaim: *name
+      profile-d:
+        enabled: true
+        type: emptyDir
+        globalMounts:
+          - path: /etc/profile.d/
     networkpolicies:
       dispatcharr:
         enabled: true
