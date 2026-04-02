@@ -5,4 +5,7 @@ resources:
   - database-secret.yaml
   - helm-release-db-v18.yaml
   - helm-release-valkey.yaml
+  - helm-release.yaml
+  - probes.yaml
   - pvc.yaml
+  - volsync.yaml

@@ -7,7 +7,6 @@ resources:
   - beets
   - cronjobs
   - dispatcharr
-  - threadfin
   - ersatztv
   - fetcharr
   - filebrowser
