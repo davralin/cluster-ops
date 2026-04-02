@@ -77,6 +77,12 @@ spec:
               # sed: couldn't open temporary file /etc/sedLa3qWC: Read-only file system
               readOnlyRootFilesystem: false
               capabilities:
+                add:
+                  - CHOWN
+                  - DAC_OVERRIDE
+                  - FOWNER
+                  - SETUID
+                  - SETGID
                 drop:
                   - ALL
             resources:
@@ -84,7 +90,7 @@ spec:
                 cpu: 10m
                 memory: 256Mi
               limits:
-                memory: 1Gi
+                memory: 512Mi
           celery:
             image:
               repository: ghcr.io/dispatcharr/dispatcharr
@@ -118,6 +124,12 @@ spec:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities:
+                add:
+                  - CHOWN
+                  - DAC_OVERRIDE
+                  - FOWNER
+                  - SETUID
+                  - SETGID
                 drop:
                   - ALL
             resources:
@@ -157,11 +169,6 @@ spec:
       data:
         enabled: true
         existingClaim: *name
-      profile-d:
-        enabled: true
-        type: emptyDir
-        globalMounts:
-          - path: /etc/profile.d/
     networkpolicies:
       dispatcharr:
         enabled: true
