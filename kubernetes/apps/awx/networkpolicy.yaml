@@ -109,6 +109,8 @@ spec:
       ports:
         - port: 22
           protocol: TCP
+        - port: 2222
+          protocol: TCP
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy

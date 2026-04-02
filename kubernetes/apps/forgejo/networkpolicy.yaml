@@ -40,6 +40,7 @@ spec:
               kubernetes.io/metadata.name: awx
           podSelector:
             matchLabels:
+              app.kubernetes.io/component: awx
               app.kubernetes.io/name: awx-task
               app.kubernetes.io/part-of: awx
         - namespaceSelector:
@@ -51,7 +52,6 @@ spec:
               app.kubernetes.io/instance: openclaw-openclaw
               app.kubernetes.io/name: openclaw-openclaw
       ports:
-        - port: 22 # Must match the port the pod actually listens to
         - port: 2222 # Must match the port the pod actually listens to
     - from:
         - namespaceSelector:
