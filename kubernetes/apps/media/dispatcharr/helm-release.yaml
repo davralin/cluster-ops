@@ -171,6 +171,9 @@ spec:
       data:
         enabled: true
         existingClaim: *name
+      tmp:
+        enabled: true
+        type: emptyDir
     networkpolicies:
       dispatcharr:
         enabled: true
