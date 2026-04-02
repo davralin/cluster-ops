@@ -89,8 +89,10 @@ spec:
               requests:
                 cpu: 10m
                 memory: 256Mi
+                gpu.intel.com/i915: 1
               limits:
                 memory: 512Mi
+                gpu.intel.com/i915: 1
           celery:
             image:
               repository: ghcr.io/dispatcharr/dispatcharr
