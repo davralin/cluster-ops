@@ -1,0 +1,233 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &name dispatcharr
+  namespace: flux-system
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 4.6.2
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+      interval: 30m
+  driftDetection:
+    mode: enabled
+  targetNamespace: media
+  install:
+    createNamespace: true
+    remediation:
+      retries: 10
+  upgrade:
+    remediation:
+      retries: 10
+  dependsOn:
+    - name: dispatcharr-postgres-v18
+      namespace: flux-system
+    - name: dispatcharr-valkey
+      namespace: flux-system
+  values:
+    fullnameOverride: *name
+    defaultPodOptions:
+      automountServiceAccountToken: false
+      enableServiceLinks: false
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+    controllers:
+      dispatcharr:
+        containers:
+          dispatcharr:
+            image:
+              repository: ghcr.io/dispatcharr/dispatcharr
+              tag: 0.22.0@sha256:06189b5f338fe2c8bd2527ab9e2751bc8a1b32b955a44c1bc16cc0768ae290e6
+            env:
+              TZ: "${TIMEZONE}"
+              DISPATCHARR_ENV: modular
+              POSTGRES_HOST: dispatcharr-postgres-v18-rw.media.svc.cluster.local
+              POSTGRES_PORT: "5432"
+              POSTGRES_DB: dispatcharr
+              POSTGRES_USER: dispatcharr
+              POSTGRES_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: dispatcharr-basic-auth
+                    key: password
+              REDIS_HOST: dispatcharr-valkey.media.svc.cluster.local
+              REDIS_PORT: "6379"
+              DISPATCHARR_LOG_LEVEL: info
+              DISPATCHARR_PORT: "9191"
+            probes:
+              liveness: &probes
+                enabled: true
+              readiness: *probes
+              startup: *probes
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+            resources:
+              requests:
+                cpu: 10m
+                memory: 256Mi
+              limits:
+                memory: 1Gi
+          celery:
+            image:
+              repository: ghcr.io/dispatcharr/dispatcharr
+              tag: 0.22.0@sha256:06189b5f338fe2c8bd2527ab9e2751bc8a1b32b955a44c1bc16cc0768ae290e6
+            command: ["/app/docker/entrypoint.celery.sh"]
+            env:
+              TZ: "${TIMEZONE}"
+              DISPATCHARR_ENV: modular
+              POSTGRES_HOST: dispatcharr-postgres-v18-rw.media.svc.cluster.local
+              POSTGRES_PORT: "5432"
+              POSTGRES_DB: dispatcharr
+              POSTGRES_USER: dispatcharr
+              POSTGRES_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: dispatcharr-basic-auth
+                    key: password
+              REDIS_HOST: dispatcharr-valkey.media.svc.cluster.local
+              REDIS_PORT: "6379"
+              DISPATCHARR_LOG_LEVEL: info
+              # Celery entrypoint doesn't source the web entrypoint's profile,
+              # so Django settings must be set explicitly
+              DJANGO_SETTINGS_MODULE: dispatcharr.settings
+              PYTHONUNBUFFERED: "1"
+            probes:
+              liveness: &probes_disabled
+                enabled: false
+              readiness: *probes_disabled
+              startup: *probes_disabled
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+            resources:
+              requests:
+                cpu: 10m
+                memory: 128Mi
+              limits:
+                memory: 512Mi
+    service:
+      dispatcharr:
+        controller: *name
+        ports:
+          http:
+            port: &port 9191
+    ingress:
+      dispatcharr:
+        enabled: true
+        annotations:
+          haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
+          haproxy.org/ssl-redirect-port: "443"
+          haproxy.org/response-set-header: |
+            Strict-Transport-Security "max-age=31536000"
+            X-Frame-Options "DENY"
+            X-Content-Type-Options "nosniff"
+            Referrer-Policy "strict-origin-when-cross-origin"
+        hosts:
+          - host: &host "dispatcharr.${SECRET_DEFAULT_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  identifier: *name
+                  port: http
+        tls:
+          - hosts:
+              - *host
+    persistence:
+      data:
+        enabled: true
+        existingClaim: *name
+    networkpolicies:
+      dispatcharr:
+        enabled: true
+        controller: *name
+        policyTypes:
+          - Egress
+          - Ingress
+        rules:
+          egress:
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: kube-system
+                  podSelector:
+                    matchLabels:
+                      k8s-app: kube-dns
+              ports:
+                - port: 53
+                  protocol: UDP
+            - to:
+                - podSelector:
+                    matchLabels:
+                      cnpg.io/cluster: dispatcharr-postgres-v18
+              ports:
+                - port: 5432
+                  protocol: TCP
+            - to:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: media-dispatcharr-valkey
+              ports:
+                - port: 6379
+                  protocol: TCP
+            - to:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: ersatztv
+                      app.kubernetes.io/instance: media-ersatztv
+                      app.kubernetes.io/name: media-ersatztv
+              ports:
+                - port: 8409
+                  protocol: TCP
+            - to:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: tunarr
+                      app.kubernetes.io/instance: media-tunarr
+                      app.kubernetes.io/name: media-tunarr
+              ports:
+                - port: 8000
+                  protocol: TCP
+            - to: # M3U/EPG/stream fetching
+                - ipBlock:
+                    cidr: 0.0.0.0/0
+                    except:
+                      - "${HAPROXY_WHITELIST}"
+              ports:
+                - port: 80
+                  protocol: TCP
+                - port: 443
+                  protocol: TCP
+          ingress:
+            - from:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: haproxy-controller
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: kubernetes-ingress
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: jellyfin
+                      app.kubernetes.io/instance: media-jellyfin
+                      app.kubernetes.io/name: media-jellyfin
+              ports:
+                - port: *port

@@ -84,6 +84,8 @@ spec:
             - from:
                 - podSelector:
                     matchLabels:
+                      app.kubernetes.io/controller: dispatcharr
+                      app.kubernetes.io/instance: media-dispatcharr
                       app.kubernetes.io/name: media-dispatcharr
               ports:
                 - port: 6379
