@@ -54,11 +54,6 @@ spec:
                   secretKeyRef:
                     name: openclaw-secrets
                     key: GITHUB_TOKEN
-              GROQ_API_KEY:
-                valueFrom:
-                  secretKeyRef:
-                    name: openclaw-secrets
-                    key: GROQ_API_KEY
               OPENCLAW_GATEWAY_PASSWORD:
                 valueFrom:
                   secretKeyRef:
