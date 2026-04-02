@@ -73,7 +73,8 @@ spec:
               startup: *probes
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
+              # sed: couldn't open temporary file /etc/sedLa3qWC: Read-only file system
+              readOnlyRootFilesystem: false
               capabilities:
                 drop:
                   - ALL
