@@ -91,7 +91,7 @@ spec:
                 memory: 256Mi
                 gpu.intel.com/i915: 1
               limits:
-                memory: 512Mi
+                #memory: 512Mi
                 gpu.intel.com/i915: 1
           celery:
             image:
@@ -138,8 +138,8 @@ spec:
               requests:
                 cpu: 10m
                 memory: 128Mi
-              limits:
-                memory: 512Mi
+              #limits:
+                #memory: 512Mi
     service:
       dispatcharr:
         controller: *name
