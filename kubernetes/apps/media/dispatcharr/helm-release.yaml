@@ -64,7 +64,7 @@ spec:
                     key: password
               REDIS_HOST: dispatcharr-valkey.media.svc.cluster.local
               REDIS_PORT: "6379"
-              DISPATCHARR_LOG_LEVEL: info
+              DISPATCHARR_LOG_LEVEL: trace
               DISPATCHARR_PORT: "9191"
             probes:
               liveness: &probes
@@ -102,7 +102,7 @@ spec:
                     key: password
               REDIS_HOST: dispatcharr-valkey.media.svc.cluster.local
               REDIS_PORT: "6379"
-              DISPATCHARR_LOG_LEVEL: info
+              DISPATCHARR_LOG_LEVEL: trace
               # Celery entrypoint doesn't source the web entrypoint's profile,
               # so Django settings must be set explicitly
               DJANGO_SETTINGS_MODULE: dispatcharr.settings
