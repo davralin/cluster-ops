@@ -37,6 +37,7 @@ spec:
           branch: main
         secretRef:
           name: github-token
+          #name: forgejo-token
     kustomization:
       spec:
         path: ./kubernetes/clusters/homeprod

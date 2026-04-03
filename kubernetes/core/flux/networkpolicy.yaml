@@ -267,14 +267,12 @@ spec:
               app: notification-controller
       ports:
         - port: 9090
-    - to:
+    - to: # Github
       - ipBlock:
           cidr: 0.0.0.0/0
           except:
           - "${HAPROXY_WHITELIST}"
       ports:
-        - port: 22
-          protocol: TCP
         - port: 443
           protocol: TCP
 ---

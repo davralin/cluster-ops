@@ -32,11 +32,12 @@ spec:
     gitRepository:
       name: github-davralin-private-cluster-ops
       spec:
-        url: ssh://git@github.com/davralin/private-cluster-ops
+        url: https://github.com/davralin/private-cluster-ops
         ref:
           branch: main
         secretRef:
-          name: github-davralin-private-cluster-ops
+          name: github-token
+          #name: forgejo-token
     kustomization:
       spec:
         path: ./kubernetes/clusters/homeprod
