@@ -82,9 +82,9 @@ spec:
           resources:
             requests:
               cpu: "100m"
-              memory: "256Mi"
-            limits:
               memory: "1Gi"
+            limits:
+              memory: "2Gi"
           backup:
             retentionPolicy: 7d
             barmanObjectStore:
