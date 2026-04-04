@@ -86,7 +86,8 @@ spec:
               continue: false
             - receiver: "dummy"
               matchers:
-                - alertname =~ "InfoInhibitor|CephPGImbalance"
+                - alertname =~ "InfoInhibitor|CephMonClockSkew|CephPGImbalance"
+                # CephMonClockSkew - nodes get time from NTP, not much more I can do there.
                 # CephPGImbalance - this will always be imbalanced, due to me putting rbd on nvme, while cephfs can flow freely.
               continue: false
               # These trigger when I run my backups, and media-jobs - creating false alerts
