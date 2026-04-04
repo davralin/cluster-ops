@@ -32,8 +32,8 @@ spec:
       automountServiceAccountToken: false
       enableServiceLinks: false
       securityContext:
-        runAsUser: 0
-        runAsGroup: 0
+        runAsUser: 911
+        runAsGroup: 911
         fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"
         runAsNonRoot: false
@@ -110,16 +110,6 @@ spec:
       tmp:
         enabled: true
         type: emptyDir
-      root-home:
-        enabled: true
-        type: emptyDir
-        globalMounts:
-          - path: /root
-      tunarr-dumps:
-        enabled: true
-        type: emptyDir
-        globalMounts:
-          - path: /tunarr/dumps
     networkpolicies:
       tunarr:
         enabled: true
