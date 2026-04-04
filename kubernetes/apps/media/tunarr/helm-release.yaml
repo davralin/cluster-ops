@@ -65,7 +65,7 @@ spec:
                 memory: 256Mi
                 gpu.intel.com/i915: 1
               limits:
-                memory: 512Mi
+                memory: 1Gi
                 gpu.intel.com/i915: 1
     service:
       tunarr:
