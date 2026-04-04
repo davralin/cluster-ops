@@ -48,6 +48,8 @@ spec:
               tag: 1.2.9@sha256:bb17a88b6e5443f1dc164d7df2300c181d8ce5513c3ebd0fc4e675bf698973c8
             env:
               TZ: "${TIMEZONE}"
+              TUNARR_DATABASE_NAME: "/config/tunarr"
+              TUNARR_LOG_LEVEL: "debug"
             probes:
               liveness: &probes
                 enabled: true
