@@ -217,6 +217,8 @@ Always use YAML anchors for DRY references:
 
 Always include: `automountServiceAccountToken: false`, `enableServiceLinks: false`, `runAsUser: 1000`, `runAsGroup: 1000`, `fsGroup: 1000`, `fsGroupChangePolicy: "OnRootMismatch"`, `runAsNonRoot: true`, `seccompProfile.type: RuntimeDefault`.
 
+**`fsGroup: 1000` and `fsGroupChangePolicy: "OnRootMismatch"` is critical for shared PVCs.** Without it, Kubernetes recursively chowns every file on the volume at every pod start. On large shared volumes like the `media` PVC, this blocks container startup for minutes. Never omit this setting.
+
 ### Container-level (containers.*.securityContext)
 
 Always include: `allowPrivilegeEscalation: false`, `readOnlyRootFilesystem: true` (set false only if app truly requires it), `capabilities.drop: [ALL]`.
