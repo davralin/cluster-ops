@@ -52,7 +52,7 @@ spec:
               VISION_LLM_PROVIDER: "ollama"
               VISION_LLM_MODEL: "minicpm-v:8b"
               LLM_PROVIDER: "ollama"
-              LLM_MODEL: "qwen3:8b"
+              LLM_MODEL: "gemma4:26b"
               OLLAMA_HOST: "http://ollama.ollama.svc.cluster.local:11434"
               PAPERLESS_API_TOKEN:
                 valueFrom:
