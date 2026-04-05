@@ -48,12 +48,12 @@ spec:
     controllers:
       nextcloud:
         initContainers:
-          1-disable-maintenance-mode:
+          1-occ-upgrade:
             image:
               repository: nextcloud
               tag: 33.0.2-apache
             command: ["/usr/bin/su"]
-            args: ["www-data", "-s", "/bin/bash", "-c", "/var/www/html/occ maintenance:mode --off"]
+            args: ["www-data", "-s", "/bin/bash", "-c", "/var/www/html/occ upgrade"]
             env:
               TZ: "${TIMEZONE}"
               REDIS_HOST: "nextcloud-valkey.nextcloud.svc.cluster.local"
@@ -76,12 +76,12 @@ spec:
               #    - SETUID
               #  drop:
               #    - ALL
-          2-occ-upgrade:
+          2-disable-maintenance-mode:
             image:
               repository: nextcloud
               tag: 33.0.2-apache
             command: ["/usr/bin/su"]
-            args: ["www-data", "-s", "/bin/bash", "-c", "/var/www/html/occ upgrade"]
+            args: ["www-data", "-s", "/bin/bash", "-c", "/var/www/html/occ maintenance:mode --off"]
             env:
               TZ: "${TIMEZONE}"
               REDIS_HOST: "nextcloud-valkey.nextcloud.svc.cluster.local"
