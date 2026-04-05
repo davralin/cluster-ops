@@ -48,7 +48,6 @@ spec:
               tag: 1.2.10@sha256:ed65c4f762e085c69cf936ec48c2c7f1036a113b11b18434ef098a8e02d47ac1
             env:
               TZ: "${TIMEZONE}"
-              TUNARR_LOG_LEVEL: "debug"
               PGID: 1000
               PUID: 1000
             probes:
