@@ -44,9 +44,9 @@ spec:
           storage:
             size: 200Gi
             storageClass: "${STORAGE_READWRITEONCE}"
-          walStorage:
-            size: 20Gi
-            storageClass: "${STORAGE_READWRITEONCE}"
+          #walStorage:
+          #  size: 20Gi
+          #  storageClass: "${STORAGE_READWRITEONCE}"
           managed:
             roles:
               - name: rreading-glasses
@@ -85,25 +85,25 @@ spec:
               memory: "1Gi"
             limits:
               memory: "2Gi"
-          backup:
-            retentionPolicy: 7d
-            barmanObjectStore:
-              wal:
-                compression: bzip2
-                maxParallel: 4
-              destinationPath: s3://postgresql-${CLUSTER_NAME}
-              endpointURL: "${SECRET_S3_CNPG_URL}"
-              serverName: *name
-              s3Credentials:
-                accessKeyId:
-                  name: *name
-                  key: s3-access-key
-                secretAccessKey:
-                  name: *name
-                  key: s3-secret-key
-                region:
-                  name: *name
-                  key: region
+          #backup:
+          #  retentionPolicy: 7d
+          #  barmanObjectStore:
+          #    wal:
+          #      compression: bzip2
+          #      maxParallel: 4
+          #    destinationPath: s3://postgresql-${CLUSTER_NAME}
+          #    endpointURL: "${SECRET_S3_CNPG_URL}"
+          #    serverName: *name
+          #    s3Credentials:
+          #      accessKeyId:
+          #        name: *name
+          #        key: s3-access-key
+          #      secretAccessKey:
+          #        name: *name
+          #        key: s3-secret-key
+          #      region:
+          #        name: *name
+          #        key: region
           externalClusters:
             # this represents the s3 backup to restore from. Must be same version.
             - name: *name
@@ -131,17 +131,17 @@ spec:
             #  password:
             #    name: rreading-glasses-basic-auth
             #    key: password
-      - apiVersion: postgresql.cnpg.io/v1
-        kind: ScheduledBackup
-        metadata:
-          name: *name
-          namespace: *namespace
-        spec:
-          schedule: "0 37 01 * * *"
-          immediate: true
-          backupOwnerReference: self
-          cluster:
-            name: *name
+      #- apiVersion: postgresql.cnpg.io/v1
+      #  kind: ScheduledBackup
+      #  metadata:
+      #    name: *name
+      #    namespace: *namespace
+      #  spec:
+      #    schedule: "0 37 01 * * *"
+      #    immediate: true
+      #    backupOwnerReference: self
+      #    cluster:
+      #      name: *name
       - apiVersion: networking.k8s.io/v1
         kind: NetworkPolicy
         metadata:
