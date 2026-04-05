@@ -85,6 +85,7 @@ spec:
               memory: "1Gi"
             limits:
               memory: "2Gi"
+          # We don't need backup here, the backup is huge, and it's just a metadata-cache
           #backup:
           #  retentionPolicy: 7d
           #  barmanObjectStore:
