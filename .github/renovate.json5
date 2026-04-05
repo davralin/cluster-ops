@@ -373,7 +373,6 @@
         'imageName: (?<depName>\\S+):(?<currentValue>\\d+\\.\\S+)',
       ],
       datasourceTemplate: 'docker',
-      versioningTemplate: 'semver',
     },
     {
       customType: 'regex',
