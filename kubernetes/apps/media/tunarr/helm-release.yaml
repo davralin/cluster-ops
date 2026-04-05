@@ -102,6 +102,16 @@ spec:
       config:
         enabled: true
         existingClaim: tunarr
+        advancedMounts:
+          tunarr:
+            tunarr:
+              - path: /root/.local/share/tunarr
+                subPath: root
+              - path: /config
+                subPath: proper
+              - path: /backup
+                subPath: .
+                readOnly: true
       media:
         enabled: true
         existingClaim: media
