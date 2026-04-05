@@ -98,6 +98,11 @@ spec:
           - hosts:
               - *host
     persistence:
+      cache:
+        enabled: true
+        type: emptyDir
+        globalMounts:
+          - path: /root/.cache
       config:
         enabled: true
         existingClaim: tunarr
