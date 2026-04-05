@@ -141,6 +141,14 @@ spec:
                       app.kubernetes.io/name: kubernetes-ingress
                 - namespaceSelector:
                     matchLabels:
+                      kubernetes.io/metadata.name: ollama
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: ollama
+                      app.kubernetes.io/instance: ollama-ollama
+                      app.kubernetes.io/name: ollama-ollama
+                - namespaceSelector:
+                    matchLabels:
                       kubernetes.io/metadata.name: openclaw
                   podSelector:
                     matchLabels:

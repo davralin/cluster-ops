@@ -76,15 +76,11 @@ spec:
               DISABLE_NEW_RELEASE_CHECK: true
               COREPACK_INTEGRITY_KEYS: 0
               S6_READ_ONLY_ROOT: 1
-              OPENAI_BASE_URL: https://openrouter.ai/api/v1
-              OPENAI_API_KEY:
-                valueFrom:
-                  secretKeyRef:
-                    name: karakeep-secret
-                    key: openrouter_api_key
+              OPENAI_BASE_URL: http://ollama.ollama.svc.cluster.local:11434/v1
+              OPENAI_API_KEY: ollama
               INFERENCE_ENABLE_AUTO_SUMMARIZATION: true
-              INFERENCE_JOB_TIMEOUT_SEC: 600
-              INFERENCE_TEXT_MODEL: openai/gpt-oss-120b:free
+              INFERENCE_JOB_TIMEOUT_SEC: 900
+              INFERENCE_TEXT_MODEL: gemma4:26b
             probes:
               liveness: &probes
                 enabled: true
@@ -339,6 +335,18 @@ spec:
                       app.kubernetes.io/name: karakeep-karakeep
               ports:
                 - port: 7700
+                  protocol: TCP
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: ollama
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: ollama
+                      app.kubernetes.io/instance: ollama-ollama
+                      app.kubernetes.io/name: ollama-ollama
+              ports:
+                - port: 11434
                   protocol: TCP
             - to: # Needs to archive, and connect to openrouter
               - ipBlock:
