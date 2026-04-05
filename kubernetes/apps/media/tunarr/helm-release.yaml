@@ -58,7 +58,8 @@ spec:
               startup: *probes
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
+              # Error: ENOENT: no such file or directory, mkdir '/root/.local'
+              readOnlyRootFilesystem: false
               capabilities:
                 drop:
                   - ALL
