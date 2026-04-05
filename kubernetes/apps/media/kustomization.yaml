@@ -6,7 +6,6 @@ resources:
   - bazarr
   - beets
   - cronjobs
-  - dispatcharr
   - ersatztv
   - fetcharr
   - filebrowser

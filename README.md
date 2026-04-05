@@ -57,7 +57,6 @@ Every namespace has a default-deny network policy. Ingress and egress are explic
 | [Prowlarr](https://prowlarr.com/) | Indexer management |
 | [Bazarr](https://bazarr.media/) | Subtitle management |
 | [Tdarr](https://tdarr.io/) | Distributed media transcoding |
-| [Dispatcharr](https://github.com/Dispatcharr/Dispatcharr) | HDHomeRun emulator & M3U/IPTV proxy with EPG support |
 | [ErsatzTV](https://ersatztv.org/) | Custom IPTV channels |
 | [Tunarr](https://tunarr.com/) | Live TV channel creation from media libraries |
 | [Tautulli](https://tautulli.com/) / [Jellystat](https://github.com/CyferShepard/Jellystat) | Playback analytics |

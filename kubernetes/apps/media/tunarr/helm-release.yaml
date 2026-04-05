@@ -154,11 +154,6 @@ spec:
             - from:
                 - podSelector:
                     matchLabels:
-                      app.kubernetes.io/controller: dispatcharr
-                      app.kubernetes.io/instance: media-dispatcharr
-                      app.kubernetes.io/name: media-dispatcharr
-                - podSelector:
-                    matchLabels:
                       app.kubernetes.io/controller: jellyfin
                       app.kubernetes.io/instance: media-jellyfin
                       app.kubernetes.io/name: media-jellyfin
