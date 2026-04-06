@@ -45,4 +45,16 @@ spec:
             staticConfig:
               static:
                 - "https://sonarr.${SECRET_DEFAULT_DOMAIN}"
+      - apiVersion: monitoring.coreos.com/v1
+        kind: Probe
+        metadata:
+          name: urlmonitoring-starrr
+          namespace: media
+        spec:
+          module: http_404
+          prober:
+            url: "${BLACKBOX_EXPORTER_URL}"
+          targets:
+            staticConfig:
+              static:
                 - "https://starrr.${SECRET_DEFAULT_DOMAIN}"
