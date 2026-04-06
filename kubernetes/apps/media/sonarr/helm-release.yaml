@@ -189,6 +189,14 @@ spec:
                       app.kubernetes.io/name: media-jellyfin
               ports:
                 - port: 8096
+            - to:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: starrr
+                      app.kubernetes.io/instance: media-starrr
+                      app.kubernetes.io/name: media-starrr
+              ports:
+                - port: 8000
             - to: # metadata
               - ipBlock:
                   cidr: 0.0.0.0/0

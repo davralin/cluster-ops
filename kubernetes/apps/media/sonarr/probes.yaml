@@ -45,3 +45,4 @@ spec:
             staticConfig:
               static:
                 - "https://sonarr.${SECRET_DEFAULT_DOMAIN}"
+                - "https://starrr.${SECRET_DEFAULT_DOMAIN}"
