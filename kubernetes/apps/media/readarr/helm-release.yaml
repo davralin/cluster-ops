@@ -208,6 +208,11 @@ spec:
                       app.kubernetes.io/name: kubernetes-ingress
                 - podSelector:
                     matchLabels:
+                      app.kubernetes.io/controller: fetcharr
+                      app.kubernetes.io/instance: media-fetcharr
+                      app.kubernetes.io/name: media-fetcharr
+                - podSelector:
+                    matchLabels:
                       app.kubernetes.io/controller: prowlarr
                       app.kubernetes.io/instance: media-prowlarr
                       app.kubernetes.io/name: media-prowlarr

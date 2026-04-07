@@ -48,7 +48,7 @@ spec:
           fetcharr:
             image:
               repository: docker.io/egg82/fetcharr
-              tag: 2.1.1@sha256:d2c1da96e243d38d3d742f83d9dfb9115fce99141d21eda161689f2a3e3c013f
+              tag: 2.2.0@sha256:ee683aa3478929e2bfdaa5f2ce7dd5378079a95b8f250543afd68e6df3b342bd
             env:
               TZ: "${TIMEZONE}"
               DRY_RUN: false
@@ -56,6 +56,10 @@ spec:
               SEARCH_INTERVAL: 1day
               LIDARR_0_URL: http://lidarr.media.svc.cluster.local:8686
               LIDARR_0_API_KEY: "${SECRET_LIDARR_API_KEY}"
+              READARR_0_URL: http://readarr.media.svc.cluster.local:8787
+              READARR_0_API_KEY: "${SECRET_READARR_API_KEY}"
+              READARR_1_URL: http://speakarr.media.svc.cluster.local:8787
+              READARR_1_API_KEY: "${SECRET_SPEAKARR_API_KEY}"
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -97,6 +101,22 @@ spec:
                       app.kubernetes.io/controller: lidarr
                       app.kubernetes.io/instance: media-lidarr
                       app.kubernetes.io/name: media-lidarr
+              ports:
+                - port: 8686
+            - to:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: readarr
+                      app.kubernetes.io/instance: media-readarr
+                      app.kubernetes.io/name: media-readarr
+              ports:
+                - port: 8787
+            - to:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: speakarr
+                      app.kubernetes.io/instance: media-speakarr
+                      app.kubernetes.io/name: media-speakarr
               ports:
                 - port: 8686
           ingress: []
