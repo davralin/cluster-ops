@@ -43,8 +43,8 @@ spec:
         containers:
           openclaw:
             image:
-              repository: ghcr.io/openclaw/openclaw
-              tag: 2026.4.5@sha256:f38ff3d987e6c3e2d77bbb379de575f280d16037fd6a7ec334a35d48e480fd54
+              repository: ghcr.io/davralin/openclaw
+              tag: 2026.4.5@sha256:b037aba38384121966ef8f3dd11821bb791907982b8fd88c08b34c971d81d55b
             env:
               TZ: "${TIMEZONE}"
               OPENCLAW_DISABLE_BONJOUR: 1
