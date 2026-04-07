@@ -49,6 +49,11 @@ spec:
               TZ: "${TIMEZONE}"
               OPENCLAW_DISABLE_BONJOUR: 1
               NODE_OPTIONS: "--max-old-space-size=4096"
+              AWX_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: openclaw-secrets
+                    key: AWX_PASSWORD
               GITHUB_TOKEN:
                 valueFrom:
                   secretKeyRef:
