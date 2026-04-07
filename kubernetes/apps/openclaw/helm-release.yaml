@@ -368,6 +368,17 @@ spec:
               ports:
                 - port: 8080
                   protocol: TCP
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: awx
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: awx-web
+                      app.kubernetes.io/part-of: awx
+              ports:
+                - port: 8052
+                  protocol: TCP
             - to: # Tofu-test
               - ipBlock:
                   cidr: 10.0.1.155/32
