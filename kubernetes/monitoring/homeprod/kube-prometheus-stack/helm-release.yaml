@@ -90,6 +90,12 @@ spec:
                 # CephMonClockSkew - nodes get time from NTP, not much more I can do there.
                 # CephPGImbalance - this will always be imbalanced, due to me putting rbd on nvme, while cephfs can flow freely.
               continue: false
+            - receiver: "dummy"
+              matchers:
+                - alertname = "CephNodeDiskspaceWarning"
+                - mountpoint = "/var"
+                # /var on Talos nodes is expected to be near-full, not actionable.
+              continue: false
               # These trigger when I run my backups, and media-jobs - creating false alerts
               # I can't override/disable spesific alerts, so i Null them and
               # create new alerts which must be firing longer before alerting.
