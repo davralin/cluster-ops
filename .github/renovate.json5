@@ -36,6 +36,16 @@
       ],
     },
     {
+      description: 'Group rclone container updates',
+      groupName: 'rclone',
+      matchDatasources: [
+        'docker',
+      ],
+      matchPackageNames: [
+        '/ghcr.io/rclone/rclone/',
+      ],
+    },
+    {
       description: 'Group immich across ansible and kubernetes',
       groupName: 'immich',
       matchPackageNames: [
