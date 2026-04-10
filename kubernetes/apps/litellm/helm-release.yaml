@@ -139,7 +139,7 @@ spec:
       config:
         enabled: true
         type: configMap
-        name: litellm-config
+        name: litellm
         globalMounts:
           - path: /config
     networkpolicies:
