@@ -40,6 +40,8 @@ spec:
           type: RuntimeDefault
     controllers:
       litellm:
+        annotations:
+          reloader.stakater.com/auto: "true"
         containers:
           litellm:
             image:
@@ -179,5 +181,27 @@ spec:
                   podSelector:
                     matchLabels:
                       app.kubernetes.io/name: kubernetes-ingress
+              ports:
+                - port: *port
+            - from: # openwebui
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: openwebui
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: openwebui
+                      app.kubernetes.io/instance: openwebui-openwebui
+                      app.kubernetes.io/name: openwebui-openwebui
+              ports:
+                - port: *port
+            - from: # karakeep
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: karakeep
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: karakeep
+                      app.kubernetes.io/instance: karakeep-karakeep
+                      app.kubernetes.io/name: karakeep-karakeep
               ports:
                 - port: *port

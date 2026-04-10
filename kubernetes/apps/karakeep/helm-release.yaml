@@ -348,6 +348,18 @@ spec:
               ports:
                 - port: 11434
                   protocol: TCP
+            - to: # litellm
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: litellm
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: litellm
+                      app.kubernetes.io/instance: litellm-litellm
+                      app.kubernetes.io/name: litellm-litellm
+              ports:
+                - port: 4000
+                  protocol: TCP
             - to: # Needs to archive, and connect to openrouter
               - ipBlock:
                   cidr: 0.0.0.0/0
