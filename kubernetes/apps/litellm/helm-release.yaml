@@ -52,7 +52,7 @@ spec:
               TZ: "${TIMEZONE}"
               GITHUB_COPILOT_TOKEN_DIR: /data/copilot-tokens
             probes:
-              liveness: &probes
+              liveness:
                 enabled: true
                 custom: true
                 spec:
