@@ -98,15 +98,15 @@ spec:
         data:
           config.yaml: |
             model_list:
-              - model_name: "copilot/gpt-4o"
+              - model_name: "claude-opus-4.6"
                 litellm_params:
-                  model: "github_copilot/gpt-4o"
-              - model_name: "copilot/claude-sonnet-4"
+                  model: "github_copilot/claude-opus-4.6"
+              - model_name: "claude-sonnet-4"
                 litellm_params:
                   model: "github_copilot/claude-sonnet-4"
-              - model_name: "copilot/o3-mini"
+              - model_name: "gpt-4.1"
                 litellm_params:
-                  model: "github_copilot/o3-mini"
+                  model: "github_copilot/gpt-4.1"
     service:
       litellm:
         controller: *name
