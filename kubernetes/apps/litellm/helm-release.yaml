@@ -45,9 +45,11 @@ spec:
             image:
               repository: ghcr.io/berriai/litellm-non_root
               tag: main-v1.51.0-stable@sha256:ba779c91b5d2327147e1f1a449e1c3c3d35afea8d54065827cc8d55498cb9737
+            args:
+              - "--config"
+              - "/config/config.yaml"
             env:
               TZ: "${TIMEZONE}"
-              LITELLM_CONFIG_DIR: /config
               GITHUB_COPILOT_TOKEN_DIR: /data/copilot-tokens
             probes:
               liveness: &probes
