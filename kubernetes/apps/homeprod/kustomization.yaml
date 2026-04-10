@@ -43,7 +43,6 @@ resources:
   - ../node-problem-detector
   - ../ollama
   - ../omni
-  - ../omniroute
   - ../openclaw
   - ../opencode
   - ../openwebui
@@ -66,3 +65,4 @@ resources:
   - ../volsync
   - ../wallos
   - ../warrior
+
