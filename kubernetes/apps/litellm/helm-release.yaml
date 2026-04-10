@@ -138,6 +138,9 @@ spec:
       data:
         enabled: true
         existingClaim: litellm
+      tmp:
+        enabled: true
+        type: emptyDir
       config:
         enabled: true
         type: configMap
