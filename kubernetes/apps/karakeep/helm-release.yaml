@@ -76,11 +76,11 @@ spec:
               DISABLE_NEW_RELEASE_CHECK: true
               COREPACK_INTEGRITY_KEYS: 0
               S6_READ_ONLY_ROOT: 1
-              OPENAI_BASE_URL: http://ollama.ollama.svc.cluster.local:11434/v1
-              OPENAI_API_KEY: ollama
+              OPENAI_BASE_URL: http://litellm.litellm.svc.cluster.local:4000/v1
+              OPENAI_API_KEY: litellm
               INFERENCE_ENABLE_AUTO_SUMMARIZATION: true
               INFERENCE_JOB_TIMEOUT_SEC: 900
-              INFERENCE_TEXT_MODEL: gemma4:26b
+              INFERENCE_TEXT_MODEL: claude-opus-4.6
             probes:
               liveness: &probes
                 enabled: true
