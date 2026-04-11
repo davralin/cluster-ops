@@ -267,18 +267,6 @@ spec:
             - to:
                 - namespaceSelector:
                     matchLabels:
-                      kubernetes.io/metadata.name: media
-                  podSelector:
-                    matchLabels:
-                      app.kubernetes.io/controller: tunarr
-                      app.kubernetes.io/instance: media-tunarr
-                      app.kubernetes.io/name: media-tunarr
-              ports:
-                - port: 8000
-                  protocol: TCP
-            - to:
-                - namespaceSelector:
-                    matchLabels:
                       kubernetes.io/metadata.name: freshrss
                   podSelector:
                     matchLabels:

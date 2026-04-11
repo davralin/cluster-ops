@@ -169,14 +169,6 @@ spec:
                       app.kubernetes.io/name: media-ersatztv
               ports:
                 - port: 8409
-            - to:
-                - podSelector:
-                    matchLabels:
-                      app.kubernetes.io/controller: tunarr
-                      app.kubernetes.io/instance: media-tunarr
-                      app.kubernetes.io/name: media-tunarr
-              ports:
-                - port: 8000
             - to: # Needs to reach out for email-alerts
               - ipBlock:
                   cidr: 0.0.0.0/0
@@ -243,10 +235,5 @@ spec:
                       app.kubernetes.io/controller: speakarr
                       app.kubernetes.io/instance: media-speakarr
                       app.kubernetes.io/name: media-speakarr
-                - podSelector:
-                    matchLabels:
-                      app.kubernetes.io/controller: tunarr
-                      app.kubernetes.io/instance: media-tunarr
-                      app.kubernetes.io/name: media-tunarr
               ports:
                 - port: *port

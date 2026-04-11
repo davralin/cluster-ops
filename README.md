@@ -58,7 +58,6 @@ Every namespace has a default-deny network policy. Ingress and egress are explic
 | [Bazarr](https://bazarr.media/) | Subtitle management |
 | [Tdarr](https://tdarr.io/) | Distributed media transcoding |
 | [ErsatzTV](https://ersatztv.org/) | Custom IPTV channels |
-| [Tunarr](https://tunarr.com/) | Live TV channel creation from media libraries |
 | [Tautulli](https://tautulli.com/) / [Jellystat](https://github.com/CyferShepard/Jellystat) | Playback analytics |
 | [Recyclarr](https://recyclarr.dev/) | Quality profile sync for Sonarr/Radarr |
 | [Seerr](https://overseerr.dev/) | Media request management |
