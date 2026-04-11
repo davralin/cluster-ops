@@ -52,7 +52,6 @@
         '/immich/',
       ],
       commitMessagePrefix: 'fix(deps): ',
-      commitMessageTopic: '{{groupName}}',
     },
     {
       description: 'Group tdarr and tdarr_node container updates',
