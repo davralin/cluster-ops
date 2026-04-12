@@ -117,6 +117,8 @@ spec:
               ports:
                 - port: 443
                   protocol: TCP
+                - port: 32400
+                  protocol: TCP
             - to:
                 - namespaceSelector:
                     matchLabels:
