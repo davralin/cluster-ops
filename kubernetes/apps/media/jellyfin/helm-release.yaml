@@ -179,7 +179,7 @@ spec:
                       app.kubernetes.io/instance: mailrelay-exim
                       app.kubernetes.io/name: mailrelay-exim
               ports:
-                - port: 25
+                - port: 8025
                   protocol: TCP
           ingress:
             - from:

@@ -43,7 +43,7 @@ spec:
     authentik:
       email:
         host: exim.mailrelay.svc.cluster.local
-        port: 25
+        port: 8025
         from: "Authentik <authentik@${SECRET_DEFAULT_DOMAIN}>"
       postgresql:
         host: authentik-postgres-v18-rw.authentik.svc.cluster.local

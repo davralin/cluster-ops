@@ -87,11 +87,8 @@ spec:
         externalTrafficPolicy: Local
         loadBalancerIP: 10.0.1.35
         ports:
-          mail:
-            primary: true
-            port: 25
-            targetPort: &port 8025
-            protocol: TCP
+          smtp:
+            port: &port 8025
     persistence:
       spool:
         type: emptyDir
@@ -144,5 +141,4 @@ spec:
                       app.kubernetes.io/name: media-jellyfin
                 - namespaceSelector: {}
               ports:
-                - port: 25
-                - port: *port # Must match the port the pod actually listens to
+                - port: *port
