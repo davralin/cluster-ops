@@ -131,9 +131,7 @@ spec:
               capabilities:
                 drop:
                   - ALL
-              # ERROR:platform_shared_memory_region_posix.cc(214)] Creating shared memory in
-              # /tmp/.org.chromium.Chromium.XXXXXX failed: Read-only file system (30)
-              readOnlyRootFilesystem: false
+              readOnlyRootFilesystem: true
             resources:
               requests:
                 cpu: 10m
@@ -261,6 +259,9 @@ spec:
         advancedMounts:
           karakeep:
             karakeep:
+              - path: /tmp
+          chrome:
+            chrome:
               - path: /tmp
     networkpolicies:
       chrome:
