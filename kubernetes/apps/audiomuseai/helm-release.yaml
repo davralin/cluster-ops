@@ -1,0 +1,307 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &name audiomuseai
+  namespace: flux-system
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 4.6.2
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+      interval: 30m
+  driftDetection:
+    mode: enabled
+  targetNamespace: audiomuseai
+  install:
+    createNamespace: true
+    remediation:
+      retries: 10
+  upgrade:
+    remediation:
+      retries: 10
+  dependsOn:
+    - name: audiomuseai-postgres-v18
+      namespace: flux-system
+    - name: audiomuseai-valkey
+      namespace: flux-system
+  values:
+    fullnameOverride: *name
+    defaultPodOptions:
+      automountServiceAccountToken: false
+      enableServiceLinks: false
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+    controllers:
+      audiomuseai:
+        containers:
+          audiomuseai:
+            image:
+              repository: ghcr.io/neptunehub/audiomuse-ai
+              tag: 0.9.6@sha256:195e1ae56a6d79c22e76b069e79b539056da5848bf28a3ff9f7b6d6847474b0a
+            env:
+              SERVICE_TYPE: "flask"
+              TZ: "${TIMEZONE}"
+              MEDIASERVER_TYPE: navidrome
+              NAVIDROME_URL: "http://navidrome.media.svc.cluster.local:4533"
+              NAVIDROME_USER:
+                valueFrom:
+                  secretKeyRef:
+                    name: audiomuseai-config
+                    key: NAVIDROME_USER
+              NAVIDROME_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: audiomuseai-config
+                    key: NAVIDROME_PASSWORD
+              POSTGRES_HOST: "audiomuseai-postgres-v18-rw.audiomuseai.svc.cluster.local"
+              POSTGRES_PORT: "5432"
+              POSTGRES_DB: "audiomuseai"
+              POSTGRES_USER:
+                valueFrom:
+                  secretKeyRef:
+                    name: audiomuseai-basic-auth
+                    key: username
+              POSTGRES_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: audiomuseai-basic-auth
+                    key: password
+              REDIS_URL: "redis://audiomuseai-valkey.audiomuseai.svc.cluster.local:6379/0"
+              AUTH_ENABLED: "false"
+              AI_MODEL_PROVIDER: "OPENAI"
+              OPENAI_SERVER_URL: "http://litellm.litellm.svc.cluster.local:4000/v1/chat/completions"
+              OPENAI_API_KEY: "litellm"
+              OPENAI_MODEL_NAME: "gpt-4.1"
+              CLAP_ENABLED: "true"
+              TEMP_DIR: "/tmp"
+              ENABLE_PROXY_FIX: "true"
+            probes:
+              liveness: &probes
+                enabled: true
+              readiness: *probes
+              startup: *probes
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+            resources:
+              requests:
+                cpu: 10m
+                memory: 256Mi
+              limits:
+                memory: 2Gi
+      worker:
+        containers:
+          worker:
+            image:
+              repository: ghcr.io/neptunehub/audiomuse-ai
+              tag: 0.9.6@sha256:195e1ae56a6d79c22e76b069e79b539056da5848bf28a3ff9f7b6d6847474b0a
+            env:
+              SERVICE_TYPE: "worker"
+              TZ: "${TIMEZONE}"
+              MEDIASERVER_TYPE: navidrome
+              NAVIDROME_URL: "http://navidrome.media.svc.cluster.local:4533"
+              NAVIDROME_USER:
+                valueFrom:
+                  secretKeyRef:
+                    name: audiomuseai-config
+                    key: NAVIDROME_USER
+              NAVIDROME_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: audiomuseai-config
+                    key: NAVIDROME_PASSWORD
+              POSTGRES_HOST: "audiomuseai-postgres-v18-rw.audiomuseai.svc.cluster.local"
+              POSTGRES_PORT: "5432"
+              POSTGRES_DB: "audiomuseai"
+              POSTGRES_USER:
+                valueFrom:
+                  secretKeyRef:
+                    name: audiomuseai-basic-auth
+                    key: username
+              POSTGRES_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: audiomuseai-basic-auth
+                    key: password
+              REDIS_URL: "redis://audiomuseai-valkey.audiomuseai.svc.cluster.local:6379/0"
+              WORKER_REDIS_URL: "redis://audiomuseai-valkey.audiomuseai.svc.cluster.local:6379/0"
+              AUTH_ENABLED: "false"
+              CLAP_ENABLED: "true"
+              TEMP_DIR: "/tmp"
+            probes:
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+              startup:
+                enabled: false
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+            resources:
+              requests:
+                cpu: 500m
+                memory: 1Gi
+              limits:
+                memory: 4Gi
+    service:
+      audiomuseai:
+        controller: *name
+        ports:
+          http:
+            port: &port 8000
+    ingress:
+      audiomuseai:
+        enabled: true
+        annotations:
+          haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
+          haproxy.org/ssl-redirect-port: "443"
+          haproxy.org/response-set-header: |
+            Strict-Transport-Security "max-age=31536000"
+            X-Frame-Options "DENY"
+            X-Content-Type-Options "nosniff"
+            Referrer-Policy "strict-origin-when-cross-origin"
+        hosts:
+          - host: &host "audiomuse.${SECRET_DEFAULT_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  identifier: audiomuseai
+                  port: http
+        tls:
+          - hosts:
+              - *host
+    persistence:
+      tmp:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp
+    networkpolicies:
+      audiomuseai:
+        enabled: true
+        controller: *name
+        policyTypes:
+          - Ingress
+          - Egress
+        rules:
+          ingress:
+            - from:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: haproxy-controller
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: kubernetes-ingress
+              ports:
+                - port: *port
+          egress:
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: kube-system
+                  podSelector:
+                    matchLabels:
+                      k8s-app: kube-dns
+              ports:
+                - port: 53
+                  protocol: UDP
+            - to:
+                - podSelector:
+                    matchLabels:
+                      cnpg.io/cluster: audiomuseai-postgres-v18
+                      cnpg.io/instanceRole: primary
+              ports:
+                - port: 5432
+            - to:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: valkey
+                      app.kubernetes.io/instance: audiomuseai-audiomuseai-valkey
+                      app.kubernetes.io/name: audiomuseai-audiomuseai-valkey
+              ports:
+                - port: 6379
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: media
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: navidrome
+                      app.kubernetes.io/instance: media-navidrome
+                      app.kubernetes.io/name: media-navidrome
+              ports:
+                - port: 4533
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: litellm
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: litellm
+                      app.kubernetes.io/instance: litellm-litellm
+                      app.kubernetes.io/name: litellm-litellm
+              ports:
+                - port: 4000
+      worker:
+        enabled: true
+        controller: worker
+        policyTypes:
+          - Ingress
+          - Egress
+        rules:
+          ingress: []
+          egress:
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: kube-system
+                  podSelector:
+                    matchLabels:
+                      k8s-app: kube-dns
+              ports:
+                - port: 53
+                  protocol: UDP
+            - to:
+                - podSelector:
+                    matchLabels:
+                      cnpg.io/cluster: audiomuseai-postgres-v18
+                      cnpg.io/instanceRole: primary
+              ports:
+                - port: 5432
+            - to:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: valkey
+                      app.kubernetes.io/instance: audiomuseai-audiomuseai-valkey
+                      app.kubernetes.io/name: audiomuseai-audiomuseai-valkey
+              ports:
+                - port: 6379
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: media
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: navidrome
+                      app.kubernetes.io/instance: media-navidrome
+                      app.kubernetes.io/name: media-navidrome
+              ports:
+                - port: 4533

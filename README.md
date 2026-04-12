@@ -62,6 +62,7 @@ Every namespace has a default-deny network policy. Ingress and egress are explic
 | [Recyclarr](https://recyclarr.dev/) | Quality profile sync for Sonarr/Radarr |
 | [Seerr](https://overseerr.dev/) | Media request management |
 | [Pinchflat](https://github.com/kieraneglin/pinchflat) | YouTube archival |
+| [AudioMuse-AI](https://github.com/NeptuneHub/AudioMuse-AI) | Sonic analysis playlist generator |
 | [MeTube](https://github.com/alexta69/metube) | Video downloads |
 
 ### Productivity & Knowledge

@@ -178,6 +178,25 @@ spec:
             - from:
                 - namespaceSelector:
                     matchLabels:
+                      kubernetes.io/metadata.name: audiomuseai
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: audiomuseai
+                      app.kubernetes.io/instance: audiomuseai-audiomuseai
+                      app.kubernetes.io/name: audiomuseai-audiomuseai
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: audiomuseai
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: worker
+                      app.kubernetes.io/instance: audiomuseai-audiomuseai
+                      app.kubernetes.io/name: audiomuseai-worker
+              ports:
+                - port: *port
+            - from:
+                - namespaceSelector:
+                    matchLabels:
                       kubernetes.io/metadata.name: monitoring
                   podSelector:
                     matchLabels:
