@@ -170,6 +170,11 @@ spec:
                       app.kubernetes.io/controller: audiomuseai
                       app.kubernetes.io/instance: audiomuseai-audiomuseai
                       app.kubernetes.io/name: audiomuseai-audiomuseai
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: worker
+                      app.kubernetes.io/instance: audiomuseai-audiomuseai
+                      app.kubernetes.io/name: audiomuseai-audiomuseai
               ports:
                 - port: 5432
                   protocol: TCP
