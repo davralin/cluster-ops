@@ -212,6 +212,14 @@ spec:
                   podSelector:
                     matchLabels:
                       app.kubernetes.io/name: kubernetes-ingress
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: media
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: navidrome
+                      app.kubernetes.io/instance: media-navidrome
+                      app.kubernetes.io/name: media-navidrome
               ports:
                 - port: *port
           egress:
