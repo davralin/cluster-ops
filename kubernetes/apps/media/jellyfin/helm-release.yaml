@@ -172,7 +172,7 @@ spec:
             - to:
                 - namespaceSelector:
                     matchLabels:
-                      kubernetes.io/metadata.name: exim
+                      kubernetes.io/metadata.name: mailrelay
                   podSelector:
                     matchLabels:
                       app.kubernetes.io/controller: exim

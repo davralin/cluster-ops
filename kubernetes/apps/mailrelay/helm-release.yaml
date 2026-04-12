@@ -40,7 +40,7 @@ spec:
           type: RuntimeDefault
     controllers:
       exim:
-        type: daemonset
+        #type: daemonset
         containers:
           exim:
             image:
