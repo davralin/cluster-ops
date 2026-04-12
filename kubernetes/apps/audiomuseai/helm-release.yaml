@@ -105,7 +105,7 @@ spec:
               limits:
                 memory: 2Gi
       worker:
-        type: daemonset
+        #type: daemonset
         containers:
           worker:
             image:
@@ -195,7 +195,13 @@ spec:
         type: emptyDir
         globalMounts:
           - path: /tmp
-          - path: /app/temp_audio
+      tmp-download:
+        enabled: true
+        existingClaim: audiomuseai
+        advancedMounts:
+          worker:
+            worker:
+              - path: /app/temp_audio
     networkpolicies:
       audiomuseai:
         enabled: true

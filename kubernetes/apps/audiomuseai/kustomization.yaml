@@ -9,4 +9,5 @@ resources:
   - namespace.yaml
   - networkpolicy.yaml
   - probes.yaml
+  - pvc.yaml
   - secret.yaml
