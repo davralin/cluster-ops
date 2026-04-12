@@ -133,6 +133,14 @@ spec:
                       app.kubernetes.io/name: prometheus-blackbox-exporter
                 - namespaceSelector:
                     matchLabels:
+                      kubernetes.io/metadata.name: icloudpd
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: icloudpd
+                      app.kubernetes.io/instance: icloudpd-icloudpd
+                      app.kubernetes.io/name: icloudpd-icloudpd
+                - namespaceSelector:
+                    matchLabels:
                       kubernetes.io/metadata.name: media
                   podSelector:
                     matchLabels:
