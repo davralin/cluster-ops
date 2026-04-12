@@ -169,13 +169,17 @@ spec:
                       app.kubernetes.io/name: media-ersatztv
               ports:
                 - port: 8409
-            - to: # Needs to reach out for email-alerts
-              - ipBlock:
-                  cidr: 0.0.0.0/0
-                  except:
-                  - "${HAPROXY_WHITELIST}"
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: exim
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: exim
+                      app.kubernetes.io/instance: mailrelay-exim
+                      app.kubernetes.io/name: mailrelay-exim
               ports:
-                - port: 465
+                - port: 25
                   protocol: TCP
           ingress:
             - from:
