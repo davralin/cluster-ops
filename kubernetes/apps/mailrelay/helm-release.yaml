@@ -144,4 +144,5 @@ spec:
                       app.kubernetes.io/name: media-jellyfin
                 - namespaceSelector: {}
               ports:
+                - port: 25
                 - port: *port # Must match the port the pod actually listens to
