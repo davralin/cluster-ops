@@ -139,6 +139,28 @@ spec:
                       app.kubernetes.io/name: gotify-gotify
               ports:
                 - port: 80
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: litellm
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: litellm
+                      app.kubernetes.io/instance: litellm-litellm
+                      app.kubernetes.io/name: litellm-litellm
+              ports:
+                - port: 4000
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: ollama
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: ollama
+                      app.kubernetes.io/instance: ollama-ollama
+                      app.kubernetes.io/name: ollama-ollama
+              ports:
+                - port: 11434
             - to: # It contacts Google for the image-search
               - ipBlock:
                   cidr: 0.0.0.0/0

@@ -141,14 +141,6 @@ spec:
                       app.kubernetes.io/name: kubernetes-ingress
                 - namespaceSelector:
                     matchLabels:
-                      kubernetes.io/metadata.name: ollama
-                  podSelector:
-                    matchLabels:
-                      app.kubernetes.io/controller: ollama
-                      app.kubernetes.io/instance: ollama-ollama
-                      app.kubernetes.io/name: ollama-ollama
-                - namespaceSelector:
-                    matchLabels:
                       kubernetes.io/metadata.name: openclaw
                   podSelector:
                     matchLabels:
@@ -171,5 +163,13 @@ spec:
                       app.kubernetes.io/controller: paperless-gpt
                       app.kubernetes.io/instance: paperless-ngx-paperless-gpt
                       app.kubernetes.io/name: paperless-ngx-paperless-gpt
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: wallos
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: wallos
+                      app.kubernetes.io/instance: wallos-wallos
+                      app.kubernetes.io/name: wallos-wallos
               ports:
                 - port: *port

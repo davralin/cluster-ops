@@ -181,20 +181,6 @@ spec:
                   podSelector:
                     matchLabels:
                       app.kubernetes.io/name: kubernetes-ingress
-              ports:
-                - port: *port
-            - from: # openwebui
-                - namespaceSelector:
-                    matchLabels:
-                      kubernetes.io/metadata.name: openwebui
-                  podSelector:
-                    matchLabels:
-                      app.kubernetes.io/controller: openwebui
-                      app.kubernetes.io/instance: openwebui-openwebui
-                      app.kubernetes.io/name: openwebui-openwebui
-              ports:
-                - port: *port
-            - from: # karakeep
                 - namespaceSelector:
                     matchLabels:
                       kubernetes.io/metadata.name: karakeep
@@ -203,5 +189,21 @@ spec:
                       app.kubernetes.io/controller: karakeep
                       app.kubernetes.io/instance: karakeep-karakeep
                       app.kubernetes.io/name: karakeep-karakeep
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: openwebui
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: openwebui
+                      app.kubernetes.io/instance: openwebui-openwebui
+                      app.kubernetes.io/name: openwebui-openwebui
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: wallos
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: wallos
+                      app.kubernetes.io/instance: wallos-wallos
+                      app.kubernetes.io/name: wallos-wallos
               ports:
                 - port: *port
