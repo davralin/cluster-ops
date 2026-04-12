@@ -134,6 +134,14 @@ spec:
                   podSelector:
                     matchLabels:
                       app.kubernetes.io/name: prometheus-blackbox-exporter
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: media
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: jellyfin
+                      app.kubernetes.io/instance: media-jellyfin
+                      app.kubernetes.io/name: media-jellyfin
                 - namespaceSelector: {}
               ports:
                 - port: *port # Must match the port the pod actually listens to
