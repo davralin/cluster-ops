@@ -83,12 +83,19 @@ spec:
     service:
       exim:
         controller: *name
+        ports:
+          smtp:
+            port: &port 8025
+      external:
+        controller: *name
         type: LoadBalancer
         externalTrafficPolicy: Local
         loadBalancerIP: 10.0.1.35
         ports:
           smtp:
-            port: &port 8025
+            port: 25
+            targetPort: 8025
+            protocol: TCP
     persistence:
       spool:
         type: emptyDir
@@ -149,4 +156,5 @@ spec:
                       app.kubernetes.io/name: media-jellyfin
                 - namespaceSelector: {}
               ports:
+                - port: 25
                 - port: *port
