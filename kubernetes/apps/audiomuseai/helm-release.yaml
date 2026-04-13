@@ -198,13 +198,7 @@ spec:
         type: emptyDir
         globalMounts:
           - path: /tmp
-      tmp-download:
-        enabled: true
-        existingClaim: audiomuseai
-        advancedMounts:
-          worker:
-            worker:
-              - path: /app/temp_audio
+          - path: /app/temp_audio
     networkpolicies:
       audiomuseai:
         enabled: true
