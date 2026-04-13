@@ -79,6 +79,7 @@ Every namespace has a default-deny network policy. Ingress and egress are explic
 ### Development & DevOps
 | Service | Purpose |
 |---------|---------|
+| [Excalidraw](https://excalidraw.com/) | Self-hosted collaborative whiteboard |
 | [Forgejo](https://forgejo.org/) | Self-hosted Git forge |
 | [JupyterHub](https://jupyter.org/hub) | Multi-user notebook environment |
 | [OpenCode](https://github.com/AnomalyHQ/opencode) | AI coding agent |
