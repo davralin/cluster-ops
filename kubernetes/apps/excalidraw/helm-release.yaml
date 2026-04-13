@@ -93,10 +93,10 @@ spec:
           - hosts:
               - *host
     persistence:
-      tmp:
+      var-cache-nginx:
         type: emptyDir
-        globalMounts:
-          - path: /tmp
+      var-run:
+        type: emptyDir
     networkpolicies:
       excalidraw:
         enabled: true
