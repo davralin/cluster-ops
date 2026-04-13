@@ -162,8 +162,9 @@ spec:
               requests:
                 cpu: 500m
                 memory: 1Gi
-              limits:
-                memory: 4Gi
+              # Worker will restart after 100 jobs to prevent memory leaks
+              #limits:
+                #memory: 4Gi
     service:
       audiomuseai:
         controller: *name
