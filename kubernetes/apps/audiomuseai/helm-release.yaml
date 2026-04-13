@@ -126,6 +126,7 @@ spec:
                   secretKeyRef:
                     name: audiomuseai-config
                     key: NAVIDROME_PASSWORD
+              NUMBA_CACHE_DIR: /tmp
               POSTGRES_HOST: "audiomuseai-postgres-v18-rw.audiomuseai.svc.cluster.local"
               POSTGRES_PORT: "5432"
               POSTGRES_DB: "audiomuseai"
