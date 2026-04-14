@@ -11,7 +11,6 @@ resources:
   - ../cloudnative-pg
   - ../comics
   - ../cyberchef
-  - ../excalidraw
   - ../dawarich
   - ../descheduler
   - ../endurain
