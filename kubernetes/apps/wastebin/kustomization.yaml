@@ -7,4 +7,3 @@ resources:
   - networkpolicy.yaml
   - probes.yaml
   - pvc.yaml
-  - volsync.yaml
