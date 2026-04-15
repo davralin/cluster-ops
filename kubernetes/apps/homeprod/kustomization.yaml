@@ -64,4 +64,5 @@ resources:
   - ../volsync
   - ../wallos
   - ../warrior
+  - ../wastebin
 
