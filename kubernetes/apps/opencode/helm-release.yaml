@@ -44,7 +44,7 @@ spec:
           opencode:
             image:
               repository: ghcr.io/anomalyco/opencode
-              tag: 1.4.4@sha256:86def276a385ae4569e7cdba0822230ac0df99658c8d7f2946c64587119015f9
+              tag: 1.4.5@sha256:4d97a04691e6b74437cb678e3422a90e169acbb725b88c0d16eaf5867a57ee72
             env:
               TZ: "${TIMEZONE}"
               HOME: /home/opencode
