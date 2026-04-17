@@ -42,8 +42,7 @@ spec:
       cloudflared:
         replicas: 2
         strategy: RollingUpdate
-        annotations:
-          reloader.stakater.com/auto: "true"
+        containers:
           cloudflared:
             image:
               repository: mirror.gcr.io/cloudflare/cloudflared
