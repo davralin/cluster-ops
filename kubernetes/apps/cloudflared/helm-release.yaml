@@ -119,6 +119,6 @@ spec:
                   except:
                   - "${HAPROXY_WHITELIST}"
               ports:
-                - port: 443
+                - port: 7844
                   protocol: TCP
           ingress: []
