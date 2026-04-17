@@ -3,7 +3,7 @@ name: garage
 
 services:
   garage:
-    image: docker.io/dxflrs/garage:v2.2.0
+    image: docker.io/dxflrs/garage:v2.3.0
     entrypoint: ["/garage", "-c", "/opt/garage/garage.toml", "server"]
     ports:
       - "3900:3900"
