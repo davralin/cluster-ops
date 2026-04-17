@@ -15,6 +15,7 @@ resources:
   - ../descheduler
   - ../endurain
   - ../cloudflareddns
+  - ../cloudflared
   - ../epicgames-freegames
   - ../firefox
   - ../forgejo

@@ -108,6 +108,12 @@ spec:
         cert-manager:
           url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/cert-manager/dashboards/cert-manager.json
           datasource: Prometheus
+        # Ref: https://grafana.com/grafana/dashboards/17457
+        cloudflared:
+          # renovate: depName="Cloudflare Tunnels (cloudflared)"
+          gnetId: 17457
+          revision: 6
+          datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/18796
         dnsmasq:
         # renovate: depName="Dnsmasq"
