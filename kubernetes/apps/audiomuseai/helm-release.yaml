@@ -157,7 +157,8 @@ spec:
                 enabled: false
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
+              # ln: failed to create symbolic link '/etc/localtime': Read-only file system
+              readOnlyRootFilesystem: false
               capabilities:
                 drop:
                   - ALL
