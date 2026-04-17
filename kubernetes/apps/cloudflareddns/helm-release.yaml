@@ -25,11 +25,6 @@ spec:
   upgrade:
     remediation:
       retries: 10
-  valuesFrom:
-    - targetPath: controllers.cloudflareddns.containers.cloudflareddns.env.CLOUDFLARE_API_TOKEN
-      kind: Secret
-      name: cloudflare-api-token-secret
-      valuesKey: CLOUDFLARE_API_TOKEN
   values:
     fullnameOverride: *name
     defaultPodOptions:
@@ -48,11 +43,16 @@ spec:
         containers:
           cloudflareddns:
             image:
-              repository: favonia/cloudflare-ddns
+              repository: docker.io/favonia/cloudflare-ddns
               tag: 1.16.2@sha256:bc53b40b13c8b2a84e9b93c21f65fcd7d574b741014fb93912eb9efd93015aa2
             env:
-              DOMAINS: "home.${SECRET_INTERNAL_DOMAIN},home.${SECRET_PRIVATE_DOMAIN}"
+              DOMAINS: "ip.${SECRET_INTERNAL_DOMAIN},ip.${SECRET_PRIVATE_DOMAIN}"
               IP6_PROVIDER: "none"
+              CLOUDFLARE_API_TOKEN:
+                valueFrom:
+                  secretKeyRef:
+                    name: cloudflare-api-token-secret
+                    key: CLOUDFLARE_API_TOKEN
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
