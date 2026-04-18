@@ -7,6 +7,7 @@ resources:
   - beets
   - cronjobs
   - ersatztv
+  - ersatztv-next
   - fetcharr
   - filebrowser
   - gogrepoc
