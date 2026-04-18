@@ -45,6 +45,7 @@ spec:
             image:
               repository: ghcr.io/ersatztv/ersatztv-next
               tag: develop
+              # digest: sha256:TODO — pin after pulling (image requires GHCR auth)
             env:
               TZ: "${TIMEZONE}"
             probes:
@@ -62,8 +63,10 @@ spec:
               requests:
                 cpu: 10m
                 memory: 256Mi
+                gpu.intel.com/i915: 1
               limits:
                 memory: 1Gi
+                gpu.intel.com/i915: 1
     service:
       ersatztv-next:
         controller: *name
