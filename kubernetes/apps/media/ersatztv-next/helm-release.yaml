@@ -93,6 +93,7 @@ spec:
         controller: *name
         policyTypes:
           - Ingress
+          - Egress
         rules:
           ingress:
             - from:
