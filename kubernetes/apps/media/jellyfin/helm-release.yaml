@@ -170,6 +170,14 @@ spec:
               ports:
                 - port: 8409
             - to:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: ersatztv-next
+                      app.kubernetes.io/instance: media-ersatztv-next
+                      app.kubernetes.io/name: media-ersatztv-next
+              ports:
+                - port: 8409
+            - to:
                 - namespaceSelector:
                     matchLabels:
                       kubernetes.io/metadata.name: mailrelay

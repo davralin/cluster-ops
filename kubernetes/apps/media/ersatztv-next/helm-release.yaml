@@ -85,4 +85,20 @@ spec:
               - path: /data
                 subPath: .
                 readOnly: true
+    networkpolicies:
+      ersatztv-next:
+        enabled: true
+        controller: *name
+        policyTypes:
+          - Ingress
+        rules:
+          ingress:
+            - from:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: jellyfin
+                      app.kubernetes.io/instance: media-jellyfin
+                      app.kubernetes.io/name: media-jellyfin
+              ports:
+                - port: *port
 
