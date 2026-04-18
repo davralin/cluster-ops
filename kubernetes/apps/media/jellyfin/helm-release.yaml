@@ -197,6 +197,14 @@ spec:
                   podSelector:
                     matchLabels:
                       app.kubernetes.io/name: kubernetes-ingress
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: cloudflared
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: cloudflared
+                      app.kubernetes.io/instance: cloudflared-cloudflared
+                      app.kubernetes.io/name: cloudflared-cloudflared
                 - podSelector:
                     matchLabels:
                       app.kubernetes.io/controller: ersatztv
