@@ -100,15 +100,15 @@ spec:
         data:
           config.yaml: |
             model_list:
+              - model_name: "claude-opus-4.7"
+                litellm_params:
+                  model: "github_copilot/claude-opus-4.7"
               - model_name: "claude-opus-4.6"
                 litellm_params:
                   model: "github_copilot/claude-opus-4.6"
               - model_name: "claude-sonnet-4"
                 litellm_params:
                   model: "github_copilot/claude-sonnet-4"
-              - model_name: "gpt-4.1"
-                litellm_params:
-                  model: "github_copilot/gpt-4.1"
     service:
       litellm:
         controller: *name
@@ -189,6 +189,14 @@ spec:
                       app.kubernetes.io/controller: karakeep
                       app.kubernetes.io/instance: karakeep-karakeep
                       app.kubernetes.io/name: karakeep-karakeep
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: openclaw
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: openclaw
+                      app.kubernetes.io/instance: openclaw-openclaw
+                      app.kubernetes.io/name: openclaw-openclaw
                 - namespaceSelector:
                     matchLabels:
                       kubernetes.io/metadata.name: openwebui

@@ -369,6 +369,18 @@ spec:
             - to:
                 - namespaceSelector:
                     matchLabels:
+                      kubernetes.io/metadata.name: litellm
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: litellm
+                      app.kubernetes.io/instance: litellm-litellm
+                      app.kubernetes.io/name: litellm-litellm
+              ports:
+                - port: 4000
+                  protocol: TCP
+            - to:
+                - namespaceSelector:
+                    matchLabels:
                       kubernetes.io/metadata.name: awx
                   podSelector:
                     matchLabels:
