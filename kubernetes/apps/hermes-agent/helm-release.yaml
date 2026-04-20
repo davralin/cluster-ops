@@ -44,7 +44,7 @@ spec:
           hermes-agent:
             image:
               repository: docker.io/nousresearch/hermes-agent
-              tag: latest@sha256:7b4fead641f433cd0fe1fbfadf129e9ef416e345a6e0ee91ebacaa10e402119f
+              tag: v2026.4.16@sha256:e006a640df03b885f88232de59d7f958108e43ac639b2499a78bb3fdd622e550
             env:
               TZ: "${TIMEZONE}"
             probes:
