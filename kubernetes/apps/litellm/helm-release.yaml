@@ -213,5 +213,13 @@ spec:
                       app.kubernetes.io/controller: wallos
                       app.kubernetes.io/instance: wallos-wallos
                       app.kubernetes.io/name: wallos-wallos
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: hermes-agent
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: hermes-agent
+                      app.kubernetes.io/instance: hermes-agent-hermes-agent
+                      app.kubernetes.io/name: hermes-agent-hermes-agent
               ports:
                 - port: *port

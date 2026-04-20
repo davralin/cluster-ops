@@ -71,7 +71,7 @@ spec:
                   failureThreshold: 30
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: false  # Agent writes to /opt/data and runtime dirs
+              readOnlyRootFilesystem: true
               capabilities:
                 drop:
                   - ALL
@@ -113,6 +113,9 @@ spec:
         existingClaim: hermes-agent
         globalMounts:
           - path: /opt/data
+      tmp:
+        enabled: true
+        type: emptyDir
     networkpolicies:
       hermes-agent:
         enabled: true
@@ -138,21 +141,19 @@ spec:
                       kubernetes.io/metadata.name: litellm
                   podSelector:
                     matchLabels:
+                      app.kubernetes.io/controller: litellm
+                      app.kubernetes.io/instance: litellm-litellm
                       app.kubernetes.io/name: litellm-litellm
               ports:
                 - port: 4000
                   protocol: TCP
-            - to:
-                - ipBlock:
-                    cidr: 0.0.0.0/0
-                    except:
-                      - 10.0.0.0/8
-                      - 172.16.0.0/12
-                      - 192.168.0.0/16
+            - to: # External API access
+              - ipBlock:
+                  cidr: 0.0.0.0/0
+                  except:
+                  - "${HAPROXY_WHITELIST}"
               ports:
                 - port: 443
-                  protocol: TCP
-                - port: 80
                   protocol: TCP
           ingress:
             - from:
