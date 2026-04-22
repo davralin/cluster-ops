@@ -44,7 +44,7 @@ spec:
           ersatztv-next:
             image:
               repository: ghcr.io/ersatztv/next
-              tag: develop@sha256:76a1dafb1256b2974d4a8190051eca0de36034ef1e70fed2f45bb3f3444f2533
+              tag: develop@sha256:31dd62de3428cff20c00ce863334dd78fadee5bbcc9814782649a0ba3573ccfd
             env:
               TZ: "${TIMEZONE}"
             probes:
