@@ -38,7 +38,7 @@ spec:
           url: https://github.com/siderolabs/omni
           ref:
             # renovate: datasource=github-releases depName=siderolabs/omni
-            tag: v1.7.0
+            tag: v1.7.1
           ignore: |
             # exclude all
             /*
