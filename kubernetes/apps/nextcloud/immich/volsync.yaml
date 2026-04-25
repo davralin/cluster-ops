@@ -56,6 +56,7 @@ spec:
             copyMethod: Direct
             cacheStorageClassName: "${STORAGE_READWRITEONCE}"
             cacheAccessModes: ["ReadWriteOnce"]
+            cacheCapacity: 10Gi
             pruneIntervalDays: 7
             repository: immich-volsync-secret
             moverSecurityContext:
