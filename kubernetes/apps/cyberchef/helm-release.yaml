@@ -44,8 +44,8 @@ spec:
         containers:
           cyberchef:
             image:
-              repository: docker.io/mpepping/cyberchef
-              tag: v10.23.0@sha256:37955fd1e28397c6dce0858210d839b92a6291e870d6f20d27e1f3efff93de27
+              repository: ghcr.io/gchq/cyberchef
+              tag: 10.24.0@sha256:58d2bcefe3f32b066eafca07353aae31b961ca7765fe4bcb913aba6bb8b8dd81
             env:
               TZ: "${TIMEZONE}"
             probes:
