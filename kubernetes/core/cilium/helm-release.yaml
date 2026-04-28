@@ -92,6 +92,7 @@ spec:
         enabled: "${MONITORING_PROMETHEUS}"
         serviceMonitor:
           enabled: "${MONITORING_PROMETHEUS}"
+      replicas: 1
     prometheus:
       enabled: "${MONITORING_PROMETHEUS}"
       serviceMonitor:
