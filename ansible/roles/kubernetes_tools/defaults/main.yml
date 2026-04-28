@@ -7,5 +7,5 @@ kubernetes_version: v1.35.4
 kubernetes_pkg_version: "{{ kubernetes_version.split('.')[:2] | join('.') }}"
 # renovate: datasource=github-releases depName=getsops/sops
 sops_version: v3.12.2
-# renovate: datasource=github-releases depName=siderolabs/talos
+# renovate: datasource=docker depName=ghcr.io/siderolabs/installer
 talosctl_version: v1.12.7
