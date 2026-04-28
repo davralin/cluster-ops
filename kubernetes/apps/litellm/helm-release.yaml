@@ -40,6 +40,8 @@ spec:
           type: RuntimeDefault
     controllers:
       litellm:
+        strategy: RollingUpdate
+        replicas: 2
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
@@ -109,12 +111,38 @@ spec:
               - model_name: "claude-sonnet-4.6"
                 litellm_params:
                   model: "github_copilot/claude-sonnet-4.6"
+              - model_name: claude-haiku-4-5
+                litellm_params:
+                  model: "github_copilot/claude-haiku-4.5"
+            general_settings:
+              master_key: "sk-1234"
+              #store_model_in_db: true
+            litellm_settings:
+              drop_params: true
+              additional_drop_params: ["context_management"]
+              callbacks:
+                - prometheus
+              model_list:
+                timeout: 300
+                stream_timeout: 30
+              router_settings:
+                timeout: 300
     service:
       litellm:
         controller: *name
         ports:
           http:
             port: *port
+    serviceMonitor:
+      metrics:
+        enabled: true
+        serviceName: *name
+        endpoints:
+          - port: http
+            scheme: http
+            path: /metrics/
+            interval: 60s
+            scrapeTimeout: 10s
     ingress:
       litellm:
         enabled: true
@@ -181,6 +209,12 @@ spec:
                   podSelector:
                     matchLabels:
                       app.kubernetes.io/name: kubernetes-ingress
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: monitoring
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: prometheus
                 - namespaceSelector:
                     matchLabels:
                       kubernetes.io/metadata.name: karakeep
