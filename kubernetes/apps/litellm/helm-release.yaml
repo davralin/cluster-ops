@@ -40,8 +40,6 @@ spec:
           type: RuntimeDefault
     controllers:
       litellm:
-        strategy: RollingUpdate
-        replicas: 2
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
