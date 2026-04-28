@@ -88,6 +88,8 @@ spec:
     monitor:
       enabled: "${MONITORING_PROMETHEUS}"
     operator:
+      nodeSelector:
+        node-role.kubernetes.io/control-plane: ""
       prometheus:
         enabled: "${MONITORING_PROMETHEUS}"
         serviceMonitor:
