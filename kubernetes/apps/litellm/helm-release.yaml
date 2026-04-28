@@ -106,9 +106,9 @@ spec:
               - model_name: "claude-opus-4.6"
                 litellm_params:
                   model: "github_copilot/claude-opus-4.6"
-              - model_name: "claude-sonnet-4"
+              - model_name: "claude-sonnet-4.6"
                 litellm_params:
-                  model: "github_copilot/claude-sonnet-4"
+                  model: "github_copilot/claude-sonnet-4.6"
     service:
       litellm:
         controller: *name
