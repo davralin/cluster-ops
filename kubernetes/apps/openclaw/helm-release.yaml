@@ -6,6 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 30m
+  timeout: 30m
   chart:
     spec:
       chart: app-template
@@ -81,10 +82,10 @@ spec:
                     key: TELEGRAM_BOT_TOKEN
             probes:
               liveness: &probes
-                enabled: true
+                enabled: false
               readiness: *probes
               startup:
-                enabled: true
+                enabled: false
                 spec:
                   failureThreshold: 30
                   periodSeconds: 30
