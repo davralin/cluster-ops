@@ -25,6 +25,9 @@ spec:
   upgrade:
     remediation:
       retries: 10
+  dependsOn:
+    - name: snapshot-controller
+      namespace: flux-system
   values:
     fullnameOverride: *name
     manageCRDs: true
