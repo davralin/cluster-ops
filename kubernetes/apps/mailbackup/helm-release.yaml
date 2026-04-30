@@ -46,8 +46,8 @@ spec:
         containers:
           mailbackup:
             image:
-              repository: docker.io/davralin/isync
-              tag: latest
+              repository: ghcr.io/davralin/isync
+              tag: latest@sha256:a3856d628e72eea5d1e51805cf70f8ea82144c198ffe7c957e243f2bd81a46ec
             command: ['/usr/bin/mbsync']
             args: ["-V", "-a", "-c", "/config/mbsync.rc"]
             env:

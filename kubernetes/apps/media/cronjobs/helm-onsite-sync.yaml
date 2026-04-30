@@ -46,8 +46,8 @@ spec:
         containers:
           onsite-sync:
             image:
-              repository: docker.io/davralin/rsync
-              tag: latest
+              repository: ghcr.io/davralin/rsync
+              tag: latest@sha256:59c77c3e1f2ea2f9d1631fb10ba2f670c36cb06962659d893addc6ec095ebcf0
             command: ['/usr/bin/rsync']
             args: ["--archive", "--delete", "--verbose", "-e", "ssh -o StrictHostKeyChecking=no", "/media/", "backup@nas.${SECRET_DEFAULT_DOMAIN}:/opt/local/media/"]
             securityContext:

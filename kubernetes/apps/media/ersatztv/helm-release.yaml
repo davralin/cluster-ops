@@ -69,8 +69,8 @@ spec:
                 gpu.intel.com/i915: 1
           trash-cleaner:
             image:
-              repository: docker.io/davralin/utility
-              tag: latest
+              repository: ghcr.io/davralin/utility
+              tag: latest@sha256:ac2aa35b5401e164bcc5e97e51f8fe5b076047144ef2bcb0cfe2213465bb4bb5
             command: ["/config/trash-cleanup.sh"]
             securityContext:
               allowPrivilegeEscalation: false
