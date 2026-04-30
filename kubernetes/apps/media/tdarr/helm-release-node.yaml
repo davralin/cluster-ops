@@ -111,11 +111,11 @@ spec:
             - to:
                 - podSelector:
                     matchLabels:
-                      app.kubernetes.io/controller: plex
-                      app.kubernetes.io/instance: media-plex
-                      app.kubernetes.io/name: media-plex
+                      app.kubernetes.io/controller: jellyfin
+                      app.kubernetes.io/instance: media-jellyfin
+                      app.kubernetes.io/name: media-jellyfin
               ports:
-                - port: 32400
+                - port: 8096
             - to:
                 - podSelector:
                     matchLabels:
