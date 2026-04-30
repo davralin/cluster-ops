@@ -38,6 +38,45 @@ spec:
         runAsNonRoot: true
         seccompProfile:
           type: RuntimeDefault
+    configMaps:
+      config:
+        data:
+          lineup.json: |
+            {
+              "server": { "bind_address": "0.0.0.0", "port": 8409 },
+              "output": { "folder": "/tmp/hls" },
+              "channels": [
+                { "number": "1", "name": "Music Videos", "config": "/config/channels/1/channel.json" }
+              ]
+            }
+          channel.json: |
+            {
+              "playout": { "folder": "/config/channels/1/playout" },
+              "ffmpeg": { "ffmpeg_path": "", "ffprobe_path": "", "disabled_filters": [] },
+              "normalization": {
+                "audio": {
+                  "format": "aac",
+                  "bitrate_kbps": 192,
+                  "buffer_kbps": 384,
+                  "channels": 2,
+                  "sample_rate_hz": 48000,
+                  "normalize_loudness": true,
+                  "loudness": { "integrated_target": -16, "range_target": 11, "true_peak": -1.5 }
+                },
+                "video": {
+                  "format": "h264",
+                  "bit_depth": 8,
+                  "width": 1920,
+                  "height": 1080,
+                  "bitrate_kbps": 2000,
+                  "buffer_kbps": 4000,
+                  "accel": "vaapi",
+                  "vaapi_device": "/dev/dri/renderD128",
+                  "vaapi_driver": "iHD"
+                },
+                "subtitle": { "mode": "burn" }
+              }
+            }
     controllers:
       ersatztv-next:
         containers:
@@ -66,6 +105,28 @@ spec:
               limits:
                 memory: 1Gi
                 gpu.intel.com/i915: 1
+          playout-generator:
+            image:
+              repository: ghcr.io/ersatztv/next
+              tag: develop@sha256:1a71846f0186866407f9ca12942f09aa208ca9258cad8b3cd8fa3bfc5e90b152
+            command: ["/bin/sh", "-c"]
+            args:
+              - |
+                while true; do
+                  /app/ersatztv-playout-generator --content-folder /data/video/musicvideos --output-folder /config/channels/1/playout
+                  sleep 86400
+                done
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 256Mi
     service:
       ersatztv-next:
         controller: *name
@@ -78,12 +139,32 @@ spec:
         existingClaim: ersatztv-next
         globalMounts:
           - path: /config
+      lineup:
+        enabled: true
+        type: configMap
+        name: ersatztv-next-config
+        globalMounts:
+          - path: /config/lineup.json
+            subPath: lineup.json
+            readOnly: true
+      channel:
+        enabled: true
+        type: configMap
+        name: ersatztv-next-config
+        globalMounts:
+          - path: /config/channels/1/channel.json
+            subPath: channel.json
+            readOnly: true
       media:
         enabled: true
         existingClaim: media
         advancedMounts:
           ersatztv-next:
             ersatztv-next:
+              - path: /data
+                subPath: .
+                readOnly: true
+            playout-generator:
               - path: /data
                 subPath: .
                 readOnly: true
@@ -95,6 +176,7 @@ spec:
           - Ingress
           - Egress
         rules:
+          egress: []
           ingress:
             - from:
                 - podSelector:
