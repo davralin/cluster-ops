@@ -110,7 +110,7 @@ spec:
               - model_name: "claude-sonnet-4.6"
                 litellm_params:
                   model: "github_copilot/claude-sonnet-4.6"
-              - model_name: claude-haiku-4-5
+              - model_name: claude-haiku-4.5
                 litellm_params:
                   model: "github_copilot/claude-haiku-4.5"
             general_settings:
