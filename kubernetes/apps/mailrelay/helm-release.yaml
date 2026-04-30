@@ -154,7 +154,14 @@ spec:
                       app.kubernetes.io/controller: jellyfin
                       app.kubernetes.io/instance: media-jellyfin
                       app.kubernetes.io/name: media-jellyfin
-                - namespaceSelector: {}
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: unifi
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: unifi
+                      app.kubernetes.io/instance: unifi-unifi
+                      app.kubernetes.io/name: unifi-unifi
               ports:
                 - port: 25
                 - port: *port
