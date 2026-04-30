@@ -51,7 +51,7 @@ spec:
             }
           channel.json: |
             {
-              "playout": { "folder": "/config/channels/1/playout" },
+              "playout": { "folder": "/config/playout" },
               "ffmpeg": { "ffmpeg_path": "", "ffprobe_path": "", "disabled_filters": [] },
               "normalization": {
                 "audio": {
@@ -113,7 +113,7 @@ spec:
             args:
               - |
                 while true; do
-                  /app/ersatztv-playout-generator --content-folder /data/video/musicvideos --output-folder /config/channels/1/playout
+                  /app/ersatztv-playout-generator --content-folder /data/video/musicvideos --output-folder /config/playout
                   sleep 86400
                 done
             securityContext:
@@ -142,7 +142,7 @@ spec:
       lineup:
         enabled: true
         type: configMap
-        name: ersatztv-next-config
+        name: ersatztv-next
         globalMounts:
           - path: /config/lineup.json
             subPath: lineup.json
@@ -150,11 +150,15 @@ spec:
       channel:
         enabled: true
         type: configMap
-        name: ersatztv-next-config
+        name: ersatztv-next
         globalMounts:
           - path: /config/channels/1/channel.json
             subPath: channel.json
             readOnly: true
+      # HLS output written to /tmp/hls by the server
+      tmp:
+        enabled: true
+        type: emptyDir
       media:
         enabled: true
         existingClaim: media

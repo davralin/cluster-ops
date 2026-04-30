@@ -32,7 +32,7 @@ talos/             # Talos Linux machine configs
 
 Before creating separate resource files, check if app-template handles it natively:
 - **RBAC** → `rbac.roles` + `rbac.bindings`
-- **ConfigMaps** → `configMaps` (inline data, named `<fullnameOverride>-<key>`)
+- **ConfigMaps** → `configMaps` (inline data; named `<fullnameOverride>` when there is only one, `<fullnameOverride>-<key>` when there are multiple)
 - **Raw resources** → `rawResources` (CiliumNetworkPolicies, etc.)
 - **ServiceAccounts** → `serviceAccount: { <name>: {} }`
 
