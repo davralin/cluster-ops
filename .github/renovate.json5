@@ -26,6 +26,13 @@
   },
   packageRules: [
     {
+      description: 'Group PaperMC server version updates',
+      matchDatasources: [
+        'custom.papermc',
+      ],
+      groupName: 'papermc',
+    },
+    {
       description: 'Group rook-ceph helm charts',
       groupName: 'rook-ceph',
       matchDatasources: [
@@ -350,6 +357,13 @@
     },
   ],
   customDatasources: {
+    'papermc': {
+      defaultRegistryUrlTemplate: 'https://api.papermc.io/v2/projects/paper',
+      format: 'json',
+      transformTemplates: [
+        '{"releases": versions.[$not($contains($, "-"))].${"version": $}}',
+      ],
+    },
     'grafana-dashboards': {
       defaultRegistryUrlTemplate: 'https://grafana.com/api/dashboards/{{packageName}}',
       format: 'json',

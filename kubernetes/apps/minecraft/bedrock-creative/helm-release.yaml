@@ -57,7 +57,8 @@ spec:
       tz: "${TIMEZONE}"
       eula: true
       type: PAPER
-      version: "1.21.11"
+      # renovate: datasource=custom.papermc depName=paper versioning=loose
+      version: 1.21.11
       difficulty: "easy"
       maxPlayers: 4
       levelSeed: 421112feedmekittens
