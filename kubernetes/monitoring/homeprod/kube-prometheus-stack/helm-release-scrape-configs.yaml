@@ -58,25 +58,6 @@ spec:
       - apiVersion: monitoring.coreos.com/v1alpha1
         kind: ScrapeConfig
         metadata:
-          name: &name haproxy-node-exporter
-          namespace: monitoring
-        spec:
-          staticConfigs:
-            - targets:
-                - mierin:8404
-          metricsPath: /metrics
-          relabelings:
-            - action: replace
-              targetLabel: job
-              replacement: *name
-            # All creds to https://a-cup-of.coffee/blog/prometheus/#relabeling
-            - sourceLabels: [__address__]
-              regex: '(.*):[0-9]+'
-              replacement: '${1}'
-              targetLabel: instance
-      - apiVersion: monitoring.coreos.com/v1alpha1
-        kind: ScrapeConfig
-        metadata:
           name: &name dnsmasq-node-exporter
           namespace: monitoring
         spec:
