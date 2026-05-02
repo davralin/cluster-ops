@@ -45,7 +45,7 @@ spec:
           openclaw:
             image:
               repository: ghcr.io/davralin/openclaw
-              tag: 2026.4.27@sha256:253d760e3fb69503761f6fe44ce409a515f07b2fd9f5c203f522905649fc7e12
+              tag: 2026.4.29@sha256:7d07c242453e20b7f896f821f199a688472c5b267a2153bcc28146b245f460f0
             env:
               TZ: "${TIMEZONE}"
               OPENCLAW_DISABLE_BONJOUR: 1
