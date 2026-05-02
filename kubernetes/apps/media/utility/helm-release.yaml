@@ -44,7 +44,7 @@ spec:
           utility:
             image:
               repository: ghcr.io/davralin/utility
-              tag: latest@sha256:ac2aa35b5401e164bcc5e97e51f8fe5b076047144ef2bcb0cfe2213465bb4bb5
+              tag: latest@sha256:e086737b7b533b6621326cba18a6af281a8da11854781db1a9c6574af7602215
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
