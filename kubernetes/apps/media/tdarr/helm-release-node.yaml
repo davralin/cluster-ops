@@ -108,6 +108,14 @@ spec:
               ports:
                 - port: 53
                   protocol: UDP
+            - to: # npm registry (plugin deps), TMDB API (henk plugin fallback)
+                - ipBlock:
+                    cidr: 0.0.0.0/0
+                    except:
+                      - "${HAPROXY_WHITELIST}"
+              ports:
+                - port: 443
+                  protocol: TCP
             - to:
                 - podSelector:
                     matchLabels:
