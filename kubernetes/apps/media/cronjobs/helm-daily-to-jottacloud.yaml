@@ -58,14 +58,8 @@ spec:
               - --jottacloud-hard-delete
               - /data/
               - jottacloud-crypt:/media
-              - --exclude
-              - downloads/**
-              - --exclude
-              - unsorted/tdarr/**
-              - --exclude
-              - "*TdarrCacheFile*"
-              - --exclude
-              - video/**
+              - --include
+              - audio/**
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
