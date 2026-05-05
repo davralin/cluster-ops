@@ -362,10 +362,10 @@
   ],
   customDatasources: {
     'papermc': {
-      defaultRegistryUrlTemplate: 'https://api.papermc.io/v2/projects/paper',
+      defaultRegistryUrlTemplate: 'https://fill.papermc.io/v3/projects/paper',
       format: 'json',
       transformTemplates: [
-        '{"releases": versions.[$not($contains($, "-"))].${"version": $}}',
+        '{"releases": versions."26.1"[$not($contains($, "-"))].{"version": $}}',
       ],
     },
     'grafana-dashboards': {
