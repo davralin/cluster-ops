@@ -60,7 +60,7 @@ spec:
       eula: true
       type: PAPER
       # renovate: datasource=custom.papermc depName=paper versioning=loose
-      version: 1.21.11
+      version: 26.1.2
       difficulty: "easy"
       maxPlayers: 10
       levelSeed: 421112feedmekittens
