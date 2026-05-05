@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: superset
-      version: 0.15.2
+      version: 0.15.5
       sourceRef:
         kind: HelmRepository
         name: superset-charts
