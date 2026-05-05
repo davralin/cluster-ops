@@ -49,7 +49,7 @@ spec:
               repository: ghcr.io/davralin/rsync
               tag: latest@sha256:08cc9b35f7f9b2dc00649b2858e3f77a4a6df293e82ef1a53ed17976403a11ec
             command: ['/usr/bin/rsync']
-            args: ["--archive", "--delete", "--verbose", "-e", "ssh -o StrictHostKeyChecking=no", "/media/", "backup@nas.${SECRET_DEFAULT_DOMAIN}:/opt/local/media/"]
+            args: ["--archive", "--dry-run", "--delete", "--verbose", "-e", "ssh -o StrictHostKeyChecking=no", "backup@nas.${SECRET_DEFAULT_DOMAIN}:/opt/local/media/video/movies/", "/media/video/movies/"]
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
