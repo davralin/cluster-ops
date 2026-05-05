@@ -44,7 +44,7 @@ spec:
           endurain:
             image:
               repository: ghcr.io/endurain-project/endurain
-              tag: v0.16.6@sha256:05bf60d33ae7fe1ce2402d1c6d8bb5a803a549b3a5fff0bcd65be7a804f3b7c1
+              tag: v0.17.7@sha256:af3d2b50667c081211e9af6b3590f6cbfbaacb73f63910902574f9d65c24b346
             env:
               TZ: "${TIMEZONE}"
               ENDURAIN_HOST: "https://endurain.${SECRET_DEFAULT_DOMAIN}"
