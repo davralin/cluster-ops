@@ -85,6 +85,41 @@
       ],
     },
     {
+      description: 'Commit messages for Minecraft plugins (github-releases used in pluginUrls)',
+      matchDatasources: ['github-releases'],
+      matchPackageNames: [
+        '/ViaVersion/',
+        '/sladkoff/minecraft-prometheus-exporter/',
+      ],
+      commitMessagePrefix: 'fix(plugin): ',
+      commitMessageTopic: '{{depName}}',
+      commitMessageExtra: '( {{currentVersion}} → {{newVersion}} )',
+    },
+    {
+      description: 'Commit messages for PaperMC server (major)',
+      matchDatasources: ['custom.papermc'],
+      matchUpdateTypes: ['major'],
+      commitMessagePrefix: 'feat(paper)!: ',
+      commitMessageTopic: '{{depName}}',
+      commitMessageExtra: '( {{currentVersion}} → {{newVersion}} )',
+    },
+    {
+      description: 'Commit messages for PaperMC server (minor)',
+      matchDatasources: ['custom.papermc'],
+      matchUpdateTypes: ['minor'],
+      commitMessagePrefix: 'feat(paper): ',
+      commitMessageTopic: '{{depName}}',
+      commitMessageExtra: '( {{currentVersion}} → {{newVersion}} )',
+    },
+    {
+      description: 'Commit messages for PaperMC server (patch)',
+      matchDatasources: ['custom.papermc'],
+      matchUpdateTypes: ['patch'],
+      commitMessagePrefix: 'fix(paper): ',
+      commitMessageTopic: '{{depName}}',
+      commitMessageExtra: '( {{currentVersion}} → {{newVersion}} )',
+    },
+    {
       description: [
         'Auto-merge container digests updates for trusted containers',
       ],
