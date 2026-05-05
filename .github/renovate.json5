@@ -365,7 +365,7 @@
       defaultRegistryUrlTemplate: 'https://fill.papermc.io/v3/projects/paper',
       format: 'json',
       transformTemplates: [
-        '{"releases": versions."26.1"[$not($contains($, "-"))].{"version": $}}',
+        '{"releases": versions.*[$not($contains($, "-"))].{"version": $}}',
       ],
     },
     'grafana-dashboards': {
