@@ -24,6 +24,10 @@ spec:
   values:
     fullnameOverride: *name
     monitoring:
+      dashboards:
+        enabled: "${MONITORING_PROMETHEUS}"
+      prometheusRule:
+        enabled: "${MONITORING_PROMETHEUS}"
       serviceMonitor:
         enabled: "${MONITORING_PROMETHEUS}"
     securityContext:
