@@ -6,15 +6,9 @@ metadata:
   namespace: flux-system
 spec:
   interval: 30m
-  chart:
-    spec:
-      chart: *name
-      version: 0.28.0
-      sourceRef:
-        kind: HelmRepository
-        name: cloudnative-pg-charts
-        namespace: flux-system
-      interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: *name
   driftDetection:
     mode: enabled
   targetNamespace: cloudnative-pg

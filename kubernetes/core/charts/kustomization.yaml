@@ -8,7 +8,6 @@ resources:
   - backube.yaml
   - bjw-s.yaml
   - cilium.yaml
-  - cloudnative-pg.yaml
   - descheduler.yaml
   - dysnix.yaml
   - emberstack.yaml
