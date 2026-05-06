@@ -96,3 +96,21 @@ spec:
                   for: 1m
                   labels:
                     severity: warning
+                - alert: BarmanCloudBackupStale
+                  annotations:
+                    description: No successful backup for {{ $labels.pod }} in over 36h (last success {{ $value | humanizeDuration }} ago).
+                    summary: Barman Cloud has not produced a successful backup recently.
+                  expr: |-
+                    time() - barman_cloud_cloudnative_pg_io_last_available_backup_timestamp > 36 * 3600
+                  for: 15m
+                  labels:
+                    severity: warning
+                - alert: BarmanCloudBackupFailed
+                  annotations:
+                    description: A Barman Cloud backup failed for {{ $labels.pod }} within the last hour.
+                    summary: Recent Barman Cloud backup failure.
+                  expr: |-
+                    time() - barman_cloud_cloudnative_pg_io_last_failed_backup_timestamp < 3600
+                  for: 5m
+                  labels:
+                    severity: warning

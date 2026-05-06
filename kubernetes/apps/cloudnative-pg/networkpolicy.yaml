@@ -46,6 +46,13 @@ spec:
       ports:
         - port: 8000
           protocol: TCP
+    - to:
+        - podSelector:
+            matchLabels:
+              app: barman-cloud
+      ports:
+        - port: 9090
+          protocol: TCP
 ---
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
@@ -59,9 +66,45 @@ spec:
       app.kubernetes.io/name: cloudnative-pg
   egress:
     - toEntities:
-      - kube-apiserver
+        - kube-apiserver
   ingress:
     - fromEntities:
-      - kube-apiserver
-      - remote-node
-      - host
+        - kube-apiserver
+        - remote-node
+        - host
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: plugin-barman-cloud
+  namespace: cloudnative-pg
+spec:
+  podSelector:
+    matchLabels:
+      app: barman-cloud
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/instance: cloudnative-pg-cloudnative-pg
+              app.kubernetes.io/name: cloudnative-pg
+      ports:
+        - port: 9090
+          protocol: TCP
+  egress: []
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: plugin-barman-cloud
+  namespace: cloudnative-pg
+spec:
+  endpointSelector:
+    matchLabels:
+      app: barman-cloud
+  egress:
+    - toEntities:
+        - kube-apiserver

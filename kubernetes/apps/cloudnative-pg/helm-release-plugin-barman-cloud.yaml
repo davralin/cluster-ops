@@ -1,0 +1,33 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &name plugin-barman-cloud
+  namespace: flux-system
+spec:
+  interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: *name
+  driftDetection:
+    mode: enabled
+  targetNamespace: cloudnative-pg
+  install:
+    crds: CreateReplace
+    createNamespace: false
+    remediation:
+      retries: 10
+  upgrade:
+    cleanupOnFail: true
+    crds: CreateReplace
+    remediation:
+      retries: 10
+  dependsOn:
+    - name: cloudnative-pg
+      namespace: flux-system
+    - name: cert-manager
+      namespace: flux-system
+  values:
+    fullnameOverride: *name
+    crds:
+      create: true
