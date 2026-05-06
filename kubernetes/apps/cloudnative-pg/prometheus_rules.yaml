@@ -42,6 +42,14 @@ spec:
           groups:
             - name: cloudnative-pg.rules
               rules:
+                # NOTE: When migrating to plugin-barman-cloud, the following
+                # Prometheus metrics are deprecated and will no longer update
+                # for plugin-based backups (CNPG ≥1.26.1):
+                #   - cnpg_collector_first_recoverability_point
+                #   - cnpg_collector_last_available_backup_timestamp
+                #   - cnpg_collector_last_failed_backup_timestamp
+                # The alerts below use pg_stat_archiver metrics which remain
+                # functional with both inline and plugin-based backup methods.
                 - alert: LongRunningTransaction
                   annotations:
                     description: Pod {{ $labels.pod }} is taking more than 5 minutes (300 seconds) for a query.
