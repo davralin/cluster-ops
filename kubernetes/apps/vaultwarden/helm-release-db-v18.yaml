@@ -26,10 +26,33 @@ spec:
     remediation:
       retries: 10
   dependsOn:
-    - name: cloudnative-pg
+    - name: plugin-barman-cloud
       namespace: flux-system
   values:
     resources:
+      - apiVersion: barmancloud.cnpg.io/v1
+        kind: ObjectStore
+        metadata:
+          name: *name
+          namespace: *namespace
+        spec:
+          retentionPolicy: 7d
+          configuration:
+            destinationPath: s3://postgresql-${CLUSTER_NAME}
+            endpointURL: "${SECRET_S3_CNPG_URL}"
+            s3Credentials:
+              accessKeyId:
+                name: *name
+                key: s3-access-key
+              secretAccessKey:
+                name: *name
+                key: s3-secret-key
+              region:
+                name: *name
+                key: region
+            wal:
+              compression: bzip2
+              maxParallel: 4
       - apiVersion: postgresql.cnpg.io/v1
         kind: Cluster
         metadata:
@@ -87,42 +110,19 @@ spec:
               memory: "256Mi"
             limits:
               memory: "1Gi"
-          backup:
-            retentionPolicy: 7d
-            barmanObjectStore:
-              wal:
-                compression: bzip2
-                maxParallel: 4
-              destinationPath: s3://postgresql-${CLUSTER_NAME}
-              endpointURL: "${SECRET_S3_CNPG_URL}"
-              serverName: *name
-              s3Credentials:
-                accessKeyId:
-                  name: *name
-                  key: s3-access-key
-                secretAccessKey:
-                  name: *name
-                  key: s3-secret-key
-                region:
-                  name: *name
-                  key: region
+          plugins:
+            - name: barman-cloud.cloudnative-pg.io
+              isWALArchiver: true
+              parameters:
+                barmanObjectName: *name
           externalClusters:
             # this represents the s3 backup to restore from. Must be same version.
             - name: *name
-              barmanObjectStore:
-                wal:
-                  compression: bzip2
-                  maxParallel: 8
-                destinationPath: s3://postgresql-${CLUSTER_NAME}
-                serverName: *name
-                endpointURL: "${SECRET_S3_CNPG_URL}"
-                s3Credentials:
-                  accessKeyId:
-                    name: *name
-                    key: s3-access-key
-                  secretAccessKey:
-                    name: *name
-                    key: s3-secret-key
+              plugin:
+                name: barman-cloud.cloudnative-pg.io
+                parameters:
+                  barmanObjectName: *name
+                  serverName: *name
             ## this represents an existing cnpg cluster to migrate from (e.g. upgrading from postgres v17 to postgres v18)
             #- name: vaultwarden-postgres-v17
             #  connectionParameters:
@@ -142,6 +142,9 @@ spec:
           schedule: "0 37 01 * * *"
           immediate: true
           backupOwnerReference: self
+          method: plugin
+          pluginConfiguration:
+            name: barman-cloud.cloudnative-pg.io
           cluster:
             name: *name
       - apiVersion: networking.k8s.io/v1

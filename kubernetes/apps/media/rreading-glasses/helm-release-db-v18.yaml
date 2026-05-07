@@ -86,63 +86,6 @@ spec:
             limits:
               memory: "2Gi"
           # We don't need backup here, the backup is huge, and it's just a metadata-cache
-          #backup:
-          #  retentionPolicy: 7d
-          #  barmanObjectStore:
-          #    wal:
-          #      compression: bzip2
-          #      maxParallel: 4
-          #    destinationPath: s3://postgresql-${CLUSTER_NAME}
-          #    endpointURL: "${SECRET_S3_CNPG_URL}"
-          #    serverName: *name
-          #    s3Credentials:
-          #      accessKeyId:
-          #        name: *name
-          #        key: s3-access-key
-          #      secretAccessKey:
-          #        name: *name
-          #        key: s3-secret-key
-          #      region:
-          #        name: *name
-          #        key: region
-          externalClusters:
-            # this represents the s3 backup to restore from. Must be same version.
-            - name: *name
-              barmanObjectStore:
-                wal:
-                  compression: bzip2
-                  maxParallel: 8
-                destinationPath: s3://postgresql-${CLUSTER_NAME}
-                serverName: *name
-                endpointURL: "${SECRET_S3_CNPG_URL}"
-                s3Credentials:
-                  accessKeyId:
-                    name: *name
-                    key: s3-access-key
-                  secretAccessKey:
-                    name: *name
-                    key: s3-secret-key
-            # # this represents an existing cnpg cluster to migrate from (e.g. upgrading from postgres v17 to postgres v18)
-            #- name: rreading-glasses-postgres-v17
-            #  connectionParameters:
-            #    host: rreading-glasses-postgres-v17.rreading-glasses.svc.cluster.local
-            #    user: rreading-glasses
-            #    dbname: rreading-glasses
-            #    sslmode: require
-            #  password:
-            #    name: rreading-glasses-basic-auth
-            #    key: password
-      #- apiVersion: postgresql.cnpg.io/v1
-      #  kind: ScheduledBackup
-      #  metadata:
-      #    name: *name
-      #    namespace: *namespace
-      #  spec:
-      #    schedule: "0 37 01 * * *"
-      #    immediate: true
-      #    backupOwnerReference: self
-      #    cluster:
-      #      name: *name
       - apiVersion: networking.k8s.io/v1
         kind: NetworkPolicy
         metadata:
@@ -216,12 +159,6 @@ spec:
               ports:
                 - port: 53
                   protocol: UDP
-            - to: # S3-Backup
-              - ipBlock:
-                  cidr: 10.0.1.75/32
-              ports:
-                - port: 3900
-                  protocol: TCP
       - apiVersion: cilium.io/v2
         kind: CiliumNetworkPolicy
         metadata:
