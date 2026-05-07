@@ -43,8 +43,8 @@ spec:
         containers:
           endurain:
             image:
-              repository: ghcr.io/endurain-project/endurain
-              tag: v0.16.6@sha256:05bf60d33ae7fe1ce2402d1c6d8bb5a803a549b3a5fff0bcd65be7a804f3b7c1
+              repository: codeberg.org/endurain-project/endurain
+              tag: v0.17.8@sha256:d252c06bb2a70d66800ad853af54a96c68fa12d93625e0fa96cfe433411817da
             env:
               TZ: "${TIMEZONE}"
               ENDURAIN_HOST: "https://endurain.${SECRET_DEFAULT_DOMAIN}"
