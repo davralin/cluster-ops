@@ -65,7 +65,7 @@ spec:
               - --exclude
               - "*TdarrCacheFile*"
               - --exclude
-              - video/tv-series
+              - video/tv-series/**
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
