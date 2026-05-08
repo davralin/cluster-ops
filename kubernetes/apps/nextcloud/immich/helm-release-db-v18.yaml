@@ -62,6 +62,10 @@ spec:
           # using only 1 replica: very difficult to drain the node where postgres is running
           # using more than 1 replica: write amplification issues when leveraging replicated storage (e.g. ceph)
           instances: 2
+          affinity:
+            enablePodAntiAffinity: true
+            topologyKey: kubernetes.io/hostname
+            podAntiAffinityType: required
           imageName: ghcr.io/tensorchord/cloudnative-vectorchord:18.0-0.5.3
           primaryUpdateStrategy: unsupervised
           storage:
