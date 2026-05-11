@@ -9,5 +9,6 @@ resources:
   - networkpolicy.yaml
   - probes.yaml
   - pvc.yaml
+  - secret.yaml
   - volsync.yaml
 
