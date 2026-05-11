@@ -53,6 +53,29 @@ spec:
             env:
               TZ: "${TIMEZONE}"
               GITHUB_COPILOT_TOKEN_DIR: /data/copilot-tokens
+              LITELLM_MASTER_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: litellm-secrets
+                    key: master-key
+              LITELLM_SALT_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: litellm-secrets
+                    key: salt-key
+              DATABASE_HOST: litellm-postgres-v18-rw.litellm.svc.cluster.local
+              DATABASE_PORT: "5432"
+              DATABASE_NAME: litellm
+              DATABASE_USERNAME:
+                valueFrom:
+                  secretKeyRef:
+                    name: litellm-basic-auth
+                    key: username
+              DATABASE_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: litellm-basic-auth
+                    key: password
             probes:
               liveness:
                 enabled: true
@@ -114,7 +137,6 @@ spec:
                 litellm_params:
                   model: "github_copilot/claude-haiku-4.5"
             general_settings:
-              master_key: "sk-1234"
               #store_model_in_db: true
             litellm_settings:
               drop_params: true
@@ -185,6 +207,13 @@ spec:
           - Ingress
         rules:
           egress:
+            - to:
+                - podSelector:
+                    matchLabels:
+                      cnpg.io/cluster: litellm-postgres-v18
+              ports:
+                - port: 5432
+                  protocol: TCP
             - to:
                 - namespaceSelector:
                     matchLabels:
