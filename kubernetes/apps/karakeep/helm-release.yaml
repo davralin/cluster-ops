@@ -77,7 +77,11 @@ spec:
               COREPACK_INTEGRITY_KEYS: 0
               S6_READ_ONLY_ROOT: 1
               OPENAI_BASE_URL: http://litellm.litellm.svc.cluster.local:4000/v1
-              OPENAI_API_KEY: litellm
+              OPENAI_API_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: karakeep-secret
+                    key: OPENAI_API_KEY
               INFERENCE_ENABLE_AUTO_SUMMARIZATION: true
               INFERENCE_JOB_TIMEOUT_SEC: 900
               INFERENCE_TEXT_MODEL: claude-opus-4.6
