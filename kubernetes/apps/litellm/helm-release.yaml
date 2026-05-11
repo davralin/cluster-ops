@@ -51,18 +51,6 @@ spec:
               - "--config"
               - "/config/config.yaml"
             env:
-              TZ: "${TIMEZONE}"
-              GITHUB_COPILOT_TOKEN_DIR: /data/copilot-tokens
-              LITELLM_MASTER_KEY:
-                valueFrom:
-                  secretKeyRef:
-                    name: litellm-secrets
-                    key: master-key
-              LITELLM_SALT_KEY:
-                valueFrom:
-                  secretKeyRef:
-                    name: litellm-secrets
-                    key: salt-key
               DATABASE_HOST: litellm-postgres-v18-rw.litellm.svc.cluster.local
               DATABASE_PORT: "5432"
               DATABASE_NAME: litellm
@@ -76,6 +64,21 @@ spec:
                   secretKeyRef:
                     name: litellm-basic-auth
                     key: password
+              GITHUB_COPILOT_TOKEN_DIR: /data/copilot-tokens
+              LITELLM_NON_ROOT: true
+              LITELLM_MASTER_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: litellm-secrets
+                    key: master-key
+              LITELLM_MIGRATION_DIR: /tmp/migration
+              LITELLM_SALT_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: litellm-secrets
+                    key: salt-key
+              USE_PRISMA_MIGRATE: true
+              TZ: "${TIMEZONE}"
             probes:
               liveness:
                 enabled: true
