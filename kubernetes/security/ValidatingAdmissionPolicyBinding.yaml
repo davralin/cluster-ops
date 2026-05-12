@@ -1,7 +1,13 @@
+---
 apiVersion: admissionregistration.k8s.io/v1
 kind: ValidatingAdmissionPolicyBinding
 metadata:
-  name: "audit-all-but-flux"
+  name: audit-all-but-flux
 spec:
-  policyName: "audit-all-but-flux"
-  validationActions: [Audit, Warn]
+  policyName: audit-all-but-flux
+  # Audit-only — non-Flux mutations are recorded in the kube-apiserver audit
+  # log and surfaced as a warning to the client, but never denied. Promote to
+  # [Deny] only after reviewing the audit annotations for false positives.
+  validationActions:
+    - Audit
+    - Warn

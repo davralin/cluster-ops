@@ -1,16 +1,49 @@
+---
 apiVersion: admissionregistration.k8s.io/v1
 kind: ValidatingAdmissionPolicy
 metadata:
   name: audit-all-but-flux
 spec:
-  #failurePolicy: Fail
+  # Audit-only policy: never block requests, even on policy-engine error.
   failurePolicy: Ignore
   matchConstraints:
     resourceRules:
-    - apiGroups:   ["*"]
-      apiVersions: ["*"]
-      resources:   ["*"]
-      operations:  ["CREATE", "UPDATE", "DELETE"]
+      - apiGroups:   ["*"]
+        apiVersions: ["*"]
+        resources:   ["*"]
+        operations:  ["CREATE", "UPDATE", "DELETE"]
+    # Don't audit the system itself talking to itself, or leases (very noisy).
+    excludeResourceRules:
+      - apiGroups:   ["coordination.k8s.io"]
+        apiVersions: ["*"]
+        resources:   ["leases"]
+        operations:  ["CREATE", "UPDATE", "DELETE"]
+      - apiGroups:   ["events.k8s.io", ""]
+        apiVersions: ["*"]
+        resources:   ["events"]
+        operations:  ["CREATE", "UPDATE", "DELETE"]
+  matchConditions:
+    # Skip controller-manager / scheduler / kubelet / node-bound SAs — they
+    # generate constant background churn that drowns out actionable signal.
+    - name: exclude-system-users
+      expression: >-
+        !(request.userInfo.username in [
+          "system:kube-controller-manager",
+          "system:kube-scheduler",
+          "system:apiserver",
+          "system:kube-proxy"
+        ]) &&
+        !request.userInfo.username.startsWith("system:node:") &&
+        !request.userInfo.username.startsWith("system:serviceaccount:kube-system:")
   validations:
-    - expression: "true"
-      message: "Non-Flux actor made a change"
+    # Expression is TRUE when the actor IS Flux (or another trusted reconciler).
+    # When the expression evaluates to FALSE the request is flagged
+    # (Audit + Warn) as a non-Flux mutation.
+    - expression: >-
+        request.userInfo.username.startsWith("system:serviceaccount:flux-system:") ||
+        request.userInfo.username.startsWith("system:serviceaccount:cnpg-system:") ||
+        request.userInfo.username.startsWith("system:serviceaccount:kyverno:") ||
+        request.userInfo.username.startsWith("system:serviceaccount:cert-manager:") ||
+        request.userInfo.username.startsWith("system:serviceaccount:rook-ceph:")
+      message: "Non-Flux actor made a change to a cluster resource"
+      reason: Forbidden
