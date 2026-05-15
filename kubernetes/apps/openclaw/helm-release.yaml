@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 4.6.2
+      version: 5.0.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -28,6 +28,8 @@ spec:
       retries: 10
   values:
     fullnameOverride: *name
+    global:
+      createDefaultServiceAccount: false
     defaultPodOptions:
       automountServiceAccountToken: true
       enableServiceLinks: false
@@ -416,9 +418,12 @@ spec:
                 - port: *port
     rawResources:
       cilium-kube-api:
-        apiVersion: cilium.io/v2
-        kind: CiliumNetworkPolicy
-        spec:
+        enabled: true
+        manifest:
+          apiVersion: cilium.io/v2
+          kind: CiliumNetworkPolicy
+          metadata:
+            labels: {}
           spec:
             endpointSelector:
               matchLabels:
