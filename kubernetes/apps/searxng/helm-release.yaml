@@ -223,6 +223,14 @@ spec:
                       app.kubernetes.io/name: openclaw-openclaw
                 - namespaceSelector:
                     matchLabels:
+                      kubernetes.io/metadata.name: hermes-agent
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: hermes-agent
+                      app.kubernetes.io/instance: hermes-agent-hermes-agent
+                      app.kubernetes.io/name: hermes-agent-hermes-agent
+                - namespaceSelector:
+                    matchLabels:
                       kubernetes.io/metadata.name: openwebui
                   podSelector:
                     matchLabels:

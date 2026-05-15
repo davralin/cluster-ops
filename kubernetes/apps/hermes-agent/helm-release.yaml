@@ -55,6 +55,12 @@ spec:
               TZ: "${TIMEZONE}"
               API_SERVER_ENABLED: "true"
               API_SERVER_HOST: "0.0.0.0"
+              SEARXNG_URL: "http://searxng.searxng.svc.cluster.local:8080"
+              OPENAI_API_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: hermes-agent-secret
+                    key: LITELLM_API_KEY
             probes:
               liveness: &probes
                 enabled: false
@@ -154,6 +160,18 @@ spec:
                       app.kubernetes.io/name: litellm-litellm
               ports:
                 - port: 4000
+                  protocol: TCP
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: searxng
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: searxng
+                      app.kubernetes.io/instance: searxng-searxng
+                      app.kubernetes.io/name: searxng-searxng
+              ports:
+                - port: 8080
                   protocol: TCP
           ingress:
             - from:
