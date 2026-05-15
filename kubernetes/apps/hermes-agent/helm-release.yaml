@@ -57,6 +57,11 @@ spec:
                   secretKeyRef:
                     name: hermes-agent-secret
                     key: LITELLM_API_KEY
+              TELEGRAM_BOT_TOKEN:
+                valueFrom:
+                  secretKeyRef:
+                    name: hermes-agent-secret
+                    key: TELEGRAM_BOT_TOKEN
             probes:
               liveness: &probes
                 enabled: false
@@ -168,6 +173,12 @@ spec:
                       app.kubernetes.io/name: searxng-searxng
               ports:
                 - port: 8080
+                  protocol: TCP
+            - to:
+                - ipBlock:
+                    cidr: 0.0.0.0/0
+              ports:
+                - port: 443
                   protocol: TCP
           ingress:
             - from:
