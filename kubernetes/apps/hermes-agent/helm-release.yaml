@@ -62,6 +62,12 @@ spec:
                   secretKeyRef:
                     name: hermes-agent-secret
                     key: TELEGRAM_BOT_TOKEN
+              SIGNAL_HTTP_URL: "http://signal-cli.signal-cli.svc.cluster.local:8080"
+              SIGNAL_ACCOUNT:
+                valueFrom:
+                  secretKeyRef:
+                    name: hermes-agent-secret
+                    key: SIGNAL_ACCOUNT
             probes:
               liveness: &probes
                 enabled: false
@@ -171,6 +177,18 @@ spec:
                       app.kubernetes.io/controller: searxng
                       app.kubernetes.io/instance: searxng-searxng
                       app.kubernetes.io/name: searxng-searxng
+              ports:
+                - port: 8080
+                  protocol: TCP
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: signal-cli
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: signal-cli
+                      app.kubernetes.io/instance: signal-cli-signal-cli
+                      app.kubernetes.io/name: signal-cli-signal-cli
               ports:
                 - port: 8080
                   protocol: TCP
