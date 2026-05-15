@@ -48,13 +48,9 @@ spec:
               repository: docker.io/nousresearch/hermes-agent
               tag: v2026.5.7@sha256:9462082533e603fc6ba4259c51d7722dcd8cbb0f348488ceedc35d06fa8f9324
             args: ["gateway", "run"]
-            envFrom:
-              - secretRef:
-                  name: hermes-agent-secret
             env:
               TZ: "${TIMEZONE}"
-              API_SERVER_ENABLED: "true"
-              API_SERVER_HOST: "0.0.0.0"
+              HERMES_DASHBOARD: "1"
               SEARXNG_URL: "http://searxng.searxng.svc.cluster.local:8080"
               OPENAI_API_KEY:
                 valueFrom:
@@ -67,8 +63,8 @@ spec:
                 custom: true
                 spec:
                   httpGet:
-                    path: /health
-                    port: &port 8642
+                    path: /
+                    port: &port 9119
                   initialDelaySeconds: 30
                   periodSeconds: 30
                   failureThreshold: 5
@@ -78,7 +74,7 @@ spec:
                 custom: true
                 spec:
                   httpGet:
-                    path: /health
+                    path: /
                     port: *port
                   initialDelaySeconds: 30
                   periodSeconds: 10
