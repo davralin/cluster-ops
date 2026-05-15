@@ -33,9 +33,9 @@ spec:
       automountServiceAccountToken: false
       enableServiceLinks: false
       securityContext:
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
+        runAsUser: 10000
+        runAsGroup: 10000
+        fsGroup: 10000
         fsGroupChangePolicy: "OnRootMismatch"
         runAsNonRoot: true
         seccompProfile:
@@ -47,11 +47,17 @@ spec:
             image:
               repository: docker.io/nousresearch/hermes-agent
               tag: v2026.5.7@sha256:9462082533e603fc6ba4259c51d7722dcd8cbb0f348488ceedc35d06fa8f9324
+            args: ["gateway", "run"]
+            envFrom:
+              - secretRef:
+                  name: hermes-agent-secret
             env:
               TZ: "${TIMEZONE}"
+              API_SERVER_ENABLED: "true"
+              API_SERVER_HOST: "0.0.0.0"
             probes:
               liveness: &probes
-                enabled: true
+                enabled: false
                 custom: true
                 spec:
                   httpGet:
@@ -62,7 +68,7 @@ spec:
                   failureThreshold: 5
               readiness: *probes
               startup:
-                enabled: true
+                enabled: false
                 custom: true
                 spec:
                   httpGet:
