@@ -80,6 +80,9 @@ spec:
         ports:
           http:
             port: &port 8086
+    persistence:
+      tmp:
+        type: emptyDir
     networkpolicies:
       ha-mcp:
         enabled: true
