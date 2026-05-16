@@ -46,6 +46,9 @@ spec:
         mode: console
       news:
         news_feed_enabled: false
+      feature_toggles:
+        dashgpt: false
+        grafanaAdvisor: false
       paths:
         data: /var/lib/grafana/data
         logs: /var/log/grafana
