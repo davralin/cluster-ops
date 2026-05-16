@@ -18,12 +18,18 @@ spec:
   upgrade:
     remediation:
       retries: 10
+  dependsOn:
+    - name: kube-prometheus-stack-crds
+      namespace: flux-system
   values:
     fullnameOverride: node-exporter
     prometheus:
       monitor:
         enabled: "${MONITORING_PROMETHEUS}"
         relabelings:
+          - action: replace
+            targetLabel: job
+            replacement: node-exporter
           - action: replace
             regex: (.*)
             replacement: $1

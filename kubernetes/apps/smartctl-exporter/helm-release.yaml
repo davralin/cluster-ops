@@ -18,6 +18,9 @@ spec:
   upgrade:
     remediation:
       retries: 10
+  dependsOn:
+    - name: kube-prometheus-stack-crds
+      namespace: flux-system
   values:
     fullnameOverride: smartctl-exporter
     serviceMonitor:
