@@ -11,4 +11,4 @@ spec:
     operation: copy
   ref:
     tag: 0.16.1
-  url: oci://registry-1.docker.io/prometheus-community/prometheus-smartctl-exporter
+  url: oci://ghcr.io/prometheus-community/charts/prometheus-smartctl-exporter
