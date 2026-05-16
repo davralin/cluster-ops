@@ -40,6 +40,7 @@ resources:
   - ../mealie
   - ../media
   - ../meshtastic
+  - ../metrics-server
   - ../minecraft
   - ../nextcloud
   - ../node-exporter
