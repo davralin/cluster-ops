@@ -47,9 +47,15 @@ spec:
             image:
               repository: ghcr.io/asamk/signal-cli
               tag: 0.14.3@sha256:23a808b97eaa65e15f09809e5644aedf33e838db833552dfe825ca52dcd0940e
-            args: ["daemon", "--http", "0.0.0.0:8080"]
             env:
               TZ: "${TIMEZONE}"
+              SIGNAL_ACCOUNT:
+                valueFrom:
+                  secretKeyRef:
+                    name: signal-cli-secret
+                    key: SIGNAL_ACCOUNT
+            command: ["/bin/sh", "-c"]
+            args: ["/opt/signal-cli/bin/signal-cli --config=/var/lib/signal-cli --account $SIGNAL_ACCOUNT daemon --http 0.0.0.0:8080"]
             probes:
               liveness: &probes
                 enabled: true
