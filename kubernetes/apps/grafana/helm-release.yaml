@@ -49,6 +49,8 @@ spec:
       feature_toggles:
         dashgpt: false
         grafanaAdvisor: false
+        grafanaAssistantInProfilesDrilldown: false
+        splashScreen: false
       paths:
         data: /var/lib/grafana/data
         logs: /var/log/grafana
