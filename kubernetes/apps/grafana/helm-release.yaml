@@ -6,16 +6,11 @@ metadata:
   namespace: flux-system
 spec:
   interval: 30m
-  chart:
-    spec:
-      chart: grafana
-      version: 10.5.15
-      sourceRef:
-        kind: HelmRepository
-        name: grafana-charts
-        namespace: flux-system
-      interval: 30m
-  targetNamespace: monitoring
+  chartRef:
+    kind: OCIRepository
+    name: grafana
+    namespace: flux-system
+  targetNamespace: grafana
   install:
     createNamespace: true
     remediation:
@@ -23,6 +18,9 @@ spec:
   upgrade:
     remediation:
       retries: 10
+  dependsOn:
+    - name: kube-prometheus-stack-crds
+      namespace: flux-system
   values:
     fullnameOverride: grafana
     image:
@@ -74,15 +72,8 @@ spec:
           - name: Prometheus
             type: prometheus
             access: proxy
-            url: http://kube-prom-prometheus:9090
+            url: http://kube-prom-prometheus.monitoring.svc.cluster.local:9090
             isDefault: true
-          - name: Loki
-            type: loki
-            uid: loki
-            access: proxy
-            url: http://loki-headless.loki.svc.cluster.local:3100
-            jsonData:
-              maxLines: 250
     dashboards:
       default:
         # Ref: https://grafana.com/grafana/dashboards/13659

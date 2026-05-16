@@ -21,6 +21,7 @@ resources:
   - ../forgejo
   - ../freshrss
   - ../gotify
+  - ../grafana
   - ../ha-mcp
   - ../hermes-agent
   - ../icloudpd

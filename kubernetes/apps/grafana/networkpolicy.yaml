@@ -2,12 +2,22 @@
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
+  name: default-deny
+  namespace: grafana
+spec:
+  podSelector: {}
+  policyTypes:
+    - Ingress
+    - Egress
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
   name: grafana
-  namespace: monitoring
+  namespace: grafana
 spec:
   podSelector:
     matchLabels:
-      app.kubernetes.io/instance: monitoring-grafana
       app.kubernetes.io/name: grafana
   policyTypes:
     - Ingress
@@ -16,16 +26,20 @@ spec:
     - from:
         - namespaceSelector:
             matchLabels:
-              kubernetes.io/metadata.name: monitoring
-          podSelector:
-            matchLabels:
-              app.kubernetes.io/name: prometheus
-        - namespaceSelector:
-            matchLabels:
               kubernetes.io/metadata.name: haproxy-controller
           podSelector:
             matchLabels:
               app.kubernetes.io/name: kubernetes-ingress
+      ports:
+        - port: 3000
+          protocol: TCP
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: monitoring
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/name: prometheus
       ports:
         - port: 3000
           protocol: TCP
@@ -41,23 +55,33 @@ spec:
         - port: 53
           protocol: UDP
     - to:
-        - podSelector:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: monitoring
+          podSelector:
             matchLabels:
               app.kubernetes.io/instance: kube-prom
               app.kubernetes.io/name: prometheus
       ports:
         - port: 9090
           protocol: TCP
+    - to: # Dashboard and plugin downloads
+      - ipBlock:
+          cidr: 0.0.0.0/0
+          except:
+          - "${HAPROXY_WHITELIST}"
+      ports:
+        - port: 443
+          protocol: TCP
 ---
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
 metadata:
   name: grafana
-  namespace: monitoring
+  namespace: grafana
 spec:
   endpointSelector:
     matchLabels:
-      app.kubernetes.io/instance: monitoring-grafana
       app.kubernetes.io/name: grafana
   egress:
     - toEntities:
