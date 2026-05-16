@@ -18,6 +18,7 @@ metadata:
 spec:
   podSelector:
     matchLabels:
+      app.kubernetes.io/instance: node-exporter-node-exporter
       app.kubernetes.io/name: prometheus-node-exporter
   policyTypes:
     - Ingress

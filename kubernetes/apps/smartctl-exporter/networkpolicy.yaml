@@ -18,6 +18,7 @@ metadata:
 spec:
   podSelector:
     matchLabels:
+      app.kubernetes.io/instance: smartctl-exporter-smartctl-exporter
       app.kubernetes.io/name: prometheus-smartctl-exporter
   policyTypes:
     - Ingress
