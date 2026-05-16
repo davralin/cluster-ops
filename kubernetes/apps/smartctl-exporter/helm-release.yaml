@@ -6,16 +6,11 @@ metadata:
   namespace: flux-system
 spec:
   interval: 30m
-  chart:
-    spec:
-      chart: prometheus-smartctl-exporter
-      version: 0.16.1
-      sourceRef:
-        kind: HelmRepository
-        name: prometheus-community-charts
-        namespace: flux-system
-      interval: 30m
-  targetNamespace: monitoring
+  chartRef:
+    kind: OCIRepository
+    name: smartctl-exporter
+    namespace: flux-system
+  targetNamespace: smartctl-exporter
   install:
     createNamespace: true
     remediation:

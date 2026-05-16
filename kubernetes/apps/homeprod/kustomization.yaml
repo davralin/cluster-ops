@@ -57,6 +57,7 @@ resources:
   - ../rssbridge
   - ../searxng
   - ../signal-cli
+  - ../smartctl-exporter
   - ../speedtest-exporter
   - ../spegel
   - ../superset
