@@ -161,6 +161,11 @@ spec:
     nodeExporter:
       enabled: false
       forceDeployDashboards: true
+      operatingSystems:
+        aix:
+          enabled: false
+        darwin:
+          enabled: false
     grafana:
       enabled: false
       forceDeployDashboards: true
