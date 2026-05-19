@@ -82,8 +82,6 @@ spec:
           - name: elayne
             devices:
               - name: /dev/disk/by-partlabel/r-nvme-osd
-                config:
-                  osdsPerDevice: "2"
               - name: /dev/disk/by-id/ata-Samsung_SSD_870_QVO_8TB_S5SSNF0W507918V
           - name: mat
             devices:
