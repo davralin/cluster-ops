@@ -16,3 +16,4 @@ apt_packages:
   - tmux
   - unzip
   - vim
+  - yq
