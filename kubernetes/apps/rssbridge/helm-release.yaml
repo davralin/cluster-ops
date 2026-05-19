@@ -48,7 +48,7 @@ spec:
           rssbridge:
             image:
               repository: ghcr.io/rss-bridge/rss-bridge
-              tag: latest@sha256:e148a2de6c929959c94e8b896f7422d20597ad95d338986764858f995c69aee7
+              tag: latest@sha256:2e80816b01eff8bb527dc2c467328f4ca2d6dcdc88d293c79e1b6cc4422bfd7e
             env:
               TZ: "${TIMEZONE}"
             probes:
