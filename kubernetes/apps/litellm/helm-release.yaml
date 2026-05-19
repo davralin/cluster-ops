@@ -288,5 +288,13 @@ spec:
                       app.kubernetes.io/controller: hermes-agent
                       app.kubernetes.io/instance: hermes-agent-hermes-agent
                       app.kubernetes.io/name: hermes-agent-hermes-agent
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: opencode
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: opencode
+                      app.kubernetes.io/instance: opencode-opencode
+                      app.kubernetes.io/name: opencode-opencode
               ports:
                 - port: *port
