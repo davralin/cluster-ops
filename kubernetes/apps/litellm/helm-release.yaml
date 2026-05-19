@@ -194,6 +194,11 @@ spec:
       data:
         enabled: true
         existingClaim: litellm
+      data-rwm:
+        enabled: true
+        existingClaim: litellm-temp
+        globalMounts:
+          - path: /data-rwm
       tmp:
         enabled: true
         type: emptyDir
