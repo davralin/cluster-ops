@@ -40,8 +40,18 @@ spec:
         runAsNonRoot: true
         seccompProfile:
           type: RuntimeDefault
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchLabels:
+                  app.kubernetes.io/controller: litellm
+              topologyKey: kubernetes.io/hostname
     controllers:
       litellm:
+        replicas: 2
+        podDisruptionBudget:
+          minAvailable: 1
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
