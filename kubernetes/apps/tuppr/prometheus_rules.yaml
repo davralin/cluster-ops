@@ -15,7 +15,7 @@ spec:
         name: dysnix-charts
         namespace: flux-system
       interval: 30m
-  targetNamespace: tuppr
+  targetNamespace: talos-system
   install:
     createNamespace: true
     remediation:
@@ -34,7 +34,7 @@ spec:
         kind: PrometheusRule
         metadata:
           name: tuppr-rules
-          namespace: tuppr
+          namespace: talos-system
           labels:
             prometheus: k8s
             role: alert-rules

@@ -15,7 +15,7 @@ spec:
         name: dysnix-charts
         namespace: flux-system
       interval: 30m
-  targetNamespace: tuppr
+  targetNamespace: talos-system
   install:
     createNamespace: true
     remediation:
@@ -32,7 +32,7 @@ spec:
         kind: KubernetesUpgrade
         metadata:
           name: kubernetes
-          namespace: tuppr
+          namespace: talos-system
         spec:
           kubernetes:
             # renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet

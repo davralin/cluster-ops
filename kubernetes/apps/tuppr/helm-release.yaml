@@ -11,7 +11,7 @@ spec:
     name: tuppr
   driftDetection:
     mode: enabled
-  targetNamespace: tuppr
+  targetNamespace: talos-system
   install:
     createNamespace: true
     crds: CreateReplace
