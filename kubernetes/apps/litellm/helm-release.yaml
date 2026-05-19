@@ -194,6 +194,11 @@ spec:
       data:
         enabled: true
         existingClaim: litellm-temp
+      datanew:
+        enabled: true
+        existingClaim: litellm
+        globalMounts:
+          - path: /data-new
       tmp:
         enabled: true
         type: emptyDir
