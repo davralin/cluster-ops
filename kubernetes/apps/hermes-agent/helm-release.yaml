@@ -57,11 +57,6 @@ spec:
                   secretKeyRef:
                     name: hermes-agent-secret
                     key: LITELLM_API_KEY
-              TELEGRAM_BOT_TOKEN:
-                valueFrom:
-                  secretKeyRef:
-                    name: hermes-agent-secret
-                    key: TELEGRAM_BOT_TOKEN
               SIGNAL_HTTP_URL: "http://signal-cli.signal-cli.svc.cluster.local:8080"
               SIGNAL_ACCOUNT:
                 valueFrom:
