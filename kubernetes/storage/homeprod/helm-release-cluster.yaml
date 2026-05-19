@@ -80,7 +80,7 @@ spec:
               - name: /dev/disk/by-id/ata-Samsung_SSD_870_QVO_8TB_S5SSNF0W507912Z
           - name: elayne
             devices:
-              - name: /dev/disk/by-id/nvme-WD_PC_SN735_SDBPNHH-1T00-1002_21492R803181
+              - name: /dev/disk/by-partlabel/r-nvme-osd
                 config:
                   osdsPerDevice: "2"
               - name: /dev/disk/by-id/ata-Samsung_SSD_870_QVO_8TB_S5SSNF0W507918V
