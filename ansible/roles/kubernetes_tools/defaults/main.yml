@@ -9,3 +9,5 @@ kubernetes_pkg_version: "{{ kubernetes_version.split('.')[:2] | join('.') }}"
 sops_version: v3.13.1
 # renovate: datasource=docker depName=ghcr.io/siderolabs/installer
 talosctl_version: v1.13.2
+# renovate: datasource=github-releases depName=budimanjojo/talhelper
+talhelper_version: v3.1.10

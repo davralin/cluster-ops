@@ -6,3 +6,15 @@
     checksum: sha256:https://github.com/siderolabs/talos/releases/download/{{ talosctl_version }}/sha256sum.txt
     mode: '0755'
   become: true
+
+- name: talhelper | fetch and install talhelper
+  ansible.builtin.unarchive:
+    src: https://github.com/budimanjojo/talhelper/releases/download/{{ talhelper_version }}/talhelper_linux_amd64.tar.gz
+    dest: /usr/local/bin
+    extra_opts:
+      - talhelper
+    remote_src: yes
+    owner: root
+    group: root
+    mode: '0755'
+  become: true
