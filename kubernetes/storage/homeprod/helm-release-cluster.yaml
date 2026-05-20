@@ -75,9 +75,7 @@ spec:
         nodes:
           - name: aviendha
             devices:
-              - name: /dev/disk/by-id/nvme-WD_BLACK_SN850X_4000GB_23030Q802996
-                config:
-                  osdsPerDevice: "2"
+              - name: /dev/disk/by-partlabel/r-nvme-osd
               - name: /dev/disk/by-id/ata-Samsung_SSD_870_QVO_8TB_S5SSNF0W507912Z
           - name: elayne
             devices:
