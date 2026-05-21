@@ -106,7 +106,7 @@ spec:
           editor:
             image:
               repository: ghcr.io/davralin/utility
-              tag: latest@sha256:e068a7f00eb0c11e3fbcf2e1153cf883b461fb9d49729b9363ac85ba283b79b3
+              tag: latest@sha256:dbef5e52bcd6dca89d76ed955bd3757f689c64aa193d5b7fc93853513c267cc1
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
