@@ -49,9 +49,9 @@ spec:
               topologyKey: kubernetes.io/hostname
     controllers:
       litellm:
-        replicas: 2
+        replicas: 1
         podDisruptionBudget:
-          minAvailable: 1
+          minAvailable: 0
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
@@ -203,7 +203,7 @@ spec:
     persistence:
       data:
         enabled: true
-        existingClaim: litellm
+        existingClaim: litellm-rwo
       tmp:
         enabled: true
         type: emptyDir
