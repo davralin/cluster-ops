@@ -63,6 +63,11 @@ spec:
                   secretKeyRef:
                     name: hermes-agent-secret
                     key: SIGNAL_ACCOUNT
+              SIGNAL_GROUP_ALLOWED_USERS:
+                valueFrom:
+                  secretKeyRef:
+                    name: hermes-agent-secret
+                    key: SIGNAL_GROUP_ALLOWED_USERS
             probes:
               liveness: &probes
                 enabled: false
