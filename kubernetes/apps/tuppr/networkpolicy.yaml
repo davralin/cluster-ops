@@ -114,7 +114,7 @@ metadata:
 spec:
   podSelector:
     matchLabels:
-      app.kubernetes.io/instance: tuppr-tuppr
+      app.kubernetes.io/instance: talos-system-tuppr
       app.kubernetes.io/name: tuppr
   policyTypes:
     - Ingress
@@ -157,7 +157,7 @@ metadata:
 spec:
   endpointSelector:
     matchLabels:
-      app.kubernetes.io/instance: tuppr-tuppr
+      app.kubernetes.io/instance: talos-system-tuppr
       app.kubernetes.io/name: tuppr
   egress:
     - toEntities:
