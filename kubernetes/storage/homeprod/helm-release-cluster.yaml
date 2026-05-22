@@ -102,6 +102,7 @@ spec:
           failureDomain: host
           replicated:
             size: 2
+            requireSafeReplicaSize: true
         storageClass:
           enabled: true
           name: ceph-block
@@ -137,10 +138,12 @@ spec:
             deviceClass: nvme
             replicated:
               size: 2
+              requireSafeReplicaSize: true
           dataPools:
             - failureDomain: host
               replicated:
                 size: 2
+                requireSafeReplicaSize: true
           metadataServer:
             activeCount: 1
             activeStandby: true
