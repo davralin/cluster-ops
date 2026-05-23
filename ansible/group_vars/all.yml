@@ -5,6 +5,7 @@ apt_packages:
   - ca-certificates
   - dnsutils # dig
   - git
+  - git-filter-repo
   - hx
   - lsof
   - ncurses-term
