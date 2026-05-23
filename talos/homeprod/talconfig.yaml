@@ -1,0 +1,167 @@
+---
+clusterName: HomeProd
+endpoint: https://homeprod.internal:6443
+# renovate: datasource=docker depName=ghcr.io/siderolabs/installer
+talosVersion: v1.13.2
+# renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
+kubernetesVersion: v1.36.1
+
+allowSchedulingOnControlPlanes: true
+
+additionalApiServerCertSans:
+  - homeprod.internal
+
+cniConfig:
+  name: none
+
+schematic:
+  customization:
+    systemExtensions:
+      officialExtensions:
+        - siderolabs/i915
+        - siderolabs/intel-ucode
+
+patches:
+  - |-
+    cluster:
+      proxy:
+        disabled: true
+    machine:
+      files:
+        - path: /etc/cri/conf.d/20-customization.part
+          op: create
+          content: |
+            [plugins."io.containerd.cri.v1.images"]
+              discard_unpacked_layers = false
+      registries:
+        mirrors:
+          docker.io:
+            endpoints:
+              - ${REGISTRY_MIRROR}
+  - |-
+    apiVersion: v1alpha1
+    kind: RawVolumeConfig
+    name: nvme-osd
+    provisioning:
+      diskSelector:
+        match: disk.transport == 'nvme' && !system_disk
+      minSize: 1GB
+
+controlPlane:
+  patches:
+    - |-
+      cluster:
+        scheduler:
+          extraArgs:
+            bind-address: 0.0.0.0
+        controllerManager:
+          extraArgs:
+            bind-address: 0.0.0.0
+        etcd:
+          extraArgs:
+            listen-metrics-urls: http://0.0.0.0:2381
+        apiServer:
+          admissionControl:
+            - name: PodSecurity
+              configuration:
+                defaults:
+                  enforce: restricted
+      machine:
+        features:
+          kubernetesTalosAPIAccess:
+            enabled: true
+            allowedRoles:
+              - os:admin
+              - os:etcd:backup
+            allowedKubernetesNamespaces:
+              - talos-system
+        network:
+          interfaces:
+            - interface: bond0
+              vip:
+                ip: 10.0.1.100
+
+  networkInterfaces:
+    - interface: bond0
+      bond:
+        deviceSelectors:
+          - driver: e1000e
+          - driver: r8169
+        mode: balance-rr
+      dhcp: true
+
+  volumes:
+    - name: EPHEMERAL
+      provisioning:
+        diskSelector:
+          match: disk.transport == 'nvme' && !system_disk
+        maxSize: 100GB
+
+worker:
+  networkInterfaces:
+    - interface: bond0
+      bond:
+        deviceSelectors:
+          - driver: e1000e
+          - driver: r8169
+        mode: balance-rr
+      dhcp: true
+
+  volumes:
+    - name: EPHEMERAL
+      provisioning:
+        diskSelector:
+          match: disk.transport == 'nvme' && !system_disk
+        maxSize: 100GB
+
+nodes:
+  - hostname: aviendha
+    ipAddress: 10.0.1.67
+    controlPlane: true
+    installDiskSelector:
+      model: "KBG40ZNS128G*"
+
+  - hostname: elayne
+    ipAddress: 10.0.1.69
+    controlPlane: true
+    installDiskSelector:
+      model: "KBG40ZNS128G*"
+    schematic:
+      customization:
+        systemExtensions:
+          officialExtensions:
+            - siderolabs/i915
+            - siderolabs/intel-ucode
+            - siderolabs/realtek-firmware
+
+  - hostname: min
+    ipAddress: 10.0.1.68
+    controlPlane: true
+    installDiskSelector:
+      model: "KBG40ZNS128G*"
+
+  - hostname: mat
+    ipAddress: 10.0.1.65
+    controlPlane: false
+    installDiskSelector:
+      model: "KBG40ZNS128G*"
+    schematic:
+      customization:
+        systemExtensions:
+          officialExtensions:
+            - siderolabs/i915
+            - siderolabs/intel-ucode
+            - siderolabs/realtek-firmware
+
+  - hostname: rand
+    ipAddress: 10.0.1.66
+    controlPlane: false
+    installDiskSelector:
+      model: "KBG40ZNS128G*"
+    schematic:
+      customization:
+        systemExtensions:
+          officialExtensions:
+            - siderolabs/i915
+            - siderolabs/intel-ucode
+            - siderolabs/realtek-firmware
