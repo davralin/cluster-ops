@@ -90,9 +90,7 @@ spec:
               - name: /dev/disk/by-id/ata-Samsung_SSD_870_QVO_4TB_S5STNF0T308094T
           - name: rand
             devices:
-              - name: /dev/disk/by-id/nvme-WD_BLACK_SN850X_4000GB_23030Q803045
-                config:
-                  osdsPerDevice: "2"
+              - name: /dev/disk/by-partlabel/r-nvme-osd
               - name: /dev/disk/by-id/ata-Samsung_SSD_870_QVO_4TB_S5STNF0T205013V
     cephBlockPools:
       - name: ceph-blockpool
