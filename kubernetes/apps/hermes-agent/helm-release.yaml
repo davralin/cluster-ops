@@ -27,10 +27,12 @@ spec:
       retries: 10
   values:
     global:
-      createDefaultServiceAccount: false
+      createDefaultServiceAccount: true
+    serviceAccount:
+      hermes-agent: {}
     fullnameOverride: *name
     defaultPodOptions:
-      automountServiceAccountToken: false
+      automountServiceAccountToken: true
       enableServiceLinks: false
       securityContext:
         runAsUser: 10000
@@ -68,6 +70,12 @@ spec:
                   secretKeyRef:
                     name: hermes-agent-secret
                     key: SIGNAL_GROUP_ALLOWED_USERS
+              HASS_URL: "https://home.${SECRET_DEFAULT_DOMAIN}"
+              HASS_TOKEN:
+                valueFrom:
+                  secretKeyRef:
+                    name: hermes-agent-secret
+                    key: HOMEASSISTANT_TOKEN
             probes:
               liveness: &probes
                 enabled: false
@@ -217,6 +225,12 @@ spec:
               ports:
                 - port: 8086
                   protocol: TCP
+            - to: # Direct Home Assistant access
+                - ipBlock:
+                    cidr: 10.0.1.79/32
+              ports:
+                - port: 443
+                  protocol: TCP
             - to:
                 - namespaceSelector:
                     matchLabels:
@@ -259,3 +273,37 @@ spec:
                       app.kubernetes.io/name: kubernetes-ingress
               ports:
                 - port: *port
+    rbac:
+      roles:
+        hermes-agent:
+          type: Role
+          rules:
+            - apiGroups: [""]
+              resources: ["pods"]
+              verbs: ["get", "list", "delete"]
+            - apiGroups: [""]
+              resources: ["pods/log"]
+              verbs: ["get", "list"]
+      bindings:
+        hermes-agent:
+          type: RoleBinding
+          roleRef:
+            name: hermes-agent
+          serviceAccountRef:
+            name: hermes-agent
+    rawResources:
+      cilium-kube-api:
+        apiVersion: cilium.io/v2
+        kind: CiliumNetworkPolicy
+        spec:
+          spec:
+            endpointSelector:
+              matchLabels:
+                app.kubernetes.io/controller: *name
+            egress:
+              - toEntities:
+                  - kube-apiserver
+                toPorts:
+                  - ports:
+                      - port: "6443"
+                        protocol: TCP
