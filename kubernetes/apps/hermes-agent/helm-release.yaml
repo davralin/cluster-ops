@@ -75,7 +75,7 @@ spec:
                 valueFrom:
                   secretKeyRef:
                     name: hermes-agent-secret
-                    key: HOMEASSISTANT_TOKEN
+                    key: HASS_TOKEN
             probes:
               liveness: &probes
                 enabled: false
