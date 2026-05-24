@@ -105,6 +105,7 @@ Every namespace has a default-deny network policy. Ingress and egress are explic
 | [Uptime Kuma](https://uptime.kuma.pet/) | Service uptime monitoring |
 | [Syncthing](https://syncthing.net/) | File synchronization |
 | [OwnTracks](https://owntracks.org/) | Location tracking |
+| [signal-cli](https://github.com/AsamK/signal-cli) | Signal messaging REST API |
 
 ### Gaming
 | Service | Purpose |
