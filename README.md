@@ -94,7 +94,6 @@ Every namespace has a default-deny network policy. Ingress and egress are explic
 | [Ollama](https://ollama.ai/) | Local LLM inference |
 | [Open WebUI](https://openwebui.com/) | Chat interface for local models |
 | [SearXNG](https://searxng.org/) | Privacy-respecting metasearch engine |
-| [OpenClaw](https://openclaw.ai/) | AI assistant platform |
 
 ### Home & Infrastructure
 | Service | Purpose |

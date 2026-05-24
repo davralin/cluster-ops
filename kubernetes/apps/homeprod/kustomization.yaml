@@ -48,7 +48,6 @@ resources:
   - ../node-problem-detector
   - ../ollama
   - ../omni
-  - ../openclaw
   - ../opencode
   - ../openwebui
   - ../owntracks

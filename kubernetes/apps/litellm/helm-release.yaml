@@ -268,14 +268,6 @@ spec:
                       app.kubernetes.io/name: karakeep-karakeep
                 - namespaceSelector:
                     matchLabels:
-                      kubernetes.io/metadata.name: openclaw
-                  podSelector:
-                    matchLabels:
-                      app.kubernetes.io/controller: openclaw
-                      app.kubernetes.io/instance: openclaw-openclaw
-                      app.kubernetes.io/name: openclaw-openclaw
-                - namespaceSelector:
-                    matchLabels:
                       kubernetes.io/metadata.name: openwebui
                   podSelector:
                     matchLabels:

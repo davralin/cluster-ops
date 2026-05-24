@@ -45,14 +45,6 @@ spec:
               app.kubernetes.io/part-of: awx
         - namespaceSelector:
             matchLabels:
-              kubernetes.io/metadata.name: openclaw
-          podSelector:
-            matchLabels:
-              app.kubernetes.io/controller: openclaw
-              app.kubernetes.io/instance: openclaw-openclaw
-              app.kubernetes.io/name: openclaw-openclaw
-        - namespaceSelector:
-            matchLabels:
               kubernetes.io/metadata.name: hermes-agent
           podSelector:
             matchLabels:
