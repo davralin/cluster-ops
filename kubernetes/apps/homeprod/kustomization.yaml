@@ -25,6 +25,7 @@ resources:
   - ../ha-mcp
   - ../hermes-agent
   - ../icloudpd
+  - ../infiscal
   - ../intel-device-plugin
   - ../invidious
   - ../it-tools
