@@ -288,14 +288,14 @@ spec:
         hermes-agent:
           type: RoleBinding
           roleRef:
-            name: hermes-agent
-          serviceAccountRef:
-            name: hermes-agent
+            identifier: hermes-agent
+          subjects:
+            - identifier: hermes-agent
     rawResources:
       cilium-kube-api:
-        apiVersion: cilium.io/v2
-        kind: CiliumNetworkPolicy
-        spec:
+        manifest:
+          apiVersion: cilium.io/v2
+          kind: CiliumNetworkPolicy
           spec:
             endpointSelector:
               matchLabels:
