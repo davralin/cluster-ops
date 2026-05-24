@@ -96,7 +96,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 4.6.2             # Renovate manages this
+      version: 5.0.1             # Renovate manages this
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -287,15 +287,41 @@ podSelector:
     app.kubernetes.io/name: namespace-appname
 ```
 
+### RBAC (Roles + Bindings)
+
+Apps that need Kubernetes API access require a ServiceAccount, Role/ClusterRole, and RoleBinding. Use app-template built-ins. Note: app-template v5 uses `identifier` references, not `serviceAccountRef`:
+
+```yaml
+serviceAccount:
+  hermes-agent: {}
+rbac:
+  roles:
+    hermes-agent:
+      type: Role
+      rules:
+        - apiGroups: [""]
+          resources: ["pods"]
+          verbs: ["get", "list", "delete"]
+  bindings:
+    hermes-agent:
+      type: RoleBinding
+      roleRef:
+        identifier: hermes-agent   # references rbac.roles.hermes-agent
+      subjects:
+        - identifier: hermes-agent # references serviceAccount.hermes-agent
+```
+
+Also set `automountServiceAccountToken: true` in `defaultPodOptions`.
+
 ### CiliumNetworkPolicy for kube-apiserver
 
 Any app that needs Kubernetes API access (e.g. `automountServiceAccountToken: true`) needs a CiliumNetworkPolicy for kube-apiserver. Add via `rawResources` in the HelmRelease:
 ```yaml
 rawResources:
   cilium-kube-api:
-    apiVersion: cilium.io/v2
-    kind: CiliumNetworkPolicy
-    spec:
+    manifest:
+      apiVersion: cilium.io/v2
+      kind: CiliumNetworkPolicy
       spec:
         endpointSelector:
           matchLabels:
