@@ -49,7 +49,7 @@ spec:
           daily-video-ripper:
             image:
               repository: ghcr.io/davralin/ripbox
-              tag: latest@sha256:d7adcc09395aea76ec06a849ee71a926db2b9cf6aaaeaf22fcc5d5254d0ad0a4
+              tag: latest@sha256:ae8691dac269bcbc3d90b5d02c80b24c6b9f0afc3cdffe185e93539e478fe6a3
             command: ['/media/videoripper.sh']
             securityContext:
               allowPrivilegeEscalation: false
