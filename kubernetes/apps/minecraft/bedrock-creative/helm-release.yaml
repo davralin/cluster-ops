@@ -84,6 +84,7 @@ spec:
     extraEnv:
       ENABLE_AUTOPAUSE: "FALSE"
       ENFORCE_WHITELIST: "FALSE"
+      ALLOW_FLIGHT: "TRUE"
     podAnnotations:
       reloader.stakater.com/auto: "true"
     persistence:
