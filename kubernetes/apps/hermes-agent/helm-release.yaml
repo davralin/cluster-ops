@@ -108,7 +108,8 @@ spec:
                   failureThreshold: 30
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
+              # Due to lazy-dep, connection with hindsight
+              readOnlyRootFilesystem: false
               capabilities:
                 drop:
                   - ALL
