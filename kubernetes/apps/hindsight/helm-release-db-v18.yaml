@@ -139,7 +139,9 @@ spec:
                       cnpg.io/cluster: *name
                 - podSelector:
                     matchLabels:
-                      app.kubernetes.io/name: hindsight-api
+                      app.kubernetes.io/name: hindsight
+                      app.kubernetes.io/instance: hindsight-hindsight
+                      app.kubernetes.io/component: api
               ports:
                 - port: 5432
                   protocol: TCP
