@@ -304,7 +304,7 @@ spec:
                   podSelector:
                     matchLabels:
                       app.kubernetes.io/name: hindsight
-                      app.kubernetes.io/instance: hindsight
+                      app.kubernetes.io/instance: hindsight-hindsight
                       app.kubernetes.io/component: api
               ports:
                 - port: *port
