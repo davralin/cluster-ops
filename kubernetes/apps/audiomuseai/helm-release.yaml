@@ -25,7 +25,6 @@ spec:
   upgrade:
     remediation:
       retries: 10
-      remediateLastFailure: false
   dependsOn:
     - name: audiomuseai-postgres-v18
       namespace: flux-system
