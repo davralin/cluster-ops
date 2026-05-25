@@ -41,6 +41,10 @@ Before creating separate resource files, check if app-template handles it native
 2. bjw-s app-template — for most apps
 3. dysnix raw chart — for operator CRDs (VolSync ReplicationSources, CNPG Clusters, Prometheus Probes, etc.) that need their own HelmRelease lifecycle
 
+**Chart sources:**
+- OCI charts → use `OCIRepository` + `chartRef` in HelmRelease (per-app `oci-repository.yaml`), NOT `HelmRepository` with `type: oci`
+- Non-OCI charts → use `HelmRepository` in `kubernetes/core/charts/` + `chart.spec` in HelmRelease
+
 ### Standalone app (own namespace)
 
 Directory: `kubernetes/apps/<appname>/`
@@ -83,6 +87,37 @@ This prevents accidental deployment of unencrypted secrets. CNPG won't bootstrap
 ## HelmRelease Template
 
 Every app uses bjw-s app-template. Copy from an existing app (e.g. `mealie`) and modify.
+
+For OCI-sourced upstream charts, add an `oci-repository.yaml` to the app directory and use `chartRef` instead of `chart.spec`:
+
+```yaml
+# oci-repository.yaml
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: appname
+  namespace: flux-system
+spec:
+  interval: 10m
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+  ref:
+    tag: 1.0.0
+  url: oci://ghcr.io/example/charts/appname
+```
+
+```yaml
+# helm-release.yaml (chartRef variant)
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: appname
+    namespace: flux-system
+```
+
+For app-template (non-OCI), use the standard `chart.spec` block:
 
 ```yaml
 ---
