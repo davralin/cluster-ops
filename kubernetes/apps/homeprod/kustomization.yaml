@@ -23,6 +23,7 @@ resources:
   - ../gotify
   - ../grafana
   - ../hermes-agent
+  - ../hindsight
   - ../icloudpd
   - ../infiscal
   - ../intel-device-plugin
