@@ -59,7 +59,9 @@ spec:
           name: *name
           namespace: *namespace
         spec:
-          instances: 1
+          # using only 1 replica: very difficult to drain the node where postgres is running
+          # using more than 1 replica: write amplification issues when leveraging replicated storage (e.g. ceph)
+          instances: 2
           imageName: ghcr.io/cloudnative-pg/postgresql:18.4-standard-bookworm
           primaryUpdateStrategy: unsupervised
           storage:
