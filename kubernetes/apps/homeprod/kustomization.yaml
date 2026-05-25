@@ -22,7 +22,6 @@ resources:
   - ../freshrss
   - ../gotify
   - ../grafana
-  - ../ha-mcp
   - ../hermes-agent
   - ../icloudpd
   - ../infiscal

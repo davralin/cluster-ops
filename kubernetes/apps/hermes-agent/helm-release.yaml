@@ -213,18 +213,6 @@ spec:
                   protocol: TCP
                 - port: 2222
                   protocol: TCP
-            - to:
-                - namespaceSelector:
-                    matchLabels:
-                      kubernetes.io/metadata.name: ha-mcp
-                  podSelector:
-                    matchLabels:
-                      app.kubernetes.io/controller: ha-mcp
-                      app.kubernetes.io/instance: ha-mcp-ha-mcp
-                      app.kubernetes.io/name: ha-mcp-ha-mcp
-              ports:
-                - port: 8086
-                  protocol: TCP
             - to: # Direct Home Assistant access
                 - ipBlock:
                     cidr: 10.0.1.79/32
