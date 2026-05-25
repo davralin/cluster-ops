@@ -84,7 +84,7 @@ spec:
               owner: hindsight
               secret:
                 name: hindsight-basic-auth
-              postInitSQL:
+              postInitApplicationSQL:
                 - CREATE EXTENSION IF NOT EXISTS "vector";
           monitoring:
             enablePodMonitor: "${MONITORING_PROMETHEUS}"
