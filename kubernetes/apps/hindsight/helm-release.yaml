@@ -15,9 +15,11 @@ spec:
   targetNamespace: hindsight
   install:
     createNamespace: true
+    timeout: 10m
     remediation:
       retries: 10
   upgrade:
+    timeout: 10m
     remediation:
       retries: 10
   dependsOn:
