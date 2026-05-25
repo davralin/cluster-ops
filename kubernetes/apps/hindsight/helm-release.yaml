@@ -55,6 +55,8 @@ spec:
     api:
       enabled: true
       replicaCount: 1
+      livenessProbe:
+        initialDelaySeconds: 120
       resources:
         requests:
           cpu: 50m
