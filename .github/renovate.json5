@@ -80,7 +80,6 @@
       versioning: 'loose',
       matchPackageNames: [
         '/metube/',
-        '/pinchflat/',
         '/plex/',
         '/searxng/',
       ],
