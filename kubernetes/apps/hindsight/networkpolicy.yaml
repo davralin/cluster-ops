@@ -19,7 +19,7 @@ spec:
   podSelector:
     matchLabels:
       app.kubernetes.io/name: hindsight
-      app.kubernetes.io/instance: hindsight
+      app.kubernetes.io/instance: hindsight-hindsight
       app.kubernetes.io/component: api
   policyTypes:
     - Ingress
@@ -51,7 +51,7 @@ spec:
         - podSelector:
             matchLabels:
               app.kubernetes.io/name: hindsight
-              app.kubernetes.io/instance: hindsight
+              app.kubernetes.io/instance: hindsight-hindsight
               app.kubernetes.io/component: control-plane
       ports:
         - port: 8888
@@ -104,7 +104,7 @@ spec:
   podSelector:
     matchLabels:
       app.kubernetes.io/name: hindsight
-      app.kubernetes.io/instance: hindsight
+      app.kubernetes.io/instance: hindsight-hindsight
       app.kubernetes.io/component: control-plane
   policyTypes:
     - Ingress
@@ -125,7 +125,7 @@ spec:
         - podSelector:
             matchLabels:
               app.kubernetes.io/name: hindsight
-              app.kubernetes.io/instance: hindsight
+              app.kubernetes.io/instance: hindsight-hindsight
               app.kubernetes.io/component: api
       ports:
         - port: 8888
