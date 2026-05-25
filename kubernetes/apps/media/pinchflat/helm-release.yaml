@@ -68,7 +68,8 @@ spec:
               readiness: *probes
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
+              # pinchflat needs writable rootfs to self-update yt-dlp on startup
+              readOnlyRootFilesystem: false
               capabilities:
                 drop:
                   - ALL
