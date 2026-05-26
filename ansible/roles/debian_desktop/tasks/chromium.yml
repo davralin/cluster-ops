@@ -1,0 +1,18 @@
+---
+- name: Installing chromium
+  ansible.builtin.apt:
+    name: chromium
+    state: present
+  become: true
+
+- name: Configuring ephemeral profile
+  ansible.builtin.copy:
+    dest: /etc/chromium.d/ephemeral
+    content: |
+      # Use a per-user tmpfs-backed profile directory.
+      # Profile is wiped on reboot, ensuring ephemeral browsing.
+      export CHROMIUM_FLAGS="$CHROMIUM_FLAGS --user-data-dir=/tmp/chromium-${USER}"
+    owner: root
+    group: root
+    mode: "0644"
+  become: true

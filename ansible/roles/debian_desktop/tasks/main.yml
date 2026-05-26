@@ -57,6 +57,10 @@
   ansible.builtin.include_tasks:
     file: vscodium.yml
 
+- name: Installing ephemeral chromium
+  ansible.builtin.include_tasks:
+    file: chromium.yml
+
 - name: Installing players
   ansible.builtin.apt:
     name: "{{ packages }}"
