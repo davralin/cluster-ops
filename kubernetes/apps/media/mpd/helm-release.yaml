@@ -50,7 +50,7 @@ spec:
           cron:
             image:
               repository: ghcr.io/davralin/mpd
-              tag: latest@sha256:b11a7e318a78622a5600698477edd2b7822d3ddbbde129d961a713dafadc4b15
+              tag: latest@sha256:fa8b8d8c2c23077e745a618c8d33e49e9a5388894a57ff4883d8ba74a5f5f715
             env:
               MPD_HOST: "mpd.media.svc.cluster.local"
             command: ['/usr/local/bin/create-playlist.sh']
@@ -65,7 +65,7 @@ spec:
           mpd:
             image:
               repository: ghcr.io/davralin/mpd
-              tag: latest@sha256:b11a7e318a78622a5600698477edd2b7822d3ddbbde129d961a713dafadc4b15
+              tag: latest@sha256:fa8b8d8c2c23077e745a618c8d33e49e9a5388894a57ff4883d8ba74a5f5f715
             env:
               TZ: "${TIMEZONE}"
             probes:
