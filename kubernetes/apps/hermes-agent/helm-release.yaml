@@ -76,14 +76,7 @@ spec:
                   secretKeyRef:
                     name: hermes-agent-secret
                     key: HASS_TOKEN
-              HINDSIGHT_MODE: "cloud"
-              HINDSIGHT_API_URL: "http://hindsight-hindsight-api.hindsight.svc.cluster.local:8888"
-              HINDSIGHT_BANK_ID: "hermes"
-              HINDSIGHT_API_KEY:
-                valueFrom:
-                  secretKeyRef:
-                    name: hermes-agent-secret
-                    key: HINDSIGHT_API_KEY
+
             probes:
               liveness: &probes
                 enabled: false
@@ -185,18 +178,7 @@ spec:
               ports:
                 - port: 4000
                   protocol: TCP
-            - to:
-                - namespaceSelector:
-                    matchLabels:
-                      kubernetes.io/metadata.name: hindsight
-                  podSelector:
-                    matchLabels:
-                      app.kubernetes.io/name: hindsight
-                      app.kubernetes.io/instance: hindsight-hindsight
-                      app.kubernetes.io/component: api
-              ports:
-                - port: 8888
-                  protocol: TCP
+
             - to:
                 - namespaceSelector:
                     matchLabels:

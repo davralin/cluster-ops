@@ -298,13 +298,6 @@ spec:
                       app.kubernetes.io/controller: opencode
                       app.kubernetes.io/instance: opencode-opencode
                       app.kubernetes.io/name: opencode-opencode
-                - namespaceSelector:
-                    matchLabels:
-                      kubernetes.io/metadata.name: hindsight
-                  podSelector:
-                    matchLabels:
-                      app.kubernetes.io/name: hindsight
-                      app.kubernetes.io/instance: hindsight-hindsight
-                      app.kubernetes.io/component: api
+
               ports:
                 - port: *port
