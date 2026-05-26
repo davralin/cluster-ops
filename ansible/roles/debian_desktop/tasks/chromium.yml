@@ -11,7 +11,7 @@
     content: |
       # Use a per-user tmpfs-backed profile directory.
       # Profile is wiped on reboot, ensuring ephemeral browsing.
-      export CHROMIUM_FLAGS="$CHROMIUM_FLAGS --user-data-dir=/tmp/chromium-${USER}"
+      export CHROMIUM_FLAGS="$CHROMIUM_FLAGS --user-data-dir=/tmp/chromium-${USER} --disable-crash-reporter"
     owner: root
     group: root
     mode: "0644"
