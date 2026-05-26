@@ -36,7 +36,7 @@ spec:
         spec:
           talos:
             # renovate: datasource=docker depName=ghcr.io/siderolabs/installer
-            version: v1.13.2
+            version: v1.13.3
           policy:
             rebootMode: powercycle
             stage: true
