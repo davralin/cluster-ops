@@ -47,8 +47,9 @@ spec:
             {
               "server": { "bind_address": "0.0.0.0", "port": 8409 },
               "output": { "folder": "/tmp/hls" },
+              "xmltv": { "folder": "/config/xmltv" },
               "channels": [
-                { "number": "1", "name": "Music Videos", "config": "/config/channels/1/channel.json" }
+                { "number": "1", "name": "Music Videos", "config": "/config/channels/1/channel.json", "tvg_id": "musicvideos.1" }
               ]
             }
           channel.json: |
@@ -115,7 +116,7 @@ spec:
             args:
               - |
                 while true; do
-                  /app/ersatztv-playout-generator --content-folder /data/video/musicvideos --output-folder /config/playout
+                  /app/ersatztv-playout-generator --lineup /config/lineup.json --channel 1 --content-folder /data/video/musicvideos
                   sleep 86400
                 done
             securityContext:
