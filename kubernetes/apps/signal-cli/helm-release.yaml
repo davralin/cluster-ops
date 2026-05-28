@@ -46,7 +46,7 @@ spec:
           signal-cli:
             image:
               repository: ghcr.io/asamk/signal-cli
-              tag: 0.14.4@sha256:3d46554758de58e17cc4ed712593757de816ac1e130533f68307e3e93d77a4d4
+              tag: 0.14.4.1@sha256:728c8380e6df383388d86e4d0ee83cf140448d61b15fdaec52b4dd14e38b522b
             env:
               TZ: "${TIMEZONE}"
               SIGNAL_ACCOUNT:
