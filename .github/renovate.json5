@@ -182,6 +182,7 @@
       ],
       matchPackageNames: [
         '/docker.io/adguard/adguardhome/',
+        '/docker.io/apache/tika/',
         '/docker.io/diegosouzapw/omniroute/',
         '/docker.io/filebrowser/filebrowser/',
         '/docker.io/freshrss/freshrss/',
@@ -232,6 +233,7 @@
         '/ghcr.io/unpoller/unpoller/',
         '/ghcr.io/valkey-io/valkey/',
         '/grafana/grafana/',
+        '/mirror.gcr.io/cloudflare/cloudflared/',
         '/registry.gitlab.com/egos-tech/alertmanager-notifier/',
       ],
     },
