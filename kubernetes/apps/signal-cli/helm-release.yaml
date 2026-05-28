@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &name signal-cli
+  name: signal-cli-old
   namespace: flux-system
 spec:
   interval: 30m
@@ -28,7 +28,7 @@ spec:
   values:
     global:
       createDefaultServiceAccount: false
-    fullnameOverride: *name
+    fullnameOverride: signal-cli
     defaultPodOptions:
       automountServiceAccountToken: false
       enableServiceLinks: false
@@ -91,7 +91,7 @@ spec:
                 memory: 512Mi
     service:
       signal-cli:
-        controller: *name
+        controller: signal-cli
         ports:
           http:
             port: *port
@@ -107,7 +107,7 @@ spec:
     networkpolicies:
       signal-cli:
         enabled: true
-        controller: *name
+        controller: signal-cli
         policyTypes:
           - Egress
           - Ingress

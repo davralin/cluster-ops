@@ -28,7 +28,7 @@ spec:
   dependsOn:
     - name: volsync
       namespace: flux-system
-    - name: signal-cli
+    - name: signal-cli-old
       namespace: flux-system
   values:
     resources:
