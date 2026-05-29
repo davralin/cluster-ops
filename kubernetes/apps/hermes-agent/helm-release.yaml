@@ -81,7 +81,7 @@ spec:
 
             probes:
               liveness: &probes
-                enabled: false
+                enabled: true
                 custom: true
                 spec:
                   httpGet:
@@ -92,7 +92,7 @@ spec:
                   failureThreshold: 5
               readiness: *probes
               startup:
-                enabled: false
+                enabled: true
                 custom: true
                 spec:
                   httpGet:
