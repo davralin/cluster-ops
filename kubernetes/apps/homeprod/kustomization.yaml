@@ -23,7 +23,6 @@ resources:
   - ../gotify
   - ../grafana
   - ../hermes-agent
-
   - ../icloudpd
   - ../infiscal
   - ../intel-device-plugin
@@ -59,7 +58,6 @@ resources:
   - ../romm
   - ../rssbridge
   - ../searxng
-  - ../signal-cli
   - ../smartctl-exporter
   - ../speedtest-exporter
   - ../spegel

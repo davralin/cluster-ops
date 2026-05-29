@@ -196,18 +196,6 @@ spec:
                 - port: 8080
                   protocol: TCP
             - to:
-                - namespaceSelector:
-                    matchLabels:
-                      kubernetes.io/metadata.name: signal-cli
-                  podSelector:
-                    matchLabels:
-                      app.kubernetes.io/controller: signal-cli
-                      app.kubernetes.io/instance: signal-cli-signal-cli-old
-                      app.kubernetes.io/name: signal-cli-signal-cli-old
-              ports:
-                - port: 8080
-                  protocol: TCP
-            - to:
                 - podSelector:
                     matchLabels:
                       app.kubernetes.io/controller: hermes-signal
