@@ -144,6 +144,9 @@ spec:
         existingClaim: hermes-agent
         globalMounts:
           - path: /opt/data
+      shared:
+        enabled: true
+        existingClaim: shared
       tmp:
         enabled: true
         type: emptyDir
@@ -200,6 +203,15 @@ spec:
                       app.kubernetes.io/controller: signal-cli
                       app.kubernetes.io/instance: signal-cli-signal-cli-old
                       app.kubernetes.io/name: signal-cli-signal-cli-old
+              ports:
+                - port: 8080
+                  protocol: TCP
+            - to:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: hermes-signal
+                      app.kubernetes.io/instance: hermes-signal-hermes-signal
+                      app.kubernetes.io/name: hermes-signal-hermes-signal
               ports:
                 - port: 8080
                   protocol: TCP

@@ -11,3 +11,29 @@ spec:
   resources:
     requests:
       storage: 5Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: hermes-signal
+  namespace: hermes-agent
+spec:
+  storageClassName: "${STORAGE_READWRITEONCE}"
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: shared
+  namespace: hermes-agent
+spec:
+  storageClassName: "${STORAGE_READWRITEMANY}"
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
