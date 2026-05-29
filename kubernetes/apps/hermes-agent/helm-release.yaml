@@ -42,6 +42,8 @@ spec:
         runAsNonRoot: true
         seccompProfile:
           type: RuntimeDefault
+        supplementalGroups:
+          - 999 # Signal-cli
     controllers:
       hermes-agent:
         containers:
@@ -101,8 +103,7 @@ spec:
                   failureThreshold: 30
             securityContext:
               allowPrivilegeEscalation: false
-              # Due to lazy-dep, connection with hindsight
-              readOnlyRootFilesystem: false
+              readOnlyRootFilesystem: true
               capabilities:
                 drop:
                   - ALL
