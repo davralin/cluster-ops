@@ -59,7 +59,7 @@ spec:
           tdarr-node:
             image:
               repository: ghcr.io/haveagitgat/tdarr_node
-              tag: 2.76.01
+              tag: 2.77.01
             env:
               TZ: "${TIMEZONE}"
               PUID: "1000"
