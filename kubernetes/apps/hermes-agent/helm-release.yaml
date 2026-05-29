@@ -61,7 +61,7 @@ spec:
                   secretKeyRef:
                     name: hermes-agent-secret
                     key: LITELLM_API_KEY
-              SIGNAL_HTTP_URL: "http://signal-cli.signal-cli.svc.cluster.local:8080"
+              SIGNAL_HTTP_URL: "http://hermes-signal.hermes-agent.svc.cluster.local:8080"
               SIGNAL_ACCOUNT:
                 valueFrom:
                   secretKeyRef:
