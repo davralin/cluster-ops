@@ -78,6 +78,7 @@ spec:
                   secretKeyRef:
                     name: hermes-agent-secret
                     key: HASS_TOKEN
+              S6_READ_ONLY_ROOT: "1"
 
             probes:
               liveness: &probes
@@ -151,6 +152,11 @@ spec:
       tmp:
         enabled: true
         type: emptyDir
+      run:
+        enabled: true
+        type: emptyDir
+        globalMounts:
+          - path: /run
     networkpolicies:
       hermes-agent:
         enabled: true
