@@ -25,15 +25,6 @@ spec:
   upgrade:
     remediation:
       retries: 10
-  valuesFrom:
-    - targetPath: minecraftServer.whitelist
-      kind: Secret
-      name: minecraft-secrets
-      valuesKey: whitelist
-    - targetPath: minecraftServer.ops
-      kind: Secret
-      name: minecraft-secrets
-      valuesKey: ops
   values:
     fullnameOverride: *name
     image:
@@ -66,6 +57,11 @@ spec:
       mode: creative
       memory: 6G
       motd: "A Bedrock-Creative Minecraft Server"
+      ops:
+        valueFrom:
+          secretKeyRef:
+            name: minecraft-secrets
+            key: ops
       overrideServerProperties: true
       pluginUrls:
         - https://download.geysermc.org/v2/projects/geyser/versions/latest/builds/latest/downloads/spigot
@@ -78,6 +74,11 @@ spec:
         enabled: true
       serviceType: LoadBalancer
       #externalTrafficPolicy: Local
+      whitelist:
+        valueFrom:
+          secretKeyRef:
+            name: minecraft-secrets
+            key: whitelist
     resources:
       requests:
         memory: 6G

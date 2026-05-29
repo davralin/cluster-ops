@@ -25,15 +25,6 @@ spec:
   upgrade:
     remediation:
       retries: 10
-  valuesFrom:
-    - targetPath: minecraftServer.whitelist
-      kind: Secret
-      name: minecraft-secrets
-      valuesKey: whitelist
-    - targetPath: minecraftServer.ops
-      kind: Secret
-      name: minecraft-secrets
-      valuesKey: ops
   values:
     fullnameOverride: *name
     image:
@@ -69,6 +60,11 @@ spec:
       memory: 6G
       motd: "A Retro Minecraft Server"
       onlineMode: true
+      ops:
+        valueFrom:
+          secretKeyRef:
+            name: minecraft-secrets
+            key: ops
       overrideServerProperties: true
       downloadWorldUrl: "/oldworlds/18world"
       pluginUrls:
@@ -76,6 +72,11 @@ spec:
         - https://github.com/sladkoff/minecraft-prometheus-exporter/releases/download/v3.1.2/minecraft-prometheus-exporter-3.1.2.jar
       rcon:
         enabled: true
+      whitelist:
+        valueFrom:
+          secretKeyRef:
+            name: minecraft-secrets
+            key: whitelist
     resources:
       requests:
         memory: 2G
