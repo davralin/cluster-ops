@@ -78,8 +78,9 @@ spec:
                   secretKeyRef:
                     name: hermes-agent-secret
                     key: HASS_TOKEN
+              # S6 is the worst pile of crap ever invented.
               S6_READ_ONLY_ROOT: "1"
-
+              S6_YES_I_WANT_A_WORLD_WRITABLE_RUN_BECAUSE_KUBERNETES: "1"
             probes:
               liveness: &probes
                 enabled: true
