@@ -5,3 +5,4 @@ resources:
   - helm-release-valkey.yaml
   - namespace.yaml
   - networkpolicy.yaml
+  - oci-repository.yaml
