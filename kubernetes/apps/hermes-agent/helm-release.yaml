@@ -211,8 +211,8 @@ spec:
                 - podSelector:
                     matchLabels:
                       app.kubernetes.io/controller: hermes-signal
-                      app.kubernetes.io/instance: hermes-signal-hermes-signal
-                      app.kubernetes.io/name: hermes-signal-hermes-signal
+                      app.kubernetes.io/instance: hermes-agent-hermes-signal
+                      app.kubernetes.io/name: hermes-agent-hermes-signal
               ports:
                 - port: 8080
                   protocol: TCP
