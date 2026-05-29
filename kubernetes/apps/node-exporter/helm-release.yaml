@@ -6,6 +6,8 @@ metadata:
   namespace: flux-system
 spec:
   interval: 30m
+  driftDetection:
+    mode: enabled
   chartRef:
     kind: OCIRepository
     name: node-exporter

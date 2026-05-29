@@ -7,6 +7,8 @@ metadata:
   namespace: flux-system
 spec:
   interval: 30m
+  driftDetection:
+    mode: enabled
   chart:
     spec:
       chart: raw
