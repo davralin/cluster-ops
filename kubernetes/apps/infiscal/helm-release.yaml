@@ -30,7 +30,7 @@ spec:
       replicaCount: 2
       image:
         repository: infisical/infisical
-        tag: "v0.151.0"
+        tag: "v0.160.7"
         pullPolicy: IfNotPresent
       kubeSecretRef: infisical-secrets
       resources:
