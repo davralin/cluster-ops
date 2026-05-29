@@ -90,6 +90,11 @@ spec:
         existingClaim: bedrock-creative-backup
         globalMounts:
           - path: /minecraft/bedrock-creative
+      bedrock-survival-backup:
+        enabled: true
+        existingClaim: bedrock-survival-backup
+        globalMounts:
+          - path: /minecraft/bedrock-survival
       creative-backup:
         enabled: true
         existingClaim: creative-backup
