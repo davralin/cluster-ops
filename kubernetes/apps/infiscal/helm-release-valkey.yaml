@@ -86,8 +86,8 @@ spec:
             - from:
                 - podSelector:
                     matchLabels:
-                      component: "infisical"
-                      app: infisical-standalone
-                      release: infiscal
+                      app.kubernetes.io/controller: infiscal
+                      app.kubernetes.io/instance: infiscal-infiscal
+                      app.kubernetes.io/name: infiscal-infiscal
               ports:
                 - port: 6379
