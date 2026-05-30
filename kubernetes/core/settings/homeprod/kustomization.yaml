@@ -8,6 +8,7 @@ resources:
   - helm-release-cluster-probes.yaml
   - helm-release-flux-gitrepo.yaml
   - helm-release-flux-private.yaml
+  - helm-release-flux-test-ops.yaml
   - ../../cert-manager
   - ../../charts
   - ../../cilium

@@ -1,0 +1,45 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: github-davralin-test-ops
+  namespace: flux-system
+spec:
+  interval: 30m
+  driftDetection:
+    mode: enabled
+  chart:
+    spec:
+      chart: flux2-sync
+      version: 1.14.6
+      sourceRef:
+        kind: HelmRepository
+        name: flux-charts
+        namespace: flux-system
+      interval: 30m
+  targetNamespace: flux-system
+  install:
+    createNamespace: true
+    crds: CreateReplace
+    remediation:
+      retries: 10
+  upgrade:
+    crds: CreateReplace
+    remediation:
+      retries: 10
+  dependsOn:
+    - name: flux2
+      namespace: flux-system
+  values:
+    gitRepository:
+      name: github-davralin-test-ops
+      spec:
+        url: https://github.com/davralin/test-ops
+        ref:
+          branch: main
+        secretRef:
+          name: github-token
+    kustomization:
+      spec:
+        path: ./kubernetes/clusters/homeprod
+        prune: true
