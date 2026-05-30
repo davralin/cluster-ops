@@ -149,7 +149,7 @@ spec:
             - to:
                 - podSelector:
                     matchLabels:
-                      app.kubernetes.io/name: infiscal-valkey
+                      app.kubernetes.io/name: infiscal-infiscal-valkey
               ports:
                 - port: 6379
                   protocol: TCP
