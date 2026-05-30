@@ -6,10 +6,15 @@ metadata:
   namespace: flux-system
 spec:
   interval: 30m
-  chartRef:
-    kind: OCIRepository
-    name: infiscal
-    namespace: flux-system
+  chart:
+    spec:
+      chart: app-template
+      version: 5.0.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+      interval: 30m
   driftDetection:
     mode: enabled
   targetNamespace: infiscal
@@ -26,40 +31,119 @@ spec:
     - name: infiscal-postgres-v18
       namespace: flux-system
   values:
-    infisical:
-      replicaCount: 2
-      image:
-        repository: infisical/infisical
-        tag: "v0.160.7"
-        pullPolicy: IfNotPresent
-      kubeSecretRef: infisical-secrets
-      resources:
-        limits:
-          memory: 1000Mi
-        requests:
-          cpu: 350m
-
+    fullnameOverride: *name
+    defaultPodOptions:
+      automountServiceAccountToken: false
+      enableServiceLinks: false
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+    controllers:
+      infiscal:
+        replicas: 2
+        containers:
+          infiscal:
+            image:
+              repository: docker.io/infisical/infisical
+              tag: v0.160.7@sha256:48d9449db915dc0fec703bceab9c36a7fc48cc8839f52b9efa26258e8c6cc917
+            envFrom:
+              - secretRef:
+                  name: infisical-secrets
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /api/status
+                    port: &port 8080
+                  initialDelaySeconds: 10
+                  periodSeconds: 5
+              readiness: *probes
+              startup: *probes
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+            resources:
+              requests:
+                cpu: 350m
+              limits:
+                memory: 1000Mi
+    service:
+      infiscal:
+        controller: *name
+        ports:
+          http:
+            port: *port
     ingress:
-      enabled: true
-      hostName: &host "infiscal.${SECRET_DEFAULT_DOMAIN}"
-      ingressClassName: haproxy
-      nginx:
-        enabled: false
-      annotations:
-        haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
-        haproxy.org/ssl-redirect-port: "443"
-        haproxy.org/response-set-header: |
-          Strict-Transport-Security "max-age=31536000"
-          X-Frame-Options "DENY"
-          X-Content-Type-Options "nosniff"
-          Referrer-Policy "strict-origin-when-cross-origin"
-      tls:
-        - hosts:
-            - *host
-          secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
-
-    postgresql:
-      enabled: false
-
-    redis:
-      enabled: false
+      infiscal:
+        annotations:
+          haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
+          haproxy.org/ssl-redirect-port: "443"
+          haproxy.org/response-set-header: |
+            Strict-Transport-Security "max-age=31536000"
+            X-Frame-Options "DENY"
+            X-Content-Type-Options "nosniff"
+            Referrer-Policy "strict-origin-when-cross-origin"
+        hosts:
+          - host: &host "infiscal.${SECRET_DEFAULT_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  identifier: infiscal
+                  port: http
+        tls:
+          - hosts:
+              - *host
+            secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
+    networkpolicies:
+      infiscal:
+        enabled: true
+        controller: *name
+        policyTypes:
+          - Ingress
+          - Egress
+        rules:
+          ingress:
+            - from:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: haproxy-controller
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: kubernetes-ingress
+              ports:
+                - port: *port
+          egress:
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: kube-system
+                  podSelector:
+                    matchLabels:
+                      k8s-app: kube-dns
+              ports:
+                - port: 53
+                  protocol: UDP
+            - to:
+                - podSelector:
+                    matchLabels:
+                      cnpg.io/cluster: infiscal-postgres-v18
+              ports:
+                - port: 5432
+                  protocol: TCP
+            - to:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: infiscal-valkey
+              ports:
+                - port: 6379
+                  protocol: TCP
