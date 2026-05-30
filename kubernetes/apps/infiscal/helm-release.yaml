@@ -45,7 +45,6 @@ spec:
           type: RuntimeDefault
     controllers:
       infiscal:
-        replicas: 2
         containers:
           infiscal:
             image:
@@ -80,6 +79,10 @@ spec:
     persistence:
       tmp:
         type: emptyDir
+      etc-ssl-certs:
+        type: emptyDir
+        globalMounts:
+          - path: /etc/ssl/certs
     service:
       infiscal:
         controller: *name
