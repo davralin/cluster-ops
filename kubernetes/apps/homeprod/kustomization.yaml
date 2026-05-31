@@ -61,7 +61,6 @@ resources:
   - ../smartctl-exporter
   - ../speedtest-exporter
   - ../spegel
-  - ../superset
   - ../syncthing
   - ../tuppr
   - ../unifi
