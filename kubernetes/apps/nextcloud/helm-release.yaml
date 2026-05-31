@@ -52,7 +52,7 @@ spec:
         initContainers:
           1-occ-upgrade:
             image:
-              repository: nextcloud
+              repository: docker.io/library/nextcloud
               tag: 33.0.4-apache@sha256:caa40b8beaf0057ac213d8dfc515c36ce64f7a8f0825b6a287e6f7cf2f4a095d
             command: ["/usr/bin/su"]
             args: ["www-data", "-s", "/bin/bash", "-c", "/var/www/html/occ upgrade"]
@@ -80,7 +80,7 @@ spec:
               #    - ALL
           2-disable-maintenance-mode:
             image:
-              repository: nextcloud
+              repository: docker.io/library/nextcloud
               tag: 33.0.4-apache@sha256:caa40b8beaf0057ac213d8dfc515c36ce64f7a8f0825b6a287e6f7cf2f4a095d
             command: ["/usr/bin/su"]
             args: ["www-data", "-s", "/bin/bash", "-c", "/var/www/html/occ maintenance:mode --off"]
@@ -108,7 +108,7 @@ spec:
               #    - ALL
           3-occ-app-upgrade:
             image:
-              repository: nextcloud
+              repository: docker.io/library/nextcloud
               tag: 33.0.4-apache@sha256:caa40b8beaf0057ac213d8dfc515c36ce64f7a8f0825b6a287e6f7cf2f4a095d
             command: ["/usr/bin/su"]
             args: ["www-data", "-s", "/bin/bash", "-c", "/var/www/html/occ app:update --all"]
@@ -137,7 +137,7 @@ spec:
         containers:
           nextcloud:
             image:
-              repository: nextcloud
+              repository: docker.io/library/nextcloud
               tag: 33.0.4-apache@sha256:caa40b8beaf0057ac213d8dfc515c36ce64f7a8f0825b6a287e6f7cf2f4a095d
             env:
               TZ: "${TIMEZONE}"
@@ -188,7 +188,7 @@ spec:
                 memory: 2Gi
           nextcloud-cron:
             image:
-              repository: nextcloud
+              repository: docker.io/library/nextcloud
               tag: 33.0.4-apache@sha256:caa40b8beaf0057ac213d8dfc515c36ce64f7a8f0825b6a287e6f7cf2f4a095d
             command: ["/cron.sh"]
             env:
