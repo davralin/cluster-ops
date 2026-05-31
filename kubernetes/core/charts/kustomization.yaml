@@ -22,6 +22,7 @@ resources:
   - jupyterhub.yaml
   - kyverno.yaml
   - metrics-server.yaml
+  - openbao.yaml
   - piraeus.yaml
   - prometheus.yaml
   - rook-ceph.yaml

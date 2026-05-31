@@ -49,6 +49,7 @@ resources:
   - ../ollama
   - ../omni
   - ../opencode
+  - ../openbao
   - ../openwebui
   - ../owntracks
   - ../paperless-ngx
@@ -69,4 +70,3 @@ resources:
   - ../wallos
   - ../warrior
   - ../wastebin
-
