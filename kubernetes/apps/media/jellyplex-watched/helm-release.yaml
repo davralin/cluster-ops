@@ -46,7 +46,7 @@ spec:
           jellyplex-watched:
             image:
               repository: ghcr.io/luigi311/jellyplex-watched
-              tag: 8.5.2
+              tag: 8.5.2@sha256:dfcd11bda917e281cd11352a7744bcb26d58ed021b0b452b10a1dbe3ce715c18
             env:
               TZ: "${TIMEZONE}"
               ## Do not mark any shows/movies as played and instead just output to log if they would of been marked.

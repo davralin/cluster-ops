@@ -46,7 +46,7 @@ spec:
           unifi:
             image:
               repository: jacobalberty/unifi
-              tag: v10.0.162
+              tag: v10.0.162@sha256:896c0ab82d33300694dae82982fd7094497afcbea0be92cadc1e94bfead731d3
             env:
               TZ: "${TIMEZONE}"
               RUNAS_UID0: "true"

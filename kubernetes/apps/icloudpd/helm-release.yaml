@@ -47,7 +47,7 @@ spec:
           icloudpd:
             image:
               repository: docker.io/icloudpd/icloudpd
-              tag: 1.32.3
+              tag: 1.32.3@sha256:af2bf40cb2c1d42051793b4c3c04c825950697d7fedcd12bd8455d6952395801
             command: ["/data/sync.sh"]
             env:
               TZ: "${TIMEZONE}"

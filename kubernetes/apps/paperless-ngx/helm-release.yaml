@@ -47,7 +47,7 @@ spec:
           paperless-ngx:
             image:
               repository: ghcr.io/paperless-ngx/paperless-ngx
-              tag: 2.14.7
+              tag: 2.14.7@sha256:2a6d9f6461ad7e8335f5b2123a173b9e6002fda209af8a66483b0c00629569ab
             env:
               # paperless-ngx/paperless-ngx/issues/9609
               #S6_YES_I_WANT_A_WORLD_WRITABLE_RUN_BECAUSE_KUBERNETES: 1
@@ -118,7 +118,7 @@ spec:
           gotenberg:
             image: 
               repository: docker.io/gotenberg/gotenberg
-              tag: "8.33.0"
+              tag: "8.33.0@sha256:bddd8ea9d076e2d08b6ddaa6efae6403185202c6dab65a6488ed0a6923d6d8e8"
             command: ['/usr/bin/gotenberg']
             args: ['--chromium-disable-javascript=true', '--chromium-allow-list=file:///tmp/.*']
             securityContext:
@@ -136,7 +136,7 @@ spec:
           tika:
             image: 
               repository: docker.io/apache/tika
-              tag: 3.3.1.0
+              tag: 3.3.1.0@sha256:90b7fa1dc018434075fce9e1d9b88b1e3d0ea6979d0cf86e116c79a8073ae973
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true

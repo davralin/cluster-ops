@@ -49,7 +49,7 @@ spec:
           unpoller:
             image:
               repository: ghcr.io/unpoller/unpoller
-              tag: v3.2.0
+              tag: v3.2.0@sha256:bf7bdcc59fcdaa4699687007aa3ec24ddb3c9d9521f392d8c7aa2bea1bdb781a
             env:
               TZ: "${TIMEZONE}"
               UP_UNIFI_DEFAULT_URL: https://unifi.unifi.svc.cluster.local:8443
