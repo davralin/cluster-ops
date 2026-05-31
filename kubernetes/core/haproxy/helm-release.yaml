@@ -43,7 +43,6 @@ spec:
           stat: false
           prometheus: false
         externalTrafficPolicy: Local
-      ingressClass: null
       ingressClassResource:
         default: true
       defaultTLSSecret:
