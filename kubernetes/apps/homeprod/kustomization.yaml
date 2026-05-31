@@ -39,7 +39,6 @@ resources:
   - ../mailrise
   - ../mealie
   - ../media
-  - ../meshtastic
   - ../metrics-server
   - ../minecraft
   - ../nextcloud
