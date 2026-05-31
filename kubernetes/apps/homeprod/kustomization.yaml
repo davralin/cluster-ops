@@ -11,7 +11,7 @@ resources:
   - ../cloudnative-pg
   - ../comics
   - ../cyberchef
-  - ../dawarich
+#  - ../dawarich
   - ../descheduler
   - ../endurain
   - ../cloudflareddns
