@@ -27,7 +27,6 @@ resources:
   - ../intel-device-plugin
   - ../invidious
   - ../it-tools
-  - ../jupyterhub
   - ../karakeep
   - ../kuma
   - ../kyverno

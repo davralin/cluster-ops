@@ -19,7 +19,6 @@ resources:
   - intel.yaml
   - itzg.yaml
   - jetstack.yaml
-  - jupyterhub.yaml
   - kyverno.yaml
   - metrics-server.yaml
   - openbao.yaml
