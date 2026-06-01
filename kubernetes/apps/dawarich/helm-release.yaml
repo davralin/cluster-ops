@@ -1,0 +1,262 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &name dawarich
+  namespace: flux-system
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 5.0.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+      interval: 30m
+  driftDetection:
+    mode: enabled
+  targetNamespace: dawarich
+  install:
+    createNamespace: true
+    remediation:
+      retries: 10
+  upgrade:
+    remediation:
+      retries: 10
+  dependsOn:
+    - name: dawarich-postgres-v18
+      namespace: flux-system
+    - name: dawarich-valkey
+      namespace: flux-system
+  values:
+    fullnameOverride: *name
+    global:
+      createDefaultServiceAccount: false
+    defaultPodOptions:
+      automountServiceAccountToken: false
+      enableServiceLinks: false
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+    controllers:
+      dawarich:
+        containers:
+          dawarich:
+            image:
+              repository: docker.io/freikin/dawarich
+              tag: 1.7.10@sha256:72734044cb7a2bd5a263e7fcdc09b2029691eae8ada9558f6ca8da57f1e58921
+            command: ["/usr/local/bin/web-entrypoint.sh"]
+            args: ["bin/rails", "server", "-p", "3000", "-b", "::"]
+            env: &env
+              RAILS_ENV: production
+              SELF_HOSTED: "true"
+              STORE_GEODATA: "true"
+              TIME_ZONE: "${TIMEZONE}"
+              APPLICATION_HOSTS: "dawarich.${SECRET_DEFAULT_DOMAIN}"
+              APPLICATION_PROTOCOL: https
+              RAILS_LOG_TO_STDOUT: "true"
+              TMPDIR: "/var/app/storage"
+              DATABASE_HOST: "dawarich-postgres-v18-rw.dawarich.svc.cluster.local"
+              DATABASE_PORT: "5432"
+              DATABASE_NAME: dawarich
+              DATABASE_USERNAME:
+                valueFrom:
+                  secretKeyRef:
+                    name: dawarich-basic-auth
+                    key: username
+              DATABASE_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: dawarich-basic-auth
+                    key: password
+              REDIS_URL: "redis://dawarich-valkey.dawarich.svc.cluster.local:6379/0"
+              SECRET_KEY_BASE:
+                valueFrom:
+                  secretKeyRef:
+                    name: dawarich-config
+                    key: SECRET_KEY_BASE
+              OTP_ENCRYPTION_PRIMARY_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: dawarich-config
+                    key: OTP_ENCRYPTION_PRIMARY_KEY
+              OTP_ENCRYPTION_DETERMINISTIC_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: dawarich-config
+                    key: OTP_ENCRYPTION_DETERMINISTIC_KEY
+              OTP_ENCRYPTION_KEY_DERIVATION_SALT:
+                valueFrom:
+                  secretKeyRef:
+                    name: dawarich-config
+                    key: OTP_ENCRYPTION_KEY_DERIVATION_SALT
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  tcpSocket:
+                    port: 3000
+                  initialDelaySeconds: 60
+                  periodSeconds: 10
+                  failureThreshold: 10
+              readiness: *probes
+              startup:
+                enabled: true
+                custom: true
+                spec:
+                  tcpSocket:
+                    port: 3000
+                  initialDelaySeconds: 30
+                  periodSeconds: 10
+                  failureThreshold: 30
+            securityContext: &securityContext
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+            resources:
+              requests:
+                cpu: 100m
+                memory: 512Mi
+              limits:
+                memory: 2Gi
+          sidekiq:
+            image:
+              repository: docker.io/freikin/dawarich
+              tag: 1.7.10@sha256:72734044cb7a2bd5a263e7fcdc09b2029691eae8ada9558f6ca8da57f1e58921
+            command: ["/usr/local/bin/sidekiq-entrypoint.sh"]
+            args: ["sidekiq"]
+            env:
+              <<: *env
+              BACKGROUND_PROCESSING_CONCURRENCY: "5"
+            probes:
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+              startup:
+                enabled: false
+            securityContext: *securityContext
+            resources:
+              requests:
+                cpu: 50m
+                memory: 256Mi
+              limits:
+                memory: 1Gi
+    service:
+      dawarich:
+        controller: *name
+        ports:
+          http:
+            port: &port 3000
+    ingress:
+      dawarich:
+        enabled: true
+        annotations:
+          haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
+          haproxy.org/ssl-redirect-port: "443"
+          haproxy.org/response-set-header: |
+            Strict-Transport-Security "max-age=31536000"
+            X-Frame-Options "DENY"
+            X-Content-Type-Options "nosniff"
+            Referrer-Policy "strict-origin-when-cross-origin"
+        hosts:
+          - host: &host "dawarich.${SECRET_DEFAULT_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  identifier: dawarich
+                  port: http
+        tls:
+          - hosts:
+              - *host
+    persistence:
+      storage:
+        enabled: true
+        existingClaim: dawarich
+        globalMounts:
+          - path: /var/app/storage
+            subPath: storage
+      public:
+        enabled: true
+        existingClaim: dawarich
+        globalMounts:
+          - path: /var/app/public
+            subPath: public
+      watched:
+        enabled: true
+        existingClaim: dawarich
+        globalMounts:
+          - path: /var/app/tmp/imports/watched
+            subPath: watched
+      tmp:
+        type: emptyDir
+        globalMounts:
+          - path: /var/app/tmp
+      log:
+        type: emptyDir
+        globalMounts:
+          - path: /var/app/log
+    networkpolicies:
+      dawarich:
+        enabled: true
+        controller: *name
+        policyTypes:
+          - Ingress
+          - Egress
+        rules:
+          ingress:
+            - from:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: haproxy-controller
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: kubernetes-ingress
+              ports:
+                - port: *port
+          egress:
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: kube-system
+                  podSelector:
+                    matchLabels:
+                      k8s-app: kube-dns
+              ports:
+                - port: 53
+                  protocol: UDP
+            - to:
+                - podSelector:
+                    matchLabels:
+                      cnpg.io/cluster: dawarich-postgres-v18
+                      cnpg.io/instanceRole: primary
+              ports:
+                - port: 5432
+            - to:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: valkey
+                      app.kubernetes.io/instance: dawarich-dawarich-valkey
+                      app.kubernetes.io/name: dawarich-dawarich-valkey
+              ports:
+                - port: 6379
+            - to:
+                - ipBlock:
+                    cidr: 0.0.0.0/0
+                    except:
+                      - "${HAPROXY_WHITELIST}"
+              ports:
+                - port: 443
+                  protocol: TCP
+                - port: 80
+                  protocol: TCP

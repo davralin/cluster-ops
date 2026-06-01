@@ -86,6 +86,8 @@ spec:
             - from:
                 - podSelector:
                     matchLabels:
+                      app.kubernetes.io/controller: dawarich
+                      app.kubernetes.io/instance: dawarich-dawarich
                       app.kubernetes.io/name: dawarich-dawarich
               ports:
                 - port: 6379
