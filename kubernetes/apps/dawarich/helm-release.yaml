@@ -67,7 +67,6 @@ spec:
               SMTP_SERVER: "exim.mailrelay.svc.cluster.local"
               SMTP_PORT: "8025"
               SMTP_FROM: "dawarich@${SECRET_DEFAULT_DOMAIN}"
-              SMTP_AUTHENTICATION: "plain"
               SMTP_STARTTLS: "false"
               DATABASE_HOST: "dawarich-postgres-v18-rw.dawarich.svc.cluster.local"
               DATABASE_PORT: "5432"

@@ -164,6 +164,14 @@ spec:
                       app.kubernetes.io/controller: unifi
                       app.kubernetes.io/instance: unifi-unifi
                       app.kubernetes.io/name: unifi-unifi
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: dawarich
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: dawarich
+                      app.kubernetes.io/instance: dawarich-dawarich
+                      app.kubernetes.io/name: dawarich-dawarich
               ports:
                 - port: 25
                 - port: *port
