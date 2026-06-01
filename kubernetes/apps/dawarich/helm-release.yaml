@@ -63,6 +63,12 @@ spec:
               APPLICATION_PROTOCOL: https
               RAILS_LOG_TO_STDOUT: "true"
               TMPDIR: "/var/app/storage"
+              DOMAIN: "dawarich.${SECRET_DEFAULT_DOMAIN}"
+              SMTP_SERVER: "exim.mailrelay.svc.cluster.local"
+              SMTP_PORT: "8025"
+              SMTP_FROM: "dawarich@${SECRET_DEFAULT_DOMAIN}"
+              SMTP_AUTHENTICATION: "plain"
+              SMTP_STARTTLS: "false"
               DATABASE_HOST: "dawarich-postgres-v18-rw.dawarich.svc.cluster.local"
               DATABASE_PORT: "5432"
               DATABASE_NAME: dawarich
@@ -250,6 +256,18 @@ spec:
                       app.kubernetes.io/name: dawarich-dawarich-valkey
               ports:
                 - port: 6379
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: mailrelay
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: exim
+                      app.kubernetes.io/instance: mailrelay-exim
+                      app.kubernetes.io/name: mailrelay-exim
+              ports:
+                - port: 8025
+                  protocol: TCP
             - to:
                 - ipBlock:
                     cidr: 0.0.0.0/0
