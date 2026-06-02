@@ -49,7 +49,7 @@ spec:
           daily-video-ripper:
             image:
               repository: ghcr.io/davralin/ripbox
-              tag: latest@sha256:40f0ce066b69e0a982279a5caff9f24a3928775a8e5a3c052e545004989487e9
+              tag: latest@sha256:1fb49641059df9572e20252892561625d6e614f96ec9ceb249107db4404eb557
             command: ['/media/videoripper.sh']
             securityContext:
               allowPrivilegeEscalation: false
@@ -66,6 +66,10 @@ spec:
             daily-video-ripper:
               - path: /media
                 subPath: video
+      tmp:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp
     networkpolicies:
       daily-video-ripper:
         enabled: true
