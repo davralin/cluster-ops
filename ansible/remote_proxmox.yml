@@ -14,6 +14,7 @@
     - local_dnsmasq
     - debian_desktop
     - kubernetes_tools
+    - opentofu
     - yt-dlp
     - sshd
     - wireguard

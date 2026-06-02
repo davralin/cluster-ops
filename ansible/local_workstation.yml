@@ -11,6 +11,7 @@
     - rsync
     - debian_desktop
     - kubernetes_tools
+    - opentofu
     - yt-dlp
     - sshd
     - zfs-dkms

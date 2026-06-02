@@ -1,0 +1,16 @@
+---
+- name: opentofu | strip leading 'v' from version string
+  ansible.builtin.set_fact:
+    opentofu_version_tag: "{{ opentofu_version | regex_replace('^v', '') }}"
+
+- name: opentofu | fetch and install tofu
+  ansible.builtin.unarchive:
+    src: https://github.com/opentofu/opentofu/releases/download/{{ opentofu_version }}/tofu_{{ opentofu_version_tag }}_linux_amd64.tar.gz
+    dest: /usr/local/bin
+    extra_opts:
+      - tofu
+    remote_src: yes
+    owner: root
+    group: root
+    mode: '0755'
+  become: true
