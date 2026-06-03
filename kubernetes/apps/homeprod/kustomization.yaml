@@ -48,7 +48,6 @@ resources:
   - ../opencode
   - ../openbao
   - ../openwebui
-  - ../owntracks
   - ../paperless-ngx
   - ../papra
   - ../reloader
