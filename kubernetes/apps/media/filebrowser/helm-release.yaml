@@ -46,7 +46,7 @@ spec:
           filebrowser:
             image:
               repository: docker.io/filebrowser/filebrowser
-              tag: v2.63.10@sha256:b0308060fb45b7767f7cf4a21d40e5e0152bad798794907769288a7a12436895
+              tag: v2.63.11@sha256:d00846661adb65034cd5ce533c2a7ceb2fd008d2147b342a2eb2296051c59107
             probes:
               liveness: &probes
                 enabled: true
