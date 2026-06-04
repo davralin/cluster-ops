@@ -145,6 +145,12 @@ spec:
         type: emptyDir
         globalMounts:
           - path: /etc/nginx/conf.d/
+      # entrypoint.sh creates symlinks here pointing to /romm/resources and /romm/assets
+      # readOnlyRootFilesystem: true blocks mkdir+ln, so frontend can't serve PVC-backed files
+      frontend-assets:
+        type: emptyDir
+        globalMounts:
+          - path: /app/frontend/assets/romm
     networkpolicies:
       romm:
         enabled: true
