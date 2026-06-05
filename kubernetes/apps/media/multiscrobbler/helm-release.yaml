@@ -25,23 +25,6 @@ spec:
   upgrade:
     remediation:
       retries: 10
-  valuesFrom:
-    - targetPath: controllers.multiscrobbler.containers.multiscrobbler.env.LASTFM_API_KEY
-      kind: Secret
-      name: multiscrobbler-secrets
-      valuesKey: LASTFM_API_KEY
-    - targetPath: controllers.multiscrobbler.containers.multiscrobbler.env.LASTFM_SECRET
-      kind: Secret
-      name: multiscrobbler-secrets
-      valuesKey: LASTFM_SECRET
-    - targetPath: controllers.multiscrobbler.containers.multiscrobbler.env.SPOTIFY_CLIENT_ID
-      kind: Secret
-      name: multiscrobbler-secrets
-      valuesKey: SPOTIFY_CLIENT_ID
-    - targetPath: controllers.multiscrobbler.containers.multiscrobbler.env.SPOTIFY_CLIENT_SECRET
-      kind: Secret
-      name: multiscrobbler-secrets
-      valuesKey: SPOTIFY_CLIENT_SECRET
   values:
     fullnameOverride: *name
     global:
@@ -72,11 +55,39 @@ spec:
               JELLYFIN_URL: "http://jellyfin.media.svc.cluster.local:8096"
               JELLYFIN_USER: "${SECRET_JELLYFIN_USER}"
               JELLYFIN_APIKEY: "${SECRET_JELLYFIN_TOKEN}"
+              JELLYFIN_ID: "jellyfin"
+              JELLYFIN_NAME: "Jellyfin"
               PLEX_URL: "http://plex.media.svc.cluster.local:32400"
               PLEX_USERS_ALLOW: "${SECRET_PLEX_USER}"
               PLEX_TOKEN: "${SECRET_PLEX_TOKEN}"
+              PLEX_ID: "plex"
+              PLEX_NAME: "Plex"
               LASTFM_REDIRECT_URI: "https://multiscrobbler.${SECRET_DEFAULT_DOMAIN}/lastfm/callback"
+              LASTFM_ID: "lastfm"
+              LASTFM_NAME: "Last.fm"
+              LASTFM_API_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: multiscrobbler-secrets
+                    key: LASTFM_API_KEY
+              LASTFM_SECRET:
+                valueFrom:
+                  secretKeyRef:
+                    name: multiscrobbler-secrets
+                    key: LASTFM_SECRET
               SPOTIFY_REDIRECT_URI: "https://multiscrobbler.${SECRET_DEFAULT_DOMAIN}/spotify/callback"
+              SPOTIFY_ID: "spotify"
+              SPOTIFY_NAME: "Spotify"
+              SPOTIFY_CLIENT_ID:
+                valueFrom:
+                  secretKeyRef:
+                    name: multiscrobbler-secrets
+                    key: SPOTIFY_CLIENT_ID
+              SPOTIFY_CLIENT_SECRET:
+                valueFrom:
+                  secretKeyRef:
+                    name: multiscrobbler-secrets
+                    key: SPOTIFY_CLIENT_SECRET
             probes:
               liveness: &probes
                 enabled: true
