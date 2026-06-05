@@ -49,7 +49,7 @@ spec:
           infiscal:
             image:
               repository: docker.io/infisical/infisical
-              tag: v0.160.10@sha256:613d2d36d408901b04df457c83678e221d97087c9aa252cbe4b0c03aaed3c3a6
+              tag: v0.160.11@sha256:0282cbd5b5e91c45245ec2897845ac181de8308d862f4c1e3166e2605f3784c6
             envFrom:
               - secretRef:
                   name: infisical-secrets
