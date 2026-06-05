@@ -108,7 +108,6 @@ Every namespace has a default-deny network policy. Ingress and egress are explic
 | Service | Purpose |
 |---------|---------|
 | [Minecraft](https://www.minecraft.net/) | Multiple Java + Bedrock servers |
-| [RomM](https://github.com/rommapp/romm) | ROM manager |
 
 ## 🔄 Automated Updates
 

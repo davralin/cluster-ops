@@ -51,7 +51,6 @@ resources:
   - ../papra
   - ../reloader
   - ../remotebackup
-  - ../romm
   - ../rssbridge
   - ../searxng
   - ../smartctl-exporter
