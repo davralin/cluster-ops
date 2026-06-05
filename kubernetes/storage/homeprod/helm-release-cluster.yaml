@@ -28,6 +28,8 @@ spec:
   dependsOn:
     - name: rook-ceph
       namespace: flux-system
+    - name: ceph-csi-drivers
+      namespace: flux-system
   values:
     clusterName: "${CLUSTER_NAME}"
     toolbox:
@@ -46,9 +48,6 @@ spec:
         wipeDevicesFromOtherClusters: false
       crashCollector:
         disable: false
-      csi:
-        readAffinity:
-          enabled: false # https://github.com/ceph/ceph-csi/issues/5772
       dashboard:
         enabled: false
       mgr:
