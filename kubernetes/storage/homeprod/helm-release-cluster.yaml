@@ -69,8 +69,8 @@ spec:
       storage:
         useAllNodes: false
         useAllDevices: false
-        encryptedDevice: true
         config:
+          encryptedDevice: "true"
           osdsPerDevice: "1"
         nodes:
           - name: aviendha
