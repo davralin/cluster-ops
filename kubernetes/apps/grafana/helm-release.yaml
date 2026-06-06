@@ -152,6 +152,13 @@ spec:
           gnetId: 6739
           revision: 1
           datasource: Prometheus
+        # Ref: https://grafana.com/grafana/dashboards/17375
+        k8s-resource-monitoring:
+          # renovate: depName="K8s Resource Monitoring"
+          gnetId: 17375
+          revision: 1
+          datasource:
+            - { name: DS_PROMETHEUS, value: Prometheus }
         # Ref: https://docs.litellm.ai/docs/proxy/prometheus
         litellm:
           url: https://raw.githubusercontent.com/BerriAI/litellm/refs/heads/main/cookbook/litellm_proxy_server/grafana_dashboard/dashboard_v2/grafana_dashboard.json
