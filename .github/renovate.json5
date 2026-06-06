@@ -183,7 +183,6 @@
       matchPackageNames: [
         '/docker.io/adguard/adguardhome/',
         '/docker.io/apache/tika/',
-        '/docker.io/diegosouzapw/omniroute/',
         '/docker.io/filebrowser/filebrowser/',
         '/docker.io/freikin/dawarich/',
         '/docker.io/freshrss/freshrss/',
