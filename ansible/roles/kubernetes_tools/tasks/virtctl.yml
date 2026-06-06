@@ -1,0 +1,7 @@
+---
+- name: virtctl | fetch and install virtctl
+  ansible.builtin.get_url:
+    url: https://github.com/kubevirt/kubevirt/releases/download/{{ virtctl_version }}/virtctl-{{ virtctl_version }}-linux-amd64
+    dest: /usr/local/bin/virtctl
+    mode: '0755'
+  become: true

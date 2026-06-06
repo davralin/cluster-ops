@@ -19,3 +19,7 @@
 - name: Installing talosctl and tools
   ansible.builtin.include_tasks:
     file: talos.yml
+
+- name: Installing virtctl
+  ansible.builtin.include_tasks:
+    file: virtctl.yml

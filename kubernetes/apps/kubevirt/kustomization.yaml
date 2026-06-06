@@ -1,0 +1,11 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - namespace.yaml
+  - networkpolicy.yaml
+  - helm-release-kubevirt-operator.yaml
+  - helm-release-kubevirt-cr.yaml
+  - helm-release-cdi-operator.yaml
+  - helm-release-cdi-cr.yaml
+  - helm-release-vm-debian-hermes.yaml

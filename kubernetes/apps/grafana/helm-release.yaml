@@ -265,6 +265,17 @@ spec:
           gnetId: 7845
           revision: 4
           datasource: Prometheus
+        # Ref: https://github.com/kubevirt/monitoring/tree/main/dashboards/grafana
+        kubevirt-control-plane:
+          url: https://raw.githubusercontent.com/kubevirt/monitoring/main/dashboards/grafana/kubevirt-control-plane.json
+          datasource: Prometheus
+        # Ref: https://grafana.com/grafana/dashboards/11748
+        kubevirt-vm-info:
+        # renovate: depName="kubevirt-vm-info"
+          gnetId: 11748
+          revision: 1
+          datasource:
+            - { name: DS_PROMETHEUS, value: Prometheus }
     sidecar:
       dashboards:
         enabled: true
