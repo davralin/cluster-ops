@@ -133,6 +133,7 @@
       ],
       matchPackageNames: [
         '/atdr.meo.ws/archiveteam/warrior-dockerfile/',
+        '/docker.io/library/nextcloud/',
         '/docker.io/redis/',
         '/docker.io/searxng/searxng/',
         '/docker.io/tensorchord/pgvecto-rs/',
@@ -189,6 +190,7 @@
         '/docker.io/getmeili/meilisearch/',
         '/docker.io/icloudpd/icloudpd/',
         '/docker.io/infisical/infisical/',
+        '/docker.io/library/nextcloud/',
         '/docker.io/itzg/minecraft-bedrock-server/',
         '/docker.io/mpepping/cyberchef/',
         '/docker.io/ollama/ollama/',
