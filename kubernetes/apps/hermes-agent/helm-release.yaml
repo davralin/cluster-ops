@@ -288,6 +288,8 @@ spec:
                 - ipBlock:
                     cidr: 0.0.0.0/0
               ports:
+                - port: 22
+                  protocol: TCP
                 - port: 443
                   protocol: TCP
           ingress:
