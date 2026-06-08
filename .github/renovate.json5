@@ -472,8 +472,9 @@
       ],
       matchStrings: [
         '# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)\\n\\s+- https://github\\.com/\\S+/releases/download/v?(?<currentValue>\\S+?)/\\S+',
+        '# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)\\n\\s+\\w+: https://github\\.com/\\S+/releases/download/v?(?<currentValue>\\S+?)/\\S+',
       ],
-      versioningTemplate: 'semver',
+      versioningTemplate: 'semver-coerced',
     },
     {
       customType: 'regex',
