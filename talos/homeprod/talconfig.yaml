@@ -50,6 +50,8 @@ patches:
       minSize: 1GB
 
 controlPlane:
+  certSANs:
+    - 10.0.1.100
   patches:
     - |-
       cluster:
