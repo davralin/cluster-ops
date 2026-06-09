@@ -78,6 +78,11 @@ spec:
             access: proxy
             url: http://kube-prom-prometheus.monitoring.svc.cluster.local:9090
             isDefault: true
+          - name: VictoriaMetrics
+            type: prometheus
+            access: proxy
+            url: http://vmsingle-vm.victoriametrics.svc.cluster.local:8428
+            isDefault: false
     dashboards:
       default:
         # Ref: https://grafana.com/grafana/dashboards/13659
