@@ -198,6 +198,8 @@ spec:
           - memory-snapshot-on-shutdown
         retention: 60d
         retentionSize: 80GB
+        query:
+          maxSamples: 500000000
         storageSpec:
           volumeClaimTemplate:
             spec:
