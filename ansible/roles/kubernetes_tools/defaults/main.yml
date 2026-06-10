@@ -10,6 +10,6 @@ sops_version: v3.13.1
 # renovate: datasource=docker depName=ghcr.io/siderolabs/installer
 talosctl_version: v1.13.3
 # renovate: datasource=github-releases depName=budimanjojo/talhelper
-talhelper_version: v3.1.10
+talhelper_version: v3.1.11
 # renovate: datasource=github-releases depName=kubevirt/kubevirt
 virtctl_version: v1.8.3
