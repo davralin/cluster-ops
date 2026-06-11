@@ -50,12 +50,12 @@ spec:
     # When the expression evaluates to FALSE the request is flagged
     # (Audit + Warn) as a non-Flux mutation.
     - expression: >-
-        request.userInfo.username.startsWith("system:serviceaccount:flux-system:") ||
-        request.userInfo.username.startsWith("system:serviceaccount:cloudnative-pg:") ||
-        request.userInfo.username.startsWith("system:serviceaccount:kyverno:") ||
         request.userInfo.username.startsWith("system:serviceaccount:cert-manager:") ||
-        request.userInfo.username.startsWith("system:serviceaccount:rook-ceph:") ||
+        request.userInfo.username.startsWith("system:serviceaccount:cloudnative-pg:") ||
+        request.userInfo.username.startsWith("system:serviceaccount:flux-system:") ||
         request.userInfo.username.startsWith("system:serviceaccount:kubevirt:") ||
-        request.userInfo.username.startsWith("system:serviceaccount:reflector:")
+        request.userInfo.username.startsWith("system:serviceaccount:kyverno:") ||
+        request.userInfo.username.startsWith("system:serviceaccount:reflector:") ||
+        request.userInfo.username.startsWith("system:serviceaccount:rook-ceph:")
       message: "Non-Flux actor made a change to a cluster resource"
       reason: Forbidden
