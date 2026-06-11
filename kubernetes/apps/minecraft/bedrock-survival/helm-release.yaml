@@ -69,6 +69,7 @@ spec:
       rcon:
         enabled: true
       serviceType: LoadBalancer
+      loadBalancerIP: 10.0.1.42
       #externalTrafficPolicy: Local
     resources:
       requests:
