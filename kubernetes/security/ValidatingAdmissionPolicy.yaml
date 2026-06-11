@@ -12,7 +12,7 @@ spec:
         apiVersions: ["*"]
         resources:   ["*"]
         operations:  ["CREATE", "UPDATE", "DELETE"]
-    # Don't audit the system itself talking to itself, or leases (very noisy).
+    # Don't audit the system itself talking to itself, or leases
     excludeResourceRules:
       - apiGroups:   ["coordination.k8s.io"]
         apiVersions: ["*"]
@@ -21,6 +21,16 @@ spec:
       - apiGroups:   ["events.k8s.io", ""]
         apiVersions: ["*"]
         resources:   ["events"]
+        operations:  ["CREATE", "UPDATE", "DELETE"]
+      # Deleting a pod is a purely operational action (restart, clear stuck pod)
+      - apiGroups:   [""]
+        apiVersions: ["*"]
+        resources:   ["pods"]
+        operations:  ["DELETE"]
+      # All CNPG CRDs (Cluster, Backup, Pooler, etc.) are managed by the CNPG-operator
+      - apiGroups:   ["postgresql.cnpg.io"]
+        apiVersions: ["*"]
+        resources:   ["*"]
         operations:  ["CREATE", "UPDATE", "DELETE"]
   matchConditions:
     # Skip controller-manager / scheduler / kubelet / node-bound SAs — they
@@ -41,9 +51,11 @@ spec:
     # (Audit + Warn) as a non-Flux mutation.
     - expression: >-
         request.userInfo.username.startsWith("system:serviceaccount:flux-system:") ||
-        request.userInfo.username.startsWith("system:serviceaccount:cnpg-system:") ||
+        request.userInfo.username.startsWith("system:serviceaccount:cloudnative-pg:") ||
         request.userInfo.username.startsWith("system:serviceaccount:kyverno:") ||
         request.userInfo.username.startsWith("system:serviceaccount:cert-manager:") ||
-        request.userInfo.username.startsWith("system:serviceaccount:rook-ceph:")
+        request.userInfo.username.startsWith("system:serviceaccount:rook-ceph:") ||
+        request.userInfo.username.startsWith("system:serviceaccount:kubevirt:") ||
+        request.userInfo.username.startsWith("system:serviceaccount:reflector:")
       message: "Non-Flux actor made a change to a cluster resource"
       reason: Forbidden
