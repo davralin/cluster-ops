@@ -23,7 +23,6 @@ resources:
   - ../grafana
   - ../hermes-agent
   - ../icloudpd
-  - ../infiscal
   - ../intel-device-plugin
   - ../invidious
   - ../it-tools
