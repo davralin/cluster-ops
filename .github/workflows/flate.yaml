@@ -22,6 +22,8 @@ jobs:
           cache: true
 
       - name: Test
+        env:
+          FLATE_BASE: ""
         run: flate test all --path ./kubernetes/clusters/homeprod --allow-missing-secrets
 
   flate-diff:
@@ -33,12 +35,8 @@ jobs:
     steps:
       - name: Checkout PR branch
         uses: actions/checkout@v6
-
-      - name: Checkout base branch
-        uses: actions/checkout@v6
         with:
-          ref: ${{ github.base_ref }}
-          path: baseline
+          fetch-depth: 0
 
       - name: Install flate
         uses: home-operations/flate/action@main
@@ -50,9 +48,8 @@ jobs:
         run: |
           diff=$(flate diff all \
             --path ./kubernetes/clusters/homeprod \
-            --path-orig ./baseline/kubernetes/clusters/homeprod \
             --allow-missing-secrets \
-            -o github)
+            -o github) || true
           echo "result<<EOF" >> "$GITHUB_OUTPUT"
           echo "$diff" >> "$GITHUB_OUTPUT"
           echo "EOF" >> "$GITHUB_OUTPUT"
