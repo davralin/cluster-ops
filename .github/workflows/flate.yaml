@@ -58,7 +58,7 @@ jobs:
           echo "EOF" >> "$GITHUB_OUTPUT"
 
       - name: Post diff comment
-        uses: peter-evans/create-or-update-comment@v4
+        uses: peter-evans/create-or-update-comment@v5
         with:
           issue-number: ${{ github.event.pull_request.number }}
           body: |
