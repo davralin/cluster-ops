@@ -6,6 +6,7 @@ resources:
   - helm-release.yaml
   - namespace.yaml
   - networkpolicy.yaml
+  - oci-repository.yaml
   - prometheus_rules.yaml
   - secret.yaml
   - wildcard-internal-domain.yaml

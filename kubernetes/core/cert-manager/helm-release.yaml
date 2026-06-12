@@ -8,15 +8,9 @@ spec:
   interval: 30m
   driftDetection:
     mode: enabled
-  chart:
-    spec:
-      chart: cert-manager
-      version: v1.20.2
-      sourceRef:
-        kind: HelmRepository
-        name: jetstack-charts
-        namespace: flux-system
-      interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: cert-manager
   targetNamespace: cert-manager
   install:
     createNamespace: true
