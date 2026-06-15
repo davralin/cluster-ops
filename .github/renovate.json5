@@ -56,9 +56,17 @@
       description: 'Group immich across ansible and kubernetes',
       groupName: 'immich',
       matchPackageNames: [
-        '/immich/',
+        'immich',
+        'immich-app/immich',
       ],
       commitMessagePrefix: 'fix(deps): ',
+    },
+    {
+      description: 'Group immich-folder-album-creator across ansible and kubernetes',
+      groupName: 'immich-folder-album-creator',
+      matchPackageNames: [
+        '/immich-folder-album-creator/',
+      ],
     },
     {
       description: 'Group tdarr and tdarr_node container updates',
@@ -148,6 +156,7 @@
         '/ghcr.io/rss-bridge/rss-bridge/',
         '/ghcr.io/sdr-enthusiasts/',
         '/ghcr.io/syncthing/syncthing/',
+        '/ghcr.io/salvoxia/immich-folder-album-creator/',
         '/ghcr.io/valkey-io/valkey/',
         '/registry.gitlab.com/egos-tech/alertmanager-notifier/',
         '/quay.io/invidious/invidious-companion/',
@@ -269,6 +278,23 @@
         '/reflector/',
         '/reloader/',
         '/rook-ceph/',
+      ],
+    },
+    {
+      description: [
+        'Auto-merge fix-updates for trusted github-releases',
+      ],
+      matchDatasources: [
+        'github-releases',
+      ],
+      automerge: true,
+      automergeType: 'branch',
+      matchUpdateTypes: [
+        'patch',
+      ],
+      matchPackageNames: [
+        'immich-app/immich',
+        'salvoxia/immich-folder-album-creator',
       ],
     },
     {
