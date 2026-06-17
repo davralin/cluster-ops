@@ -30,9 +30,6 @@ spec:
   values:
     crds:
       enabled: true
-    csi:
-      serviceMonitor:
-        enabled: "${MONITORING_PROMETHEUS}"
     monitoring:
       enabled: "${MONITORING_PROMETHEUS}"
       createPrometheusRules: "${MONITORING_PROMETHEUS}"
