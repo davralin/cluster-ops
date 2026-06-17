@@ -42,4 +42,4 @@ spec:
     kustomization:
       spec:
         path: ./kubernetes/clusters/homeprod
-        prune: true
+        prune: false

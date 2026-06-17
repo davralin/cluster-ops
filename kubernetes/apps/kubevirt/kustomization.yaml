@@ -8,4 +8,3 @@ resources:
   - helm-release-kubevirt-cr.yaml
   - helm-release-cdi-operator.yaml
   - helm-release-cdi-cr.yaml
-  - helm-release-vm-debian-hermes.yaml
