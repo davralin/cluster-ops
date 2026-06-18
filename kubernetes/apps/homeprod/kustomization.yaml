@@ -22,6 +22,8 @@ resources:
   - ../gotify
   - ../grafana
   - ../hermes-agent
+  - ../hermes-vm
+
   - ../icloudpd
   - ../intel-device-plugin
   - ../invidious

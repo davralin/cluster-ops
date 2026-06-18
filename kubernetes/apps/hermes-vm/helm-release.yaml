@@ -1,0 +1,157 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &name vm-hermes
+  namespace: flux-system
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: raw
+      version: v0.3.2
+      sourceRef:
+        kind: HelmRepository
+        name: dysnix-charts
+        namespace: flux-system
+      interval: 30m
+  driftDetection:
+    mode: enabled
+  targetNamespace: &namespace vms
+  install:
+    createNamespace: true
+    disableWait: true
+    timeout: 15m
+    remediation:
+      retries: 10
+  upgrade:
+    disableWait: true
+    timeout: 10m
+    remediation:
+      retries: 10
+  dependsOn:
+    - name: kubevirt-cr
+      namespace: flux-system
+    - name: cdi-cr
+      namespace: flux-system
+  values:
+    resources:
+      # VirtualMachine: NixOS hermes, 2 vCPU, 4 GiB RAM, q35
+      # Uses pre-existing PVC written via kubectl attach
+      - apiVersion: kubevirt.io/v1
+        kind: VirtualMachine
+        metadata:
+          name: &vmname hermes
+          namespace: *namespace
+        spec:
+          runStrategy: Always
+          dataVolumeTemplates: []
+          template:
+            metadata:
+              labels:
+                kubevirt.io/domain: *vmname
+                vm.kubevirt.io/os: nixos
+            spec:
+              evictionStrategy: LiveMigrate
+              domain:
+                machine:
+                  type: q35
+                features:
+                  smm:
+                    enabled: true
+                firmware:
+                  bootloader:
+                    efi:
+                      persistent: true
+                      secureBoot: false
+                cpu:
+                  cores: 2
+                memory:
+                  guest: 4Gi
+                devices:
+                  tpm: {}
+                  disks:
+                    - name: rootdisk
+                      disk:
+                        bus: virtio
+                  interfaces:
+                    - name: default
+                      macAddress: 02:e0:d0:38:2b:68
+                      masquerade: {}
+              networks:
+                - name: default
+                  pod:
+                    vmNetworkCIDR: 192.168.200.0/24
+              volumes:
+                - name: rootdisk
+                  persistentVolumeClaim:
+                    claimName: hermes
+      # LoadBalancer Service: SSH access via Cilium IPAM pool (10.0.1.30-59)
+      - apiVersion: v1
+        kind: Service
+        metadata:
+          name: hermes-ssh
+          namespace: *namespace
+        spec:
+          type: LoadBalancer
+          selector:
+            kubevirt.io/domain: *vmname
+          ports:
+            - name: ssh
+              port: 22
+              targetPort: 22
+              protocol: TCP
+      # NetworkPolicy: allow SSH ingress to hermes pod
+      - apiVersion: networking.k8s.io/v1
+        kind: NetworkPolicy
+        metadata:
+          name: allow-ssh-ingress-hermes
+          namespace: *namespace
+        spec:
+          podSelector:
+            matchLabels:
+              kubevirt.io/domain: *vmname
+          policyTypes:
+          - Ingress
+          ingress:
+          - ports:
+            - port: 22
+              protocol: TCP
+      # CiliumNetworkPolicy: allow hermes egress to GitHub/NixOS cache for auto-update
+      - apiVersion: cilium.io/v2
+        kind: CiliumNetworkPolicy
+        metadata:
+          name: allow-hermes-egress
+          namespace: *namespace
+        spec:
+          endpointSelector:
+            matchLabels:
+              vm.kubevirt.io/os: nixos
+          egress:
+          - toCIDRSet:
+            - cidr: 10.96.0.10/32
+            toPorts:
+            - ports:
+              - port: "53"
+                protocol: UDP
+              - port: "53"
+                protocol: TCP
+              rules:
+                dns:
+                - matchPattern: '*.github.com'
+                - matchPattern: '*.nixos.org'
+                - matchPattern: '*.cachix.org'
+                - matchName: 'github.com'
+                - matchName: 'cache.nixos.org'
+          - toFQDNs:
+            - matchPattern: '*.github.com'
+            - matchName: 'github.com'
+            - matchPattern: '*.nixos.org'
+            - matchName: 'cache.nixos.org'
+            - matchPattern: '*.cachix.org'
+            toPorts:
+            - ports:
+              - port: "443"
+                protocol: TCP
+              - port: "80"
+                protocol: TCP
