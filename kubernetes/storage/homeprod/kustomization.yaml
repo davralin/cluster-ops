@@ -4,7 +4,6 @@ kind: Kustomization
 resources:
   - helm-release-cluster.yaml
   - helm-release-csi-drivers.yaml
-  - helm-release-monitoring.yaml
   - helm-release.yaml
   - namespace.yaml
 #  - networkpolicy.yaml
