@@ -17,6 +17,11 @@ spec:
       interval: 30m
   driftDetection:
     mode: enabled
+    ignore:
+      - paths: ["/spec/versions", "/spec/conversion"]
+        target:
+          kind: CustomResourceDefinition
+          name: cdis.cdi.kubevirt.io
   targetNamespace: cdi
   install:
     createNamespace: true
