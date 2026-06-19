@@ -40,7 +40,7 @@ spec:
         spec:
           ee_images:
             - name: personal-awx-ee
-              image: ghcr.io/davralin/awx-ee:latest@sha256:9047ee4cd3c923ff6a0e89be3aa2462d4227e77e68ae839db90d746a7897ebfb
+              image: ghcr.io/davralin/awx-ee:latest@sha256:b75d0e4a62e8b4eeb04550f9b9854e7f7862fd19ebb65c34556bb3b40c89cedf
           extra_settings:
             - setting: TOWER_URL_BASE
               value: '"awx.${SECRET_PRIVATE_DOMAIN}"'
