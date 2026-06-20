@@ -45,15 +45,13 @@ spec:
         containers:
           photon:
             image:
-              repository: ghcr.io/davralin/utility
-              tag: latest@sha256:4d58ef3a42b04cdf27f4119dec3d8622f14c127941874cc7331d5826608924f9
-              #repository: docker.io/rtuszik/photon-docker
-              #tag: 2.3@sha256:827cedf9fa3337e657611d62ada669def75dff61c56b51ae55056155d1a9b236
-            #command:
-            #  - /photon/.venv/bin/python
-            #args:
-            #  - -m
-            #  - src.process_manager
+              repository: docker.io/rtuszik/photon-docker
+              tag: 2.3@sha256:827cedf9fa3337e657611d62ada669def75dff61c56b51ae55056155d1a9b236
+            command:
+              - /photon/.venv/bin/python
+            args:
+              - -m
+              - src.process_manager
             env:
               UPDATE_STRATEGY: DISABLED
               INITIAL_DOWNLOAD: FALSE
@@ -61,7 +59,7 @@ spec:
               SKIP_SPACE_CHECK: TRUE
             probes:
               liveness: &probes
-                enabled: false
+                enabled: true
               readiness: *probes
               startup: *probes
             securityContext:
