@@ -1,0 +1,130 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &name photon
+  namespace: flux-system
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 5.0.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+      interval: 30m
+  driftDetection:
+    mode: enabled
+  targetNamespace: dawarich
+  install:
+    createNamespace: true
+    remediation:
+      retries: 10
+  upgrade:
+    remediation:
+      retries: 10
+  values:
+    fullnameOverride: *name
+    global:
+      createDefaultServiceAccount: false
+    defaultPodOptions:
+      automountServiceAccountToken: false
+      enableServiceLinks: false
+      securityContext:
+        runAsUser: 9011
+        runAsGroup: 9011
+        fsGroup: 9011
+        fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+    controllers:
+      photon:
+        containers:
+          photon:
+            image:
+              repository: ghcr.io/davralin/utility
+              tag: latest@sha256:4d58ef3a42b04cdf27f4119dec3d8622f14c127941874cc7331d5826608924f9
+              #repository: docker.io/rtuszik/photon-docker
+              #tag: 2.3@sha256:827cedf9fa3337e657611d62ada669def75dff61c56b51ae55056155d1a9b236
+            #command:
+            #  - /photon/.venv/bin/python
+            #args:
+            #  - -m
+            #  - src.process_manager
+            env:
+              UPDATE_STRATEGY: DISABLED
+              INITIAL_DOWNLOAD: FALSE
+              SKIP_MD5_CHECK: TRUE
+              SKIP_SPACE_CHECK: TRUE
+            probes:
+              liveness: &probes
+                enabled: false
+              readiness: *probes
+              startup: *probes
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+            resources:
+              requests:
+                cpu: 20m
+                memory: 512Mi
+              #limits:
+                #memory: 1Gi
+    service:
+      photon:
+        controller: photon
+        ports:
+          http:
+            port: 2322
+    persistence:
+      photon:
+        enabled: true
+        existingClaim: photon
+        globalMounts:
+          - path: /photon/data
+      tmp:
+        type: emptyDir
+    networkpolicies:
+      photon:
+        enabled: true
+        controller: photon
+        policyTypes:
+          - Ingress
+          - Egress
+        rules:
+          egress:
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: kube-system
+                  podSelector:
+                    matchLabels:
+                      k8s-app: kube-dns
+              ports:
+                - port: 53
+                  protocol: UDP
+            - to:
+                - ipBlock:
+                    cidr: 0.0.0.0/0
+                    except:
+                      - "${HAPROXY_WHITELIST}"
+              ports:
+                - port: 443
+                  protocol: TCP
+                - port: 80
+                  protocol: TCP
+          ingress:
+            - from:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: dawarich
+                      app.kubernetes.io/instance: dawarich-dawarich
+                      app.kubernetes.io/name: dawarich-dawarich
+              ports:
+                - port: 2322

@@ -256,6 +256,14 @@ spec:
               ports:
                 - port: 6379
             - to:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: photon
+                      app.kubernetes.io/instance: dawarich-photon
+                      app.kubernetes.io/name: dawarich-photon
+              ports:
+                - port: 2322
+            - to:
                 - namespaceSelector:
                     matchLabels:
                       kubernetes.io/metadata.name: mailrelay
