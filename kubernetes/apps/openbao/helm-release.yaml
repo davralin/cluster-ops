@@ -96,7 +96,7 @@ spec:
         path: /v1/sys/health?standbyok=true&sealedcode=204&uninitcode=204
       extraInitContainers:
         - name: bootstrap-softhsm
-          image: quay.io/openbao/openbao-hsm:2.5.4@sha256:f8c894a0c14a6dc26df33e16fc335de7abc5f9ccb8273962d140e2a512bf2bce
+          image: quay.io/openbao/openbao-hsm:2.5.5@sha256:552db056b497229e6e360e949c003fa4da537c359ec3262ceca8c241fc14a6df
           imagePullPolicy: IfNotPresent
           env:
             - name: SOFTHSM2_CONF
