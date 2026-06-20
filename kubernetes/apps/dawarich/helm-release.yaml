@@ -81,6 +81,7 @@ spec:
                   secretKeyRef:
                     name: dawarich-basic-auth
                     key: password
+              PHOTON_API_HOST: photon.dawarich.svc.cluster.local:2322
               REDIS_URL: "redis://dawarich-valkey.dawarich.svc.cluster.local:6379/0"
               SECRET_KEY_BASE:
                 valueFrom:
