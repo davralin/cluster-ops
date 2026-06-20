@@ -86,6 +86,8 @@ spec:
         existingClaim: photon
         globalMounts:
           - path: /photon/data
+      tmp:
+        type: emptyDir
     networkpolicies:
       photon:
         enabled: true
