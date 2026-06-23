@@ -504,12 +504,23 @@
     },
     {
       customType: 'regex',
+      description: 'Process PaperMC server versions — wrap in YAML quotes to avoid float parsing',
+      managerFilePatterns: [
+        '/(^|/)kubernetes/.+\\.ya?ml$/',
+      ],
+      matchStrings: [
+        '# renovate: datasource=custom\\.papermc depName=(?<depName>\\S+)(?: versioning=(?<versioning>\\S+))?\\n(?<indentation>\\s+)version: (?<currentValue>\\S+)',
+      ],
+      autoReplaceStringTemplate: '# renovate: datasource=custom.papermc depName={{{depName}}}{{#if versioning}} versioning={{{versioning}}}{{/if}}\n{{{indentation}}}version: "{{{newValue}}}"',
+    },
+    {
+      customType: 'regex',
       description: 'Process custom kubernetes role-dependencies',
       managerFilePatterns: [
         '/(^|/)kubernetes/.+\\.ya?ml$/',
       ],
       matchStrings: [
-        '# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)(?: versioning=(?<versioning>\\S+))?\\n\\s+(?<variable>\\w+): (?<currentValue>\\S+)',
+        '# renovate: datasource=(?!(?:custom\\.papermc))(?<datasource>\\S+) depName=(?<depName>\\S+)(?: versioning=(?<versioning>\\S+))?\\n\\s+(?<variable>\\w+): (?<currentValue>\\S+)',
       ],
     },
   ],
