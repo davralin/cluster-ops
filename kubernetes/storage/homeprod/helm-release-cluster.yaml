@@ -44,6 +44,9 @@ spec:
           # https://github.com/rook/rook/discussions/15403
           bdev_enable_discard: "true"
           bdev_async_discard_threads: "1"
+        osd:
+          # QLC SATA SSDs have high latency under sustained write load (SLC cache exhaustion)
+          bluestore_log_op_age: "30"
       cleanupPolicy:
         wipeDevicesFromOtherClusters: false
       crashCollector:
