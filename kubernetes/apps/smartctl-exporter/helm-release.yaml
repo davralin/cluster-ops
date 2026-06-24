@@ -34,3 +34,8 @@ spec:
           action: replace
     prometheusRules:
       enabled: "${MONITORING_PROMETHEUS}"
+      rules:
+        smartCTLDeviceCriticalWarning:
+          enabled: false
+        smartCTLDeviceStatus:
+          enabled: false
