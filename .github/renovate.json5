@@ -520,7 +520,7 @@
         '/(^|/)kubernetes/.+\\.ya?ml$/',
       ],
       matchStrings: [
-        '# renovate: datasource=(?!(?:custom\\.papermc))(?<datasource>\\S+) depName=(?<depName>\\S+)(?: versioning=(?<versioning>\\S+))?\\n\\s+(?<variable>\\w+): (?<currentValue>\\S+)',
+        '# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)(?: versioning=(?<versioning>\\S+))?\\n\\s+(?<variable>\\w+): (?<currentValue>\\S+)',
       ],
     },
   ],
