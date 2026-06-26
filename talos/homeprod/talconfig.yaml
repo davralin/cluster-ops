@@ -2,9 +2,9 @@
 clusterName: HomeProd
 endpoint: https://homeprod.internal:6443
 # renovate: datasource=docker depName=ghcr.io/siderolabs/installer
-talosVersion: v1.13.2
+talosVersion: v1.13.5
 # renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
-kubernetesVersion: v1.36.1
+kubernetesVersion: v1.36.2
 
 allowSchedulingOnControlPlanes: true
 
@@ -14,14 +14,20 @@ additionalApiServerCertSans:
 cniConfig:
   name: none
 
-schematic:
-  customization:
-    systemExtensions:
-      officialExtensions:
-        - siderolabs/i915
-        - siderolabs/intel-ucode
-
 patches:
+  - |-
+    machine:
+      systemDiskEncryption:
+        state:
+          provider: luks2
+          keys:
+            - slot: 0
+              tpm: {}
+        ephemeral:
+          provider: luks2
+          keys:
+            - slot: 0
+              tpm: {}
   - |-
     cluster:
       proxy:
@@ -100,6 +106,9 @@ controlPlane:
         diskSelector:
           match: disk.transport == 'nvme' && !system_disk
         maxSize: 100GB
+  machineSpec:
+    secureboot: true
+    useUKI: true
 
 worker:
   networkInterfaces:
@@ -117,6 +126,9 @@ worker:
         diskSelector:
           match: disk.transport == 'nvme' && !system_disk
         maxSize: 100GB
+  machineSpec:
+    secureboot: true
+    useUKI: true
 
 nodes:
   - hostname: aviendha
@@ -124,6 +136,12 @@ nodes:
     controlPlane: true
     installDiskSelector:
       model: "KBG40ZNS128G*"
+    schematic:
+      customization:
+        systemExtensions:
+          officialExtensions:
+            - siderolabs/i915
+            - siderolabs/intel-ucode
 
   - hostname: elayne
     ipAddress: 10.0.1.69
@@ -143,6 +161,12 @@ nodes:
     controlPlane: true
     installDiskSelector:
       model: "KBG40ZNS128G*"
+    schematic:
+      customization:
+        systemExtensions:
+          officialExtensions:
+            - siderolabs/i915
+            - siderolabs/intel-ucode
 
   - hostname: mat
     ipAddress: 10.0.1.65
