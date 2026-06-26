@@ -505,6 +505,7 @@
     {
       customType: 'regex',
       description: 'Process PaperMC server versions — wrap in YAML quotes to avoid float parsing',
+      datasourceTemplate: 'custom.papermc',
       managerFilePatterns: [
         '/(^|/)kubernetes/.+\\.ya?ml$/',
       ],
