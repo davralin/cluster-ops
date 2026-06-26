@@ -294,7 +294,7 @@ spec:
                       app.kubernetes.io/instance: manifest-manifest
                       app.kubernetes.io/name: manifest-manifest
               ports:
-                - port: 2099
+                - port: 3001
                   protocol: TCP
             - to:
                 - ipBlock:

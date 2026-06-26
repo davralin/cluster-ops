@@ -70,7 +70,7 @@ spec:
                 spec:
                   httpGet:
                     path: /api/v1/health
-                    port: &port 2099
+                    port: &port 3001
                   initialDelaySeconds: 30
                   periodSeconds: 10
                   failureThreshold: 3
