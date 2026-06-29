@@ -49,9 +49,9 @@ spec:
               topologyKey: kubernetes.io/hostname
     controllers:
       litellm:
-        replicas: 1
+        replicas: 3
         podDisruptionBudget:
-          minAvailable: 0
+          minAvailable: 1
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
@@ -138,31 +138,8 @@ spec:
       config:
         data:
           config.yaml: |
-            model_list:
-              - model_name: "claude-opus-4.7"
-                litellm_params:
-                  model: "github_copilot/claude-opus-4.7"
-              - model_name: "claude-opus-4.6"
-                litellm_params:
-                  model: "github_copilot/claude-opus-4.6"
-              - model_name: "claude-sonnet-4.6"
-                litellm_params:
-                  model: "github_copilot/claude-sonnet-4.6"
-              - model_name: claude-haiku-4.5
-                litellm_params:
-                  model: "github_copilot/claude-haiku-4.5"
             general_settings:
-              #store_model_in_db: true
-            litellm_settings:
-              drop_params: true
-              additional_drop_params: ["context_management"]
-              callbacks:
-                - prometheus
-              model_list:
-                timeout: 300
-                stream_timeout: 30
-              router_settings:
-                timeout: 300
+              store_model_in_db: true
     service:
       litellm:
         controller: *name
@@ -203,7 +180,7 @@ spec:
     persistence:
       data:
         enabled: true
-        existingClaim: litellm-rwo
+        existingClaim: litellm
       tmp:
         enabled: true
         type: emptyDir
@@ -239,7 +216,7 @@ spec:
               ports:
                 - port: 53
                   protocol: UDP
-            - to: # GitHub Copilot APIs require external internet access
+            - to: # Allow talking to models
               - ipBlock:
                   cidr: 0.0.0.0/0
                   except:
