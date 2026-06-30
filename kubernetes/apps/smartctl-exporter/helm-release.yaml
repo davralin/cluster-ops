@@ -25,6 +25,10 @@ spec:
       namespace: flux-system
   values:
     fullnameOverride: smartctl-exporter
+    rbac:
+      create: false
+    serviceAccount:
+      create: false
     serviceMonitor:
       enabled: "${MONITORING_PROMETHEUS}"
       relabelings:
