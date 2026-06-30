@@ -140,6 +140,11 @@ spec:
           config.yaml: |
             general_settings:
               store_model_in_db: true
+            litellm_settings:
+              drop_params: true
+              additional_drop_params: ["context_management"]
+              callbacks:
+                - prometheus
     service:
       litellm:
         controller: *name
