@@ -49,7 +49,7 @@ spec:
           borgmatic:
             image:
               repository: ghcr.io/davralin/borgmatic
-              tag: latest@sha256:41dd33239a701d951970a7c2f4a5e70e6247fc780dc23c460f894537cb910f58
+              tag: latest@sha256:76e7e7856fb00a22cdcd354f51594386c4777e5f97e8e6e771d52d2e8372177f
             command: ['/usr/local/bin/start.sh']
             env:
               BORG_PASSPHRASE: "${SECRET_BORG_PASSPHRASE}"
