@@ -23,7 +23,6 @@ resources:
   - ../grafana
   - ../hermes-agent
   - ../hermes-vm
-
   - ../icloudpd
   - ../intel-device-plugin
   - ../invidious
@@ -34,7 +33,6 @@ resources:
   - ../kubevirt
   - ../librespeed
   - ../litellm
-  - ../manifest
   - ../mailbackup
   - ../mailrelay
   - ../mailrise
