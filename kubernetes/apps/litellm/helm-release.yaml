@@ -143,6 +143,7 @@ spec:
             litellm_settings:
               drop_params: true
               additional_drop_params: ["context_management"]
+              check_provider_endpoint: true
               callbacks:
                 - prometheus
     service:
