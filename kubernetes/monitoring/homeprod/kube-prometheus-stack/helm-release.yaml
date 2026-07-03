@@ -119,7 +119,13 @@ spec:
               matchers:
                 - alertname = "CephNodeInconsistentMTU"
                 - instance = "wireguard.${SECRET_PUBLIC_DOMAIN}"
-              # OCI node has MTU 1420 on Cilium interfaces due to WireGuard tunnel overhead; expected.
+              # OCI node has MTU 1420 on Cilium interfaces due to WireGuard tunnel overhead.
+              continue: false
+            - receiver: "dummy"
+              matchers:
+                - alertname = "CephNodeNetworkPacketErrors"
+                - instance =~ "wireguard.*"
+              # WireGuard interfaces show transient packet errors from tunnel encapsulation.
               continue: false
       externalUrl: https://alertmanager.${SECRET_DEFAULT_DOMAIN}
       ingress:
