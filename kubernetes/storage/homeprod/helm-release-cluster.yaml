@@ -143,6 +143,8 @@ spec:
               requireSafeReplicaSize: true
           dataPools:
             - failureDomain: host
+              enableCrushUpdates: true
+              deviceClass: ssd
               replicated:
                 size: 2
                 requireSafeReplicaSize: true
