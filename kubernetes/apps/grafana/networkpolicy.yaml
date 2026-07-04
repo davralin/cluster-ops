@@ -65,17 +65,6 @@ spec:
       ports:
         - port: 9090
           protocol: TCP
-    - to:
-        - namespaceSelector:
-            matchLabels:
-              kubernetes.io/metadata.name: victoriametrics
-          podSelector:
-            matchLabels:
-              app.kubernetes.io/name: vmsingle
-              managed-by: vm-operator
-      ports:
-        - port: 8428
-          protocol: TCP
     - to: # Dashboard and plugin downloads
       - ipBlock:
           cidr: 0.0.0.0/0
