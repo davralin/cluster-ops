@@ -17,5 +17,7 @@ apt_unattended_upgrade_automaticreboot: "true"
 apt_unattended_upgrade_mail: "root"
 apt_unattended_upgrade_mailonlyonerror: "true"
 apt_unattended_upgrade_minimalsteps: "true"
+apt_unattended_upgrade_remove_unused_kernel_packages: "true"
+apt_unattended_upgrade_remove_new_unused_dependencies: "true"
 apt_update_packages:
   - unattended-upgrades
