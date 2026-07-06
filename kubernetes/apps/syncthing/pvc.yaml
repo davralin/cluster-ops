@@ -5,9 +5,9 @@ metadata:
   name: syncthing
   namespace: syncthing
 spec:
-  storageClassName: "${STORAGE_READWRITEMANY}"
+  storageClassName: "${STORAGE_READWRITEONCE}"
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   resources:
     requests:
       storage: 120Gi
