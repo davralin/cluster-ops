@@ -33,6 +33,7 @@ resources:
   - ../kubevirt
   - ../librespeed
   - ../litellm
+  - ../lubelogger
   - ../mailbackup
   - ../mailrelay
   - ../mailrise

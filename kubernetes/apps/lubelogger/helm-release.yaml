@@ -1,0 +1,156 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &name lubelogger
+  namespace: flux-system
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 5.0.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+      interval: 30m
+  driftDetection:
+    mode: enabled
+  targetNamespace: lubelogger
+  install:
+    createNamespace: true
+    remediation:
+      retries: 10
+  upgrade:
+    remediation:
+      retries: 10
+  dependsOn:
+    - name: lubelogger-postgres-v18
+      namespace: flux-system
+  values:
+    fullnameOverride: *name
+    defaultPodOptions:
+      automountServiceAccountToken: false
+      enableServiceLinks: false
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+    controllers:
+      lubelogger:
+        containers:
+          lubelogger:
+            image:
+              repository: ghcr.io/hargata/lubelogger
+              tag: latest@sha256:82093696a6cfd73c3b6678e6233acb25e9979604ee9659faa3f955e6895ba191
+            env:
+              TZ: "${TIMEZONE}"
+              POSTGRES_CONNECTION:
+                valueFrom:
+                  secretKeyRef:
+                    name: lubelogger-secrets
+                    key: POSTGRES_CONNECTION
+            probes:
+              liveness: &probes
+                enabled: true
+              readiness: *probes
+              startup:
+                enabled: true
+                spec:
+                  httpGet:
+                    path: /
+                    port: &port 8080
+                  initialDelaySeconds: 10
+                  periodSeconds: 5
+                  timeoutSeconds: 3
+                  failureThreshold: 36
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+            resources:
+              requests:
+                cpu: 100m
+              limits:
+                memory: 512Mi
+    persistence:
+      app-data:
+        existingClaim: lubelogger
+        globalMounts:
+          - path: /App/data
+      tmp:
+        type: emptyDir
+      aspnet-data-protection:
+        type: emptyDir
+        globalMounts:
+          - path: /root/.aspnet/DataProtection-Keys
+    service:
+      lubelogger:
+        controller: *name
+        ports:
+          http:
+            port: *port
+    ingress:
+      lubelogger:
+        enabled: true
+        annotations:
+          haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
+          haproxy.org/ssl-redirect-port: "443"
+          haproxy.org/response-set-header: |
+            Strict-Transport-Security "max-age=31536000"
+            X-Frame-Options "DENY"
+            X-Content-Type-Options "nosniff"
+            Referrer-Policy "strict-origin-when-cross-origin"
+        hosts:
+          - host: &host "lubelogger.${SECRET_DEFAULT_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  identifier: lubelogger
+                  port: http
+        tls:
+          - hosts:
+              - *host
+    networkpolicies:
+      lubelogger:
+        enabled: true
+        controller: *name
+        policyTypes:
+          - Egress
+          - Ingress
+        rules:
+          egress:
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: kube-system
+                  podSelector:
+                    matchLabels:
+                      k8s-app: kube-dns
+              ports:
+                - port: 53
+                  protocol: UDP
+            - to:
+                - podSelector:
+                    matchLabels:
+                      cnpg.io/cluster: lubelogger-postgres-v18
+              ports:
+                - port: 5432
+                  protocol: TCP
+          ingress:
+            - from:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: haproxy-controller
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: kubernetes-ingress
+              ports:
+                - port: *port
