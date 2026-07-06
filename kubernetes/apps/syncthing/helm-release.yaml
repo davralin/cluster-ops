@@ -45,15 +45,15 @@ spec:
         containers:
           syncthing:
             image:
-              repository: ghcr.io/syncthing/syncthing
-              tag: 2.1.1@sha256:775c4aac486263ca8653055bba7d3061799281974b706695e17bc798da3f4e92
+              repository: ghcr.io/davralin/utility #ghcr.io/syncthing/syncthing
+              tag: latest #2.1.1@sha256:775c4aac486263ca8653055bba7d3061799281974b706695e17bc798da3f4e92
             env:
               TZ: "${TIMEZONE}"
               PUID: 1000
               PGID: 1000
             probes:
               liveness: &probes
-                enabled: true
+                enabled: false
               readiness: *probes
               startup: *probes
             securityContext:
@@ -114,6 +114,11 @@ spec:
         existingClaim: syncthing
         globalMounts:
           - path: /var/syncthing
+      config2:
+        enabled: true
+        existingClaim: syncthing-rwo
+        globalMounts:
+          - path: /var/syncthing-rwo
     networkpolicies:
       syncthing:
         enabled: true
