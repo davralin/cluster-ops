@@ -45,7 +45,6 @@ resources:
   - ../node-feature-discovery
   - ../node-problem-detector
   - ../ollama
-  - ../openbao
   - ../openwebui
   - ../paperless-ngx
   - ../papra
