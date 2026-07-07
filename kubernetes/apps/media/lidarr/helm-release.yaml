@@ -200,33 +200,38 @@ spec:
               ports:
                 - port: 443
                   protocol: TCP
-          ingress:
-            - from:
-                - namespaceSelector:
-                    matchLabels:
-                      kubernetes.io/metadata.name: haproxy-controller
-                  podSelector:
-                    matchLabels:
-                      app.kubernetes.io/name: kubernetes-ingress
-                - podSelector:
-                    matchLabels:
-                      app.kubernetes.io/controller: lidatube
-                      app.kubernetes.io/instance: media-lidatube
-                      app.kubernetes.io/name: media-lidatube
-                - podSelector:
-                    matchLabels:
-                      app.kubernetes.io/controller: prowlarr
-                      app.kubernetes.io/instance: media-prowlarr
-                      app.kubernetes.io/name: media-prowlarr
-                - podSelector:
-                    matchLabels:
-                      app.kubernetes.io/controller: scraparr
-                      app.kubernetes.io/instance: media-scraparr
-                      app.kubernetes.io/name: media-scraparr
-                - podSelector:
-                    matchLabels:
-                      app.kubernetes.io/controller: unpackerr
-                      app.kubernetes.io/instance: media-unpackerr
-                      app.kubernetes.io/name: media-unpackerr
-              ports:
-                - port: *port
+           ingress:
+             - from:
+                 - namespaceSelector:
+                     matchLabels:
+                       kubernetes.io/metadata.name: haproxy-controller
+                   podSelector:
+                     matchLabels:
+                       app.kubernetes.io/name: kubernetes-ingress
+                 - podSelector:
+                     matchLabels:
+                       app.kubernetes.io/controller: lidatube
+                       app.kubernetes.io/instance: media-lidatube
+                       app.kubernetes.io/name: media-lidatube
+                 - podSelector:
+                     matchLabels:
+                       app.kubernetes.io/controller: prowlarr
+                       app.kubernetes.io/instance: media-prowlarr
+                       app.kubernetes.io/name: media-prowlarr
+                 - podSelector:
+                     matchLabels:
+                       app.kubernetes.io/controller: scraparr
+                       app.kubernetes.io/instance: media-scraparr
+                       app.kubernetes.io/name: media-scraparr
+                 - podSelector:
+                     matchLabels:
+                       app.kubernetes.io/controller: unpackerr
+                       app.kubernetes.io/instance: media-unpackerr
+                       app.kubernetes.io/name: media-unpackerr
+                 - podSelector:
+                     matchLabels:
+                       app.kubernetes.io/controller: lfmv
+                       app.kubernetes.io/instance: media-lfmv
+                       app.kubernetes.io/name: media-lfmv
+               ports:
+                 - port: *port
