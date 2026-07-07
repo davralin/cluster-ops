@@ -44,7 +44,7 @@ spec:
         enabled: "${MONITORING_PROMETHEUS}"
       persistence:
         library:
-          existingClaim: immich-rwo
+          existingClaim: immich
     controllers:
       main:
         containers:
