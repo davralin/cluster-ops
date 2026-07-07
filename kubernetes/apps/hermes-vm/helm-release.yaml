@@ -145,6 +145,8 @@ spec:
                 - matchName: 'cache.nixos.org'
                 - matchName: 'files.pythonhosted.org'
                 - matchName: 'pypi.org'
+                - matchPattern: '*.npmjs.org'
+                - matchName: 'registry.npmjs.org'
           - toFQDNs:
             - matchPattern: '*.github.com'
             - matchName: 'github.com'
@@ -153,6 +155,8 @@ spec:
             - matchPattern: '*.cachix.org'
             - matchName: 'files.pythonhosted.org'
             - matchName: 'pypi.org'
+            - matchPattern: '*.npmjs.org'
+            - matchName: 'registry.npmjs.org'
             toPorts:
             - ports:
               - port: "443"
