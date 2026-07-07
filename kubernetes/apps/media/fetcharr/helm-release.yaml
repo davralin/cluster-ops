@@ -25,9 +25,6 @@ spec:
   upgrade:
     remediation:
       retries: 10
-  dependsOn:
-    - name: lidarr
-      namespace: flux-system
   values:
     fullnameOverride: *name
     global:
@@ -56,8 +53,6 @@ spec:
               DRY_RUN: false
               SEARCH_AMOUNT: 1
               SEARCH_INTERVAL: 1day
-              LIDARR_0_URL: http://lidarr.media.svc.cluster.local:8686
-              LIDARR_0_API_KEY: "${SECRET_LIDARR_API_KEY}"
               READARR_0_URL: http://readarr.media.svc.cluster.local:8787
               READARR_0_API_KEY: "${SECRET_READARR_API_KEY}"
               READARR_1_URL: http://speakarr.media.svc.cluster.local:8787
@@ -97,14 +92,6 @@ spec:
               ports:
                 - port: 53
                   protocol: UDP
-            - to:
-                - podSelector:
-                    matchLabels:
-                      app.kubernetes.io/controller: lidarr
-                      app.kubernetes.io/instance: media-lidarr
-                      app.kubernetes.io/name: media-lidarr
-              ports:
-                - port: 8686
             - to:
                 - podSelector:
                     matchLabels:
