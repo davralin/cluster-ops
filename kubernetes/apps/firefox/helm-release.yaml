@@ -47,7 +47,7 @@ spec:
           firefox:
             image:
               repository: ghcr.io/jlesage/firefox
-              tag: v26.03.1@sha256:a68749c6696c857d992c5b750c234ab86f184bcac92d6c080bab7679c759f845
+              tag: v26.07.1@sha256:cac65caf8f32bcf629c1ccfd54a71053ffcff1c718f64346dadc038bffbb7f72
             env:
               TZ: "${TIMEZONE}"
               USER_ID: 1000
@@ -59,12 +59,10 @@ spec:
               startup: *probes
             securityContext:
               allowPrivilegeEscalation: false
-              # If with ROFS: 05-container-instance-uuid.sh: mkdir: can't create directory '/.docker-instance': Read-only file system
-              # If with emptyDir: mkdir: can't create directory '/.docker-instance': File exists
-              readOnlyRootFilesystem: false
-              # 05-container-instance-uuid.sh: /etc/cont-init.d/05-container-instance-uuid.sh: line 15: can't create /.docker-instance/uuid: Permission denied
+              readOnlyRootFilesystem: true
               #capabilities:
               #  add:
+              #    # 10-init-users.sh: chown: /etc/shadow: Operation not permitted
               #    - CHOWN
               #  drop:
               #    - ALL
