@@ -143,12 +143,16 @@ spec:
                 - matchPattern: '*.cachix.org'
                 - matchName: 'github.com'
                 - matchName: 'cache.nixos.org'
+                - matchName: 'files.pythonhosted.org'
+                - matchName: 'pypi.org'
           - toFQDNs:
             - matchPattern: '*.github.com'
             - matchName: 'github.com'
             - matchPattern: '*.nixos.org'
             - matchName: 'cache.nixos.org'
             - matchPattern: '*.cachix.org'
+            - matchName: 'files.pythonhosted.org'
+            - matchName: 'pypi.org'
             toPorts:
             - ports:
               - port: "443"
