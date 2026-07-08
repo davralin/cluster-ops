@@ -6,17 +6,19 @@ metadata:
   namespace: flux-system
 spec:
   interval: 30m
+  timeout: 6h
   driftDetection:
     mode: enabled
   chart:
     spec:
       chart: rook-ceph-cluster
-      version: v1.20.1
+      version: v1.20.2
       sourceRef:
         kind: HelmRepository
         name: rook-ceph-charts
         namespace: flux-system
       interval: 30m
+      timeout: 6h
   targetNamespace: rook-ceph
   install:
     createNamespace: true
