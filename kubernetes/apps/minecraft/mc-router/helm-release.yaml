@@ -41,5 +41,5 @@ spec:
     minecraftRouter:
       debug:
         enabled: true
-    metrics:
-      backend: prometheus
+      metrics:
+        backend: prometheus
