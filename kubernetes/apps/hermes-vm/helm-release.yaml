@@ -67,7 +67,7 @@ spec:
                 cpu:
                   cores: 2
                 memory:
-                  guest: 4Gi
+                  guest: 8Gi
                 devices:
                   tpm: {}
                   disks:
