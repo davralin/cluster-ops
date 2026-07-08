@@ -6,7 +6,6 @@ metadata:
   namespace: flux-system
 spec:
   interval: 30m
-  timeout: 6h
   driftDetection:
     mode: enabled
   chart:
@@ -18,7 +17,6 @@ spec:
         name: rook-ceph-charts
         namespace: flux-system
       interval: 30m
-      timeout: 6h
   targetNamespace: rook-ceph
   install:
     createNamespace: true
