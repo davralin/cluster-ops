@@ -232,6 +232,25 @@ spec:
     - fromEntities:
       - kube-apiserver
 ---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: prometheus-stack-admission-patch
+  namespace: prometheus
+spec:
+  endpointSelector:
+    matchLabels:
+      app: kube-prometheus-stack-admission-patch
+      app.kubernetes.io/component: prometheus-operator-webhook
+      app.kubernetes.io/instance: prometheus-kube-prometheus-stack
+      app.kubernetes.io/name: kube-prometheus-stack-prometheus-operator
+  egress:
+    - toEntities:
+      - kube-apiserver
+  ingress:
+    - fromEntities:
+      - kube-apiserver
+---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
