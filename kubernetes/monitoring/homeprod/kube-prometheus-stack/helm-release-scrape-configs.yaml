@@ -3,7 +3,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: kube-prometheus-stack-scrapeconfig
-  namespace: monitoring
+  namespace: flux-system
 spec:
   interval: 30m
   driftDetection:
@@ -17,7 +17,7 @@ spec:
         name: dysnix-charts
         namespace: flux-system
       interval: 30m
-  targetNamespace: monitoring
+  targetNamespace: prometheus
   install:
     createNamespace: true
     remediation:
@@ -34,7 +34,7 @@ spec:
         kind: ScrapeConfig
         metadata:
           name: &name node-exporter
-          namespace: monitoring
+          namespace: prometheus
         spec:
           staticConfigs:
             - targets:
@@ -61,7 +61,7 @@ spec:
         kind: ScrapeConfig
         metadata:
           name: &name dnsmasq-node-exporter
-          namespace: monitoring
+          namespace: prometheus
         spec:
           staticConfigs:
             - targets:
@@ -80,7 +80,7 @@ spec:
         kind: ScrapeConfig
         metadata:
           name: &name wireguard-node-exporter
-          namespace: monitoring
+          namespace: prometheus
         spec:
           staticConfigs:
             - targets:

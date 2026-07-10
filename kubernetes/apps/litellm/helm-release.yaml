@@ -237,7 +237,7 @@ spec:
                       app.kubernetes.io/name: kubernetes-ingress
                 - namespaceSelector:
                     matchLabels:
-                      kubernetes.io/metadata.name: monitoring
+                      kubernetes.io/metadata.name: prometheus
                   podSelector:
                     matchLabels:
                       app.kubernetes.io/name: prometheus

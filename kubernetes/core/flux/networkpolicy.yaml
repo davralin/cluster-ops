@@ -26,7 +26,7 @@ spec:
     - from:
         - namespaceSelector:
             matchLabels:
-              kubernetes.io/metadata.name: monitoring
+              kubernetes.io/metadata.name: prometheus
           podSelector:
             matchLabels:
               app.kubernetes.io/name: prometheus
@@ -93,7 +93,7 @@ spec:
     - from:
         - namespaceSelector:
             matchLabels:
-              kubernetes.io/metadata.name: monitoring
+              kubernetes.io/metadata.name: prometheus
           podSelector:
             matchLabels:
               app.kubernetes.io/name: prometheus
@@ -164,7 +164,7 @@ spec:
     - from:
         - namespaceSelector:
             matchLabels:
-              kubernetes.io/metadata.name: monitoring
+              kubernetes.io/metadata.name: prometheus
           podSelector:
             matchLabels:
               app.kubernetes.io/name: prometheus
@@ -184,7 +184,7 @@ spec:
     - to:
         - namespaceSelector:
             matchLabels:
-              kubernetes.io/metadata.name: monitoring
+              kubernetes.io/metadata.name: prometheus
           podSelector:
             matchLabels:
               alertmanager: kube-prom
@@ -244,7 +244,7 @@ spec:
     - from:
         - namespaceSelector:
             matchLabels:
-              kubernetes.io/metadata.name: monitoring
+              kubernetes.io/metadata.name: prometheus
           podSelector:
             matchLabels:
               app.kubernetes.io/name: prometheus

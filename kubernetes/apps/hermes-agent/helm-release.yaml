@@ -261,7 +261,7 @@ spec:
             - to:
                 - namespaceSelector:
                     matchLabels:
-                      kubernetes.io/metadata.name: monitoring
+                      kubernetes.io/metadata.name: prometheus
                   podSelector:
                     matchLabels:
                       prometheus: kube-prom
@@ -274,7 +274,7 @@ spec:
             - to:
                 - namespaceSelector:
                     matchLabels:
-                      kubernetes.io/metadata.name: monitoring
+                      kubernetes.io/metadata.name: prometheus
                   podSelector:
                     matchLabels:
                       alertmanager: kube-prom

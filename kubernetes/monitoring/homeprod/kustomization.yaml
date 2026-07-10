@@ -4,4 +4,4 @@ kind: Kustomization
 resources:
   - kube-prometheus-stack
   - namespace.yaml
-#  - networkpolicy.yaml
+  - networkpolicy.yaml
