@@ -6,4 +6,5 @@ resources:
   - helm-daily-audio-ripper.yaml
   - helm-daily-to-jottacloud.yaml
   - helm-daily-video-ripper.yaml
+  - helm-lfmv.yaml
   - helm-onsite-sync.yaml

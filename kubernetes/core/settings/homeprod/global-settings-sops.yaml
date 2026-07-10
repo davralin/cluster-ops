@@ -43,14 +43,10 @@ stringData:
     SECRET_MAILRISE_GOTIFY: ENC[AES256_GCM,data:AlMr6zVF0hFn4G3LdEF5rv/1QN3/m7j9XoJCnF2yW3N0AIC/ugB1OqdNdi5wEG8bVQyCLkRA9TA=,iv:xC7LJt86d3yMbjNDeaIGIrMg1QBi3dMrQH82n9P1+Ko=,tag:w+tUMOnKC6nd3NZPoS9k5A==,type:str]
     SECRET_ALERTMANAGER_GOTIFY: ENC[AES256_GCM,data:Y3tI8VdZOKsI483wLoWu,iv:3o5QxecEtFRqAz/5L0V9VOEELIuQGYTwizH/PrQip4c=,tag:ByFD6NvxCKx7Xd5MY8RnvA==,type:str]
     SECRET_BORG_PASSPHRASE: ENC[AES256_GCM,data:116eWP9zmAzE9rx64hzQNKWlS3lskMlHxFgNOA0O0nGVts+k4XjWm70ngHV8DSx0ZZHthiPU0Yg6sVqaD5xr44AWd9EVsk/Mqsp/oSM8PAAvaeMXpUQ9KQ==,iv:gzchjXf23eBUAMT9wYx3Kq+kkqelPQHosnkOXy0Nz6g=,tag:zMjxDXAsUWCGA5CayXr2KA==,type:str]
+    SECRET_IMVDB_API_KEY: ENC[AES256_GCM,data:JB4DT2h2/9pz2KHihnCDnXY9cbIcZ39s4bVwoMg4ALAV1Tn0llPWGg==,iv:Gb6pMHl0bMdaVdJBE80n7DFaFvPnNxOr/C+VCZEHL6w=,tag:FOGfS+z+MpNgyEzJDPlTvQ==,type:str]
 sops:
-    kms: []
-    gcp_kms: []
-    azure_kv: []
-    hc_vault: []
     age:
-        - recipient: age13s49lz9hcwqdlgyyde5zr2ynryc5jsydmyvpvhx0klqd0ylkkq0szd3xtm
-          enc: |
+        - enc: |
             -----BEGIN AGE ENCRYPTED FILE-----
             YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSB3ZnhHT3JuRUZBN25OWjVZ
             eWpsQ2xSUGNLeWdJVmNaL3M2T0xqdGc5UWtnCnZkOEM3RVBzY1BVUWM0bGtNMGR5
@@ -58,8 +54,8 @@ sops:
             WlRWNnhCSUNoRGYrMCtUd0xtMWE5T0kKU463aK0iXCULccOQwQJdKe2VbJZk3lvT
             3nClVhYeRZOFIN/rtw8Olir6gEdyrdv0R0n0muv4TsQr4+kC0Gbz2w==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2026-06-13T09:15:58Z"
-    mac: ENC[AES256_GCM,data:UOVhM87QDy3tvJOQEq8Qcjv8s1haS74kHONxgXRjXt9kmXVDTG76zy4Ls4HTD32gl+GqJGYI0KjtsL4BQR+R8ICLRc8hw1uTW6RIkVALS/DjnaaADR/z26sDjudwVtKtw7ve8RVkuhxkCfenOKtVWsGt/8l8G34jHfTtoaIZdsY=,iv:e1N0Ad6Io2+vCzC4DllJ2uoKoknP7GrlGb4LNXBzawI=,tag:Xl/pdRsjgtUFB/OPYW5Y2Q==,type:str]
-    pgp: []
+          recipient: age13s49lz9hcwqdlgyyde5zr2ynryc5jsydmyvpvhx0klqd0ylkkq0szd3xtm
     encrypted_regex: ^(data|stringData)$
+    lastmodified: "2026-07-10T21:37:48Z"
+    mac: ENC[AES256_GCM,data:czHLZn2NM7/zQmqTIa8bn61K5kEwO2XbXOw+/m08JEPyvVuNXb7vQQaDNLf+Aiuz/vlyJHVu8jkFVf26AqjOuxeCGGcBbK93CmdGmutUI0qvAN2Qo4EQKAsbjzsIOp/B93lD50U8tjkt49SM6jvorATr81REtvMQ03UxcIaSzM8=,iv:y+xVZ8BQQKjN9eIE5qSEUabUWnlxhc+dA+0fK4gS18U=,tag:6X9ZLGNUUVV72hccQ3I4zA==,type:str]
     version: 3.9.1
