@@ -56,6 +56,7 @@ spec:
               LIDARR_API_KEY: "${SECRET_LIDARR_API_KEY}"
               OUTPUT_DIR: "/music-videos"
               IMVDB_API_KEY: "${SECRET_IMVDB_API_KEY}"
+              YTDLP_FORMAT: "bestvideo[height<=1080]+bestaudio/best[height<=1080]"
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
