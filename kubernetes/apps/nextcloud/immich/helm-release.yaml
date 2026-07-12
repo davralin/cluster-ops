@@ -71,7 +71,7 @@ spec:
                         - key: app.kubernetes.io/name
                           operator: In
                           values:
-                            - nextcloud
+                            - nextcloud-nextcloud
                         - key: app.kubernetes.io/controller
                           operator: In
                           values:
@@ -99,7 +99,7 @@ spec:
                         - key: app.kubernetes.io/name
                           operator: In
                           values:
-                            - nextcloud
+                            - nextcloud-nextcloud
                         - key: app.kubernetes.io/controller
                           operator: In
                           values:
