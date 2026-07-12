@@ -62,6 +62,21 @@ spec:
       controllers:
         main:
           strategy: Recreate
+          pod:
+            affinity:
+              podAffinity:
+                requiredDuringSchedulingIgnoredDuringExecution:
+                  - labelSelector:
+                      matchExpressions:
+                        - key: app.kubernetes.io/name
+                          operator: In
+                          values:
+                            - nextcloud
+                        - key: app.kubernetes.io/controller
+                          operator: In
+                          values:
+                            - nextcloud
+                    topologyKey: kubernetes.io/hostname
       persistence:
         cache:
           type: persistentVolumeClaim
@@ -75,6 +90,21 @@ spec:
       controllers:
         main:
           strategy: Recreate
+          pod:
+            affinity:
+              podAffinity:
+                requiredDuringSchedulingIgnoredDuringExecution:
+                  - labelSelector:
+                      matchExpressions:
+                        - key: app.kubernetes.io/name
+                          operator: In
+                          values:
+                            - nextcloud
+                        - key: app.kubernetes.io/controller
+                          operator: In
+                          values:
+                            - nextcloud
+                    topologyKey: kubernetes.io/hostname
       probes:
         liveness:
           enabled: true

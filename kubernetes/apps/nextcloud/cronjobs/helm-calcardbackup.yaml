@@ -44,6 +44,21 @@ spec:
           type: RuntimeDefault
     controllers:
       calcardbackup:
+        pod:
+          affinity:
+            podAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                - labelSelector:
+                    matchExpressions:
+                      - key: app.kubernetes.io/name
+                        operator: In
+                        values:
+                          - nextcloud
+                      - key: app.kubernetes.io/controller
+                        operator: In
+                        values:
+                          - nextcloud
+                  topologyKey: kubernetes.io/hostname
         containers:
           calcardbackup:
             image:

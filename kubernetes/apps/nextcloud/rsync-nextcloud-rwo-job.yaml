@@ -1,0 +1,57 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: nextcloud-rwx-to-rwo-rsync
+  namespace: nextcloud
+spec:
+  backoffLimit: 0
+  template:
+    spec:
+      restartPolicy: Never
+      automountServiceAccountToken: false
+      securityContext:
+        runAsUser: 0
+        runAsGroup: 0
+        runAsNonRoot: false
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: rsync
+          image: ghcr.io/davralin/rsync:latest@sha256:1df79b24c6b4b1cc4d279eea448579f352dec98e4d5c8ee54327ae3841146eec
+          command:
+            - /usr/bin/rsync
+          args:
+            - --archive
+            - --hard-links
+            - --acls
+            - --xattrs
+            - --numeric-ids
+            - --delete
+            - --info=progress2
+            - /source/
+            - /dest/
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              add:
+                - CHOWN
+                - DAC_OVERRIDE
+                - FOWNER
+              drop:
+                - ALL
+          volumeMounts:
+            - name: source
+              mountPath: /source
+              readOnly: true
+            - name: dest
+              mountPath: /dest
+      volumes:
+        - name: source
+          persistentVolumeClaim:
+            claimName: nextcloud
+            readOnly: true
+        - name: dest
+          persistentVolumeClaim:
+            claimName: nextcloud-rwo

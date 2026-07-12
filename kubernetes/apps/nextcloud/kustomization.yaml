@@ -12,5 +12,6 @@ resources:
   - networkpolicy.yaml
   - probes.yaml
   - pvc.yaml
+  - rsync-nextcloud-rwo-job.yaml
   - secret.yaml
 #  - volsync.yaml
