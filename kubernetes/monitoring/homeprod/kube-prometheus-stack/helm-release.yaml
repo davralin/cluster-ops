@@ -54,6 +54,7 @@ spec:
             webhook_configs:
               - send_resolved: true
                 url: "${SECRET_ALERTMANAGER_HEALTHCHECKS_IO}"
+          - name: "dummy"
         route:
           group_by: ["..."]
           group_wait: 30s
@@ -95,7 +96,7 @@ spec:
               matchers: # https://github.com/davralin/cluster-ops/issues/4635
                 - alertname =~ "etcdHighNumberOfLeaderChanges|etcdMemberCommunicationSlow|etcdHighNumberOfFailedGRPCRequests"
               continue: false
-            - receiver: "alertmanager-dashboard"
+            - receiver: "dummy"
               matchers:
                 - alertname = "KubeClientCertificateExpiration"
               # KubeVirt uses intentionally short-lived (24h) client certs; triggers the
