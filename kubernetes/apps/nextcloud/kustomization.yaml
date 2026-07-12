@@ -6,12 +6,12 @@ resources:
   - immich
   - database-secret.yaml
   - helm-release-db-v18.yaml
+  - helm-release-utility.yaml
   - helm-release-valkey.yaml
   - helm-release.yaml
   - namespace.yaml
   - networkpolicy.yaml
   - probes.yaml
   - pvc.yaml
-  - rsync-nextcloud-rwo-job.yaml
   - secret.yaml
 #  - volsync.yaml
