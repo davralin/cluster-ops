@@ -84,7 +84,7 @@ spec:
     persistence:
       nextcloud:
         enabled: true
-        existingClaim: nextcloud
+        existingClaim: nextcloud-rwo
       calcardbackup:
         enabled: true
         existingClaim: calcardbackup

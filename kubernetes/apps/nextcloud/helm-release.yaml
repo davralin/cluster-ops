@@ -260,7 +260,7 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: nextcloud
+        existingClaim: nextcloud-rwo
         globalMounts:
           - path: /var/www/html
     networkpolicies:
