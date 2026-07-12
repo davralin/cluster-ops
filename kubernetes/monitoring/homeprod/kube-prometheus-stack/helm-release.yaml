@@ -75,25 +75,26 @@ spec:
               matchers:
                 - alertname =~ "Watchdog"
               continue: false
-            - receiver: "alertmanager-dashboard"
+            - receiver: "dummy"
               matchers:
                 - alertname =~ "InfoInhibitor|CephMonClockSkew|CephPGImbalance"
                 # CephMonClockSkew - nodes get time from NTP, not much more I can do there.
                 # CephPGImbalance - this will always be imbalanced, due to me putting rbd on nvme, while cephfs can flow freely.
               continue: false
-            - receiver: "alertmanager-dashboard"
+            - receiver: "dummy"
               matchers:
                 - alertname = "CephNodeDiskspaceWarning"
                 - mountpoint = "/var"
                 # /var on Talos nodes is expected to be near-full, not actionable.
               continue: false
-              # These trigger when I run backups and media jobs. Keep them visible
-              # on the dashboard without forwarding them to external notifiers.
-            - receiver: "alertmanager-dashboard"
+              # These trigger when I run backups and media jobs, creating false alerts.
+              # I can't override/disable specific alerts, so I null them and create
+              # new alerts which must be firing longer before alerting.
+            - receiver: "dummy"
               matchers:
                 - alertname =~ "NodeDiskIOSaturation|NodeSystemSaturation"
               continue: false
-            - receiver: "alertmanager-dashboard"
+            - receiver: "dummy"
               matchers: # https://github.com/davralin/cluster-ops/issues/4635
                 - alertname =~ "etcdHighNumberOfLeaderChanges|etcdMemberCommunicationSlow|etcdHighNumberOfFailedGRPCRequests"
               continue: false
@@ -103,13 +104,13 @@ spec:
               # KubeVirt uses intentionally short-lived (24h) client certs; triggers the
               # histogram_quantile(0.01) alert. All Talos-managed certs are 1 year.
               continue: false
-            - receiver: "alertmanager-dashboard"
+            - receiver: "dummy"
               matchers:
                 - alertname = "CephNodeInconsistentMTU"
                 - instance = "wireguard.${SECRET_PUBLIC_DOMAIN}"
               # OCI node has MTU 1420 on Cilium interfaces due to WireGuard tunnel overhead.
               continue: false
-            - receiver: "alertmanager-dashboard"
+            - receiver: "dummy"
               matchers:
                 - alertname = "CephNodeNetworkPacketErrors"
                 - instance =~ "wireguard.*"
