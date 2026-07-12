@@ -20,17 +20,24 @@ spec:
         - name: rsync
           image: ghcr.io/davralin/rsync:latest@sha256:1df79b24c6b4b1cc4d279eea448579f352dec98e4d5c8ee54327ae3841146eec
           command:
-            - /usr/bin/rsync
+            - /usr/bin/sh
           args:
-            - --archive
-            - --hard-links
-            - --acls
-            - --xattrs
-            - --filter=-x security.*
-            - --numeric-ids
-            - --delete
-            - /source/
-            - /dest/
+            - -ec
+            - |
+              set -o pipefail
+              /usr/bin/rsync \
+                --archive \
+                --hard-links \
+                --acls \
+                --xattrs \
+                "--filter=-x security.*" \
+                --numeric-ids \
+                --delete \
+                --info=progress2 \
+                --stats \
+                /source/ \
+                /dest/ \
+                2>&1 | /usr/bin/tr '\r' '\n'
           securityContext:
             allowPrivilegeEscalation: false
             readOnlyRootFilesystem: true
