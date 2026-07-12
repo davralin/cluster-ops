@@ -71,7 +71,17 @@ spec:
               app.kubernetes.io/name: gotify-gotify-alertmanager
       ports:
         - port: 8899
-    - to: # Discord
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: alertmanager-dashboard
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/controller: receiver
+      ports:
+        - port: 8080
+          protocol: TCP
+    - to: # healthchecks.io
       - ipBlock:
           cidr: 0.0.0.0/0
           except:

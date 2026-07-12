@@ -1,0 +1,226 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &name alertmanager-dashboard
+  namespace: flux-system
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 5.0.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+      interval: 30m
+  driftDetection:
+    mode: enabled
+  targetNamespace: alertmanager-dashboard
+  install:
+    createNamespace: true
+    remediation:
+      retries: 10
+  upgrade:
+    remediation:
+      retries: 10
+  dependsOn:
+    - name: alertmanager-dashboard-valkey
+      namespace: flux-system
+  values:
+    fullnameOverride: *name
+    global:
+      createDefaultServiceAccount: false
+    defaultPodOptions:
+      automountServiceAccountToken: false
+      enableServiceLinks: false
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+    controllers:
+      receiver:
+        containers:
+          receiver:
+            image:
+              repository: ghcr.io/davralin/alertmanager-dashboard-receiver
+              tag: latest@sha256:b3587aa30e3089645cff20aea7febafa909655323f862c537fc9a1e3c23aff62
+            env:
+              LISTEN_ADDR: ":8080"
+              VALKEY_ADDR: "alertmanager-dashboard-valkey:6379"
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /healthz
+                    port: &port 8080
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 3
+                  failureThreshold: 3
+              readiness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /readyz
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 3
+                  failureThreshold: 3
+              startup: *probes
+            securityContext: &securityContext
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+            resources: &resources
+              requests:
+                cpu: 5m
+                memory: 16Mi
+              limits:
+                memory: 64Mi
+      dashboard:
+        containers:
+          dashboard:
+            image:
+              repository: ghcr.io/davralin/alertmanager-dashboard-dashboard
+              tag: latest@sha256:431dc8040cbe7641128dd25ed5ef8f92b21b45dd35d973a17965063db5702209
+            env:
+              LISTEN_ADDR: ":8080"
+              VALKEY_ADDR: "alertmanager-dashboard-valkey:6379"
+              STALE_AFTER: "90m"
+            probes:
+              liveness: *probes
+              readiness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /readyz
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 3
+                  failureThreshold: 3
+              startup: *probes
+            securityContext: *securityContext
+            resources: *resources
+    service:
+      receiver:
+        controller: receiver
+        ports:
+          http:
+            port: *port
+      dashboard:
+        controller: dashboard
+        ports:
+          http:
+            port: *port
+    ingress:
+      dashboard:
+        enabled: true
+        annotations:
+          haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
+          haproxy.org/ssl-redirect-port: "443"
+          haproxy.org/response-set-header: |
+            Strict-Transport-Security "max-age=31536000"
+            X-Frame-Options "DENY"
+            X-Content-Type-Options "nosniff"
+            Referrer-Policy "strict-origin-when-cross-origin"
+        hosts:
+          - host: &host "alertmanager-dashboard.${SECRET_DEFAULT_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  identifier: dashboard
+                  port: http
+        tls:
+          - hosts:
+              - *host
+            secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
+    networkpolicies:
+      receiver:
+        enabled: true
+        controller: receiver
+        policyTypes:
+          - Ingress
+          - Egress
+        rules:
+          ingress:
+            - from:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: prometheus
+                  podSelector:
+                    matchLabels:
+                      alertmanager: kube-prom
+                      app.kubernetes.io/instance: kube-prom
+                      app.kubernetes.io/managed-by: prometheus-operator
+                      app.kubernetes.io/name: alertmanager
+              ports:
+                - port: *port
+                  protocol: TCP
+          egress:
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: kube-system
+                  podSelector:
+                    matchLabels:
+                      k8s-app: kube-dns
+              ports:
+                - port: 53
+                  protocol: UDP
+            - to:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: valkey
+              ports:
+                - port: 6379
+                  protocol: TCP
+      dashboard:
+        enabled: true
+        controller: dashboard
+        policyTypes:
+          - Ingress
+          - Egress
+        rules:
+          ingress:
+            - from:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: haproxy-controller
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: kubernetes-ingress
+              ports:
+                - port: *port
+                  protocol: TCP
+          egress:
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: kube-system
+                  podSelector:
+                    matchLabels:
+                      k8s-app: kube-dns
+              ports:
+                - port: 53
+                  protocol: UDP
+            - to:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: valkey
+              ports:
+                - port: 6379
+                  protocol: TCP
