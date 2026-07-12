@@ -29,7 +29,6 @@ spec:
             - --filter=-x security.*
             - --numeric-ids
             - --delete
-            - --info=progress2
             - /source/
             - /dest/
           securityContext:
