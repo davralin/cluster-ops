@@ -26,6 +26,7 @@ spec:
             - --hard-links
             - --acls
             - --xattrs
+            - --filter=-x security.*
             - --numeric-ids
             - --delete
             - --info=progress2
