@@ -33,9 +33,9 @@ spec:
       automountServiceAccountToken: false
       enableServiceLinks: false
       securityContext:
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
+        runAsUser: 33
+        runAsGroup: 33
+        fsGroup: 33
         fsGroupChangePolicy: "OnRootMismatch"
         runAsNonRoot: true
         seccompProfile:
@@ -75,10 +75,10 @@ spec:
     persistence:
       source:
         enabled: true
-        existingClaim: nextcloud
+        existingClaim: nextcloud-rwo
       destination:
         enabled: true
-        existingClaim: nextcloud-rwo
+        existingClaim: nextcloud
       tmp:
         enabled: true
         type: emptyDir
