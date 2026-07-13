@@ -5,9 +5,9 @@ metadata:
   name: nextcloud
   namespace: nextcloud
 spec:
-  storageClassName: "${STORAGE_READWRITEONCE}"
+  storageClassName: "${STORAGE_READWRITEMANY}"
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   resources:
     requests:
       storage: 1200Gi
