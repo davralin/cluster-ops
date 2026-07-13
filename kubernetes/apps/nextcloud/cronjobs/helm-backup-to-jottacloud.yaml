@@ -42,6 +42,21 @@ spec:
     controllers:
       backup-to-jottacloud:
         type: cronjob
+        pod:
+          affinity:
+            podAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                - labelSelector:
+                    matchExpressions:
+                      - key: app.kubernetes.io/name
+                        operator: In
+                        values:
+                          - nextcloud-nextcloud
+                      - key: app.kubernetes.io/controller
+                        operator: In
+                        values:
+                          - nextcloud
+                  topologyKey: kubernetes.io/hostname
         cronjob:
           schedule: "27 05 * * *"
         containers:
@@ -68,7 +83,7 @@ spec:
     persistence:
       nextcloud:
         enabled: true
-        existingClaim: nextcloud
+        existingClaim: nextcloud-rwo
         globalMounts:
           - path: /nextcloud/data
       calcardbackup:

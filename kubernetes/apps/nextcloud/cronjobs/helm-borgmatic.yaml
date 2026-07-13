@@ -43,6 +43,21 @@ spec:
     controllers:
       borgmatic:
         type: cronjob
+        pod:
+          affinity:
+            podAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                - labelSelector:
+                    matchExpressions:
+                      - key: app.kubernetes.io/name
+                        operator: In
+                        values:
+                          - nextcloud-nextcloud
+                      - key: app.kubernetes.io/controller
+                        operator: In
+                        values:
+                          - nextcloud
+                  topologyKey: kubernetes.io/hostname
         cronjob:
           schedule: "13 */12 * * *"
         containers:
