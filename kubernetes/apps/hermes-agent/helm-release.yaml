@@ -78,7 +78,6 @@ spec:
                   secretKeyRef:
                     name: hermes-agent-secret
                     key: HASS_TOKEN
-
             probes:
               liveness: &probes
                 enabled: true
@@ -257,6 +256,12 @@ spec:
                     cidr: 10.0.1.79/32
               ports:
                 - port: 443
+                  protocol: TCP
+            - to: # Meridian
+                - ipBlock:
+                    cidr: 10.0.1.61/32
+              ports:
+                - port: 3456
                   protocol: TCP
             - to:
                 - namespaceSelector:
