@@ -72,7 +72,7 @@ spec:
             size: 4Gi
             storageClass: "${STORAGE_READWRITEONCE}"
           walStorage:
-            size: 2Gi
+            size: 4Gi
             storageClass: "${STORAGE_READWRITEONCE}"
           managed:
             roles:
