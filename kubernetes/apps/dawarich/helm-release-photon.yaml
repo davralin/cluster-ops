@@ -46,7 +46,7 @@ spec:
           photon:
             image:
               repository: docker.io/rtuszik/photon-docker
-              tag: 2.3@sha256:827cedf9fa3337e657611d62ada669def75dff61c56b51ae55056155d1a9b236
+              tag: 2.3@sha256:729f883612bde3215c156111b421d8e0a27b1eb411b92ef4a24bd587b8259b04
             command:
               - /photon/.venv/bin/python
             args:
