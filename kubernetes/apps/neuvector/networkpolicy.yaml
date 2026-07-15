@@ -1,0 +1,233 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny
+  namespace: neuvector
+spec:
+  podSelector: {}
+  policyTypes:
+    - Ingress
+    - Egress
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-dns
+  namespace: neuvector
+spec:
+  podSelector: {}
+  policyTypes:
+    - Egress
+  egress:
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: kube-system
+          podSelector:
+            matchLabels:
+              k8s-app: kube-dns
+      ports:
+        - port: 53
+          protocol: UDP
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: controller-policy
+  namespace: neuvector
+spec:
+  podSelector:
+    matchLabels:
+      app: neuvector-controller-pod
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app: neuvector-manager-pod
+      ports:
+        - port: 10443
+          protocol: TCP
+    - from:
+        - podSelector:
+            matchLabels:
+              app: neuvector-scanner-pod
+      ports:
+        - port: 10443
+          protocol: TCP
+        - port: 18400
+          protocol: TCP
+    - from:
+        - podSelector:
+            matchLabels:
+              app: neuvector-enforcer-pod
+      ports:
+        - port: 18300
+          protocol: TCP
+        - port: 18301
+          protocol: TCP
+        - port: 18301
+          protocol: UDP
+        - port: 10443
+          protocol: TCP
+        - port: 18400
+          protocol: TCP
+  egress:
+    - to:
+        - podSelector:
+            matchLabels:
+              app: neuvector-scanner-pod
+    - to:
+        - podSelector:
+            matchLabels:
+              app: neuvector-enforcer-pod
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: manager-policy
+  namespace: neuvector
+spec:
+  podSelector:
+    matchLabels:
+      app: neuvector-manager-pod
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: haproxy-controller
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/name: kubernetes-ingress
+      ports:
+        - port: 8443
+          protocol: TCP
+  egress:
+    - to:
+        - podSelector:
+            matchLabels:
+              app: neuvector-controller-pod
+      ports:
+        - port: 10443
+          protocol: TCP
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: scanner-policy
+  namespace: neuvector
+spec:
+  podSelector:
+    matchLabels:
+      app: neuvector-scanner-pod
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app: neuvector-controller-pod
+    - from:
+        - podSelector:
+            matchLabels:
+              app: neuvector-enforcer-pod
+      ports:
+        - port: 18300
+          protocol: TCP
+        - port: 18301
+          protocol: TCP
+        - port: 18301
+          protocol: UDP
+  egress:
+    - to:
+        - podSelector:
+            matchLabels:
+              app: neuvector-controller-pod
+      ports:
+        - port: 10443
+          protocol: TCP
+        - port: 18400
+          protocol: TCP
+    - to:
+        - podSelector:
+            matchLabels:
+              app: neuvector-enforcer-pod
+      ports:
+        - port: 18401
+          protocol: TCP
+        - port: 18300
+          protocol: TCP
+        - port: 18301
+          protocol: TCP
+        - port: 18301
+          protocol: UDP
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: enforcer-policy
+  namespace: neuvector
+spec:
+  podSelector:
+    matchLabels:
+      app: neuvector-enforcer-pod
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app: neuvector-controller-pod
+    - from:
+        - podSelector:
+            matchLabels:
+              app: neuvector-scanner-pod
+      ports:
+        - port: 18401
+          protocol: TCP
+    - from:
+        - podSelector:
+            matchLabels:
+              app: neuvector-enforcer-pod
+      ports:
+        - port: 18300
+          protocol: TCP
+        - port: 18301
+          protocol: TCP
+        - port: 18301
+          protocol: UDP
+  egress:
+    - to:
+        - podSelector:
+            matchLabels:
+              app: neuvector-controller-pod
+      ports:
+        - port: 18300
+          protocol: TCP
+        - port: 18301
+          protocol: TCP
+        - port: 18301
+          protocol: UDP
+        - port: 10443
+          protocol: TCP
+        - port: 18400
+          protocol: TCP
+    - to:
+        - podSelector:
+            matchLabels:
+              app: neuvector-enforcer-pod
+      ports:
+        - port: 18300
+          protocol: TCP
+        - port: 18301
+          protocol: TCP
+        - port: 18301
+          protocol: UDP

@@ -1,0 +1,296 @@
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: controller-kube-apiserver
+  namespace: neuvector
+spec:
+  endpointSelector:
+    matchLabels:
+      app: neuvector-controller-pod
+  ingress:
+    - fromEntities:
+        - host
+        - remote-node
+      toPorts:
+        - ports:
+            - port: "20443"
+              protocol: TCP
+            - port: "30443"
+              protocol: TCP
+  egress:
+    - toEntities:
+        - host
+        - kube-apiserver
+      toPorts:
+        - ports:
+            - port: "443"
+              protocol: TCP
+            - port: "6443"
+              protocol: TCP
+    - toServices:
+        - k8sService:
+            serviceName: kubernetes
+            namespace: default
+      toPorts:
+        - ports:
+            - port: "443"
+              protocol: TCP
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: scanner-controller
+  namespace: neuvector
+spec:
+  endpointSelector:
+    matchLabels:
+      app: neuvector-scanner-pod
+  egress:
+    - toEndpoints:
+        - matchLabels:
+            app: neuvector-controller-pod
+      toPorts:
+        - ports:
+            - port: "10443"
+              protocol: TCP
+            - port: "18400"
+              protocol: TCP
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: controller-scanner
+  namespace: neuvector
+spec:
+  endpointSelector:
+    matchLabels:
+      app: neuvector-controller-pod
+  ingress:
+    - fromEndpoints:
+        - matchLabels:
+            app: neuvector-scanner-pod
+      toPorts:
+        - ports:
+            - port: "10443"
+              protocol: TCP
+            - port: "18400"
+              protocol: TCP
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: enforcer-controller
+  namespace: neuvector
+spec:
+  endpointSelector:
+    matchLabels:
+      app: neuvector-enforcer-pod
+  egress:
+    - toEndpoints:
+        - matchLabels:
+            app: neuvector-controller-pod
+      toPorts:
+        - ports:
+            - port: "18300"
+              protocol: TCP
+            - port: "18301"
+              protocol: TCP
+            - port: "18301"
+              protocol: UDP
+            - port: "10443"
+              protocol: TCP
+            - port: "18400"
+              protocol: TCP
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: controller-enforcer
+  namespace: neuvector
+spec:
+  endpointSelector:
+    matchLabels:
+      app: neuvector-controller-pod
+  ingress:
+    - fromEndpoints:
+        - matchLabels:
+            app: neuvector-enforcer-pod
+      toPorts:
+        - ports:
+            - port: "18300"
+              protocol: TCP
+            - port: "18301"
+              protocol: TCP
+            - port: "18301"
+              protocol: UDP
+            - port: "10443"
+              protocol: TCP
+            - port: "18400"
+              protocol: TCP
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: enforcer-gossip
+  namespace: neuvector
+spec:
+  endpointSelector:
+    matchLabels:
+      app: neuvector-enforcer-pod
+  ingress:
+    - fromEndpoints:
+        - matchLabels:
+            app: neuvector-enforcer-pod
+      toPorts:
+        - ports:
+            - port: "18300"
+              protocol: TCP
+            - port: "18301"
+              protocol: TCP
+            - port: "18301"
+              protocol: UDP
+  egress:
+    - toEndpoints:
+        - matchLabels:
+            app: neuvector-enforcer-pod
+      toPorts:
+        - ports:
+            - port: "18300"
+              protocol: TCP
+            - port: "18301"
+              protocol: TCP
+            - port: "18301"
+              protocol: UDP
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: scanner-enforcer
+  namespace: neuvector
+spec:
+  endpointSelector:
+    matchLabels:
+      app: neuvector-scanner-pod
+  egress:
+    - toEndpoints:
+        - matchLabels:
+            app: neuvector-enforcer-pod
+      toPorts:
+        - ports:
+            - port: "18401"
+              protocol: TCP
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: enforcer-scanner
+  namespace: neuvector
+spec:
+  endpointSelector:
+    matchLabels:
+      app: neuvector-enforcer-pod
+  ingress:
+    - fromEndpoints:
+        - matchLabels:
+            app: neuvector-scanner-pod
+      toPorts:
+        - ports:
+            - port: "18401"
+              protocol: TCP
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: enforcer-kube-apiserver
+  namespace: neuvector
+spec:
+  endpointSelector:
+    matchLabels:
+      app: neuvector-enforcer-pod
+  egress:
+    - toEntities:
+        - host
+        - kube-apiserver
+      toPorts:
+        - ports:
+            - port: "443"
+              protocol: TCP
+            - port: "6443"
+              protocol: TCP
+    - toServices:
+        - k8sService:
+            serviceName: kubernetes
+            namespace: default
+      toPorts:
+        - ports:
+            - port: "443"
+              protocol: TCP
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: scanner-internet
+  namespace: neuvector
+spec:
+  endpointSelector:
+    matchLabels:
+      app: neuvector-scanner-pod
+  egress:
+    - toEntities:
+        - host
+        - kube-apiserver
+      toPorts:
+        - ports:
+            - port: "443"
+              protocol: TCP
+            - port: "6443"
+              protocol: TCP
+    - toServices:
+        - k8sService:
+            serviceName: kubernetes
+            namespace: default
+      toPorts:
+        - ports:
+            - port: "443"
+              protocol: TCP
+    - toEntities:
+        - world
+      toPorts:
+        - ports:
+            - port: "443"
+              protocol: TCP
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: updater-internet
+  namespace: neuvector
+spec:
+  endpointSelector:
+    matchLabels:
+      app: neuvector-updater-pod
+  egress:
+    - toEntities:
+        - world
+      toPorts:
+        - ports:
+            - port: "443"
+              protocol: TCP
+    - toEntities:
+        - host
+        - kube-apiserver
+      toPorts:
+        - ports:
+            - port: "443"
+              protocol: TCP
+            - port: "6443"
+              protocol: TCP
+    - toServices:
+        - k8sService:
+            serviceName: kubernetes
+            namespace: default
+      toPorts:
+        - ports:
+            - port: "443"
+              protocol: TCP

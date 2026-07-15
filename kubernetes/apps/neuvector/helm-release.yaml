@@ -1,0 +1,92 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: neuvector
+  namespace: flux-system
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: core
+      version: 2.10.3
+      sourceRef:
+        kind: HelmRepository
+        name: neuvector-charts
+        namespace: flux-system
+      interval: 30m
+  driftDetection:
+    mode: enabled
+  targetNamespace: neuvector
+  dependsOn:
+    - name: neuvector-crds
+      namespace: flux-system
+    - name: cert-manager
+      namespace: flux-system
+  install:
+    createNamespace: true
+    remediation:
+      retries: 10
+  upgrade:
+    remediation:
+      retries: 10
+  values:
+    enforcer:
+      internal:
+        certificate:
+          secret: neuvector-internal
+
+    containerd:
+      enabled: true
+      path: /run/containerd/containerd.sock
+
+    internal:
+      certmanager:
+        enabled: true
+      autoGenerateCert: false
+
+    controller:
+      replicas: 1
+      strategy:
+        type: Recreate
+        rollingUpdate: null
+      pvc:
+        enabled: true
+        accessModes:
+          - ReadWriteOnce
+        storageClass: "${STORAGE_READWRITEONCE}"
+        capacity: 1Gi
+      internal:
+        certificate:
+          secret: neuvector-internal
+
+    manager:
+      env:
+        ssl: false
+      internal:
+        certificate:
+          secret: neuvector-internal
+      ingress:
+        enabled: true
+        annotations:
+          haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
+          haproxy.org/ssl-redirect-port: "443"
+          haproxy.org/response-set-header: |
+            Strict-Transport-Security "max-age=31536000"
+            X-Frame-Options "DENY"
+            X-Content-Type-Options "nosniff"
+            Referrer-Policy "strict-origin-when-cross-origin"
+        host: "neuvector.${SECRET_DEFAULT_DOMAIN}"
+        tls: true
+
+    cve:
+      updater:
+        image:
+          tag: latest
+      scanner:
+        replicas: 1
+        image:
+          tag: latest
+        internal:
+          certificate:
+            secret: neuvector-internal

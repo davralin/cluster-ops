@@ -1,0 +1,10 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: neuvector-charts
+  namespace: flux-system
+spec:
+  interval: 2h
+  url: https://neuvector.github.io/neuvector-helm/
+  timeout: 3m
