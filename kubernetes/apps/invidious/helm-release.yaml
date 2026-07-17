@@ -89,7 +89,7 @@ spec:
                   name: invidious-config
             image:
               repository: quay.io/invidious/invidious-companion
-              tag: latest@sha256:e1007bb7201f76d3516a0b3534bb9443cc3dedd6b043725a5137dcbd9ce87f4e
+              tag: latest@sha256:87ba86a7b216aa9180f0010c113ff509989fc8eb71bd6e2b5fa7ec12ef8994a1
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
