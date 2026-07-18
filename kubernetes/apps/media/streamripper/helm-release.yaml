@@ -46,7 +46,7 @@ spec:
           streamripper:
             image:
               repository: ghcr.io/davralin/streamripper
-              tag: latest@sha256:baf1e449e44058aa6299dfac6a22d8dd581595ca0e863b83c5676f4392d13f67
+              tag: latest@sha256:01b84a485656e0ec6b82356fed0fc4762237891e439cb42aec01d3114d1885aa
             command: ['/media/streamripper.sh']
             securityContext:
               allowPrivilegeEscalation: false
