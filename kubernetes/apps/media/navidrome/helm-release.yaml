@@ -56,7 +56,7 @@ spec:
                 mv /data/navidrome/plugins/audiomuseai.ndp.tmp /data/navidrome/plugins/audiomuseai.ndp
             env:
               # renovate: datasource=github-releases depName=NeptuneHub/AudioMuse-AI-NV-plugin
-              AUDIOMUSEAI_PLUGIN_URL: https://github.com/NeptuneHub/AudioMuse-AI-NV-plugin/releases/download/v8/audiomuseai.ndp
+              AUDIOMUSEAI_PLUGIN_URL: v9
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
