@@ -47,7 +47,7 @@ spec:
           wallos:
             image:
               repository: ghcr.io/ellite/wallos
-              tag: 5.2.0@sha256:81dadf61da303fd199701c7eec426f4cf7fba32d137b9b167f67433d4fa98dc8
+              tag: v5.4.0@sha256:7dd98c38143ca53895d315e3c01555d13ac91b785f628282ef2041f571a6ec2d
             env:
               TZ: "${TIMEZONE}"
             probes:
