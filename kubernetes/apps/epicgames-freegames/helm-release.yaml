@@ -65,7 +65,7 @@ spec:
           epicgames-free:
             image:
               repository: ghcr.io/claabs/epicgames-freegames-node
-              tag: debian@sha256:8d14be0e4b83f923147b1aeaafc28052fd0e2919df1948acefbbff7f7c806467
+              tag: debian@sha256:9e5f6d90cd2220079b02aca10396d02ce11db4f3963be9739b82035405f83e00
             env:
               TZ: "${TIMEZONE}"
               RUN_ON_STARTUP: "true"
