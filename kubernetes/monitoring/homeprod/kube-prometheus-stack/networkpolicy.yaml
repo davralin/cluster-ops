@@ -71,6 +71,19 @@ spec:
               app.kubernetes.io/name: gotify-gotify-alertmanager
       ports:
         - port: 8899
+          protocol: TCP
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: gotify
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/controller: gotify
+              app.kubernetes.io/instance: gotify-gotify
+              app.kubernetes.io/name: gotify-gotify
+      ports:
+        - port: 80
+          protocol: TCP
     - to:
         - namespaceSelector:
             matchLabels:

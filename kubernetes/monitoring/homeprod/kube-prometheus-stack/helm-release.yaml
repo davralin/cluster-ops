@@ -51,6 +51,29 @@ spec:
             webhook_configs:
               - url: http://gotify-alertmanager.gotify.svc.cluster.local:8899/alert
                 send_resolved: true
+              - url: http://gotify.gotify.svc.cluster.local:80/message
+                send_resolved: true
+                http_config:
+                  http_headers:
+                    X-Gotify-Key:
+                      secrets:
+                        - "${SECRET_ALERTMANAGER_GOTIFY}"
+                payload:
+                  title: '{{ template "__subject" . }}'
+                  priority: '{{ if eq .Status "firing" }}5{{ else }}0{{ end }}'
+                  extras:
+                    "client::display":
+                      contentType: text/plain
+                  message: |
+                    {{ .CommonAnnotations.SortedPairs.Values | join " " }}
+                    {{ if gt (len .Alerts.Firing) 0 }}
+                    Alerts Firing:
+                    {{ template "__text_alert_list" .Alerts.Firing }}
+                    {{ end }}
+                    {{ if gt (len .Alerts.Resolved) 0 }}
+                    Alerts Resolved:
+                    {{ template "__text_alert_list" .Alerts.Resolved }}
+                    {{ end }}
           - name: "healthchecksio"
             webhook_configs:
               - send_resolved: true
