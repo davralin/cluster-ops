@@ -27,31 +27,6 @@ spec:
       retries: 10
   dependsOn:
     - name: adguard
-  valuesFrom:
-    - targetPath: controllers.adguard-sync.containers.adguard-sync.env.ORIGIN_URL
-      kind: Secret
-      name: adguard-sync-secret
-      valuesKey: ORIGIN_URL
-    - targetPath: controllers.adguard-sync.containers.adguard-sync.env.ORIGIN_USERNAME
-      kind: Secret
-      name: adguard-sync-secret
-      valuesKey: USERNAME
-    - targetPath: controllers.adguard-sync.containers.adguard-sync.env.ORIGIN_PASSWORD
-      kind: Secret
-      name: adguard-sync-secret
-      valuesKey: PASSWORD
-    - targetPath: controllers.adguard-sync.containers.adguard-sync.env.REPLICA1_USERNAME
-      kind: Secret
-      name: adguard-sync-secret
-      valuesKey: USERNAME
-    - targetPath: controllers.adguard-sync.containers.adguard-sync.env.REPLICA1_PASSWORD
-      kind: Secret
-      name: adguard-sync-secret
-      valuesKey: PASSWORD
-    - targetPath: controllers.adguard-sync.containers.adguard-sync.env.REPLICA1_URL
-      kind: Secret
-      name: adguard-sync-secret
-      valuesKey: REPLICA1_URL
   values:
     fullnameOverride: *name
     global:
@@ -79,6 +54,38 @@ spec:
               TZ: "${TIMEZONE}"
               API_PORT: '0'
               CRON: '*/30 * * * *'
+              ORIGIN_URL:
+                valueFrom:
+                  secretKeyRef:
+                    name: adguard-sync-secret
+                    key: ORIGIN_URL
+              ORIGIN_USERNAME:
+                valueFrom:
+                  secretKeyRef:
+                    name: adguard-sync-secret
+                    key: USERNAME
+              ORIGIN_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: adguard-sync-secret
+                    key: PASSWORD
+              REPLICA1_URL:
+                valueFrom:
+                  secretKeyRef:
+                    name: adguard-sync-secret
+                    key: REPLICA1_URL
+              REPLICA1_USERNAME:
+                valueFrom:
+                  secretKeyRef:
+                    name: adguard-sync-secret
+                    key: USERNAME
+              REPLICA1_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: adguard-sync-secret
+                    key: PASSWORD
+              FEATURES_DHCP_SERVER_CONFIG: "false"
+              FEATURES_DHCP_STATIC_LEASES: "false"
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -119,14 +126,10 @@ spec:
               ports:
                 - port: 80
                   protocol: TCP
-            - to: # For synching external adguards
+            - to:
               - ipBlock:
-                  cidr: 0.0.0.0/0
+                  cidr: 10.0.1.1/32
               ports:
                 - port: 80
-                  protocol: TCP
-                - port: 443
-                  protocol: TCP
-                - port: 8443
                   protocol: TCP
           ingress: []
