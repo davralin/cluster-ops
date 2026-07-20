@@ -66,7 +66,7 @@ spec:
             enablePodAntiAffinity: true
             topologyKey: kubernetes.io/hostname
             podAntiAffinityType: required
-          imageName: ghcr.io/tensorchord/cloudnative-vectorchord:18.0-0.5.3
+          imageName: ghcr.io/tensorchord/cloudnative-vectorchord:18.4-1.1.1@sha256:9c9246cb8ba0332f7e1115def71329410657237db8ef104160a479a89c7e03a2
           primaryUpdateStrategy: unsupervised
           storage:
             size: 20Gi

@@ -93,6 +93,17 @@
       ],
     },
     {
+      description: 'Version cloudnative-vectorchord as PostgreSQL plus extension version',
+      matchDatasources: [
+        'docker',
+      ],
+      matchPackageNames: [
+        'ghcr.io/tensorchord/cloudnative-vectorchord',
+      ],
+      allowedVersions: '/^18\\./',
+      versioning: 'regex:^(?<major>\\d+)\\.(?<minor>\\d+)(?:-(?<patch>\\d+)\\.(?<build>\\d+)\\.(?<revision>\\d+))?$',
+    },
+    {
       description: 'Commit messages for Minecraft plugins (github-releases used in pluginUrls)',
       matchDatasources: ['github-releases'],
       matchPackageNames: [
