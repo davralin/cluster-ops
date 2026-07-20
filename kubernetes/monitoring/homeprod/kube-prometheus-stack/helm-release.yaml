@@ -129,10 +129,6 @@ spec:
                 - alertname =~ "NodeDiskIOSaturation|NodeSystemSaturation"
               continue: false
             - receiver: "dummy"
-              matchers: # https://github.com/davralin/cluster-ops/issues/4635
-                - alertname =~ "etcdHighNumberOfLeaderChanges|etcdMemberCommunicationSlow|etcdHighNumberOfFailedGRPCRequests"
-              continue: false
-            - receiver: "dummy"
               matchers:
                 - alertname = "KubeClientCertificateExpiration"
               # KubeVirt uses intentionally short-lived (24h) client certs; triggers the
