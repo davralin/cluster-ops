@@ -56,10 +56,10 @@ spec:
                 http_config:
                   http_headers:
                     X-Gotify-Key:
-                      secrets:
+                      values:
                         - "${SECRET_ALERTMANAGER_GOTIFY}"
                 payload:
-                  title: '{{ template "__subject" . }}'
+                  title: '{{ .Status | toUpper }} {{ if eq .Status "firing" }}{{ len .Alerts.Firing }}{{ else }}{{ len .Alerts.Resolved }}{{ end }} {{ .CommonLabels.alertname }}'
                   priority: '{{ if eq .Status "firing" }}5{{ else }}0{{ end }}'
                   extras:
                     "client::display":
