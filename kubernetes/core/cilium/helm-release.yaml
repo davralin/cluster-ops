@@ -55,6 +55,12 @@ spec:
       mode: snat
     hubble:
       enabled: true
+      tls:
+        auto:
+          enabled: true
+          method: cronJob
+          certValidityDuration: 1095
+          schedule: "0 0 1 */4 *"
       metrics:
         enabled:
           - dns
