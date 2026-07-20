@@ -96,6 +96,9 @@ spec:
         existingClaim: bedrock-survival
     mcbackup:
       enabled: true
+      image:
+        repository: ghcr.io/itzg/mc-backup
+        tag: "2026.7.2@sha256:db2bca9a54aac96e8db74be038b920cb549c8e3b3384067251aad5e178dd03cc"
       pauseIfNoPlayers: true
       backupMethod: rclone
       excludes: "*.jar,cache,logs,lost+found"
