@@ -59,21 +59,32 @@ spec:
                       values:
                         - "${SECRET_ALERTMANAGER_GOTIFY}"
                 payload:
-                  title: '{{ .Status | toUpper }} {{ if eq .Status "firing" }}{{ len .Alerts.Firing }}{{ else }}{{ len .Alerts.Resolved }}{{ end }} {{ .CommonLabels.alertname }}'
+                  title: '{{ .Status | toUpper }} {{ .CommonLabels.alertname }}{{ with .CommonLabels.instance }} {{ . }}{{ end }}'
                   priority: '{{ if eq .Status "firing" }}5{{ else }}0{{ end }}'
                   extras:
                     "client::display":
-                      contentType: text/plain
+                      contentType: text/markdown
                   message: |
-                    {{ .CommonAnnotations.SortedPairs.Values | join " " }}
                     {{ if gt (len .Alerts.Firing) 0 }}
-                    Alerts Firing:
-                    {{ template "__text_alert_list" .Alerts.Firing }}
+                    {{ range .Alerts.Firing }}
+                    **{{ .Annotations.summary }}**
+
+                    **Instance:** `{{ .Labels.instance }}`
+                    **Since:** {{ .StartsAt }}
+                    **Source:** [Prometheus]({{ .GeneratorURL }})
+                    {{ end }}
                     {{ end }}
                     {{ if gt (len .Alerts.Resolved) 0 }}
-                    Alerts Resolved:
-                    {{ template "__text_alert_list" .Alerts.Resolved }}
+                    {{ range .Alerts.Resolved }}
+                    **{{ .Annotations.summary }}**
+
+                    **Instance:** `{{ .Labels.instance }}`
+                    **Resolved:** {{ .EndsAt }}
+                    **Source:** [Prometheus]({{ .GeneratorURL }})
                     {{ end }}
+                    {{ end }}
+
+                    [View in Alertmanager]({{ .ExternalURL }})
           - name: "healthchecksio"
             webhook_configs:
               - send_resolved: true
