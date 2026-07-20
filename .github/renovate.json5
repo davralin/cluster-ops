@@ -466,8 +466,9 @@
         '/kubernetes/.+\\.yaml$/',
       ],
       matchStrings: [
-        'imageName: (?<depName>\\S+):(?<currentValue>\\d+\\.\\S+)',
+        '(?<indentation>\\s*)imageName: (?<depName>\\S+):(?<currentValue>\\d+[^\\s@]*)(?:@(?<currentDigest>sha256:[a-f0-9]+))?',
       ],
+      autoReplaceStringTemplate: '{{{indentation}}}imageName: {{{depName}}}:{{{newValue}}}{{#if newDigest}}@{{{newDigest}}}{{/if}}',
       datasourceTemplate: 'docker',
     },
     {
