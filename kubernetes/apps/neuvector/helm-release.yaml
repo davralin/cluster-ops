@@ -19,8 +19,6 @@ spec:
     mode: enabled
   targetNamespace: neuvector
   dependsOn:
-    - name: neuvector-crds
-      namespace: flux-system
     - name: cert-manager
       namespace: flux-system
   install:
