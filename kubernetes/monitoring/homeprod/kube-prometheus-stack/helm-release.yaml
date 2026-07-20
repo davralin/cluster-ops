@@ -49,8 +49,6 @@ spec:
                 send_resolved: true
           - name: "Gotify"
             webhook_configs:
-              - url: http://gotify-alertmanager.gotify.svc.cluster.local:8899/alert
-                send_resolved: true
               - url: http://gotify.gotify.svc.cluster.local:80/message
                 send_resolved: true
                 http_config:
