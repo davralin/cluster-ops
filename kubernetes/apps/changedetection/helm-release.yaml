@@ -125,15 +125,6 @@ spec:
                 - port: 53
                   protocol: UDP
             - to:
-                - podSelector:
-                    matchLabels:
-                      app.kubernetes.io/controller: sockpuppetbrowser
-                      app.kubernetes.io/instance: changedetection-sockpuppetbrowser
-                      app.kubernetes.io/name: changedetection-sockpuppetbrowser
-              ports:
-                - port: 3000
-                  protocol: TCP
-            - to:
                 - namespaceSelector:
                     matchLabels:
                       kubernetes.io/metadata.name: browserless
