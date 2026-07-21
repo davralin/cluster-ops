@@ -143,13 +143,5 @@ spec:
                       app.kubernetes.io/managed-by: awx-operator
                       app.kubernetes.io/name: awx-task
                       app.kubernetes.io/part-of: awx
-                - namespaceSelector:
-                    matchLabels:
-                      kubernetes.io/metadata.name: media
-                  podSelector:
-                    matchLabels:
-                      app.kubernetes.io/controller: qbittorrent
-                      app.kubernetes.io/instance: media-qbittorrent
-                      app.kubernetes.io/name: media-qbittorrent
               ports:
                 - port: *port
