@@ -49,7 +49,7 @@ spec:
               tag: 0.55.8@sha256:5438423d5e906eff4e8f7886823482ad23f472bf7b8530ccaca89fb48c337882
             env:
               TZ: "${TIMEZONE}"
-              PLAYWRIGHT_DRIVER_URL: "ws://sockpuppetbrowser:3000"
+              PLAYWRIGHT_DRIVER_URL: "ws://browserless.browserless.svc.cluster.local:3000/chromium"
               PUID: 1000
               PGID: 1000
               BASE_URL: &host "changedetection.${SECRET_DEFAULT_DOMAIN}"
@@ -130,6 +130,18 @@ spec:
                       app.kubernetes.io/controller: sockpuppetbrowser
                       app.kubernetes.io/instance: changedetection-sockpuppetbrowser
                       app.kubernetes.io/name: changedetection-sockpuppetbrowser
+              ports:
+                - port: 3000
+                  protocol: TCP
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: browserless
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: browserless
+                      app.kubernetes.io/instance: browserless-browserless
+                      app.kubernetes.io/name: browserless-browserless
               ports:
                 - port: 3000
                   protocol: TCP
