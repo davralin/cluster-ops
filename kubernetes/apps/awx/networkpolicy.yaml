@@ -73,16 +73,6 @@ spec:
     - to:
         - namespaceSelector:
             matchLabels:
-              kubernetes.io/metadata.name: mailrise
-          podSelector:
-            matchLabels:
-              app.kubernetes.io/name: mailrise-mailrise
-      ports:
-        - port: 8025
-          protocol: TCP
-    - to:
-        - namespaceSelector:
-            matchLabels:
               kubernetes.io/metadata.name: gotify
           podSelector:
             matchLabels:

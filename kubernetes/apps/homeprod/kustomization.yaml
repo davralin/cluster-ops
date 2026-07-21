@@ -37,7 +37,6 @@ resources:
   - ../lubelogger
   - ../mailbackup
   - ../mailrelay
-  - ../mailrise
   - ../mealie
   - ../media
   - ../metrics-server
