@@ -47,7 +47,7 @@ spec:
           paperless-gpt:
             image:
               repository: ghcr.io/icereed/paperless-gpt
-              tag: v0.26.1@sha256:6b9024d1adebfcd6bd7ec5e9da2ca17f9879b1fb5ce749d72905bbb121091ef8
+              tag: v0.27.0@sha256:855d9df5bacb2bed60bd520f1ffe0d118695aef9f77d37466ae85823001f547d
             env:
               PAPERLESS_BASE_URL: "http://paperless-ngx.paperless-ngx.svc.cluster.local:8000"
               PAPERLESS_PUBLIC_URL: "https://paperless-ngx.${SECRET_DEFAULT_DOMAIN}"
