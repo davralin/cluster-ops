@@ -26,33 +26,10 @@ spec:
     remediation:
       retries: 10
   dependsOn:
-    - name: plugin-barman-cloud
+    - name: cloudnative-pg
       namespace: flux-system
   values:
     resources:
-      - apiVersion: barmancloud.cnpg.io/v1
-        kind: ObjectStore
-        metadata:
-          name: *name
-          namespace: *namespace
-        spec:
-          retentionPolicy: 7d
-          configuration:
-            destinationPath: s3://postgresql-${CLUSTER_NAME}
-            endpointURL: "${SECRET_S3_CNPG_URL}"
-            s3Credentials:
-              accessKeyId:
-                name: *name
-                key: s3-access-key
-              secretAccessKey:
-                name: *name
-                key: s3-secret-key
-              region:
-                name: *name
-                key: region
-            wal:
-              compression: bzip2
-              maxParallel: 4
       - apiVersion: postgresql.cnpg.io/v1
         kind: Cluster
         metadata:
@@ -71,9 +48,9 @@ spec:
           storage:
             size: 2Gi
             storageClass: "${STORAGE_READWRITEONCE}"
-          walStorage:
-            size: 2Gi
-            storageClass: "${STORAGE_READWRITEONCE}"
+          #walStorage:
+          #  size: 2Gi
+          #  storageClass: "${STORAGE_READWRITEONCE}"
           managed:
             roles:
               - name: paperless-ngx
@@ -85,17 +62,17 @@ spec:
           bootstrap:
             # https://docs.paperless-ngx.com/administration/#importer
             # The importer should be run against a completely empty installation (database and directories) of Paperless-ngx.
-            ## use this to start a new cluster
-            #initdb:
-            #  database: paperless-ngx
-            #  owner: paperless-ngx
-            #  secret:
-            #    name: paperless-ngx-basic-auth
-            # use this to recover a net-new cluster from a backup
-            recovery:
-              source: *name
+            # use this to start a new cluster
+            initdb:
               database: paperless-ngx
               owner: paperless-ngx
+              secret:
+                name: paperless-ngx-basic-auth
+            # use this to recover a net-new cluster from a backup
+            #recovery:
+            #  source: *name
+            #  database: paperless-ngx
+            #  owner: paperless-ngx
             # # use this to 'migrate' from an existing cnpg cluster (e.g. "paperless-ngx-postgres-v17") to the new cluster
             #initdb:
             #  database: paperless-ngx
@@ -110,47 +87,11 @@ spec:
             enablePodMonitor: "${MONITORING_PROMETHEUS}"
           resources:
             requests:
-              cpu: "400m"
-              memory: "256Mi"
-            limits:
+              cpu: "100m"
               memory: "1Gi"
-          plugins:
-            - name: barman-cloud.cloudnative-pg.io
-              isWALArchiver: true
-              parameters:
-                barmanObjectName: *name
-          externalClusters:
-            # this represents the s3 backup to restore from. Must be same version.
-            - name: *name
-              plugin:
-                name: barman-cloud.cloudnative-pg.io
-                parameters:
-                  barmanObjectName: *name
-                  serverName: *name
-            # # this represents an existing cnpg cluster to migrate from (e.g. upgrading from postgres v17 to postgres v18)
-             #- name: paperless-ngx-postgres-v17
-             #  connectionParameters:
-             #    host: paperless-ngx-postgres-v17
-             #    user: postgres
-             #    dbname: postgres
-             #    sslmode: require
-             #  password:
-             #    name: paperless-ngx-postgres-v17
-             #    key: password
-      - apiVersion: postgresql.cnpg.io/v1
-        kind: ScheduledBackup
-        metadata:
-          name: *name
-          namespace: *namespace
-        spec:
-          schedule: "0 37 01 * * *"
-          immediate: true
-          backupOwnerReference: self
-          method: plugin
-          pluginConfiguration:
-            name: barman-cloud.cloudnative-pg.io
-          cluster:
-            name: *name
+            limits:
+              memory: "2Gi"
+          # Backups are intentionally handled by paperless document_exporter + Borgmatic.
       - apiVersion: networking.k8s.io/v1
         kind: NetworkPolicy
         metadata:
@@ -224,12 +165,6 @@ spec:
               ports:
                 - port: 53
                   protocol: UDP
-            - to: # S3-Backup
-              - ipBlock:
-                  cidr: 10.0.1.75/32
-              ports:
-                - port: 3900
-                  protocol: TCP
       - apiVersion: cilium.io/v2
         kind: CiliumNetworkPolicy
         metadata:

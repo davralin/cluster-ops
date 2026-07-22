@@ -25,6 +25,9 @@ spec:
   upgrade:
     remediation:
       retries: 10
+  dependsOn:
+    - name: paperless-ngx-postgres-v18
+      namespace: flux-system
   values:
     fullnameOverride: *name
     global:
@@ -73,18 +76,18 @@ spec:
               PAPERLESS_OCR_LANGUAGES: "eng nor"
               PAPERLESS_REDIS: "redis://paperless-ngx-valkey.paperless-ngx.svc.cluster.local:6379"
               PAPERLESS_URL: "https://paperless-ngx.${SECRET_DEFAULT_DOMAIN}"
-              #PAPERLESS_DBHOST: "paperless-ngx-postgres-v18-rw.paperless-ngx.svc.cluster.local"
-              #PAPERLESS_DBNAME: "paperless-ngx"
-              #PAPERLESS_DBUSER:
-              #  valueFrom:
-              #    secretKeyRef:
-              #      name: paperless-ngx-basic-auth
-              #      key: username
-              #PAPERLESS_DBPASS:
-              #  valueFrom:
-              #    secretKeyRef:
-              #      name: paperless-ngx-basic-auth
-              #      key: password
+              PAPERLESS_DBHOST: "paperless-ngx-postgres-v18-rw.paperless-ngx.svc.cluster.local"
+              PAPERLESS_DBNAME: "paperless-ngx"
+              PAPERLESS_DBUSER:
+                valueFrom:
+                  secretKeyRef:
+                    name: paperless-ngx-basic-auth
+                    key: username
+              PAPERLESS_DBPASS:
+                valueFrom:
+                  secretKeyRef:
+                    name: paperless-ngx-basic-auth
+                    key: password
               PAPERLESS_TIKA_ENABLED: "1"
               PAPERLESS_TIKA_ENDPOINT: "http://paperless-ngx-tika.paperless-ngx.svc.cluster.local:9998"
               PAPERLESS_TIKA_GOTENBERG_ENDPOINT: "http://paperless-ngx-gotenberg.paperless-ngx.svc.cluster.local:3000"
