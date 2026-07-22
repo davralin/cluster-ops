@@ -344,7 +344,7 @@ spec:
                   podSelector:
                     matchLabels:
                       app.kubernetes.io/controller: daily-to-consume
-                      app.kubernetes.io/instance: paperless-ngx-daily-to-consume
-                      app.kubernetes.io/name: paperless-ngx-daily-to-consume
+                      app.kubernetes.io/instance: paperless-ngx-paperless-ngx-daily-to-consume
+                      app.kubernetes.io/name: paperless-ngx-paperless-ngx-daily-to-consume
               ports:
                 - port: *port
