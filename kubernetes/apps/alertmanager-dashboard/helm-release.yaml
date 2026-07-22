@@ -94,7 +94,7 @@ spec:
           dashboard:
             image:
               repository: ghcr.io/davralin/alertmanager-dashboard-dashboard
-              tag: latest@sha256:b8ac13137a3091e97b3d6ecbeef608e5fd8555f2ea134c83c8cbe17bdbfbb064
+              tag: latest@sha256:370ba638bbd7b83cebeab566cf4803e154e19444545ab125af5f1cfd7b3441d3
             env:
               LISTEN_ADDR: ":8080"
               VALKEY_ADDR: "alertmanager-dashboard-valkey:6379"
