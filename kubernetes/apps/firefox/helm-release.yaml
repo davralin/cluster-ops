@@ -106,6 +106,10 @@ spec:
         type: emptyDir
         globalMounts:
           - path: /tmp
+      run:
+        type: emptyDir
+        globalMounts:
+          - path: /run
       vartmp:
         type: emptyDir
         globalMounts:
