@@ -84,7 +84,7 @@ spec:
     persistence:
       nextcloud:
         enabled: true
-        existingClaim: nextcloud-rwo
+        existingClaim: nextcloud
         advancedMounts:
           backup-to-jottacloud:
             backup-to-jottacloud:

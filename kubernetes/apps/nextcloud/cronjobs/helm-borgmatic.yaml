@@ -107,7 +107,7 @@ spec:
     persistence:
       nextcloud:
         enabled: true
-        existingClaim: nextcloud-rwo
+        existingClaim: nextcloud
         globalMounts:
           - path: /nextcloud/data
       calcardbackup:

@@ -84,7 +84,7 @@ spec:
           storageClass: "${STORAGE_READWRITEONCE}"
         external:
           enabled: true
-          existingClaim: nextcloud-rwo
+          existingClaim: nextcloud
           readOnly: true
     server:
       controllers:
@@ -142,7 +142,7 @@ spec:
       persistence:
         external:
           enabled: true
-          existingClaim: nextcloud-rwo
+          existingClaim: nextcloud
           readOnly: true
       ingress:
         main:
