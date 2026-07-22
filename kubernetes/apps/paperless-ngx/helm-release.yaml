@@ -193,10 +193,16 @@ spec:
             paperless-ngx:
               - path: /usr/src/paperless/data
                 subPath: data
-              - path: /usr/src/paperless/consume
-                subPath: consume
               - path: /usr/src/paperless/media
                 subPath: media
+      consume:
+        enabled: true
+        existingClaim: paperless-ngx-consume
+        advancedMounts:
+          paperless-ngx:
+            paperless-ngx:
+              - path: /usr/src/paperless/consume
+                subPath: .
       export:
         enabled: true
         existingClaim: paperless-ngx-export
@@ -204,14 +210,6 @@ spec:
           paperless-ngx:
             paperless-ngx:
               - path: /export
-                subPath: .
-                readOnly: false
-      #run:
-      #  type: emptyDir
-      #  advancedMounts:
-      #    paperless-ngx:
-      #      paperless-ngx:
-      #        - path: /run
       tmp:
         type: emptyDir
         advancedMounts:
