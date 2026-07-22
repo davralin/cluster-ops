@@ -91,7 +91,7 @@ spec:
       external:
         controller: *name
         type: LoadBalancer
-        externalTrafficPolicy: Local
+        #externalTrafficPolicy: Local
         loadBalancerIP: 10.0.1.35
         ports:
           smtp:
