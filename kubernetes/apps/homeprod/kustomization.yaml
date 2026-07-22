@@ -49,7 +49,6 @@ resources:
   - ../ollama
   - ../openwebui
   - ../paperless-ngx
-  - ../papra
   - ../reloader
   - ../remotebackup
   - ../rssbridge
