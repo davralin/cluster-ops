@@ -15,4 +15,3 @@ resources:
   - probes.yaml
   - pvc.yaml
   - secret.yaml
-  #- volsync.yaml
