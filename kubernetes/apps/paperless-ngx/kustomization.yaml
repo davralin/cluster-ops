@@ -5,7 +5,7 @@ resources:
   - backup-ssh-key.yaml
   - database-secret.yaml
   - helm-borgmatic.yaml
-  #- helm-daily-to-consume.yaml
+  - helm-daily-to-consume.yaml
   - helm-release-db-v18.yaml
   - helm-release-exporter.yaml
   #- helm-release-gpt.yaml

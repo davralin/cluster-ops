@@ -338,5 +338,13 @@ spec:
                       app.kubernetes.io/controller: jottacloud-photos-to-nextcloud
                       app.kubernetes.io/instance: nextcloud-jottacloud-photos-to-nextcloud
                       app.kubernetes.io/name: nextcloud-jottacloud-photos-to-nextcloud
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: paperless-ngx
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: daily-to-consume
+                      app.kubernetes.io/instance: paperless-ngx-daily-to-consume
+                      app.kubernetes.io/name: paperless-ngx-daily-to-consume
               ports:
                 - port: *port
