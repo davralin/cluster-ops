@@ -84,6 +84,7 @@ spec:
                   secretKeyRef:
                     name: adguard-sync-secret
                     key: PASSWORD
+              FEATURES_DNS_SERVER_CONFIG: "false"
               FEATURES_DHCP_SERVER_CONFIG: "false"
               FEATURES_DHCP_STATIC_LEASES: "false"
             securityContext:
