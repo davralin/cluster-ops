@@ -71,11 +71,6 @@ spec:
       consume:
         enabled: true
         existingClaim: paperless-ngx-consume
-        advancedMounts:
-          daily-to-consume:
-            daily-to-consume:
-              - path: /consume
-                subPath: .
     networkpolicies:
       daily-to-consume:
         enabled: true
