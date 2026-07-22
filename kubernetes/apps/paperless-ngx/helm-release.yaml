@@ -205,7 +205,7 @@ spec:
             paperless-ngx:
               - path: /export
                 subPath: .
-                readOnly: true
+                readOnly: false
       #run:
       #  type: emptyDir
       #  advancedMounts:

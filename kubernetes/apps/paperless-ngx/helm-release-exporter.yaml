@@ -28,102 +28,101 @@ spec:
   values:
     fullnameOverride: *name
     global:
-      createDefaultServiceAccount: false
+      createDefaultServiceAccount: true
+    serviceAccount:
+      paperless-ngx-exporter: {}
     defaultPodOptions:
-      automountServiceAccountToken: false
+      automountServiceAccountToken: true
       enableServiceLinks: false
       securityContext:
-      # E: List directory /var/lib/apt/lists/partial is missing. - Acquire (13: Permission denied)
-        runAsUser: 0
-        runAsGroup: 0
-        fsGroup: 0
-        fsGroupChangePolicy: "OnRootMismatch"
-        runAsNonRoot: false
+        runAsUser: 1000
+        runAsGroup: 1000
+        runAsNonRoot: true
         seccompProfile:
           type: RuntimeDefault
     controllers:
       paperless-ngx-exporter:
         type: cronjob
         cronjob:
-          schedule: "05 22 * * *"
+          schedule: "05 */6 * * *"
+          timeZone: "${TIMEZONE}"
+          concurrencyPolicy: Forbid
+          successfulJobsHistory: 3
+          failedJobsHistory: 3
         containers:
           exporter:
             image:
-              repository: ghcr.io/community-tooling/oci-images/paperless-export
-              tag: 1.5.0@sha256:f9d74eddbc7509cf828c8c5b60dd0e1cfc48ebc510393044feb7f17f9933c26d
-            env:
-              # paperless-ngx/paperless-ngx/issues/9609
-              S6_YES_I_WANT_A_WORLD_WRITABLE_RUN_BECAUSE_KUBERNETES: 1
-              # S6 is just so silly
-              S6_READ_ONLY_ROOT: 1
-              PAPERLESS_ADMIN_EMAIL:
-                valueFrom:
-                  secretKeyRef:
-                    name: paperless-secrets
-                    key: paperless-admin-email
-              PAPERLESS_ADMIN_PASSWORD:
-                valueFrom:
-                  secretKeyRef:
-                    name: paperless-secrets
-                    key: paperless-admin-pw
-              PAPERLESS_ADMIN_USER:
-                valueFrom:
-                  secretKeyRef:
-                    name: paperless-secrets
-                    key: paperless-admin-user
-              PAPERLESS_TIME_ZONE: "${TIMEZONE}"
-              PAPERLESS_REDIS: "redis://valkey-primary"
-              # Changing this breaks app-template:
-              PAPERLESS_FILENAME_FORMAT: "{created_year}/{correspondent}/{created_month}_{title}"
-              PAPERLESS_URL: "https://paperless-ngx.${SECRET_DEFAULT_DOMAIN}"
-              PAPERLESS_DBHOST: "paperless-ngx-postgres-v18-rw.paperless-ngx.svc.cluster.local"
-              PAPERLESS_DBNAME: "paperless-ngx"
-              PAPERLESS_DBUSER:
-                valueFrom:
-                  secretKeyRef:
-                    name: paperless-ngx-basic-auth
-                    key: username
-              PAPERLESS_DBPASS:
-                valueFrom:
-                  secretKeyRef:
-                    name: paperless-ngx-basic-auth
-                    key: password
+              repository: registry.k8s.io/kubectl
+              tag: v1.36.2@sha256:b0d792e0d8dfb9bb1b922b78b23137e2a34bb6f9667640353a9d2aadd1fd7761
+            command:
+              - /bin/kubectl
+            args:
+              - -n
+              - paperless-ngx
+              - exec
+              - deploy/paperless-ngx
+              - -c
+              - paperless-ngx
+              - --
+              - document_exporter
+              - /export/backup
+              - -d
+              - -f
             securityContext:
               allowPrivilegeEscalation: false
-              # E: List directory /var/lib/apt/lists/partial is missing. - Acquire (30: Read-only file system)
-              readOnlyRootFilesystem: false
+              readOnlyRootFilesystem: true
               capabilities:
-                add:
-                  - SETGID
                 drop:
                   - ALL
             resources:
               requests:
-                cpu: 100m
-                memory: 300Mi
+                cpu: 10m
+                memory: 64Mi
               limits:
-                memory: 4000Mi
-    persistence:
-      config:
+                memory: 128Mi
+    networkpolicies:
+      exporter:
         enabled: true
-        existingClaim: paperless-ngx
-        advancedMounts:
-          paperless-ngx-exporter:
-            exporter:
-              - path: /usr/src/paperless/data
-                subPath: data
-              - path: /usr/src/paperless/consume
-                subPath: consume
-              - path: /usr/src/paperless/media
-                subPath: media
-      export:
-        enabled: true
-        existingClaim: paperless-ngx-export
-        globalMounts:
-          - path: /export
-      run:
-        type: emptyDir
-        advancedMounts:
-          paperless-ngx-exporter:
-            exporter:
-              - path: /run
+        controller: *name
+        policyTypes:
+          - Egress
+          - Ingress
+        rules:
+          ingress: []
+    rbac:
+      roles:
+        exporter:
+          type: Role
+          rules:
+            - apiGroups: [""]
+              resources: ["pods"]
+              verbs: ["get", "list"]
+            - apiGroups: [""]
+              resources: ["pods/exec"]
+              verbs: ["create"]
+            - apiGroups: ["apps"]
+              resources: ["deployments"]
+              verbs: ["get"]
+      bindings:
+        exporter:
+          type: RoleBinding
+          roleRef:
+            identifier: exporter
+          subjects:
+            - identifier: paperless-ngx-exporter
+    rawResources:
+      exporter-kube-api:
+        manifest:
+          apiVersion: cilium.io/v2
+          kind: CiliumNetworkPolicy
+          spec:
+            endpointSelector:
+              matchLabels:
+                app.kubernetes.io/controller: *name
+            egress:
+              - toEntities:
+                  - kube-apiserver
+                toPorts:
+                  - ports:
+                      - port: "6443"
+                        protocol: TCP
