@@ -52,7 +52,7 @@ spec:
             args:
               - |
                 mkdir -p /data/navidrome/plugins
-                wget -q -O /data/navidrome/plugins/audiomuseai.ndp.tmp "https://github.com/NeptuneHub/AudioMuse-AI-NV-plugin/releases/download/${AUDIOMUSEAI_PLUGIN_VERSION}/audiomuseai.ndp"
+                wget -q -O /data/navidrome/plugins/audiomuseai.ndp.tmp "https://github.com/NeptuneHub/AudioMuse-AI-NV-plugin/releases/download/$${AUDIOMUSEAI_PLUGIN_VERSION}/audiomuseai.ndp"
                 mv /data/navidrome/plugins/audiomuseai.ndp.tmp /data/navidrome/plugins/audiomuseai.ndp
             env:
               # renovate: datasource=github-releases depName=NeptuneHub/AudioMuse-AI-NV-plugin
