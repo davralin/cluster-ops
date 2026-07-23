@@ -46,6 +46,7 @@ spec:
         type: cronjob
         cronjob:
           schedule: "55 05 * * *"
+          timeZone: "${TIMEZONE}"
         containers:
           cron:
             image:

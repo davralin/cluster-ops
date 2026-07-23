@@ -45,6 +45,7 @@ spec:
         type: cronjob
         cronjob:
           schedule: "29 */4 * * *"
+          timeZone: "${TIMEZONE}"
         containers:
           onsite-sync:
             image:

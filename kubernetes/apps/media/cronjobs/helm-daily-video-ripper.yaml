@@ -45,6 +45,7 @@ spec:
         type: cronjob
         cronjob:
           schedule: "59 06 * * *"
+          timeZone: "${TIMEZONE}"
         containers:
           daily-video-ripper:
             image:

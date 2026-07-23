@@ -46,6 +46,7 @@ spec:
         cronjob:
           concurrencyPolicy: Replace
           schedule: "14 07 * * *"
+          timeZone: "${TIMEZONE}"
         containers:
           daily-to-jottacloud:
             image:

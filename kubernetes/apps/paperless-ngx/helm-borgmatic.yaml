@@ -45,6 +45,7 @@ spec:
         type: cronjob
         cronjob:
           schedule: "40 */6 * * *"
+          timeZone: "${TIMEZONE}"
         containers:
           borgmatic:
             image:

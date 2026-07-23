@@ -44,6 +44,7 @@ spec:
         type: cronjob
         cronjob:
           schedule: "45 02 * * *"
+          timeZone: "${TIMEZONE}"
         containers:
           jottacloud-photos-to-nextcloud:
             image:

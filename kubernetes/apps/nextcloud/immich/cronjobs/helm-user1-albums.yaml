@@ -48,6 +48,7 @@ spec:
         type: cronjob
         cronjob:
           schedule: "29 02 * * *"
+          timeZone: "${TIMEZONE}"
         containers:
           user1-albums:
             envFrom:

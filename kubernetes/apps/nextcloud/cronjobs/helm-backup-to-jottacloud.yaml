@@ -60,6 +60,7 @@ spec:
                   topologyKey: kubernetes.io/hostname
         cronjob:
           schedule: "27 05 * * *"
+          timeZone: "${TIMEZONE}"
         containers:
           backup-to-jottacloud:
             image:

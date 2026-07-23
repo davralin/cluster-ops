@@ -45,6 +45,7 @@ spec:
         type: cronjob
         cronjob:
           schedule: "32 */6 * * *"
+          timeZone: "${TIMEZONE}"
         containers:
           remotebackup:
             image:

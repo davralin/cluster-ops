@@ -48,6 +48,7 @@ spec:
         type: cronjob
         cronjob:
           schedule: "48 02 * * *"
+          timeZone: "${TIMEZONE}"
         containers:
           shared-albums:
             envFrom:

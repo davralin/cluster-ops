@@ -45,6 +45,7 @@ spec:
         type: cronjob
         cronjob:
           schedule: "59 10 * * *"
+          timeZone: "${TIMEZONE}"
         containers:
           daily-audio-ripper:
             image:

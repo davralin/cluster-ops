@@ -45,6 +45,7 @@ spec:
         type: cronjob
         cronjob:
           schedule: "05 */6 * * *"
+          timeZone: "${TIMEZONE}"
         containers:
           mailbackup:
             image:

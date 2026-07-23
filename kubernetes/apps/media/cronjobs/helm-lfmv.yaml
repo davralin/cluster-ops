@@ -45,6 +45,7 @@ spec:
         type: cronjob
         cronjob:
           schedule: "0 6 * * 4"
+          timeZone: "${TIMEZONE}"
           concurrencyPolicy: Forbid
         containers:
           lfmv:

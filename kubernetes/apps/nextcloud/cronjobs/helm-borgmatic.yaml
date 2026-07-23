@@ -60,6 +60,7 @@ spec:
                   topologyKey: kubernetes.io/hostname
         cronjob:
           schedule: "13 */12 * * *"
+          timeZone: "${TIMEZONE}"
         containers:
           borgmatic:
             image:
