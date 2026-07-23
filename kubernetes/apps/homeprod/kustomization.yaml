@@ -51,7 +51,6 @@ resources:
   - ../paperless-ngx
   - ../reloader
   - ../remotebackup
-  - ../rssbridge
   - ../searxng
   - ../smartctl-exporter
   - ../speedtest-exporter
