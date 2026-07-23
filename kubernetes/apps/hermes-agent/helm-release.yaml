@@ -123,13 +123,13 @@ spec:
       hermes-agent:
         enabled: true
         annotations:
-          haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
-          haproxy.org/ssl-redirect-port: "443"
-          haproxy.org/response-set-header: |
-            Strict-Transport-Security "max-age=31536000"
-            X-Frame-Options "DENY"
-            X-Content-Type-Options "nosniff"
-            Referrer-Policy "strict-origin-when-cross-origin"
+          haproxy-ingress.github.io/allowlist-source-range: "${HAPROXY_WHITELIST}"
+          haproxy-ingress.github.io/ssl-redirect: "true"
+          haproxy-ingress.github.io/config-backend: |
+            http-response set-header Strict-Transport-Security "max-age=31536000"
+            http-response set-header X-Frame-Options DENY
+            http-response set-header X-Content-Type-Options nosniff
+            http-response set-header Referrer-Policy strict-origin-when-cross-origin
         hosts:
           - host: &host "hermes-agent.${SECRET_DEFAULT_DOMAIN}"
             paths:
@@ -143,13 +143,13 @@ spec:
       hermes-agent-webhooks:
         enabled: true
         annotations:
-          haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
-          haproxy.org/ssl-redirect-port: "443"
-          haproxy.org/response-set-header: |
-            Strict-Transport-Security "max-age=31536000"
-            X-Frame-Options "DENY"
-            X-Content-Type-Options "nosniff"
-            Referrer-Policy "strict-origin-when-cross-origin"
+          haproxy-ingress.github.io/allowlist-source-range: "${HAPROXY_WHITELIST}"
+          haproxy-ingress.github.io/ssl-redirect: "true"
+          haproxy-ingress.github.io/config-backend: |
+            http-response set-header Strict-Transport-Security "max-age=31536000"
+            http-response set-header X-Frame-Options DENY
+            http-response set-header X-Content-Type-Options nosniff
+            http-response set-header Referrer-Policy strict-origin-when-cross-origin
         hosts:
           - host: &host "hermes-agent.${SECRET_DEFAULT_DOMAIN}"
             paths:
@@ -234,7 +234,7 @@ spec:
                       kubernetes.io/metadata.name: haproxy-controller
                   podSelector:
                     matchLabels:
-                      app.kubernetes.io/name: kubernetes-ingress
+                      app.kubernetes.io/name: haproxy-ingress
               ports:
                 - port: 8443
                   protocol: TCP
@@ -304,7 +304,7 @@ spec:
                       kubernetes.io/metadata.name: haproxy-controller
                   podSelector:
                     matchLabels:
-                      app.kubernetes.io/name: kubernetes-ingress
+                      app.kubernetes.io/name: haproxy-ingress
               ports:
                 - port: *port
                 - port: 8644

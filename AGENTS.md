@@ -195,13 +195,13 @@ spec:
       appname:
         enabled: true
         annotations:
-          haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
-          haproxy.org/ssl-redirect-port: "443"
-          haproxy.org/response-set-header: |
-            Strict-Transport-Security "max-age=31536000"
-            X-Frame-Options "DENY"
-            X-Content-Type-Options "nosniff"
-            Referrer-Policy "strict-origin-when-cross-origin"
+          haproxy-ingress.github.io/allowlist-source-range: "${HAPROXY_WHITELIST}"
+          haproxy-ingress.github.io/ssl-redirect: "true"
+          haproxy-ingress.github.io/config-backend: |
+            http-response set-header Strict-Transport-Security "max-age=31536000"
+            http-response set-header X-Frame-Options DENY
+            http-response set-header X-Content-Type-Options nosniff
+            http-response set-header Referrer-Policy strict-origin-when-cross-origin
         hosts:
           - host: &host "appname.${SECRET_DEFAULT_DOMAIN}"
             paths:
@@ -232,7 +232,7 @@ spec:
                       kubernetes.io/metadata.name: haproxy-controller
                   podSelector:
                     matchLabels:
-                      app.kubernetes.io/name: kubernetes-ingress
+                      app.kubernetes.io/name: haproxy-ingress
               ports:
                 - port: *port
 ```
@@ -419,8 +419,8 @@ env:
 
 ## Ingress Conventions
 
-- Controller: HAProxy
-- Always include all 4 standard annotations (allow-list, ssl-redirect, security headers)
+- Controller: HAProxy Ingress
+- Always include the standard annotations (allowlist, ssl-redirect, security headers)
 - Host format: `"appname.${SECRET_DEFAULT_DOMAIN}"`
 - TLS always enabled
 - Use `&host` / `*host` anchors
@@ -522,5 +522,5 @@ Always use fully qualified image references — prefix Docker Hub images with `d
 10. **Don't add resource files without listing them in `kustomization.yaml`** (except unencrypted secret templates)
 11. **Don't commit unencrypted secrets** — use dummy values, encrypt with `sops -e -i` before adding to kustomization
 12. **Don't forget TLS in ingress**
-13. **Don't forget the 4 standard HAProxy annotations**
+13. **Don't forget the standard HAProxy Ingress annotations**
 14. **Don't forget `driftDetection.mode: enabled`**

@@ -12,7 +12,7 @@ GitOps-managed Kubernetes cluster running on bare metal, powered by [Flux](https
 | **Boot disk** | 128GB 2230 NVMe via M.2 WiFi key adapter |
 | **GitOps** | [Flux](https://fluxcd.io/) with SOPS encryption |
 | **Networking** | [Cilium](https://cilium.io/) CNI with full network policy enforcement |
-| **Ingress** | [HAProxy](https://www.haproxy.org/) Kubernetes Ingress Controller |
+| **Ingress** | [HAProxy Ingress](https://github.com/jcmoraisjr/haproxy-ingress) |
 | **Storage** | [Rook-Ceph](https://rook.io/) (NVMe + SATA SSD, block + filesystem) |
 | **Certificates** | [cert-manager](https://cert-manager.io/) |
 | **Secrets** | [SOPS](https://github.com/getsops/sops) with Age encryption |

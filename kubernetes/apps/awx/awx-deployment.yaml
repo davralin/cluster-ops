@@ -46,13 +46,13 @@ spec:
               value: '"awx.${SECRET_PRIVATE_DOMAIN}"'
           hostname: "awx.${SECRET_PRIVATE_DOMAIN}"
           ingress_annotations: |
-            haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
-            haproxy.org/ssl-redirect-port: "443"
-            haproxy.org/response-set-header: |
-              Strict-Transport-Security "max-age=31536000"
-              X-Frame-Options "DENY"
-              X-Content-Type-Options "nosniff"
-              Referrer-Policy "strict-origin-when-cross-origin"
+            haproxy-ingress.github.io/allowlist-source-range: "${HAPROXY_WHITELIST}"
+            haproxy-ingress.github.io/ssl-redirect: "true"
+            haproxy-ingress.github.io/config-backend: |
+              http-response set-header Strict-Transport-Security "max-age=31536000"
+              http-response set-header X-Frame-Options DENY
+              http-response set-header X-Content-Type-Options nosniff
+              http-response set-header Referrer-Policy strict-origin-when-cross-origin
           ingress_type: ingress
           ingress_tls_secret: "${SECRET_PRIVATE_DOMAIN_CERT}"
           ipv6_disabled: true

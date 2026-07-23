@@ -15,7 +15,7 @@ resources:
   - emqx.yaml
   - flux.yaml
   - grafana.yaml
-  - haproxytech.yaml
+  - haproxy-ingress.yaml
   - immich.yaml
   - intel.yaml
   - itzg.yaml

@@ -104,7 +104,7 @@ spec:
               kubernetes.io/metadata.name: haproxy-controller
           podSelector:
             matchLabels:
-              app.kubernetes.io/name: kubernetes-ingress
+              app.kubernetes.io/name: haproxy-ingress
       ports:
         - port: 8443
           protocol: TCP

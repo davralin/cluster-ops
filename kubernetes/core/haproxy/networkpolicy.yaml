@@ -18,8 +18,8 @@ metadata:
 spec:
   podSelector:
     matchLabels:
-      app.kubernetes.io/instance: haproxy-controller-haproxy-controller
-      app.kubernetes.io/name: kubernetes-ingress
+      app.kubernetes.io/instance: haproxy-controller
+      app.kubernetes.io/name: haproxy-ingress
   policyTypes:
     - Ingress
     - Egress
@@ -29,7 +29,8 @@ spec:
             cidr: 0.0.0.0/0
         - namespaceSelector: {}
       ports:
-        - port: 8443
+        - port: 80
+        - port: 443
     - from:
         - namespaceSelector:
             matchLabels:
@@ -38,7 +39,7 @@ spec:
             matchLabels:
               app.kubernetes.io/name: prometheus
       ports:
-        - port: 1024
+        - port: 10254
           protocol: TCP
   egress:
     - to:
@@ -62,8 +63,8 @@ metadata:
 spec:
   endpointSelector:
     matchLabels:
-      app.kubernetes.io/instance: haproxy-controller-haproxy-controller
-      app.kubernetes.io/name: kubernetes-ingress
+      app.kubernetes.io/instance: haproxy-controller
+      app.kubernetes.io/name: haproxy-ingress
   egress:
     - toEntities:
       - kube-apiserver

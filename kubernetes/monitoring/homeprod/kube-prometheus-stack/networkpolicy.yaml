@@ -24,7 +24,7 @@ spec:
               kubernetes.io/metadata.name: haproxy-controller
           podSelector:
             matchLabels:
-              app.kubernetes.io/name: kubernetes-ingress
+              app.kubernetes.io/name: haproxy-ingress
         - namespaceSelector:
             matchLabels:
               kubernetes.io/metadata.name: flux-system
@@ -152,7 +152,7 @@ spec:
               kubernetes.io/metadata.name: haproxy-controller
           podSelector:
             matchLabels:
-              app.kubernetes.io/name: kubernetes-ingress
+              app.kubernetes.io/name: haproxy-ingress
         - namespaceSelector:
             matchLabels:
               kubernetes.io/metadata.name: grafana
