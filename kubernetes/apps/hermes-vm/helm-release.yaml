@@ -147,6 +147,7 @@ spec:
                 - matchName: 'pypi.org'
                 - matchPattern: '*.npmjs.org'
                 - matchName: 'registry.npmjs.org'
+                - matchName: 'downloads.claude.ai'
           - toFQDNs:
             - matchPattern: '*.github.com'
             - matchName: 'github.com'
