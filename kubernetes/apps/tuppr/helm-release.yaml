@@ -30,6 +30,10 @@ spec:
         enabled: "${MONITORING_PROMETHEUS}"
       serviceMonitor:
         enabled: "${MONITORING_PROMETHEUS}"
+    notification:
+      enabled: true
+      secretName: tuppr-gotify
+      secretKey: url
     securityContext:
       seccompProfile:
         type: RuntimeDefault

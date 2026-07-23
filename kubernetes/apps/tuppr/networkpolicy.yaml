@@ -140,6 +140,18 @@ spec:
       ports:
         - port: 53
           protocol: UDP
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: gotify
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/controller: gotify
+              app.kubernetes.io/instance: gotify-gotify
+              app.kubernetes.io/name: gotify-gotify
+      ports:
+        - port: 80
+          protocol: TCP
     - to: # To check with upstream image-factory
       - ipBlock:
           cidr: 0.0.0.0/0

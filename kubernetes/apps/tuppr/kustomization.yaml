@@ -7,4 +7,5 @@ resources:
   - namespace.yaml
   - networkpolicy.yaml
   - oci-repository.yaml
+  - secret.yaml
   - talos_upgrade.yaml
