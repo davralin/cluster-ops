@@ -235,17 +235,18 @@ spec:
       nextcloud:
         enabled: true
         annotations:
-          haproxy-ingress.github.io/ssl-redirect: "true"
-          haproxy-ingress.github.io/config-backend: |
+          haproxy.org/ssl-redirect-port: "443"
+          haproxy.org/backend-config-snippet: |
             acl url_discovery path /.well-known/caldav /.well-known/carddav
             http-request redirect location /remote.php/dav/ code 301 if url_discovery
             option http-keep-alive
             timeout server 120000ms
-            http-response set-header Strict-Transport-Security "max-age=31536000"
-            http-response set-header X-Frame-Options SAMEORIGIN
-            http-response set-header X-Content-Type-Options nosniff
-            http-response set-header X-Download-Options NoOpen
-            http-response set-header Referrer-Policy strict-origin-when-cross-origin
+          haproxy.org/response-set-header: |
+            Strict-Transport-Security "max-age=31536000"
+            X-Frame-Options "SAMEORIGIN"
+            X-Content-Type-Options "nosniff"
+            X-Download-Options "NoOpen"
+            Referrer-Policy "strict-origin-when-cross-origin"
         hosts:
           - host: &host "cloud.${SECRET_DEFAULT_DOMAIN}"
             paths:
@@ -312,7 +313,7 @@ spec:
                       kubernetes.io/metadata.name: haproxy-controller
                   podSelector:
                     matchLabels:
-                      app.kubernetes.io/name: haproxy-ingress
+                      app.kubernetes.io/name: kubernetes-ingress
               ports:
                 - port: 8443
                   protocol: TCP
@@ -331,7 +332,7 @@ spec:
                       kubernetes.io/metadata.name: haproxy-controller
                   podSelector:
                     matchLabels:
-                      app.kubernetes.io/name: haproxy-ingress
+                      app.kubernetes.io/name: kubernetes-ingress
                 - podSelector:
                     matchLabels:
                       app.kubernetes.io/controller: jottacloud-photos-to-nextcloud

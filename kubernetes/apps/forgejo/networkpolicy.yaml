@@ -59,7 +59,7 @@ spec:
               kubernetes.io/metadata.name: haproxy-controller
           podSelector:
             matchLabels:
-              app.kubernetes.io/name: haproxy-ingress
+              app.kubernetes.io/name: kubernetes-ingress
       ports:
         - port: 3000
     - from:

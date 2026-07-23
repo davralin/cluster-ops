@@ -86,12 +86,12 @@ spec:
         ingress:
           enabled: true
           annotations:
-            haproxy-ingress.github.io/allowlist-source-range: "${HAPROXY_WHITELIST}"
-            haproxy-ingress.github.io/config-backend: |
-              http-response set-header Strict-Transport-Security "max-age=31536000"
-              http-response set-header X-Frame-Options DENY
-              http-response set-header X-Content-Type-Options nosniff
-              http-response set-header Referrer-Policy strict-origin-when-cross-origin
+            haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
+            haproxy.org/response-set-header: |
+              Strict-Transport-Security "max-age=31536000"
+              X-Frame-Options "DENY"
+              X-Content-Type-Options "nosniff"
+              Referrer-Policy "strict-origin-when-cross-origin"
           hosts: ["hubble.${SECRET_DEFAULT_DOMAIN}"]
     monitor:
       enabled: "${MONITORING_PROMETHEUS}"

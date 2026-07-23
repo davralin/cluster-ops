@@ -10,11 +10,11 @@ spec:
     mode: enabled
   chart:
     spec:
-      chart: haproxy-ingress
-      version: 0.16.1
+      chart: kubernetes-ingress
+      version: 1.52.1
       sourceRef:
         kind: HelmRepository
-        name: haproxy-ingress
+        name: haproxytech-charts
         namespace: flux-system
       interval: 30m
   targetNamespace: haproxy-controller
@@ -29,34 +29,27 @@ spec:
     fullnameOverride: haproxy-controller
     controller:
       kind: DaemonSet
-      legacySecurityContext: false
-      podSecurityContext:
-        seccompProfile:
-          type: RuntimeDefault
-      securityContext:
-        allowPrivilegeEscalation: false
-        runAsNonRoot: true
-        runAsUser: 99
-        runAsGroup: 99
-        capabilities:
-          drop:
-            - ALL
-          add:
-            - NET_BIND_SERVICE
-      ingressClass: haproxy
-      ingressClassResource:
-        enabled: true
-        default: true
-      publishService:
-        enabled: true
+      logging:
+        level: debug
+        traffic:
+          address: stdout
+          format: raw
+          facility: daemon
       service:
         type: LoadBalancer
         annotations:
           io.cilium/lb-ipam-ips: 10.0.1.41
+        enablePorts:
+          stat: false
+          prometheus: false
         externalTrafficPolicy: Local
-      stats:
-        enabled: "${MONITORING_PROMETHEUS}"
-      metrics:
-        enabled: "${MONITORING_PROMETHEUS}"
+      ingressClassResource:
+        default: true
+      defaultTLSSecret:
+        enabled: false
+      autoscaling:
+        enabled: true
+      PodDisruptionBudget:
+        enable: true
       serviceMonitor:
         enabled: "${MONITORING_PROMETHEUS}"

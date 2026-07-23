@@ -2,9 +2,9 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
-  name: haproxy-ingress
+  name: haproxytech-charts
   namespace: flux-system
 spec:
   interval: 2h
-  url: https://haproxy-ingress.github.io/charts
+  url: https://haproxytech.github.io/helm-charts
   timeout: 3m
