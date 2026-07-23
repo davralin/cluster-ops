@@ -117,7 +117,7 @@ spec:
           - ports:
             - port: 22
               protocol: TCP
-      # CiliumNetworkPolicy: allow hermes egress to GitHub/NixOS cache for auto-update
+      # CiliumNetworkPolicy: allow hermes broad egress to internet and cluster
       - apiVersion: cilium.io/v2
         kind: CiliumNetworkPolicy
         metadata:
@@ -129,41 +129,4 @@ spec:
               vm.kubevirt.io/os: nixos
           egress:
           - toCIDRSet:
-            - cidr: 10.96.0.10/32
-            toPorts:
-            - ports:
-              - port: "53"
-                protocol: UDP
-              - port: "53"
-                protocol: TCP
-              rules:
-                dns:
-                - matchPattern: '*.github.com'
-                - matchPattern: '*.nixos.org'
-                - matchPattern: '*.cachix.org'
-                - matchName: 'github.com'
-                - matchName: 'cache.nixos.org'
-                - matchName: 'files.pythonhosted.org'
-                - matchName: 'pypi.org'
-                - matchPattern: '*.npmjs.org'
-                - matchName: 'registry.npmjs.org'
-                - matchName: 'downloads.claude.ai'
-                - matchPattern: '*.signal.org'
-          - toFQDNs:
-            - matchPattern: '*.github.com'
-            - matchName: 'github.com'
-            - matchPattern: '*.nixos.org'
-            - matchName: 'cache.nixos.org'
-            - matchPattern: '*.cachix.org'
-            - matchName: 'files.pythonhosted.org'
-            - matchName: 'pypi.org'
-            - matchPattern: '*.npmjs.org'
-            - matchName: 'registry.npmjs.org'
-            - matchName: 'downloads.claude.ai'
-            - matchPattern: '*.signal.org'
-            toPorts:
-            - ports:
-              - port: "443"
-                protocol: TCP
-              - port: "80"
-                protocol: TCP
+            - cidr: 0.0.0.0/0
