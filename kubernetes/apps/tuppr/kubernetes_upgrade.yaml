@@ -38,7 +38,7 @@ spec:
         spec:
           kubernetes:
             # renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
-            version: v1.36.2
+            version: v1.36.3
           maintenance:
             windows:
               - start: "13 5 * * 1-5" # At 05:13 on every weekday
