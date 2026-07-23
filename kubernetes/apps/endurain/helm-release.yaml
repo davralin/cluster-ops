@@ -33,11 +33,11 @@ spec:
       automountServiceAccountToken: false
       enableServiceLinks: false
       securityContext:
-        runAsUser: 0
-        runAsGroup: 0
+        runAsUser: 1000
+        runAsGroup: 1000
         fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"
-        runAsNonRoot: false
+        runAsNonRoot: true
         seccompProfile:
           type: RuntimeDefault
     controllers:
@@ -46,7 +46,7 @@ spec:
           endurain:
             image:
               repository: codeberg.org/endurain-project/endurain
-              tag: v0.18.3@sha256:c0ae070c2f9c452cbfaee89e9653fe83c09389d0d6594bb103aa4f3cda9b7c81
+              tag: v0.19.0@sha256:a43273a30588f344f103e978a2e17aae75de31ffdb21dddd8ac8e71d70a08f3c
             env:
               TZ: "${TIMEZONE}"
               ENDURAIN_HOST: "https://endurain.${SECRET_DEFAULT_DOMAIN}"
@@ -67,8 +67,6 @@ spec:
                   secretKeyRef:
                     name: endurain-config
                     key: SECRET_KEY
-              UID: 1000
-              GID: 1000
             probes:
               liveness: &probes
                 enabled: true
@@ -78,10 +76,6 @@ spec:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: false
               capabilities:
-                add:
-                  - CHOWN
-                  - SETGID
-                  - SETUID
                 drop:
                   - ALL
             resources:
