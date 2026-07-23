@@ -29,6 +29,20 @@ spec:
     fullnameOverride: haproxy-controller
     controller:
       kind: DaemonSet
+      legacySecurityContext: false
+      podSecurityContext:
+        seccompProfile:
+          type: RuntimeDefault
+      securityContext:
+        allowPrivilegeEscalation: false
+        runAsNonRoot: true
+        runAsUser: 99
+        runAsGroup: 99
+        capabilities:
+          drop:
+            - ALL
+          add:
+            - NET_BIND_SERVICE
       ingressClass: haproxy
       ingressClassResource:
         enabled: true

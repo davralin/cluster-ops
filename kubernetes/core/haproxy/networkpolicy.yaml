@@ -18,7 +18,7 @@ metadata:
 spec:
   podSelector:
     matchLabels:
-      app.kubernetes.io/instance: haproxy-controller
+      app.kubernetes.io/instance: haproxy-controller-haproxy-controller
       app.kubernetes.io/name: haproxy-ingress
   policyTypes:
     - Ingress
@@ -63,7 +63,7 @@ metadata:
 spec:
   endpointSelector:
     matchLabels:
-      app.kubernetes.io/instance: haproxy-controller
+      app.kubernetes.io/instance: haproxy-controller-haproxy-controller
       app.kubernetes.io/name: haproxy-ingress
   egress:
     - toEntities:
