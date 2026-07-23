@@ -35,11 +35,8 @@ spec:
       automountServiceAccountToken: true
       enableServiceLinks: false
       securityContext:
-        runAsUser: 10000
-        runAsGroup: 10000
         fsGroup: 10000
         fsGroupChangePolicy: "OnRootMismatch"
-        runAsNonRoot: true
         seccompProfile:
           type: RuntimeDefault
         supplementalGroups:
@@ -50,11 +47,11 @@ spec:
           hermes-agent:
             image:
               repository: docker.io/nousresearch/hermes-agent
-              tag: v2026.5.16@sha256:b6e41c155d6bfce5ad83c5d0fec670086db8a43250e4511c9474134be5482d33
+              tag: v2026.7.20@sha256:f7b35053268f532f98955195c909f15a230470fbcbdacaa9fdecb95707dad04a
             args: ["gateway", "run"]
             env:
               TZ: "${TIMEZONE}"
-              HERMES_DASHBOARD: "1"
+              HERMES_DASHBOARD: "0"
               SEARXNG_URL: "http://searxng.searxng.svc.cluster.local:8080"
               OPENAI_API_KEY:
                 valueFrom:
@@ -78,88 +75,14 @@ spec:
                   secretKeyRef:
                     name: hermes-agent-secret
                     key: HASS_TOKEN
-            probes:
-              liveness: &probes
-                enabled: true
-                custom: true
-                spec:
-                  httpGet:
-                    path: /
-                    port: &port 9119
-                  initialDelaySeconds: 30
-                  periodSeconds: 30
-                  failureThreshold: 5
-              readiness: *probes
-              startup:
-                enabled: true
-                custom: true
-                spec:
-                  httpGet:
-                    path: /
-                    port: *port
-                  initialDelaySeconds: 30
-                  periodSeconds: 10
-                  failureThreshold: 30
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities:
-                drop:
-                  - ALL
+              readOnlyRootFilesystem: false
             resources:
               requests:
                 cpu: 50m
               limits:
                 memory: 1Gi
-    service:
-      hermes-agent:
-        controller: *name
-        ports:
-          http:
-            port: *port
-          webhooks:
-            port: 8644
-    ingress:
-      hermes-agent:
-        enabled: true
-        annotations:
-          haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
-          haproxy.org/ssl-redirect-port: "443"
-          haproxy.org/response-set-header: |
-            Strict-Transport-Security "max-age=31536000"
-            X-Frame-Options "DENY"
-            X-Content-Type-Options "nosniff"
-            Referrer-Policy "strict-origin-when-cross-origin"
-        hosts:
-          - host: &host "hermes-agent.${SECRET_DEFAULT_DOMAIN}"
-            paths:
-              - path: /
-                service:
-                  identifier: hermes-agent
-                  port: http
-        tls:
-          - hosts:
-              - *host
-      hermes-agent-webhooks:
-        enabled: true
-        annotations:
-          haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
-          haproxy.org/ssl-redirect-port: "443"
-          haproxy.org/response-set-header: |
-            Strict-Transport-Security "max-age=31536000"
-            X-Frame-Options "DENY"
-            X-Content-Type-Options "nosniff"
-            Referrer-Policy "strict-origin-when-cross-origin"
-        hosts:
-          - host: &host "hermes-agent.${SECRET_DEFAULT_DOMAIN}"
-            paths:
-              - path: /webhooks/
-                service:
-                  identifier: hermes-agent
-                  port: webhooks
-        tls:
-          - hosts:
-              - *host
     persistence:
       opt:
         enabled: true
@@ -181,7 +104,6 @@ spec:
         controller: *name
         policyTypes:
           - Egress
-          - Ingress
         rules:
           egress:
             - to:
@@ -297,17 +219,6 @@ spec:
                   protocol: TCP
                 - port: 443
                   protocol: TCP
-          ingress:
-            - from:
-                - namespaceSelector:
-                    matchLabels:
-                      kubernetes.io/metadata.name: haproxy-controller
-                  podSelector:
-                    matchLabels:
-                      app.kubernetes.io/name: kubernetes-ingress
-              ports:
-                - port: *port
-                - port: 8644
     rbac:
       roles:
         hermes-agent:
