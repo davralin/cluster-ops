@@ -148,6 +148,7 @@ spec:
                 - matchPattern: '*.npmjs.org'
                 - matchName: 'registry.npmjs.org'
                 - matchName: 'downloads.claude.ai'
+                - matchPattern: '*.signal.org'
           - toFQDNs:
             - matchPattern: '*.github.com'
             - matchName: 'github.com'
@@ -159,6 +160,7 @@ spec:
             - matchPattern: '*.npmjs.org'
             - matchName: 'registry.npmjs.org'
             - matchName: 'downloads.claude.ai'
+            - matchPattern: '*.signal.org'
             toPorts:
             - ports:
               - port: "443"
