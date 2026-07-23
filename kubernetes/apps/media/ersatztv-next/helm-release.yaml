@@ -49,10 +49,10 @@ spec:
               "output": { "folder": "/tmp/hls" },
               "xmltv": { "folder": "/config/xmltv" },
               "channels": [
-                { "number": "1", "name": "Music Videos", "config": "/config/channels/1/channel.json", "tvg_id": "musicvideos.1" }
+                { "number": "1", "name": "Music Videos", "config": "/generated/base-channel.json", "overlays": ["/generated/overlay-1.json"], "tvg_id": "musicvideos.1" }
               ]
             }
-          channel.json: |
+          base-channel.json: |
             {
               "playout": { "folder": "/config/playout" },
               "ffmpeg": { "ffmpeg_path": "", "ffprobe_path": "", "disabled_filters": [] },
@@ -79,6 +79,10 @@ spec:
                 },
                 "subtitle": { "mode": "burn" }
               }
+            }
+          overlay-1.json: |
+            {
+              "playout": { "folder": "/config/playout/1" }
             }
     controllers:
       ersatztv-next:
@@ -116,8 +120,8 @@ spec:
             args:
               - |
                 while true; do
-                  /app/ersatztv-playout-generator --lineup /config/lineup.json --channel 1 --content-folder /data/video/musicvideos
-                  sleep 86400
+                  /app/ersatztv-playout-generator --lineup /config/lineup.json --channel 1 --content-folder /data/video/musicvideos || true
+                  sleep 172800
                 done
             securityContext:
               allowPrivilegeEscalation: false
@@ -150,13 +154,12 @@ spec:
           - path: /config/lineup.json
             subPath: lineup.json
             readOnly: true
-      channel:
+      generated-config:
         enabled: true
         type: configMap
         name: ersatztv-next
         globalMounts:
-          - path: /config/channels/1/channel.json
-            subPath: channel.json
+          - path: /generated
             readOnly: true
       # HLS output written to /tmp/hls by the server
       tmp:
@@ -193,4 +196,3 @@ spec:
                       app.kubernetes.io/name: media-jellyfin
               ports:
                 - port: *port
-
