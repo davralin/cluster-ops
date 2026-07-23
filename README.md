@@ -79,7 +79,6 @@ Every namespace has a default-deny network policy. Ingress and egress are explic
 | Service | Purpose |
 |---------|---------|
 | [Forgejo](https://forgejo.org/) | Self-hosted Git forge |
-| [OpenCode](https://github.com/AnomalyHQ/opencode) | AI coding agent |
 | [AWX](https://github.com/ansible/awx) | Ansible automation platform |
 | [Wastebin](https://github.com/matze/wastebin) | Minimal pastebin with syntax highlighting |
 
