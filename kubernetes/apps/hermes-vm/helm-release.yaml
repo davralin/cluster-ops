@@ -158,6 +158,7 @@ spec:
             - matchName: 'pypi.org'
             - matchPattern: '*.npmjs.org'
             - matchName: 'registry.npmjs.org'
+            - matchName: 'downloads.claude.ai'
             toPorts:
             - ports:
               - port: "443"
