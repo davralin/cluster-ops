@@ -187,3 +187,7 @@ spec:
                       app.kubernetes.io/name: kubernetes-ingress
               ports:
                 - port: *port
+            - from:
+                - namespaceSelector: {}
+              ports:
+                - port: *port
