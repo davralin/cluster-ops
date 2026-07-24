@@ -52,6 +52,7 @@ Every namespace has a default-deny network policy. Ingress and egress are explic
 | [Sonarr](https://sonarr.tv/) / [Radarr](https://radarr.video/) / [Lidarr](https://lidarr.audio/) | Media management & automation |
 | [Readarr](https://readarr.com/) / [Speakarr](https://github.com/speakarr/speakarr) | Books & audiobooks |
 | [Navidrome](https://navidrome.org/) | Music streaming (Subsonic API) |
+| [Icecast](https://icecast.org/) | Radio stream endpoint |
 | [Audiobookshelf](https://audiobookshelf.org/) | Audiobook & podcast server |
 | [qBittorrent](https://qbittorrent.org/) | Download client |
 | [Prowlarr](https://prowlarr.com/) | Indexer management |

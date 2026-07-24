@@ -1,0 +1,163 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &name icecast
+  namespace: flux-system
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 5.0.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+      interval: 30m
+  driftDetection:
+    mode: enabled
+  targetNamespace: icecast
+  install:
+    createNamespace: true
+    remediation:
+      retries: 10
+  upgrade:
+    remediation:
+      retries: 10
+  values:
+    fullnameOverride: *name
+    global:
+      createDefaultServiceAccount: false
+    defaultPodOptions:
+      automountServiceAccountToken: false
+      enableServiceLinks: false
+      securityContext:
+        # ghcr.io/oscaromeu/icecast is built to run as nobody:nogroup.
+        runAsUser: 65534
+        runAsGroup: 65534
+        fsGroup: 65534
+        fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+    controllers:
+      icecast:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          icecast:
+            image:
+              repository: ghcr.io/oscaromeu/icecast
+              tag: 2.4.4@sha256:3f642032e0bf4c9fbe614aa007524c32d2c82bcba4655761c36fcd82c9f9483b
+            env:
+              ICECAST_HOSTNAME: "radio.${SECRET_DEFAULT_DOMAIN}"
+              ICECAST_LOCATION: "HomeProd"
+              ICECAST_ADMIN_EMAIL: "admin@${SECRET_DEFAULT_DOMAIN}"
+              ICECAST_ADMIN_USERNAME: admin
+              ICECAST_MAX_CLIENTS: "100"
+              ICECAST_MAX_SOURCES: "20"
+              ICECAST_LOG_LEVEL: "3"
+              ICECAST_SOURCE_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: icecast
+                    key: source-password
+              ICECAST_RELAY_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: icecast
+                    key: relay-password
+              ICECAST_ADMIN_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: icecast
+                    key: admin-password
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /status.xsl
+                    port: &port 8000
+                  initialDelaySeconds: 10
+                  periodSeconds: 30
+                  timeoutSeconds: 5
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /status.xsl
+                    port: *port
+                  periodSeconds: 5
+                  timeoutSeconds: 5
+                  failureThreshold: 12
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+            resources:
+              requests:
+                cpu: 10m
+                memory: 32Mi
+              limits:
+                memory: 128Mi
+    service:
+      icecast:
+        controller: *name
+        type: LoadBalancer
+        loadBalancerIP: 10.0.1.45
+        ports:
+          http:
+            port: 80
+            targetPort: *port
+          icecast:
+            port: *port
+    persistence:
+      tmp:
+        enabled: true
+        type: emptyDir
+        advancedMounts:
+          icecast:
+            icecast:
+              - path: /tmp
+      logs:
+        enabled: true
+        type: emptyDir
+        advancedMounts:
+          icecast:
+            icecast:
+              - path: /var/log/icecast
+    networkpolicies:
+      icecast:
+        enabled: true
+        controller: *name
+        policyTypes:
+          - Ingress
+          - Egress
+        rules:
+          ingress:
+            - from:
+                - ipBlock:
+                    cidr: 0.0.0.0/0
+              ports:
+                - port: *port
+                  protocol: TCP
+            - from:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: blackbox-exporter
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/instance: blackbox-exporter-blackbox-exporter
+                      app.kubernetes.io/name: prometheus-blackbox-exporter
+              ports:
+                - port: *port
+                  protocol: TCP
+          egress: []

@@ -25,6 +25,7 @@ resources:
   - ../hermes-agent
   - ../hermes-vm
   - ../icloudpd
+  - ../icecast
   - ../intel-device-plugin
   - ../invidious
   - ../it-tools
