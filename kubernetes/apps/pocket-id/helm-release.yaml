@@ -68,7 +68,7 @@ spec:
               INTERNAL_APP_URL: "http://pocket-id.pocket-id.svc.cluster.local:8081"
               TRUST_PROXY: "true"
               UI_CONFIG_DISABLED: "true"
-              ALLOW_USER_SIGNUPS: "open"
+              ALLOW_USER_SIGNUPS: "false"
               PORT: "8081"
               FILE_BACKEND: "database"
               ENABLE_EMAIL_VERIFICATION: "false"
