@@ -20,6 +20,7 @@ resources:
   - intel.yaml
   - itzg.yaml
   - jetstack.yaml
+  - kubescape.yaml
   - kyverno.yaml
   - metrics-server.yaml
   - neuvector.yaml

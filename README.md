@@ -99,6 +99,7 @@ Every namespace has a default-deny network policy. Ingress and egress are explic
 | [Changedetection.io](https://changedetection.io/) | Website change monitoring |
 | [Uptime Kuma](https://uptime.kuma.pet/) | Service uptime monitoring |
 | [NeuVector](https://open-docs.neuvector.com/) | Runtime Kubernetes security, vulnerability scanning, and compliance |
+| [Kubescape](https://kubescape.io/) | Kubernetes posture, compliance, and vulnerability scanning |
 | [Syncthing](https://syncthing.net/) | File synchronization |
 | [OwnTracks](https://owntracks.org/) | Location tracking |
 | [signal-cli](https://github.com/AsamK/signal-cli) | Signal messaging REST API |

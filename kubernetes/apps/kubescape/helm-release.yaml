@@ -1,0 +1,63 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &name kubescape
+  namespace: flux-system
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: kubescape-operator
+      version: 1.40.3
+      sourceRef:
+        kind: HelmRepository
+        name: kubescape-charts
+        namespace: flux-system
+      interval: 30m
+  driftDetection:
+    mode: enabled
+  targetNamespace: kubescape
+  install:
+    createNamespace: true
+    remediation:
+      retries: 10
+  upgrade:
+    remediation:
+      retries: 10
+  values:
+    clusterName: "${CLUSTER_NAME}"
+
+    capabilities:
+      configurationScan: enable
+      continuousScan: disable
+      vulnerabilityScan: enable
+      relevancy: disable
+      kubescapeOffline: enable
+      nodeSbomGeneration: disable
+      nodeScan: disable
+      runtimeObservability: disable
+      networkPolicyService: disable
+      runtimeDetection: disable
+      malwareDetection: disable
+      nodeProfileService: disable
+      admissionController: disable
+      seccompProfileService: disable
+      riskAcceptance: enable
+
+    global:
+      networkPolicy:
+        enabled: false
+
+    excludeNamespaces: "kubescape,kube-system,kube-public,kube-node-lease,kubeconfig,gmp-system,gmp-public,talos-system,flux-system,rook-ceph,kubevirt,cdi,node-problem-detector,smartctl-exporter,node-feature-discovery,node-exporter,cilium-secrets,cert-manager,metrics-server,cloudnative-pg,kyverno,descheduler,kuma,intel-gpu,spegel,grafana,openbao,haproxy-controller,neuvector"
+
+    kubescape:
+      serviceMonitor:
+        enabled: "${MONITORING_PROMETHEUS}"
+      resources:
+        requests:
+          cpu: 100m
+          memory: 500Mi
+        limits:
+          cpu: 1000m
+          memory: 2Gi

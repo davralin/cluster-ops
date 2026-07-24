@@ -1,0 +1,75 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: kubescape-security-exception
+  namespace: flux-system
+spec:
+  interval: 30m
+  driftDetection:
+    mode: enabled
+  chart:
+    spec:
+      chart: raw
+      version: v0.3.2
+      sourceRef:
+        kind: HelmRepository
+        name: dysnix-charts
+        namespace: flux-system
+      interval: 30m
+  targetNamespace: kubescape
+  install:
+    createNamespace: true
+    remediation:
+      retries: 10
+  upgrade:
+    remediation:
+      retries: 10
+  dependsOn:
+    - name: kubescape
+      namespace: flux-system
+  values:
+    resources:
+      - apiVersion: kubescape.io/v1beta1
+        kind: ClusterSecurityException
+        metadata:
+          name: infra-privileged-workloads
+        spec:
+          match:
+            namespaceSelector:
+              matchExpressions:
+                - key: kubernetes.io/metadata.name
+                  operator: In
+                  values:
+                    - rook-ceph
+                    - kubevirt
+                    - cdi
+                    - node-problem-detector
+                    - node-exporter
+                    - node-feature-discovery
+                    - smartctl-exporter
+                    - spegel
+                    - intel-gpu
+                    - neuvector
+          posture:
+            - action: ignore
+              controlID: C-0193   # CIS-5.2.2 privileged containers
+            - action: ignore
+              controlID: C-0197   # CIS-5.2.6 allowPrivilegeEscalation
+            - action: ignore
+              controlID: C-0198   # CIS-5.2.7 root containers
+            - action: ignore
+              controlID: C-0199   # CIS-5.2.8 NET_RAW capability
+            - action: ignore
+              controlID: C-0200   # CIS-5.2.9 added capabilities
+            - action: ignore
+              controlID: C-0201   # CIS-5.2.10 capabilities assigned
+            - action: ignore
+              controlID: C-0202   # CIS-5.2.11 Windows HostProcess
+            - action: ignore
+              controlID: C-0203   # CIS-5.2.12 HostPath volumes
+            - action: ignore
+              controlID: C-0204   # CIS-5.2.13 HostPorts
+            - action: ignore
+              controlID: C-0210   # CIS-5.7.2 seccomp
+          reason: "Infrastructure namespaces with privileged/HostPath/seccomp requirements - unavoidable for storage, virtualization, node-level monitoring, and runtime security. PSA already set to privileged."
