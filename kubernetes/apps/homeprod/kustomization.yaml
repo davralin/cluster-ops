@@ -51,6 +51,7 @@ resources:
   - ../ollama
   - ../openwebui
   - ../paperless-ngx
+  - ../pocket-id
   - ../reloader
   - ../remotebackup
   - ../searxng
