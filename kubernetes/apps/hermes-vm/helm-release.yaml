@@ -129,4 +129,15 @@ spec:
               vm.kubevirt.io/os: nixos
           egress:
           - toCIDRSet:
+            - cidr: 10.96.0.10/32
+            toPorts:
+            - ports:
+              - port: "53"
+                protocol: UDP
+              - port: "53"
+                protocol: TCP
+              rules:
+                dns:
+                - matchPattern: '*'
+          - toCIDRSet:
             - cidr: 0.0.0.0/0
