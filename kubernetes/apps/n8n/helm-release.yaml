@@ -1,0 +1,76 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &name n8n
+  namespace: flux-system
+spec:
+  interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: *name
+  driftDetection:
+    mode: enabled
+  targetNamespace: n8n
+  install:
+    createNamespace: true
+    remediation:
+      retries: 10
+  upgrade:
+    remediation:
+      retries: 10
+  dependsOn:
+    - name: n8n-postgres-v18
+      namespace: flux-system
+    - name: n8n-valkey
+      namespace: flux-system
+  values:
+    fullnameOverride: *name
+    database:
+      useExternal: true
+      host: n8n-postgres-v18-rw.n8n.svc.cluster.local
+      passwordSecret:
+        name: n8n-basic-auth
+        key: password
+    redis:
+      host: n8n-valkey.n8n.svc.cluster.local
+    networkPolicy:
+      enabled: false
+    secretRefs:
+      existingSecret: n8n-secret
+    config:
+      timezone: "${TIMEZONE}"
+      extraEnv:
+        - name: GENERIC_TIMEZONE
+          value: "${TIMEZONE}"
+        - name: N8N_PROXY_HOPS
+          value: "1"
+        - name: N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS
+          value: "true"
+        - name: N8N_DIAGNOSTICS_ENABLED
+          value: "false"
+        - name: N8N_SSRF_PROTECTION_ENABLED
+          value: "true"
+    persistence:
+      enabled: true
+      existingClaim: n8n
+    ingress:
+      enabled: true
+      annotations:
+        haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
+        haproxy.org/ssl-redirect-port: "443"
+        haproxy.org/response-set-header: |
+          Strict-Transport-Security "max-age=31536000"
+          X-Frame-Options "DENY"
+          X-Content-Type-Options "nosniff"
+          Referrer-Policy "strict-origin-when-cross-origin"
+      hosts:
+        - host: &host n8n.${SECRET_DEFAULT_DOMAIN}
+          paths:
+            - path: /
+              pathType: Prefix
+      tls:
+        - hosts:
+            - *host
+    serviceAccount:
+      automountServiceAccountToken: false
