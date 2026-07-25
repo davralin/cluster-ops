@@ -53,6 +53,8 @@ spec:
           value: "true"
         - name: N8N_SSRF_ALLOWED_IP_RANGES
           value: "10.0.1.0/24"
+        - name: NODE_OPTIONS
+          value: "--dns-result-order=ipv4first"
     persistence:
       enabled: true
       existingClaim: n8n
