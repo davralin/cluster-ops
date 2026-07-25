@@ -51,6 +51,8 @@ spec:
           value: "false"
         - name: N8N_SSRF_PROTECTION_ENABLED
           value: "true"
+        - name: N8N_SSRF_ALLOWED_IP_RANGES
+          value: "10.0.1.0/24"
     persistence:
       enabled: true
       existingClaim: n8n
