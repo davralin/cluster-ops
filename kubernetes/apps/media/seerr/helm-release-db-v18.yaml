@@ -66,7 +66,7 @@ spec:
             enablePodAntiAffinity: true
             topologyKey: kubernetes.io/hostname
             podAntiAffinityType: required
-          imageName: ghcr.io/cloudnative-pg/postgresql:18.4@sha256:b38bee8f92acd6d7276d5be32e9af36a0ea72c9d339945f1ae205a2acc3cbb89
+          imageName: ghcr.io/cloudnative-pg/postgresql:18.4-standard-trixie@sha256:4587df73024408f5b2be9b4dd6ba2ccee8c9e5dc0c9a87c274c292291cc8a68c
           primaryUpdateStrategy: unsupervised
           storage:
             size: 2Gi

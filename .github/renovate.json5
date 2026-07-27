@@ -477,10 +477,11 @@
         '/kubernetes/.+\\.yaml$/',
       ],
       matchStrings: [
-        '(?<indentation>\\s*)imageName: (?<depName>\\S+):(?<currentValue>\\d+[^\\s@]*)(?:@(?<currentDigest>sha256:[a-f0-9]+))?',
+        '(?<indentation>\\s*)imageName: (?<depName>ghcr\\.io/cloudnative-pg/postgresql):(?<currentValue>\\d+[^\\s@]*)(?:@(?<currentDigest>sha256:[a-f0-9]+))?',
       ],
       autoReplaceStringTemplate: '{{{indentation}}}imageName: {{{depName}}}:{{{newValue}}}{{#if newDigest}}@{{{newDigest}}}{{/if}}',
       datasourceTemplate: 'docker',
+      versioningTemplate: 'regex:^(?<major>\\d+)\\.(?<minor>\\d+)-(?<compatibility>.+)$',
     },
     {
       customType: 'regex',
