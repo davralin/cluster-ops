@@ -6,6 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 30m
+  timeout: 60m
   chart:
     spec:
       chart: app-template
@@ -19,10 +20,12 @@ spec:
     mode: enabled
   targetNamespace: media
   install:
+    timeout: 60m
     createNamespace: true
     remediation:
       retries: 10
   upgrade:
+    timeout: 60m
     remediation:
       retries: 10
   values:
@@ -103,7 +106,7 @@ spec:
                     port: *port
                   periodSeconds: 10
                   timeoutSeconds: 5
-                  failureThreshold: 30
+                  failureThreshold: 360
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
