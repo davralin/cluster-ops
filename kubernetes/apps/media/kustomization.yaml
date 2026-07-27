@@ -33,6 +33,7 @@ resources:
   - scraparr
   - seerr
   - shelfmark
+  - slskd
   - sonarr
   - speakarr
   - streamripper

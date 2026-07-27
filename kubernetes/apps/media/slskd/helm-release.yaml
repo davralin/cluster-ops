@@ -1,0 +1,249 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &name slskd
+  namespace: flux-system
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 5.0.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+      interval: 30m
+  driftDetection:
+    mode: enabled
+  targetNamespace: media
+  install:
+    createNamespace: true
+    remediation:
+      retries: 10
+  upgrade:
+    remediation:
+      retries: 10
+  values:
+    fullnameOverride: *name
+    global:
+      createDefaultServiceAccount: false
+    defaultPodOptions:
+      automountServiceAccountToken: false
+      enableServiceLinks: false
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+    controllers:
+      slskd:
+        containers:
+          slskd:
+            image:
+              repository: ghcr.io/slskd/slskd
+              tag: 0.25.1@sha256:ab9ed50e028b524cefdb7c1dd8ebca368a076e18441ee8ac2326473eb850b4c3
+            env:
+              DOTNET_BUNDLE_EXTRACT_BASE_DIR: /tmp/.net
+              TZ: "${TIMEZONE}"
+              SLSKD_APP_DIR: /config
+              SLSKD_NO_VERSION_CHECK: true
+              SLSKD_SLSK_USERNAME:
+                valueFrom:
+                  secretKeyRef:
+                    name: slskd-secret
+                    key: SLSKD_SLSK_USERNAME
+              SLSKD_SLSK_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: slskd-secret
+                    key: SLSKD_SLSK_PASSWORD
+              SLSKD_USERNAME:
+                valueFrom:
+                  secretKeyRef:
+                    name: slskd-secret
+                    key: SLSKD_USERNAME
+              SLSKD_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: slskd-secret
+                    key: SLSKD_PASSWORD
+              SLSKD_JWT_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: slskd-secret
+                    key: SLSKD_JWT_KEY
+              SLSKD_API_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: slskd-secret
+                    key: SLSKD_API_KEY
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /health
+                    port: &port 5030
+                  periodSeconds: 30
+                  timeoutSeconds: 5
+                  failureThreshold: 5
+              readiness: *probes
+              startup:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /health
+                    port: *port
+                  periodSeconds: 10
+                  timeoutSeconds: 5
+                  failureThreshold: 30
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+            resources:
+              requests:
+                cpu: 10m
+                memory: 128Mi
+              limits:
+                memory: 1Gi
+    configMaps:
+      config:
+        enabled: true
+        data:
+          slskd.yml: |-
+            directories:
+              downloads: /data/audio/downloads/soulseek
+
+            permissions:
+              file:
+                mode: 664
+
+            shares:
+              directories:
+                - "[Streams]/data/audio/streams"
+              filters:
+                - '^(?!.*\.(?:aac|aif|aiff|alac|ape|dsf|dff|flac|m4a|mp3|mpc|ogg|opus|wav|wma)$).*$'
+                - '/\.'
+              cache:
+                storage_mode: disk
+                workers: 2
+
+            web:
+              https:
+                disabled: true
+    service:
+      slskd:
+        controller: *name
+        ports:
+          http:
+            port: *port
+      soulseek:
+        type: LoadBalancer
+        loadBalancerIP: 10.0.1.32
+        controller: *name
+        ports:
+          soulseek:
+            port: &soulseekPort 50300
+    ingress:
+      slskd:
+        enabled: true
+        annotations:
+          haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
+          haproxy.org/ssl-redirect-port: "443"
+          haproxy.org/response-set-header: |
+            Strict-Transport-Security "max-age=31536000"
+            X-Frame-Options "DENY"
+            X-Content-Type-Options "nosniff"
+            Referrer-Policy "strict-origin-when-cross-origin"
+        hosts:
+          - host: &host "slskd.${SECRET_DEFAULT_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  identifier: slskd
+                  port: http
+        tls:
+          - hosts:
+              - *host
+    persistence:
+      config:
+        enabled: true
+        existingClaim: slskd
+      config-file:
+        enabled: true
+        type: configMap
+        name: slskd
+        globalMounts:
+          - path: /config/slskd.yml
+            subPath: slskd.yml
+            readOnly: true
+      downloads:
+        enabled: true
+        existingClaim: media
+        globalMounts:
+          - path: /data/audio/downloads/soulseek
+            subPath: audio/downloads/soulseek
+      streams:
+        enabled: true
+        existingClaim: media
+        globalMounts:
+          - path: /data/audio/streams
+            subPath: audio/streams
+            readOnly: true
+      tmp:
+        enabled: true
+        type: emptyDir
+    networkpolicies:
+      slskd:
+        enabled: true
+        controller: *name
+        policyTypes:
+          - Egress
+          - Ingress
+        rules:
+          egress:
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: kube-system
+                  podSelector:
+                    matchLabels:
+                      k8s-app: kube-dns
+              ports:
+                - port: 53
+                  protocol: UDP
+            - to: # Soulseek server and peer connections use arbitrary internet endpoints.
+              - ipBlock:
+                  cidr: 0.0.0.0/0
+                  except:
+                  - "${HAPROXY_WHITELIST}"
+          ingress:
+            - from:
+                - ipBlock:
+                    cidr: 0.0.0.0/0
+              ports:
+                - port: *soulseekPort
+            - from:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: haproxy-controller
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: kubernetes-ingress
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: lidarr
+                      app.kubernetes.io/instance: media-lidarr
+                      app.kubernetes.io/name: media-lidarr
+              ports:
+                - port: *port
