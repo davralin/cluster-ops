@@ -200,6 +200,15 @@ spec:
               ports:
                 - port: 443
                   protocol: TCP
+            - to: # pocket-id OIDC
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: haproxy-controller
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: kubernetes-ingress
+              ports:
+                - port: 8443
           ingress:
             - from:
                 - namespaceSelector:
