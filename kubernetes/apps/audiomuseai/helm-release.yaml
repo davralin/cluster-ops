@@ -52,7 +52,7 @@ spec:
           audiomuseai:
             image:
               repository: ghcr.io/neptunehub/audiomuse-ai
-              tag: 3.0.5@sha256:03d8090935e28ee434ca300057c1924a1ad5c1db7923adf8c83d6273c53e196a
+              tag: 3.0.6@sha256:6ed3e4e2a2c6a75df29e105455242be00baad9bd80c88e24f8859f9407d7053d
             env:
               SERVICE_TYPE: "flask"
               TZ: "${TIMEZONE}"
@@ -114,7 +114,7 @@ spec:
           worker:
             image:
               repository: ghcr.io/neptunehub/audiomuse-ai
-              tag: 3.0.5@sha256:03d8090935e28ee434ca300057c1924a1ad5c1db7923adf8c83d6273c53e196a
+              tag: 3.0.6@sha256:6ed3e4e2a2c6a75df29e105455242be00baad9bd80c88e24f8859f9407d7053d
             env:
               SERVICE_TYPE: "worker"
               TZ: "${TIMEZONE}"
