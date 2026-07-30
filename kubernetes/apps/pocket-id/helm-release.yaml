@@ -51,7 +51,7 @@ spec:
           pocket-id:
             image:
               repository: ghcr.io/pocket-id/pocket-id
-              tag: v2.11.0@sha256:8457defd3c58d59faf11effa1a682e94c723499930b13a359bf29f5ea0317584
+              tag: v2.12.0@sha256:76c53d6338187851813df37e0f107aa31a12914655d3c02d2bdcd9b33ed232e9
             env:
               TZ: "${TIMEZONE}"
               ENCRYPTION_KEY:
