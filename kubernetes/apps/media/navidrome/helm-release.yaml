@@ -83,12 +83,12 @@ spec:
               ND_LASTFM_APIKEY:
                 valueFrom:
                   secretKeyRef:
-                    name: multiscrobbler-secrets
+                    name: navidrome
                     key: ND_LASTFM_APIKEY
               ND_LASTFM_SECRET:
                 valueFrom:
                   secretKeyRef:
-                    name: multiscrobbler-secrets
+                    name: navidrome
                     key: ND_LASTFM_SECRET
             probes:
               liveness: &probes

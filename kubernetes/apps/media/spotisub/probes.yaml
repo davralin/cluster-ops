@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: probe-navidrome
+  name: probe-spotisub
   namespace: media
 spec:
   interval: 30m
@@ -44,4 +44,4 @@ spec:
           targets:
             staticConfig:
               static:
-                - "https://navidrome.${SECRET_DEFAULT_DOMAIN}"
+                - "https://spotisub.${SECRET_DEFAULT_DOMAIN}"

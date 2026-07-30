@@ -36,6 +36,7 @@ resources:
   - slskd
   - sonarr
   - speakarr
+  - spotisub
   - streamripper
   - tdarr
   - unpackerr
