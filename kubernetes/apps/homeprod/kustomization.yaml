@@ -19,7 +19,6 @@ resources:
   - ../epicgames-freegames
   - ../firefox
   - ../forgejo
-  - ../freshrss
   - ../garmin-exporter
   - ../gotify
   - ../grafana

@@ -71,7 +71,6 @@ Every namespace has a default-deny network policy. Ingress and egress are explic
 | [Nextcloud](https://nextcloud.com/) | Files, calendar, contacts |
 | [Paperless-ngx](https://docs.paperless-ngx.com/) | Document management with AI classification |
 | [Mealie](https://mealie.io/) | Recipe manager |
-| [FreshRSS](https://freshrss.org/) | RSS feed aggregator |
 | [Karakeep](https://github.com/karakeep-app/karakeep) | Bookmark manager |
 | [Vaultwarden](https://github.com/dani-garcia/vaultwarden) | Bitwarden-compatible password manager |
 | [Wallos](https://github.com/ellite/Wallos) | Subscription tracker |
