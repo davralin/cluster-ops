@@ -9,15 +9,10 @@ spec:
   timeout: 30m
   driftDetection:
     mode: enabled
-  chart:
-    spec:
-      chart: kube-prometheus-stack
-      version: 87.19.2
-      sourceRef:
-        kind: HelmRepository
-        name: prometheus-community-charts
-        namespace: flux-system
-      interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: kube-prometheus-stack
+    namespace: flux-system
   targetNamespace: prometheus
   install:
     createNamespace: true

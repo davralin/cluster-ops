@@ -6,15 +6,10 @@ metadata:
   namespace: flux-system
 spec:
   interval: 30m
-  chart:
-    spec:
-      chart: prometheus-blackbox-exporter
-      version: 11.15.1
-      sourceRef:
-        kind: HelmRepository
-        name: prometheus-community-charts
-        namespace: flux-system
-      interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: blackbox-exporter
+    namespace: flux-system
   driftDetection:
     mode: enabled
   targetNamespace: blackbox-exporter
