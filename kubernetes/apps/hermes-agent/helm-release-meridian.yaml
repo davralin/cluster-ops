@@ -46,7 +46,7 @@ spec:
           meridian:
             image:
               repository: ghcr.io/rynfar/meridian
-              tag: 1.58.1@sha256:c8304b5ec58fd62ffe2f8c0a0c81e19d0af7d727c60a73777101fc3e88d5fa45
+              tag: 1.58.2@sha256:542537e197e989d2d5063268d886785053c798e88bea3b163f20ad33283beb58
             env:
               TZ: "${TIMEZONE}"
               MERIDIAN_HOST: "0.0.0.0"
