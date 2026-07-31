@@ -53,7 +53,7 @@ spec:
           1-occ-upgrade:
             image:
               repository: docker.io/library/nextcloud
-              tag: 34.0.2-apache@sha256:e93ccfc952c95f18175f3d297fb2f60c35070c05ca976050c250a9ddab793e75
+              tag: 34.0.2-apache@sha256:58bc73331d541e0efe46c517ff7539e2e43427342b2a2feeb013b186fb4f3ecd
             command: ["/usr/bin/su"]
             args: ["www-data", "-s", "/bin/bash", "-c", "/var/www/html/occ upgrade"]
             env:
@@ -81,7 +81,7 @@ spec:
           2-disable-maintenance-mode:
             image:
               repository: docker.io/library/nextcloud
-              tag: 34.0.2-apache@sha256:e93ccfc952c95f18175f3d297fb2f60c35070c05ca976050c250a9ddab793e75
+              tag: 34.0.2-apache@sha256:58bc73331d541e0efe46c517ff7539e2e43427342b2a2feeb013b186fb4f3ecd
             command: ["/usr/bin/su"]
             args: ["www-data", "-s", "/bin/bash", "-c", "/var/www/html/occ maintenance:mode --off"]
             env:
@@ -109,7 +109,7 @@ spec:
           3-occ-app-upgrade:
             image:
               repository: docker.io/library/nextcloud
-              tag: 34.0.2-apache@sha256:e93ccfc952c95f18175f3d297fb2f60c35070c05ca976050c250a9ddab793e75
+              tag: 34.0.2-apache@sha256:58bc73331d541e0efe46c517ff7539e2e43427342b2a2feeb013b186fb4f3ecd
             command: ["/usr/bin/su"]
             args: ["www-data", "-s", "/bin/bash", "-c", "/var/www/html/occ app:update --all"]
             env:
@@ -138,7 +138,7 @@ spec:
           nextcloud:
             image:
               repository: docker.io/library/nextcloud
-              tag: 34.0.2-apache@sha256:e93ccfc952c95f18175f3d297fb2f60c35070c05ca976050c250a9ddab793e75
+              tag: 34.0.2-apache@sha256:58bc73331d541e0efe46c517ff7539e2e43427342b2a2feeb013b186fb4f3ecd
             env:
               TZ: "${TIMEZONE}"
               REDIS_HOST: "nextcloud-valkey.nextcloud.svc.cluster.local"
@@ -189,7 +189,7 @@ spec:
           nextcloud-cron:
             image:
               repository: docker.io/library/nextcloud
-              tag: 34.0.2-apache@sha256:e93ccfc952c95f18175f3d297fb2f60c35070c05ca976050c250a9ddab793e75
+              tag: 34.0.2-apache@sha256:58bc73331d541e0efe46c517ff7539e2e43427342b2a2feeb013b186fb4f3ecd
             command: ["/cron.sh"]
             env:
               TZ: "${TIMEZONE}"
