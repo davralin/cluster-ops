@@ -4,19 +4,19 @@ metadata:
     name: spotify-navidrome-sync
     namespace: media
 data:
-    config.yaml: ENC[AES256_GCM,data:2irAGoyf6rAYX+C+V/4pweHXhmXSbI6vGwXcrzXP9XGAh3UmG01x6E2kPG+4W+3JstxV0LKGE41OZPg55YafNf7NvRrnaJ65veCa9EZ3NoFkNrvV7Ktny88ZvjhGpuzlpoCyLYg+vuNnp/wRN2RhGqHX8XsQagqgwiagi3Sps1EgfAx9S8EaM/CjeX9RZJg8ghinas5UzLlX15/V23yWmo4ljIdczbZHUQdpLz/bCYDhsW00wBTjw1Rw92mXd1s7Zm6DVhetrwpmoeEOlpg3wJoHtIE5zkKsErl3XnvqJdSrGd8pjKgOjZ+wUI/d9s9lfv3ulxW9YXt+fJZOINdf7o14dsVJzztXuet5oXbyIbajyXbcVUFE68Il+NXH9F0Fpkjwh8x1E1z0CkfaB7kYG8FiaiJXXjDTaZZY5saGUCfIIAh8ZKVNkkTExBzO//1U2fSgS2XPAG6CkYr6BhmQ9GdtPBkfAfkEekvWKHpoTLu8m51+akcbAxyedd6e+IQz/Kv9p2Mliy9ZZcZAkz1IOR0apM7vPkpm64SPDu2Lk6flDtF3RnPcLxydbMQBo9uwls5gaCo+RODBhI9dX48+R25CUiQipOYb91VawnjYVpP75r7vcQKXfEkfcXaUAZGqrBXBo4QCpQqnrOtz+vcozeM6ezzCTL+NkKQqBpLzQ+pdCGysTEm/nIDadaPAf3KfZlbeUULPpbGOO94Pb48mXzKdr1dhMrFObgd9jm7hPDhD+ALuNzCu8jef9UdcbgCC8+c19fJqykL9xtnYuUPgAs3Az1EC/YW/lp4GUzpKZC3KkBa5YtedRA==,iv:Py7LuMlBkyjbq/3m46CIii9mQaOtZQxQ3+mMUxoCzdE=,tag:66994qRig/CdwTkzMfG8jA==,type:str]
+    config.yaml: ENC[AES256_GCM,data:h46ZOizH/rtsRDS4YNIcbBPNrRBkdrKmjPWn9q45Aqjd6QnkJYTpWQ3qlf4Yt3vOR+HkvIA+RTMbM7gCT7jwy71tPDDLtrMmwrueGpHXtJQPY5uGBsuNR3lLOVMnEJZZvlzQpaSdxUxiB99vwKqu1cXvL+eZ7zq/rwZvfFz0LsLu2VuID1YuVFnfn1Xh2DtlKEdb4mpdyLVsmQk7vUz8+fCDUNUdvY5apKdCIwYRZuj2I/OAhmQNo80NeNGSfRFFAmjC304e+uYslHFH9F32wW9bzkboZqdN7zyn4QuiQZmskpAgBqSU6us1x98jnX8idg1AqVOtxSxQqQmW80+SywE9nK6oE++gy29ts4kfzEeH47KV0PxmGVSGj6swA3VSvarFcfR7RVASmAQByIoYGV5quoZ0BNcDZwpjt5eVMm0xTCk5W6HBbUTNGmfk9tDsHfy0hrjeGgW6atbEkYSkwkL5Q0vuYmLwQfrKZk5jY/bCpyraurHwrPi6TqHI6vuXQ+ZflZ7OiGWggGNuouuAXfMTLofQy2uEqpYs4BsewmwnC10v1jSsPGOdizfKKv+/5jVTQwE9IqG4YjeFw+8o9DNN2MsiIXYXBkLfVKcnf6d7sBxOYNysJ00bXQwFmxx+fsiVMPcNiZoVnbE5LSgfDKEaBNZMHPqQGpQT0TZhrSaXyfDzHnVO8SFEsqAdLk4RbUfRPleeenDnflzkOMyW8TvRcEcNabJtZp4Os0RiGlp40Q2NfoPfWpnqJuK1eCvu+HSpEwEQ9ChVyZaDp7WCFlls9xw6v8WALRS7M+H0ell/EK+JXTduE46pV3PdiSc8O/loKslGausLQJK8cXOUI30BaiSnvwCu1CKhZDlF2xkNJlqZRyjZa6W4+mrtn/l4aK713poKxjvH5RSwzhnhriDw5BxJHy0KXAPGoZIfO6FKUXE2q7yOvemEDttKZW16EOSKIQgJJKBNSmLTgicXmazAlMmyoaPlMG5mQ8d/+YVvlgMI0Wd7tJx9M0Ikybsq87DjIaf8QGDfzI2Bbg71r34znEpySzRTBRiPrdkQ94e/4X8XGoOraDPCi3O2RMLG/0JM9EyudQ/ObTnCPQRXc3Kw4Ek/NdBw55nx8JglMs/Yo5skyL4OgbT77BO4l8MgwBMmaUL8xrfzxl2T64WLeaVDW20mtgzGR7l8Dl2aeqRYOBF7fKqIabWkAiyO8XZluVs5Uqa4jj3YTTYzJvTHW7M=,iv:Hz3vVHbnWa09vyxoR/Bk8H6FP6ND13kA/fFZXtIxhac=,tag:yXcrdfG73La4MnWznSoe4w==,type:str]
 sops:
     age:
         - enc: |
             -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSA1Z0FqTjNqZlBLM0FZT0FE
-            a0Z0VzFvTEwrWmxYNWJhbEZkRGN3bzZrYUJJCnBmNFZhdlg5RU5pMnBqU0cwdDkw
-            dlRTNENyczc2bU9ScExXZ1U2OC8zQk0KLS0tIHlML1VibUlJNkZYVXdJWFZBaXVU
-            ZlNrVHhPdFFaV1BUUitvbitRdWJmc28K7bLEdq9JQcO0gfBTPTREsFuo0IxxzR9y
-            jdfduALB/N4ranIJmLtdug4beyso/8x8haHxPF6CanXWdBWv9CQXCQ==
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSB5cUYrS28rZi9wZlU2Tm9s
+            dUxzbEFKMnZjNTNRQ1h0aUcyY2MybEpIYm1zCklxS2pITFc2cDlRNmFQWmNRZExR
+            eElEY0VuSXE3MHpGc2ZqcHlCb1dGUk0KLS0tIHM4UStibEFuYnpabXI1b2FuUzBL
+            Z3VWTml0bENBL0RVdmtvd2VadHcydEEKh6GfT4DIhWuQ6TRLM+DXAiA/RWFVnkjb
+            5oIPSzW+wPotPmblShiV2bprdzORtdiW660NXaTSwYnN3zOJYtcMAg==
             -----END AGE ENCRYPTED FILE-----
           recipient: age13s49lz9hcwqdlgyyde5zr2ynryc5jsydmyvpvhx0klqd0ylkkq0szd3xtm
     encrypted_regex: ^(data|stringData)$
-    lastmodified: "2026-08-01T08:30:43Z"
-    mac: ENC[AES256_GCM,data:Jru5/YK/NR238khijtgfnn+Pk2xxavVt68pW9sGez1R9JBdKyZn21gvjaOy142TTb4j04BJciRV44MJR0fG5pm9gMBiFlJyQ+yEwpjArxqEWF8iLP+rtvffKRBf2iaXt1Yl+k8nVBsd2kcOq++94emnzHddgGWBB4CSulyTLltw=,iv:elzQk7fr7VW7rFsk6iC/sw9ow68q1n1woFXb96q1na8=,tag:9DWsftO2xiYYKdF+praxOw==,type:str]
+    lastmodified: "2026-08-01T09:53:54Z"
+    mac: ENC[AES256_GCM,data:8Z2jYrj2HZdQhklt2GHoanl0dqQG/iguUuZsmC8EZ3w2wLw3ZJnKKDKXWNZds3+RLdda/BYJxvko4OuhLIOag0CBtFKs0G7PtwlyFPmwyjMT8UNaEYqMsPzCx6FM0s+niI/d0kI3FIli0Ch/Wj/dauCuoTQ+dGGn9Zl5hN2lH48=,iv:ckQJrT9oUVZA2I2HC+PgbjQvqxYa9WcAtidIra/AKKY=,tag:rHTbiW2YaHx85g1a4V/cug==,type:str]
     version: 3.13.3
