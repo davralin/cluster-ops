@@ -50,7 +50,7 @@ spec:
           spotify-navidrome-sync:
             image:
               repository: ghcr.io/davralin/spotify-navidrome-sync
-              tag: 2026.08.01@sha256:0e6ed1b74c6e74b2fa5f3cac31e41607e3007bc7795c2ec8c924bb83dabfd440
+              tag: 2026.08.01@sha256:6d3c934b3c23d586ee9f9b5298842a29137522f5d497bc764f1438c7f5d7321e
             args:
               - /config/config.yaml
             env:
@@ -106,6 +106,13 @@ spec:
             spotify-navidrome-sync:
               - path: /media
                 subPath: audio/rip
+      tmp:
+        enabled: true
+        type: emptyDir
+        advancedMounts:
+          spotify-navidrome-sync:
+            spotify-navidrome-sync:
+              - path: /tmp
     networkpolicies:
       spotify-navidrome-sync:
         enabled: true
@@ -125,7 +132,7 @@ spec:
               ports:
                 - port: 53
                   protocol: UDP
-            - to: # Spotify API
+            - to: # Spotify API and downloader HTTPS targets
               - ipBlock:
                   cidr: 0.0.0.0/0
                   except:
