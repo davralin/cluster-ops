@@ -46,7 +46,7 @@ spec:
           hermes-signal:
             image:
               repository: ghcr.io/asamk/signal-cli
-              tag: 0.14.6@sha256:071beb95fa691859254e8066d82eb3f000ef2c8ebe4fbefaf39ce68a81686174
+              tag: 0.14.7@sha256:5b8059ae7fbf1dccb71833ea3a072c888d5513a60cf5bf95b1d6fc072f42610a
             env:
               TZ: "${TIMEZONE}"
               SIGNAL_ACCOUNT:
