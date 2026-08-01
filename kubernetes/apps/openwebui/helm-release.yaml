@@ -53,13 +53,41 @@ spec:
             env:
               CORS_ALLOW_ORIGIN: "https://openwebui.${SECRET_DEFAULT_DOMAIN}"
               ENABLE_API_KEYS: true
+              ENABLE_LOGIN_FORM: false
+              ENABLE_OAUTH: true
+              ENABLE_OAUTH_GROUP_CREATION: true
+              ENABLE_OAUTH_GROUP_MANAGEMENT: true
+              ENABLE_OAUTH_ROLE_MANAGEMENT: true
+              ENABLE_OAUTH_SIGNUP: true
               ENABLE_RAG_WEB_SEARCH: true
+              OAUTH_ADMIN_ROLES: openwebui-admin
+              OAUTH_ALLOWED_ROLES: "users, openwebui-admin"
+              OAUTH_AUTO_REDIRECT: true
+              OAUTH_CLIENT_ID:
+                valueFrom:
+                  secretKeyRef:
+                    name: openwebui-secrets
+                    key: OAUTH_CLIENT_ID
+              OAUTH_CLIENT_SECRET:
+                valueFrom:
+                  secretKeyRef:
+                    name: openwebui-secrets
+                    key: OAUTH_CLIENT_SECRET
+              OAUTH_GROUP_CLAIM: groups
+              OAUTH_MERGE_ACCOUNTS_BY_EMAIL: true
+              OAUTH_PROVIDER_NAME: "Pocket ID"
+              OAUTH_ROLES_CLAIM: groups
+              OAUTH_SCOPES: "openid email profile groups"
+              OAUTH_UPDATE_PICTURE_ON_LOGIN: true
+              OPENID_PROVIDER_URL: "http://pocket-id.pocket-id.svc.cluster.local:8081/.well-known/openid-configuration"
+              OPENID_REDIRECT_URI: "https://openwebui.${SECRET_DEFAULT_DOMAIN}/oauth/oidc/callback"
               DATABASE_URL:
                 valueFrom:
                   secretKeyRef:
                     name: openwebui-secrets
                     key: DATABASE_URL
               DATA_DIR: /app/backend/data
+              DEFAULT_USER_ROLE: user
               RAG_WEB_SEARCH_ENGINE: "searxng"
               RAG_WEB_SEARCH_RESULT_COUNT: 3
               RAG_WEB_SEARCH_CONCURRENT_REQUESTS: 10
@@ -133,6 +161,16 @@ spec:
             - to:
                 - namespaceSelector:
                     matchLabels:
+                      kubernetes.io/metadata.name: kube-system
+                  podSelector:
+                    matchLabels:
+                      k8s-app: kube-dns
+              ports:
+                - port: 53
+                  protocol: UDP
+            - to:
+                - namespaceSelector:
+                    matchLabels:
                       kubernetes.io/metadata.name: ollama
                   podSelector:
                     matchLabels:
@@ -153,13 +191,15 @@ spec:
             - to:
                 - namespaceSelector:
                     matchLabels:
-                      kubernetes.io/metadata.name: kube-system
+                      kubernetes.io/metadata.name: pocket-id
                   podSelector:
                     matchLabels:
-                      k8s-app: kube-dns
+                      app.kubernetes.io/controller: pocket-id
+                      app.kubernetes.io/instance: pocket-id-pocket-id
+                      app.kubernetes.io/name: pocket-id-pocket-id
               ports:
-                - port: 53
-                  protocol: UDP
+                - port: 8081
+                  protocol: TCP
             - to:
                 - podSelector:
                     matchLabels:
