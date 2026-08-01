@@ -98,6 +98,14 @@ spec:
               - path: /config/config.yaml
                 subPath: config.yaml
                 readOnly: true
+      media:
+        enabled: true
+        existingClaim: media
+        advancedMounts:
+          spotify-navidrome-sync:
+            spotify-navidrome-sync:
+              - path: /media
+                subPath: audio/rip
     networkpolicies:
       spotify-navidrome-sync:
         enabled: true
