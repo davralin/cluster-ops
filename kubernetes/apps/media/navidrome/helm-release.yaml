@@ -217,9 +217,9 @@ spec:
                       app.kubernetes.io/name: kubernetes-ingress
                 - podSelector:
                     matchLabels:
-                      app.kubernetes.io/controller: spotisub
-                      app.kubernetes.io/instance: media-spotisub
-                      app.kubernetes.io/name: media-spotisub
+                      app.kubernetes.io/controller: spotify-navidrome-sync
+                      app.kubernetes.io/instance: media-spotify-navidrome-sync
+                      app.kubernetes.io/name: media-spotify-navidrome-sync
               ports:
                 - port: *port
             - from:

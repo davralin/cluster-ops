@@ -1,0 +1,137 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &name spotify-navidrome-sync
+  namespace: flux-system
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 5.0.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+      interval: 30m
+  driftDetection:
+    mode: enabled
+  targetNamespace: media
+  install:
+    createNamespace: true
+    remediation:
+      retries: 10
+  upgrade:
+    remediation:
+      retries: 10
+  values:
+    fullnameOverride: *name
+    global:
+      createDefaultServiceAccount: false
+    defaultPodOptions:
+      automountServiceAccountToken: false
+      enableServiceLinks: false
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+    controllers:
+      spotify-navidrome-sync:
+        type: cronjob
+        cronjob:
+          schedule: "29 11 * * *"
+          timeZone: "${TIMEZONE}"
+        containers:
+          spotify-navidrome-sync:
+            image:
+              repository: ghcr.io/davralin/spotify-navidrome-sync
+              tag: 2026.08.01@sha256:0e6ed1b74c6e74b2fa5f3cac31e41607e3007bc7795c2ec8c924bb83dabfd440
+            args:
+              - /config/config.yaml
+            env:
+              SPOTIFY_CLIENT_ID:
+                valueFrom:
+                  secretKeyRef:
+                    name: spotify-navidrome-sync
+                    key: SPOTIFY_CLIENT_ID
+              SPOTIFY_CLIENT_SECRET:
+                valueFrom:
+                  secretKeyRef:
+                    name: spotify-navidrome-sync
+                    key: SPOTIFY_CLIENT_SECRET
+              NAVIDROME_URL: http://navidrome.media.svc.cluster.local:4533
+              NAVIDROME_USERNAME:
+                valueFrom:
+                  secretKeyRef:
+                    name: spotify-navidrome-sync
+                    key: SUBSONIC_API_USER
+              NAVIDROME_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: spotify-navidrome-sync
+                    key: SUBSONIC_API_PASS
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+            resources:
+              requests:
+                cpu: 10m
+                memory: 128Mi
+              limits:
+                memory: 512Mi
+    persistence:
+      config:
+        enabled: true
+        type: configMap
+        name: spotify-navidrome-sync
+        advancedMounts:
+          spotify-navidrome-sync:
+            spotify-navidrome-sync:
+              - path: /config/config.yaml
+                subPath: config.yaml
+                readOnly: true
+    networkpolicies:
+      spotify-navidrome-sync:
+        enabled: true
+        controller: *name
+        policyTypes:
+          - Egress
+          - Ingress
+        rules:
+          egress:
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: kube-system
+                  podSelector:
+                    matchLabels:
+                      k8s-app: kube-dns
+              ports:
+                - port: 53
+                  protocol: UDP
+            - to: # Spotify API
+              - ipBlock:
+                  cidr: 0.0.0.0/0
+                  except:
+                  - "${HAPROXY_WHITELIST}"
+              ports:
+                - port: 443
+                  protocol: TCP
+            - to:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: navidrome
+                      app.kubernetes.io/instance: media-navidrome
+                      app.kubernetes.io/name: media-navidrome
+              ports:
+                - port: 4533
+                  protocol: TCP
+          ingress: []

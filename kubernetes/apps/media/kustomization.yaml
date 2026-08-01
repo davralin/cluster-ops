@@ -36,7 +36,7 @@ resources:
   - slskd
   - sonarr
   - speakarr
-  - spotisub
+  - spotify-navidrome-sync
   - streamripper
   - tdarr
   - unpackerr
