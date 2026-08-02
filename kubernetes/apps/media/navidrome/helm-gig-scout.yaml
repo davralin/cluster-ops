@@ -1,0 +1,150 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &name gig-scout
+  namespace: flux-system
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 5.0.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+      interval: 30m
+  driftDetection:
+    mode: enabled
+  targetNamespace: media
+  install:
+    createNamespace: true
+    remediation:
+      retries: 10
+  upgrade:
+    remediation:
+      retries: 10
+  values:
+    fullnameOverride: *name
+    global:
+      createDefaultServiceAccount: false
+    defaultPodOptions:
+      automountServiceAccountToken: false
+      enableServiceLinks: false
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+    controllers:
+      gig-scout:
+        type: cronjob
+        cronjob:
+          schedule: "0 8 * * 6"
+          timeZone: "${TIMEZONE}"
+          concurrencyPolicy: Forbid
+        containers:
+          gig-scout:
+            image:
+              repository: ghcr.io/davralin/navidrome-gig-scout
+              tag: 2026.08.02@sha256:73ac40b6ecc99122d7a1f91c1b649bc5993c2ef4ae625aa1201fd904de126280
+            env:
+              NAVIDROME_URL: "http://navidrome.media.svc.cluster.local:4533"
+              NAVIDROME_USER:
+                valueFrom:
+                  secretKeyRef:
+                    name: gig-scout
+                    key: NAVIDROME_USER
+              NAVIDROME_PASS:
+                valueFrom:
+                  secretKeyRef:
+                    name: gig-scout
+                    key: NAVIDROME_PASS
+              TICKETMASTER_API_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: gig-scout
+                    key: TICKETMASTER_API_KEY
+              GEO_LAT:
+                valueFrom:
+                  secretKeyRef:
+                    name: gig-scout
+                    key: GEO_LAT
+              GEO_LONG:
+                valueFrom:
+                  secretKeyRef:
+                    name: gig-scout
+                    key: GEO_LONG
+              RADIUS_MILES: "100"
+              LOOKAHEAD_DAYS: "365"
+              APPRISE_URLS:
+                valueFrom:
+                  secretKeyRef:
+                    name: gig-scout
+                    key: APPRISE_URLS
+              LOG_LEVEL: "INFO"
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+            resources:
+              requests:
+                cpu: 10m
+                memory: 128Mi
+              limits:
+                memory: 512Mi
+    networkpolicies:
+      gig-scout:
+        enabled: true
+        controller: *name
+        policyTypes:
+          - Egress
+          - Ingress
+        rules:
+          egress:
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: kube-system
+                  podSelector:
+                    matchLabels:
+                      k8s-app: kube-dns
+              ports:
+                - port: 53
+                  protocol: UDP
+            - to:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: navidrome
+                      app.kubernetes.io/instance: media-navidrome
+                      app.kubernetes.io/name: media-navidrome
+              ports:
+                - port: 4533
+                  protocol: TCP
+            - to: # Ticketmaster
+                - ipBlock:
+                    cidr: 0.0.0.0/0
+                    except:
+                      - "${HAPROXY_WHITELIST}"
+              ports:
+                - port: 443
+                  protocol: TCP
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: gotify
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: gotify
+                      app.kubernetes.io/instance: gotify-gotify
+                      app.kubernetes.io/name: gotify-gotify
+              ports:
+                - port: 80
+                  protocol: TCP
+          ingress: []

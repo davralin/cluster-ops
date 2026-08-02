@@ -220,6 +220,11 @@ spec:
                       app.kubernetes.io/controller: spotify-navidrome-sync
                       app.kubernetes.io/instance: media-spotify-navidrome-sync
                       app.kubernetes.io/name: media-spotify-navidrome-sync
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: gig-scout
+                      app.kubernetes.io/instance: media-gig-scout
+                      app.kubernetes.io/name: media-gig-scout
               ports:
                 - port: *port
             - from:
