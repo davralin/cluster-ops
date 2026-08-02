@@ -33,11 +33,11 @@ spec:
       automountServiceAccountToken: false
       enableServiceLinks: false
       securityContext:
-        runAsUser: 0
-        runAsGroup: 0
-        fsGroup: 0
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"
-        runAsNonRoot: false
+        runAsNonRoot: true
         seccompProfile:
           type: RuntimeDefault
     controllers:
@@ -46,7 +46,7 @@ spec:
           kuma:
             image:
               repository: ghcr.io/louislam/uptime-kuma
-              tag: 2.4.0@sha256:91e963bfda569ba115206e843febb446f473ab525add4e08b2b9e3beffa16985
+              tag: 2.5.0-rootless@sha256:8d65e18011afe4f58ba42108f7257ecafb751b3777720cdae33ca3d28c4eff9c
             env:
               TZ: "${TIMEZONE}"
             probes:
@@ -58,8 +58,6 @@ spec:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: false
               capabilities:
-                add:
-                  - CHOWN
                 drop:
                   - ALL
             resources:
