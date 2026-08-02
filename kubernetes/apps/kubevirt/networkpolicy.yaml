@@ -162,6 +162,25 @@ spec:
     - toEntities:
         - kube-apiserver
 ---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: virt-template-apiserver
+  namespace: kubevirt
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: virt-template
+      control-plane: apiserver
+  egress:
+    - toEntities:
+        - kube-apiserver
+  ingress:
+    - fromEntities:
+        - kube-apiserver
+        - remote-node
+        - host
+---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
