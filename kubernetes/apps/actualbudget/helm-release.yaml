@@ -128,3 +128,9 @@ spec:
                       app.kubernetes.io/name: kubernetes-ingress
               ports:
                 - port: *port
+            - from:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: actual-firi-sync
+              ports:
+                - port: *port
