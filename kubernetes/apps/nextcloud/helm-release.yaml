@@ -49,6 +49,19 @@ spec:
           type: RuntimeDefault
     controllers:
       nextcloud:
+        strategy: RollingUpdate
+        pod:
+          affinity:
+            podAffinity:
+              preferredDuringSchedulingIgnoredDuringExecution:
+                - weight: 100
+                  podAffinityTerm:
+                    labelSelector:
+                      matchLabels:
+                        app.kubernetes.io/controller: nextcloud
+                        app.kubernetes.io/instance: nextcloud-nextcloud
+                        app.kubernetes.io/name: nextcloud-nextcloud
+                    topologyKey: kubernetes.io/hostname
         initContainers:
           1-occ-upgrade:
             image:
