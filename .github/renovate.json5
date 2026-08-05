@@ -118,6 +118,7 @@
         'minor',
       ],
       matchPackageNames: [
+        '/^ghcr\\.io/davralin/',
         '/^ghcr\\.io/prometheus-community/',
       ],
       automerge: true,
