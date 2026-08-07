@@ -114,6 +114,28 @@ spec:
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
 metadata:
+  name: virt-exportproxy
+  namespace: kubevirt
+spec:
+  endpointSelector:
+    matchLabels:
+      kubevirt.io: virt-exportproxy
+  egress:
+    - toEntities:
+        - kube-apiserver
+  ingress:
+    - fromEntities:
+        - kube-apiserver
+        - remote-node
+        - host
+      toPorts:
+        - ports:
+            - port: "8443"
+              protocol: TCP
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
   name: virt-handler
   namespace: kubevirt
 spec:
