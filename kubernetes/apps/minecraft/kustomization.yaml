@@ -7,6 +7,7 @@ resources:
   - creative
   - mc-router
   - oldworld
+  - skyblock
   - survival
   - backup-ssh-key.yaml
   - helm-borgmatic.yaml

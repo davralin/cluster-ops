@@ -111,6 +111,11 @@ spec:
         existingClaim: oldworld
         globalMounts:
           - path: /minecraft/old_worlds
+      skyblock-backup:
+        enabled: true
+        existingClaim: skyblock-backup
+        globalMounts:
+          - path: /minecraft/skyblock
       sshkey:
         enabled: true
         type: secret
