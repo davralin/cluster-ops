@@ -111,6 +111,11 @@ spec:
         existingClaim: oldworld
         globalMounts:
           - path: /minecraft/old_worlds
+      oneblock-backup:
+        enabled: true
+        existingClaim: oneblock-backup
+        globalMounts:
+          - path: /minecraft/oneblock
       skyblock-backup:
         enabled: true
         existingClaim: skyblock-backup

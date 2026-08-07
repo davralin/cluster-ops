@@ -1,0 +1,184 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &name minecraft-oneblock
+  namespace: flux-system
+spec:
+  interval: 30m
+  timeout: 15m
+  chart:
+    spec:
+      chart: minecraft
+      version: 5.1.3
+      sourceRef:
+        kind: HelmRepository
+        name: itzg-charts
+        namespace: flux-system
+      interval: 30m
+  driftDetection:
+    mode: enabled
+  targetNamespace: minecraft
+  install:
+    createNamespace: true
+    remediation:
+      retries: 10
+  upgrade:
+    remediation:
+      retries: 10
+  values:
+    fullnameOverride: *name
+    image:
+      repository: ghcr.io/itzg/minecraft-server
+    # BentoBox add-ons must live below plugins/BentoBox/addons, not in pluginUrls.
+    initContainers:
+      - name: bentobox-addons
+        image: ghcr.io/itzg/minecraft-server:latest
+        command:
+          - sh
+          - -ec
+          - |
+            mkdir -p /data/plugins/BentoBox/addons /data/plugins/Geyser-Spigot /data/plugins/PrometheusExporter
+
+            cat > /data/plugins/PrometheusExporter/config.yml <<'EOF'
+            host: 0.0.0.0
+            port: 9100
+            enable_metrics:
+              entities_total: true
+              villagers_total: true
+              loaded_chunks_total: true
+              jvm_memory: true
+              players_online_total: true
+              players_total: true
+              whitelisted_players: false
+              tps: true
+              world_size: true
+              jvm_threads: true
+              jvm_gc: true
+              tick_duration_median: true
+              tick_duration_average: true
+              tick_duration_min: false
+              tick_duration_max: true
+              player_online: false
+              player_statistic: false
+            EOF
+
+            if [ -f /data/plugins/Geyser-Spigot/config.yml ]; then
+              sed -i '/^bedrock:/,/^java:/ s/^  port: .*/  port: 25565/' /data/plugins/Geyser-Spigot/config.yml
+              sed -i '/^bedrock:/,/^java:/ s/^  clone-remote-port: .*/  clone-remote-port: true/' /data/plugins/Geyser-Spigot/config.yml
+            else
+              cat > /data/plugins/Geyser-Spigot/config.yml <<'EOF'
+            bedrock:
+              address: 0.0.0.0
+              port: 25565
+              clone-remote-port: true
+            java:
+              auth-type: online
+            EOF
+            fi
+
+            download() {
+              url="$1"
+              dest="$2"
+              tmp="$dest.tmp"
+              curl -fsSL "$url" -o "$tmp"
+              mv "$tmp" "$dest"
+            }
+            download "$AONEBLOCK_URL" /data/plugins/BentoBox/addons/AOneBlock.jar
+
+            aoneblock_config=/data/plugins/BentoBox/addons/AOneBlock/config.yml
+            mkdir -p /data/plugins/BentoBox/addons/AOneBlock
+            if [ ! -f "$aoneblock_config" ]; then
+              unzip -p /data/plugins/BentoBox/addons/AOneBlock.jar config.yml > "$aoneblock_config"
+            fi
+            sed -i '/^  create-island-on-first-login:/,/^  [^ ]/ s/^    enable: .*/    enable: true/' "$aoneblock_config"
+            sed -i '/^  create-island-on-first-login:/,/^  [^ ]/ s/^    delay: .*/    delay: 0/' "$aoneblock_config"
+            sed -i '/^  create-island-on-first-login:/,/^  [^ ]/ s/^    abort-on-logout: .*/    abort-on-logout: false/' "$aoneblock_config"
+        env:
+          - name: AONEBLOCK_URL
+            # renovate: datasource=github-releases depName=BentoBoxWorld/AOneBlock
+            value: https://github.com/BentoBoxWorld/AOneBlock/releases/download/1.26.3/AOneBlock-1.26.3.jar
+        volumeMounts:
+          - name: datadir
+            mountPath: /data
+    minecraftServer:
+      extraPorts:
+        - name: geysermc
+          containerPort: 25565
+          protocol: UDP
+          service:
+            enabled: true
+            embedded: true
+            port: 25565
+        - name: prometheus
+          containerPort: 9100
+          protocol: TCP
+          service:
+            enabled: true
+            embedded: true
+            port: 9100
+      tz: "${TIMEZONE}"
+      eula: true
+      type: PAPER
+      # renovate: datasource=custom.papermc depName=paper versioning=loose
+      version: "26.2"
+      difficulty: "easy"
+      maxPlayers: 4
+      maxTickTime: -1
+      mode: survival
+      memory: 6G
+      motd: "A OneBlock Minecraft Server"
+      overrideServerProperties: true
+      pluginUrls:
+        - https://download.geysermc.org/v2/projects/geyser/versions/latest/builds/latest/downloads/spigot
+        - https://download.geysermc.org/v2/projects/floodgate/versions/latest/builds/latest/downloads/spigot
+        # renovate: datasource=github-releases depName=BentoBoxWorld/BentoBox
+        - https://github.com/BentoBoxWorld/BentoBox/releases/download/3.22.0/BentoBox-3.22.0.jar
+        # renovate: datasource=github-releases depName=sladkoff/minecraft-prometheus-exporter
+        - https://github.com/sladkoff/minecraft-prometheus-exporter/releases/download/v3.1.2/minecraft-prometheus-exporter-3.1.2.jar
+        # renovate: datasource=github-releases depName=ViaVersion/ViaVersion
+        - https://github.com/ViaVersion/ViaVersion/releases/download/5.11.0/ViaVersion-5.11.0.jar
+      rcon:
+        enabled: true
+      serviceType: LoadBalancer
+      loadBalancerIP: 10.0.1.47
+      #externalTrafficPolicy: Local
+    resources:
+      requests:
+        memory: 6G
+    extraEnv:
+      ENABLE_AUTOPAUSE: "FALSE"
+      ENABLE_WHITELIST: "FALSE"
+      ENFORCE_WHITELIST: "FALSE"
+      ALLOW_FLIGHT: "TRUE"
+      OPS:
+        valueFrom:
+          secretKeyRef:
+            name: minecraft-secrets
+            key: ops
+    podAnnotations:
+      reloader.stakater.com/auto: "true"
+    persistence:
+      dataDir:
+        enabled: true
+        existingClaim: oneblock
+    mcbackup:
+      enabled: true
+      image:
+        repository: ghcr.io/itzg/mc-backup
+        tag: "2026.7.3@sha256:e1b9133777e99fe58be14690a4c93c8053efdc49e3f69fc67b0932b666ee2e33"
+      pauseIfNoPlayers: true
+      backupMethod: rclone
+      excludes: "*.jar,cache,logs,lost+found"
+      rcloneRemote: minecraft-garage
+      rcloneDestDir: minecraft-${CLUSTER_NAME}/oneblock
+      rcloneConfigExistingSecret: rclone-config
+      pruneBackupsDays: 3
+      resources:
+        requests:
+          cpu: 10m
+          memory: 128Mi
+      persistence:
+        backupDir:
+          enabled: true
+          existingClaim: oneblock-backup
