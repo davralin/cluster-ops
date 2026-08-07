@@ -1,0 +1,26 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: skyblock
+  namespace: minecraft
+spec:
+  storageClassName: "${STORAGE_READWRITEONCE}"
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: skyblock-backup
+  namespace: minecraft
+spec:
+  storageClassName: "${STORAGE_READWRITEMANY}"
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 20Gi

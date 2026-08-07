@@ -128,6 +128,7 @@
       description: 'Commit messages for Minecraft plugins (github-releases used in pluginUrls)',
       matchDatasources: ['github-releases'],
       matchPackageNames: [
+        '/BentoBoxWorld/',
         '/ViaVersion/',
         '/sladkoff/minecraft-prometheus-exporter/',
       ],
