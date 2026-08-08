@@ -1,0 +1,22 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-karakeep-opds
+  namespace: karakeep
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/controller: karakeep
+      app.kubernetes.io/instance: karakeep-karakeep
+      app.kubernetes.io/name: karakeep-karakeep
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/controller: karakeep-opds
+      ports:
+        - port: 3000
+          protocol: TCP
