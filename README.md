@@ -73,6 +73,7 @@ Every namespace has a default-deny network policy. Ingress and egress are explic
 | [Actual Budget](https://actualbudget.org/) | Personal finance and budgeting |
 | [Mealie](https://mealie.io/) | Recipe manager |
 | [Karakeep](https://github.com/karakeep-app/karakeep) | Bookmark manager |
+| Karakeep OPDS | OPDS catalog bridge for Karakeep bookmarks |
 | [Vaultwarden](https://github.com/dani-garcia/vaultwarden) | Bitwarden-compatible password manager |
 | [Wallos](https://github.com/ellite/Wallos) | Subscription tracker |
 
