@@ -357,14 +357,15 @@
     },
     {
       customType: 'regex',
-      description: 'Process GitHub release download URLs in pluginUrls',
+      description: 'Process GitHub release download URLs for Minecraft plugins',
       managerFilePatterns: [
         '/(^|/)kubernetes/.+\\.ya?ml$/',
       ],
       matchStrings: [
-        '# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)\\n\\s+- https://github\\.com/\\S+/releases/download/v?(?<currentValue>\\S+?)/\\S+',
-        '# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)\\n\\s+\\w+: https://github\\.com/\\S+/releases/download/v?(?<currentValue>\\S+?)/\\S+',
+        '(?<commentIndentation>\\s*)# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)\\n(?<indentation>\\s*)(?<linePrefix>- )https://github\\.com/(?<repo>\\S+)/releases/download/(?<tagPrefix>v?)(?<currentValue>[^/\\s]+)/(?<assetPrefix>\\S*?)(?<assetVersionPrefix>v?)\\d+(?:\\.\\d+)*(?<assetSuffix>[^/\\s]*?\\.jar)',
+        '(?<commentIndentation>\\s*)# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)\\n(?<indentation>\\s*)(?<linePrefix>value: )https://github\\.com/(?<repo>\\S+)/releases/download/(?<tagPrefix>v?)(?<currentValue>[^/\\s]+)/(?<assetPrefix>\\S*?)(?<assetVersionPrefix>v?)\\d+(?:\\.\\d+)*(?<assetSuffix>[^/\\s]*?\\.jar)',
       ],
+      autoReplaceStringTemplate: '{{{commentIndentation}}}# renovate: datasource={{{datasource}}} depName={{{depName}}}\n{{{indentation}}}{{{linePrefix}}}https://github.com/{{{repo}}}/releases/download/{{{tagPrefix}}}{{{newValue}}}/{{{assetPrefix}}}{{{assetVersionPrefix}}}{{{newValue}}}{{{assetSuffix}}}',
       versioningTemplate: 'semver-coerced',
     },
     {
