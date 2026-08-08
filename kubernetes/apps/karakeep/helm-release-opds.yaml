@@ -18,9 +18,6 @@ spec:
   driftDetection:
     mode: enabled
   targetNamespace: karakeep
-  dependsOn:
-    - name: karakeep
-      namespace: flux-system
   install:
     createNamespace: true
     remediation:
