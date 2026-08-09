@@ -16,7 +16,6 @@ resources:
   - flux.yaml
   - grafana.yaml
   - haproxytech.yaml
-  - immich.yaml
   - intel.yaml
   - itzg.yaml
   - jetstack.yaml
