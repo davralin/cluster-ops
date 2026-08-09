@@ -107,6 +107,7 @@ spec:
       enabled: "${MONITORING_PROMETHEUS}"
       serviceMonitor:
           enabled: "${MONITORING_PROMETHEUS}"
+          trustCRDsExist: true
     securityContext:
       capabilities:
         ciliumAgent:
