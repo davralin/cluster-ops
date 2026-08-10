@@ -46,7 +46,7 @@ spec:
           wastebin:
             image:
               repository: docker.io/quxfoo/wastebin
-              tag: 3.7.1@sha256:62b4827f3f8bf4f2bf01984e52fbe8373f88ea702c98d4f185218ae90bec6c79
+              tag: 3.7.2@sha256:8ad3a7b7a757b3df9483c3e512ae98fd8e2a0c785205dd1dd20ac521fca91479
             env:
               WASTEBIN_DATABASE_PATH: /data/state.db
               WASTEBIN_ADDRESS_PORT: "0.0.0.0:8088"
