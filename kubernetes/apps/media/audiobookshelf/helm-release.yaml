@@ -115,7 +115,7 @@ spec:
         type: emptyDir
         advancedMounts:
           audiobookshelf:
-            app:
+            audiobookshelf:
               - path: /.npm
                 subPath: cache
               - path: /metadata/logs
