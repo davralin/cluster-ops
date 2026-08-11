@@ -35,7 +35,7 @@ spec:
       relevancy: disable
       kubescapeOffline: enable
       nodeSbomGeneration: disable
-      nodeScan: disable
+      nodeScan: enable
       runtimeObservability: disable
       networkPolicyService: disable
       runtimeDetection: disable
