@@ -32,7 +32,6 @@ spec:
           - kubescape
           - kubevuln
           - storage
-          - node-agent
           - kubescape-scheduler
           - kubevuln-scheduler
   egress:
