@@ -229,11 +229,6 @@ spec:
                       app.kubernetes.io/name: media-lidarr
                 - podSelector:
                     matchLabels:
-                      app.kubernetes.io/controller: multiscrobbler
-                      app.kubernetes.io/instance: media-multiscrobbler
-                      app.kubernetes.io/name: media-multiscrobbler
-                - podSelector:
-                    matchLabels:
                       app.kubernetes.io/controller: tdarr-node
                       app.kubernetes.io/instance: media-tdarr-node
                       app.kubernetes.io/name: media-tdarr-node

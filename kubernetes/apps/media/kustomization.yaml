@@ -18,7 +18,6 @@ resources:
   - lidarr
   - metube
   - mpd
-  - multiscrobbler
   - navidrome
   - pinchflat
   - pvc.yaml
