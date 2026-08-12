@@ -11,7 +11,6 @@ resources:
   - ../browserless
   - ../changedetection
   - ../cloudnative-pg
-  - ../cyberchef
   - ../dawarich
   - ../descheduler
   - ../endurain
@@ -29,13 +28,11 @@ resources:
   - ../icecast
   - ../intel-device-plugin
   - ../invidious
-  - ../it-tools
   - ../karakeep
   - ../kuma
   - ../kyverno
   - ../kubescape
   - ../kubevirt
-  - ../librespeed
   - ../litellm
   - ../lubelogger
   - ../mailbackup
@@ -67,4 +64,3 @@ resources:
   - ../volsync
   - ../wallos
   - ../warrior
-  - ../wastebin
