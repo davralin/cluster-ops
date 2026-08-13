@@ -3,8 +3,15 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - namespace.yaml
+  - namespace-kubevirt-manager.yaml
+  - crd-images.yaml
   - networkpolicy.yaml
+  - networkpolicy-kubevirt-manager.yaml
+  - rbac-kubevirt-manager.yaml
+  - secret-kubevirt-manager.yaml
   - helm-release-kubevirt-operator.yaml
   - helm-release-kubevirt-cr.yaml
   - helm-release-cdi-operator.yaml
   - helm-release-cdi-cr.yaml
+  - helm-release-kubevirt-manager.yaml
+  - probes-kubevirt-manager.yaml

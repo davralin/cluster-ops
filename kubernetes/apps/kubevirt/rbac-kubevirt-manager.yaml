@@ -1,0 +1,106 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: kubevirt-manager-read
+rules:
+  - apiGroups: [""]
+    resources: ["namespaces", "nodes", "persistentvolumes", "pods", "pods/log", "services"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["apiextensions.k8s.io"]
+    resources: ["customresourcedefinitions"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["storage.k8s.io"]
+    resources: ["storageclasses"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["networking.k8s.io"]
+    resources: ["networkpolicies"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["k8s.cni.cncf.io"]
+    resources: ["network-attachment-definitions"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["kubevirt.io"]
+    resources: ["virtualmachines", "virtualmachineinstances", "virtualmachineinstancemigrations"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["subresources.kubevirt.io"]
+    resources: ["*"]
+    verbs: ["get", "list"]
+  - apiGroups: ["instancetype.kubevirt.io"]
+    resources: ["*"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["cdi.kubevirt.io"]
+    resources: ["*"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["pool.kubevirt.io"]
+    resources: ["*"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["scheduling.k8s.io"]
+    resources: ["priorityclasses"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["kubevirt-manager.io"]
+    resources: ["images"]
+    verbs: ["get", "list", "watch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: kubevirt-manager-read
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: kubevirt-manager-read
+subjects:
+  - kind: ServiceAccount
+    name: kubevirt-manager
+    namespace: kubevirt-manager
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: kubevirt-manager-vms-write
+  namespace: vms
+rules:
+  - apiGroups: [""]
+    resources: ["configmaps", "persistentvolumeclaims", "pods", "pods/log", "secrets", "services", "serviceaccounts"]
+    verbs: ["*"]
+  - apiGroups: ["networking.k8s.io"]
+    resources: ["networkpolicies"]
+    verbs: ["*"]
+  - apiGroups: ["apps"]
+    resources: ["deployments"]
+    verbs: ["*"]
+  - apiGroups: ["rbac.authorization.k8s.io"]
+    resources: ["roles", "rolebindings"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+  - apiGroups: ["kubevirt.io"]
+    resources: ["virtualmachines", "virtualmachineinstances", "virtualmachineinstancemigrations"]
+    verbs: ["*"]
+  - apiGroups: ["subresources.kubevirt.io"]
+    resources: ["*"]
+    verbs: ["get", "list", "update", "patch"]
+  - apiGroups: ["instancetype.kubevirt.io"]
+    resources: ["*"]
+    verbs: ["*"]
+  - apiGroups: ["cdi.kubevirt.io"]
+    resources: ["*"]
+    verbs: ["*"]
+  - apiGroups: ["pool.kubevirt.io"]
+    resources: ["*"]
+    verbs: ["*"]
+  - apiGroups: ["kubevirt-manager.io"]
+    resources: ["images"]
+    verbs: ["*"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: kubevirt-manager-vms-write
+  namespace: vms
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: kubevirt-manager-vms-write
+subjects:
+  - kind: ServiceAccount
+    name: kubevirt-manager
+    namespace: kubevirt-manager
