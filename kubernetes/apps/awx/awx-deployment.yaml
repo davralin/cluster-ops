@@ -43,7 +43,7 @@ spec:
               image: ghcr.io/davralin/awx-ee:latest@sha256:2c2d2d61cd465e007b91346c21eb03d6295868bf66d5a5c6da34662eb81e0775
           extra_settings:
             - setting: TOWER_URL_BASE
-              value: '"awx.${SECRET_PRIVATE_DOMAIN}"'
+              value: '"https://awx.${SECRET_PRIVATE_DOMAIN}"'
           hostname: "awx.${SECRET_PRIVATE_DOMAIN}"
           ingress_annotations: |
             haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
