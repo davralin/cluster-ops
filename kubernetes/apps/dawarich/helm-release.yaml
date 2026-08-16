@@ -51,7 +51,7 @@ spec:
           dawarich:
             image:
               repository: docker.io/freikin/dawarich
-              tag: 1.11.0@sha256:4e3c55c4cd572373624e75c9e02075ff436c83a3ea952595ae0d4ffc4c7ae52b
+              tag: 1.12.2@sha256:41372c4084737133765b0a3067e648cff9fc4af23e2054717e4e01c4f0933609
             command: ["/usr/local/bin/web-entrypoint.sh"]
             args: ["bin/rails", "server", "-p", "3000", "-b", "::"]
             env: &env
@@ -138,7 +138,7 @@ spec:
           sidekiq:
             image:
               repository: docker.io/freikin/dawarich
-              tag: 1.11.0@sha256:4e3c55c4cd572373624e75c9e02075ff436c83a3ea952595ae0d4ffc4c7ae52b
+              tag: 1.12.2@sha256:41372c4084737133765b0a3067e648cff9fc4af23e2054717e4e01c4f0933609
             command: ["/usr/local/bin/sidekiq-entrypoint.sh"]
             args: ["sidekiq"]
             env:
