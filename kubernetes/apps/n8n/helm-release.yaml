@@ -26,6 +26,8 @@ spec:
       namespace: flux-system
   values:
     fullnameOverride: *name
+    image:
+      tag: 2.33.6
     database:
       useExternal: true
       host: n8n-postgres-v18-rw.n8n.svc.cluster.local
