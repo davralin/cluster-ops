@@ -46,7 +46,7 @@ spec:
           karakeep-opds:
             image:
               repository: ghcr.io/davralin/karakeep-opds
-              tag: "2026.08.10"
+              tag: "2026.08.17"
             env:
               KARAKEEP_BASE_URL: http://karakeep.karakeep.svc.cluster.local:3000
               KARAKEEP_API_TOKEN:
