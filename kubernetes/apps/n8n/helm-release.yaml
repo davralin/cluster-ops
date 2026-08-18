@@ -27,6 +27,7 @@ spec:
   values:
     fullnameOverride: *name
     image:
+      repository: docker.n8n.io/n8nio/n8n
       tag: 2.33.6
     database:
       useExternal: true
