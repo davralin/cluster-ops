@@ -74,12 +74,17 @@ spec:
       persistence:
         cache:
           type: persistentVolumeClaim
+          size: 10Gi
           accessMode: ReadWriteOnce
           storageClass: "${STORAGE_READWRITEONCE}"
         external:
           enabled: true
           existingClaim: nextcloud
-          readOnly: true
+          advancedMounts:
+            main:
+              main:
+                - path: /external
+                  readOnly: true
     server:
       controllers:
         main:
@@ -137,7 +142,11 @@ spec:
         external:
           enabled: true
           existingClaim: nextcloud
-          readOnly: true
+          advancedMounts:
+            main:
+              main:
+                - path: /external
+                  readOnly: true
       ingress:
         main:
           enabled: true
@@ -154,6 +163,8 @@ spec:
               paths:
                 - path: "/"
           tls:
-            - secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
+            - hosts:
+                - "immich.${SECRET_DEFAULT_DOMAIN}"
+              secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
     valkey:
       enabled: false
