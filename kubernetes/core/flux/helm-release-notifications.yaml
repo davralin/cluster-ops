@@ -63,10 +63,10 @@ spec:
             - kind: OCIRepository
               name: "*"
           exclusionList:
-            - "*etcdserver: leader changed"
-            - "*etcdserver: request timed out"
-            - "*i/o timeout"
-            - "* TLS handshake timeout"
+            - ".*etcdserver: leader changed"
+            - ".*etcdserver: request timed out"
+            - ".*i/o timeout"
+            - ".* TLS handshake timeout"
           suspend: false
       - apiVersion: notification.toolkit.fluxcd.io/v1beta3
         kind: Alert
@@ -84,10 +84,10 @@ spec:
               name: '*'
               namespace: '*'
           exclusionList:
-            - "*etcdserver: leader changed"
-            - "*etcdserver: request timed out"
-            - "*i/o timeout"
-            - "* TLS handshake timeout"
+            - ".*etcdserver: leader changed"
+            - ".*etcdserver: request timed out"
+            - ".*i/o timeout"
+            - ".* TLS handshake timeout"
           suspend: false
       - apiVersion: monitoring.coreos.com/v1
         kind: PodMonitor
