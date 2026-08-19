@@ -40,8 +40,6 @@ spec:
       prometheus:
         serviceMonitor:
             enabled: "${MONITORING_PROMETHEUS}"
-    externalIPs:
-      enabled: true
     ingressController:
       enabled: false
     ipam:
