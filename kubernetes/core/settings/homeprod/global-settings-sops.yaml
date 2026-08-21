@@ -45,7 +45,7 @@ stringData:
     SECRET_BORG_PASSPHRASE: ENC[AES256_GCM,data:KRueOjSG3CBi4+yMHJHThXw5GuOjtFo+3oxMkPpKC7nmfecr0HW/XJW05s5xQtA/fgjvayJmJ8nNSB33VzKiSWtwQtWEQiHbKbd5gMUUjVk5YMKSW9jv/g==,iv:U4X9czDQ8LpReWiVNxLkXD2wm8PJqT0P5w6GZDt1Pt0=,tag:HHXJK2JedTk0VBYVJEwpFQ==,type:str]
     SECRET_IMVDB_API_KEY: ENC[AES256_GCM,data:yl1dQRL8oMMvvIMdtJbElwvRI2O4cwACdTQw+yUOnpT7hBTE5DNrIA==,iv:HlJVkYyDAhSTet46H9yCdg4lxSWr7j7VFWkwm79tHHA=,tag:D9yJQF5qZ1RnTIYGroJmlw==,type:str]
     SECRET_OAUTH2_PROXY_CLIENT_ID: ENC[AES256_GCM,data:cFPEZHRgtq12EmJ8RbYX3l2/YuDcqJq3X/nqBvOPHsWTemC7,iv:GBkhiAjHXm8L/9WeWzQ73lwdhXarZHluiRbvomkczbQ=,tag:xPlE1t0U7mKxcjH9Rc1oqA==,type:str]
-    SECRET_OAUTH2_PROXY_CLIENT_SECRET: ENC[AES256_GCM,data:YKqHNBsUQUxzSY35SU5DuOz/VPUsbaPvD5qzxxn+nsU=,iv:MtGYknfxYCUCCf3JL0jDEIAiSBVAeQ3qEI6UJdKygus=,tag:xlBBIOi16Up6n98dWGXNvg==,type:str]
+    SECRET_OAUTH2_PROXY_CLIENT_SECRET: ENC[AES256_GCM,data:ka1Bk0FMaJEljVqMbc86wlISRZlI1SctgQ6wwVtnJTg=,iv:5aK3x0ZDRuy4mam+V6xk2TLTMEDGklWxingrp/m0cXg=,tag:ehwaBh0Nzt/jlzaenDBIOQ==,type:str]
     SECRET_OAUTH2_PROXY_COOKIE_SECRET: ENC[AES256_GCM,data:Du9API3t/JcEJvH62aKQEbTQ4gckyUZKH+kO32vtmKA=,iv:jdbr3No4++bjEKd3qHBGUsQcQRpX+SCYk8iDxl73I78=,tag:LuqZvmQU3v8U+11YXbm1qQ==,type:str]
 sops:
     age:
@@ -59,6 +59,6 @@ sops:
             -----END AGE ENCRYPTED FILE-----
           recipient: age13s49lz9hcwqdlgyyde5zr2ynryc5jsydmyvpvhx0klqd0ylkkq0szd3xtm
     encrypted_regex: ^(data|stringData)$
-    lastmodified: "2026-08-21T06:22:19Z"
-    mac: ENC[AES256_GCM,data:vJudEfmj6EDTnqMc/CGM+K1N0JrGMu2wOPyy/brb3+SpWRETFrhYfMyyZHvLlyjW4CfWtjFBB5D7ms+H7XlN42YtiLd2xOYPRlATMsUGc2k4SH8yaHuyJBORmjOxBEQzEoGLdVOrvWXjaPKDgNsMEnCpiXYxaWskQMs/x71XKfw=,iv:NVN/Lsuuja0lL68HNOSoFQLZ/ljHvlbt4QzBAqkni+U=,tag:Yc/r5qKtKSLdnqCRckw8VA==,type:str]
+    lastmodified: "2026-08-21T07:01:58Z"
+    mac: ENC[AES256_GCM,data:3G53rFZ4yWpzz3/s/BbG70piwxRZm49WQ8ai6QBPAGqDVuq4d+Tu8Kdo7di+M9jwW3agAby1TN5JQtfo5kk7hY5bLfhtCGGWjJwyQoCK/uzfZJG6TSkM0hODunTlq6wj7HOYxhl7wAaDamrQ/XPqIjfYnKHZd1PiQ2L8zKf7GsI=,iv:0HnKct4Tz/lwjtyEr1bS/7Ml4JxD1olL9MyVVOm12YE=,tag:MCRzPJRvixOpIdO0b/AurA==,type:str]
     version: 3.9.1
