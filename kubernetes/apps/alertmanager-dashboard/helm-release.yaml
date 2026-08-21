@@ -115,6 +115,52 @@ spec:
               startup: *probes
             securityContext: *securityContext
             resources: *resources
+      oauth2-proxy:
+        containers:
+          oauth2-proxy:
+            image:
+              repository: quay.io/oauth2-proxy/oauth2-proxy
+              tag: v7.15.4@sha256:b1b2021fe8f4004573e8d690dec6c7bb29cc44364572cf8510a05bf3a0ae2ded
+            args:
+              - --http-address=0.0.0.0:4180
+              - --upstream=http://alertmanager-dashboard-dashboard.alertmanager-dashboard.svc.cluster.local:8080/
+              - --provider=oidc
+              - --provider-display-name=Pocket ID
+              - --oidc-issuer-url=https://id.${SECRET_DEFAULT_DOMAIN}
+              - --skip-oidc-discovery=true
+              - --login-url=https://id.${SECRET_DEFAULT_DOMAIN}/authorize
+              - --redeem-url=http://pocket-id.pocket-id.svc.cluster.local:8081/api/oidc/token
+              - --profile-url=http://pocket-id.pocket-id.svc.cluster.local:8081/api/oidc/userinfo
+              - --oidc-jwks-url=http://pocket-id.pocket-id.svc.cluster.local:8081/.well-known/jwks.json
+              - --redirect-url=https://alertmanager-dashboard.${SECRET_DEFAULT_DOMAIN}/oauth2/callback
+              - --scope=openid email profile groups
+              - --email-domain=*
+              - --reverse-proxy=true
+              - --skip-provider-button=true
+              - --cookie-secure=true
+              - --cookie-samesite=lax
+              - --cookie-refresh=1h
+              - --cookie-expire=8h
+            env:
+              OAUTH2_PROXY_CLIENT_ID: "${SECRET_OAUTH2_PROXY_CLIENT_ID}"
+              OAUTH2_PROXY_CLIENT_SECRET: "${SECRET_OAUTH2_PROXY_CLIENT_SECRET}"
+              OAUTH2_PROXY_COOKIE_SECRET: "${SECRET_OAUTH2_PROXY_COOKIE_SECRET}"
+            probes:
+              liveness: &oauth2Probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /ping
+                    port: 4180
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 3
+                  failureThreshold: 3
+              readiness: *oauth2Probes
+              startup: *oauth2Probes
+            securityContext: *securityContext
+            resources: *resources
     service:
       receiver:
         controller: receiver
@@ -126,6 +172,11 @@ spec:
         ports:
           http:
             port: *port
+      oauth2-proxy:
+        controller: oauth2-proxy
+        ports:
+          http:
+            port: 4180
     ingress:
       dashboard:
         enabled: true
@@ -142,7 +193,7 @@ spec:
             paths:
               - path: /
                 service:
-                  identifier: dashboard
+                  identifier: oauth2-proxy
                   port: http
         tls:
           - hosts:
@@ -197,12 +248,9 @@ spec:
         rules:
           ingress:
             - from:
-                - namespaceSelector:
+                - podSelector:
                     matchLabels:
-                      kubernetes.io/metadata.name: haproxy-controller
-                  podSelector:
-                    matchLabels:
-                      app.kubernetes.io/name: kubernetes-ingress
+                      app.kubernetes.io/controller: oauth2-proxy
               ports:
                 - port: *port
                   protocol: TCP
@@ -223,4 +271,52 @@ spec:
                       app.kubernetes.io/controller: valkey
               ports:
                 - port: 6379
+                  protocol: TCP
+      oauth2-proxy:
+        enabled: true
+        controller: oauth2-proxy
+        policyTypes:
+          - Ingress
+          - Egress
+        rules:
+          ingress:
+            - from:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: haproxy-controller
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: kubernetes-ingress
+              ports:
+                - port: 4180
+                  protocol: TCP
+          egress:
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: kube-system
+                  podSelector:
+                    matchLabels:
+                      k8s-app: kube-dns
+              ports:
+                - port: 53
+                  protocol: UDP
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: pocket-id
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: pocket-id
+                      app.kubernetes.io/instance: pocket-id-pocket-id
+                      app.kubernetes.io/name: pocket-id-pocket-id
+              ports:
+                - port: 8081
+                  protocol: TCP
+            - to:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: dashboard
+              ports:
+                - port: *port
                   protocol: TCP

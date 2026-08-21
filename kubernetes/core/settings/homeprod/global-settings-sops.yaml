@@ -44,14 +44,12 @@ stringData:
     SECRET_ALERTMANAGER_GOTIFY: ENC[AES256_GCM,data:BrP2fPbpwSFSzBWvlLj7,iv:1RjGo8ztKhnNB9HRXrP6NpZFWF4QHJfp3oKU+LDSj4U=,tag:mdDDDLY7ET0fRNCq4mmwhA==,type:str]
     SECRET_BORG_PASSPHRASE: ENC[AES256_GCM,data:KRueOjSG3CBi4+yMHJHThXw5GuOjtFo+3oxMkPpKC7nmfecr0HW/XJW05s5xQtA/fgjvayJmJ8nNSB33VzKiSWtwQtWEQiHbKbd5gMUUjVk5YMKSW9jv/g==,iv:U4X9czDQ8LpReWiVNxLkXD2wm8PJqT0P5w6GZDt1Pt0=,tag:HHXJK2JedTk0VBYVJEwpFQ==,type:str]
     SECRET_IMVDB_API_KEY: ENC[AES256_GCM,data:yl1dQRL8oMMvvIMdtJbElwvRI2O4cwACdTQw+yUOnpT7hBTE5DNrIA==,iv:HlJVkYyDAhSTet46H9yCdg4lxSWr7j7VFWkwm79tHHA=,tag:D9yJQF5qZ1RnTIYGroJmlw==,type:str]
+    SECRET_OAUTH2_PROXY_CLIENT_ID: ENC[AES256_GCM,data:cFPEZHRgtq12EmJ8RbYX3l2/YuDcqJq3X/nqBvOPHsWTemC7,iv:GBkhiAjHXm8L/9WeWzQ73lwdhXarZHluiRbvomkczbQ=,tag:xPlE1t0U7mKxcjH9Rc1oqA==,type:str]
+    SECRET_OAUTH2_PROXY_CLIENT_SECRET: ENC[AES256_GCM,data:YKqHNBsUQUxzSY35SU5DuOz/VPUsbaPvD5qzxxn+nsU=,iv:MtGYknfxYCUCCf3JL0jDEIAiSBVAeQ3qEI6UJdKygus=,tag:xlBBIOi16Up6n98dWGXNvg==,type:str]
+    SECRET_OAUTH2_PROXY_COOKIE_SECRET: ENC[AES256_GCM,data:s1k9KKU8PNyLQ12vPTv9tfiU64vqzk7Drk/sPEYgFLihMpJvEcfHqF38MxQ=,iv:xUEtoYaHgLABIhOoN6Mhy24tlKQRt94bz+OzSIpm0Bk=,tag:aEf3Osw52Xh15Y/0l1AShQ==,type:str]
 sops:
-    kms: []
-    gcp_kms: []
-    azure_kv: []
-    hc_vault: []
     age:
-        - recipient: age13s49lz9hcwqdlgyyde5zr2ynryc5jsydmyvpvhx0klqd0ylkkq0szd3xtm
-          enc: |
+        - enc: |
             -----BEGIN AGE ENCRYPTED FILE-----
             YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBNNTV0cERGSS91QTRjSldD
             TGdLTDdTcDNuL0lwK2FJZmtpSjlHOHZzbTJBCkgyWXBEN0RwVW8yN1cva3UvVmFL
@@ -59,8 +57,8 @@ sops:
             eEJyMGlaMmNhK1YrMmVMb1hqUlBuc28KoVty3/AbKr4zRJrqa/tZHJI2/MmHbrbM
             rzybe6TjKtlRGPghetqYA72hO9+AnpeKvG/Ptln7v4r3twsanAiINA==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2026-07-20T09:27:29Z"
-    mac: ENC[AES256_GCM,data:iWeIoZMNz7ZkIjLKv/hph561z5O8V1gpiL8lqINC0k6WSZ1tS+L1zNZ3187egdM3JrsnRytb2AXprue4WT5ETcl8hcWJOjMyW70u+s8LTysCFefb3b2w112UUkRE07EBuO6tqnKSNEKsnz8XqrzxfBSnVv+1rl2ii3KOu1hz+uY=,iv:iEBxqoj19J7wbDgC/LJVkYqSE3bs3B9JMsAe3aEsjPc=,tag:+6eMzLt57By62X3IgWUVdw==,type:str]
-    pgp: []
+          recipient: age13s49lz9hcwqdlgyyde5zr2ynryc5jsydmyvpvhx0klqd0ylkkq0szd3xtm
     encrypted_regex: ^(data|stringData)$
+    lastmodified: "2026-08-21T06:14:48Z"
+    mac: ENC[AES256_GCM,data:l2s7oP+8vKw/Qbapa9r1RY5Ad91jUuN+SfiGoDxZhc7l3hcEUzUHJ1PBYSsfA2uxXcF8f/Fi613XX87Ux9EjozCHSbUxHzd+2AQq11CW556epaig2e7EAd10o3EJhBN7chdGO/eGDodtqffJ82RSPE83OD0DCrSb+BxhFJVnJ8U=,iv:FlwBnkibVZIABjgCGOztoL6ATeqgYpnVkGqa3MisaWA=,tag:qWToss/OxtwKgUDozmNiHA==,type:str]
     version: 3.9.1
