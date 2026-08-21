@@ -35,8 +35,9 @@ spec:
       securityContext:
         runAsUser: 1000
         runAsGroup: 1000
-        fsGroup: 1000
-        fsGroupChangePolicy: "OnRootMismatch"
+        # This switches to the wrong UID
+        # fsGroup: 0
+        # fsGroupChangePolicy: "OnRootMismatch"
         runAsNonRoot: true
         seccompProfile:
           type: RuntimeDefault
