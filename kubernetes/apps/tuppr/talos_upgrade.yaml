@@ -42,6 +42,7 @@ spec:
           policy:
             rebootMode: powercycle
             stage: true
+            waitForVolumeDetach: true
           maintenance:
             windows:
               - start: "13 10 * * 1-5" # At 10:13 on every weekday
