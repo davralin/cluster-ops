@@ -136,6 +136,7 @@ spec:
               - --scope=openid email profile groups
               - --email-domain=*
               - --reverse-proxy=true
+              - --trusted-proxy-ip=10.244.0.0/16
               - --skip-provider-button=true
               - --cookie-secure=true
               - --cookie-samesite=lax
