@@ -123,7 +123,7 @@ spec:
               tag: v7.15.4@sha256:b1b2021fe8f4004573e8d690dec6c7bb29cc44364572cf8510a05bf3a0ae2ded
             args:
               - --http-address=0.0.0.0:4180
-              - --upstream=http://alertmanager-dashboard-dashboard.alertmanager-dashboard.svc.cluster.local:8080/
+              - --upstream=http://alertmanager-dashboard.alertmanager-dashboard.svc.cluster.local:8080/
               - --provider=oidc
               - --provider-display-name=Pocket ID
               - --oidc-issuer-url=https://id.${SECRET_DEFAULT_DOMAIN}
