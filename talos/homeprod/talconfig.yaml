@@ -2,7 +2,7 @@
 clusterName: HomeProd
 endpoint: https://homeprod.internal:6443
 # renovate: datasource=github-releases depName=siderolabs/talos
-talosVersion: v1.13.5
+talosVersion: v1.13.9
 # renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
 kubernetesVersion: v1.36.2
 
