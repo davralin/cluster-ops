@@ -13,7 +13,6 @@ resources:
   - filebrowser
   - gogrepoc
   - jellyfin
-  - jellyplex-watched
   - jellystat
   - lidarr
   - metube
