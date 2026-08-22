@@ -53,7 +53,7 @@ spec:
 
     kubescape:
       serviceMonitor:
-        enabled: "${MONITORING_PROMETHEUS}"
+        enabled: false
       resources:
         requests:
           cpu: 100m
