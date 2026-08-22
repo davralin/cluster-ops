@@ -73,6 +73,19 @@ spec:
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
 metadata:
+  name: migrate-resources # Helm post-upgrade hook used by Kyverno chart migrations
+  namespace: kyverno
+spec:
+  endpointSelector:
+    matchLabels:
+      job-name: kyverno-migrate-resources
+  egress:
+    - toEntities:
+      - kube-apiserver
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
   name: scale-to-zero # this is a job that scales all deployments down to 0, used when removing kyverno
   namespace: kyverno
 spec:
