@@ -28,7 +28,7 @@ spec:
     fullnameOverride: *name
     image:
       repository: docker.n8n.io/n8nio/n8n
-      tag: 2.33.6
+      tag: 2.36.5
     database:
       useExternal: true
       host: n8n-postgres-v18-rw.n8n.svc.cluster.local
