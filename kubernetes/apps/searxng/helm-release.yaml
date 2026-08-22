@@ -58,7 +58,11 @@ spec:
               SEARXNG_VALKEY_URL: "redis://searxng-valkey.searxng.svc.cluster.local:6379"
               UWSGI_WORKERS: 4
               UWSGI_THREADS: 4
-              SEARXNG_SECRET: "${SECRET_PLEX_TOKEN}"
+              SEARXNG_SECRET:
+                valueFrom:
+                  secretKeyRef:
+                    name: searxng-config
+                    key: SEARXNG_SECRET
             probes:
               liveness: &probes
                 enabled: true
