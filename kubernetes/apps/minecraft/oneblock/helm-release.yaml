@@ -133,7 +133,7 @@ spec:
         - https://download.geysermc.org/v2/projects/geyser/versions/latest/builds/latest/downloads/spigot
         - https://download.geysermc.org/v2/projects/floodgate/versions/latest/builds/latest/downloads/spigot
         # renovate: datasource=github-releases depName=BentoBoxWorld/BentoBox
-        - https://github.com/BentoBoxWorld/BentoBox/releases/download/3.22.2/BentoBox-3.22.2.jar
+        - https://github.com/BentoBoxWorld/BentoBox/releases/download/3.22.3/BentoBox-3.22.3.jar
         # renovate: datasource=github-releases depName=sladkoff/minecraft-prometheus-exporter
         - https://github.com/sladkoff/minecraft-prometheus-exporter/releases/download/v3.1.2/minecraft-prometheus-exporter-3.1.2.jar
         # renovate: datasource=github-releases depName=ViaVersion/ViaVersion
