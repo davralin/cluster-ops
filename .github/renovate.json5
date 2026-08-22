@@ -338,9 +338,10 @@
     },
     {
       customType: 'regex',
-      description: 'Process Immich helm-chart tags',
+      description: 'Process annotated top-level YAML dependencies',
       managerFilePatterns: [
         '/(^|/)kubernetes/.+\\.ya?ml$/',
+        '/(^|/)talos/.+/talconfig\\.ya?ml$/',
       ],
       matchStrings: [
         '# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)(?: versioning=(?<versioning>\\S+))?\\n(?<variable>\\w+): (?<currentValue>\\S+)',
