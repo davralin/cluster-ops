@@ -31,14 +31,32 @@ spec:
       GF_PANELS_DISABLE_SANITIZE_HTML: true
       GF_LOG_FILTERS: rendering:debug
       GF_DATE_FORMATS_FULL_DATE: "MMM Do, YYYY hh:mm:ss a"
+      GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET: "${SECRET_OAUTH2_PROXY_CLIENT_SECRET}"
     adminPassword: "${SECRET_GRAFANA_PASSWORD}"
     grafana.ini:
       analytics:
         check_for_updates: false
         check_for_plugin_updates: false
         reporting_enabled: false
+      auth:
+        disable_login_form: true
+        oauth_auto_login: true
       auth.basic:
-        disable_login_form: false
+        enabled: false
+      auth.generic_oauth:
+        enabled: true
+        name: Pocket ID
+        allow_sign_up: true
+        auto_login: true
+        client_id: "${SECRET_OAUTH2_PROXY_CLIENT_ID}"
+        client_secret: "$__env{GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET}"
+        scopes: openid email profile groups
+        auth_url: "https://id.${SECRET_DEFAULT_DOMAIN}/authorize"
+        token_url: "http://pocket-id.pocket-id.svc.cluster.local:8081/api/oidc/token"
+        api_url: "http://pocket-id.pocket-id.svc.cluster.local:8081/api/oidc/userinfo"
+        use_pkce: true
+      users:
+        auto_assign_org_role: Admin
       grafana_net:
         url: https://grafana.net
       log:
