@@ -53,7 +53,7 @@ spec:
           actual-firi-sync:
             image:
               repository: ghcr.io/davralin/actual-firi-sync
-              tag: latest@sha256:b026c924153a6142d44d50bd904155941ca08af7000707044e31d5aefdabb8f3
+              tag: latest@sha256:b16f498dfcb18d4728057437596143e3ead4bb6b68d65aaaeacfa11c30c6251c
             env:
               ACTUAL_SERVER_URL: http://actualbudget.actualbudget.svc.cluster.local:5006
               ACTUAL_ACCOUNT_NAME: Firi
