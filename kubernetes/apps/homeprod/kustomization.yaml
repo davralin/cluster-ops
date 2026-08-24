@@ -41,7 +41,6 @@ resources:
   - ../media
   - ../metrics-server
   - ../minecraft
-  - ../n8n
   - ../neuvector
   - ../nextcloud
   - ../node-exporter
