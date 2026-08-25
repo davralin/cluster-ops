@@ -23,7 +23,6 @@ resources:
   - ../gotify
   - ../grafana
   - ../hermes-agent
-  - ../hermes-vm
   - ../icloudpd
   - ../icecast
   - ../intel-device-plugin
