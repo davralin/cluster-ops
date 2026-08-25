@@ -157,6 +157,18 @@ spec:
       ports:
         - port: 53
           protocol: UDP
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: pocket-id
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/controller: pocket-id
+              app.kubernetes.io/instance: pocket-id-pocket-id
+              app.kubernetes.io/name: pocket-id-pocket-id
+      ports:
+        - port: 8081
+          protocol: TCP
 ---
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
