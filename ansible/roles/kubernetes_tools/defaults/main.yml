@@ -10,6 +10,6 @@ sops_version: v3.13.3
 # renovate: datasource=github-releases depName=siderolabs/talos
 talosctl_version: v1.13.9
 # renovate: datasource=github-releases depName=budimanjojo/talhelper
-talhelper_version: v3.1.16
+talhelper_version: v3.1.17
 # renovate: datasource=github-releases depName=kubevirt/kubevirt
 virtctl_version: v1.9.0
