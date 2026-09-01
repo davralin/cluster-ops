@@ -49,7 +49,7 @@ spec:
           receiver:
             image:
               repository: ghcr.io/davralin/alertmanager-dashboard-receiver
-              tag: 2026.08.24@sha256:41e7f156aac8bd8e697dd58da465cb161bd8aa1ff6e237f379cddeabfe84fab6
+              tag: 2026.08.31@sha256:03978739aab28819d5122b0f87bd4bf71a9a595aa43215e7f8dbc90d893a8e3e
             env:
               LISTEN_ADDR: ":8080"
               VALKEY_ADDR: "alertmanager-dashboard-valkey:6379"
