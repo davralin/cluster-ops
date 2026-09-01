@@ -51,7 +51,7 @@ spec:
           lfmv:
             image:
               repository: ghcr.io/davralin/lfmv
-              tag: 2026.08.24@sha256:678338cf72fc9b890e9714711174fff589aa1348208fed5a14bee783b3eb9930
+              tag: 2026.08.31@sha256:ed1f420d415edb318c5fbc0067c6b2f1687ea41580b34db6f6dfa6ab5e101b5b
             env:
               LIDARR_URL: "http://lidarr.media.svc.cluster.local:8686"
               LIDARR_API_KEY: "${SECRET_LIDARR_API_KEY}"
