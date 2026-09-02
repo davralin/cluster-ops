@@ -86,7 +86,7 @@ spec:
                     key: OPENAI_API_KEY
               INFERENCE_ENABLE_AUTO_SUMMARIZATION: true
               INFERENCE_JOB_TIMEOUT_SEC: 900
-              INFERENCE_TEXT_MODEL: claude-opus-4.6
+              INFERENCE_TEXT_MODEL: github_copilot/claude-haiku-4.5
             probes:
               liveness: &probes
                 enabled: true
