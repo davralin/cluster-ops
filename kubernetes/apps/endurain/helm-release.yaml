@@ -46,7 +46,7 @@ spec:
           endurain:
             image:
               repository: codeberg.org/endurain-project/endurain
-              tag: v0.19.0@sha256:a43273a30588f344f103e978a2e17aae75de31ffdb21dddd8ac8e71d70a08f3c
+              tag: v0.19.2@sha256:092c26904028237b7da3bc205e15ede0c70b07084d86e582c3644f66b1cfb140
             env:
               TZ: "${TIMEZONE}"
               ENDURAIN_HOST: "https://endurain.${SECRET_DEFAULT_DOMAIN}"
