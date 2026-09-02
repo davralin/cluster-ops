@@ -180,15 +180,6 @@ spec:
                 - port: 443
                   protocol: TCP
             - to:
-                - podSelector:
-                    matchLabels:
-                      app.kubernetes.io/controller: meridian
-                      app.kubernetes.io/instance: hermes-agent-meridian
-                      app.kubernetes.io/name: hermes-agent-meridian
-              ports:
-                - port: 3456
-                  protocol: TCP
-            - to:
                 - namespaceSelector:
                     matchLabels:
                       kubernetes.io/metadata.name: prometheus

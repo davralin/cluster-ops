@@ -37,16 +37,3 @@ spec:
   resources:
     requests:
       storage: 1Gi
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: meridian
-  namespace: hermes-agent
-spec:
-  storageClassName: "${STORAGE_READWRITEONCE}"
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 5Gi
