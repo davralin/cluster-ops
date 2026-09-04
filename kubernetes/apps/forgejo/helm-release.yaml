@@ -30,6 +30,14 @@ spec:
       admin:
         existingSecret: forgejo-config
         passwordMode: initialOnlyNoReset
+      oauth:
+        - name: pocket-id
+          provider: openidConnect
+          existingSecret: forgejo-oidc
+          autoDiscoverUrl: http://pocket-id.pocket-id.svc.cluster.local:8081/.well-known/openid-configuration
+          scopes: openid profile email groups
+          groupClaimName: groups
+          adminGroup: forgejo
       config:
         APP_NAME: "Forgejo"
         cache:

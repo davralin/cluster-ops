@@ -10,4 +10,5 @@ resources:
   - probes.yaml
   - pvc.yaml
   - secret.yaml
+  - secret-oidc.yaml
   - volsync.yaml
