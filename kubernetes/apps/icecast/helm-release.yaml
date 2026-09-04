@@ -58,6 +58,7 @@ spec:
               ICECAST_MAX_CLIENTS: "100"
               ICECAST_MAX_SOURCES: "20"
               ICECAST_LOG_LEVEL: "3"
+              ICECAST_BURST_SIZE: "524288"
               ICECAST_SOURCE_PASSWORD:
                 valueFrom:
                   secretKeyRef:
@@ -104,10 +105,10 @@ spec:
                   - ALL
             resources:
               requests:
-                cpu: 10m
-                memory: 32Mi
+                cpu: 50m
+                memory: 64Mi
               limits:
-                memory: 128Mi
+                memory: 256Mi
     service:
       icecast:
         controller: *name
