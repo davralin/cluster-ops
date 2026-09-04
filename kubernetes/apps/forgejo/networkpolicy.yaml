@@ -75,6 +75,8 @@ spec:
     - to:
         - podSelector:
             matchLabels:
+              app.kubernetes.io/controller: valkey
+              app.kubernetes.io/instance: forgejo-forgejo-valkey
               app.kubernetes.io/name: forgejo-forgejo-valkey
       ports:
         - port: 6379
@@ -88,6 +90,18 @@ spec:
       ports:
         - port: 53
           protocol: UDP
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: pocket-id
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/controller: pocket-id
+              app.kubernetes.io/instance: pocket-id-pocket-id
+              app.kubernetes.io/name: pocket-id-pocket-id
+      ports:
+        - port: 8081
+          protocol: TCP
     - to: # For git-mirroring
       - ipBlock:
           cidr: 0.0.0.0/0
