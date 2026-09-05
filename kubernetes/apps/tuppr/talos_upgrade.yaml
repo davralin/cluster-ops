@@ -38,7 +38,7 @@ spec:
         spec:
           talos:
             # renovate: datasource=github-releases depName=siderolabs/talos
-            version: v1.13.9
+            version: v1.14.0
           policy:
             rebootMode: powercycle
             stage: true

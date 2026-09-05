@@ -8,7 +8,7 @@ kubernetes_pkg_version: "{{ kubernetes_version.split('.')[:2] | join('.') }}"
 # renovate: datasource=github-releases depName=getsops/sops
 sops_version: v3.13.3
 # renovate: datasource=github-releases depName=siderolabs/talos
-talosctl_version: v1.13.9
+talosctl_version: v1.14.0
 # renovate: datasource=github-releases depName=budimanjojo/talhelper
 talhelper_version: v3.1.17
 # renovate: datasource=github-releases depName=kubevirt/kubevirt
