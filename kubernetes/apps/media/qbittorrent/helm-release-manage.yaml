@@ -49,7 +49,7 @@ spec:
           qbit-manage:
             image:
               repository: ghcr.io/stuffanthings/qbit_manage
-              tag: v4.12.0@sha256:7a7db6bdec57baf06d580e97d44f00185ff3a774335951b0affc849e014cb8f8
+              tag: v4.13.0@sha256:ea04167f627e506b3691304f4c639a52c05584cc9aea4af7ec87d4ed1299e7f5
             env:
               TZ: "${TIMEZONE}"
               QBT_CONFIG: "/config/config.yml"
