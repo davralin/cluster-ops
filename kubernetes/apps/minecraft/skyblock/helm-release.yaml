@@ -124,7 +124,7 @@ spec:
             value: https://github.com/BentoBoxWorld/Level/releases/download/2.28.1/Level-2.28.1.jar
           - name: CHALLENGES_URL
             # renovate: datasource=github-releases depName=BentoBoxWorld/Challenges
-            value: https://github.com/BentoBoxWorld/Challenges/releases/download/1.8.0/Challenges-1.8.0.jar
+            value: https://github.com/BentoBoxWorld/Challenges/releases/download/1.8.1/Challenges-1.8.1.jar
         volumeMounts:
           - name: datadir
             mountPath: /data
