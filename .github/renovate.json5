@@ -119,7 +119,10 @@
       ],
       matchPackageNames: [
         '/^ghcr\\.io/davralin/',
+        '/^ghcr\\.io/itzg/',
         '/^ghcr\\.io/prometheus-community/',
+        'docker.io/searxng/searxng',
+        'ghcr.io/unpoller/unpoller',
       ],
       automerge: true,
       automergeType: 'branch',
