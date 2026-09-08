@@ -55,11 +55,6 @@ spec:
                   secretKeyRef:
                     name: cloudflare-api-token-secret
                     key: CLOUDFLARE_API_TOKEN
-              HEALTHCHECKS:
-                valueFrom:
-                  secretKeyRef:
-                    name: cloudflare-api-token-secret
-                    key: CLOUDFLAREDDNS_HEALTH_CHECK_URL
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -91,7 +86,7 @@ spec:
               ports:
                 - port: 53
                   protocol: UDP
-            - to: # Cloudflare and healthchecks
+            - to: # Cloudflare
               - ipBlock:
                   cidr: 0.0.0.0/0
                   except:
