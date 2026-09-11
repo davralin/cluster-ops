@@ -116,8 +116,8 @@ spec:
         containers:
           chrome:
             image:
-              repository: gcr.io/zenika-hub/alpine-chrome
-              tag: 124@sha256:1a0046448e0bb6c275c88f86e01faf0de62b02ec8572901256ada0a8c08be23f
+              repository: docker.io/zenika/alpine-chrome
+              tag: 124@sha256:eb3378c1ed0079f94db054a5fe1aaa790a254ec0d6bbc67eda052420d86a179d
             command:
               - chromium-browser
             args:
