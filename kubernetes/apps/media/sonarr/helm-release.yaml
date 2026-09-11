@@ -75,6 +75,9 @@ spec:
                   httpGet:
                     path: /ping
                     port: 8989
+                    httpHeaders:
+                      - name: Host
+                        value: sonarr.media.svc.cluster.local
                   initialDelaySeconds: 50
                   periodSeconds: 10
                   timeoutSeconds: 10

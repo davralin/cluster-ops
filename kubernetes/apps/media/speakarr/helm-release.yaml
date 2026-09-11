@@ -76,6 +76,9 @@ spec:
                   httpGet:
                     path: /ping
                     port: 8787
+                    httpHeaders:
+                      - name: Host
+                        value: speakarr.media.svc.cluster.local
                   initialDelaySeconds: 10
                   periodSeconds: 10
                   timeoutSeconds: 10

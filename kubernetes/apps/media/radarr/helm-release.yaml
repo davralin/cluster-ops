@@ -75,6 +75,9 @@ spec:
                   httpGet:
                     path: /ping
                     port: 7878
+                    httpHeaders:
+                      - name: Host
+                        value: radarr.media.svc.cluster.local
                   initialDelaySeconds: 50
                   periodSeconds: 10
                   timeoutSeconds: 10

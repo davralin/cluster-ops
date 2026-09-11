@@ -76,6 +76,9 @@ spec:
                   httpGet:
                     path: /ping
                     port: 8686
+                    httpHeaders:
+                      - name: Host
+                        value: lidarr.media.svc.cluster.local
                   initialDelaySeconds: 50
                   periodSeconds: 10
                   timeoutSeconds: 10
