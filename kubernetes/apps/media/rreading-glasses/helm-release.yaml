@@ -50,7 +50,7 @@ spec:
           rreading-glasses:
             image:
               repository: docker.io/blampe/rreading-glasses
-              tag: latest@sha256:c43fa6e70737da9a8444717dee61dec3a9bf7ab33b09b14493d9b9aadc5b0bc8
+              tag: latest@sha256:e16bedb8e0e6b1a2b2dd67e80b4380f2c4d2db57a2914fe449132df7e8af6245
             command: ['/main']
             args: ["serve", "--upstream=www.goodreads.com", "--verbose"]
             env:
