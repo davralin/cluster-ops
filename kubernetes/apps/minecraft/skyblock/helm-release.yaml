@@ -121,7 +121,7 @@ spec:
             value: https://github.com/BentoBoxWorld/BSkyBlock/releases/download/1.20.0/BSkyBlock-1.20.0.jar
           - name: LEVEL_URL
             # renovate: datasource=github-releases depName=BentoBoxWorld/Level
-            value: https://github.com/BentoBoxWorld/Level/releases/download/2.28.1/Level-2.28.1.jar
+            value: https://github.com/BentoBoxWorld/Level/releases/download/2.29.0/Level-2.29.0.jar
           - name: CHALLENGES_URL
             # renovate: datasource=github-releases depName=BentoBoxWorld/Challenges
             value: https://github.com/BentoBoxWorld/Challenges/releases/download/1.8.1/Challenges-1.8.1.jar
