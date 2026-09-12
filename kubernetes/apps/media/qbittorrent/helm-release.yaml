@@ -205,6 +205,11 @@ spec:
                       app.kubernetes.io/name: media-prowlarr
                 - podSelector:
                     matchLabels:
+                      app.kubernetes.io/controller: chaptarr
+                      app.kubernetes.io/instance: media-chaptarr
+                      app.kubernetes.io/name: media-chaptarr
+                - podSelector:
+                    matchLabels:
                       app.kubernetes.io/controller: qbit-manage
                       app.kubernetes.io/instance: media-qbit-manage
                       app.kubernetes.io/name: media-qbit-manage

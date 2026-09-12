@@ -188,6 +188,14 @@ spec:
             - to:
                 - podSelector:
                     matchLabels:
+                      app.kubernetes.io/controller: chaptarr
+                      app.kubernetes.io/instance: media-chaptarr
+                      app.kubernetes.io/name: media-chaptarr
+              ports:
+                - port: 8789
+            - to:
+                - podSelector:
+                    matchLabels:
                       app.kubernetes.io/controller: sonarr
                       app.kubernetes.io/instance: media-sonarr
                       app.kubernetes.io/name: media-sonarr
@@ -256,6 +264,11 @@ spec:
                       app.kubernetes.io/controller: readmeabook
                       app.kubernetes.io/instance: media-readmeabook
                       app.kubernetes.io/name: media-readmeabook
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: chaptarr
+                      app.kubernetes.io/instance: media-chaptarr
+                      app.kubernetes.io/name: media-chaptarr
                 - podSelector:
                     matchLabels:
                       app.kubernetes.io/controller: scraparr

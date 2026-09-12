@@ -57,6 +57,8 @@ spec:
               READARR_0_API_KEY: "${SECRET_READARR_API_KEY}"
               READARR_1_URL: http://speakarr.media.svc.cluster.local:8787
               READARR_1_API_KEY: "${SECRET_SPEAKARR_API_KEY}"
+              READARR_2_URL: http://chaptarr.media.svc.cluster.local:8789
+              READARR_2_API_KEY: "${SECRET_CHAPTARR_API_KEY}"
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -108,4 +110,12 @@ spec:
                       app.kubernetes.io/name: media-speakarr
               ports:
                 - port: 8787
+            - to:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: chaptarr
+                      app.kubernetes.io/instance: media-chaptarr
+                      app.kubernetes.io/name: media-chaptarr
+              ports:
+                - port: 8789
           ingress: []

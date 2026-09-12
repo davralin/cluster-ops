@@ -5,6 +5,7 @@ resources:
   - audiobookshelf
   - bazarr
   - beets
+  - chaptarr
   - cronjobs
   - ersatztv
   - ersatztv-next
