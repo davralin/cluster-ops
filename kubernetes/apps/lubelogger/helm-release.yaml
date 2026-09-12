@@ -47,7 +47,7 @@ spec:
           lubelogger:
             image:
               repository: ghcr.io/hargata/lubelogger
-              tag: latest@sha256:8d662c13237dd83fac33def4071076fe906108589f85b1368f652c16f5f2dda7
+              tag: latest@sha256:c9d2bbb48c7f84d90e54496e2cd60422e56a5f2345c8a539ebe09f77e629d321
             env:
               TZ: "${TIMEZONE}"
               POSTGRES_CONNECTION:
