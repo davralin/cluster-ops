@@ -217,13 +217,6 @@ spec:
           url: https://raw.githubusercontent.com/esanchezm/prometheus-qbittorrent-exporter/master/grafana/dashboard.json
           datasource:
             - { name: DS_PROMETHEUS, value: Prometheus }
-        # Ref: https://grafana.com/grafana/dashboards/22934-scraping/
-        scraparr:
-        # renovate: depName="Scraping"
-          gnetId: 22934
-          revision: 8
-          datasource:
-            - { name: DS_MIMIR, value: Prometheus }
         # Ref: https://grafana.com/grafana/dashboards/22604-smartctl-exporter-dashboard/
         smartctl_exporter_dashboard:
         # renovate: depName="SMARTctl Exporter Dashboard"

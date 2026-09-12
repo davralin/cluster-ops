@@ -271,11 +271,6 @@ spec:
                       app.kubernetes.io/name: media-chaptarr
                 - podSelector:
                     matchLabels:
-                      app.kubernetes.io/controller: scraparr
-                      app.kubernetes.io/instance: media-scraparr
-                      app.kubernetes.io/name: media-scraparr
-                - podSelector:
-                    matchLabels:
                       app.kubernetes.io/controller: shelfmark
                       app.kubernetes.io/instance: media-shelfmark
                       app.kubernetes.io/name: media-shelfmark

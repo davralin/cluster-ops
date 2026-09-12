@@ -235,11 +235,6 @@ spec:
                       app.kubernetes.io/name: media-recyclarr
                 - podSelector:
                     matchLabels:
-                      app.kubernetes.io/controller: scraparr
-                      app.kubernetes.io/instance: media-scraparr
-                      app.kubernetes.io/name: media-scraparr
-                - podSelector:
-                    matchLabels:
                       app.kubernetes.io/controller: seerr
                       app.kubernetes.io/instance: media-seerr
                       app.kubernetes.io/name: media-seerr
