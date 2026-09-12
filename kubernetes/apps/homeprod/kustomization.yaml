@@ -24,7 +24,6 @@ resources:
   - ../grafana
   - ../hermes-agent
   - ../icloudpd
-  - ../icecast
   - ../intel-device-plugin
   - ../invidious
   - ../karakeep
