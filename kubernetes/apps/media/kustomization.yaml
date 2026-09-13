@@ -23,15 +23,12 @@ resources:
   - prowlarr
   - qbittorrent
   - radarr
-  - readarr
   - readmeabook
   - recyclarr
-  - rreading-glasses
   - seerr
   - shelfmark
   - slskd
   - sonarr
-  - speakarr
   - spotify-navidrome-sync
 #  - streamripper
   - tdarr

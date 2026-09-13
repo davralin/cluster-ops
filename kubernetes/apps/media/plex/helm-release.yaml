@@ -147,18 +147,8 @@ spec:
                       app.kubernetes.io/name: media-radarr
                 - podSelector:
                     matchLabels:
-                      app.kubernetes.io/controller: readarr
-                      app.kubernetes.io/instance: media-readarr
-                      app.kubernetes.io/name: media-readarr
-                - podSelector:
-                    matchLabels:
                       app.kubernetes.io/controller: sonarr
                       app.kubernetes.io/instance: media-sonarr
                       app.kubernetes.io/name: media-sonarr
-                - podSelector:
-                    matchLabels:
-                      app.kubernetes.io/controller: speakarr
-                      app.kubernetes.io/instance: media-speakarr
-                      app.kubernetes.io/name: media-speakarr
               ports:
                 - port: *port

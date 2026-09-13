@@ -53,12 +53,8 @@ spec:
               DRY_RUN: false
               SEARCH_AMOUNT: 1
               SEARCH_INTERVAL: 1day
-              READARR_0_URL: http://readarr.media.svc.cluster.local:8787
-              READARR_0_API_KEY: "${SECRET_READARR_API_KEY}"
-              READARR_1_URL: http://speakarr.media.svc.cluster.local:8787
-              READARR_1_API_KEY: "${SECRET_SPEAKARR_API_KEY}"
-              READARR_2_URL: http://chaptarr.media.svc.cluster.local:8789
-              READARR_2_API_KEY: "${SECRET_CHAPTARR_API_KEY}"
+              READARR_0_URL: http://chaptarr.media.svc.cluster.local:8789
+              READARR_0_API_KEY: "${SECRET_CHAPTARR_API_KEY}"
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -94,22 +90,6 @@ spec:
               ports:
                 - port: 53
                   protocol: UDP
-            - to:
-                - podSelector:
-                    matchLabels:
-                      app.kubernetes.io/controller: readarr
-                      app.kubernetes.io/instance: media-readarr
-                      app.kubernetes.io/name: media-readarr
-              ports:
-                - port: 8787
-            - to:
-                - podSelector:
-                    matchLabels:
-                      app.kubernetes.io/controller: speakarr
-                      app.kubernetes.io/instance: media-speakarr
-                      app.kubernetes.io/name: media-speakarr
-              ports:
-                - port: 8787
             - to:
                 - podSelector:
                     matchLabels:

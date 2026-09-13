@@ -50,8 +50,6 @@ Every namespace has a default-deny network policy. Ingress and egress are explic
 | [Jellyfin](https://jellyfin.org/) | Primary media server |
 | [Plex](https://plex.tv/) | Secondary media server |
 | [Sonarr](https://sonarr.tv/) / [Radarr](https://radarr.video/) / [Lidarr](https://lidarr.audio/) | Media management & automation |
-| [Readarr](https://github.com/readarr/readarr) | Books |
-| [Speakarr](https://github.com/readarr/readarr) | Audiobooks |
 | [Chaptarr](https://github.com/Chaptarr/chaptarr) | Books & audiobooks |
 | [Navidrome](https://navidrome.org/) | Music streaming (Subsonic API) |
 | [Audiobookshelf](https://audiobookshelf.org/) | Audiobook & podcast server |
