@@ -240,19 +240,9 @@ spec:
                       app.kubernetes.io/name: media-radarr
                 - podSelector:
                     matchLabels:
-                      app.kubernetes.io/controller: readmeabook
-                      app.kubernetes.io/instance: media-readmeabook
-                      app.kubernetes.io/name: media-readmeabook
-                - podSelector:
-                    matchLabels:
                       app.kubernetes.io/controller: chaptarr
                       app.kubernetes.io/instance: media-chaptarr
                       app.kubernetes.io/name: media-chaptarr
-                - podSelector:
-                    matchLabels:
-                      app.kubernetes.io/controller: shelfmark
-                      app.kubernetes.io/instance: media-shelfmark
-                      app.kubernetes.io/name: media-shelfmark
                 - podSelector:
                     matchLabels:
                       app.kubernetes.io/controller: sonarr
