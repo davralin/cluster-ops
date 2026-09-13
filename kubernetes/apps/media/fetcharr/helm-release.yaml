@@ -55,6 +55,10 @@ spec:
               SEARCH_INTERVAL: 1day
               READARR_0_URL: http://chaptarr.media.svc.cluster.local:8789
               READARR_0_API_KEY: "${SECRET_CHAPTARR_API_KEY}"
+              RADARR_0_URL: http://radarr.media.svc.cluster.local:7878
+              RADARR_0_API_KEY: "${SECRET_RADARR_API_KEY}"
+              SONARR_0_URL: http://sonarr.media.svc.cluster.local:8989
+              SONARR_0_API_KEY: "${SECRET_SONARR_API_KEY}"
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -98,4 +102,20 @@ spec:
                       app.kubernetes.io/name: media-chaptarr
               ports:
                 - port: 8789
+            - to:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: radarr
+                      app.kubernetes.io/instance: media-radarr
+                      app.kubernetes.io/name: media-radarr
+              ports:
+                - port: 7878
+            - to:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: sonarr
+                      app.kubernetes.io/instance: media-sonarr
+                      app.kubernetes.io/name: media-sonarr
+              ports:
+                - port: 8989
           ingress: []
