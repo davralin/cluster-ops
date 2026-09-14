@@ -97,6 +97,7 @@ Every namespace has a default-deny network policy. Ingress and egress are explic
 | [AdGuard Home](https://adguard.com/adguard-home.html) | DNS-level ad blocking |
 | [Unifi Controller](https://ui.com/) | Network management |
 | [Changedetection.io](https://changedetection.io/) | Website change monitoring |
+| [Free Games Claimer Remaster](https://github.com/P-Adamiec/Free-Games-Claimer-Remaster) | Claims free games and AliExpress daily coins |
 | [Garmin Exporter](https://github.com/barnes-c/garmin_exporter) | Garmin Connect metrics exporter |
 | [Uptime Kuma](https://uptime.kuma.pet/) | Service uptime monitoring |
 | [NeuVector](https://open-docs.neuvector.com/) | Runtime Kubernetes security, vulnerability scanning, and compliance |

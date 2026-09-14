@@ -19,6 +19,7 @@ resources:
   - ../epicgames-freegames
   - ../firefox
   - ../forgejo
+  - ../free-games-claimer
   - ../garmin-exporter
   - ../gotify
   - ../grafana
