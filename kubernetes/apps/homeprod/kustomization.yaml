@@ -16,7 +16,6 @@ resources:
   - ../endurain
   - ../cloudflareddns
   - ../cloudflared
-  - ../epicgames-freegames
   - ../firefox
   - ../forgejo
   - ../free-games-claimer
