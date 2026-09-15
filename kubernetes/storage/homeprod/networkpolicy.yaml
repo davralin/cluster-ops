@@ -53,11 +53,25 @@ spec:
       - key: app
         operator: Exists
   egress:
+    - toEndpoints:
+      - matchExpressions:
+        - key: app
+          operator: Exists
+    - toEndpoints:
+      - matchLabels:
+          rook_cluster: rook-ceph
     - toEntities:
       - host
       - kube-apiserver
       - remote-node
   ingress:
+    - fromEndpoints:
+      - matchExpressions:
+        - key: app
+          operator: Exists
+    - fromEndpoints:
+      - matchLabels:
+          rook_cluster: rook-ceph
     - fromEntities:
       - host
       - remote-node
