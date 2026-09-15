@@ -40,7 +40,7 @@ spec:
       networkPolicyService: disable
       runtimeDetection: disable
       malwareDetection: disable
-      nodeProfileService: disable
+      nodeProfileService: enable
       admissionController: disable
       seccompProfileService: disable
       riskAcceptance: enable
