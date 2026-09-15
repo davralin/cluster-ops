@@ -36,6 +36,8 @@ spec:
       autoMount:
         enabled: false
       hostRoot: /sys/fs/cgroup
+    certgen:
+      enforceCAValidityThroughoutLeavesDuration: false
     envoy:
       prometheus:
         serviceMonitor:
