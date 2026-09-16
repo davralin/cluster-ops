@@ -30,6 +30,7 @@ resources:
   - spotify-navidrome-sync
 #  - streamripper
   - tdarr
+  - tracearr
   - unpackerr
   - utility
   - namespace.yaml

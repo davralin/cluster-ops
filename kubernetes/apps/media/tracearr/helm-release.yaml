@@ -1,0 +1,278 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &name tracearr
+  namespace: flux-system
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 5.1.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+      interval: 30m
+  driftDetection:
+    mode: enabled
+  targetNamespace: media
+  install:
+    createNamespace: true
+    remediation:
+      retries: 10
+  upgrade:
+    remediation:
+      retries: 10
+  dependsOn:
+    - name: tracearr-postgres-v18
+      namespace: flux-system
+    - name: tracearr-valkey
+      namespace: flux-system
+  values:
+    fullnameOverride: *name
+    global:
+      createDefaultServiceAccount: false
+    defaultPodOptions:
+      automountServiceAccountToken: false
+      enableServiceLinks: false
+      securityContext:
+        runAsUser: 1001
+        runAsGroup: 1001
+        fsGroup: 1001
+        fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+    controllers:
+      tracearr:
+        strategy: Recreate
+        containers:
+          tracearr:
+            image:
+              repository: ghcr.io/connorgallopo/tracearr
+              tag: 2.3.0@sha256:f1aba630ecd4771e11e1657aa771bbd25f94556fa557b8b7debd782d107f6518
+            env:
+              NODE_ENV: production
+              HOST: "0.0.0.0"
+              PORT: "3000"
+              LOG_LEVEL: info
+              TZ: "${TIMEZONE}"
+              TRUST_PROXY: "true"
+              CORS_ORIGIN: "https://tracearr.${SECRET_DEFAULT_DOMAIN}"
+              DATABASE_URL:
+                valueFrom:
+                  secretKeyRef:
+                    name: tracearr-config
+                    key: DATABASE_URL
+              REDIS_URL: "redis://tracearr-valkey:6379"
+              JWT_SECRET:
+                valueFrom:
+                  secretKeyRef:
+                    name: tracearr-config
+                    key: JWT_SECRET
+              COOKIE_SECRET:
+                valueFrom:
+                  secretKeyRef:
+                    name: tracearr-config
+                    key: COOKIE_SECRET
+              BETTER_AUTH_SECRET:
+                valueFrom:
+                  secretKeyRef:
+                    name: tracearr-config
+                    key: BETTER_AUTH_SECRET
+              ENCRYPTION_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: tracearr-config
+                    key: ENCRYPTION_KEY
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /health
+                    port: &port 3000
+                  initialDelaySeconds: 15
+                  periodSeconds: 30
+                  timeoutSeconds: 10
+                  failureThreshold: 3
+              readiness:
+                <<: *probes
+                spec:
+                  httpGet:
+                    path: /health
+                    port: *port
+                  initialDelaySeconds: 5
+                  periodSeconds: 10
+                  timeoutSeconds: 5
+                  failureThreshold: 3
+              startup:
+                <<: *probes
+                spec:
+                  httpGet:
+                    path: /health
+                    port: *port
+                  initialDelaySeconds: 5
+                  periodSeconds: 5
+                  timeoutSeconds: 5
+                  failureThreshold: 30
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+            resources:
+              requests:
+                cpu: 100m
+                memory: 384Mi
+              limits:
+                memory: 768Mi
+    service:
+      tracearr:
+        controller: *name
+        ports:
+          http:
+            port: *port
+    ingress:
+      tracearr:
+        enabled: true
+        annotations:
+          haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
+          haproxy.org/ssl-redirect-port: "443"
+          haproxy.org/timeout-client: 3600s
+          haproxy.org/timeout-server: 3600s
+          haproxy.org/response-set-header: |
+            Strict-Transport-Security "max-age=31536000"
+            X-Frame-Options "DENY"
+            X-Content-Type-Options "nosniff"
+            Referrer-Policy "strict-origin-when-cross-origin"
+        hosts:
+          - host: &host "tracearr.${SECRET_DEFAULT_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  identifier: tracearr
+                  port: http
+        tls:
+          - hosts:
+              - *host
+    persistence:
+      image-cache:
+        enabled: true
+        existingClaim: tracearr-image-cache
+        globalMounts:
+          - path: /app/data/image-cache
+      backups:
+        enabled: true
+        type: emptyDir
+        globalMounts:
+          - path: /data/backup
+      tmp:
+        enabled: true
+        type: emptyDir
+        globalMounts:
+          - path: /tmp
+      app-cache:
+        enabled: true
+        type: emptyDir
+        globalMounts:
+          - path: /app/.cache
+    networkpolicies:
+      tracearr:
+        enabled: true
+        controller: *name
+        policyTypes:
+          - Egress
+          - Ingress
+        rules:
+          egress:
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: kube-system
+                  podSelector:
+                    matchLabels:
+                      k8s-app: kube-dns
+                - ipBlock:
+                    cidr: 10.96.0.10/32
+              ports:
+                - port: 53
+                  protocol: UDP
+                - port: 53
+                  protocol: TCP
+            - to:
+                - podSelector:
+                    matchLabels:
+                      cnpg.io/cluster: tracearr-postgres-v18
+                      cnpg.io/instanceRole: primary
+              ports:
+                - port: 5432
+                  protocol: TCP
+            - to:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: valkey
+                      app.kubernetes.io/instance: media-tracearr-valkey
+                      app.kubernetes.io/name: media-tracearr-valkey
+              ports:
+                - port: 6379
+                  protocol: TCP
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: media
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: jellyfin
+                      app.kubernetes.io/instance: media-jellyfin
+                      app.kubernetes.io/name: media-jellyfin
+              ports:
+                - port: 8096
+                  protocol: TCP
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: media
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: jellystat
+                      app.kubernetes.io/instance: media-jellystat
+                      app.kubernetes.io/name: media-jellystat
+              ports:
+                - port: 3000
+                  protocol: TCP
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: media
+                  podSelector:
+                    matchLabels:
+                      cnpg.io/cluster: jellystat-postgres-v18
+                      cnpg.io/instanceRole: primary
+              ports:
+                - port: 5432
+                  protocol: TCP
+            - to:
+                - ipBlock:
+                    cidr: 0.0.0.0/0
+                    except:
+                      - "${HAPROXY_WHITELIST}"
+              ports:
+                - port: 80
+                  protocol: TCP
+                - port: 443
+                  protocol: TCP
+          ingress:
+            - from:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: haproxy-controller
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: kubernetes-ingress
+              ports:
+                - port: *port
