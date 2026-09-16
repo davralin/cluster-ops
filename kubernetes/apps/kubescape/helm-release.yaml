@@ -52,6 +52,8 @@ spec:
     excludeNamespaces: "kubescape,kube-system,kube-public,kube-node-lease,kubeconfig,gmp-system,gmp-public,talos-system,flux-system,rook-ceph,kubevirt,cdi,node-problem-detector,smartctl-exporter,node-feature-discovery,node-exporter,cilium-secrets,cert-manager,metrics-server,cloudnative-pg,kyverno,descheduler,kuma,intel-gpu,spegel,grafana,openbao,haproxy-controller,neuvector"
 
     kubescape:
+      image:
+        tag: v4.0.14
       serviceMonitor:
         enabled: false
       resources:
