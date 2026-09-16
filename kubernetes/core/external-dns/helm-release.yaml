@@ -1,0 +1,105 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &name external-dns
+  namespace: flux-system
+spec:
+  interval: 30m
+  driftDetection:
+    mode: enabled
+  chart:
+    spec:
+      chart: external-dns
+      version: 1.22.0
+      sourceRef:
+        kind: HelmRepository
+        name: external-dns-charts
+        namespace: flux-system
+      interval: 30m
+  dependsOn:
+    - name: kube-prometheus-stack-crds
+      namespace: flux-system
+  targetNamespace: external-dns
+  install:
+    createNamespace: true
+    remediation:
+      retries: 10
+  upgrade:
+    remediation:
+      retries: 10
+  values:
+    fullnameOverride: *name
+    provider:
+      name: webhook
+      webhook:
+        image:
+          repository: ghcr.io/muhlba91/external-dns-provider-adguard
+          tag: v11.1.3@sha256:d00e350712c328ab97ba442ce4ac881688cb19c286d1bc0fa51e75608e580053
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 8080
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: 8080
+        env:
+          - name: SERVER_HOST
+            value: "0.0.0.0"
+          - name: SERVER_PORT
+            value: "8888"
+          - name: HEALTHZ_HOST
+            value: "0.0.0.0"
+          - name: HEALTHZ_PORT
+            value: "8080"
+          - name: ADGUARD_URL
+            value: http://adguard.adguard.svc.cluster.local:80
+          - name: ADGUARD_USER
+            valueFrom:
+              secretKeyRef:
+                name: external-dns-adguard-secret
+                key: ADGUARD_USER
+          - name: ADGUARD_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: external-dns-adguard-secret
+                key: ADGUARD_PASSWORD
+          - name: DRY_RUN
+            value: "true"
+          - name: ADGUARD_SET_IMPORTANT_FLAG
+            value: "true"
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          runAsNonRoot: true
+          runAsUser: 65532
+          runAsGroup: 65532
+          capabilities:
+            drop:
+              - ALL
+        resources:
+          requests:
+            cpu: 10m
+            memory: 32Mi
+          limits:
+            memory: 128Mi
+    sources:
+      - service
+    policy: upsert-only
+    registry: noop
+    domainFilters:
+      - ${SECRET_DEFAULT_DOMAIN}
+    annotationFilter: external-dns.alpha.kubernetes.io/managed-by=external-dns
+    interval: 5m
+    logLevel: info
+    extraArgs:
+      webhook-provider-url: http://localhost:8888
+    serviceMonitor:
+      enabled: ${MONITORING_PROMETHEUS}
+    resources:
+      requests:
+        cpu: 10m
+        memory: 64Mi
+      limits:
+        memory: 128Mi

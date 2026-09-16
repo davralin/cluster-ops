@@ -166,5 +166,12 @@ spec:
                       app.kubernetes.io/controller: adguard-sync
                       app.kubernetes.io/instance: adguard-adguard-sync
                       app.kubernetes.io/name: adguard-adguard-sync
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: external-dns
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/instance: external-dns
+                      app.kubernetes.io/name: external-dns
               ports:
                 - port: *port

@@ -13,6 +13,7 @@ resources:
   - ../../charts
   - ../../cilium
   - ../../default-np
+  - ../../external-dns
   - ../../flux
   - ../../haproxy
   - ../../prometheus-crd

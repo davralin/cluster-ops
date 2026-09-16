@@ -13,6 +13,7 @@ resources:
   - dysnix.yaml
   - emberstack.yaml
   - emqx.yaml
+  - external-dns.yaml
   - flux.yaml
   - grafana.yaml
   - haproxytech.yaml
