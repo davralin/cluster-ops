@@ -79,6 +79,8 @@ spec:
             name: tracearr-timescaledb
             major: 18
           primaryUpdateStrategy: unsupervised
+          postgresUID: 1000
+          postgresGID: 1000
           storage:
             size: 5Gi
             storageClass: "${STORAGE_READWRITEONCE}"
