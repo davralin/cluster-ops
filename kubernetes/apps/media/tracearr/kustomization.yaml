@@ -8,6 +8,7 @@ resources:
   - helm-release.yaml
   - jellyfin-networkpolicy.yaml
   - jellystat-networkpolicy.yaml
+  - oci-repository.yaml
   - probes.yaml
   - pvc.yaml
   - secret.yaml
