@@ -54,6 +54,15 @@ spec:
               compression: bzip2
               maxParallel: 4
       - apiVersion: postgresql.cnpg.io/v1
+        kind: ImageCatalog
+        metadata:
+          name: tracearr-timescaledb
+          namespace: *namespace
+        spec:
+          images:
+            - major: 18
+              image: docker.io/timescale/timescaledb-ha:pg18.6-ts2.30.0@sha256:3fcfe605a44ccf4d543e1ed4f1fcc1c650e0efbd2c49b9803640768c9459ba66
+      - apiVersion: postgresql.cnpg.io/v1
         kind: Cluster
         metadata:
           name: *name
@@ -64,7 +73,11 @@ spec:
             enablePodAntiAffinity: true
             topologyKey: kubernetes.io/hostname
             podAntiAffinityType: required
-          imageName: ghcr.io/cloudnative-pg/postgresql:18.6-202608310817-minimal-trixie@sha256:5c389b0268d9e637ca55efa41a7fafa3996332b5ea3c6099d0861c5f31acb00e
+          imageCatalogRef:
+            apiGroup: postgresql.cnpg.io
+            kind: ImageCatalog
+            name: tracearr-timescaledb
+            major: 18
           primaryUpdateStrategy: unsupervised
           storage:
             size: 5Gi
@@ -100,12 +113,9 @@ spec:
           postgresql:
             shared_preload_libraries:
               - "timescaledb"
-            extensions:
-              - name: timescaledb-oss
-                image:
-                  reference: ghcr.io/cloudnative-pg/timescaledb-oss:2.30.0-202609110601-18-trixie@sha256:7e806f6ebec19e54a41ce596c30c6e2e993efaa8eef34795c0fb0ddcb63a0d3d
             parameters:
               max_locks_per_transaction: "4096"
+              timescaledb.license: "timescale"
               timescaledb.max_tuples_decompressed_per_dml_transaction: "100000"
               timescaledb.telemetry_level: "off"
           plugins:
