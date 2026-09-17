@@ -48,6 +48,7 @@ Every namespace has a default-deny network policy. Ingress and egress are explic
 | Service | Purpose |
 |---------|---------|
 | [Jellyfin](https://jellyfin.org/) | Primary media server |
+| [Tracearr](https://tracearr.com/) | Media server analytics and monitoring |
 | [Plex](https://plex.tv/) | Secondary media server |
 | [Sonarr](https://sonarr.tv/) / [Radarr](https://radarr.video/) / [Lidarr](https://lidarr.audio/) | Media management & automation |
 | [Chaptarr](https://github.com/Chaptarr/chaptarr) | Books & audiobooks |
