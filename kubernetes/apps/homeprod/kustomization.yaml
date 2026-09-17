@@ -11,6 +11,7 @@ resources:
   - ../browserless
   - ../changedetection
   - ../cloudnative-pg
+  - ../crosspoint-sync
   - ../dawarich
   - ../descheduler
   - ../endurain

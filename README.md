@@ -74,6 +74,7 @@ Every namespace has a default-deny network policy. Ingress and egress are explic
 | [Mealie](https://mealie.io/) | Recipe manager |
 | [Karakeep](https://github.com/karakeep-app/karakeep) | Bookmark manager |
 | Karakeep OPDS | OPDS catalog bridge for Karakeep bookmarks |
+| [CrossPoint Sync](https://github.com/crosspoint-reader/crosspoint-sync) | Reader sync backend for CrossPoint/Xteink devices |
 | [Vaultwarden](https://github.com/dani-garcia/vaultwarden) | Bitwarden-compatible password manager |
 | [Wallos](https://github.com/ellite/Wallos) | Subscription tracker |
 
