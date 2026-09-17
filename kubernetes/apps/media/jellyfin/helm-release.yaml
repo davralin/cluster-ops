@@ -241,5 +241,10 @@ spec:
                       app.kubernetes.io/controller: sonarr
                       app.kubernetes.io/instance: media-sonarr
                       app.kubernetes.io/name: media-sonarr
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: tracearr
+                      app.kubernetes.io/instance: media-tracearr
+                      app.kubernetes.io/name: media-tracearr
               ports:
                 - port: *port
