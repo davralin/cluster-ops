@@ -7,7 +7,6 @@ resources:
   - helm-release-valkey.yaml
   - helm-release.yaml
   - jellyfin-networkpolicy.yaml
-  - jellystat-networkpolicy.yaml
   - oci-repository.yaml
   - probes.yaml
   - pvc.yaml

@@ -12,7 +12,6 @@ resources:
   - fetcharr
   - gogrepoc
   - jellyfin
-  - jellystat
   - lidarr
   - metube
   - mpd

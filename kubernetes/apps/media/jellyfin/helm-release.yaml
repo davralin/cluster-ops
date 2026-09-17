@@ -223,11 +223,6 @@ spec:
                       app.kubernetes.io/name: media-seerr
                 - podSelector:
                     matchLabels:
-                      app.kubernetes.io/controller: jellystat
-                      app.kubernetes.io/instance: media-jellystat
-                      app.kubernetes.io/name: media-jellystat
-                - podSelector:
-                    matchLabels:
                       app.kubernetes.io/controller: lidarr
                       app.kubernetes.io/instance: media-lidarr
                       app.kubernetes.io/name: media-lidarr

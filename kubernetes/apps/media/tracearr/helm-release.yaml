@@ -229,36 +229,11 @@ spec:
                 - port: 8096
                   protocol: TCP
             - to:
-                - namespaceSelector:
-                    matchLabels:
-                      kubernetes.io/metadata.name: media
-                  podSelector:
-                    matchLabels:
-                      app.kubernetes.io/controller: jellystat
-                      app.kubernetes.io/instance: media-jellystat
-                      app.kubernetes.io/name: media-jellystat
-              ports:
-                - port: 3000
-                  protocol: TCP
-            - to:
-                - namespaceSelector:
-                    matchLabels:
-                      kubernetes.io/metadata.name: media
-                  podSelector:
-                    matchLabels:
-                      cnpg.io/cluster: jellystat-postgres-v18
-                      cnpg.io/instanceRole: primary
-              ports:
-                - port: 5432
-                  protocol: TCP
-            - to:
                 - ipBlock:
                     cidr: 0.0.0.0/0
                     except:
                       - "${HAPROXY_WHITELIST}"
               ports:
-                - port: 80
-                  protocol: TCP
                 - port: 443
                   protocol: TCP
           ingress:
