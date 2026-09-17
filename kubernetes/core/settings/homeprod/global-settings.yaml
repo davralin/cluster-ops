@@ -12,3 +12,4 @@ data:
   STORAGE_READWRITEMANY: "ceph-filesystem"
   MONITORING_PROMETHEUS: "true"
   BLACKBOX_EXPORTER_URL: "blackbox-exporter.blackbox-exporter.svc.cluster.local:9115"
+  GARAGE_BACKUP_IP: "10.0.1.174"

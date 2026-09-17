@@ -7,4 +7,3 @@ resources:
   - helm-daily-to-jottacloud.yaml
   - helm-daily-video-ripper.yaml
   - helm-lfmv.yaml
-  - helm-onsite-sync.yaml

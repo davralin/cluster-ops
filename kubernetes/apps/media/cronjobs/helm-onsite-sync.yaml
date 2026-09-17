@@ -52,7 +52,7 @@ spec:
               repository: ghcr.io/davralin/rsync
               tag: latest@sha256:04678c9fee790fa08d9c3809e7b241f5dbda0093feb116085c06c547e40d8494
             command: ['/usr/bin/rsync']
-            args: ["--archive", "--delete", "--verbose", "-e", "ssh -o StrictHostKeyChecking=no", "/media/", "backup@nas.${SECRET_DEFAULT_DOMAIN}:/opt/local/media/"]
+            args: ["--archive", "--delete", "--verbose", "-e", "ssh -o StrictHostKeyChecking=no", "/media/", "backup@${GARAGE_BACKUP_IP}:/opt/local/media/"]
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -97,7 +97,7 @@ spec:
                   protocol: UDP
             - to: # Onsite-SSH
               - ipBlock:
-                  cidr: 10.0.1.75/32
+                  cidr: "${GARAGE_BACKUP_IP}/32"
               ports:
                 - port: 22
                   protocol: TCP

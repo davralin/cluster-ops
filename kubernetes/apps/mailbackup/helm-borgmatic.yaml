@@ -69,7 +69,7 @@ spec:
             source_directories:
                 - /mailbackup
             repositories:
-              - path: ssh://backup@nas.${SECRET_DEFAULT_DOMAIN}//opt/local/mailbackup
+              - path: ssh://backup@${GARAGE_BACKUP_IP}//opt/local/mailbackup
                 label: onsite
                 append_only: true
                 make_parent_directories: true
@@ -137,7 +137,7 @@ spec:
                   protocol: UDP
             - to: # Onsite-SSH
               - ipBlock:
-                  cidr: 10.0.1.75/32
+                  cidr: "${GARAGE_BACKUP_IP}/32"
               ports:
                 - port: 22
                   protocol: TCP

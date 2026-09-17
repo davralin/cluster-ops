@@ -252,7 +252,7 @@ spec:
                   protocol: UDP
             - to: # S3-Backup
               - ipBlock:
-                  cidr: 10.0.1.75/32
+                  cidr: "${GARAGE_BACKUP_IP}/32"
               ports:
                 - port: 3900
                   protocol: TCP

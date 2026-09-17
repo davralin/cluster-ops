@@ -92,7 +92,6 @@ spec:
             staticConfig:
               static:
                 - "adguard.${SECRET_OFFSITE_DOMAIN}"
-                - "nas.${SECRET_DEFAULT_DOMAIN}"
       - apiVersion: monitoring.coreos.com/v1
         kind: Probe
         metadata:
@@ -105,4 +104,4 @@ spec:
           targets:
             staticConfig:
               static:
-                - "http://garage.${SECRET_DEFAULT_DOMAIN}:3900"
+                - "http://${GARAGE_BACKUP_IP}:3900"

@@ -84,10 +84,6 @@ spec:
             source_directories:
                 - /nextcloud
             repositories:
-              - path: ssh://backup@nas.${SECRET_DEFAULT_DOMAIN}//opt/local/nextcloud
-                label: onsite
-                append_only: true
-                make_parent_directories: true
               - path: ssh://backup@nas.${SECRET_OFFSITE_DOMAIN}//opt/backup/nextcloud
                 label: offsite
                 append_only: true
@@ -159,12 +155,6 @@ spec:
               ports:
                 - port: 53
                   protocol: UDP
-            - to: # Onsite-SSH
-              - ipBlock:
-                  cidr: 10.0.1.75/32
-              ports:
-                - port: 22
-                  protocol: TCP
             - to: # Offsite-SSH
               - ipBlock:
                   cidr: "${HAPROXY_WHITELIST}"
