@@ -40,7 +40,6 @@ resources:
   - ../media
   - ../metrics-server
   - ../minecraft
-  - ../neuvector
   - ../nextcloud
   - ../node-exporter
   - ../node-feature-discovery

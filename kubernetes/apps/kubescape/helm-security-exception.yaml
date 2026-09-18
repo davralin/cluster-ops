@@ -50,7 +50,6 @@ spec:
                     - smartctl-exporter
                     - spegel
                     - intel-gpu
-                    - neuvector
           posture:
             - action: ignore
               controlID: C-0193   # CIS-5.2.2 privileged containers
