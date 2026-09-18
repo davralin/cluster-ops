@@ -181,6 +181,9 @@ spec:
         litellm:
           url: https://raw.githubusercontent.com/BerriAI/litellm/refs/heads/main/cookbook/litellm_proxy_server/grafana_dashboard/dashboard_v2/grafana_dashboard.json
           datasource: Prometheus
+        kubescape:
+          url: https://raw.githubusercontent.com/kubescape/prometheus-exporter/main/dashboards/grafana_dashboard.json
+          datasource: Prometheus
         minecraft-prometheus-exporter:
           url: https://raw.githubusercontent.com/sladkoff/minecraft-prometheus-exporter/master/dashboards/minecraft-server-dashboard.json
           datasource: Prometheus
