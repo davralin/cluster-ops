@@ -27,7 +27,6 @@ spec:
       retries: 10
   values:
     clusterName: "${CLUSTER_NAME}"
-
     capabilities:
       relevancy: disable
       kubescapeOffline: enable
@@ -37,17 +36,16 @@ spec:
       admissionController: disable
       seccompProfileService: disable
       riskAcceptance: enable
-
+      prometheusExporter: enable
     global:
       networkPolicy:
         enabled: false
-
     excludeNamespaces: "kubescape,kube-system,kube-public,kube-node-lease,kubeconfig,gmp-system,gmp-public,talos-system,flux-system,rook-ceph,kubevirt,cdi,node-problem-detector,smartctl-exporter,node-feature-discovery,node-exporter,cilium-secrets,cert-manager,metrics-server,cloudnative-pg,kyverno,descheduler,kuma,intel-gpu,spegel,grafana,haproxy-controller"
-
     kubescape:
       image:
         tag: v4.0.14
       serviceMonitor:
+        # Enabling this triggers new Kubescape scans on each probe
         enabled: false
       resources:
         requests:
@@ -56,3 +54,6 @@ spec:
         limits:
           cpu: 1000m
           memory: 2Gi
+    prometheusExporter:
+      serviceMonitor:
+        enabled: true

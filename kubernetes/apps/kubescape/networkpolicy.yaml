@@ -85,6 +85,29 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
+  name: allow-ingress-prometheus-exporter
+  namespace: kubescape
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/component: prometheus-exporter
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: prometheus
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/name: prometheus
+      ports:
+        - port: 8080
+          protocol: TCP
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
   name: allow-ingress-kubevuln
   namespace: kubescape
 spec:
@@ -259,6 +282,7 @@ spec:
           - kubevuln
           - storage
           - node-agent
+          - prometheus-exporter
           - kubescape-scheduler
           - kubevuln-scheduler
   egress:
