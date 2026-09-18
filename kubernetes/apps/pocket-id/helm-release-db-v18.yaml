@@ -70,7 +70,7 @@ spec:
             size: 6Gi
             storageClass: "${STORAGE_READWRITEONCE}"
           walStorage:
-            size: 3Gi
+            size: 5Gi
             storageClass: "${STORAGE_READWRITEONCE}"
           managed:
             roles:
