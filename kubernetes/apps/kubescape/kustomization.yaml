@@ -4,4 +4,5 @@ kind: Kustomization
 resources:
   - namespace.yaml
   - helm-release.yaml
+  - helm-security-exception.yaml
   - networkpolicy.yaml

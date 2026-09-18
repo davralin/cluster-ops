@@ -33,6 +33,29 @@ spec:
       - apiVersion: kubescape.io/v1beta1
         kind: ClusterSecurityException
         metadata:
+          name: infra-hostpath-workloads
+        spec:
+          match:
+            namespaceSelector:
+              matchExpressions:
+                - key: kubernetes.io/metadata.name
+                  operator: In
+                  values:
+                    - rook-ceph
+                    - kubevirt
+                    - node-problem-detector
+                    - node-exporter
+                    - node-feature-discovery
+                    - smartctl-exporter
+                    - spegel
+                    - intel-gpu
+          posture:
+            - action: ignore
+              controlID: C-0203   # CIS-5.2.12 HostPath volumes
+          reason: "Documented infra HostPath requirements for storage, virtualization, node-level monitoring, local registry mirroring, and device plugins."
+      - apiVersion: kubescape.io/v1beta1
+        kind: ClusterSecurityException
+        metadata:
           name: infra-privileged-workloads
         spec:
           match:
@@ -43,7 +66,84 @@ spec:
                   values:
                     - rook-ceph
                     - kubevirt
-                    - cdi
+                    - node-problem-detector
+                    - smartctl-exporter
+          posture:
+            - action: ignore
+              controlID: C-0193   # CIS-5.2.2 privileged containers
+          reason: "Documented privileged mode requirements for Rook/Ceph OSD and CSI pods, KubeVirt virt-handler, node-problem-detector host checks, and SMART disk monitoring."
+      - apiVersion: kubescape.io/v1beta1
+        kind: ClusterSecurityException
+        metadata:
+          name: infra-host-namespace-workloads
+        spec:
+          match:
+            namespaceSelector:
+              matchExpressions:
+                - key: kubernetes.io/metadata.name
+                  operator: In
+                  values:
+                    - rook-ceph
+                    - kubevirt
+                    - node-exporter
+          posture:
+            - action: ignore
+              controlID: C-0194   # CIS-5.2.3 hostPID namespace sharing
+            - action: ignore
+              controlID: C-0195   # CIS-5.2.4 hostIPC namespace sharing
+            - action: ignore
+              controlID: C-0196   # CIS-5.2.5 hostNetwork namespace sharing
+          reason: "Documented host namespace requirements for KubeVirt virt-handler, Rook/Ceph OSD/CSI pods, and node-exporter node metrics."
+      - apiVersion: kubescape.io/v1beta1
+        kind: ClusterSecurityException
+        metadata:
+          name: infra-capability-workloads
+        spec:
+          match:
+            namespaceSelector:
+              matchExpressions:
+                - key: kubernetes.io/metadata.name
+                  operator: In
+                  values:
+                    - rook-ceph
+          posture:
+            - action: ignore
+              controlID: C-0197   # CIS-5.2.6 allowPrivilegeEscalation
+            - action: ignore
+              controlID: C-0200   # CIS-5.2.9 added capabilities
+            - action: ignore
+              controlID: C-0201   # CIS-5.2.10 capabilities assigned
+          reason: "Documented SYS_ADMIN and privilege escalation requirements for CephFS/RBD CSI node plugins."
+      - apiVersion: kubescape.io/v1beta1
+        kind: ClusterSecurityException
+        metadata:
+          name: infra-hostport-workloads
+        spec:
+          match:
+            namespaceSelector:
+              matchExpressions:
+                - key: kubernetes.io/metadata.name
+                  operator: In
+                  values:
+                    - node-exporter
+                    - spegel
+          posture:
+            - action: ignore
+              controlID: C-0204   # CIS-5.2.13 HostPorts
+          reason: "Documented host port requirements for node-exporter metrics and Spegel registry mirror peer access."
+      - apiVersion: kubescape.io/v1beta1
+        kind: ClusterSecurityException
+        metadata:
+          name: infra-seccomp-workloads
+        spec:
+          match:
+            namespaceSelector:
+              matchExpressions:
+                - key: kubernetes.io/metadata.name
+                  operator: In
+                  values:
+                    - rook-ceph
+                    - kubevirt
                     - node-problem-detector
                     - node-exporter
                     - node-feature-discovery
@@ -52,23 +152,5 @@ spec:
                     - intel-gpu
           posture:
             - action: ignore
-              controlID: C-0193   # CIS-5.2.2 privileged containers
-            - action: ignore
-              controlID: C-0197   # CIS-5.2.6 allowPrivilegeEscalation
-            - action: ignore
-              controlID: C-0198   # CIS-5.2.7 root containers
-            - action: ignore
-              controlID: C-0199   # CIS-5.2.8 NET_RAW capability
-            - action: ignore
-              controlID: C-0200   # CIS-5.2.9 added capabilities
-            - action: ignore
-              controlID: C-0201   # CIS-5.2.10 capabilities assigned
-            - action: ignore
-              controlID: C-0202   # CIS-5.2.11 Windows HostProcess
-            - action: ignore
-              controlID: C-0203   # CIS-5.2.12 HostPath volumes
-            - action: ignore
-              controlID: C-0204   # CIS-5.2.13 HostPorts
-            - action: ignore
               controlID: C-0210   # CIS-5.7.2 seccomp
-          reason: "Infrastructure namespaces with privileged/HostPath/seccomp requirements - unavoidable for storage, virtualization, node-level monitoring, and runtime security. PSA already set to privileged."
+          reason: "Kubescape reports seccomp hardening noise for documented infra DaemonSets and storage/virtualization components."
