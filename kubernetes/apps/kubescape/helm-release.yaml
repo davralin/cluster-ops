@@ -42,18 +42,16 @@ spec:
         enabled: false
     excludeNamespaces: "kubescape,kube-system,kube-public,kube-node-lease"
     kubescape:
-      image:
-        tag: v4.0.14
       serviceMonitor:
         # Enabling this triggers new Kubescape scans on each probe
         enabled: false
       resources:
         requests:
           cpu: 100m
-          memory: 500Mi
+          memory: 1Gi
         limits:
           cpu: 1000m
-          memory: 2Gi
+          memory: 4Gi
     prometheusExporter:
       serviceMonitor:
         enabled: true
