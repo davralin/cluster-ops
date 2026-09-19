@@ -37,6 +37,8 @@ spec:
       minecraft:
         type: LoadBalancer
         annotations:
+          external-dns.alpha.kubernetes.io/managed-by: external-dns
+          external-dns.kubernetes.io/hostname: "survival.${SECRET_DEFAULT_DOMAIN},creative.${SECRET_DEFAULT_DOMAIN}"
           io.cilium/lb-ipam-ips: "10.0.1.31"
     minecraftRouter:
       debug:

@@ -15,6 +15,7 @@ resources:
   - ../dawarich
   - ../descheduler
   - ../endurain
+  - ../external-dns
   - ../cloudflareddns
   - ../cloudflared
   - ../firefox

@@ -71,6 +71,9 @@ spec:
       serviceType: LoadBalancer
       loadBalancerIP: 10.0.1.42
       #externalTrafficPolicy: Local
+    serviceAnnotations:
+      external-dns.alpha.kubernetes.io/managed-by: external-dns
+      external-dns.kubernetes.io/hostname: "bedrock-survival.${SECRET_DEFAULT_DOMAIN}"
     resources:
       requests:
         memory: 6G

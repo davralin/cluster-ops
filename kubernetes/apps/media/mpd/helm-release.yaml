@@ -107,6 +107,9 @@ spec:
     service:
       mpd:
         type: LoadBalancer
+        annotations:
+          external-dns.alpha.kubernetes.io/managed-by: external-dns
+          external-dns.kubernetes.io/hostname: "mpd.${SECRET_DEFAULT_DOMAIN}"
         #externalTrafficPolicy: Local
         loadBalancerIP: 10.0.1.43
         controller: *name

@@ -20,6 +20,8 @@ spec:
   dependsOn:
     - name: kube-prometheus-stack-crds
       namespace: flux-system
+    - name: adguard
+      namespace: flux-system
   targetNamespace: external-dns
   install:
     createNamespace: true
@@ -66,7 +68,7 @@ spec:
                 name: external-dns-adguard-secret
                 key: ADGUARD_PASSWORD
           - name: DRY_RUN
-            value: "true"
+            value: "false"
           - name: ADGUARD_SET_IMPORTANT_FLAG
             value: "true"
         securityContext:
@@ -86,7 +88,7 @@ spec:
             memory: 128Mi
     sources:
       - service
-    policy: upsert-only
+    policy: sync
     registry: noop
     domainFilters:
       - ${SECRET_DEFAULT_DOMAIN}
