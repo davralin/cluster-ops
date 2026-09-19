@@ -109,9 +109,9 @@ spec:
           resources:
             requests:
               cpu: "100m"
-              memory: "512Mi"
-            limits:
               memory: "1Gi"
+            limits:
+              memory: "2Gi"
           postgresql:
             shared_preload_libraries:
               - "timescaledb"
