@@ -53,5 +53,11 @@ spec:
           cpu: 1000m
           memory: 4Gi
     prometheusExporter:
+      resources:
+        requests:
+          cpu: 50m
+          memory: 64Mi
+        limits:
+          memory: 256Mi
       serviceMonitor:
         enabled: true
