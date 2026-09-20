@@ -171,7 +171,6 @@ spec:
       loadBalancerIP: 10.0.1.46
       #externalTrafficPolicy: Local
     serviceAnnotations:
-      external-dns.alpha.kubernetes.io/managed-by: external-dns
       external-dns.kubernetes.io/hostname: "skyblock.${SECRET_DEFAULT_DOMAIN}"
     resources:
       requests:

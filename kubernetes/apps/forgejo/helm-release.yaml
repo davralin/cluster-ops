@@ -119,7 +119,6 @@ spec:
       ssh:
         type: LoadBalancer
         annotations:
-          external-dns.alpha.kubernetes.io/managed-by: external-dns
           external-dns.kubernetes.io/hostname: "ssh.${SECRET_DEFAULT_DOMAIN}"
         loadBalancerIP: 10.0.1.44
     strategy:

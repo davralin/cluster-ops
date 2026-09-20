@@ -72,7 +72,6 @@ spec:
       loadBalancerIP: 10.0.1.40
       #externalTrafficPolicy: Local
     serviceAnnotations:
-      external-dns.alpha.kubernetes.io/managed-by: external-dns
       external-dns.kubernetes.io/hostname: "bedrock.${SECRET_DEFAULT_DOMAIN},bedrock-creative.${SECRET_DEFAULT_DOMAIN}"
     resources:
       requests:
