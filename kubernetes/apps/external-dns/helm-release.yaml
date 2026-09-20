@@ -93,7 +93,7 @@ spec:
     registry: noop
     domainFilters:
       - ${SECRET_DEFAULT_DOMAIN}
-    interval: 5m
+    interval: 2m
     logLevel: info
     extraArgs:
       webhook-provider-url: http://localhost:8888

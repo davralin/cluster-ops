@@ -53,7 +53,7 @@ spec:
             env:
               TZ: "${TIMEZONE}"
               API_PORT: '0'
-              CRON: '*/30 * * * *'
+              CRON: '* * * * *'
               ORIGIN_URL:
                 valueFrom:
                   secretKeyRef:
