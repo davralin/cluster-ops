@@ -55,6 +55,8 @@ spec:
               UN_ACTIVITY: true
               UN_LIDARR_0_URL: http://lidarr.media.svc.cluster.local:8686
               UN_LIDARR_0_API_KEY: "${SECRET_LIDARR_API_KEY}"
+              UN_READARR_0_URL: http://chaptarr.media.svc.cluster.local:8789
+              UN_READARR_0_API_KEY: "${SECRET_CHAPTARR_API_KEY}"
               UN_SONARR_0_URL: http://sonarr.media.svc.cluster.local:8989
               UN_SONARR_0_API_KEY: "${SECRET_SONARR_API_KEY}"
               UN_RADARR_0_URL: http://radarr.media.svc.cluster.local:7878
@@ -126,6 +128,14 @@ spec:
                       app.kubernetes.io/name: media-lidarr
               ports:
                 - port: 8686
+            - to:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: chaptarr
+                      app.kubernetes.io/instance: media-chaptarr
+                      app.kubernetes.io/name: media-chaptarr
+              ports:
+                - port: 8789
             - to:
                 - podSelector:
                     matchLabels:

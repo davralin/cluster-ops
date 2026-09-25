@@ -210,6 +210,11 @@ spec:
                       app.kubernetes.io/name: media-fetcharr
                 - podSelector:
                     matchLabels:
+                      app.kubernetes.io/controller: unpackerr
+                      app.kubernetes.io/instance: media-unpackerr
+                      app.kubernetes.io/name: media-unpackerr
+                - podSelector:
+                    matchLabels:
                       app.kubernetes.io/controller: prowlarr
                       app.kubernetes.io/instance: media-prowlarr
                       app.kubernetes.io/name: media-prowlarr
