@@ -43,6 +43,11 @@ spec:
           daemon:
             keyRotationPolicy: KeyGeneration
             keyGeneration: 20260821
+          csi:
+            keyRotationPolicy: KeyGeneration
+            keyGeneration: 20260925
+            keepPriorKeyCountMax: 2
+            keyType: aes256k
       cephConfig:
         global:
           mon_data_avail_warn: "10"
