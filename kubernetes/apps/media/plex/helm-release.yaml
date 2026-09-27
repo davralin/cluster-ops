@@ -76,7 +76,7 @@ spec:
         type: LoadBalancer
         annotations:
           external-dns.kubernetes.io/hostname: "plex.${SECRET_DEFAULT_DOMAIN}"
-        #externalTrafficPolicy: Local
+        externalTrafficPolicy: Local
         loadBalancerIP: 10.0.1.30
         ports:
           http:

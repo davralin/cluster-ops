@@ -142,7 +142,7 @@ spec:
         enabled: true
       serviceType: LoadBalancer
       loadBalancerIP: 10.0.1.47
-      #externalTrafficPolicy: Local
+      externalTrafficPolicy: Local
     serviceAnnotations:
       external-dns.kubernetes.io/hostname: "oneblock.${SECRET_DEFAULT_DOMAIN}"
     resources:
