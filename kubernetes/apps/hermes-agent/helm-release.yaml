@@ -128,6 +128,18 @@ spec:
               ports:
                 - port: 4000
                   protocol: TCP
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: meridian
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: meridian
+                      app.kubernetes.io/instance: meridian-meridian
+                      app.kubernetes.io/name: meridian-meridian
+              ports:
+                - port: 3456
+                  protocol: TCP
 
             - to:
                 - namespaceSelector:

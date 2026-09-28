@@ -89,6 +89,7 @@ Every namespace has a default-deny network policy. Ingress and egress are explic
 |---------|---------|
 | [Hermes Agent](https://hermes-agent.nousresearch.com) | Self-improving AI agent (NousResearch) |
 | [LiteLLM](https://litellm.ai/) | OpenAI-compatible LLM proxy (GitHub Copilot gateway) |
+| [Meridian](https://github.com/rynfar/meridian) | Claude API proxy for local agent clients |
 | [Ollama](https://ollama.ai/) | Local LLM inference |
 | [Open WebUI](https://openwebui.com/) | Chat interface for local models |
 | [SearXNG](https://searxng.org/) | Privacy-respecting metasearch engine |

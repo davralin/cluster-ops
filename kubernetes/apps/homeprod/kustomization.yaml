@@ -39,6 +39,7 @@ resources:
   - ../mailrelay
   - ../mealie
   - ../media
+  - ../meridian
   - ../metrics-server
   - ../minecraft
   - ../nextcloud
