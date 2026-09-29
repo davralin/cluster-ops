@@ -50,7 +50,7 @@ spec:
           spotify-navidrome-sync:
             image:
               repository: ghcr.io/davralin/spotify-navidrome-sync
-              tag: 2026.09.21@sha256:e7466734b61acfc7d1c243299c03c6bb9036f389cbf886039c272e6116e0a2a4
+              tag: 2026.09.28@sha256:dd499bfe17cd8a51d4f5d4e16bb63a8b163e39390ba63cf8b3af06baa83e75e7
             args:
               - /config/config.yaml
             env:
