@@ -69,6 +69,11 @@ spec:
                   secretKeyRef:
                     name: hermes-agent-secret
                     key: SIGNAL_ALLOWED_USERS
+              FASTMAIL_API_TOKEN:
+                valueFrom:
+                  secretKeyRef:
+                    name: hermes-agent-secret
+                    key: FASTMAIL_API_TOKEN
               HASS_URL: "https://home.${SECRET_DEFAULT_DOMAIN}"
               HASS_TOKEN:
                 valueFrom:
