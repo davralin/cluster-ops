@@ -3,12 +3,13 @@
   extends: [
     'config:recommended',
     'docker:enableMajor',
-    ':automergeBranch',
+    ':automergePr',
     ':disableRateLimiting',
   ],
   dependencyDashboardTitle: 'Renovate Dashboard',
   assigneesFromCodeOwners: true,
   ignoreTests: true,
+  automergeStrategy: 'rebase',
   flux: {
     managerFilePatterns: [
       '/kubernetes/.+\\.yaml$/',
@@ -111,7 +112,6 @@
         'patch',
       ],
       automerge: true,
-      automergeType: 'branch',
     },
     {
       description: 'Auto-merge allowlisted minor updates',
@@ -126,7 +126,6 @@
         'ghcr.io/unpoller/unpoller',
       ],
       automerge: true,
-      automergeType: 'branch',
     },
     {
       description: 'Commit messages for Minecraft plugins (github-releases used in pluginUrls)',
@@ -280,7 +279,6 @@
         'renovate/grafana-dashboard',
       ],
       automerge: true,
-      automergeType: 'branch',
       matchDatasources: [
         'custom.grafana-dashboards',
       ],
