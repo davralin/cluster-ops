@@ -159,6 +159,18 @@ spec:
                 - port: 8080
                   protocol: TCP
             - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: browserless
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: browserless
+                      app.kubernetes.io/instance: browserless-browserless
+                      app.kubernetes.io/name: browserless-browserless
+              ports:
+                - port: 3000
+                  protocol: TCP
+            - to:
                 - podSelector:
                     matchLabels:
                       app.kubernetes.io/controller: hermes-signal
