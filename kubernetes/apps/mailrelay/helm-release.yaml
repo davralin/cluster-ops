@@ -46,8 +46,8 @@ spec:
         containers:
           exim:
             image:
-              repository: docker.io/devture/exim-relay
-              tag: 4.98-r0-4@sha256:7ba30080c7a6ac4e93a99143ebd1aa229a16c47b97b2129002dc753c8a47f095
+              repository: ghcr.io/devture/exim-relay
+              tag: 4.99.1-r0-3@sha256:ec524586ebf4cd43e1cd338f9ca01807483889275e96f05d5155b2025b0445ab
             env:
               HOSTNAME: "smtp.${SECRET_DEFAULT_DOMAIN}"
               SMARTHOST:
