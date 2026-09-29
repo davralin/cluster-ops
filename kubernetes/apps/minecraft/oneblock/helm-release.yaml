@@ -97,7 +97,7 @@ spec:
         env:
           - name: AONEBLOCK_URL
             # renovate: datasource=github-releases depName=BentoBoxWorld/AOneBlock
-            value: https://github.com/BentoBoxWorld/AOneBlock/releases/download/1.27.1/AOneBlock-1.27.1.jar
+            value: https://github.com/BentoBoxWorld/AOneBlock/releases/download/1.28.0/AOneBlock-1.28.0.jar
         volumeMounts:
           - name: datadir
             mountPath: /data
