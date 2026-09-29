@@ -106,7 +106,8 @@
       versioning: 'regex:^(?<major>\\d+)\\.(?<minor>\\d+)(?:-(?<patch>\\d+)\\.(?<build>\\d+)\\.(?<revision>\\d+))?$',
     },
     {
-      description: 'Auto-merge patch and digest updates',
+      description: 'Group and auto-merge patch and digest updates',
+      groupName: 'automerge updates',
       matchUpdateTypes: [
         'digest',
         'patch',
@@ -114,7 +115,8 @@
       automerge: true,
     },
     {
-      description: 'Auto-merge allowlisted minor updates',
+      description: 'Group and auto-merge allowlisted minor updates',
+      groupName: 'automerge updates',
       matchUpdateTypes: [
         'minor',
       ],
