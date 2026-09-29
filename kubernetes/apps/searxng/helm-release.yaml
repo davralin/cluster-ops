@@ -225,13 +225,5 @@ spec:
                       app.kubernetes.io/controller: hermes-agent
                       app.kubernetes.io/instance: hermes-agent-hermes-agent
                       app.kubernetes.io/name: hermes-agent-hermes-agent
-                - namespaceSelector:
-                    matchLabels:
-                      kubernetes.io/metadata.name: openwebui
-                  podSelector:
-                    matchLabels:
-                      app.kubernetes.io/controller: openwebui
-                      app.kubernetes.io/instance: openwebui-openwebui
-                      app.kubernetes.io/name: openwebui-openwebui
               ports:
                 - port: *port

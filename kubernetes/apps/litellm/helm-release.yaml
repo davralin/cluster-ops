@@ -264,14 +264,6 @@ spec:
                       app.kubernetes.io/name: karakeep-karakeep
                 - namespaceSelector:
                     matchLabels:
-                      kubernetes.io/metadata.name: openwebui
-                  podSelector:
-                    matchLabels:
-                      app.kubernetes.io/controller: openwebui
-                      app.kubernetes.io/instance: openwebui-openwebui
-                      app.kubernetes.io/name: openwebui-openwebui
-                - namespaceSelector:
-                    matchLabels:
                       kubernetes.io/metadata.name: wallos
                   podSelector:
                     matchLabels:
