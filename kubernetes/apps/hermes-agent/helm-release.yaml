@@ -64,11 +64,11 @@ spec:
                   secretKeyRef:
                     name: hermes-agent-secret
                     key: SIGNAL_ACCOUNT
-              SIGNAL_GROUP_ALLOWED_USERS:
+              SIGNAL_ALLOWED_USERS:
                 valueFrom:
                   secretKeyRef:
                     name: hermes-agent-secret
-                    key: SIGNAL_GROUP_ALLOWED_USERS
+                    key: SIGNAL_ALLOWED_USERS
               HASS_URL: "https://home.${SECRET_DEFAULT_DOMAIN}"
               HASS_TOKEN:
                 valueFrom:
