@@ -90,6 +90,7 @@
         '/metube/',
         '/plex/',
         '/searxng/',
+        'docker.io/devture/exim-relay',
       ],
     },
     {
