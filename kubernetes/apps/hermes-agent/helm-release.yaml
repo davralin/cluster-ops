@@ -43,6 +43,8 @@ spec:
           - 999 # Signal-cli
     controllers:
       hermes-agent:
+        annotations:
+          reloader.stakater.com/auto: "true"
         containers:
           hermes-agent:
             image:
