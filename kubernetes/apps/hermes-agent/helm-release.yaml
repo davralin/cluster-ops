@@ -59,6 +59,51 @@ spec:
                   secretKeyRef:
                     name: hermes-agent-secret
                     key: LITELLM_API_KEY
+              PAPERLESS_API_TOKEN:
+                valueFrom:
+                  secretKeyRef:
+                    name: hermes-agent-secret
+                    key: PAPERLESS_API_TOKEN
+              MEALIE_API_TOKEN:
+                valueFrom:
+                  secretKeyRef:
+                    name: hermes-agent-secret
+                    key: MEALIE_API_TOKEN
+              DAWARICH_API_TOKEN:
+                valueFrom:
+                  secretKeyRef:
+                    name: hermes-agent-secret
+                    key: DAWARICH_API_TOKEN
+              ADGUARD_NATIVE_URL:
+                valueFrom:
+                  secretKeyRef:
+                    name: hermes-agent-secret
+                    key: ADGUARD_NATIVE_URL
+              ADGUARD_NATIVE_USERNAME:
+                valueFrom:
+                  secretKeyRef:
+                    name: hermes-agent-secret
+                    key: ADGUARD_NATIVE_USERNAME
+              ADGUARD_NATIVE_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: hermes-agent-secret
+                    key: ADGUARD_NATIVE_PASSWORD
+              ADGUARD_SOURCE_URL:
+                valueFrom:
+                  secretKeyRef:
+                    name: hermes-agent-secret
+                    key: ADGUARD_SOURCE_URL
+              ADGUARD_SOURCE_USERNAME:
+                valueFrom:
+                  secretKeyRef:
+                    name: hermes-agent-secret
+                    key: ADGUARD_SOURCE_USERNAME
+              ADGUARD_SOURCE_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: hermes-agent-secret
+                    key: ADGUARD_SOURCE_PASSWORD
               SIGNAL_HTTP_URL: "http://hermes-signal.hermes-agent.svc.cluster.local:8080"
               SIGNAL_ACCOUNT:
                 valueFrom:
@@ -208,6 +253,12 @@ spec:
                     cidr: 10.0.1.79/32
               ports:
                 - port: 443
+                  protocol: TCP
+            - to: # AdGuard Home
+                - ipBlock:
+                    cidr: 10.0.1.1/32
+              ports:
+                - port: 80
                   protocol: TCP
             - to:
                 - namespaceSelector:
