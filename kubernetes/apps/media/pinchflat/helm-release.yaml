@@ -47,8 +47,8 @@ spec:
         containers:
           pinchflat:
             image:
-              repository: ghcr.io/kieraneglin/pinchflat
-              tag: v2025.6.6@sha256:4e975edf58f0861a5cbfe8fc6aac4851ff5a02dfc3f05ffeea4982e3084a5a4a
+              repository: ghcr.io/thebadfella/pinchflat-ngx
+              tag: 2026.9.28@sha256:b5e3b8098cf8a4478ea4e00e062d0657c68b4fd21efa8e63ae5b5c18ef472a23
             env:
               TZ: "${TIMEZONE}"
               TZ_DATA_DIR: /tmp/elixir_tz_data
