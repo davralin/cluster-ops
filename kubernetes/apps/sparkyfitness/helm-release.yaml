@@ -1,0 +1,402 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &name sparkyfitness
+  namespace: flux-system
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 5.2.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+      interval: 30m
+  driftDetection:
+    mode: enabled
+  targetNamespace: sparkyfitness
+  install:
+    createNamespace: true
+    remediation:
+      retries: 10
+  upgrade:
+    remediation:
+      retries: 10
+  dependsOn:
+    - name: sparkyfitness-postgres-v18
+      namespace: flux-system
+  values:
+    fullnameOverride: *name
+    global:
+      createDefaultServiceAccount: false
+    defaultPodOptions:
+      automountServiceAccountToken: false
+      enableServiceLinks: false
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+    controllers:
+      frontend:
+        containers:
+          frontend:
+            image:
+              repository: ghcr.io/codewithcj/sparkyfitness-frontend
+              tag: v1.7.3@sha256:f4a2f30a7bf5bd7ed79a46b153ada6219ddbb597b429892e479cd382db9c0b6f
+            env:
+              SPARKY_FITNESS_FRONTEND_URL: "https://sparkyfitness.${SECRET_DEFAULT_DOMAIN}"
+              SPARKY_FITNESS_SERVER_HOST: sparkyfitness-server.sparkyfitness.svc.cluster.local
+              SPARKY_FITNESS_SERVER_PORT: "3010"
+            probes:
+              liveness: &frontend-probes
+                enabled: true
+                custom: true
+                spec:
+                  tcpSocket:
+                    port: 8080
+                  initialDelaySeconds: 10
+                  periodSeconds: 10
+                  timeoutSeconds: 5
+                  failureThreshold: 6
+              readiness: *frontend-probes
+              startup:
+                enabled: true
+                custom: true
+                spec:
+                  tcpSocket:
+                    port: 8080
+                  periodSeconds: 10
+                  timeoutSeconds: 5
+                  failureThreshold: 30
+            securityContext: &container-security-context
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+            resources:
+              requests:
+                cpu: 25m
+                memory: 64Mi
+              limits:
+                memory: 128Mi
+      server:
+        pod:
+          dnsConfig:
+            options:
+              - name: ndots
+                value: "1"
+        containers:
+          server:
+            image:
+              repository: ghcr.io/codewithcj/sparkyfitness-server
+              tag: v1.7.3@sha256:2ccde3aed3faa3d5cbdd6bf97397da30677690e5540fafb5e2c4a852f03db12e
+            env:
+              SPARKY_FITNESS_DB_HOST: sparkyfitness-postgres-v18-rw.sparkyfitness.svc.cluster.local
+              SPARKY_FITNESS_DB_PORT: "5432"
+              SPARKY_FITNESS_DB_NAME: sparkyfitness_db
+              SPARKY_FITNESS_DB_USER:
+                valueFrom:
+                  secretKeyRef:
+                    name: sparkyfitness-basic-auth
+                    key: username
+              SPARKY_FITNESS_DB_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: sparkyfitness-basic-auth
+                    key: password
+              SPARKY_FITNESS_APP_DB_USER:
+                value: sparkyfitness_app
+              SPARKY_FITNESS_APP_DB_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: sparkyfitness-basic-auth
+                    key: app-password
+              SPARKY_FITNESS_FRONTEND_URL: "https://sparkyfitness.${SECRET_DEFAULT_DOMAIN}"
+              SPARKY_FITNESS_API_ENCRYPTION_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: sparkyfitness-secret
+                    key: api-encryption-key
+              BETTER_AUTH_SECRET:
+                valueFrom:
+                  secretKeyRef:
+                    name: sparkyfitness-secret
+                    key: better-auth-secret
+              NODE_ENV: production
+              TZ: "${TIMEZONE}"
+              SPARKY_FITNESS_LOG_LEVEL: WARN
+              GARMIN_MICROSERVICE_URL: http://sparkyfitness-garmin.sparkyfitness.svc.cluster.local:8000
+            probes:
+              liveness: &server-probes
+                enabled: true
+                custom: true
+                spec:
+                  tcpSocket:
+                    port: 3010
+                  initialDelaySeconds: 30
+                  periodSeconds: 10
+                  timeoutSeconds: 5
+                  failureThreshold: 6
+              readiness: *server-probes
+              startup:
+                enabled: true
+                custom: true
+                spec:
+                  tcpSocket:
+                    port: 3010
+                  periodSeconds: 10
+                  timeoutSeconds: 5
+                  failureThreshold: 60
+            securityContext: *container-security-context
+            resources:
+              requests:
+                cpu: 100m
+                memory: 256Mi
+              limits:
+                memory: 1Gi
+      garmin:
+        containers:
+          garmin:
+            image:
+              repository: ghcr.io/codewithcj/sparkyfitness-garmin
+              tag: v1.7.3@sha256:a7bf76e9b28ef1d9a8a2e614e217f748250ab56137b6af412e1fd31fea2a038d
+            env:
+              GARMIN_SERVICE_PORT: "8000"
+              GARMIN_SERVICE_IS_CN: "false"
+            probes:
+              liveness: &garmin-probes
+                enabled: true
+                custom: true
+                spec:
+                  tcpSocket:
+                    port: 8000
+                  initialDelaySeconds: 15
+                  periodSeconds: 10
+                  timeoutSeconds: 5
+                  failureThreshold: 6
+              readiness: *garmin-probes
+              startup:
+                enabled: true
+                custom: true
+                spec:
+                  tcpSocket:
+                    port: 8000
+                  periodSeconds: 10
+                  timeoutSeconds: 5
+                  failureThreshold: 30
+            securityContext: *container-security-context
+            resources:
+              requests:
+                cpu: 25m
+                memory: 128Mi
+              limits:
+                memory: 256Mi
+    service:
+      frontend:
+        controller: frontend
+        ports:
+          http:
+            port: &frontend-port 8080
+      server:
+        controller: server
+        ports:
+          http:
+            port: &server-port 3010
+      garmin:
+        controller: garmin
+        ports:
+          http:
+            port: &garmin-port 8000
+    ingress:
+      frontend:
+        enabled: true
+        annotations:
+          haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
+          haproxy.org/ssl-redirect-port: "443"
+          haproxy.org/response-set-header: |
+            Strict-Transport-Security "max-age=31536000"
+            X-Frame-Options "DENY"
+            X-Content-Type-Options "nosniff"
+            Referrer-Policy "strict-origin-when-cross-origin"
+        hosts:
+          - host: &host "sparkyfitness.${SECRET_DEFAULT_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  identifier: frontend
+                  port: http
+        tls:
+          - hosts:
+              - *host
+    persistence:
+      frontend-config:
+        type: emptyDir
+        advancedMounts:
+          frontend:
+            frontend:
+              - path: /etc/nginx/conf.d
+      frontend-run:
+        type: emptyDir
+        advancedMounts:
+          frontend:
+            frontend:
+              - path: /run
+      frontend-cache:
+        type: emptyDir
+        advancedMounts:
+          frontend:
+            frontend:
+              - path: /var/cache/nginx
+      server-tmp:
+        type: emptyDir
+        advancedMounts:
+          server:
+            server:
+              - path: /tmp
+      server-temp-uploads:
+        type: emptyDir
+        advancedMounts:
+          server:
+            server:
+              - path: /app/SparkyFitnessServer/temp_uploads
+      data:
+        enabled: true
+        existingClaim: sparkyfitness
+        advancedMounts:
+          server:
+            server:
+              - path: /app/SparkyFitnessServer/uploads
+                subPath: uploads
+              - path: /app/SparkyFitnessServer/backup
+                subPath: backup
+    networkpolicies:
+      frontend:
+        enabled: true
+        controller: frontend
+        policyTypes:
+          - Egress
+          - Ingress
+        rules:
+          egress:
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: kube-system
+                  podSelector:
+                    matchLabels:
+                      k8s-app: kube-dns
+              ports:
+                - port: 53
+                  protocol: UDP
+            - to:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: server
+                      app.kubernetes.io/instance: sparkyfitness-sparkyfitness
+                      app.kubernetes.io/name: sparkyfitness-sparkyfitness
+              ports:
+                - port: *server-port
+                  protocol: TCP
+          ingress:
+            - from:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: haproxy-controller
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: kubernetes-ingress
+              ports:
+                - port: *frontend-port
+      server:
+        type: cilium
+        controller: server
+        description: Restrict SparkyFitness server traffic to its required services and GitHub checks.
+        enableDefaultDeny:
+          ingress: true
+          egress: true
+        ingress:
+          - fromEndpoints:
+              - matchLabels:
+                  k8s:app.kubernetes.io/controller: frontend
+                  k8s:app.kubernetes.io/instance: sparkyfitness-sparkyfitness
+                  k8s:app.kubernetes.io/name: sparkyfitness-sparkyfitness
+            toPorts:
+              - ports:
+                  - port: "3010"
+                    protocol: TCP
+        egress:
+          - toEndpoints:
+              - matchLabels:
+                  k8s:io.kubernetes.pod.namespace: kube-system
+                  k8s:k8s-app: kube-dns
+            toPorts:
+              - ports:
+                  - port: "53"
+                    protocol: UDP
+                rules:
+                  dns:
+                    - matchPattern: "*"
+          - toEndpoints:
+              - matchLabels:
+                  k8s:app.kubernetes.io/controller: garmin
+                  k8s:app.kubernetes.io/instance: sparkyfitness-sparkyfitness
+                  k8s:app.kubernetes.io/name: sparkyfitness-sparkyfitness
+            toPorts:
+              - ports:
+                  - port: "8000"
+                    protocol: TCP
+          - toEndpoints:
+              - matchLabels:
+                  k8s:cnpg.io/cluster: sparkyfitness-postgres-v18
+            toPorts:
+              - ports:
+                  - port: "5432"
+                    protocol: TCP
+          - toFQDNs:
+              - matchName: api.github.com
+              - matchName: raw.githubusercontent.com
+            toPorts:
+              - ports:
+                  - port: "443"
+                    protocol: TCP
+      garmin:
+        enabled: true
+        controller: garmin
+        policyTypes:
+          - Egress
+          - Ingress
+        rules:
+          egress:
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: kube-system
+                  podSelector:
+                    matchLabels:
+                      k8s-app: kube-dns
+              ports:
+                - port: 53
+                  protocol: UDP
+            - to:
+                - ipBlock:
+                    cidr: 0.0.0.0/0
+              ports:
+                - port: 443
+                  protocol: TCP
+          ingress:
+            - from:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: server
+                      app.kubernetes.io/instance: sparkyfitness-sparkyfitness
+                      app.kubernetes.io/name: sparkyfitness-sparkyfitness
+              ports:
+                - port: *garmin-port

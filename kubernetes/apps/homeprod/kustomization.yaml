@@ -52,6 +52,7 @@ resources:
   - ../remotebackup
   - ../searxng
   - ../smartctl-exporter
+  - ../sparkyfitness
   - ../speedtest-exporter
   - ../spegel
   - ../syncthing

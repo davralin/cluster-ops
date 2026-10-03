@@ -77,6 +77,7 @@ Every namespace has a default-deny network policy. Ingress and egress are explic
 | [CrossPoint Sync](https://github.com/crosspoint-reader/crosspoint-sync) | Reader sync backend for CrossPoint/Xteink devices |
 | [Vaultwarden](https://github.com/dani-garcia/vaultwarden) | Bitwarden-compatible password manager |
 | [Wallos](https://github.com/ellite/Wallos) | Subscription tracker |
+| [SparkyFitness](https://github.com/CodeWithCJ/SparkyFitness) | Garmin-connected fitness and health tracking |
 
 ### Development & DevOps
 | Service | Purpose |
