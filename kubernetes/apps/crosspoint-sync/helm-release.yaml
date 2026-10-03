@@ -46,7 +46,7 @@ spec:
           crosspoint-sync:
             image:
               repository: ghcr.io/crosspoint-reader/crosspoint-sync
-              tag: main@sha256:dfa1d8b5d3ea87a7109b84d72eac1bccf7712db4d1742b77cafe63976088e720
+              tag: main@sha256:3653083db8ce6215a1c7c8c77dcc004721a166476fd13bf96ff8725e7ccc2155
             env:
               TZ: "${TIMEZONE}"
               PORT: "8080"
