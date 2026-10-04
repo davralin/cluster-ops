@@ -107,7 +107,7 @@ spec:
             resources:
               requests:
                 cpu: 10m
-                memory: 400m
+                memory: 500Mi
               limits:
                 memory: 2Gi
       chrome:
