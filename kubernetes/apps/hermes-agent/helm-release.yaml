@@ -76,6 +76,11 @@ spec:
                   secretKeyRef:
                     name: hermes-agent-secret
                     key: DAWARICH_API_TOKEN
+              SPARKYFITNESS_API_TOKEN:
+                valueFrom:
+                  secretKeyRef:
+                    name: hermes-agent-secret
+                    key: SPARKYFITNESS_API_TOKEN
               ADGUARD_NATIVE_URL:
                 valueFrom:
                   secretKeyRef:
