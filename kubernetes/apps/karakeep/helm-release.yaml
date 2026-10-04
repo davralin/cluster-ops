@@ -147,21 +147,6 @@ spec:
       meilisearch:
         annotations:
           reloader.stakater.com/auto: "true"
-        pod:
-          affinity:
-            podAffinity:
-              requiredDuringSchedulingIgnoredDuringExecution:
-                - labelSelector:
-                    matchExpressions:
-                      - key: app.kubernetes.io/name
-                        operator: In
-                        values:
-                          - karakeep-karakeep
-                      - key: app.kubernetes.io/controller
-                        operator: In
-                        values:
-                          - karakeep
-                  topologyKey: kubernetes.io/hostname
         containers:
           meilisearch:
             image:
@@ -238,11 +223,12 @@ spec:
           karakeep:
             karakeep:
               - path: /data
-                subPath: karakeep
+      meilisearch-data:
+        existingClaim: karakeep-meilisearch
+        advancedMounts:
           meilisearch:
             meilisearch:
               - path: /meili_data
-                subPath: meilisearch
       # Failed to write image to cache JXUmFfUqFn4PInl-1vtDwKCUKRDWa0AkY7H-z+TAoP0=
       # Error: ENOENT: no such file or directory, mkdir '/app/apps/web/.next/cache'
       app-next-cache:
