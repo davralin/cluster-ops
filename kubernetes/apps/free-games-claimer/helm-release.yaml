@@ -5,7 +5,6 @@ metadata:
   name: &name free-games-claimer
   namespace: flux-system
 spec:
-  suspend: true
   interval: 30m
   chart:
     spec:
@@ -34,11 +33,11 @@ spec:
       automountServiceAccountToken: false
       enableServiceLinks: false
       securityContext:
-        runAsUser: 0
-        runAsGroup: 0
-        fsGroup: 0
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
         fsGroupChangePolicy: "OnRootMismatch"
-        runAsNonRoot: false
+        runAsNonRoot: true
         seccompProfile:
           type: RuntimeDefault
     controllers:
@@ -47,7 +46,7 @@ spec:
           free-games-claimer:
             image:
               repository: ghcr.io/p-adamiec/free-games-claimer-remaster
-              tag: v1.9@sha256:28dfeaa134bd3ff52d9925b7e39523a512b8fc1d66768a3aff42dc48e87c1f1b
+              tag: v1.11@sha256:5bfe5c95b539c38d5aa7b72ec45eb5837661047a645ee2442a57eaa4561e48ac
             env:
               TZ: "${TIMEZONE}"
               STORES: epic,gog,steam,aliexpress
@@ -143,7 +142,10 @@ spec:
                   failureThreshold: 60
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
             resources:
               requests:
                 cpu: 100m
@@ -164,6 +166,7 @@ spec:
           haproxy.org/ssl-redirect-port: "443"
           haproxy.org/response-set-header: |
             Strict-Transport-Security "max-age=31536000"
+            X-Frame-Options "DENY"
             X-Content-Type-Options "nosniff"
             Referrer-Policy "strict-origin-when-cross-origin"
         hosts:
@@ -187,16 +190,6 @@ spec:
         type: emptyDir
         globalMounts:
           - path: /tmp
-      root-vnc:
-        enabled: true
-        type: emptyDir
-        globalMounts:
-          - path: /root/.vnc
-      root-cache:
-        enabled: true
-        type: emptyDir
-        globalMounts:
-          - path: /root/.cache
       dev-shm:
         enabled: true
         type: emptyDir
