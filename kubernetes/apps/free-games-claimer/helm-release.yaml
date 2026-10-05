@@ -47,7 +47,7 @@ spec:
           free-games-claimer:
             image:
               repository: ghcr.io/p-adamiec/free-games-claimer-remaster
-              tag: v1.9@sha256:28dfeaa134bd3ff52d9925b7e39523a512b8fc1d66768a3aff42dc48e87c1f1b
+              tag: v1.11@sha256:5bfe5c95b539c38d5aa7b72ec45eb5837661047a645ee2442a57eaa4561e48ac
             env:
               TZ: "${TIMEZONE}"
               STORES: epic,gog,steam,aliexpress
