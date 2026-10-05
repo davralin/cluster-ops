@@ -42,6 +42,20 @@ spec:
           type: RuntimeDefault
     controllers:
       free-games-claimer:
+        initContainers:
+          vnc-home:
+            image:
+              repository: ghcr.io/p-adamiec/free-games-claimer-remaster
+              tag: v1.11@sha256:5bfe5c95b539c38d5aa7b72ec45eb5837661047a645ee2442a57eaa4561e48ac
+            command: ["/bin/sh", "-ec"]
+            args:
+              - mkdir -p /tmp/fgc-home/.vnc && chmod 700 /tmp/fgc-home/.vnc
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
         containers:
           free-games-claimer:
             image:
