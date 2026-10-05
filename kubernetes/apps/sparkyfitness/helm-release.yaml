@@ -318,7 +318,7 @@ spec:
       server:
         type: cilium
         controller: server
-        description: Restrict SparkyFitness server traffic to its required services and GitHub checks.
+        description: Restrict SparkyFitness server traffic to its required services and external providers.
         enableDefaultDeny:
           ingress: true
           egress: true
@@ -363,6 +363,9 @@ spec:
           - toFQDNs:
               - matchName: api.github.com
               - matchName: raw.githubusercontent.com
+              - matchName: world.openfoodfacts.org
+              - matchName: search.openfoodfacts.org
+              - matchName: api.webapp.prod.blv.foodcase-services.com
             toPorts:
               - ports:
                   - port: "443"
