@@ -47,7 +47,7 @@ spec:
           ersatztv:
             image:
               repository: ghcr.io/ersatztv/legacy
-              tag: v26.10.0@sha256:46d25f2af4661a45c2a282fb97d82e8c5dcf3e814accba2c2e4b89cda74cfc1c
+              tag: v26.11.0@sha256:0fa681f413585e555e3db5009c020f708ee6794f38bf664874e2f7a2a1181974
             env:
               TZ: "${TIMEZONE}"
             probes:
