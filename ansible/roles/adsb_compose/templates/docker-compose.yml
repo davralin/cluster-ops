@@ -3,7 +3,7 @@ name: adsb
 
 services:
   ultrafeeder:
-    image: ghcr.io/sdr-enthusiasts/docker-adsb-ultrafeeder:latest@sha256:5096e9597c82665e82f9b545fc172b8ae6867b8c96f00d140ff35d95ddd9a6fe
+    image: ghcr.io/sdr-enthusiasts/docker-adsb-ultrafeeder:latest@sha256:f2df81d0b0c9aaac50d3a53031f7ddcee81070e41bfcbe3f1557b81d5dccec02
     hostname: ultrafeeder
     ports:
       - "{{ adsb_compose_ip_binding_ultrafeeder_web }}:80"
@@ -38,7 +38,7 @@ services:
       CLIENTKEY: "{{ adsb_compose_adsbhub_clientkey }}"
     restart: always
   planefinder:
-    image: ghcr.io/sdr-enthusiasts/docker-planefinder:latest@sha256:dbb310c42272d00ed7fc7e24f8347f576ac068ba061ae2c230354028664da197
+    image: ghcr.io/sdr-enthusiasts/docker-planefinder:latest@sha256:f5b460366fbc54d083b965efcfb60437aec37c984224a39ee1256e3a72fb439b
     environment:
       TZ: "{{ adsb_compose_tz }}"
       BEASTHOST: "{{ adsb_compose_beasthost }}"
