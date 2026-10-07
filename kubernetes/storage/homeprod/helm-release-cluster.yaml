@@ -46,7 +46,7 @@ spec:
           csi:
             keyRotationPolicy: KeyGeneration
             keyGeneration: 20260925
-            keepPriorKeyCountMax: 2
+            keepPriorKeyCountMax: 0
             keyType: aes256k
       cephConfig:
         global:
