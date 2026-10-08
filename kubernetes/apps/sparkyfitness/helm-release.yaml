@@ -49,7 +49,7 @@ spec:
           frontend:
             image:
               repository: ghcr.io/codewithcj/sparkyfitness-frontend
-              tag: v1.7.3@sha256:f4a2f30a7bf5bd7ed79a46b153ada6219ddbb597b429892e479cd382db9c0b6f
+              tag: v1.8.0@sha256:d67af4087e9bb3ca8c462225c0bba7a83517dfe404aa9e347885fd6d2a4f5d4c
             env:
               SPARKY_FITNESS_FRONTEND_URL: "https://sparkyfitness.${SECRET_DEFAULT_DOMAIN}"
               SPARKY_FITNESS_SERVER_HOST: sparkyfitness-server.sparkyfitness.svc.cluster.local
