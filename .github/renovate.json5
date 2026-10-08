@@ -130,6 +130,18 @@
       automerge: true,
     },
     {
+      description: 'Group SparkyFitness container updates',
+      groupName: 'sparkyfitness',
+      matchDatasources: [
+        'docker',
+      ],
+      matchPackageNames: [
+        'ghcr.io/codewithcj/sparkyfitness-frontend',
+        'ghcr.io/codewithcj/sparkyfitness-server',
+        'ghcr.io/codewithcj/sparkyfitness-garmin',
+      ],
+    },
+    {
       description: 'Commit messages for Minecraft plugins (github-releases used in pluginUrls)',
       matchDatasources: ['github-releases'],
       matchPackageNames: [
