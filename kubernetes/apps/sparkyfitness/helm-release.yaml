@@ -167,7 +167,7 @@ spec:
           garmin:
             image:
               repository: ghcr.io/codewithcj/sparkyfitness-garmin
-              tag: v1.7.3@sha256:a7bf76e9b28ef1d9a8a2e614e217f748250ab56137b6af412e1fd31fea2a038d
+              tag: v1.8.0@sha256:39e120ab1b053b17a0d272525818246bf59301e728472aaa0b325303dad62ee2
             env:
               GARMIN_SERVICE_PORT: "8000"
               GARMIN_SERVICE_IS_CN: "false"
