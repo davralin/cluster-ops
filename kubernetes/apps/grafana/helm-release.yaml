@@ -224,7 +224,7 @@ spec:
         smartctl_exporter_dashboard:
         # renovate: depName="SMARTctl Exporter Dashboard"
           gnetId: 22604
-          revision: 3
+          revision: 4
           datasource:
             - { name: DS_PROMETHEUS, value: Prometheus }
         # Ref: https://grafana.com/grafana/dashboards/13665-speedtest-exporter-dashboard/
