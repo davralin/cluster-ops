@@ -33,7 +33,7 @@ spec:
       - apiVersion: monitoring.coreos.com/v1alpha1
         kind: ScrapeConfig
         metadata:
-          name: &name node-exporter
+          name: &name node-exporter-external
           namespace: prometheus
         spec:
           staticConfigs:
