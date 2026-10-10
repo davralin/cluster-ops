@@ -92,6 +92,7 @@ spec:
             staticConfig:
               static:
                 - "adguard.${SECRET_OFFSITE_DOMAIN}"
+                - 10.0.1.1
       - apiVersion: monitoring.coreos.com/v1
         kind: Probe
         metadata:
