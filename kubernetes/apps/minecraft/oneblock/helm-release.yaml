@@ -172,7 +172,7 @@ spec:
       pauseIfNoPlayers: true
       backupMethod: rclone
       excludes: "*.jar,cache,logs,lost+found"
-      rcloneRemote: minecraft-garage
+      rcloneRemote: minecraft-s3
       rcloneDestDir: minecraft-${CLUSTER_NAME}/oneblock
       rcloneConfigExistingSecret: rclone-config
       pruneBackupsDays: 3

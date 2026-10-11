@@ -7,14 +7,14 @@ metadata:
   namespace: minecraft
 stringData:
   rclone.conf: |-
-    [minecraft-garage]
+    [minecraft-s3]
     type = s3
     provider = Other
     env_auth = false
     access_key_id = ${SECRET_S3_MINECRAFT_ACCESS_KEYS}
     secret_access_key = ${SECRET_S3_MINECRAFT_SECRET_KEYS}
     region = garage
-    endpoint = ${SECRET_S3_MINECRAFT_URL}
+    endpoint = https://s3.${SECRET_DEFAULT_DOMAIN}
     force_path_style = true
     acl = private
     bucket_acl = private

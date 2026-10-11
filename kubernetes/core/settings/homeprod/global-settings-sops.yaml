@@ -29,9 +29,8 @@ stringData:
     SECRET_S3_CNPG_ACCESS_KEYS: ENC[AES256_GCM,data:M3II0/+BykFQXgASq97hUszvaqOOCLfYFwE=,iv:Mjwo8xcC6H/eJLx3YXjeu27maENwkaj9KUYkmll68as=,tag:PHjv2G94T3crMBzzRJQJyQ==,type:str]
     SECRET_S3_CNPG_SECRET_KEYS: ENC[AES256_GCM,data:5L2V73RKY3mjXCqPWupsC2KG7i4GkqZA4Fy4TKxIO3vfDk6dV7jma3hQAJL7Uz4ZYX2eXcZ0RpnE5tYujCOx3Q==,iv:CHF0zz14G77C95FPu11F3fgKM9Q4a+PhW2re7Ki4MwI=,tag:jyCw45i9cZ8DNrIN9ZgF+g==,type:str]
     SECRET_S3_CNPG_URL: ENC[AES256_GCM,data:eQScIZ2IPmnOmwCp0GS1+Ie7zBsmkg==,iv:UU0ylCsAeJ0/Y0otPZCK1Cg1/i58Qv4ZbUXs8/NdefY=,tag:u4c2LoRNvH0WYNldcTaWPQ==,type:str]
-    SECRET_S3_MINECRAFT_ACCESS_KEYS: ENC[AES256_GCM,data:OLxYgO1sKExbRoylF1gU5mBwFKi62vUKJiU=,iv:k7E5GuHJz2IPvsluPFJiCB5BAxDgV7StMI+YPAkiJxY=,tag:Oz70LQyI212xNhE9HVUqng==,type:str]
-    SECRET_S3_MINECRAFT_SECRET_KEYS: ENC[AES256_GCM,data:p0PUjpLYRiKwV2rEFeBdEOdRhJgLK7Oi2GK3QJqMHMk85gjKVxugl/TOKi68T/aBFVXgK1+6UOpDZc7nPSHkHw==,iv:sgM7deh9Qd/NSM31MoFO2m+32A0Ai0vbSxP4U94u1Is=,tag:2ZkvLxMX0rSvD6dp2GJh1w==,type:str]
-    SECRET_S3_MINECRAFT_URL: ENC[AES256_GCM,data:iKiQIOecWrqSRghOvJNDDHMX5xD+xw==,iv:3wrDRlTpDzYxojyqTTs9wkWDnwNDD/j6kljgjnXPJtc=,tag:5kTU8DMxl0YQCA6dWSCpqA==,type:str]
+    SECRET_S3_MINECRAFT_ACCESS_KEYS: ENC[AES256_GCM,data:NF+1M/zK3tCyzURsYM0iH+6RIcX+Zn+jgBQ=,iv:Kd516qmfEHZ4BoSkbe1gIYAmVcM/qKKOdQFzeDXYGTY=,tag:B66hFYcskHtwdjYp4Qooow==,type:str]
+    SECRET_S3_MINECRAFT_SECRET_KEYS: ENC[AES256_GCM,data:yFpM3pX/Lf2vIvKYPUarPvucmHi18BSRJDArUza3A+28hsZDLv7c15MsIW5tLjfCFuBprQ9POrp13jMDixEO1xvpvwoNvBxLYQ==,iv:Lqh0yQNN/zwLJTyy17yZn8SPLW8J63RENxmZmX9Duc4=,tag:wCwABLqwtqQHvlPF2dG1cg==,type:str]
     SECRET_VOLSYNC_RESTIC_PWD: ENC[AES256_GCM,data:L8eCo0CoxypF4nfP+f3DfK2oXO2/5fJlmv98bGf8RTSCiytMyeI8FGn5VyXUBiTpddczG08ZRQfpifNDur7JTA==,iv:2dgG7YteaDGA0HNAi7Htd9xSpiGbI+4HjsmglTuroAY=,tag:PJpX2ARz6bWDRjUPMoEtOQ==,type:str]
     SECRET_S3_VOLSYNC_ACCESS_KEYS: ENC[AES256_GCM,data:0Lh/hVJRofcV6Z+h1sDs5/K1eRGNWa3r5uM=,iv:MIuPICnfDfeP0/h2HELCzzEJaqAomBxI7yqdjQxTSGY=,tag:YKJIsxEPZYpDvVQH/MdctA==,type:str]
     SECRET_S3_VOLSYNC_SECRET_KEYS: ENC[AES256_GCM,data:6i0ELIgHYAlGMjgIwwKcjuQ3uW8Q5GpfqQOm7j8YofGDNdcfX5WDNvUXG21idkbvA8iLaiWCxEeABJyRVkuGgQ==,iv:VM+Uk85HsaneZfjIi8UCoyIRdfNqOHJLfwpnL39mS4s=,tag:p5Vj389kL4RQTp2eSG8Xzg==,type:str]
@@ -55,6 +54,6 @@ sops:
             -----END AGE ENCRYPTED FILE-----
           recipient: age13s49lz9hcwqdlgyyde5zr2ynryc5jsydmyvpvhx0klqd0ylkkq0szd3xtm
     encrypted_regex: ^(data|stringData)$
-    lastmodified: "2026-09-17T19:52:28Z"
-    mac: ENC[AES256_GCM,data:Lwp5UIvHXgdCv+t3MpnBKOoFfhuaL3B7EtkFLfAS2TEoKckArbQR+arL0NOA3BJW5vkN7oqz8urRhIUdXR4pU4L6NroNEJG0Ts8mr6Kj4IkSVlGZgba5w/9Rf6r+CN6r9wbeSXWpIJiGrw4q0Z8zMHIR7G1qjGc2xSpDzFj893s=,iv:tS7YsJrCnyhrlWonaX8qbpn0pPs+7lswJHudext2j9Y=,tag:cXgDzLUPg5SOUoFTPW0RJQ==,type:str]
+    lastmodified: "2026-10-11T10:04:26Z"
+    mac: ENC[AES256_GCM,data:OYZNKxusy7p4Yx1oCBvoFr7EREclifUVQ56aXPZSTnI3DV2r5hRM6nOeQR4ZaOeBAgk1iNvChvV6H0wtQT//CL/Ula6dxVQBV42H7xxbHI0E0IHjNOMAbmkdYrxClokic8GBNP9PCWeZgiAgW+CLjvidPht2RTm0xl7bUiaPaWc=,iv:qX2twk+1szM5gf/cZpyhicOjJmLfZiuxcNkAGiFG4rw=,tag:nFyfR2ORC5gA2jUss5XlEA==,type:str]
     version: 3.13.3
