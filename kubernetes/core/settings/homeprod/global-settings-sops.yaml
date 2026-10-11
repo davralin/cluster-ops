@@ -42,6 +42,8 @@ stringData:
     SECRET_OAUTH2_PROXY_CLIENT_ID: ENC[AES256_GCM,data:x4YVXQBD9UwZkmbIoxfAM/HD9tgtqshdnDy6I2mK7sS9cPhP,iv:m1Mi9U5OJfk4H6YnGTsvU5e3RzZR2qmkjkZLQNPZwd0=,tag:pwB7QqkjG1lDJKAynqyF/w==,type:str]
     SECRET_OAUTH2_PROXY_CLIENT_SECRET: ENC[AES256_GCM,data:/0MKvOkOmjp29IRq5ot/PL2Ozg2ntcRLNmb+08AZMJ8=,iv:wvXyBe2gJbGQFUGbs13n5uaS5FFidMSxMcqartdT+EI=,tag:X6rLpR0gBjFm9kcbEYwkPg==,type:str]
     SECRET_OAUTH2_PROXY_COOKIE_SECRET: ENC[AES256_GCM,data:eMvu7FXXS+VAK80X62kHSl+Kn8cXae0qn68yokbiK1U=,iv:+c0vrNkX16DnkBxgU8zbHftvS6ATtag2Y90tLKASCtA=,tag:AhDLzc3xJoOIgNjoSJNLtQ==,type:str]
+    SECRET_S3_MINECRAFT_VOLSYNC_ACCESS_KEYS: ENC[AES256_GCM,data:lASE3+buFn5jmxXt++659bM0PzPiRmbcPns=,iv:GnM3CPlBGOBwyvT68BHe63csvQf2HmRtJ3Nred0eLZA=,tag:gWT50qKboizsKKpLHC2a5Q==,type:str]
+    SECRET_S3_MINECRAFT_VOLSYNC_SECRET_KEYS: ENC[AES256_GCM,data:Pe+zlkxBHLon+XerTqc8e4EMjUhzYVS5jS9ahf0Qsb46N/vEYXr/k7MVsjtXDmGocpkpNPO++OzGRdW7uK0ZTYTP4MSFG13N/g==,iv:xq/lmcj3in0o/tdBib0ID7dEDAQV3cQh9FW/tieKlB0=,tag:GbDtzLEojWao6WrSrI7eyg==,type:str]
 sops:
     age:
         - enc: |
@@ -54,6 +56,6 @@ sops:
             -----END AGE ENCRYPTED FILE-----
           recipient: age13s49lz9hcwqdlgyyde5zr2ynryc5jsydmyvpvhx0klqd0ylkkq0szd3xtm
     encrypted_regex: ^(data|stringData)$
-    lastmodified: "2026-10-11T10:04:26Z"
-    mac: ENC[AES256_GCM,data:OYZNKxusy7p4Yx1oCBvoFr7EREclifUVQ56aXPZSTnI3DV2r5hRM6nOeQR4ZaOeBAgk1iNvChvV6H0wtQT//CL/Ula6dxVQBV42H7xxbHI0E0IHjNOMAbmkdYrxClokic8GBNP9PCWeZgiAgW+CLjvidPht2RTm0xl7bUiaPaWc=,iv:qX2twk+1szM5gf/cZpyhicOjJmLfZiuxcNkAGiFG4rw=,tag:nFyfR2ORC5gA2jUss5XlEA==,type:str]
+    lastmodified: "2026-10-11T10:39:39Z"
+    mac: ENC[AES256_GCM,data:l8lmCuuJWQjqy3OQF070cU9jEp/7WUXA6SpGTU6baQ1VbZ5ZafNNHt4tH5des0xB3QBSZCkD8waPvjiyCMmmTIRSL75bE1i56VALSfP8XZvNGbYxTE3D964vSkxAoKyTZuqmguLZgauRwTkKQPn3YCZC8fIwm0GN2pQoYeU/+Gs=,iv:J7urvkUKwFD8mj7ayNO3LApYrty7dQzU5pNZVxDpIF0=,tag:A4Y3ry8WzaxzMtT6bUPzfA==,type:str]
     version: 3.13.3
