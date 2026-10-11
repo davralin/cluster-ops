@@ -66,7 +66,6 @@ spec:
                 - "https://bilder.${SECRET_OFFSITE_DOMAIN}"
                 - "https://status.${SECRET_PUBLIC_DOMAIN}"
                 - "https://home.${SECRET_DEFAULT_DOMAIN}"
-                - "https://s3.${SECRET_DEFAULT_DOMAIN}"
       - apiVersion: monitoring.coreos.com/v1
         kind: Probe
         metadata:
@@ -106,4 +105,4 @@ spec:
           targets:
             staticConfig:
               static:
-                - "s3.${SECRET_OFFSITE_DOMAIN}"
+                - "https://s3.${SECRET_DEFAULT_DOMAIN}"
