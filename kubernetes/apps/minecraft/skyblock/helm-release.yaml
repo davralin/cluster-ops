@@ -148,7 +148,7 @@ spec:
       eula: true
       type: PAPER
       # renovate: datasource=custom.papermc depName=paper versioning=loose
-      version: "26.2"
+      version: "26.3"
       difficulty: "easy"
       maxPlayers: 4
       maxTickTime: -1
