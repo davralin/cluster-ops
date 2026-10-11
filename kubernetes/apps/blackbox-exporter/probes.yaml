@@ -94,3 +94,16 @@ spec:
               static:
                 - "adguard.${SECRET_OFFSITE_DOMAIN}"
                 - 10.0.1.1
+      - apiVersion: monitoring.coreos.com/v1
+        kind: Probe
+        metadata:
+          name: services-http-4xx
+          namespace: blackbox-exporter
+        spec:
+          module: http_4xx
+          prober:
+            url: "${BLACKBOX_EXPORTER_URL}"
+          targets:
+            staticConfig:
+              static:
+                - "s3.${SECRET_OFFSITE_DOMAIN}"
