@@ -39,7 +39,7 @@ spec:
           namespace: changedetection
         type: Opaque
         stringData:
-          RESTIC_REPOSITORY: "s3:${SECRET_S3_VOLSYNC_URL}/volsync-${CLUSTER_NAME}/changedetection"
+          RESTIC_REPOSITORY: "s3:https://s3.${SECRET_DEFAULT_DOMAIN}/volsync-${CLUSTER_NAME}/changedetection"
           RESTIC_PASSWORD: "${SECRET_VOLSYNC_RESTIC_PWD}"
           AWS_ACCESS_KEY_ID: "${SECRET_S3_VOLSYNC_ACCESS_KEYS}"
           AWS_SECRET_ACCESS_KEY: "${SECRET_S3_VOLSYNC_SECRET_KEYS}"
@@ -67,33 +67,30 @@ spec:
             retain:
               daily: 7
               within: 3d
-      - apiVersion: networking.k8s.io/v1
-        kind: NetworkPolicy
+      - apiVersion: cilium.io/v2
+        kind: CiliumNetworkPolicy
         metadata:
           name: *name
           namespace: *namespace
         spec:
-          podSelector:
+          endpointSelector:
             matchLabels:
               app.kubernetes.io/created-by: volsync
-          policyTypes:
-            - Ingress
-            - Egress
-          ingress: []
           egress:
-            - to:
-                - namespaceSelector:
-                    matchLabels:
-                      kubernetes.io/metadata.name: kube-system
-                  podSelector:
-                    matchLabels:
-                      k8s-app: kube-dns
-              ports:
-                - port: 53
-                  protocol: UDP
-            - to: # S3-Backup
-              - ipBlock:
-                  cidr: "${GARAGE_BACKUP_IP}/32"
-              ports:
-                - port: 3900
-                  protocol: TCP
+            - toEndpoints:
+                - matchLabels:
+                    k8s:io.kubernetes.pod.namespace: kube-system
+                    k8s:k8s-app: kube-dns
+              toPorts:
+                - ports:
+                    - port: "53"
+                      protocol: ANY
+                  rules:
+                    dns:
+                      - matchName: "s3.${SECRET_DEFAULT_DOMAIN}"
+            - toFQDNs:
+                - matchName: "s3.${SECRET_DEFAULT_DOMAIN}"
+              toPorts:
+                - ports:
+                    - port: "443"
+                      protocol: TCP
