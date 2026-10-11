@@ -66,6 +66,7 @@ spec:
                 - "https://bilder.${SECRET_OFFSITE_DOMAIN}"
                 - "https://status.${SECRET_PUBLIC_DOMAIN}"
                 - "https://home.${SECRET_DEFAULT_DOMAIN}"
+                - "https://s3.${SECRET_DEFAULT_DOMAIN}"
       - apiVersion: monitoring.coreos.com/v1
         kind: Probe
         metadata:
@@ -93,16 +94,3 @@ spec:
               static:
                 - "adguard.${SECRET_OFFSITE_DOMAIN}"
                 - 10.0.1.1
-      - apiVersion: monitoring.coreos.com/v1
-        kind: Probe
-        metadata:
-          name: services-http-4xx-insecure
-          namespace: blackbox-exporter
-        spec:
-          module: http_4xx_insecure
-          prober:
-            url: "${BLACKBOX_EXPORTER_URL}"
-          targets:
-            staticConfig:
-              static:
-                - "http://${GARAGE_BACKUP_IP}:3900"
