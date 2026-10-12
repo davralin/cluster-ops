@@ -90,7 +90,7 @@ spec:
           ersatztv-next:
             image:
               repository: ghcr.io/ersatztv/next
-              tag: develop@sha256:35204637835192ae05c069d14b4536b61feee61128fe667d357d95a241f7d324
+              tag: develop@sha256:5e24c486d09c7b88adc7511d698b540a686f3c9f17676c7f2f7b444a70d88723
             env:
               TZ: "${TIMEZONE}"
             probes:
@@ -115,7 +115,7 @@ spec:
           playout-generator:
             image:
               repository: ghcr.io/ersatztv/next
-              tag: develop@sha256:35204637835192ae05c069d14b4536b61feee61128fe667d357d95a241f7d324
+              tag: develop@sha256:5e24c486d09c7b88adc7511d698b540a686f3c9f17676c7f2f7b444a70d88723
             command: ["/bin/sh", "-c"]
             args:
               - |
