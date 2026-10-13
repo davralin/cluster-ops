@@ -12,4 +12,4 @@ talosctl_version: v1.14.2
 # renovate: datasource=github-releases depName=budimanjojo/talhelper
 talhelper_version: v3.1.17
 # renovate: datasource=github-releases depName=kubevirt/kubevirt
-virtctl_version: v1.9.0
+virtctl_version: v1.9.1
