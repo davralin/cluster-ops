@@ -39,7 +39,7 @@ spec:
           retentionPolicy: 7d
           configuration:
             destinationPath: s3://postgresql-${CLUSTER_NAME}
-            endpointURL: "${SECRET_S3_CNPG_URL}"
+            endpointURL: "https://s3.${SECRET_DEFAULT_DOMAIN}"
             s3Credentials:
               accessKeyId:
                 name: *name
@@ -83,22 +83,20 @@ spec:
           superuserSecret:
             name: *name
           bootstrap:
+            # The backup also contains chaptarr-cache and chaptarr-log.
             # use this to start a new cluster
-            initdb:
-              database: "chaptarr-main"
-              owner: chaptarr
-              postInitSQL:
-                - CREATE DATABASE "chaptarr-cache" OWNER chaptarr;
-                - CREATE DATABASE "chaptarr-log" OWNER chaptarr;
-              secret:
-                name: chaptarr-basic-auth
-            # use this to recover a net-new cluster from a backup
-            #recovery:
-            #  source: *name
+            #initdb:
             #  database: chaptarr
             #  owner: chaptarr
             #  secret:
             #    name: chaptarr-basic-auth
+            # use this to recover a net-new cluster from a backup
+            recovery:
+              source: *name
+              database: "chaptarr-main"
+              owner: chaptarr
+              secret:
+                name: chaptarr-basic-auth
             ## use this to 'migrate' from an existing cnpg cluster (e.g. "chaptarr-postgres-v17") to the new cluster
             #initdb:
             #  database: chaptarr
@@ -115,10 +113,10 @@ spec:
             enablePodMonitor: "${MONITORING_PROMETHEUS}"
           resources:
             requests:
-              cpu: "200m"
-              memory: "128Mi"
+              cpu: "100m"
+              memory: "256Mi"
             limits:
-              memory: "512Mi"
+              memory: "1Gi"
           plugins:
             - name: barman-cloud.cloudnative-pg.io
               isWALArchiver: true
@@ -156,88 +154,6 @@ spec:
             name: barman-cloud.cloudnative-pg.io
           cluster:
             name: *name
-      - apiVersion: networking.k8s.io/v1
-        kind: NetworkPolicy
-        metadata:
-          name: *name
-          namespace: *namespace
-        spec:
-          podSelector:
-            matchLabels:
-              cnpg.io/cluster: *name
-          policyTypes:
-            - Ingress
-            - Egress
-          ingress:
-            - from:
-                - podSelector:
-                    matchLabels:
-                      cnpg.io/cluster: *name
-                - podSelector:
-                    matchLabels:
-                      cnpg.io/jobRole: import
-                      app.kubernetes.io/name: postgresql
-                      app.kubernetes.io/component: database
-                      app.kubernetes.io/managed-by: cloudnative-pg
-                - podSelector:
-                    matchLabels:
-                      app.kubernetes.io/controller: chaptarr
-                      app.kubernetes.io/instance: media-chaptarr
-                      app.kubernetes.io/name: media-chaptarr
-              ports:
-                - port: 5432
-                  protocol: TCP
-            - from:
-                - namespaceSelector:
-                    matchLabels:
-                      kubernetes.io/metadata.name: cloudnative-pg
-                  podSelector:
-                    matchLabels:
-                      app.kubernetes.io/name: cloudnative-pg
-                - podSelector:
-                    matchLabels:
-                      cnpg.io/cluster: *name
-              ports:
-                - port: 8000
-                  protocol: TCP
-            - from:
-                - namespaceSelector:
-                    matchLabels:
-                      kubernetes.io/metadata.name: prometheus
-                  podSelector:
-                    matchLabels:
-                      app.kubernetes.io/name: prometheus
-              ports:
-                - port: 9187
-          egress:
-            - to:
-                - podSelector:
-                    matchLabels:
-                      cnpg.io/cluster: *name
-                #- podSelector:
-                #    matchLabels:
-                #      cnpg.io/cluster: chaptarr-postgres-v17
-              ports:
-                - port: 5432
-                  protocol: TCP
-                - port: 8000
-                  protocol: TCP
-            - to:
-                - namespaceSelector:
-                    matchLabels:
-                      kubernetes.io/metadata.name: kube-system
-                  podSelector:
-                    matchLabels:
-                      k8s-app: kube-dns
-              ports:
-                - port: 53
-                  protocol: UDP
-            - to: # S3-Backup
-              - ipBlock:
-                  cidr: "${GARAGE_BACKUP_IP}/32"
-              ports:
-                - port: 3900
-                  protocol: TCP
       - apiVersion: cilium.io/v2
         kind: CiliumNetworkPolicy
         metadata:
@@ -247,10 +163,72 @@ spec:
           endpointSelector:
             matchLabels:
               cnpg.io/cluster: *name
+          ingress:
+            - fromEndpoints:
+                - matchLabels:
+                    k8s:cnpg.io/cluster: *name
+                - matchLabels:
+                    k8s:cnpg.io/jobRole: import
+                    k8s:app.kubernetes.io/name: postgresql
+                    k8s:app.kubernetes.io/component: database
+                    k8s:app.kubernetes.io/managed-by: cloudnative-pg
+                - matchLabels:
+                    k8s:app.kubernetes.io/controller: chaptarr
+                    k8s:app.kubernetes.io/instance: media-chaptarr
+                    k8s:app.kubernetes.io/name: media-chaptarr
+              toPorts:
+                - ports:
+                    - port: "5432"
+                      protocol: TCP
+            - fromEndpoints:
+                - matchLabels:
+                    k8s:io.kubernetes.pod.namespace: cloudnative-pg
+                    k8s:app.kubernetes.io/name: cloudnative-pg
+                - matchLabels:
+                    k8s:cnpg.io/cluster: *name
+              toPorts:
+                - ports:
+                    - port: "8000"
+                      protocol: TCP
+            - fromEndpoints:
+                - matchLabels:
+                    k8s:io.kubernetes.pod.namespace: prometheus
+                    k8s:app.kubernetes.io/name: prometheus
+              toPorts:
+                - ports:
+                    - port: "9187"
+                      protocol: TCP
           egress:
+            - toEndpoints:
+                - matchLabels:
+                    k8s:cnpg.io/cluster: *name
+              toPorts:
+                - ports:
+                    - port: "5432"
+                      protocol: TCP
+                    - port: "8000"
+                      protocol: TCP
             - toEntities:
               - kube-apiserver
               toPorts:
               - ports:
                 - port: "6443"
                   protocol: TCP
+            - toEndpoints:
+              - matchLabels:
+                  k8s:io.kubernetes.pod.namespace: kube-system
+                  k8s:k8s-app: kube-dns
+              toPorts:
+                - ports:
+                    - port: "53"
+                      protocol: ANY
+                  rules:
+                    dns:
+                      - matchName: "s3.${SECRET_DEFAULT_DOMAIN}"
+                      - matchName: "chaptarr-postgres-v18-rw.media.svc.cluster.local"
+            - toFQDNs:
+                - matchName: "s3.${SECRET_DEFAULT_DOMAIN}"
+              toPorts:
+                - ports:
+                    - port: "443"
+                      protocol: TCP

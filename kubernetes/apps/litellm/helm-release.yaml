@@ -25,6 +25,9 @@ spec:
   upgrade:
     remediation:
       retries: 10
+  dependsOn:
+    - name: litellm-postgres-v18
+      namespace: flux-system
   values:
     fullnameOverride: *name
     global:

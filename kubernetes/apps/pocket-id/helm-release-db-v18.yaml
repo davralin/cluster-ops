@@ -39,7 +39,7 @@ spec:
           retentionPolicy: 7d
           configuration:
             destinationPath: s3://postgresql-${CLUSTER_NAME}
-            endpointURL: "${SECRET_S3_CNPG_URL}"
+            endpointURL: "https://s3.${SECRET_DEFAULT_DOMAIN}"
             s3Credentials:
               accessKeyId:
                 name: *name
@@ -59,6 +59,8 @@ spec:
           name: *name
           namespace: *namespace
         spec:
+          # using only 1 replica: very difficult to drain the node where postgres is running
+          # using more than 1 replica: write amplification issues when leveraging replicated storage (e.g. ceph)
           instances: 2
           affinity:
             enablePodAntiAffinity: true
@@ -70,7 +72,7 @@ spec:
             size: 6Gi
             storageClass: "${STORAGE_READWRITEONCE}"
           walStorage:
-            size: 5Gi
+            size: 6Gi
             storageClass: "${STORAGE_READWRITEONCE}"
           managed:
             roles:
@@ -81,11 +83,29 @@ spec:
           superuserSecret:
             name: *name
           bootstrap:
-            initdb:
+            # use this to start a new cluster
+            #initdb:
+            #  database: pocketid
+            #  owner: pocketid
+            #  secret:
+            #    name: pocket-id-basic-auth
+            # use this to recover a net-new cluster from a backup
+            recovery:
+              source: *name
               database: pocketid
               owner: pocketid
               secret:
                 name: pocket-id-basic-auth
+            ## use this to 'migrate' from an existing cnpg cluster (e.g. "pocket-id-postgres-v17") to the new cluster
+            #initdb:
+            #  database: pocket-id
+            #  owner: pocket-id
+            #  import:
+            #    type: microservice
+            #    databases:
+            #      - pocket-id
+            #    source:
+            #      externalCluster: pocket-id-postgres-v17
           monitoring:
             enablePodMonitor: "${MONITORING_PROMETHEUS}"
           resources:
@@ -100,12 +120,23 @@ spec:
               parameters:
                 barmanObjectName: *name
           externalClusters:
+            # this represents the s3 backup to restore from. Must be same version.
             - name: *name
               plugin:
                 name: barman-cloud.cloudnative-pg.io
                 parameters:
                   barmanObjectName: *name
                   serverName: *name
+            ## this represents an existing cnpg cluster to migrate from (e.g. upgrading from postgres v17 to postgres v18)
+            #- name: pocket-id-postgres-v17
+            #  connectionParameters:
+            #    host: pocket-id-postgres-v17-rw
+            #    user: pocket-id
+            #    dbname: pocket-id
+            #    sslmode: require
+            #  password:
+            #    name: pocket-id-basic-auth
+            #    key: password
       - apiVersion: postgresql.cnpg.io/v1
         kind: ScheduledBackup
         metadata:
@@ -120,87 +151,6 @@ spec:
             name: barman-cloud.cloudnative-pg.io
           cluster:
             name: *name
-      - apiVersion: networking.k8s.io/v1
-        kind: NetworkPolicy
-        metadata:
-          name: *name
-          namespace: *namespace
-        spec:
-          podSelector:
-            matchLabels:
-              cnpg.io/cluster: *name
-          policyTypes:
-            - Ingress
-            - Egress
-          ingress:
-            - from:
-                - podSelector:
-                    matchLabels:
-                      cnpg.io/cluster: *name
-                - podSelector:
-                    matchLabels:
-                      cnpg.io/jobRole: import
-                      app.kubernetes.io/name: postgresql
-                      app.kubernetes.io/component: database
-                      app.kubernetes.io/managed-by: cloudnative-pg
-                - podSelector:
-                    matchLabels:
-                      app.kubernetes.io/controller: pocket-id
-                      app.kubernetes.io/instance: pocket-id-pocket-id
-                      app.kubernetes.io/name: pocket-id-pocket-id
-              ports:
-                - port: 5432
-                  protocol: TCP
-            - from:
-                - namespaceSelector:
-                    matchLabels:
-                      kubernetes.io/metadata.name: cloudnative-pg
-                  podSelector:
-                    matchLabels:
-                      app.kubernetes.io/name: cloudnative-pg
-                - podSelector:
-                    matchLabels:
-                      cnpg.io/cluster: *name
-              ports:
-                - port: 8000
-                  protocol: TCP
-            - from:
-                - namespaceSelector:
-                    matchLabels:
-                      kubernetes.io/metadata.name: prometheus
-                  podSelector:
-                    matchLabels:
-                      app.kubernetes.io/name: prometheus
-              ports:
-                - port: 9187
-          egress:
-            - to:
-                - namespaceSelector:
-                    matchLabels:
-                      kubernetes.io/metadata.name: kube-system
-                  podSelector:
-                    matchLabels:
-                      k8s-app: kube-dns
-              ports:
-                - port: 53
-                  protocol: UDP
-                - port: 53
-                  protocol: TCP
-            - to:
-                - podSelector:
-                    matchLabels:
-                      cnpg.io/cluster: *name
-              ports:
-                - port: 5432
-                  protocol: TCP
-                - port: 8000
-                  protocol: TCP
-            - to:
-                - ipBlock:
-                    cidr: "${GARAGE_BACKUP_IP}/32"
-              ports:
-                - port: 3900
-                  protocol: TCP
       - apiVersion: cilium.io/v2
         kind: CiliumNetworkPolicy
         metadata:
@@ -210,10 +160,72 @@ spec:
           endpointSelector:
             matchLabels:
               cnpg.io/cluster: *name
-          egress:
-            - toEntities:
-                - kube-apiserver
+          ingress:
+            - fromEndpoints:
+                - matchLabels:
+                    k8s:cnpg.io/cluster: *name
+                - matchLabels:
+                    k8s:cnpg.io/jobRole: import
+                    k8s:app.kubernetes.io/name: postgresql
+                    k8s:app.kubernetes.io/component: database
+                    k8s:app.kubernetes.io/managed-by: cloudnative-pg
+                - matchLabels:
+                    k8s:app.kubernetes.io/controller: pocket-id
+                    k8s:app.kubernetes.io/instance: pocket-id-pocket-id
+                    k8s:app.kubernetes.io/name: pocket-id-pocket-id
               toPorts:
                 - ports:
-                    - port: "6443"
+                    - port: "5432"
+                      protocol: TCP
+            - fromEndpoints:
+                - matchLabels:
+                    k8s:io.kubernetes.pod.namespace: cloudnative-pg
+                    k8s:app.kubernetes.io/name: cloudnative-pg
+                - matchLabels:
+                    k8s:cnpg.io/cluster: *name
+              toPorts:
+                - ports:
+                    - port: "8000"
+                      protocol: TCP
+            - fromEndpoints:
+                - matchLabels:
+                    k8s:io.kubernetes.pod.namespace: prometheus
+                    k8s:app.kubernetes.io/name: prometheus
+              toPorts:
+                - ports:
+                    - port: "9187"
+                      protocol: TCP
+          egress:
+            - toEndpoints:
+                - matchLabels:
+                    k8s:cnpg.io/cluster: *name
+              toPorts:
+                - ports:
+                    - port: "5432"
+                      protocol: TCP
+                    - port: "8000"
+                      protocol: TCP
+            - toEntities:
+              - kube-apiserver
+              toPorts:
+              - ports:
+                - port: "6443"
+                  protocol: TCP
+            - toEndpoints:
+              - matchLabels:
+                  k8s:io.kubernetes.pod.namespace: kube-system
+                  k8s:k8s-app: kube-dns
+              toPorts:
+                - ports:
+                    - port: "53"
+                      protocol: ANY
+                  rules:
+                    dns:
+                      - matchName: "s3.${SECRET_DEFAULT_DOMAIN}"
+                      - matchName: "pocket-id-postgres-v18-rw.pocket-id.svc.cluster.local"
+            - toFQDNs:
+                - matchName: "s3.${SECRET_DEFAULT_DOMAIN}"
+              toPorts:
+                - ports:
+                    - port: "443"
                       protocol: TCP

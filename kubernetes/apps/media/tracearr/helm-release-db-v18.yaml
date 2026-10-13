@@ -39,7 +39,7 @@ spec:
           retentionPolicy: 7d
           configuration:
             destinationPath: s3://postgresql-${CLUSTER_NAME}
-            endpointURL: "${SECRET_S3_CNPG_URL}"
+            endpointURL: "https://s3.${SECRET_DEFAULT_DOMAIN}"
             s3Credentials:
               accessKeyId:
                 name: *name
@@ -68,6 +68,8 @@ spec:
           name: *name
           namespace: *namespace
         spec:
+          # using only 1 replica: very difficult to drain the node where postgres is running
+          # using more than 1 replica: write amplification issues when leveraging replicated storage (e.g. ceph)
           instances: 2
           affinity:
             enablePodAntiAffinity: true
@@ -96,22 +98,37 @@ spec:
           superuserSecret:
             name: *name
           bootstrap:
-            initdb:
+            # use this to start a new cluster
+            #initdb:
+            #  database: tracearr
+            #  owner: tracearr
+            #  secret:
+            #    name: tracearr-basic-auth
+            # use this to recover a net-new cluster from a backup
+            recovery:
+              source: *name
               database: tracearr
               owner: tracearr
               secret:
                 name: tracearr-basic-auth
-              postInitApplicationSQL:
-                - CREATE EXTENSION IF NOT EXISTS timescaledb;
-                - CREATE EXTENSION IF NOT EXISTS pg_trgm;
+            ## use this to 'migrate' from an existing cnpg cluster (e.g. "tracearr-postgres-v17") to the new cluster
+            #initdb:
+            #  database: tracearr
+            #  owner: tracearr
+            #  import:
+            #    type: microservices
+            #    databases:
+            #      - tracearr
+            #    source:
+            #      externalCluster: tracearr-postgres-v17
           monitoring:
             enablePodMonitor: "${MONITORING_PROMETHEUS}"
           resources:
             requests:
               cpu: "100m"
-              memory: "1Gi"
+              memory: "512Mi"
             limits:
-              memory: "2Gi"
+              memory: "1Gi"
           postgresql:
             shared_preload_libraries:
               - "timescaledb"
@@ -126,12 +143,23 @@ spec:
               parameters:
                 barmanObjectName: *name
           externalClusters:
+            # this represents the s3 backup to restore from. Must be same version.
             - name: *name
               plugin:
                 name: barman-cloud.cloudnative-pg.io
                 parameters:
                   barmanObjectName: *name
                   serverName: *name
+            ## this represents an existing cnpg cluster to migrate from (e.g. upgrading from postgres v17 to postgres v18)
+            #- name: tracearr-postgres-v17
+            #  connectionParameters:
+            #    host: tracearr-postgres-v17-rw
+            #    user: tracearr
+            #    dbname: tracearr
+            #    sslmode: require
+            #  password:
+            #    name: tracearr-basic-auth
+            #    key: password
       - apiVersion: postgresql.cnpg.io/v1
         kind: ScheduledBackup
         metadata:
@@ -146,79 +174,6 @@ spec:
             name: barman-cloud.cloudnative-pg.io
           cluster:
             name: *name
-      - apiVersion: networking.k8s.io/v1
-        kind: NetworkPolicy
-        metadata:
-          name: *name
-          namespace: *namespace
-        spec:
-          podSelector:
-            matchLabels:
-              cnpg.io/cluster: *name
-          policyTypes:
-            - Ingress
-            - Egress
-          ingress:
-            - from:
-                - podSelector:
-                    matchLabels:
-                      cnpg.io/cluster: *name
-                - podSelector:
-                    matchLabels:
-                      app.kubernetes.io/controller: tracearr
-                      app.kubernetes.io/instance: media-tracearr
-                      app.kubernetes.io/name: media-tracearr
-              ports:
-                - port: 5432
-                  protocol: TCP
-            - from:
-                - namespaceSelector:
-                    matchLabels:
-                      kubernetes.io/metadata.name: cloudnative-pg
-                  podSelector:
-                    matchLabels:
-                      app.kubernetes.io/name: cloudnative-pg
-                - podSelector:
-                    matchLabels:
-                      cnpg.io/cluster: *name
-              ports:
-                - port: 8000
-                  protocol: TCP
-            - from:
-                - namespaceSelector:
-                    matchLabels:
-                      kubernetes.io/metadata.name: prometheus
-                  podSelector:
-                    matchLabels:
-                      app.kubernetes.io/name: prometheus
-              ports:
-                - port: 9187
-          egress:
-            - to:
-                - podSelector:
-                    matchLabels:
-                      cnpg.io/cluster: *name
-              ports:
-                - port: 5432
-                  protocol: TCP
-                - port: 8000
-                  protocol: TCP
-            - to:
-                - namespaceSelector:
-                    matchLabels:
-                      kubernetes.io/metadata.name: kube-system
-                  podSelector:
-                    matchLabels:
-                      k8s-app: kube-dns
-              ports:
-                - port: 53
-                  protocol: UDP
-            - to:
-                - ipBlock:
-                    cidr: "${GARAGE_BACKUP_IP}/32"
-              ports:
-                - port: 3900
-                  protocol: TCP
       - apiVersion: cilium.io/v2
         kind: CiliumNetworkPolicy
         metadata:
@@ -228,10 +183,72 @@ spec:
           endpointSelector:
             matchLabels:
               cnpg.io/cluster: *name
-          egress:
-            - toEntities:
-                - kube-apiserver
+          ingress:
+            - fromEndpoints:
+                - matchLabels:
+                    k8s:cnpg.io/cluster: *name
+                - matchLabels:
+                    k8s:cnpg.io/jobRole: import
+                    k8s:app.kubernetes.io/name: postgresql
+                    k8s:app.kubernetes.io/component: database
+                    k8s:app.kubernetes.io/managed-by: cloudnative-pg
+                - matchLabels:
+                    k8s:app.kubernetes.io/controller: tracearr
+                    k8s:app.kubernetes.io/instance: media-tracearr
+                    k8s:app.kubernetes.io/name: media-tracearr
               toPorts:
                 - ports:
-                    - port: "6443"
+                    - port: "5432"
+                      protocol: TCP
+            - fromEndpoints:
+                - matchLabels:
+                    k8s:io.kubernetes.pod.namespace: cloudnative-pg
+                    k8s:app.kubernetes.io/name: cloudnative-pg
+                - matchLabels:
+                    k8s:cnpg.io/cluster: *name
+              toPorts:
+                - ports:
+                    - port: "8000"
+                      protocol: TCP
+            - fromEndpoints:
+                - matchLabels:
+                    k8s:io.kubernetes.pod.namespace: prometheus
+                    k8s:app.kubernetes.io/name: prometheus
+              toPorts:
+                - ports:
+                    - port: "9187"
+                      protocol: TCP
+          egress:
+            - toEndpoints:
+                - matchLabels:
+                    k8s:cnpg.io/cluster: *name
+              toPorts:
+                - ports:
+                    - port: "5432"
+                      protocol: TCP
+                    - port: "8000"
+                      protocol: TCP
+            - toEntities:
+              - kube-apiserver
+              toPorts:
+              - ports:
+                - port: "6443"
+                  protocol: TCP
+            - toEndpoints:
+              - matchLabels:
+                  k8s:io.kubernetes.pod.namespace: kube-system
+                  k8s:k8s-app: kube-dns
+              toPorts:
+                - ports:
+                    - port: "53"
+                      protocol: ANY
+                  rules:
+                    dns:
+                      - matchName: "s3.${SECRET_DEFAULT_DOMAIN}"
+                      - matchName: "tracearr-postgres-v18-rw.media.svc.cluster.local"
+            - toFQDNs:
+                - matchName: "s3.${SECRET_DEFAULT_DOMAIN}"
+              toPorts:
+                - ports:
+                    - port: "443"
                       protocol: TCP
