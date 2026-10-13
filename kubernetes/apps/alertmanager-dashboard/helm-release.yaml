@@ -127,6 +127,7 @@ spec:
               - --provider=oidc
               - --provider-display-name=Pocket ID
               - --oidc-issuer-url=https://id.${SECRET_DEFAULT_DOMAIN}
+              - --user-id-claim=name
               - --skip-oidc-discovery=true
               - --login-url=https://id.${SECRET_DEFAULT_DOMAIN}/authorize
               - --redeem-url=http://pocket-id.pocket-id.svc.cluster.local:8081/api/oidc/token
