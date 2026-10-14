@@ -34,3 +34,7 @@ data:
         values:
           - claimSource:
               claim: display_name
+      - name: X-Forwarded-Preferred-Username
+        values:
+          - claimSource:
+              claim: preferred_username
