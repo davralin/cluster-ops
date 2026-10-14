@@ -47,7 +47,7 @@ spec:
           tracearr:
             image:
               repository: ghcr.io/connorgallopo/tracearr
-              tag: 2.8.0@sha256:699809a760c76495bdfb5fd66f0174cf54853fec5c0e89536fe4bb63f8da4508
+              tag: 2.8.2@sha256:2da249d9e11034a73af1557a562ae5df26d108426f312855db5a708d1e13b53d
             env:
               NODE_ENV: production
               HOST: "0.0.0.0"
