@@ -1,0 +1,36 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: alertmanager-dashboard-oauth2-proxy-alpha-config
+  namespace: alertmanager-dashboard
+data:
+  alpha.yaml: |
+    server:
+      bindAddress: 0.0.0.0:4180
+    upstreamConfig:
+      upstreams:
+        - id: dashboard
+          path: /
+          uri: http://alertmanager-dashboard.alertmanager-dashboard.svc.cluster.local:8080/
+    providers:
+      - id: pocket-id
+        provider: oidc
+        name: Pocket ID
+        clientID: ${OAUTH2_PROXY_CLIENT_ID}
+        clientSecret: ${OAUTH2_PROXY_CLIENT_SECRET}
+        loginURL: https://id.${SECRET_DEFAULT_DOMAIN}/authorize
+        redeemURL: http://pocket-id.pocket-id.svc.cluster.local:8081/api/oidc/token
+        profileURL: http://pocket-id.pocket-id.svc.cluster.local:8081/api/oidc/userinfo
+        scope: openid email profile groups
+        additionalClaims:
+          - display_name
+        oidcConfig:
+          issuerURL: https://id.${SECRET_DEFAULT_DOMAIN}
+          skipDiscovery: true
+          jwksURL: http://pocket-id.pocket-id.svc.cluster.local:8081/.well-known/jwks.json
+    injectRequestHeaders:
+      - name: X-Forwarded-Display-Name
+        values:
+          - claimSource:
+              claim: display_name
