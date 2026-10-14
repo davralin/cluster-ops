@@ -17,8 +17,8 @@ data:
       - id: pocket-id
         provider: oidc
         name: Pocket ID
-        clientID: ${OAUTH2_PROXY_CLIENT_ID}
-        clientSecret: ${OAUTH2_PROXY_CLIENT_SECRET}
+        clientID: $${OAUTH2_PROXY_CLIENT_ID}
+        clientSecret: $${OAUTH2_PROXY_CLIENT_SECRET}
         loginURL: https://id.${SECRET_DEFAULT_DOMAIN}/authorize
         redeemURL: http://pocket-id.pocket-id.svc.cluster.local:8081/api/oidc/token
         profileURL: http://pocket-id.pocket-id.svc.cluster.local:8081/api/oidc/userinfo
