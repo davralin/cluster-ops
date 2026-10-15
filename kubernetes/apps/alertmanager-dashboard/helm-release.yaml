@@ -133,10 +133,6 @@ spec:
               - --cookie-refresh=1h
               - --cookie-expire=8h
               - --cookie-name=_oauth2_proxy_alertmanager_dashboard
-            volumeMounts:
-              - name: alpha-config
-                mountPath: /etc/oauth2-proxy
-                readOnly: true
             env:
               OAUTH2_PROXY_CLIENT_ID: "${SECRET_OAUTH2_PROXY_CLIENT_ID}"
               OAUTH2_PROXY_CLIENT_SECRET: "${SECRET_OAUTH2_PROXY_CLIENT_SECRET}"
@@ -157,11 +153,15 @@ spec:
               startup: *oauth2Probes
             securityContext: *securityContext
             resources: *resources
-        pod:
-          volumes:
-            - name: alpha-config
-              configMap:
-                name: alertmanager-dashboard-oauth2-proxy-alpha-config
+    persistence:
+      alpha-config:
+        type: configMap
+        name: alertmanager-dashboard-oauth2-proxy-alpha-config
+        advancedMounts:
+          oauth2-proxy:
+            oauth2-proxy:
+              - path: /etc/oauth2-proxy
+                readOnly: true
     service:
       receiver:
         controller: receiver
