@@ -46,7 +46,7 @@ spec:
           vnc-home:
             image:
               repository: ghcr.io/p-adamiec/free-games-claimer-remaster
-              tag: v1.15@sha256:29c72b539226aef71f589e8170571ca5f4bc7e8b2d8a758ebdc18fa6dfed04d6
+              tag: v1.16@sha256:165891e9f6eb30bc8b8298595e2d53cc2f7f1f282e56f5ea21e0691ed2e2a600
             command: ["/bin/sh", "-ec"]
             args:
               - mkdir -p /tmp/fgc-home/.vnc && chmod 700 /tmp/fgc-home/.vnc
@@ -60,7 +60,7 @@ spec:
           free-games-claimer:
             image:
               repository: ghcr.io/p-adamiec/free-games-claimer-remaster
-              tag: v1.15@sha256:29c72b539226aef71f589e8170571ca5f4bc7e8b2d8a758ebdc18fa6dfed04d6
+              tag: v1.16@sha256:165891e9f6eb30bc8b8298595e2d53cc2f7f1f282e56f5ea21e0691ed2e2a600
             env:
               TZ: "${TIMEZONE}"
               STORES: epic,gog,steam,aliexpress
