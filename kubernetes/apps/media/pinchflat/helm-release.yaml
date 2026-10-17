@@ -48,7 +48,7 @@ spec:
           pinchflat:
             image:
               repository: ghcr.io/thebadfella/pinchflat-ngx
-              tag: 2026.10.15@sha256:6be9fe8b05f7e59c2eb9712ee506823a68a78ad48c31464c7dce21fbf5ef0ec0
+              tag: 2026.10.16@sha256:cd3d79471950e99d0874845124ee09d74edb780d2aac1240512eed3edb2b2ad8
             env:
               TZ: "${TIMEZONE}"
               TZ_DATA_DIR: /tmp/elixir_tz_data
