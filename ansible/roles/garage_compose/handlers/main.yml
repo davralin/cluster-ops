@@ -1,6 +1,0 @@
----
-- name: Restart garage
-  ansible.builtin.systemd_service:
-    name: docker-garage.service
-    state: restarted
-  become: true
