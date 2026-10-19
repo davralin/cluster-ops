@@ -51,7 +51,7 @@ spec:
           gig-scout:
             image:
               repository: ghcr.io/davralin/navidrome-gig-scout
-              tag: 2026.10.12@sha256:7bf175f5bce0aa50a8d6474b05dff5f431aca15531f4faa8bb5d84ea0564a47f
+              tag: 2026.10.19@sha256:6e1236893b2dc9f788a62c9943724f6669d9428375a1aa8048bf7ce19757d4a0
             env:
               NAVIDROME_URL: "http://navidrome.media.svc.cluster.local:4533"
               NAVIDROME_USER:
