@@ -139,9 +139,6 @@ spec:
                       app.kubernetes.io/controller: changedetection
                       app.kubernetes.io/instance: changedetection-changedetection
                       app.kubernetes.io/name: changedetection-changedetection
-              ports:
-                - port: *port
-            - from:
                 - namespaceSelector:
                     matchLabels:
                       kubernetes.io/metadata.name: hermes-agent
@@ -150,5 +147,13 @@ spec:
                       app.kubernetes.io/controller: hermes-agent
                       app.kubernetes.io/instance: hermes-agent-hermes-agent
                       app.kubernetes.io/name: hermes-agent-hermes-agent
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: karakeep
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: karakeep
+                      app.kubernetes.io/instance: karakeep-karakeep
+                      app.kubernetes.io/name: karakeep-karakeep
               ports:
                 - port: *port

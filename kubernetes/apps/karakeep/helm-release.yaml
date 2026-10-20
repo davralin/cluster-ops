@@ -50,7 +50,7 @@ spec:
               repository: ghcr.io/karakeep-app/karakeep
               tag: 0.33.2@sha256:b069e4307dec06ea06d16989c6861c30a1ff208568be44ed5fb5d422cd3e950c
             env:
-              BROWSER_WEB_URL: http://karakeep-chrome.karakeep.svc.cluster.local:9222
+              BROWSER_WEBSOCKET_URL: ws://browserless.browserless.svc.cluster.local:3000/chromium
               CRAWLER_DOWNLOAD_BANNER_IMAGE: true
               CRAWLER_ENABLE_ADBLOCKER: true
               CRAWLER_STORE_SCREENSHOT: true
@@ -110,40 +110,6 @@ spec:
                 memory: 500Mi
               limits:
                 memory: 2Gi
-      chrome:
-        annotations:
-          reloader.stakater.com/auto: "true"
-        containers:
-          chrome:
-            image:
-              repository: docker.io/zenika/alpine-chrome
-              tag: 124@sha256:eb3378c1ed0079f94db054a5fe1aaa790a254ec0d6bbc67eda052420d86a179d
-            command:
-              - chromium-browser
-            args:
-              - --headless
-              - --no-sandbox
-              - --disable-gpu
-              - --disable-dev-shm-usage
-              - --remote-debugging-address=0.0.0.0
-              - --remote-debugging-port=9222
-              - --hide-scrollbars
-            probes:
-              liveness: &probes
-                enabled: true
-              readiness: *probes
-              startup: *probes
-            securityContext:
-              allowPrivilegeEscalation: false
-              capabilities:
-                drop:
-                  - ALL
-              readOnlyRootFilesystem: true
-            resources:
-              requests:
-                cpu: 10m
-              limits:
-                memory: 2Gi
       meilisearch:
         annotations:
           reloader.stakater.com/auto: "true"
@@ -185,11 +151,6 @@ spec:
         ports:
           http:
             port: &port 3000
-      chrome:
-        controller: chrome
-        ports:
-          http:
-            port: 9222
       meilisearch:
         controller: meilisearch
         ports:
@@ -251,47 +212,7 @@ spec:
           karakeep:
             karakeep:
               - path: /tmp
-          chrome:
-            chrome:
-              - path: /tmp
     networkpolicies:
-      chrome:
-        enabled: true
-        controller: chrome
-        policyTypes:
-          - Egress
-          - Ingress
-        rules:
-          egress:
-            - to:
-                - namespaceSelector:
-                    matchLabels:
-                      kubernetes.io/metadata.name: kube-system
-                  podSelector:
-                    matchLabels:
-                      k8s-app: kube-dns
-              ports:
-                - port: 53
-                  protocol: UDP
-            - to: # Needs to archive
-              - ipBlock:
-                  cidr: 0.0.0.0/0
-                  except:
-                  - "${HAPROXY_WHITELIST}"
-              ports:
-                - port: 80
-                  protocol: TCP
-                - port: 443
-                  protocol: TCP
-          ingress:
-            - from:
-                - podSelector:
-                    matchLabels:
-                      app.kubernetes.io/controller: karakeep
-                      app.kubernetes.io/instance: karakeep-karakeep
-                      app.kubernetes.io/name: karakeep-karakeep
-              ports:
-                - port: 9222
       karakeep:
         enabled: true
         controller: karakeep
@@ -311,13 +232,16 @@ spec:
                 - port: 53
                   protocol: UDP
             - to:
-                - podSelector:
+                - namespaceSelector:
                     matchLabels:
-                      app.kubernetes.io/controller: chrome
-                      app.kubernetes.io/instance: karakeep-karakeep
-                      app.kubernetes.io/name: karakeep-karakeep
+                      kubernetes.io/metadata.name: browserless
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: browserless
+                      app.kubernetes.io/instance: browserless-browserless
+                      app.kubernetes.io/name: browserless-browserless
               ports:
-                - port: 9222
+                - port: 3000
                   protocol: TCP
             - to:
                 - podSelector:
