@@ -50,7 +50,7 @@ spec:
             env:
               CONCURRENT: "5"
               QUEUED: "10"
-              TIMEOUT: "60000"
+              TIMEOUT: "240000"
               DEBUG: "browserless*:info"
             probes:
               liveness: &probes
