@@ -92,6 +92,7 @@ spec:
                   secretKeyRef:
                     name: litellm-secrets
                     key: salt-key
+              PROMETHEUS_METRICS_PORT: &metrics_port "4001"
               USE_PRISMA_MIGRATE: true
               TZ: "${TIMEZONE}"
             probes:
@@ -155,12 +156,17 @@ spec:
         ports:
           http:
             port: *port
+      metrics:
+        controller: *name
+        ports:
+          metrics:
+            port: *metrics_port
     serviceMonitor:
       metrics:
         enabled: true
-        serviceName: *name
+        serviceName: litellm-metrics
         endpoints:
-          - port: http
+          - port: metrics
             scheme: http
             path: /metrics/
             interval: 60s
@@ -283,3 +289,12 @@ spec:
                       app.kubernetes.io/name: hermes-agent-hermes-agent
               ports:
                 - port: *port
+            - from:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: prometheus
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: prometheus
+              ports:
+                - port: *metrics_port
