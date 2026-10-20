@@ -50,7 +50,8 @@ spec:
               repository: ghcr.io/karakeep-app/karakeep
               tag: 0.34.0@sha256:151cdd6b5f2e21635645983e126f411675bfa35becb02c028c1a727f45f899c6
             env:
-              BROWSER_WEBSOCKET_URL: ws://browserless.browserless.svc.cluster.local:3000
+              BROWSER_WEBSOCKET_URL: ws://browserless.browserless.svc.cluster.local:3000/chromium/playwright
+              BROWSER_CONNECT_ONDEMAND: true
               CRAWLER_DOWNLOAD_BANNER_IMAGE: true
               CRAWLER_ENABLE_ADBLOCKER: true
               CRAWLER_STORE_SCREENSHOT: true
