@@ -72,7 +72,7 @@ spec:
           trash-cleaner:
             image:
               repository: ghcr.io/davralin/utility
-              tag: latest@sha256:bb88dbd7a6879120647dac76268b4dac86efbd0eb5b7d9d78e8a3d9696500dd6
+              tag: latest@sha256:2113222878e50638f28cefda7062f9fe4dd8bae0f6e4bc81c8dd0bdd8e303e34
             command: ["/config/trash-cleanup.sh"]
             securityContext:
               allowPrivilegeEscalation: false
