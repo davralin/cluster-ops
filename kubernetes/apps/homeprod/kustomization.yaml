@@ -47,6 +47,7 @@ resources:
   - ../node-problem-detector
   - ../paperless-ngx
   - ../pocket-id
+  - ../radar
   - ../reloader
   - ../remotebackup
   - ../searxng

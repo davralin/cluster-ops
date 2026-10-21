@@ -1,0 +1,102 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &name radar
+  namespace: flux-system
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: radar
+      version: 1.17.0
+      sourceRef:
+        kind: HelmRepository
+        name: radar-charts
+        namespace: flux-system
+      interval: 30m
+  driftDetection:
+    mode: enabled
+  targetNamespace: radar
+  install:
+    createNamespace: true
+    remediation:
+      retries: 10
+  upgrade:
+    remediation:
+      retries: 10
+  values:
+    fullnameOverride: *name
+    auth:
+      mode: oidc
+      existingSecret: radar-auth
+      existingSecretKey: auth-secret
+      oidc:
+        issuerURL: "https://id.${SECRET_DEFAULT_DOMAIN}"
+        authorizationURL: "https://id.${SECRET_DEFAULT_DOMAIN}/authorize"
+        tokenURL: http://pocket-id.pocket-id.svc.cluster.local:8081/api/oidc/token
+        userInfoURL: http://pocket-id.pocket-id.svc.cluster.local:8081/api/oidc/userinfo
+        jwksURL: http://pocket-id.pocket-id.svc.cluster.local:8081/.well-known/jwks.json
+        clientID: 4167a4af-8ff1-45bc-be3f-4275b55e647a
+        existingSecret: radar-auth
+        clientSecretKey: client-secret
+        redirectURL: "https://radar.${SECRET_DEFAULT_DOMAIN}/auth/callback"
+        postLogoutRedirectURL: "https://radar.${SECRET_DEFAULT_DOMAIN}/"
+        groupsClaim: groups
+        scopes:
+          - openid
+          - profile
+          - email
+          - groups
+        enablePKCE: true
+    env:
+      - name: RADAR_MCP_READ_ONLY
+        value: "1"
+    mcp:
+      enabled: true
+    persistence:
+      enabled: true
+      size: 1Gi
+    timeline:
+      storage: sqlite
+      retention: 168h
+      maxSize: 800Mi
+    resources:
+      requests:
+        cpu: 200m
+        memory: 256Mi
+      limits:
+        memory: 1Gi
+    rbac:
+      helm: false
+      podExec: false
+      portForward: false
+      secrets: false
+      viewRBAC: false
+      viewWebhooks: false
+      viewNodeRuntime: false
+      traffic: true
+      metrics: true
+      crdGroups:
+        flux: true
+    traffic:
+      prometheusUrl: http://kube-prom-prometheus.prometheus.svc.cluster.local:9090
+    ingress:
+      enabled: true
+      annotations:
+        haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
+        haproxy.org/ssl-redirect-port: "443"
+        haproxy.org/response-set-header: |
+          Strict-Transport-Security "max-age=31536000"
+          X-Frame-Options "DENY"
+          X-Content-Type-Options "nosniff"
+          Referrer-Policy "strict-origin-when-cross-origin"
+      hosts:
+        - host: &host "radar.${SECRET_DEFAULT_DOMAIN}"
+          paths:
+            - path: /
+              pathType: Prefix
+      tls:
+        - secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"
+          hosts:
+            - *host

@@ -87,6 +87,7 @@ Every namespace has a default-deny network policy. Ingress and egress are explic
 |---------|---------|
 | [Forgejo](https://forgejo.org/) | Self-hosted Git forge |
 | [AWX](https://github.com/ansible/awx) | Ansible automation platform |
+| [Radar](https://radarhq.io/) | Kubernetes operations UI with Flux, Hubble, and Prometheus integrations |
 
 ### AI & Search
 | Service | Purpose |

@@ -167,6 +167,12 @@ spec:
               app.kubernetes.io/controller: hermes-agent
               app.kubernetes.io/instance: hermes-agent-hermes-agent
               app.kubernetes.io/name: hermes-agent-hermes-agent
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: radar
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/name: radar
       ports:
         - port: 9090
           protocol: TCP

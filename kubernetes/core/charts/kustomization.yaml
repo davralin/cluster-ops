@@ -24,6 +24,7 @@ resources:
   - kyverno.yaml
   - metrics-server.yaml
   - piraeus.yaml
+  - radar.yaml
   - rook-ceph.yaml
   - spegel.yaml
   - stakater.yaml

@@ -33,6 +33,17 @@ spec:
               k8s-app: hubble-ui
       ports:
         - port: 4245
+          protocol: TCP
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: radar
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/name: radar
+      ports:
+        - port: 4245
+          protocol: TCP
     - from:
         - ipBlock:
             cidr: 0.0.0.0/0
