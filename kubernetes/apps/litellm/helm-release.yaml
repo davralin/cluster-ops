@@ -92,7 +92,7 @@ spec:
                   secretKeyRef:
                     name: litellm-secrets
                     key: salt-key
-              PROMETHEUS_METRICS_PORT: &metrics_port "4001"
+              PROMETHEUS_METRICS_PORT: "4001"
               USE_PRISMA_MIGRATE: true
               TZ: "${TIMEZONE}"
             probes:
@@ -160,7 +160,7 @@ spec:
         controller: *name
         ports:
           metrics:
-            port: *metrics_port
+            port: 4001
     serviceMonitor:
       metrics:
         enabled: true
@@ -297,4 +297,4 @@ spec:
                     matchLabels:
                       app.kubernetes.io/name: prometheus
               ports:
-                - port: *metrics_port
+                - port: 4001
