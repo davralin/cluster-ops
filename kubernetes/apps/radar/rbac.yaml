@@ -28,6 +28,7 @@ rules:
       - gitrepositories
       - helmrepositories
       - ocirepositories
+      - helmcharts
     verbs:
       - get
       - list
@@ -45,4 +46,7 @@ roleRef:
 subjects:
   - kind: Group
     name: system:authenticated
+    apiGroup: rbac.authorization.k8s.io
+  - kind: Group
+    name: users
     apiGroup: rbac.authorization.k8s.io
