@@ -1,0 +1,27 @@
+apiVersion: v1alpha1
+kind: KubeEtcdEncryptionConfig
+config:
+    resources:
+        - resources:
+            - secrets
+          providers:
+            - secretbox:
+                keys:
+                    - name: key2
+                      secret: ENC[AES256_GCM,data:+6Ne4wHxYSnmJI+TJsxrrRtHOeh+5QAdrkRVBDXapxLZYfQfreKCKjRw0TU=,iv:m7v985tr4O2YKp77O5bG5MJFmDV2gtzE165FyG1r/O0=,tag:8WuW/fKRs3oxiRB/SpXHlQ==,type:str]
+            - identity: {}
+sops:
+    age:
+        - enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSAwZzdFSWxpNUE5STBIRFVp
+            ZWVkNVZPNGowajdNQndlZ3FMbkZwNWNyczNVCnkvenpyOVFBbWJsMzN6N3JwTVlX
+            U0dGUVZtajVTK2JtYnhpdTZEN29ESkUKLS0tIHFDZGVFd0E0YWNCKzFpMzQxUFRP
+            Z0k3M0psVlRGNkJKWWpTQjJYa3NIeTQKDeXn33KMoZJtJounBgxQS4URLJ58PvZ3
+            z31CHmPPgX5O0ORk12yUWtC+MNt8jb/3y+FbxnlugeimpusM8vymLg==
+            -----END AGE ENCRYPTED FILE-----
+          recipient: age13s49lz9hcwqdlgyyde5zr2ynryc5jsydmyvpvhx0klqd0ylkkq0szd3xtm
+    encrypted_regex: ^(secret)$
+    lastmodified: "2026-10-22T19:21:38Z"
+    mac: ENC[AES256_GCM,data:LtGF3373C2RTtWLOJCJBLNC3ak83wj1ZrQlIWY56qvWpP4fo4uKddDKVVNUTMCQxNjyvBNt7HXKQgl1t1xOh1vTHK/IqbJuzFLDNeXe6vrL1hCCXwg+bfWy2RgtOvndS2xIckAFBWTyAoHsguaHS7ybiEP5VK959fxLGvla3GhM=,iv:yP+L7i3dS79gjznbPZNjsvPgXgn1wRlG8bdjRImK8CA=,tag:Un0v5LD2zCz4sFLdU70WcQ==,type:str]
+    version: 3.13.3

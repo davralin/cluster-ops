@@ -15,5 +15,6 @@ resources:
   - ../../default-np
   - ../../flux
   - ../../haproxy
+  - ../../kata-containers
   - ../../prometheus-crd
   - ../../reflector
