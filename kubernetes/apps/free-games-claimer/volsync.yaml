@@ -43,6 +43,7 @@ spec:
           RESTIC_PASSWORD: "${SECRET_VOLSYNC_RESTIC_PWD}"
           AWS_ACCESS_KEY_ID: "${SECRET_S3_VOLSYNC_ACCESS_KEYS}"
           AWS_SECRET_ACCESS_KEY: "${SECRET_S3_VOLSYNC_SECRET_KEYS}"
+          AWS_DEFAULT_REGION: "garage"
       - apiVersion: volsync.backube/v1alpha1
         kind: ReplicationSource
         metadata:
@@ -51,7 +52,7 @@ spec:
         spec:
           sourcePVC: free-games-claimer
           trigger:
-            schedule: "04 01 * * *"
+            schedule: "38 17 * * *"
           restic:
             copyMethod: Direct
             pruneIntervalDays: 7
