@@ -223,6 +223,11 @@ spec:
                       app.kubernetes.io/controller: sonarr
                       app.kubernetes.io/instance: media-sonarr
                       app.kubernetes.io/name: media-sonarr
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: questarr
+                      app.kubernetes.io/instance: media-questarr
+                      app.kubernetes.io/name: media-questarr
               ports:
                 - port: *port
             - from:
