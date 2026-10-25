@@ -1,0 +1,285 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &name questarr
+  namespace: flux-system
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 5.3.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+      interval: 30m
+  driftDetection:
+    mode: enabled
+  targetNamespace: media
+  install:
+    createNamespace: true
+    remediation:
+      retries: 10
+  upgrade:
+    remediation:
+      retries: 10
+  dependsOn:
+    - name: questarr-postgres-v18
+      namespace: flux-system
+  values:
+    fullnameOverride: *name
+    global:
+      createDefaultServiceAccount: false
+    defaultPodOptions:
+      automountServiceAccountToken: false
+      enableServiceLinks: false
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+    controllers:
+      questarr:
+        strategy: Recreate
+        initContainers:
+          1-prepare-log:
+            image:
+              repository: ghcr.io/doezer/questarr
+              tag: v1.5.0@sha256:8b6a6df437aa3983a4ccffe164f3f33f664646c48cde05d263434e9768598621
+            command: ["/bin/sh", "-ec"]
+            args: ["touch /logs/server.log"]
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+        containers:
+          questarr:
+            image:
+              repository: ghcr.io/doezer/questarr
+              tag: v1.5.0@sha256:8b6a6df437aa3983a4ccffe164f3f33f664646c48cde05d263434e9768598621
+            # The image entrypoint requires root to adjust ownership, so start the
+            # app directly as the restricted user.
+            command: ["node"]
+            args: ["dist/server/index.js"]
+            env:
+              PORT: "5000"
+              DB_DIALECT: postgres
+              DATABASE_URL:
+                valueFrom:
+                  secretKeyRef:
+                    name: questarr-postgres-v18-app
+                    key: uri
+              DATABASE_POOL_MAX: "2"
+              TRUST_PROXY: "1"
+              TZ: "${TIMEZONE}"
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /api/health
+                    port: &port 5000
+                  initialDelaySeconds: 15
+                  periodSeconds: 30
+                  timeoutSeconds: 5
+                  failureThreshold: 3
+              readiness:
+                <<: *probes
+                spec:
+                  httpGet:
+                    path: /api/ready
+                    port: *port
+                  initialDelaySeconds: 5
+                  periodSeconds: 10
+                  timeoutSeconds: 5
+                  failureThreshold: 3
+              startup:
+                <<: *probes
+                spec:
+                  httpGet:
+                    path: /api/health
+                    port: *port
+                  initialDelaySeconds: 5
+                  periodSeconds: 5
+                  timeoutSeconds: 5
+                  failureThreshold: 30
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+            resources:
+              requests:
+                cpu: 100m
+                memory: 256Mi
+              limits:
+                memory: 512Mi
+    service:
+      questarr:
+        controller: *name
+        ports:
+          http:
+            port: *port
+    ingress:
+      questarr:
+        enabled: true
+        annotations:
+          haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
+          haproxy.org/ssl-redirect-port: "443"
+          haproxy.org/response-set-header: |
+            Strict-Transport-Security "max-age=31536000"
+            X-Frame-Options "DENY"
+            X-Content-Type-Options "nosniff"
+            Referrer-Policy "strict-origin-when-cross-origin"
+        hosts:
+          - host: &host "questarr.${SECRET_DEFAULT_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  identifier: questarr
+                  port: http
+        tls:
+          - hosts:
+              - *host
+    persistence:
+      logs:
+        type: emptyDir
+        advancedMounts:
+          questarr:
+            1-prepare-log:
+              - path: /logs
+            questarr:
+              # Questarr writes this relative to /app, which must remain its
+              # working directory for package metadata discovery.
+              - path: /app/server.log
+                subPath: server.log
+      media:
+        enabled: true
+        existingClaim: media
+        globalMounts:
+          - path: /data
+    networkpolicies:
+      questarr-external:
+        type: cilium
+        controller: *name
+        description: Allow Questarr to use its external game metadata APIs.
+        enableDefaultDeny:
+          ingress: true
+          egress: true
+        egress:
+          - toEndpoints:
+              - matchLabels:
+                  k8s:io.kubernetes.pod.namespace: kube-system
+                  k8s:k8s-app: kube-dns
+            toPorts:
+              - ports:
+                  - port: "53"
+                    protocol: UDP
+                rules:
+                  dns:
+                    - matchPattern: "*"
+          - toFQDNs:
+              - matchName: id.twitch.tv
+              - matchName: api.igdb.com
+            toPorts:
+              - ports:
+                  - port: "443"
+                    protocol: TCP
+          - toEndpoints:
+              - matchLabels:
+                  k8s:cnpg.io/cluster: questarr-postgres-v18
+                  k8s:cnpg.io/instanceRole: primary
+            toPorts:
+              - ports:
+                  - port: "5432"
+                    protocol: TCP
+          - toEndpoints:
+              - matchLabels:
+                  k8s:app.kubernetes.io/controller: prowlarr
+                  k8s:app.kubernetes.io/instance: media-prowlarr
+                  k8s:app.kubernetes.io/name: media-prowlarr
+            toPorts:
+              - ports:
+                  - port: "9696"
+                    protocol: TCP
+          - toEndpoints:
+              - matchLabels:
+                  k8s:app.kubernetes.io/controller: qbittorrent
+                  k8s:app.kubernetes.io/instance: media-qbittorrent
+                  k8s:app.kubernetes.io/name: media-qbittorrent
+            toPorts:
+              - ports:
+                  - port: "8080"
+                    protocol: TCP
+      questarr:
+        enabled: true
+        controller: *name
+        policyTypes:
+          - Egress
+          - Ingress
+        rules:
+          egress:
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: kube-system
+                  podSelector:
+                    matchLabels:
+                      k8s-app: kube-dns
+              ports:
+                - port: 53
+                  protocol: UDP
+                - port: 53
+                  protocol: TCP
+            # The Cilium policy above restricts HTTPS to explicit metadata APIs.
+            - to:
+                - ipBlock:
+                    cidr: 0.0.0.0/0
+              ports:
+                - port: 443
+                  protocol: TCP
+            - to:
+                - podSelector:
+                    matchLabels:
+                      cnpg.io/cluster: questarr-postgres-v18
+                      cnpg.io/instanceRole: primary
+              ports:
+                - port: 5432
+                  protocol: TCP
+            - to:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: prowlarr
+                      app.kubernetes.io/instance: media-prowlarr
+                      app.kubernetes.io/name: media-prowlarr
+              ports:
+                - port: 9696
+                  protocol: TCP
+            - to:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: qbittorrent
+                      app.kubernetes.io/instance: media-qbittorrent
+                      app.kubernetes.io/name: media-qbittorrent
+              ports:
+                - port: 8080
+                  protocol: TCP
+          ingress:
+            - from:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: haproxy-controller
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: kubernetes-ingress
+              ports:
+                - port: *port

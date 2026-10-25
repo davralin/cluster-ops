@@ -21,6 +21,7 @@ resources:
   - plex
   - prowlarr
   - qbittorrent
+  - questarr
   - radarr
   - recyclarr
   - seerr

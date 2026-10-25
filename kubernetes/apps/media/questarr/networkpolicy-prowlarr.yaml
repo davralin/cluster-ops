@@ -1,0 +1,24 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: questarr-allow-prowlarr
+  namespace: media
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/controller: prowlarr
+      app.kubernetes.io/instance: media-prowlarr
+      app.kubernetes.io/name: media-prowlarr
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/controller: questarr
+              app.kubernetes.io/instance: media-questarr
+              app.kubernetes.io/name: media-questarr
+      ports:
+        - port: 9696
+          protocol: TCP
