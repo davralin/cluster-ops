@@ -50,7 +50,7 @@ spec:
           tdarr:
             image:
               repository: ghcr.io/haveagitgat/tdarr
-              tag: 3.02.00@sha256:980c9010a610a3b54405aa64d42dc8547c675c2ba227f8e57c0efbb17bd6414f
+              tag: 3.03.00@sha256:2eaa0bf43703f61cb72c63980f4799ece6ead372508891f69e5a1441c110b442
             env:
               TZ: "${TIMEZONE}"
               PUID: "1000"
