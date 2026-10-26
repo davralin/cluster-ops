@@ -31,3 +31,4 @@
       - xorg
       - xserver-xorg-video-intel
       - xserver-xorg-video-amdgpu
+      - mesa-va-drivers
