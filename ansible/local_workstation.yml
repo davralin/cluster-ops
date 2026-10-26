@@ -10,6 +10,7 @@
     - rclone
     - rsync
     - debian_desktop
+    - sunshine
     - kubernetes_tools
     - opentofu
     - yt-dlp

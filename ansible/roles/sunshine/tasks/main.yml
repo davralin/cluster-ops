@@ -1,0 +1,72 @@
+---
+- name: Require Sunshine desktop user
+  ansible.builtin.assert:
+    that: sunshine_user | default('') | trim | length > 0
+    fail_msg: sunshine_user must identify the graphical desktop user.
+
+- name: Require Debian
+  ansible.builtin.assert:
+    that: ansible_distribution == 'Debian'
+    fail_msg: Sunshine role requires Debian.
+
+- name: Installing Sunshine repository prerequisites
+  ansible.builtin.apt:
+    name:
+      - ca-certificates
+      - gnupg
+    state: present
+  become: true
+
+- name: Add LizardByte Sunshine apt repository
+  ansible.builtin.deb822_repository:
+    name: lizardbyte-sunshine
+    types: deb
+    uris: "{{ sunshine_repository_uri }}"
+    suites: "{{ sunshine_repository_suite }}"
+    components: main
+    signed_by: "{{ sunshine_repository_key }}"
+  register: _sunshine_apt_repository
+  become: true
+
+- name: Update apt cache for Sunshine repository
+  ansible.builtin.apt:
+    update_cache: true
+  become: true
+  when: _sunshine_apt_repository is changed
+
+- name: Installing Sunshine
+  ansible.builtin.apt:
+    name: sunshine
+    state: present
+  notify: Reload Sunshine virtual input rules
+  become: true
+
+- name: Grant Sunshine user virtual input access
+  ansible.builtin.user:
+    name: "{{ sunshine_user }}"
+    groups: input
+    append: true
+  become: true
+
+- name: Load uhid kernel module
+  community.general.modprobe:
+    name: uhid
+    state: present
+    persistent: present
+  become: true
+
+- name: Look up Sunshine user account
+  ansible.builtin.getent:
+    database: passwd
+    key: "{{ sunshine_user }}"
+
+- name: Enable and start Sunshine user service
+  ansible.builtin.systemd_service:
+    name: "{{ sunshine_service_name }}"
+    enabled: true
+    state: started
+    scope: user
+  become: true
+  become_user: "{{ sunshine_user }}"
+  environment:
+    XDG_RUNTIME_DIR: "/run/user/{{ ansible_facts.getent_passwd[sunshine_user][1] }}"

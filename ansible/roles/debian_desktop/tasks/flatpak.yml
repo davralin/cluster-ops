@@ -28,6 +28,7 @@
       - com.discordapp.Discord
       - com.fastmail.Fastmail
       - com.heroicgameslauncher.hgl
+      - com.moonlight_stream.Moonlight
       - com.nextcloud.desktopclient.nextcloud
       - com.valvesoftware.Steam
       - io.freetubeapp.FreeTube

@@ -1,0 +1,11 @@
+---
+- name: Reload Sunshine virtual input rules
+  ansible.builtin.command: "{{ item }}"
+  loop:
+    - udevadm control --reload-rules
+    - udevadm trigger --property-match=DEVNAME=/dev/uinput
+    - udevadm trigger --property-match=DEVNAME=/dev/uhid
+    - udevadm trigger --subsystem-match=hidraw
+    - udevadm trigger --subsystem-match=input
+  changed_when: false
+  become: true

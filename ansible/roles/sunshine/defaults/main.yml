@@ -1,0 +1,5 @@
+---
+sunshine_repository_key: "https://dl.cloudsmith.io/public/lizardbyte/stable/gpg.04C871E8D308324E.key"
+sunshine_repository_uri: "https://dl.cloudsmith.io/public/lizardbyte/stable/deb/{{ ansible_distribution | lower }}"
+sunshine_repository_suite: "{{ ansible_distribution_release }}"
+sunshine_service_name: app-dev.lizardbyte.app.Sunshine.service
