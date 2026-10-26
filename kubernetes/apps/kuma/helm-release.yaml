@@ -46,7 +46,7 @@ spec:
           kuma:
             image:
               repository: ghcr.io/louislam/uptime-kuma
-              tag: 2.5.7-rootless@sha256:71e9994591d6606efce490cd133e3a89b5e755cbac0d50b8b466a42e9f8fa915
+              tag: 2.5.8-rootless@sha256:880cb8fd62ce6c00a378f450c6ad7561b7d164b61ea8bcf6a8f39239075442c0
             env:
               TZ: "${TIMEZONE}"
             probes:
