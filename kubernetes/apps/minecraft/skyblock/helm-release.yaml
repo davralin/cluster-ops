@@ -195,7 +195,7 @@ spec:
       enabled: true
       image:
         repository: ghcr.io/itzg/mc-backup
-        tag: "2026.10.1@sha256:c5f2c369bbe47d0b712601bf44af5927e67a18cb5816dc378efb45eb993dab0a"
+        tag: "2026.10.2@sha256:76c011ba07410d897f1059471a188e7f7ac5113946b09446313c0754b6e0b3b7"
       pauseIfNoPlayers: true
       backupMethod: rclone
       excludes: "*.jar,cache,logs,lost+found"
