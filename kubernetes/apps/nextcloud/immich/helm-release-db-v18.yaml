@@ -161,7 +161,7 @@ spec:
           name: *name
           namespace: *namespace
         spec:
-          schedule: "0 37 01 * * *"
+          schedule: "0 10 09 * * *"
           immediate: true
           backupOwnerReference: self
           method: plugin
