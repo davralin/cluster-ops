@@ -50,7 +50,7 @@ spec:
           onsite-sync:
             image:
               repository: ghcr.io/davralin/rsync
-              tag: 3.5.0-ds1-0-deb13u1@sha256:c0f2e60e31d1cb8095a903482e65e8d09807ff5e2767d6c46e4a4c18264fdd7c
+              tag: 3.5.0-ds1-0-deb13u1@sha256:499164fa84f7a20480dbc5b33e8a65db680d8e683b3c7e5acbc1313e93f84bfd
             command: ['/usr/bin/rsync']
             args: ["--archive", "--delete", "--verbose", "-e", "ssh -o StrictHostKeyChecking=no", "/media/", "backup@rsync.${SECRET_DEFAULT_DOMAIN}:/opt/local/media/"]
             securityContext:
