@@ -69,3 +69,34 @@ spec:
               capabilities:
                 drop:
                   - ALL
+    networkpolicies:
+      immich-user1-albums:
+        enabled: true
+        controller: *name
+        policyTypes:
+          - Egress
+          - Ingress
+        rules:
+          egress:
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: kube-system
+                  podSelector:
+                    matchLabels:
+                      k8s-app: kube-dns
+              ports:
+                - port: 53
+                  protocol: UDP
+                - port: 53
+                  protocol: TCP
+            - to:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: main
+                      app.kubernetes.io/instance: nextcloud-immich
+                      app.kubernetes.io/name: server
+              ports:
+                - port: 2283
+                  protocol: TCP
+          ingress: []

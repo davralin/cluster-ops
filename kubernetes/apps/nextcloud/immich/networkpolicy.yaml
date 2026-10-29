@@ -103,6 +103,20 @@ spec:
           protocol: TCP
   ingress:
     - from:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/controller: immich-user1-albums
+              app.kubernetes.io/instance: nextcloud-immich-user1-albums
+              app.kubernetes.io/name: nextcloud-immich-user1-albums
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/controller: immich-shared-albums
+              app.kubernetes.io/instance: nextcloud-immich-shared-albums
+              app.kubernetes.io/name: nextcloud-immich-shared-albums
+      ports:
+        - port: 2283
+          protocol: TCP
+    - from:
         - namespaceSelector:
             matchLabels:
               kubernetes.io/metadata.name: haproxy-controller
