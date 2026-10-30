@@ -258,13 +258,6 @@ spec:
           gnetId: 11312
           revision: 9
           datasource: Prometheus
-        # Ref: https://grafana.com/grafana/dashboards/18817
-        unpackerr:
-        # renovate: depName="Unpackerr"
-          gnetId: 18817
-          revision: 1
-          datasource:
-            - { name: DS_PROMETHEUS, value: Prometheus }
         # Ref: https://grafana.com/grafana/dashboards/21356
         volsync:
           # renovate: depName="VolSync Dashboard"

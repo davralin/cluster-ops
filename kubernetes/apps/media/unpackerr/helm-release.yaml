@@ -47,11 +47,10 @@ spec:
           unpackerr:
             image:
               repository: ghcr.io/unpackerr/unpackerr
-              tag: v0.16.1@sha256:406586865431b40b29353d899fb75a788f5384743f7f381444db5fe55d206914
+              tag: v1.0.1@sha256:22b4693fbeaae4bd927905d63b59b8f67b4a1446682d965ac876c61a48976658
             env:
               TZ: "${TIMEZONE}"
-              UN_WEBSERVER_METRICS: true
-              UN_WEBSERVER_LOG_FILE: /logs/webserver.log
+              UN_WEBSERVER_LISTEN_ADDR: ""
               UN_ACTIVITY: true
               UN_LIDARR_0_URL: http://lidarr.media.svc.cluster.local:8686
               UN_LIDARR_0_API_KEY: "${SECRET_LIDARR_API_KEY}"
@@ -61,11 +60,6 @@ spec:
               UN_SONARR_0_API_KEY: "${SECRET_SONARR_API_KEY}"
               UN_RADARR_0_URL: http://radarr.media.svc.cluster.local:7878
               UN_RADARR_0_API_KEY: "${SECRET_RADARR_API_KEY}"
-            probes:
-              liveness: &probes
-                enabled: true
-              readiness: *probes
-              startup: *probes
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -78,24 +72,7 @@ spec:
                 memory: 100Mi
               limits:
                 memory: 300Mi
-    service:
-      unpackerr:
-        controller: *name
-        ports:
-          http:
-            port: &port 5656
-    serviceMonitor:
-      unpackerr:
-        serviceName: unpackerr
-        endpoints:
-          - port: http
-            scheme: http
-            path: /metrics
-            interval: 1m
-            scrapeTimeout: 10s
     persistence:
-      logs:
-        type: emptyDir
       media:
         enabled: true
         existingClaim: media
@@ -107,7 +84,6 @@ spec:
         controller: *name
         policyTypes:
           - Egress
-          - Ingress
         rules:
           egress:
             - to:
@@ -152,13 +128,3 @@ spec:
                       app.kubernetes.io/name: media-radarr
               ports:
                 - port: 7878
-          ingress:
-            - from:
-                - namespaceSelector:
-                    matchLabels:
-                      kubernetes.io/metadata.name: prometheus
-                  podSelector:
-                    matchLabels:
-                      app.kubernetes.io/name: prometheus
-              ports:
-                - port: *port
