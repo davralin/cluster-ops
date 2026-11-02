@@ -50,7 +50,7 @@ spec:
           1-prepare-log:
             image:
               repository: ghcr.io/doezer/questarr
-              tag: v1.5.0@sha256:8b6a6df437aa3983a4ccffe164f3f33f664646c48cde05d263434e9768598621
+              tag: v1.6.0@sha256:495a1648f1ad8dddd4c7f96b4bf817d9d061bfd5608ef520522f0d891415e972
             command: ["/bin/sh", "-ec"]
             args: ["touch /logs/server.log"]
             securityContext:
@@ -63,7 +63,7 @@ spec:
           questarr:
             image:
               repository: ghcr.io/doezer/questarr
-              tag: v1.5.0@sha256:8b6a6df437aa3983a4ccffe164f3f33f664646c48cde05d263434e9768598621
+              tag: v1.6.0@sha256:495a1648f1ad8dddd4c7f96b4bf817d9d061bfd5608ef520522f0d891415e972
             # The image entrypoint requires root to adjust ownership, so start the
             # app directly as the restricted user.
             command: ["node"]
