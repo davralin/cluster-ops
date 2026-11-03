@@ -92,6 +92,7 @@ spec:
       cephConfig:
         global:
           mon_data_avail_warn: "10"
+          rgw_dns_s3website_name: "${SECRET_DEFAULT_DOMAIN}"
           # https://github.com/rook/rook/discussions/15403
           bdev_enable_discard: "true"
           bdev_async_discard_threads: "1"
@@ -239,4 +240,31 @@ spec:
       name: csi-ceph-filesystem
       deletionPolicy: Delete
       isDefault: false
-    cephObjectStores: []
+    cephObjectStores:
+      - name: ceph-objectstore
+        spec:
+          defaultRealm: true
+          metadataPool:
+            failureDomain: host
+            replicated:
+              size: 3
+          dataPool:
+            failureDomain: host
+            erasureCoded:
+              dataChunks: 2
+              codingChunks: 2
+            parameters:
+              bulk: "true"
+          gateway:
+            port: 80
+            resources:
+              requests:
+                cpu: 100m
+                memory: 1Gi
+              limits:
+                memory: 2Gi
+            instances: 2
+            priorityClassName: system-cluster-critical
+        storageClass:
+          enabled: true
+          name: ceph-bucket
