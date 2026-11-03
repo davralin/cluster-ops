@@ -1,0 +1,39 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rgw
+  namespace: drawio
+spec:
+  type: ExternalName
+  externalName: rook-ceph-rgw-s3.rook-ceph.svc.cluster.local
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: drawio
+  namespace: drawio
+  annotations:
+    haproxy.org/allow-list: "${HAPROXY_WHITELIST}"
+    haproxy.org/ssl-redirect-port: "443"
+    haproxy.org/response-set-header: |
+      Strict-Transport-Security "max-age=31536000"
+      X-Frame-Options "DENY"
+      X-Content-Type-Options "nosniff"
+      Referrer-Policy "strict-origin-when-cross-origin"
+spec:
+  rules:
+    - host: &host "drawio.${SECRET_DEFAULT_DOMAIN}"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: rgw
+                port:
+                  number: 80
+  tls:
+    - hosts:
+        - *host
+      secretName: "${SECRET_DEFAULT_DOMAIN_CERT}"

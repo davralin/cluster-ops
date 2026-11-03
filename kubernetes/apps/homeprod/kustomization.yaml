@@ -14,6 +14,7 @@ resources:
   - ../crosspoint-sync
   - ../dawarich
   - ../descheduler
+  - ../drawio
   - ../external-dns
   - ../cloudflareddns
   - ../cloudflared
