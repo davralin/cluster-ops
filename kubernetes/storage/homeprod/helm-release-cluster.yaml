@@ -197,6 +197,8 @@ spec:
             - failureDomain: host
               enableCrushUpdates: true
               deviceClass: ssd
+              parameters:
+                pg_num: "256"
               replicated:
                 size: 3
                 requireSafeReplicaSize: true
