@@ -6,7 +6,9 @@ resources:
   - database-secret.yaml
   - helm-release-db-v18.yaml
   - helm-release.yaml
+  - helm-release-secret-key-backup.yaml
   - namespace.yaml
   - networkpolicy.yaml
   - probes.yaml
   - secret.yaml
+  - volsync.yaml
