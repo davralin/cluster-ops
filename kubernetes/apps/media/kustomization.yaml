@@ -8,7 +8,6 @@ resources:
   - chaptarr
   - cronjobs
   - ersatztv
-  - ersatztv-next
   - fetcharr
   - gogrepoc
   - jellyfin
