@@ -51,6 +51,8 @@ spec:
       ports:
         - port: 53
           protocol: UDP
+        - port: 53
+          protocol: TCP
     - to: # To actually be an ingress
         - namespaceSelector: {}
 ---

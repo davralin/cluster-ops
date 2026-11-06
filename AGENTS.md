@@ -382,6 +382,8 @@ DNS (needed for most apps making outbound requests):
   ports:
     - port: 53
       protocol: UDP
+    - port: 53
+      protocol: TCP
 ```
 
 ### Cross-app network policies

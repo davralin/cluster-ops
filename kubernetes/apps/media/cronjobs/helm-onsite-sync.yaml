@@ -95,6 +95,8 @@ spec:
               ports:
                 - port: 53
                   protocol: UDP
+                - port: 53
+                  protocol: TCP
             - to: # Onsite-SSH
               - ipBlock:
                   cidr: "${RSYNC_BACKUP_IP}/32"

@@ -133,6 +133,8 @@ spec:
               ports:
                 - port: 53
                   protocol: UDP
+                - port: 53
+                  protocol: TCP
             - to: # Needs to connect to other nodes
               - ipBlock:
                   cidr: 0.0.0.0/0

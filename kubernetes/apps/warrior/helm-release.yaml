@@ -115,6 +115,8 @@ spec:
               ports:
                 - port: 53
                   protocol: UDP
+                - port: 53
+                  protocol: TCP
             - to: # It contacts everything upstream to archive it
               - ipBlock:
                   cidr: 0.0.0.0/0

@@ -156,6 +156,8 @@ spec:
               ports:
                 - port: 53
                   protocol: UDP
+                - port: 53
+                  protocol: TCP
           ingress:
             - from:
                 - namespaceSelector:

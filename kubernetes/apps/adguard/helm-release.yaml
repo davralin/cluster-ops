@@ -143,6 +143,8 @@ spec:
               ports:
                 - port: 53
                   protocol: UDP
+                - port: 53
+                  protocol: TCP
             - to: # upstream DNS
               - ipBlock:
                   cidr: 0.0.0.0/0
@@ -151,6 +153,8 @@ spec:
               ports:
                 - port: 53
                   protocol: UDP
+                - port: 53
+                  protocol: TCP
                 - port: 443
                   protocol: TCP
           ingress:
@@ -162,6 +166,8 @@ spec:
                   protocol: TCP
                 - port: 53
                   protocol: UDP
+                - port: 53
+                  protocol: TCP
             - from:
                 - namespaceSelector:
                     matchLabels:

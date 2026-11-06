@@ -241,6 +241,8 @@ spec:
               ports:
                 - port: 53
                   protocol: UDP
+                - port: 53
+                  protocol: TCP
             - to:
                 - podSelector:
                     matchLabels:
@@ -297,6 +299,8 @@ spec:
               ports:
                 - port: 53
                   protocol: UDP
+                - port: 53
+                  protocol: TCP
             - to:
                 - podSelector:
                     matchLabels:

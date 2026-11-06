@@ -95,6 +95,8 @@ spec:
               ports:
                 - port: 53
                   protocol: UDP
+                - port: 53
+                  protocol: TCP
             - to: # Offsite-SSH
               - ipBlock:
                   cidr: "${HAPROXY_WHITELIST}"

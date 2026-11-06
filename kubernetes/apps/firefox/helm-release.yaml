@@ -133,6 +133,8 @@ spec:
               ports:
                 - port: 53
                   protocol: UDP
+                - port: 53
+                  protocol: TCP
             - to: # to actually surf
               - ipBlock:
                   cidr: 0.0.0.0/0

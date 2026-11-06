@@ -119,6 +119,8 @@ spec:
               ports:
                 - port: 53
                   protocol: UDP
+                - port: 53
+                  protocol: TCP
             - to: # Browserless fetches pages for changedetection.
               - ipBlock:
                   cidr: 0.0.0.0/0

@@ -227,6 +227,8 @@ spec:
               ports:
                 - port: 53
                   protocol: UDP
+                - port: 53
+                  protocol: TCP
             - to: # Soulseek server and peer connections use arbitrary internet endpoints.
               - ipBlock:
                   cidr: 0.0.0.0/0

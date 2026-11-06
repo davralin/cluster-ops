@@ -86,6 +86,8 @@ spec:
               ports:
                 - port: 53
                   protocol: UDP
+                - port: 53
+                  protocol: TCP
             - to: # Cloudflare
               - ipBlock:
                   cidr: 0.0.0.0/0
