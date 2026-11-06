@@ -74,7 +74,7 @@ spec:
       secrets: false
       viewRBAC: false
       viewWebhooks: false
-      viewNodeRuntime: false
+      viewNodeRuntime: true
       traffic: true
       metrics: true
       crdGroups:
