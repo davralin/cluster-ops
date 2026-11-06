@@ -78,7 +78,7 @@ spec:
       traffic: true
       metrics: true
       crdGroups:
-        flux: true
+        all: true
     traffic:
       prometheusUrl: http://kube-prom-prometheus.prometheus.svc.cluster.local:9090
     ingress:
