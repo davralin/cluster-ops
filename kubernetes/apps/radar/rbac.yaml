@@ -5,6 +5,14 @@ metadata:
   name: radar-flux-reconciler
 rules:
   - apiGroups:
+      - "*"
+    resources:
+      - "*"
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
       - kustomize.toolkit.fluxcd.io
     resources:
       - kustomizations
