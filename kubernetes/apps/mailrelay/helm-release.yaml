@@ -47,7 +47,7 @@ spec:
           exim:
             image:
               repository: ghcr.io/devture/exim-relay
-              tag: 4.99.5-r0-2@sha256:82464eea0d5015c6eed2224d2f55ee26abe915a72fde9cfea53cbedd6f031513
+              tag: 4.99.5-r0-3@sha256:99df62a28972e05b7e56ca515b7ff4d79acbaa891148c2b7cfd26c469b67246e
             env:
               HOSTNAME: "smtp.${SECRET_DEFAULT_DOMAIN}"
               SMARTHOST:
