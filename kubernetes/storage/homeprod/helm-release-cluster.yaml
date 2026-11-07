@@ -92,6 +92,7 @@ spec:
       cephConfig:
         global:
           mon_data_avail_warn: "10"
+          rgw_dns_name: "rook-ceph-rgw-ceph-objectstore.rook-ceph.svc"
           rgw_dns_s3website_name: "${SECRET_DEFAULT_DOMAIN}"
           # https://github.com/rook/rook/discussions/15403
           bdev_enable_discard: "true"
