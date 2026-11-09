@@ -57,6 +57,7 @@ spec:
             copyMethod: Direct
             pruneIntervalDays: 7
             repository: karakeep-volsync-secret
+            unlock: "2026-11-09"
             moverSecurityContext:
               runAsUser: 1000
               runAsGroup: 1000

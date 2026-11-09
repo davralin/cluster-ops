@@ -55,6 +55,7 @@ spec:
             schedule: "46 18 * * *"
           restic:
             copyMethod: Direct
+            cacheCapacity: 10Gi
             pruneIntervalDays: 7
             repository: plex-volsync-secret
             moverSecurityContext:
