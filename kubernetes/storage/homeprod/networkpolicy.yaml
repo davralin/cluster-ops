@@ -97,7 +97,7 @@ spec:
             matchLabels:
               app.kubernetes.io/name: kubernetes-ingress
       ports:
-        - port: 80
+        - port: 8080
           protocol: TCP
 ---
 apiVersion: cilium.io/v2
