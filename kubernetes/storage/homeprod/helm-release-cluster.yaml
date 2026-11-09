@@ -260,6 +260,8 @@ spec:
               bulk: "true"
           gateway:
             port: 80
+            rgwConfig:
+              rgw_enable_static_website: "true"
             resources:
               requests:
                 cpu: 100m
