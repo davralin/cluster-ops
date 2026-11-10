@@ -46,7 +46,7 @@ spec:
           garmin-exporter:
             image:
               repository: ghcr.io/barnes-c/garmin_exporter
-              tag: 1.1.7@sha256:6fd656856ec81a140b9cbc9f04aacd7bb855020adf9923e41228a141b49e0fff
+              tag: 2.0.0@sha256:be66950db533cfc431ad61a81b9cc471557ce077ed01acc6dec624bdc8881335
             env:
               GARMIN_CACHE_TTL: 30m
               GARMIN_TOKEN_FILE: /data/garmin_token.json
