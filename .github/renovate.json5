@@ -122,9 +122,13 @@
       ],
       matchPackageNames: [
         '/^ghcr\\.io/davralin/',
+        '/^ghcr\\.io/haveagitgat/',
         '/^ghcr\\.io/itzg/',
         '/^ghcr\\.io/prometheus-community/',
         'docker.io/searxng/searxng',
+        'docker.io/freikin/dawarich',
+        'ghcr.io/ellite/wallos',
+        'ghcr.io/rynfar/meridian',
         'ghcr.io/unpoller/unpoller',
       ],
       automerge: true,
