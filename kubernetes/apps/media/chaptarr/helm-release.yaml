@@ -50,7 +50,7 @@ spec:
           chaptarr:
             image:
               repository: docker.io/chaptarr/chaptarr
-              tag: 0.9.999@sha256:4a38f9600281ec0d27aaabf6d90086edc2c67d44168fa41d0426c06a27f53da1
+              tag: 0.9.1000@sha256:7bc5774c79bd6e2deb633dd8555116a672b56be03e2b756b29fb86bedd44944c
             env:
               TZ: "${TIMEZONE}"
               CHAPTARR__AUTH__APIKEY: "${SECRET_CHAPTARR_API_KEY}"
