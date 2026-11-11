@@ -101,7 +101,7 @@ data:
           "id": 4,
           "options": { "minVizHeight": 75, "minVizWidth": 75, "orientation": "auto", "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false }, "showThresholdLabels": false, "showThresholdMarkers": true, "sizing": "auto" },
           "pluginVersion": "12.0.1",
-          "targets": [{ "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" }, "editorMode": "code", "expr": "garmin_heartrate_resting_bpm_per_min", "legendFormat": "resting", "range": true, "refId": "A" }],
+          "targets": [{ "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" }, "editorMode": "code", "expr": "garmin_heart_rate_resting_bpm", "legendFormat": "resting", "range": true, "refId": "A" }],
           "title": "Resting HR",
           "type": "gauge"
         },
@@ -154,9 +154,9 @@ data:
           "options": { "legend": { "calcs": ["min", "max", "mean", "lastNotNull"], "displayMode": "table", "placement": "bottom", "showLegend": true }, "tooltip": { "hideZeros": false, "mode": "single", "sort": "none" } },
           "pluginVersion": "12.0.1",
           "targets": [
-            { "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" }, "editorMode": "code", "expr": "garmin_heartrate_resting_bpm_per_min", "legendFormat": "Resting HR", "range": true, "refId": "A" },
-            { "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" }, "editorMode": "code", "expr": "garmin_heartrate_min_bpm_per_min", "legendFormat": "Min HR", "range": true, "refId": "B" },
-            { "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" }, "editorMode": "code", "expr": "garmin_heartrate_max_bpm_per_min", "legendFormat": "Max HR", "range": true, "refId": "C" }
+            { "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" }, "editorMode": "code", "expr": "garmin_heart_rate_resting_bpm", "legendFormat": "Resting HR", "range": true, "refId": "A" },
+            { "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" }, "editorMode": "code", "expr": "garmin_heart_rate_min_bpm", "legendFormat": "Min HR", "range": true, "refId": "B" },
+            { "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" }, "editorMode": "code", "expr": "garmin_heart_rate_max_bpm", "legendFormat": "Max HR", "range": true, "refId": "C" }
           ],
           "title": "Heart Rate",
           "type": "timeseries"
@@ -221,7 +221,7 @@ data:
           "id": 14,
           "options": { "colorMode": "value", "graphMode": "area", "justifyMode": "auto", "orientation": "auto", "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false }, "showPercentChange": false, "textMode": "auto", "wideLayout": true },
           "pluginVersion": "12.0.1",
-          "targets": [{ "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" }, "editorMode": "code", "expr": "garmin_trainingstatus_acwr_percent", "legendFormat": "ACWR", "range": true, "refId": "A" }],
+          "targets": [{ "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" }, "editorMode": "code", "expr": "garmin_training_status_acwr_percent", "legendFormat": "ACWR", "range": true, "refId": "A" }],
           "title": "Acute:Chronic Workload",
           "type": "stat"
         },
@@ -232,7 +232,7 @@ data:
           "id": 15,
           "options": { "colorMode": "value", "graphMode": "area", "justifyMode": "auto", "orientation": "auto", "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false }, "showPercentChange": false, "textMode": "auto", "wideLayout": true },
           "pluginVersion": "12.0.1",
-          "targets": [{ "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" }, "editorMode": "code", "expr": "garmin_training_vo2max_generic_mL_per_min_kg", "legendFormat": "VO2 max", "range": true, "refId": "A" }],
+          "targets": [{ "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" }, "editorMode": "code", "expr": "garmin_training_vo2max_generic", "legendFormat": "VO2 max", "range": true, "refId": "A" }],
           "title": "VO2 Max",
           "type": "stat"
         },
@@ -244,8 +244,8 @@ data:
           "options": { "legend": { "calcs": ["lastNotNull"], "displayMode": "table", "placement": "bottom", "showLegend": true }, "tooltip": { "hideZeros": false, "mode": "single", "sort": "none" } },
           "pluginVersion": "12.0.1",
           "targets": [
-            { "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" }, "editorMode": "code", "expr": "garmin_activity_count", "legendFormat": "{{type}} count", "range": true, "refId": "A" },
-            { "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" }, "editorMode": "code", "expr": "garmin_activity_distance_meters_total / 1000", "legendFormat": "{{type}} km", "range": true, "refId": "B" }
+            { "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" }, "editorMode": "code", "expr": "garmin_activity_recent", "legendFormat": "{{type}} count", "range": true, "refId": "A" },
+            { "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" }, "editorMode": "code", "expr": "garmin_activity_recent_distance_meters / 1000", "legendFormat": "{{type}} km", "range": true, "refId": "B" }
           ],
           "title": "Activities by Type",
           "type": "timeseries"
@@ -276,6 +276,6 @@ data:
       "timezone": "browser",
       "title": "Garmin Exporter",
       "uid": "garmin-exporter",
-      "version": 1,
+      "version": 2,
       "weekStart": ""
     }
