@@ -65,6 +65,7 @@ spec:
             env:
               PATH: /tools/kubectl/bin:/tools/talosctl:/bin
               HOME: /tmp
+              KUBECONFIG: /scripts/kubeconfig
               TALOSCONFIG: /var/run/secrets/talos.dev/config
             securityContext:
               allowPrivilegeEscalation: false
@@ -167,6 +168,24 @@ spec:
             EOF
 
             printf 'Daily etcd defragmentation check completed.\n'
+          kubeconfig: |
+            apiVersion: v1
+            kind: Config
+            clusters:
+              - name: in-cluster
+                cluster:
+                  server: https://kubernetes.default.svc
+                  certificate-authority: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+            contexts:
+              - name: in-cluster
+                context:
+                  cluster: in-cluster
+                  user: etcd-defrag
+            current-context: in-cluster
+            users:
+              - name: etcd-defrag
+                user:
+                  tokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
     persistence:
       kubectl:
         enabled: true
