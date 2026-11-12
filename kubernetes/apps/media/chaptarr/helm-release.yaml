@@ -97,7 +97,7 @@ spec:
                 cpu: 10m
                 memory: 400Mi
               limits:
-                memory: 1200Mi
+                memory: 2Gi
     service:
       chaptarr:
         controller: *name
