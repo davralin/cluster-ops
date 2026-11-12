@@ -140,6 +140,7 @@
         'ghcr.io/rynfar/meridian',
         'ghcr.io/stuffanthings/qbit_manage',
         'ghcr.io/unpoller/unpoller',
+        'mirror.gcr.io/cloudflare/cloudflared',
       ],
       automerge: true,
     },
