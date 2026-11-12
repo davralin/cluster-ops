@@ -1,0 +1,277 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &name etcd-defrag
+  namespace: flux-system
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 5.3.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+      interval: 30m
+  driftDetection:
+    mode: enabled
+  targetNamespace: &namespace talos-system
+  install:
+    createNamespace: true
+    remediation:
+      retries: 10
+  upgrade:
+    remediation:
+      retries: 10
+  values:
+    fullnameOverride: *name
+    global:
+      createDefaultServiceAccount: false
+    serviceAccount:
+      etcd-defrag: {}
+    defaultPodOptions:
+      automountServiceAccountToken: true
+      enableServiceLinks: false
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+    controllers:
+      etcd-defrag:
+        type: cronjob
+        cronjob:
+          schedule: "17 03 * * *"
+          timeZone: "${TIMEZONE}"
+          concurrencyPolicy: Forbid
+          backoffLimit: 0
+          successfulJobsHistory: 3
+          failedJobsHistory: 3
+        serviceAccount:
+          identifier: *name
+        containers:
+          etcd-defrag:
+            image:
+              repository: docker.io/library/busybox
+              tag: 1.38.0@sha256:a46257e06c82ad85242d0d38077d0a52d9896389ca60a1a59d3463db586e5fa4
+            command:
+              - /bin/sh
+              - /scripts/defrag.sh
+            env:
+              PATH: /tools/kubectl/bin:/tools/talosctl:/bin
+              HOME: /tmp
+              TALOSCONFIG: /var/run/secrets/talos.dev/config
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+            resources:
+              requests:
+                cpu: 25m
+                memory: 64Mi
+              limits:
+                memory: 256Mi
+    configMaps:
+      etcd-defrag:
+        enabled: true
+        data:
+          defrag.sh: |
+            #!/bin/sh
+            set -eu
+            set -o pipefail
+
+            fail() {
+              printf 'ERROR: %s\n' "$1" >&2
+              exit 1
+            }
+
+            kube() {
+              timeout -s KILL 30 kubectl --request-timeout=20s "$@"
+            }
+
+            talos() {
+              timeout -s KILL 30 talosctl -e "$CONTROL_PLANE_IPS" "$@"
+            }
+
+            control_plane_nodes() {
+              kube get nodes -l node-role.kubernetes.io/control-plane --sort-by=.metadata.name \
+                -o jsonpath='{range .items[*]}{.metadata.name}{"\t"}{.status.addresses[?(@.type=="InternalIP")].address}{"\n"}{end}' |
+                awk -F '\t' '
+                  NF != 2 || $1 == "" || $2 == "" || $2 ~ /[[:space:]]/ { invalid = 1 }
+                  names[$1]++ || ips[$2]++ { invalid = 1 }
+                  { print $1, $2 }
+                  END { exit (invalid || NR == 0) }
+                '
+            }
+
+            check_cluster_health() {
+              printf 'Checking Talos cluster health %s.\n' "$1"
+              timeout -s KILL 45 talosctl -e "$CONTROL_PLANE_IPS" -n "$HEALTH_NODE" \
+                health --wait-timeout 30s || fail "Talos cluster health check failed $1"
+
+              CURRENT_NODES=$(control_plane_nodes) || fail "unable to rediscover control-plane nodes $1"
+              [ "$CURRENT_NODES" = "$CONTROL_PLANE_NODES" ] || fail "control-plane node set changed $1"
+            }
+
+            in_use_percent() {
+              talos -n "$1" etcd status |
+                awk -v node="$1" '
+                  NR == 1 { next }
+                  $1 == node {
+                    if (NF < 7 || $7 !~ /^\([0-9]+([.][0-9]+)?%\)$/) {
+                      print "Unrecognized etcd status row: " $0 > "/dev/stderr"
+                      invalid = 1
+                    } else {
+                      percent = $7
+                      gsub(/[()%]/, "", percent)
+                      if (percent + 0 > 100) invalid = 1
+                      value = percent
+                    }
+                    count++
+                  }
+                  END {
+                    if (invalid || count != 1) exit 1
+                    print value
+                  }
+                '
+            }
+
+            CONTROL_PLANE_NODES=$(control_plane_nodes) || fail 'no control-plane nodes found, or a node lacks a unique InternalIP'
+            CONTROL_PLANE_IPS=$(printf '%s\n' "$CONTROL_PLANE_NODES" | awk '{ printf "%s%s", separator, $2; separator = "," }')
+            HEALTH_NODE=$(printf '%s\n' "$CONTROL_PLANE_NODES" | awk 'NR == 1 { print $2 }')
+
+            check_cluster_health 'before the first member check'
+
+            while IFS=' ' read -r NODE_NAME NODE_IP; do
+              IN_USE_PERCENT=$(in_use_percent "$NODE_IP") || fail "unable to read etcd in-use percentage for $NODE_NAME ($NODE_IP)"
+
+              if awk -v percent="$IN_USE_PERCENT" 'BEGIN { exit !(percent < 50) }'; then
+                printf 'Defragmenting %s (%s) at %s%% in-use.\n' "$NODE_NAME" "$NODE_IP" "$IN_USE_PERCENT"
+                # On timeout the remote operation may still be running; abort instead of retrying or advancing.
+                timeout -s KILL 300 talosctl -e "$CONTROL_PLANE_IPS" -n "$NODE_IP" etcd defrag || fail "defragmentation failed or timed out on $NODE_NAME ($NODE_IP)"
+              else
+                printf 'Skipping %s (%s) at %s%% in-use (threshold: below 50%%).\n' "$NODE_NAME" "$NODE_IP" "$IN_USE_PERCENT"
+              fi
+
+              sleep 5
+              check_cluster_health "after checking $NODE_NAME ($NODE_IP)"
+            done <<EOF
+            $CONTROL_PLANE_NODES
+            EOF
+
+            printf 'Daily etcd defragmentation check completed.\n'
+    persistence:
+      kubectl:
+        enabled: true
+        type: image
+        image: registry.k8s.io/kubectl:v1.37.2@sha256:fe049faa65ae483ac200009a949a68fa4c9985daea12c9cb1195c9c7965301fc
+        pullPolicy: IfNotPresent
+        globalMounts:
+          - path: /tools/kubectl
+            readOnly: true
+      script:
+        enabled: true
+        type: configMap
+        name: etcd-defrag
+        globalMounts:
+          - path: /scripts
+            readOnly: true
+      tmp:
+        # kubectl writes its discovery cache under HOME=/tmp.
+        enabled: true
+        type: emptyDir
+        globalMounts:
+          - path: /tmp
+      talos-config:
+        enabled: true
+        type: secret
+        name: &talosconfig etcd-defrag-talosconfig
+        globalMounts:
+          - path: /var/run/secrets/talos.dev
+            readOnly: true
+      talosctl:
+        enabled: true
+        type: image
+        image: ghcr.io/siderolabs/talosctl:v1.14.6@sha256:82c9a9985fc7292a222e680414c65955ac0566db588b84d88f620b05d16b1d5b
+        pullPolicy: IfNotPresent
+        globalMounts:
+          - path: /tools/talosctl
+            readOnly: true
+    networkpolicies:
+      etcd-defrag:
+        enabled: true
+        controller: *name
+        policyTypes:
+          - Egress
+        rules:
+          egress:
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: kube-system
+                  podSelector:
+                    matchLabels:
+                      k8s-app: kube-dns
+              ports:
+                - port: 53
+                  protocol: UDP
+                - port: 53
+                  protocol: TCP
+    rbac:
+      roles:
+        nodes:
+          type: ClusterRole
+          rules:
+            - apiGroups: [""]
+              resources: ["nodes"]
+              verbs: ["list"]
+      bindings:
+        nodes:
+          type: ClusterRoleBinding
+          roleRef:
+            identifier: nodes
+          subjects:
+            - identifier: *name
+    rawResources:
+      talos-service-account:
+        forceRename: *talosconfig
+        manifest:
+          apiVersion: talos.dev/v1alpha1
+          kind: ServiceAccount
+          metadata:
+            namespace: *namespace
+          spec:
+            roles:
+              - os:admin
+      cilium-control-plane-apis:
+        manifest:
+          apiVersion: cilium.io/v2
+          kind: CiliumNetworkPolicy
+          metadata:
+            name: *name
+            namespace: *namespace
+          spec:
+            endpointSelector:
+              matchLabels:
+                app.kubernetes.io/controller: *name
+            egress:
+              - toEntities:
+                  - kube-apiserver
+                toPorts:
+                  - ports:
+                      - port: "6443"
+                        protocol: TCP
+              - toEntities:
+                  - host
+                  - remote-node
+                toPorts:
+                  - ports:
+                      - port: "50000"
+                        protocol: TCP
