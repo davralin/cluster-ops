@@ -24,7 +24,7 @@ jobs:
       - name: Test
         env:
           FLATE_BASE: ""
-        run: flate test all --path ./kubernetes/clusters/homeprod --allow-missing-kinds Secret --concurrency 1
+        run: flate test all --path ./kubernetes/clusters/homeprod --supply ./.github/flate-supply.yaml --allow-missing-kinds Secret --concurrency 1
 
   flate-diff:
     name: Diff
@@ -48,6 +48,7 @@ jobs:
         run: |
           diff=$(flate diff all \
             --path ./kubernetes/clusters/homeprod \
+            --supply ./.github/flate-supply.yaml \
             --allow-missing-kinds Secret \
             -o github) || true
           echo "result<<EOF" >> "$GITHUB_OUTPUT"

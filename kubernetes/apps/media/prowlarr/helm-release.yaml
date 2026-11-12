@@ -28,11 +28,6 @@ spec:
   dependsOn:
     - name: prowlarr-postgres-v18
       namespace: flux-system
-  valuesFrom:
-    - targetPath: controllers.prowlarr.containers.prowlarr.env.PROWLARR__POSTGRES__PASSWORD
-      kind: Secret
-      name: prowlarr-config
-      valuesKey: POSTGRES_PASSWORD
   values:
     fullnameOverride: *name
     global:
@@ -59,6 +54,11 @@ spec:
             env:
               TZ: "${TIMEZONE}"
               PROWLARR__AUTH__APIKEY: "${SECRET_PROWLARR_API_KEY}"
+              PROWLARR__POSTGRES__PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: prowlarr-config
+                    key: POSTGRES_PASSWORD
               PROWLARR__POSTGRES__HOST: prowlarr-postgres-v18-rw.media.svc.cluster.local
               PROWLARR__POSTGRES__PORT: "5432"
               PROWLARR__POSTGRES__USER: "prowlarr"

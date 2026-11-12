@@ -28,11 +28,6 @@ spec:
   dependsOn:
     - name: sonarr-postgres-v18
       namespace: flux-system
-  valuesFrom:
-    - targetPath: controllers.sonarr.containers.sonarr.env.SONARR__POSTGRES__PASSWORD
-      kind: Secret
-      name: sonarr-config
-      valuesKey: POSTGRES_PASSWORD
   values:
     fullnameOverride: *name
     global:
@@ -59,6 +54,11 @@ spec:
             env:
               TZ: "${TIMEZONE}"
               SONARR__AUTH__APIKEY: "${SECRET_SONARR_API_KEY}"
+              SONARR__POSTGRES__PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: sonarr-config
+                    key: POSTGRES_PASSWORD
               SONARR__POSTGRES__HOST: sonarr-postgres-v18-rw.media.svc.cluster.local
               SONARR__POSTGRES__PORT: "5432"
               SONARR__POSTGRES__USER: "sonarr"

@@ -23,15 +23,6 @@ spec:
   dependsOn:
     - name: immich-postgres-v18
       namespace: flux-system
-  valuesFrom:
-    - targetPath: controllers.main.containers.main.env.DB_PASSWORD
-      kind: Secret
-      name: immich-pg-secret
-      valuesKey: password
-    - targetPath: controllers.main.containers.main.env.DB_USERNAME
-      kind: Secret
-      name: immich-pg-secret
-      valuesKey: username
   values:
     immich:
       metrics:
@@ -47,6 +38,16 @@ spec:
               # renovate: datasource=github-releases depName=immich-app/immich
               tag: v3.4.1
             env:
+              DB_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: immich-pg-secret
+                    key: password
+              DB_USERNAME:
+                valueFrom:
+                  secretKeyRef:
+                    name: immich-pg-secret
+                    key: username
               DB_HOSTNAME: immich-postgres-v18-rw
               DB_DATABASE_NAME: immich
               LOG_LEVEL: verbose

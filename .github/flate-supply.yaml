@@ -1,0 +1,9 @@
+# Test-only placeholder values for Flate. This file is outside the Kubernetes
+# manifests and is supplied only as reference data; it is never deployed.
+apiVersion: v1
+kind: Secret
+metadata:
+  name: global-settings
+  namespace: flux-system
+stringData:
+  SECRET_DEFAULT_DOMAIN_CERT: test-only.invalid

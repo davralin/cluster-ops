@@ -25,15 +25,6 @@ spec:
   upgrade:
     remediation:
       retries: 10
-  valuesFrom:
-    - targetPath: controllers.gogrepoc.containers.gogrepoc.env.goguser
-      kind: Secret
-      name: gogrepoc-config
-      valuesKey: goguser
-    - targetPath: controllers.gogrepoc.containers.gogrepoc.env.gogpassword
-      kind: Secret
-      name: gogrepoc-config
-      valuesKey: gogpassword
   values:
     fullnameOverride: *name
     global:
@@ -57,6 +48,16 @@ spec:
               repository: docker.io/leberschnitzel/gogrepocdock
               tag: 6.0@sha256:bf859c912e52a2f0d7b3faa889b55885c66090a9d2b47cbfaa7aa25e2710798a
             env:
+              goguser:
+                valueFrom:
+                  secretKeyRef:
+                    name: gogrepoc-config
+                    key: goguser
+              gogpassword:
+                valueFrom:
+                  secretKeyRef:
+                    name: gogrepoc-config
+                    key: gogpassword
               updatecommands: "-os windows linux -lang en"
             securityContext:
               allowPrivilegeEscalation: false
