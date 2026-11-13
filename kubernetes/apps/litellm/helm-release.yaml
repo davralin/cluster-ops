@@ -283,6 +283,22 @@ spec:
                       app.kubernetes.io/name: wallos-wallos
                 - namespaceSelector:
                     matchLabels:
+                      kubernetes.io/metadata.name: audiomuseai
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: audiomuseai
+                      app.kubernetes.io/instance: audiomuseai-audiomuseai
+                      app.kubernetes.io/name: audiomuseai-audiomuseai
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: audiomuseai
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: worker
+                      app.kubernetes.io/instance: audiomuseai-audiomuseai
+                      app.kubernetes.io/name: audiomuseai-audiomuseai
+                - namespaceSelector:
+                    matchLabels:
                       kubernetes.io/metadata.name: hermes-agent
                   podSelector:
                     matchLabels:

@@ -85,8 +85,12 @@ spec:
               AUTH_ENABLED: "false"
               AI_MODEL_PROVIDER: "OPENAI"
               OPENAI_SERVER_URL: "http://litellm.litellm.svc.cluster.local:4000/v1/chat/completions"
-              OPENAI_API_KEY: "litellm"
-              OPENAI_MODEL_NAME: "gpt-4.1"
+              OPENAI_API_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: audiomuseai-config
+                    key: OPENAI_API_KEY
+              OPENAI_MODEL_NAME: "chat"
               CLAP_ENABLED: "true"
               TEMP_DIR: "/tmp"
               ENABLE_PROXY_FIX: "true"
@@ -148,6 +152,14 @@ spec:
               REDIS_URL: "redis://audiomuseai-valkey.audiomuseai.svc.cluster.local:6379/0"
               WORKER_REDIS_URL: "redis://audiomuseai-valkey.audiomuseai.svc.cluster.local:6379/0"
               AUTH_ENABLED: "false"
+              AI_MODEL_PROVIDER: "OPENAI"
+              OPENAI_SERVER_URL: "http://litellm.litellm.svc.cluster.local:4000/v1/chat/completions"
+              OPENAI_API_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: audiomuseai-config
+                    key: OPENAI_API_KEY
+              OPENAI_MODEL_NAME: "chat"
               CLAP_ENABLED: "true"
               TEMP_DIR: "/tmp"
             probes:
@@ -327,3 +339,14 @@ spec:
                       app.kubernetes.io/name: media-navidrome
               ports:
                 - port: 4533
+            - to:
+                - namespaceSelector:
+                    matchLabels:
+                      kubernetes.io/metadata.name: litellm
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: litellm
+                      app.kubernetes.io/instance: litellm-litellm
+                      app.kubernetes.io/name: litellm-litellm
+              ports:
+                - port: 4000
