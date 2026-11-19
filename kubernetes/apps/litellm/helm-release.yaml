@@ -28,6 +28,8 @@ spec:
   dependsOn:
     - name: litellm-postgres-v18
       namespace: flux-system
+    - name: litellm-valkey
+      namespace: flux-system
   values:
     fullnameOverride: *name
     global:
@@ -69,6 +71,8 @@ spec:
               DATABASE_HOST: litellm-postgres-v18-rw.litellm.svc.cluster.local
               DATABASE_PORT: "5432"
               DATABASE_NAME: litellm
+              REDIS_HOST: litellm-valkey.litellm.svc.cluster.local
+              REDIS_PORT: "6379"
               DATABASE_USERNAME:
                 valueFrom:
                   secretKeyRef:
@@ -148,8 +152,19 @@ spec:
               drop_params: true
               additional_drop_params: ["context_management"]
               check_provider_endpoint: true
+              cache: true
+              cache_params:
+                type: redis
+                host: os.environ/REDIS_HOST
+                port: os.environ/REDIS_PORT
+                namespace: litellm
+                ttl: 3600
+              enable_redis_auth_cache: true
               callbacks:
                 - prometheus
+            router_settings:
+              redis_host: os.environ/REDIS_HOST
+              redis_port: os.environ/REDIS_PORT
     service:
       litellm:
         controller: *name
@@ -233,6 +248,15 @@ spec:
                 - port: 53
                   protocol: UDP
                 - port: 53
+                  protocol: TCP
+            - to:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/controller: valkey
+                      app.kubernetes.io/instance: litellm-valkey
+                      app.kubernetes.io/name: litellm-valkey
+              ports:
+                - port: 6379
                   protocol: TCP
             - to:
                 - namespaceSelector:
