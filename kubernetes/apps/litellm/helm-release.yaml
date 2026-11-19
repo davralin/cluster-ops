@@ -61,7 +61,7 @@ spec:
           litellm:
             image:
               repository: ghcr.io/berriai/litellm-non_root
-              tag: 1.110.0@sha256:825dc1814bbdb30f8800ea5f5b8f405a265747c6f3feeb765f28dbcc60049196
+              tag: 1.110.1@sha256:a59d746be84b1bbf6afd665ea5a86bbe382460d2670c4bc16fa80c64d5b264e3
             args:
               - "--config"
               - "/config/config.yaml"
