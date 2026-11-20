@@ -6,7 +6,9 @@
     ':automergePr',
     ':disableRateLimiting',
   ],
-  dependencyDashboardTitle: 'Renovate Dashboard',
+  dependencyDashboard: {
+    title: 'Renovate Dashboard',
+  },
   assigneesFromCodeOwners: true,
   automergeStrategy: 'rebase',
   flux: {
@@ -165,7 +167,9 @@
     },
     {
       description: 'Commit messages for Minecraft plugins (github-releases used in pluginUrls)',
-      matchDatasources: ['github-releases'],
+      matchDatasources: [
+        'github-releases',
+      ],
       matchPackageNames: [
         '/BentoBoxWorld/',
         '/ViaVersion/',
@@ -178,24 +182,36 @@
     },
     {
       description: 'Commit messages for PaperMC server (major)',
-      matchDatasources: ['custom.papermc'],
-      matchUpdateTypes: ['major'],
+      matchDatasources: [
+        'custom.papermc',
+      ],
+      matchUpdateTypes: [
+        'major',
+      ],
       commitMessagePrefix: 'feat(paper)!: ',
       commitMessageTopic: '{{depName}}',
       commitMessageExtra: '( {{currentVersion}} → {{newVersion}} )',
     },
     {
       description: 'Commit messages for PaperMC server (minor)',
-      matchDatasources: ['custom.papermc'],
-      matchUpdateTypes: ['minor'],
+      matchDatasources: [
+        'custom.papermc',
+      ],
+      matchUpdateTypes: [
+        'minor',
+      ],
       commitMessagePrefix: 'feat(paper): ',
       commitMessageTopic: '{{depName}}',
       commitMessageExtra: '( {{currentVersion}} → {{newVersion}} )',
     },
     {
       description: 'Commit messages for PaperMC server (patch)',
-      matchDatasources: ['custom.papermc'],
-      matchUpdateTypes: ['patch'],
+      matchDatasources: [
+        'custom.papermc',
+      ],
+      matchUpdateTypes: [
+        'patch',
+      ],
       commitMessagePrefix: 'fix(paper): ',
       commitMessageTopic: '{{depName}}',
       commitMessageExtra: '( {{currentVersion}} → {{newVersion}} )',
@@ -328,7 +344,7 @@
     },
   ],
   customDatasources: {
-    'papermc': {
+    papermc: {
       defaultRegistryUrlTemplate: 'https://fill.papermc.io/v3/projects/paper',
       format: 'json',
       transformTemplates: [
