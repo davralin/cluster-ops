@@ -73,6 +73,19 @@ spec:
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
 metadata:
+  name: check-legacy-policies # Helm pre-upgrade hook used by Kyverno chart migrations
+  namespace: kyverno
+spec:
+  endpointSelector:
+    matchLabels:
+      job-name: kyverno-check-legacy-policies
+  egress:
+    - toEntities:
+      - kube-apiserver
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
   name: migrate-resources # Helm post-upgrade hook used by Kyverno chart migrations
   namespace: kyverno
 spec:
