@@ -47,7 +47,7 @@ spec:
           firefox:
             image:
               repository: ghcr.io/jlesage/firefox
-              tag: v26.11.1@sha256:9b6f819004868a74a14fb1d82f4b2655a316cc99cf58c60bf41cbdb84bf8a08f
+              tag: v26.11.3@sha256:c1f2a060722946329871aa2811bd0a56a97de3d5ea149089dd5a823f0800ce65
             env:
               TZ: "${TIMEZONE}"
               USER_ID: 1000
